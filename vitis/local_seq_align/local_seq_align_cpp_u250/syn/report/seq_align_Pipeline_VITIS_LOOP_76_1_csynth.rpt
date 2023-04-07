@@ -1,0 +1,208 @@
+
+
+================================================================
+== Vitis HLS Report for 'seq_align_Pipeline_VITIS_LOOP_76_1'
+================================================================
+* Date:           Fri Apr  7 04:49:03 2023
+
+* Version:        2022.2 (Build 3670227 on Oct 13 2022)
+* Project:        local_seq_align
+* Solution:       local_seq_align_cpp_u250 (Vivado IP Flow Target)
+* Product family: virtexuplus
+* Target device:  xcvu5p-flva2104-1-e
+
+
+================================================================
+== Performance Estimates
+================================================================
++ Timing: 
+    * Summary: 
+    +--------+----------+----------+------------+
+    |  Clock |  Target  | Estimated| Uncertainty|
+    +--------+----------+----------+------------+
+    |ap_clk  |  10.00 ns|  2.027 ns|     2.70 ns|
+    +--------+----------+----------+------------+
+
++ Latency: 
+    * Summary: 
+    +---------+---------+-----------+-----------+------+------+---------+
+    |  Latency (cycles) |   Latency (absolute)  |   Interval  | Pipeline|
+    |   min   |   max   |    min    |    max    |  min |  max |   Type  |
+    +---------+---------+-----------+-----------+------+------+---------+
+    |     1026|     1026|  10.260 us|  10.260 us|  1026|  1026|       no|
+    +---------+---------+-----------+-----------+------+------+---------+
+
+    + Detail: 
+        * Instance: 
+        N/A
+
+        * Loop: 
+        +-------------------+---------+---------+----------+-----------+-----------+------+----------+
+        |                   |  Latency (cycles) | Iteration|  Initiation Interval  | Trip |          |
+        |     Loop Name     |   min   |   max   |  Latency |  achieved |   target  | Count| Pipelined|
+        +-------------------+---------+---------+----------+-----------+-----------+------+----------+
+        |- VITIS_LOOP_76_1  |     1024|     1024|         2|          1|          1|  1024|       yes|
+        +-------------------+---------+---------+----------+-----------+-----------+------+----------+
+
+
+
+================================================================
+== Utilization Estimates
+================================================================
+* Summary: 
++---------------------+---------+------+---------+--------+-----+
+|         Name        | BRAM_18K|  DSP |    FF   |   LUT  | URAM|
++---------------------+---------+------+---------+--------+-----+
+|DSP                  |        -|     -|        -|       -|    -|
+|Expression           |        -|     -|        0|      32|    -|
+|FIFO                 |        -|     -|        -|       -|    -|
+|Instance             |        -|     -|        -|       -|    -|
+|Memory               |        -|     -|        -|       -|    -|
+|Multiplexer          |        -|     -|        -|      36|    -|
+|Register             |        -|     -|       24|       -|    -|
++---------------------+---------+------+---------+--------+-----+
+|Total                |        0|     0|       24|      68|    0|
++---------------------+---------+------+---------+--------+-----+
+|Available SLR        |     1024|  1737|   600577|  300288|  235|
++---------------------+---------+------+---------+--------+-----+
+|Utilization SLR (%)  |        0|     0|       ~0|      ~0|    0|
++---------------------+---------+------+---------+--------+-----+
+|Available            |     2048|  3474|  1201154|  600577|  470|
++---------------------+---------+------+---------+--------+-----+
+|Utilization (%)      |        0|     0|       ~0|      ~0|    0|
++---------------------+---------+------+---------+--------+-----+
+
++ Detail: 
+    * Instance: 
+    N/A
+
+    * DSP: 
+    N/A
+
+    * Memory: 
+    N/A
+
+    * FIFO: 
+    N/A
+
+    * Expression: 
+    +---------------------+----------+----+---+----+------------+------------+
+    |    Variable Name    | Operation| DSP| FF| LUT| Bitwidth P0| Bitwidth P1|
+    +---------------------+----------+----+---+----+------------+------------+
+    |add_ln76_fu_357_p2   |         +|   0|  0|  18|          11|           1|
+    |icmp_ln76_fu_351_p2  |      icmp|   0|  0|  12|          11|          12|
+    |ap_enable_pp0        |       xor|   0|  0|   2|           1|           2|
+    +---------------------+----------+----+---+----+------------+------------+
+    |Total                |          |   0|  0|  32|          23|          15|
+    +---------------------+----------+----+---+----+------------+------------+
+
+    * Multiplexer: 
+    +-------------------------+----+-----------+-----+-----------+
+    |           Name          | LUT| Input Size| Bits| Total Bits|
+    +-------------------------+----+-----------+-----+-----------+
+    |ap_done_int              |   9|          2|    1|          2|
+    |ap_enable_reg_pp0_iter1  |   9|          2|    1|          2|
+    |ap_sig_allocacmp_i_1     |   9|          2|   11|         22|
+    |i_fu_102                 |   9|          2|   11|         22|
+    +-------------------------+----+-----------+-----+-----------+
+    |Total                    |  36|          8|   24|         48|
+    +-------------------------+----+-----------+-----+-----------+
+
+    * Register: 
+    +-------------------------+----+----+-----+-----------+
+    |           Name          | FF | LUT| Bits| Const Bits|
+    +-------------------------+----+----+-----+-----------+
+    |ap_CS_fsm                |   1|   0|    1|          0|
+    |ap_done_reg              |   1|   0|    1|          0|
+    |ap_enable_reg_pp0_iter1  |   1|   0|    1|          0|
+    |i_fu_102                 |  11|   0|   11|          0|
+    |lshr_ln_reg_416          |   6|   0|    6|          0|
+    |trunc_ln78_reg_426       |   4|   0|    4|          0|
+    +-------------------------+----+----+-----+-----------+
+    |Total                    |  24|   0|   24|          0|
+    +-------------------------+----+----+-----+-----------+
+
+
+
+================================================================
+== Interface
+================================================================
+* Summary: 
++--------------------------------+-----+-----+------------+------------------------------------+--------------+
+|            RTL Ports           | Dir | Bits|  Protocol  |            Source Object           |    C Type    |
++--------------------------------+-----+-----+------------+------------------------------------+--------------+
+|ap_clk                          |   in|    1|  ap_ctrl_hs|  seq_align_Pipeline_VITIS_LOOP_76_1|  return value|
+|ap_rst                          |   in|    1|  ap_ctrl_hs|  seq_align_Pipeline_VITIS_LOOP_76_1|  return value|
+|ap_start                        |   in|    1|  ap_ctrl_hs|  seq_align_Pipeline_VITIS_LOOP_76_1|  return value|
+|ap_done                         |  out|    1|  ap_ctrl_hs|  seq_align_Pipeline_VITIS_LOOP_76_1|  return value|
+|ap_idle                         |  out|    1|  ap_ctrl_hs|  seq_align_Pipeline_VITIS_LOOP_76_1|  return value|
+|ap_ready                        |  out|    1|  ap_ctrl_hs|  seq_align_Pipeline_VITIS_LOOP_76_1|  return value|
+|local_reference_V_address0      |  out|    6|   ap_memory|                   local_reference_V|         array|
+|local_reference_V_ce0           |  out|    1|   ap_memory|                   local_reference_V|         array|
+|local_reference_V_we0           |  out|    1|   ap_memory|                   local_reference_V|         array|
+|local_reference_V_d0            |  out|    2|   ap_memory|                   local_reference_V|         array|
+|local_reference_V_1_address0    |  out|    6|   ap_memory|                 local_reference_V_1|         array|
+|local_reference_V_1_ce0         |  out|    1|   ap_memory|                 local_reference_V_1|         array|
+|local_reference_V_1_we0         |  out|    1|   ap_memory|                 local_reference_V_1|         array|
+|local_reference_V_1_d0          |  out|    2|   ap_memory|                 local_reference_V_1|         array|
+|local_reference_V_2_address0    |  out|    6|   ap_memory|                 local_reference_V_2|         array|
+|local_reference_V_2_ce0         |  out|    1|   ap_memory|                 local_reference_V_2|         array|
+|local_reference_V_2_we0         |  out|    1|   ap_memory|                 local_reference_V_2|         array|
+|local_reference_V_2_d0          |  out|    2|   ap_memory|                 local_reference_V_2|         array|
+|local_reference_V_3_address0    |  out|    6|   ap_memory|                 local_reference_V_3|         array|
+|local_reference_V_3_ce0         |  out|    1|   ap_memory|                 local_reference_V_3|         array|
+|local_reference_V_3_we0         |  out|    1|   ap_memory|                 local_reference_V_3|         array|
+|local_reference_V_3_d0          |  out|    2|   ap_memory|                 local_reference_V_3|         array|
+|local_reference_V_4_address0    |  out|    6|   ap_memory|                 local_reference_V_4|         array|
+|local_reference_V_4_ce0         |  out|    1|   ap_memory|                 local_reference_V_4|         array|
+|local_reference_V_4_we0         |  out|    1|   ap_memory|                 local_reference_V_4|         array|
+|local_reference_V_4_d0          |  out|    2|   ap_memory|                 local_reference_V_4|         array|
+|local_reference_V_5_address0    |  out|    6|   ap_memory|                 local_reference_V_5|         array|
+|local_reference_V_5_ce0         |  out|    1|   ap_memory|                 local_reference_V_5|         array|
+|local_reference_V_5_we0         |  out|    1|   ap_memory|                 local_reference_V_5|         array|
+|local_reference_V_5_d0          |  out|    2|   ap_memory|                 local_reference_V_5|         array|
+|local_reference_V_6_address0    |  out|    6|   ap_memory|                 local_reference_V_6|         array|
+|local_reference_V_6_ce0         |  out|    1|   ap_memory|                 local_reference_V_6|         array|
+|local_reference_V_6_we0         |  out|    1|   ap_memory|                 local_reference_V_6|         array|
+|local_reference_V_6_d0          |  out|    2|   ap_memory|                 local_reference_V_6|         array|
+|local_reference_V_7_address0    |  out|    6|   ap_memory|                 local_reference_V_7|         array|
+|local_reference_V_7_ce0         |  out|    1|   ap_memory|                 local_reference_V_7|         array|
+|local_reference_V_7_we0         |  out|    1|   ap_memory|                 local_reference_V_7|         array|
+|local_reference_V_7_d0          |  out|    2|   ap_memory|                 local_reference_V_7|         array|
+|local_reference_V_8_address0    |  out|    6|   ap_memory|                 local_reference_V_8|         array|
+|local_reference_V_8_ce0         |  out|    1|   ap_memory|                 local_reference_V_8|         array|
+|local_reference_V_8_we0         |  out|    1|   ap_memory|                 local_reference_V_8|         array|
+|local_reference_V_8_d0          |  out|    2|   ap_memory|                 local_reference_V_8|         array|
+|local_reference_V_9_address0    |  out|    6|   ap_memory|                 local_reference_V_9|         array|
+|local_reference_V_9_ce0         |  out|    1|   ap_memory|                 local_reference_V_9|         array|
+|local_reference_V_9_we0         |  out|    1|   ap_memory|                 local_reference_V_9|         array|
+|local_reference_V_9_d0          |  out|    2|   ap_memory|                 local_reference_V_9|         array|
+|local_reference_V_10_address0   |  out|    6|   ap_memory|                local_reference_V_10|         array|
+|local_reference_V_10_ce0        |  out|    1|   ap_memory|                local_reference_V_10|         array|
+|local_reference_V_10_we0        |  out|    1|   ap_memory|                local_reference_V_10|         array|
+|local_reference_V_10_d0         |  out|    2|   ap_memory|                local_reference_V_10|         array|
+|local_reference_V_11_address0   |  out|    6|   ap_memory|                local_reference_V_11|         array|
+|local_reference_V_11_ce0        |  out|    1|   ap_memory|                local_reference_V_11|         array|
+|local_reference_V_11_we0        |  out|    1|   ap_memory|                local_reference_V_11|         array|
+|local_reference_V_11_d0         |  out|    2|   ap_memory|                local_reference_V_11|         array|
+|local_reference_V_12_address0   |  out|    6|   ap_memory|                local_reference_V_12|         array|
+|local_reference_V_12_ce0        |  out|    1|   ap_memory|                local_reference_V_12|         array|
+|local_reference_V_12_we0        |  out|    1|   ap_memory|                local_reference_V_12|         array|
+|local_reference_V_12_d0         |  out|    2|   ap_memory|                local_reference_V_12|         array|
+|local_reference_V_13_address0   |  out|    6|   ap_memory|                local_reference_V_13|         array|
+|local_reference_V_13_ce0        |  out|    1|   ap_memory|                local_reference_V_13|         array|
+|local_reference_V_13_we0        |  out|    1|   ap_memory|                local_reference_V_13|         array|
+|local_reference_V_13_d0         |  out|    2|   ap_memory|                local_reference_V_13|         array|
+|local_reference_V_14_address0   |  out|    6|   ap_memory|                local_reference_V_14|         array|
+|local_reference_V_14_ce0        |  out|    1|   ap_memory|                local_reference_V_14|         array|
+|local_reference_V_14_we0        |  out|    1|   ap_memory|                local_reference_V_14|         array|
+|local_reference_V_14_d0         |  out|    2|   ap_memory|                local_reference_V_14|         array|
+|local_reference_V_15_address0   |  out|    6|   ap_memory|                local_reference_V_15|         array|
+|local_reference_V_15_ce0        |  out|    1|   ap_memory|                local_reference_V_15|         array|
+|local_reference_V_15_we0        |  out|    1|   ap_memory|                local_reference_V_15|         array|
+|local_reference_V_15_d0         |  out|    2|   ap_memory|                local_reference_V_15|         array|
+|reference_string_comp_address0  |  out|   10|   ap_memory|               reference_string_comp|         array|
+|reference_string_comp_ce0       |  out|    1|   ap_memory|               reference_string_comp|         array|
+|reference_string_comp_q0        |   in|    2|   ap_memory|               reference_string_comp|         array|
++--------------------------------+-----+-----+------------+------------------------------------+--------------+
+
