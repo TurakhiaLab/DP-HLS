@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<vivadoHLSLog:LogRoot xmlns:vivadoHLSLog="www.xilinx.com/vivadoHLSLog">
+  <errorLogs>
+    <logs>
+      <synLog/>
+      <simLog/>
+      <mgLog/>
+      <packageLog/>
+      <csimLog>
+        <logs message="ERROR: [SIM 211-100] 'csim_design' failed: compilation error(s)." projectName="local_seq_align" solutionName="local_seq_align_cpp_u250" date="2023-04-07T05:00:34.265+0000"/>
+      </csimLog>
+    </logs>
+  </errorLogs>
+  <warningLogs>
+    <logs>
+      <synLog>
+        <logs message="WARNING: [RTGEN 206-101] Port 'seq_align_multiple/dp_matrix2_q1' has no fanin or fanout and is left dangling.&#xA;               Please use C simulation to confirm this function argument can be read from or written to." projectName="local_seq_align" solutionName="local_seq_align_cpp_u250" date="2023-04-07T04:49:13.522+0000" type="Warning"/>
+        <logs message="WARNING: [RTGEN 206-101] Setting dangling out port 'seq_align_multiple/dp_matrix2_d1' to 0." projectName="local_seq_align" solutionName="local_seq_align_cpp_u250" date="2023-04-07T04:49:13.341+0000" type="Warning"/>
+        <logs message="WARNING: [RTGEN 206-101] Port 'seq_align_multiple/dp_matrix2_d1' has no fanin or fanout and is left dangling.&#xA;               Please use C simulation to confirm this function argument can be read from or written to." projectName="local_seq_align" solutionName="local_seq_align_cpp_u250" date="2023-04-07T04:49:13.335+0000" type="Warning"/>
+        <logs message="WARNING: [RTGEN 206-101] Setting dangling out port 'seq_align_multiple/dp_matrix2_we1' to 0." projectName="local_seq_align" solutionName="local_seq_align_cpp_u250" date="2023-04-07T04:49:13.323+0000" type="Warning"/>
+        <logs message="WARNING: [RTGEN 206-101] Port 'seq_align_multiple/dp_matrix2_we1' has no fanin or fanout and is left dangling.&#xA;               Please use C simulation to confirm this function argument can be read from or written to." projectName="local_seq_align" solutionName="local_seq_align_cpp_u250" date="2023-04-07T04:49:13.317+0000" type="Warning"/>
+        <logs message="WARNING: [RTGEN 206-101] Setting dangling out port 'seq_align_multiple/dp_matrix2_ce1' to 0." projectName="local_seq_align" solutionName="local_seq_align_cpp_u250" date="2023-04-07T04:49:13.312+0000" type="Warning"/>
+        <logs message="WARNING: [RTGEN 206-101] Port 'seq_align_multiple/dp_matrix2_ce1' has no fanin or fanout and is left dangling.&#xA;               Please use C simulation to confirm this function argument can be read from or written to." projectName="local_seq_align" solutionName="local_seq_align_cpp_u250" date="2023-04-07T04:49:13.307+0000" type="Warning"/>
+        <logs message="WARNING: [RTGEN 206-101] Setting dangling out port 'seq_align_multiple/dp_matrix2_address1' to 0." projectName="local_seq_align" solutionName="local_seq_align_cpp_u250" date="2023-04-07T04:49:13.294+0000" type="Warning"/>
+        <logs message="WARNING: [RTGEN 206-101] Port 'seq_align_multiple/dp_matrix2_address1' has no fanin or fanout and is left dangling.&#xA;               Please use C simulation to confirm this function argument can be read from or written to." projectName="local_seq_align" solutionName="local_seq_align_cpp_u250" date="2023-04-07T04:49:13.287+0000" type="Warning"/>
+        <logs message="WARNING: [RTGEN 206-101] Port 'seq_align_multiple/dp_matrix2_q0' has no fanin or fanout and is left dangling.&#xA;               Please use C simulation to confirm this function argument can be read from or written to." projectName="local_seq_align" solutionName="local_seq_align_cpp_u250" date="2023-04-07T04:49:13.276+0000" type="Warning"/>
+        <logs message="WARNING: [RTGEN 206-101] Setting dangling out port 'seq_align_multiple/dp_matrix2_d0' to 0." projectName="local_seq_align" solutionName="local_seq_align_cpp_u250" date="2023-04-07T04:49:13.271+0000" type="Warning"/>
+        <logs message="WARNING: [RTGEN 206-101] Port 'seq_align_multiple/dp_matrix2_d0' has no fanin or fanout and is left dangling.&#xA;               Please use C simulation to confirm this function argument can be read from or written to." projectName="local_seq_align" solutionName="local_seq_align_cpp_u250" date="2023-04-07T04:49:13.265+0000" type="Warning"/>
+        <logs message="WARNING: [RTGEN 206-101] Setting dangling out port 'seq_align_multiple/dp_matrix2_we0' to 0." projectName="local_seq_align" solutionName="local_seq_align_cpp_u250" date="2023-04-07T04:49:13.258+0000" type="Warning"/>
+        <logs message="WARNING: [RTGEN 206-101] Port 'seq_align_multiple/dp_matrix2_we0' has no fanin or fanout and is left dangling.&#xA;               Please use C simulation to confirm this function argument can be read from or written to." projectName="local_seq_align" solutionName="local_seq_align_cpp_u250" date="2023-04-07T04:49:13.253+0000" type="Warning"/>
+        <logs message="WARNING: [RTGEN 206-101] Setting dangling out port 'seq_align_multiple/dp_matrix2_ce0' to 0." projectName="local_seq_align" solutionName="local_seq_align_cpp_u250" date="2023-04-07T04:49:13.243+0000" type="Warning"/>
+        <logs message="WARNING: [RTGEN 206-101] Port 'seq_align_multiple/dp_matrix2_ce0' has no fanin or fanout and is left dangling.&#xA;               Please use C simulation to confirm this function argument can be read from or written to." projectName="local_seq_align" solutionName="local_seq_align_cpp_u250" date="2023-04-07T04:49:13.235+0000" type="Warning"/>
+        <logs message="WARNING: [RTGEN 206-101] Setting dangling out port 'seq_align_multiple/dp_matrix2_address0' to 0." projectName="local_seq_align" solutionName="local_seq_align_cpp_u250" date="2023-04-07T04:49:13.230+0000" type="Warning"/>
+        <logs message="WARNING: [RTGEN 206-101] Port 'seq_align_multiple/dp_matrix2_address0' has no fanin or fanout and is left dangling.&#xA;               Please use C simulation to confirm this function argument can be read from or written to." projectName="local_seq_align" solutionName="local_seq_align_cpp_u250" date="2023-04-07T04:49:13.222+0000" type="Warning"/>
+        <logs message="WARNING: [HLS 200-885] The II Violation in module 'seq_align_Pipeline_kernel_kernel1' (loop 'kernel_kernel1'): Unable to schedule 'load' operation ('local_reference_V_load_16', ../src/local_seq_align_cpp/seq_align.cpp:126) on array 'local_reference_V' due to limited memory ports (II = 1). Please consider using a memory core with more ports or partitioning the array 'local_reference_V'.&#xA;Resolution: For help on HLS 200-885 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.2;t=hls+guidance;d=200-885.html" projectName="local_seq_align" solutionName="local_seq_align_cpp_u250" date="2023-04-07T04:48:54.890+0000" type="Warning"/>
+        <logs message="WARNING: [HLS 207-5292] unused parameter 'dp_matrix2' (../src/local_seq_align_cpp/seq_align.cpp:215:40)" projectName="local_seq_align" solutionName="local_seq_align_cpp_u250" date="2023-04-07T04:48:21.485+0000" type="Warning"/>
+        <logs message="WARNING: [HLS 207-4827] equality comparison with extraneous parentheses (/usr/include/x86_64-linux-gnu/gmp.h:2142:383)" projectName="local_seq_align" solutionName="local_seq_align_cpp_u250" date="2023-04-07T04:48:21.481+0000" type="Warning"/>
+        <logs message="WARNING: [HLS 207-4827] equality comparison with extraneous parentheses (/usr/include/x86_64-linux-gnu/gmp.h:2142:345)" projectName="local_seq_align" solutionName="local_seq_align_cpp_u250" date="2023-04-07T04:48:16.818+0000" type="Warning"/>
+      </synLog>
+      <simLog/>
+      <mgLog/>
+      <packageLog/>
+      <csimLog/>
+    </logs>
+  </warningLogs>
+</vivadoHLSLog:LogRoot>

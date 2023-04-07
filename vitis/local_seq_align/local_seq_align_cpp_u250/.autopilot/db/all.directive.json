@@ -1,0 +1,18 @@
+{"sourceFile": [{
+      "name": "",
+      "directive": [{
+          "functionName": "seq_align_multiple",
+          "label": "",
+          "functionLabel": "",
+          "id": "1",
+          "sourceFile": "\/home\/ioeddk\/Desktop\/DP-HLS\/vitis\/local_seq_align\/local_seq_align_cpp_u250\/csynth.tcl",
+          "sourceLine": "16",
+          "pragma": {
+            "name": "TOP",
+            "option": [{
+                "name": "name",
+                "value": "seq_align_multiple"
+              }]
+          }
+        }]
+    }]}

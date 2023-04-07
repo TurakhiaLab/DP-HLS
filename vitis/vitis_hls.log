@@ -1,0 +1,50 @@
+INFO: [HLS 200-10] Running '/tools/Xilinx/Vitis_HLS/2022.2/bin/unwrapped/lnx64.o/vitis_hls'
+INFO: [HLS 200-10] For user 'ioeddk' on host 'ubuntu-server' (Linux_x86_64 version 5.15.0-69-generic) on Fri Apr 07 05:00:23 UTC 2023
+INFO: [HLS 200-10] On os Ubuntu 22.04.2 LTS
+INFO: [HLS 200-10] In directory '/home/ioeddk/Desktop/DP-HLS/vitis'
+Sourcing Tcl script '/home/ioeddk/Desktop/DP-HLS/vitis/local_seq_align/local_seq_align_cpp_u250/csim.tcl'
+INFO: [HLS 200-1510] Running: source /home/ioeddk/Desktop/DP-HLS/vitis/local_seq_align/local_seq_align_cpp_u250/csim.tcl
+INFO: [HLS 200-1510] Running: open_project local_seq_align 
+INFO: [HLS 200-10] Opening project '/home/ioeddk/Desktop/DP-HLS/vitis/local_seq_align'.
+INFO: [HLS 200-1510] Running: set_top seq_align_multiple 
+INFO: [HLS 200-1510] Running: add_files ../src/local_seq_align_cpp/params.h 
+INFO: [HLS 200-10] Adding design file '../src/local_seq_align_cpp/params.h' to the project
+INFO: [HLS 200-1510] Running: add_files ../src/local_seq_align_cpp/seq_align.cpp 
+INFO: [HLS 200-10] Adding design file '../src/local_seq_align_cpp/seq_align.cpp' to the project
+INFO: [HLS 200-1510] Running: add_files ../src/local_seq_align_cpp/seq_align.h 
+INFO: [HLS 200-10] Adding design file '../src/local_seq_align_cpp/seq_align.h' to the project
+INFO: [HLS 200-1510] Running: add_files -tb ../src/local_seq_align_cpp/seq_align_test.cpp 
+INFO: [HLS 200-10] Adding test bench file '../src/local_seq_align_cpp/seq_align_test.cpp' to the project
+INFO: [HLS 200-1510] Running: open_solution local_seq_align_cpp_u250 -flow_target vivado 
+INFO: [HLS 200-10] Opening solution '/home/ioeddk/Desktop/DP-HLS/vitis/local_seq_align/local_seq_align_cpp_u250'.
+INFO: [SYN 201-201] Setting up clock 'default' with a period of 10ns.
+INFO: [HLS 200-1611] Setting target device to 'xcvu5p-flva2104-1-e'
+INFO: [HLS 200-1505] Using flow_target 'vivado'
+Resolution: For help on HLS 200-1505 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.2;t=hls+guidance;d=200-1505.html
+INFO: [HLS 200-1510] Running: set_part xcvu5p-flva2104-1-e 
+INFO: [HLS 200-1510] Running: create_clock -period 10 -name default 
+INFO: [HLS 200-1510] Running: csim_design -quiet 
+Running Dispatch Server on port: 39751
+INFO: [SIM 211-2] *************** CSIM start ***************
+INFO: [SIM 211-4] CSIM will launch GCC as the compiler.
+   Compiling ../../../../../src/local_seq_align_cpp/seq_align_test.cpp in debug mode
+../../../../../src/local_seq_align_cpp/seq_align_test.cpp:4:10: fatal error: seq_align_multiple.h: No such file or directory
+ #include "seq_align_multiple.h"
+          ^~~~~~~~~~~~~~~~~~~~~~
+compilation terminated.
+make: *** [csim.mk:78: obj/seq_align_test.o] Error 1
+ERROR: [SIM 211-100] 'csim_design' failed: compilation error(s).
+INFO: [SIM 211-3] *************** CSIM finish ***************
+INFO: [HLS 200-111] Finished Command csim_design CPU user time: 0.09 seconds. CPU system time: 0.07 seconds. Elapsed time: 0.16 seconds; current allocated memory: 0.000 MB.
+4
+    while executing
+"source /home/ioeddk/Desktop/DP-HLS/vitis/local_seq_align/local_seq_align_cpp_u250/csim.tcl"
+    invoked from within
+"hls::main /home/ioeddk/Desktop/DP-HLS/vitis/local_seq_align/local_seq_align_cpp_u250/csim.tcl"
+    ("uplevel" body line 1)
+    invoked from within
+"uplevel 1 hls::main {*}$newargs"
+    (procedure "hls_proc" line 16)
+    invoked from within
+"hls_proc [info nameofexecutable] $argv"
+INFO: [HLS 200-112] Total CPU user time: 1.41 seconds. Total CPU system time: 0.25 seconds. Total elapsed time: 11.6 seconds; peak allocated memory: 302.281 MB.

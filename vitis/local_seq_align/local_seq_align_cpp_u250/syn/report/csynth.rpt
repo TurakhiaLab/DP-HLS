@@ -1,0 +1,1534 @@
+
+
+================================================================
+== Synthesis Summary Report of 'seq_align_multiple'
+================================================================
++ General Information: 
+    * Date:           Fri Apr  7 04:49:16 2023
+    * Version:        2022.2 (Build 3670227 on Oct 13 2022)
+    * Project:        local_seq_align
+    * Solution:       local_seq_align_cpp_u250 (Vivado IP Flow Target)
+    * Product family: virtexuplus
+    * Target device:  xcvu5p-flva2104-1-e
+    
+
++ Performance & Resource Estimates: 
+    
+    PS: '+' for module; 'o' for loop; '*' for dataflow
+    +----------------------------------------+------+------+---------+-----------+----------+---------+-------+----------+------+----+------------+------------+-----+
+    |                 Modules                | Issue|      | Latency |  Latency  | Iteration|         |  Trip |          |      |    |            |            |     |
+    |                 & Loops                | Type | Slack| (cycles)|    (ns)   |  Latency | Interval| Count | Pipelined| BRAM | DSP|     FF     |     LUT    | URAM|
+    +----------------------------------------+------+------+---------+-----------+----------+---------+-------+----------+------+----+------------+------------+-----+
+    |+ seq_align_multiple                    |     -|  1.25|    69589|  6.959e+05|         -|    69590|      -|        no|     -|   -|  7086 (~0%)|  25890 (4%)|    -|
+    | + seq_align                            |     -|  1.25|    34793|  3.479e+05|         -|    34793|      -|        no|     -|   -|  4521 (~0%)|  22569 (3%)|    -|
+    |  + seq_align_Pipeline_VITIS_LOOP_76_1  |     -|  5.27|     1026|  1.026e+04|         -|     1026|      -|        no|     -|   -|    24 (~0%)|    68 (~0%)|    -|
+    |   o VITIS_LOOP_76_1                    |     -|  7.30|     1024|  1.024e+04|         2|        1|   1024|       yes|     -|   -|           -|           -|    -|
+    |  + seq_align_Pipeline_kernel_kernel1   |     -|  1.25|    33763|  3.376e+05|         -|    33763|      -|        no|     -|   -|  3978 (~0%)|  19686 (3%)|    -|
+    |   o kernel_kernel1                     |    II|  7.30|    33761|  3.376e+05|         3|        2|  16880|       yes|     -|   -|           -|           -|    -|
+    +----------------------------------------+------+------+---------+-----------+----------+---------+-------+----------+------+----+------------+------------+-----+
+
+
+================================================================
+== HW Interfaces
+================================================================
+* AP_MEMORY
++--------------------------------+----------+
+| Interface                      | Bitwidth |
++--------------------------------+----------+
+| dp_matrix1_0_address0          | 15       |
+| dp_matrix1_0_address1          | 15       |
+| dp_matrix1_0_d0                | 10       |
+| dp_matrix1_0_d1                | 10       |
+| dp_matrix1_10_address0         | 15       |
+| dp_matrix1_10_address1         | 15       |
+| dp_matrix1_10_d0               | 10       |
+| dp_matrix1_10_d1               | 10       |
+| dp_matrix1_11_address0         | 15       |
+| dp_matrix1_11_address1         | 15       |
+| dp_matrix1_11_d0               | 10       |
+| dp_matrix1_11_d1               | 10       |
+| dp_matrix1_12_address0         | 15       |
+| dp_matrix1_12_address1         | 15       |
+| dp_matrix1_12_d0               | 10       |
+| dp_matrix1_12_d1               | 10       |
+| dp_matrix1_13_address0         | 15       |
+| dp_matrix1_13_address1         | 15       |
+| dp_matrix1_13_d0               | 10       |
+| dp_matrix1_13_d1               | 10       |
+| dp_matrix1_14_address0         | 15       |
+| dp_matrix1_14_address1         | 15       |
+| dp_matrix1_14_d0               | 10       |
+| dp_matrix1_14_d1               | 10       |
+| dp_matrix1_15_address0         | 15       |
+| dp_matrix1_15_address1         | 15       |
+| dp_matrix1_15_d0               | 10       |
+| dp_matrix1_15_d1               | 10       |
+| dp_matrix1_1_address0          | 15       |
+| dp_matrix1_1_address1          | 15       |
+| dp_matrix1_1_d0                | 10       |
+| dp_matrix1_1_d1                | 10       |
+| dp_matrix1_2_address0          | 15       |
+| dp_matrix1_2_address1          | 15       |
+| dp_matrix1_2_d0                | 10       |
+| dp_matrix1_2_d1                | 10       |
+| dp_matrix1_3_address0          | 15       |
+| dp_matrix1_3_address1          | 15       |
+| dp_matrix1_3_d0                | 10       |
+| dp_matrix1_3_d1                | 10       |
+| dp_matrix1_4_address0          | 15       |
+| dp_matrix1_4_address1          | 15       |
+| dp_matrix1_4_d0                | 10       |
+| dp_matrix1_4_d1                | 10       |
+| dp_matrix1_5_address0          | 15       |
+| dp_matrix1_5_address1          | 15       |
+| dp_matrix1_5_d0                | 10       |
+| dp_matrix1_5_d1                | 10       |
+| dp_matrix1_6_address0          | 15       |
+| dp_matrix1_6_address1          | 15       |
+| dp_matrix1_6_d0                | 10       |
+| dp_matrix1_6_d1                | 10       |
+| dp_matrix1_7_address0          | 15       |
+| dp_matrix1_7_address1          | 15       |
+| dp_matrix1_7_d0                | 10       |
+| dp_matrix1_7_d1                | 10       |
+| dp_matrix1_8_address0          | 15       |
+| dp_matrix1_8_address1          | 15       |
+| dp_matrix1_8_d0                | 10       |
+| dp_matrix1_8_d1                | 10       |
+| dp_matrix1_9_address0          | 15       |
+| dp_matrix1_9_address1          | 15       |
+| dp_matrix1_9_d0                | 10       |
+| dp_matrix1_9_d1                | 10       |
+| dp_matrix2_address0            | 19       |
+| dp_matrix2_address1            | 19       |
+| dp_matrix2_d0                  | 10       |
+| dp_matrix2_d1                  | 10       |
+| dp_matrix2_q0                  | 10       |
+| dp_matrix2_q1                  | 10       |
+| last_pe_scoreIx_address0       | 10       |
+| last_pe_scoreIx_d0             | 10       |
+| last_pe_scoreIx_q0             | 10       |
+| last_pe_score_address0         | 10       |
+| last_pe_score_address1         | 10       |
+| last_pe_score_d0               | 10       |
+| last_pe_score_q1               | 10       |
+| query_string_comp_address0     | 9        |
+| query_string_comp_q0           | 2        |
+| reference_string_comp_address0 | 10       |
+| reference_string_comp_q0       | 2        |
++--------------------------------+----------+
+
+* Other Ports
++---------------+---------+----------+
+| Interface     | Mode    | Bitwidth |
++---------------+---------+----------+
+| Ix_mem_0_0    | ap_vld  | 10       |
+| Ix_mem_0_1    | ap_vld  | 10       |
+| Ix_mem_0_10   | ap_vld  | 10       |
+| Ix_mem_0_11   | ap_vld  | 10       |
+| Ix_mem_0_12   | ap_vld  | 10       |
+| Ix_mem_0_13   | ap_vld  | 10       |
+| Ix_mem_0_14   | ap_vld  | 10       |
+| Ix_mem_0_15   | ap_vld  | 10       |
+| Ix_mem_0_16   | ap_vld  | 10       |
+| Ix_mem_0_17   | ap_vld  | 10       |
+| Ix_mem_0_18   | ap_vld  | 10       |
+| Ix_mem_0_19   | ap_vld  | 10       |
+| Ix_mem_0_2    | ap_vld  | 10       |
+| Ix_mem_0_20   | ap_vld  | 10       |
+| Ix_mem_0_21   | ap_vld  | 10       |
+| Ix_mem_0_22   | ap_vld  | 10       |
+| Ix_mem_0_23   | ap_vld  | 10       |
+| Ix_mem_0_24   | ap_vld  | 10       |
+| Ix_mem_0_25   | ap_vld  | 10       |
+| Ix_mem_0_26   | ap_vld  | 10       |
+| Ix_mem_0_27   | ap_vld  | 10       |
+| Ix_mem_0_28   | ap_vld  | 10       |
+| Ix_mem_0_29   | ap_vld  | 10       |
+| Ix_mem_0_3    | ap_vld  | 10       |
+| Ix_mem_0_30   | ap_vld  | 10       |
+| Ix_mem_0_31   | ap_vld  | 10       |
+| Ix_mem_0_4    | ap_vld  | 10       |
+| Ix_mem_0_5    | ap_vld  | 10       |
+| Ix_mem_0_6    | ap_vld  | 10       |
+| Ix_mem_0_7    | ap_vld  | 10       |
+| Ix_mem_0_8    | ap_vld  | 10       |
+| Ix_mem_0_9    | ap_vld  | 10       |
+| Ix_mem_1_0_i  | ap_ovld | 10       |
+| Ix_mem_1_0_o  | ap_ovld | 10       |
+| Ix_mem_1_10_i | ap_ovld | 10       |
+| Ix_mem_1_10_o | ap_ovld | 10       |
+| Ix_mem_1_11_i | ap_ovld | 10       |
+| Ix_mem_1_11_o | ap_ovld | 10       |
+| Ix_mem_1_12_i | ap_ovld | 10       |
+| Ix_mem_1_12_o | ap_ovld | 10       |
+| Ix_mem_1_13_i | ap_ovld | 10       |
+| Ix_mem_1_13_o | ap_ovld | 10       |
+| Ix_mem_1_14_i | ap_ovld | 10       |
+| Ix_mem_1_14_o | ap_ovld | 10       |
+| Ix_mem_1_15_i | ap_ovld | 10       |
+| Ix_mem_1_15_o | ap_ovld | 10       |
+| Ix_mem_1_16_i | ap_ovld | 10       |
+| Ix_mem_1_16_o | ap_ovld | 10       |
+| Ix_mem_1_17_i | ap_ovld | 10       |
+| Ix_mem_1_17_o | ap_ovld | 10       |
+| Ix_mem_1_18_i | ap_ovld | 10       |
+| Ix_mem_1_18_o | ap_ovld | 10       |
+| Ix_mem_1_19_i | ap_ovld | 10       |
+| Ix_mem_1_19_o | ap_ovld | 10       |
+| Ix_mem_1_1_i  | ap_ovld | 10       |
+| Ix_mem_1_1_o  | ap_ovld | 10       |
+| Ix_mem_1_20_i | ap_ovld | 10       |
+| Ix_mem_1_20_o | ap_ovld | 10       |
+| Ix_mem_1_21_i | ap_ovld | 10       |
+| Ix_mem_1_21_o | ap_ovld | 10       |
+| Ix_mem_1_22_i | ap_ovld | 10       |
+| Ix_mem_1_22_o | ap_ovld | 10       |
+| Ix_mem_1_23_i | ap_ovld | 10       |
+| Ix_mem_1_23_o | ap_ovld | 10       |
+| Ix_mem_1_24_i | ap_ovld | 10       |
+| Ix_mem_1_24_o | ap_ovld | 10       |
+| Ix_mem_1_25_i | ap_ovld | 10       |
+| Ix_mem_1_25_o | ap_ovld | 10       |
+| Ix_mem_1_26_i | ap_ovld | 10       |
+| Ix_mem_1_26_o | ap_ovld | 10       |
+| Ix_mem_1_27_i | ap_ovld | 10       |
+| Ix_mem_1_27_o | ap_ovld | 10       |
+| Ix_mem_1_28_i | ap_ovld | 10       |
+| Ix_mem_1_28_o | ap_ovld | 10       |
+| Ix_mem_1_29_i | ap_ovld | 10       |
+| Ix_mem_1_29_o | ap_ovld | 10       |
+| Ix_mem_1_2_i  | ap_ovld | 10       |
+| Ix_mem_1_2_o  | ap_ovld | 10       |
+| Ix_mem_1_30_i | ap_ovld | 10       |
+| Ix_mem_1_30_o | ap_ovld | 10       |
+| Ix_mem_1_31_i | ap_ovld | 10       |
+| Ix_mem_1_31_o | ap_ovld | 10       |
+| Ix_mem_1_3_i  | ap_ovld | 10       |
+| Ix_mem_1_3_o  | ap_ovld | 10       |
+| Ix_mem_1_4_i  | ap_ovld | 10       |
+| Ix_mem_1_4_o  | ap_ovld | 10       |
+| Ix_mem_1_5_i  | ap_ovld | 10       |
+| Ix_mem_1_5_o  | ap_ovld | 10       |
+| Ix_mem_1_6_i  | ap_ovld | 10       |
+| Ix_mem_1_6_o  | ap_ovld | 10       |
+| Ix_mem_1_7_i  | ap_ovld | 10       |
+| Ix_mem_1_7_o  | ap_ovld | 10       |
+| Ix_mem_1_8_i  | ap_ovld | 10       |
+| Ix_mem_1_8_o  | ap_ovld | 10       |
+| Ix_mem_1_9_i  | ap_ovld | 10       |
+| Ix_mem_1_9_o  | ap_ovld | 10       |
+| Iy_mem_0_0    | ap_vld  | 10       |
+| Iy_mem_0_1    | ap_vld  | 10       |
+| Iy_mem_0_10   | ap_vld  | 10       |
+| Iy_mem_0_11   | ap_vld  | 10       |
+| Iy_mem_0_12   | ap_vld  | 10       |
+| Iy_mem_0_13   | ap_vld  | 10       |
+| Iy_mem_0_14   | ap_vld  | 10       |
+| Iy_mem_0_15   | ap_vld  | 10       |
+| Iy_mem_0_16   | ap_vld  | 10       |
+| Iy_mem_0_17   | ap_vld  | 10       |
+| Iy_mem_0_18   | ap_vld  | 10       |
+| Iy_mem_0_19   | ap_vld  | 10       |
+| Iy_mem_0_2    | ap_vld  | 10       |
+| Iy_mem_0_20   | ap_vld  | 10       |
+| Iy_mem_0_21   | ap_vld  | 10       |
+| Iy_mem_0_22   | ap_vld  | 10       |
+| Iy_mem_0_23   | ap_vld  | 10       |
+| Iy_mem_0_24   | ap_vld  | 10       |
+| Iy_mem_0_25   | ap_vld  | 10       |
+| Iy_mem_0_26   | ap_vld  | 10       |
+| Iy_mem_0_27   | ap_vld  | 10       |
+| Iy_mem_0_28   | ap_vld  | 10       |
+| Iy_mem_0_29   | ap_vld  | 10       |
+| Iy_mem_0_3    | ap_vld  | 10       |
+| Iy_mem_0_30   | ap_vld  | 10       |
+| Iy_mem_0_31   | ap_vld  | 10       |
+| Iy_mem_0_4    | ap_vld  | 10       |
+| Iy_mem_0_5    | ap_vld  | 10       |
+| Iy_mem_0_6    | ap_vld  | 10       |
+| Iy_mem_0_7    | ap_vld  | 10       |
+| Iy_mem_0_8    | ap_vld  | 10       |
+| Iy_mem_0_9    | ap_vld  | 10       |
+| Iy_mem_1_0_i  | ap_ovld | 10       |
+| Iy_mem_1_0_o  | ap_ovld | 10       |
+| Iy_mem_1_10_i | ap_ovld | 10       |
+| Iy_mem_1_10_o | ap_ovld | 10       |
+| Iy_mem_1_11_i | ap_ovld | 10       |
+| Iy_mem_1_11_o | ap_ovld | 10       |
+| Iy_mem_1_12_i | ap_ovld | 10       |
+| Iy_mem_1_12_o | ap_ovld | 10       |
+| Iy_mem_1_13_i | ap_ovld | 10       |
+| Iy_mem_1_13_o | ap_ovld | 10       |
+| Iy_mem_1_14_i | ap_ovld | 10       |
+| Iy_mem_1_14_o | ap_ovld | 10       |
+| Iy_mem_1_15_i | ap_ovld | 10       |
+| Iy_mem_1_15_o | ap_ovld | 10       |
+| Iy_mem_1_16_i | ap_ovld | 10       |
+| Iy_mem_1_16_o | ap_ovld | 10       |
+| Iy_mem_1_17_i | ap_ovld | 10       |
+| Iy_mem_1_17_o | ap_ovld | 10       |
+| Iy_mem_1_18_i | ap_ovld | 10       |
+| Iy_mem_1_18_o | ap_ovld | 10       |
+| Iy_mem_1_19_i | ap_ovld | 10       |
+| Iy_mem_1_19_o | ap_ovld | 10       |
+| Iy_mem_1_1_i  | ap_ovld | 10       |
+| Iy_mem_1_1_o  | ap_ovld | 10       |
+| Iy_mem_1_20_i | ap_ovld | 10       |
+| Iy_mem_1_20_o | ap_ovld | 10       |
+| Iy_mem_1_21_i | ap_ovld | 10       |
+| Iy_mem_1_21_o | ap_ovld | 10       |
+| Iy_mem_1_22_i | ap_ovld | 10       |
+| Iy_mem_1_22_o | ap_ovld | 10       |
+| Iy_mem_1_23_i | ap_ovld | 10       |
+| Iy_mem_1_23_o | ap_ovld | 10       |
+| Iy_mem_1_24_i | ap_ovld | 10       |
+| Iy_mem_1_24_o | ap_ovld | 10       |
+| Iy_mem_1_25_i | ap_ovld | 10       |
+| Iy_mem_1_25_o | ap_ovld | 10       |
+| Iy_mem_1_26_i | ap_ovld | 10       |
+| Iy_mem_1_26_o | ap_ovld | 10       |
+| Iy_mem_1_27_i | ap_ovld | 10       |
+| Iy_mem_1_27_o | ap_ovld | 10       |
+| Iy_mem_1_28_i | ap_ovld | 10       |
+| Iy_mem_1_28_o | ap_ovld | 10       |
+| Iy_mem_1_29_i | ap_ovld | 10       |
+| Iy_mem_1_29_o | ap_ovld | 10       |
+| Iy_mem_1_2_i  | ap_ovld | 10       |
+| Iy_mem_1_2_o  | ap_ovld | 10       |
+| Iy_mem_1_30_i | ap_ovld | 10       |
+| Iy_mem_1_30_o | ap_ovld | 10       |
+| Iy_mem_1_31_i | ap_ovld | 10       |
+| Iy_mem_1_31_o | ap_ovld | 10       |
+| Iy_mem_1_3_i  | ap_ovld | 10       |
+| Iy_mem_1_3_o  | ap_ovld | 10       |
+| Iy_mem_1_4_i  | ap_ovld | 10       |
+| Iy_mem_1_4_o  | ap_ovld | 10       |
+| Iy_mem_1_5_i  | ap_ovld | 10       |
+| Iy_mem_1_5_o  | ap_ovld | 10       |
+| Iy_mem_1_6_i  | ap_ovld | 10       |
+| Iy_mem_1_6_o  | ap_ovld | 10       |
+| Iy_mem_1_7_i  | ap_ovld | 10       |
+| Iy_mem_1_7_o  | ap_ovld | 10       |
+| Iy_mem_1_8_i  | ap_ovld | 10       |
+| Iy_mem_1_8_o  | ap_ovld | 10       |
+| Iy_mem_1_9_i  | ap_ovld | 10       |
+| Iy_mem_1_9_o  | ap_ovld | 10       |
+| dp_mem_0_0    | ap_vld  | 10       |
+| dp_mem_0_1    | ap_vld  | 10       |
+| dp_mem_0_10   | ap_vld  | 10       |
+| dp_mem_0_11   | ap_vld  | 10       |
+| dp_mem_0_12   | ap_vld  | 10       |
+| dp_mem_0_13   | ap_vld  | 10       |
+| dp_mem_0_14   | ap_vld  | 10       |
+| dp_mem_0_15   | ap_vld  | 10       |
+| dp_mem_0_16   | ap_vld  | 10       |
+| dp_mem_0_17   | ap_vld  | 10       |
+| dp_mem_0_18   | ap_vld  | 10       |
+| dp_mem_0_19   | ap_vld  | 10       |
+| dp_mem_0_2    | ap_vld  | 10       |
+| dp_mem_0_20   | ap_vld  | 10       |
+| dp_mem_0_21   | ap_vld  | 10       |
+| dp_mem_0_22   | ap_vld  | 10       |
+| dp_mem_0_23   | ap_vld  | 10       |
+| dp_mem_0_24   | ap_vld  | 10       |
+| dp_mem_0_25   | ap_vld  | 10       |
+| dp_mem_0_26   | ap_vld  | 10       |
+| dp_mem_0_27   | ap_vld  | 10       |
+| dp_mem_0_28   | ap_vld  | 10       |
+| dp_mem_0_29   | ap_vld  | 10       |
+| dp_mem_0_3    | ap_vld  | 10       |
+| dp_mem_0_30   | ap_vld  | 10       |
+| dp_mem_0_31   | ap_vld  | 10       |
+| dp_mem_0_4    | ap_vld  | 10       |
+| dp_mem_0_5    | ap_vld  | 10       |
+| dp_mem_0_6    | ap_vld  | 10       |
+| dp_mem_0_7    | ap_vld  | 10       |
+| dp_mem_0_8    | ap_vld  | 10       |
+| dp_mem_0_9    | ap_vld  | 10       |
+| dp_mem_1_0_i  | ap_ovld | 10       |
+| dp_mem_1_0_o  | ap_ovld | 10       |
+| dp_mem_1_10_i | ap_ovld | 10       |
+| dp_mem_1_10_o | ap_ovld | 10       |
+| dp_mem_1_11_i | ap_ovld | 10       |
+| dp_mem_1_11_o | ap_ovld | 10       |
+| dp_mem_1_12_i | ap_ovld | 10       |
+| dp_mem_1_12_o | ap_ovld | 10       |
+| dp_mem_1_13_i | ap_ovld | 10       |
+| dp_mem_1_13_o | ap_ovld | 10       |
+| dp_mem_1_14_i | ap_ovld | 10       |
+| dp_mem_1_14_o | ap_ovld | 10       |
+| dp_mem_1_15_i | ap_ovld | 10       |
+| dp_mem_1_15_o | ap_ovld | 10       |
+| dp_mem_1_16_i | ap_ovld | 10       |
+| dp_mem_1_16_o | ap_ovld | 10       |
+| dp_mem_1_17_i | ap_ovld | 10       |
+| dp_mem_1_17_o | ap_ovld | 10       |
+| dp_mem_1_18_i | ap_ovld | 10       |
+| dp_mem_1_18_o | ap_ovld | 10       |
+| dp_mem_1_19_i | ap_ovld | 10       |
+| dp_mem_1_19_o | ap_ovld | 10       |
+| dp_mem_1_1_i  | ap_ovld | 10       |
+| dp_mem_1_1_o  | ap_ovld | 10       |
+| dp_mem_1_20_i | ap_ovld | 10       |
+| dp_mem_1_20_o | ap_ovld | 10       |
+| dp_mem_1_21_i | ap_ovld | 10       |
+| dp_mem_1_21_o | ap_ovld | 10       |
+| dp_mem_1_22_i | ap_ovld | 10       |
+| dp_mem_1_22_o | ap_ovld | 10       |
+| dp_mem_1_23_i | ap_ovld | 10       |
+| dp_mem_1_23_o | ap_ovld | 10       |
+| dp_mem_1_24_i | ap_ovld | 10       |
+| dp_mem_1_24_o | ap_ovld | 10       |
+| dp_mem_1_25_i | ap_ovld | 10       |
+| dp_mem_1_25_o | ap_ovld | 10       |
+| dp_mem_1_26_i | ap_ovld | 10       |
+| dp_mem_1_26_o | ap_ovld | 10       |
+| dp_mem_1_27_i | ap_ovld | 10       |
+| dp_mem_1_27_o | ap_ovld | 10       |
+| dp_mem_1_28_i | ap_ovld | 10       |
+| dp_mem_1_28_o | ap_ovld | 10       |
+| dp_mem_1_29_i | ap_ovld | 10       |
+| dp_mem_1_29_o | ap_ovld | 10       |
+| dp_mem_1_2_i  | ap_ovld | 10       |
+| dp_mem_1_2_o  | ap_ovld | 10       |
+| dp_mem_1_30_i | ap_ovld | 10       |
+| dp_mem_1_30_o | ap_ovld | 10       |
+| dp_mem_1_31_i | ap_ovld | 10       |
+| dp_mem_1_31_o | ap_ovld | 10       |
+| dp_mem_1_3_i  | ap_ovld | 10       |
+| dp_mem_1_3_o  | ap_ovld | 10       |
+| dp_mem_1_4_i  | ap_ovld | 10       |
+| dp_mem_1_4_o  | ap_ovld | 10       |
+| dp_mem_1_5_i  | ap_ovld | 10       |
+| dp_mem_1_5_o  | ap_ovld | 10       |
+| dp_mem_1_6_i  | ap_ovld | 10       |
+| dp_mem_1_6_o  | ap_ovld | 10       |
+| dp_mem_1_7_i  | ap_ovld | 10       |
+| dp_mem_1_7_o  | ap_ovld | 10       |
+| dp_mem_1_8_i  | ap_ovld | 10       |
+| dp_mem_1_8_o  | ap_ovld | 10       |
+| dp_mem_1_9_i  | ap_ovld | 10       |
+| dp_mem_1_9_o  | ap_ovld | 10       |
+| dp_mem_2_0_i  | ap_ovld | 10       |
+| dp_mem_2_0_o  | ap_ovld | 10       |
+| dp_mem_2_10_i | ap_ovld | 10       |
+| dp_mem_2_10_o | ap_ovld | 10       |
+| dp_mem_2_11_i | ap_ovld | 10       |
+| dp_mem_2_11_o | ap_ovld | 10       |
+| dp_mem_2_12_i | ap_ovld | 10       |
+| dp_mem_2_12_o | ap_ovld | 10       |
+| dp_mem_2_13_i | ap_ovld | 10       |
+| dp_mem_2_13_o | ap_ovld | 10       |
+| dp_mem_2_14_i | ap_ovld | 10       |
+| dp_mem_2_14_o | ap_ovld | 10       |
+| dp_mem_2_15_i | ap_ovld | 10       |
+| dp_mem_2_15_o | ap_ovld | 10       |
+| dp_mem_2_16_i | ap_ovld | 10       |
+| dp_mem_2_16_o | ap_ovld | 10       |
+| dp_mem_2_17_i | ap_ovld | 10       |
+| dp_mem_2_17_o | ap_ovld | 10       |
+| dp_mem_2_18_i | ap_ovld | 10       |
+| dp_mem_2_18_o | ap_ovld | 10       |
+| dp_mem_2_19_i | ap_ovld | 10       |
+| dp_mem_2_19_o | ap_ovld | 10       |
+| dp_mem_2_1_i  | ap_ovld | 10       |
+| dp_mem_2_1_o  | ap_ovld | 10       |
+| dp_mem_2_20_i | ap_ovld | 10       |
+| dp_mem_2_20_o | ap_ovld | 10       |
+| dp_mem_2_21_i | ap_ovld | 10       |
+| dp_mem_2_21_o | ap_ovld | 10       |
+| dp_mem_2_22_i | ap_ovld | 10       |
+| dp_mem_2_22_o | ap_ovld | 10       |
+| dp_mem_2_23_i | ap_ovld | 10       |
+| dp_mem_2_23_o | ap_ovld | 10       |
+| dp_mem_2_24_i | ap_ovld | 10       |
+| dp_mem_2_24_o | ap_ovld | 10       |
+| dp_mem_2_25_i | ap_ovld | 10       |
+| dp_mem_2_25_o | ap_ovld | 10       |
+| dp_mem_2_26_i | ap_ovld | 10       |
+| dp_mem_2_26_o | ap_ovld | 10       |
+| dp_mem_2_27_i | ap_ovld | 10       |
+| dp_mem_2_27_o | ap_ovld | 10       |
+| dp_mem_2_28_i | ap_ovld | 10       |
+| dp_mem_2_28_o | ap_ovld | 10       |
+| dp_mem_2_29_i | ap_ovld | 10       |
+| dp_mem_2_29_o | ap_ovld | 10       |
+| dp_mem_2_2_i  | ap_ovld | 10       |
+| dp_mem_2_2_o  | ap_ovld | 10       |
+| dp_mem_2_30_i | ap_ovld | 10       |
+| dp_mem_2_30_o | ap_ovld | 10       |
+| dp_mem_2_31_i | ap_ovld | 10       |
+| dp_mem_2_31_o | ap_ovld | 10       |
+| dp_mem_2_3_i  | ap_ovld | 10       |
+| dp_mem_2_3_o  | ap_ovld | 10       |
+| dp_mem_2_4_i  | ap_ovld | 10       |
+| dp_mem_2_4_o  | ap_ovld | 10       |
+| dp_mem_2_5_i  | ap_ovld | 10       |
+| dp_mem_2_5_o  | ap_ovld | 10       |
+| dp_mem_2_6_i  | ap_ovld | 10       |
+| dp_mem_2_6_o  | ap_ovld | 10       |
+| dp_mem_2_7_i  | ap_ovld | 10       |
+| dp_mem_2_7_o  | ap_ovld | 10       |
+| dp_mem_2_8_i  | ap_ovld | 10       |
+| dp_mem_2_8_o  | ap_ovld | 10       |
+| dp_mem_2_9_i  | ap_ovld | 10       |
+| dp_mem_2_9_o  | ap_ovld | 10       |
++---------------+---------+----------+
+
+* TOP LEVEL CONTROL
++-----------+------------+-----------------------------------+
+| Interface | Type       | Ports                             |
++-----------+------------+-----------------------------------+
+| ap_clk    | clock      | ap_clk                            |
+| ap_rst    | reset      | ap_rst                            |
+| ap_ctrl   | ap_ctrl_hs | ap_done ap_idle ap_ready ap_start |
++-----------+------------+-----------------------------------+
+
+
+================================================================
+== SW I/O Information
+================================================================
+* Top Function Arguments
++-----------------------+-----------+--------------------------------------+
+| Argument              | Direction | Datatype                             |
++-----------------------+-----------+--------------------------------------+
+| query_string_comp     | in        | ap_uint<2>*                          |
+| reference_string_comp | in        | ap_uint<2>*                          |
+| dp_mem                | inout     | ap_fixed<10, 6, AP_TRN, AP_WRAP, 0>* |
+| Ix_mem                | inout     | ap_fixed<10, 6, AP_TRN, AP_WRAP, 0>* |
+| Iy_mem                | inout     | ap_fixed<10, 6, AP_TRN, AP_WRAP, 0>* |
+| last_pe_score         | inout     | ap_fixed<10, 6, AP_TRN, AP_WRAP, 0>* |
+| last_pe_scoreIx       | inout     | ap_fixed<10, 6, AP_TRN, AP_WRAP, 0>* |
+| dp_matrix1            | inout     | ap_fixed<10, 6, AP_TRN, AP_WRAP, 0>* |
+| dp_matrix2            | unused    | ap_fixed<10, 6, AP_TRN, AP_WRAP, 0>* |
++-----------------------+-----------+--------------------------------------+
+
+* SW-to-HW Mapping
++-----------------------+--------------------------------+---------+----------+
+| Argument              | HW Interface                   | HW Type | HW Usage |
++-----------------------+--------------------------------+---------+----------+
+| query_string_comp     | query_string_comp_address0     | port    | offset   |
+| query_string_comp     | query_string_comp_ce0          | port    |          |
+| query_string_comp     | query_string_comp_q0           | port    |          |
+| reference_string_comp | reference_string_comp_address0 | port    | offset   |
+| reference_string_comp | reference_string_comp_ce0      | port    |          |
+| reference_string_comp | reference_string_comp_q0       | port    |          |
+| dp_mem                | dp_mem_0_0                     | port    |          |
+| dp_mem                | dp_mem_0_0_ap_vld              | port    |          |
+| dp_mem                | dp_mem_0_1                     | port    |          |
+| dp_mem                | dp_mem_0_1_ap_vld              | port    |          |
+| dp_mem                | dp_mem_0_2                     | port    |          |
+| dp_mem                | dp_mem_0_2_ap_vld              | port    |          |
+| dp_mem                | dp_mem_0_3                     | port    |          |
+| dp_mem                | dp_mem_0_3_ap_vld              | port    |          |
+| dp_mem                | dp_mem_0_4                     | port    |          |
+| dp_mem                | dp_mem_0_4_ap_vld              | port    |          |
+| dp_mem                | dp_mem_0_5                     | port    |          |
+| dp_mem                | dp_mem_0_5_ap_vld              | port    |          |
+| dp_mem                | dp_mem_0_6                     | port    |          |
+| dp_mem                | dp_mem_0_6_ap_vld              | port    |          |
+| dp_mem                | dp_mem_0_7                     | port    |          |
+| dp_mem                | dp_mem_0_7_ap_vld              | port    |          |
+| dp_mem                | dp_mem_0_8                     | port    |          |
+| dp_mem                | dp_mem_0_8_ap_vld              | port    |          |
+| dp_mem                | dp_mem_0_9                     | port    |          |
+| dp_mem                | dp_mem_0_9_ap_vld              | port    |          |
+| dp_mem                | dp_mem_0_10                    | port    |          |
+| dp_mem                | dp_mem_0_10_ap_vld             | port    |          |
+| dp_mem                | dp_mem_0_11                    | port    |          |
+| dp_mem                | dp_mem_0_11_ap_vld             | port    |          |
+| dp_mem                | dp_mem_0_12                    | port    |          |
+| dp_mem                | dp_mem_0_12_ap_vld             | port    |          |
+| dp_mem                | dp_mem_0_13                    | port    |          |
+| dp_mem                | dp_mem_0_13_ap_vld             | port    |          |
+| dp_mem                | dp_mem_0_14                    | port    |          |
+| dp_mem                | dp_mem_0_14_ap_vld             | port    |          |
+| dp_mem                | dp_mem_0_15                    | port    |          |
+| dp_mem                | dp_mem_0_15_ap_vld             | port    |          |
+| dp_mem                | dp_mem_0_16                    | port    |          |
+| dp_mem                | dp_mem_0_16_ap_vld             | port    |          |
+| dp_mem                | dp_mem_0_17                    | port    |          |
+| dp_mem                | dp_mem_0_17_ap_vld             | port    |          |
+| dp_mem                | dp_mem_0_18                    | port    |          |
+| dp_mem                | dp_mem_0_18_ap_vld             | port    |          |
+| dp_mem                | dp_mem_0_19                    | port    |          |
+| dp_mem                | dp_mem_0_19_ap_vld             | port    |          |
+| dp_mem                | dp_mem_0_20                    | port    |          |
+| dp_mem                | dp_mem_0_20_ap_vld             | port    |          |
+| dp_mem                | dp_mem_0_21                    | port    |          |
+| dp_mem                | dp_mem_0_21_ap_vld             | port    |          |
+| dp_mem                | dp_mem_0_22                    | port    |          |
+| dp_mem                | dp_mem_0_22_ap_vld             | port    |          |
+| dp_mem                | dp_mem_0_23                    | port    |          |
+| dp_mem                | dp_mem_0_23_ap_vld             | port    |          |
+| dp_mem                | dp_mem_0_24                    | port    |          |
+| dp_mem                | dp_mem_0_24_ap_vld             | port    |          |
+| dp_mem                | dp_mem_0_25                    | port    |          |
+| dp_mem                | dp_mem_0_25_ap_vld             | port    |          |
+| dp_mem                | dp_mem_0_26                    | port    |          |
+| dp_mem                | dp_mem_0_26_ap_vld             | port    |          |
+| dp_mem                | dp_mem_0_27                    | port    |          |
+| dp_mem                | dp_mem_0_27_ap_vld             | port    |          |
+| dp_mem                | dp_mem_0_28                    | port    |          |
+| dp_mem                | dp_mem_0_28_ap_vld             | port    |          |
+| dp_mem                | dp_mem_0_29                    | port    |          |
+| dp_mem                | dp_mem_0_29_ap_vld             | port    |          |
+| dp_mem                | dp_mem_0_30                    | port    |          |
+| dp_mem                | dp_mem_0_30_ap_vld             | port    |          |
+| dp_mem                | dp_mem_0_31                    | port    |          |
+| dp_mem                | dp_mem_0_31_ap_vld             | port    |          |
+| dp_mem                | dp_mem_1_0_i                   | port    |          |
+| dp_mem                | dp_mem_1_0_o                   | port    |          |
+| dp_mem                | dp_mem_1_0_o_ap_vld            | port    |          |
+| dp_mem                | dp_mem_1_1_i                   | port    |          |
+| dp_mem                | dp_mem_1_1_o                   | port    |          |
+| dp_mem                | dp_mem_1_1_o_ap_vld            | port    |          |
+| dp_mem                | dp_mem_1_2_i                   | port    |          |
+| dp_mem                | dp_mem_1_2_o                   | port    |          |
+| dp_mem                | dp_mem_1_2_o_ap_vld            | port    |          |
+| dp_mem                | dp_mem_1_3_i                   | port    |          |
+| dp_mem                | dp_mem_1_3_o                   | port    |          |
+| dp_mem                | dp_mem_1_3_o_ap_vld            | port    |          |
+| dp_mem                | dp_mem_1_4_i                   | port    |          |
+| dp_mem                | dp_mem_1_4_o                   | port    |          |
+| dp_mem                | dp_mem_1_4_o_ap_vld            | port    |          |
+| dp_mem                | dp_mem_1_5_i                   | port    |          |
+| dp_mem                | dp_mem_1_5_o                   | port    |          |
+| dp_mem                | dp_mem_1_5_o_ap_vld            | port    |          |
+| dp_mem                | dp_mem_1_6_i                   | port    |          |
+| dp_mem                | dp_mem_1_6_o                   | port    |          |
+| dp_mem                | dp_mem_1_6_o_ap_vld            | port    |          |
+| dp_mem                | dp_mem_1_7_i                   | port    |          |
+| dp_mem                | dp_mem_1_7_o                   | port    |          |
+| dp_mem                | dp_mem_1_7_o_ap_vld            | port    |          |
+| dp_mem                | dp_mem_1_8_i                   | port    |          |
+| dp_mem                | dp_mem_1_8_o                   | port    |          |
+| dp_mem                | dp_mem_1_8_o_ap_vld            | port    |          |
+| dp_mem                | dp_mem_1_9_i                   | port    |          |
+| dp_mem                | dp_mem_1_9_o                   | port    |          |
+| dp_mem                | dp_mem_1_9_o_ap_vld            | port    |          |
+| dp_mem                | dp_mem_1_10_i                  | port    |          |
+| dp_mem                | dp_mem_1_10_o                  | port    |          |
+| dp_mem                | dp_mem_1_10_o_ap_vld           | port    |          |
+| dp_mem                | dp_mem_1_11_i                  | port    |          |
+| dp_mem                | dp_mem_1_11_o                  | port    |          |
+| dp_mem                | dp_mem_1_11_o_ap_vld           | port    |          |
+| dp_mem                | dp_mem_1_12_i                  | port    |          |
+| dp_mem                | dp_mem_1_12_o                  | port    |          |
+| dp_mem                | dp_mem_1_12_o_ap_vld           | port    |          |
+| dp_mem                | dp_mem_1_13_i                  | port    |          |
+| dp_mem                | dp_mem_1_13_o                  | port    |          |
+| dp_mem                | dp_mem_1_13_o_ap_vld           | port    |          |
+| dp_mem                | dp_mem_1_14_i                  | port    |          |
+| dp_mem                | dp_mem_1_14_o                  | port    |          |
+| dp_mem                | dp_mem_1_14_o_ap_vld           | port    |          |
+| dp_mem                | dp_mem_1_15_i                  | port    |          |
+| dp_mem                | dp_mem_1_15_o                  | port    |          |
+| dp_mem                | dp_mem_1_15_o_ap_vld           | port    |          |
+| dp_mem                | dp_mem_1_16_i                  | port    |          |
+| dp_mem                | dp_mem_1_16_o                  | port    |          |
+| dp_mem                | dp_mem_1_16_o_ap_vld           | port    |          |
+| dp_mem                | dp_mem_1_17_i                  | port    |          |
+| dp_mem                | dp_mem_1_17_o                  | port    |          |
+| dp_mem                | dp_mem_1_17_o_ap_vld           | port    |          |
+| dp_mem                | dp_mem_1_18_i                  | port    |          |
+| dp_mem                | dp_mem_1_18_o                  | port    |          |
+| dp_mem                | dp_mem_1_18_o_ap_vld           | port    |          |
+| dp_mem                | dp_mem_1_19_i                  | port    |          |
+| dp_mem                | dp_mem_1_19_o                  | port    |          |
+| dp_mem                | dp_mem_1_19_o_ap_vld           | port    |          |
+| dp_mem                | dp_mem_1_20_i                  | port    |          |
+| dp_mem                | dp_mem_1_20_o                  | port    |          |
+| dp_mem                | dp_mem_1_20_o_ap_vld           | port    |          |
+| dp_mem                | dp_mem_1_21_i                  | port    |          |
+| dp_mem                | dp_mem_1_21_o                  | port    |          |
+| dp_mem                | dp_mem_1_21_o_ap_vld           | port    |          |
+| dp_mem                | dp_mem_1_22_i                  | port    |          |
+| dp_mem                | dp_mem_1_22_o                  | port    |          |
+| dp_mem                | dp_mem_1_22_o_ap_vld           | port    |          |
+| dp_mem                | dp_mem_1_23_i                  | port    |          |
+| dp_mem                | dp_mem_1_23_o                  | port    |          |
+| dp_mem                | dp_mem_1_23_o_ap_vld           | port    |          |
+| dp_mem                | dp_mem_1_24_i                  | port    |          |
+| dp_mem                | dp_mem_1_24_o                  | port    |          |
+| dp_mem                | dp_mem_1_24_o_ap_vld           | port    |          |
+| dp_mem                | dp_mem_1_25_i                  | port    |          |
+| dp_mem                | dp_mem_1_25_o                  | port    |          |
+| dp_mem                | dp_mem_1_25_o_ap_vld           | port    |          |
+| dp_mem                | dp_mem_1_26_i                  | port    |          |
+| dp_mem                | dp_mem_1_26_o                  | port    |          |
+| dp_mem                | dp_mem_1_26_o_ap_vld           | port    |          |
+| dp_mem                | dp_mem_1_27_i                  | port    |          |
+| dp_mem                | dp_mem_1_27_o                  | port    |          |
+| dp_mem                | dp_mem_1_27_o_ap_vld           | port    |          |
+| dp_mem                | dp_mem_1_28_i                  | port    |          |
+| dp_mem                | dp_mem_1_28_o                  | port    |          |
+| dp_mem                | dp_mem_1_28_o_ap_vld           | port    |          |
+| dp_mem                | dp_mem_1_29_i                  | port    |          |
+| dp_mem                | dp_mem_1_29_o                  | port    |          |
+| dp_mem                | dp_mem_1_29_o_ap_vld           | port    |          |
+| dp_mem                | dp_mem_1_30_i                  | port    |          |
+| dp_mem                | dp_mem_1_30_o                  | port    |          |
+| dp_mem                | dp_mem_1_30_o_ap_vld           | port    |          |
+| dp_mem                | dp_mem_1_31_i                  | port    |          |
+| dp_mem                | dp_mem_1_31_o                  | port    |          |
+| dp_mem                | dp_mem_1_31_o_ap_vld           | port    |          |
+| dp_mem                | dp_mem_2_0_i                   | port    |          |
+| dp_mem                | dp_mem_2_0_o                   | port    |          |
+| dp_mem                | dp_mem_2_0_o_ap_vld            | port    |          |
+| dp_mem                | dp_mem_2_1_i                   | port    |          |
+| dp_mem                | dp_mem_2_1_o                   | port    |          |
+| dp_mem                | dp_mem_2_1_o_ap_vld            | port    |          |
+| dp_mem                | dp_mem_2_2_i                   | port    |          |
+| dp_mem                | dp_mem_2_2_o                   | port    |          |
+| dp_mem                | dp_mem_2_2_o_ap_vld            | port    |          |
+| dp_mem                | dp_mem_2_3_i                   | port    |          |
+| dp_mem                | dp_mem_2_3_o                   | port    |          |
+| dp_mem                | dp_mem_2_3_o_ap_vld            | port    |          |
+| dp_mem                | dp_mem_2_4_i                   | port    |          |
+| dp_mem                | dp_mem_2_4_o                   | port    |          |
+| dp_mem                | dp_mem_2_4_o_ap_vld            | port    |          |
+| dp_mem                | dp_mem_2_5_i                   | port    |          |
+| dp_mem                | dp_mem_2_5_o                   | port    |          |
+| dp_mem                | dp_mem_2_5_o_ap_vld            | port    |          |
+| dp_mem                | dp_mem_2_6_i                   | port    |          |
+| dp_mem                | dp_mem_2_6_o                   | port    |          |
+| dp_mem                | dp_mem_2_6_o_ap_vld            | port    |          |
+| dp_mem                | dp_mem_2_7_i                   | port    |          |
+| dp_mem                | dp_mem_2_7_o                   | port    |          |
+| dp_mem                | dp_mem_2_7_o_ap_vld            | port    |          |
+| dp_mem                | dp_mem_2_8_i                   | port    |          |
+| dp_mem                | dp_mem_2_8_o                   | port    |          |
+| dp_mem                | dp_mem_2_8_o_ap_vld            | port    |          |
+| dp_mem                | dp_mem_2_9_i                   | port    |          |
+| dp_mem                | dp_mem_2_9_o                   | port    |          |
+| dp_mem                | dp_mem_2_9_o_ap_vld            | port    |          |
+| dp_mem                | dp_mem_2_10_i                  | port    |          |
+| dp_mem                | dp_mem_2_10_o                  | port    |          |
+| dp_mem                | dp_mem_2_10_o_ap_vld           | port    |          |
+| dp_mem                | dp_mem_2_11_i                  | port    |          |
+| dp_mem                | dp_mem_2_11_o                  | port    |          |
+| dp_mem                | dp_mem_2_11_o_ap_vld           | port    |          |
+| dp_mem                | dp_mem_2_12_i                  | port    |          |
+| dp_mem                | dp_mem_2_12_o                  | port    |          |
+| dp_mem                | dp_mem_2_12_o_ap_vld           | port    |          |
+| dp_mem                | dp_mem_2_13_i                  | port    |          |
+| dp_mem                | dp_mem_2_13_o                  | port    |          |
+| dp_mem                | dp_mem_2_13_o_ap_vld           | port    |          |
+| dp_mem                | dp_mem_2_14_i                  | port    |          |
+| dp_mem                | dp_mem_2_14_o                  | port    |          |
+| dp_mem                | dp_mem_2_14_o_ap_vld           | port    |          |
+| dp_mem                | dp_mem_2_15_i                  | port    |          |
+| dp_mem                | dp_mem_2_15_o                  | port    |          |
+| dp_mem                | dp_mem_2_15_o_ap_vld           | port    |          |
+| dp_mem                | dp_mem_2_16_i                  | port    |          |
+| dp_mem                | dp_mem_2_16_o                  | port    |          |
+| dp_mem                | dp_mem_2_16_o_ap_vld           | port    |          |
+| dp_mem                | dp_mem_2_17_i                  | port    |          |
+| dp_mem                | dp_mem_2_17_o                  | port    |          |
+| dp_mem                | dp_mem_2_17_o_ap_vld           | port    |          |
+| dp_mem                | dp_mem_2_18_i                  | port    |          |
+| dp_mem                | dp_mem_2_18_o                  | port    |          |
+| dp_mem                | dp_mem_2_18_o_ap_vld           | port    |          |
+| dp_mem                | dp_mem_2_19_i                  | port    |          |
+| dp_mem                | dp_mem_2_19_o                  | port    |          |
+| dp_mem                | dp_mem_2_19_o_ap_vld           | port    |          |
+| dp_mem                | dp_mem_2_20_i                  | port    |          |
+| dp_mem                | dp_mem_2_20_o                  | port    |          |
+| dp_mem                | dp_mem_2_20_o_ap_vld           | port    |          |
+| dp_mem                | dp_mem_2_21_i                  | port    |          |
+| dp_mem                | dp_mem_2_21_o                  | port    |          |
+| dp_mem                | dp_mem_2_21_o_ap_vld           | port    |          |
+| dp_mem                | dp_mem_2_22_i                  | port    |          |
+| dp_mem                | dp_mem_2_22_o                  | port    |          |
+| dp_mem                | dp_mem_2_22_o_ap_vld           | port    |          |
+| dp_mem                | dp_mem_2_23_i                  | port    |          |
+| dp_mem                | dp_mem_2_23_o                  | port    |          |
+| dp_mem                | dp_mem_2_23_o_ap_vld           | port    |          |
+| dp_mem                | dp_mem_2_24_i                  | port    |          |
+| dp_mem                | dp_mem_2_24_o                  | port    |          |
+| dp_mem                | dp_mem_2_24_o_ap_vld           | port    |          |
+| dp_mem                | dp_mem_2_25_i                  | port    |          |
+| dp_mem                | dp_mem_2_25_o                  | port    |          |
+| dp_mem                | dp_mem_2_25_o_ap_vld           | port    |          |
+| dp_mem                | dp_mem_2_26_i                  | port    |          |
+| dp_mem                | dp_mem_2_26_o                  | port    |          |
+| dp_mem                | dp_mem_2_26_o_ap_vld           | port    |          |
+| dp_mem                | dp_mem_2_27_i                  | port    |          |
+| dp_mem                | dp_mem_2_27_o                  | port    |          |
+| dp_mem                | dp_mem_2_27_o_ap_vld           | port    |          |
+| dp_mem                | dp_mem_2_28_i                  | port    |          |
+| dp_mem                | dp_mem_2_28_o                  | port    |          |
+| dp_mem                | dp_mem_2_28_o_ap_vld           | port    |          |
+| dp_mem                | dp_mem_2_29_i                  | port    |          |
+| dp_mem                | dp_mem_2_29_o                  | port    |          |
+| dp_mem                | dp_mem_2_29_o_ap_vld           | port    |          |
+| dp_mem                | dp_mem_2_30_i                  | port    |          |
+| dp_mem                | dp_mem_2_30_o                  | port    |          |
+| dp_mem                | dp_mem_2_30_o_ap_vld           | port    |          |
+| dp_mem                | dp_mem_2_31_i                  | port    |          |
+| dp_mem                | dp_mem_2_31_o                  | port    |          |
+| dp_mem                | dp_mem_2_31_o_ap_vld           | port    |          |
+| Ix_mem                | Ix_mem_0_0                     | port    |          |
+| Ix_mem                | Ix_mem_0_0_ap_vld              | port    |          |
+| Ix_mem                | Ix_mem_0_1                     | port    |          |
+| Ix_mem                | Ix_mem_0_1_ap_vld              | port    |          |
+| Ix_mem                | Ix_mem_0_2                     | port    |          |
+| Ix_mem                | Ix_mem_0_2_ap_vld              | port    |          |
+| Ix_mem                | Ix_mem_0_3                     | port    |          |
+| Ix_mem                | Ix_mem_0_3_ap_vld              | port    |          |
+| Ix_mem                | Ix_mem_0_4                     | port    |          |
+| Ix_mem                | Ix_mem_0_4_ap_vld              | port    |          |
+| Ix_mem                | Ix_mem_0_5                     | port    |          |
+| Ix_mem                | Ix_mem_0_5_ap_vld              | port    |          |
+| Ix_mem                | Ix_mem_0_6                     | port    |          |
+| Ix_mem                | Ix_mem_0_6_ap_vld              | port    |          |
+| Ix_mem                | Ix_mem_0_7                     | port    |          |
+| Ix_mem                | Ix_mem_0_7_ap_vld              | port    |          |
+| Ix_mem                | Ix_mem_0_8                     | port    |          |
+| Ix_mem                | Ix_mem_0_8_ap_vld              | port    |          |
+| Ix_mem                | Ix_mem_0_9                     | port    |          |
+| Ix_mem                | Ix_mem_0_9_ap_vld              | port    |          |
+| Ix_mem                | Ix_mem_0_10                    | port    |          |
+| Ix_mem                | Ix_mem_0_10_ap_vld             | port    |          |
+| Ix_mem                | Ix_mem_0_11                    | port    |          |
+| Ix_mem                | Ix_mem_0_11_ap_vld             | port    |          |
+| Ix_mem                | Ix_mem_0_12                    | port    |          |
+| Ix_mem                | Ix_mem_0_12_ap_vld             | port    |          |
+| Ix_mem                | Ix_mem_0_13                    | port    |          |
+| Ix_mem                | Ix_mem_0_13_ap_vld             | port    |          |
+| Ix_mem                | Ix_mem_0_14                    | port    |          |
+| Ix_mem                | Ix_mem_0_14_ap_vld             | port    |          |
+| Ix_mem                | Ix_mem_0_15                    | port    |          |
+| Ix_mem                | Ix_mem_0_15_ap_vld             | port    |          |
+| Ix_mem                | Ix_mem_0_16                    | port    |          |
+| Ix_mem                | Ix_mem_0_16_ap_vld             | port    |          |
+| Ix_mem                | Ix_mem_0_17                    | port    |          |
+| Ix_mem                | Ix_mem_0_17_ap_vld             | port    |          |
+| Ix_mem                | Ix_mem_0_18                    | port    |          |
+| Ix_mem                | Ix_mem_0_18_ap_vld             | port    |          |
+| Ix_mem                | Ix_mem_0_19                    | port    |          |
+| Ix_mem                | Ix_mem_0_19_ap_vld             | port    |          |
+| Ix_mem                | Ix_mem_0_20                    | port    |          |
+| Ix_mem                | Ix_mem_0_20_ap_vld             | port    |          |
+| Ix_mem                | Ix_mem_0_21                    | port    |          |
+| Ix_mem                | Ix_mem_0_21_ap_vld             | port    |          |
+| Ix_mem                | Ix_mem_0_22                    | port    |          |
+| Ix_mem                | Ix_mem_0_22_ap_vld             | port    |          |
+| Ix_mem                | Ix_mem_0_23                    | port    |          |
+| Ix_mem                | Ix_mem_0_23_ap_vld             | port    |          |
+| Ix_mem                | Ix_mem_0_24                    | port    |          |
+| Ix_mem                | Ix_mem_0_24_ap_vld             | port    |          |
+| Ix_mem                | Ix_mem_0_25                    | port    |          |
+| Ix_mem                | Ix_mem_0_25_ap_vld             | port    |          |
+| Ix_mem                | Ix_mem_0_26                    | port    |          |
+| Ix_mem                | Ix_mem_0_26_ap_vld             | port    |          |
+| Ix_mem                | Ix_mem_0_27                    | port    |          |
+| Ix_mem                | Ix_mem_0_27_ap_vld             | port    |          |
+| Ix_mem                | Ix_mem_0_28                    | port    |          |
+| Ix_mem                | Ix_mem_0_28_ap_vld             | port    |          |
+| Ix_mem                | Ix_mem_0_29                    | port    |          |
+| Ix_mem                | Ix_mem_0_29_ap_vld             | port    |          |
+| Ix_mem                | Ix_mem_0_30                    | port    |          |
+| Ix_mem                | Ix_mem_0_30_ap_vld             | port    |          |
+| Ix_mem                | Ix_mem_0_31                    | port    |          |
+| Ix_mem                | Ix_mem_0_31_ap_vld             | port    |          |
+| Ix_mem                | Ix_mem_1_0_i                   | port    |          |
+| Ix_mem                | Ix_mem_1_0_o                   | port    |          |
+| Ix_mem                | Ix_mem_1_0_o_ap_vld            | port    |          |
+| Ix_mem                | Ix_mem_1_1_i                   | port    |          |
+| Ix_mem                | Ix_mem_1_1_o                   | port    |          |
+| Ix_mem                | Ix_mem_1_1_o_ap_vld            | port    |          |
+| Ix_mem                | Ix_mem_1_2_i                   | port    |          |
+| Ix_mem                | Ix_mem_1_2_o                   | port    |          |
+| Ix_mem                | Ix_mem_1_2_o_ap_vld            | port    |          |
+| Ix_mem                | Ix_mem_1_3_i                   | port    |          |
+| Ix_mem                | Ix_mem_1_3_o                   | port    |          |
+| Ix_mem                | Ix_mem_1_3_o_ap_vld            | port    |          |
+| Ix_mem                | Ix_mem_1_4_i                   | port    |          |
+| Ix_mem                | Ix_mem_1_4_o                   | port    |          |
+| Ix_mem                | Ix_mem_1_4_o_ap_vld            | port    |          |
+| Ix_mem                | Ix_mem_1_5_i                   | port    |          |
+| Ix_mem                | Ix_mem_1_5_o                   | port    |          |
+| Ix_mem                | Ix_mem_1_5_o_ap_vld            | port    |          |
+| Ix_mem                | Ix_mem_1_6_i                   | port    |          |
+| Ix_mem                | Ix_mem_1_6_o                   | port    |          |
+| Ix_mem                | Ix_mem_1_6_o_ap_vld            | port    |          |
+| Ix_mem                | Ix_mem_1_7_i                   | port    |          |
+| Ix_mem                | Ix_mem_1_7_o                   | port    |          |
+| Ix_mem                | Ix_mem_1_7_o_ap_vld            | port    |          |
+| Ix_mem                | Ix_mem_1_8_i                   | port    |          |
+| Ix_mem                | Ix_mem_1_8_o                   | port    |          |
+| Ix_mem                | Ix_mem_1_8_o_ap_vld            | port    |          |
+| Ix_mem                | Ix_mem_1_9_i                   | port    |          |
+| Ix_mem                | Ix_mem_1_9_o                   | port    |          |
+| Ix_mem                | Ix_mem_1_9_o_ap_vld            | port    |          |
+| Ix_mem                | Ix_mem_1_10_i                  | port    |          |
+| Ix_mem                | Ix_mem_1_10_o                  | port    |          |
+| Ix_mem                | Ix_mem_1_10_o_ap_vld           | port    |          |
+| Ix_mem                | Ix_mem_1_11_i                  | port    |          |
+| Ix_mem                | Ix_mem_1_11_o                  | port    |          |
+| Ix_mem                | Ix_mem_1_11_o_ap_vld           | port    |          |
+| Ix_mem                | Ix_mem_1_12_i                  | port    |          |
+| Ix_mem                | Ix_mem_1_12_o                  | port    |          |
+| Ix_mem                | Ix_mem_1_12_o_ap_vld           | port    |          |
+| Ix_mem                | Ix_mem_1_13_i                  | port    |          |
+| Ix_mem                | Ix_mem_1_13_o                  | port    |          |
+| Ix_mem                | Ix_mem_1_13_o_ap_vld           | port    |          |
+| Ix_mem                | Ix_mem_1_14_i                  | port    |          |
+| Ix_mem                | Ix_mem_1_14_o                  | port    |          |
+| Ix_mem                | Ix_mem_1_14_o_ap_vld           | port    |          |
+| Ix_mem                | Ix_mem_1_15_i                  | port    |          |
+| Ix_mem                | Ix_mem_1_15_o                  | port    |          |
+| Ix_mem                | Ix_mem_1_15_o_ap_vld           | port    |          |
+| Ix_mem                | Ix_mem_1_16_i                  | port    |          |
+| Ix_mem                | Ix_mem_1_16_o                  | port    |          |
+| Ix_mem                | Ix_mem_1_16_o_ap_vld           | port    |          |
+| Ix_mem                | Ix_mem_1_17_i                  | port    |          |
+| Ix_mem                | Ix_mem_1_17_o                  | port    |          |
+| Ix_mem                | Ix_mem_1_17_o_ap_vld           | port    |          |
+| Ix_mem                | Ix_mem_1_18_i                  | port    |          |
+| Ix_mem                | Ix_mem_1_18_o                  | port    |          |
+| Ix_mem                | Ix_mem_1_18_o_ap_vld           | port    |          |
+| Ix_mem                | Ix_mem_1_19_i                  | port    |          |
+| Ix_mem                | Ix_mem_1_19_o                  | port    |          |
+| Ix_mem                | Ix_mem_1_19_o_ap_vld           | port    |          |
+| Ix_mem                | Ix_mem_1_20_i                  | port    |          |
+| Ix_mem                | Ix_mem_1_20_o                  | port    |          |
+| Ix_mem                | Ix_mem_1_20_o_ap_vld           | port    |          |
+| Ix_mem                | Ix_mem_1_21_i                  | port    |          |
+| Ix_mem                | Ix_mem_1_21_o                  | port    |          |
+| Ix_mem                | Ix_mem_1_21_o_ap_vld           | port    |          |
+| Ix_mem                | Ix_mem_1_22_i                  | port    |          |
+| Ix_mem                | Ix_mem_1_22_o                  | port    |          |
+| Ix_mem                | Ix_mem_1_22_o_ap_vld           | port    |          |
+| Ix_mem                | Ix_mem_1_23_i                  | port    |          |
+| Ix_mem                | Ix_mem_1_23_o                  | port    |          |
+| Ix_mem                | Ix_mem_1_23_o_ap_vld           | port    |          |
+| Ix_mem                | Ix_mem_1_24_i                  | port    |          |
+| Ix_mem                | Ix_mem_1_24_o                  | port    |          |
+| Ix_mem                | Ix_mem_1_24_o_ap_vld           | port    |          |
+| Ix_mem                | Ix_mem_1_25_i                  | port    |          |
+| Ix_mem                | Ix_mem_1_25_o                  | port    |          |
+| Ix_mem                | Ix_mem_1_25_o_ap_vld           | port    |          |
+| Ix_mem                | Ix_mem_1_26_i                  | port    |          |
+| Ix_mem                | Ix_mem_1_26_o                  | port    |          |
+| Ix_mem                | Ix_mem_1_26_o_ap_vld           | port    |          |
+| Ix_mem                | Ix_mem_1_27_i                  | port    |          |
+| Ix_mem                | Ix_mem_1_27_o                  | port    |          |
+| Ix_mem                | Ix_mem_1_27_o_ap_vld           | port    |          |
+| Ix_mem                | Ix_mem_1_28_i                  | port    |          |
+| Ix_mem                | Ix_mem_1_28_o                  | port    |          |
+| Ix_mem                | Ix_mem_1_28_o_ap_vld           | port    |          |
+| Ix_mem                | Ix_mem_1_29_i                  | port    |          |
+| Ix_mem                | Ix_mem_1_29_o                  | port    |          |
+| Ix_mem                | Ix_mem_1_29_o_ap_vld           | port    |          |
+| Ix_mem                | Ix_mem_1_30_i                  | port    |          |
+| Ix_mem                | Ix_mem_1_30_o                  | port    |          |
+| Ix_mem                | Ix_mem_1_30_o_ap_vld           | port    |          |
+| Ix_mem                | Ix_mem_1_31_i                  | port    |          |
+| Ix_mem                | Ix_mem_1_31_o                  | port    |          |
+| Ix_mem                | Ix_mem_1_31_o_ap_vld           | port    |          |
+| Iy_mem                | Iy_mem_0_0                     | port    |          |
+| Iy_mem                | Iy_mem_0_0_ap_vld              | port    |          |
+| Iy_mem                | Iy_mem_0_1                     | port    |          |
+| Iy_mem                | Iy_mem_0_1_ap_vld              | port    |          |
+| Iy_mem                | Iy_mem_0_2                     | port    |          |
+| Iy_mem                | Iy_mem_0_2_ap_vld              | port    |          |
+| Iy_mem                | Iy_mem_0_3                     | port    |          |
+| Iy_mem                | Iy_mem_0_3_ap_vld              | port    |          |
+| Iy_mem                | Iy_mem_0_4                     | port    |          |
+| Iy_mem                | Iy_mem_0_4_ap_vld              | port    |          |
+| Iy_mem                | Iy_mem_0_5                     | port    |          |
+| Iy_mem                | Iy_mem_0_5_ap_vld              | port    |          |
+| Iy_mem                | Iy_mem_0_6                     | port    |          |
+| Iy_mem                | Iy_mem_0_6_ap_vld              | port    |          |
+| Iy_mem                | Iy_mem_0_7                     | port    |          |
+| Iy_mem                | Iy_mem_0_7_ap_vld              | port    |          |
+| Iy_mem                | Iy_mem_0_8                     | port    |          |
+| Iy_mem                | Iy_mem_0_8_ap_vld              | port    |          |
+| Iy_mem                | Iy_mem_0_9                     | port    |          |
+| Iy_mem                | Iy_mem_0_9_ap_vld              | port    |          |
+| Iy_mem                | Iy_mem_0_10                    | port    |          |
+| Iy_mem                | Iy_mem_0_10_ap_vld             | port    |          |
+| Iy_mem                | Iy_mem_0_11                    | port    |          |
+| Iy_mem                | Iy_mem_0_11_ap_vld             | port    |          |
+| Iy_mem                | Iy_mem_0_12                    | port    |          |
+| Iy_mem                | Iy_mem_0_12_ap_vld             | port    |          |
+| Iy_mem                | Iy_mem_0_13                    | port    |          |
+| Iy_mem                | Iy_mem_0_13_ap_vld             | port    |          |
+| Iy_mem                | Iy_mem_0_14                    | port    |          |
+| Iy_mem                | Iy_mem_0_14_ap_vld             | port    |          |
+| Iy_mem                | Iy_mem_0_15                    | port    |          |
+| Iy_mem                | Iy_mem_0_15_ap_vld             | port    |          |
+| Iy_mem                | Iy_mem_0_16                    | port    |          |
+| Iy_mem                | Iy_mem_0_16_ap_vld             | port    |          |
+| Iy_mem                | Iy_mem_0_17                    | port    |          |
+| Iy_mem                | Iy_mem_0_17_ap_vld             | port    |          |
+| Iy_mem                | Iy_mem_0_18                    | port    |          |
+| Iy_mem                | Iy_mem_0_18_ap_vld             | port    |          |
+| Iy_mem                | Iy_mem_0_19                    | port    |          |
+| Iy_mem                | Iy_mem_0_19_ap_vld             | port    |          |
+| Iy_mem                | Iy_mem_0_20                    | port    |          |
+| Iy_mem                | Iy_mem_0_20_ap_vld             | port    |          |
+| Iy_mem                | Iy_mem_0_21                    | port    |          |
+| Iy_mem                | Iy_mem_0_21_ap_vld             | port    |          |
+| Iy_mem                | Iy_mem_0_22                    | port    |          |
+| Iy_mem                | Iy_mem_0_22_ap_vld             | port    |          |
+| Iy_mem                | Iy_mem_0_23                    | port    |          |
+| Iy_mem                | Iy_mem_0_23_ap_vld             | port    |          |
+| Iy_mem                | Iy_mem_0_24                    | port    |          |
+| Iy_mem                | Iy_mem_0_24_ap_vld             | port    |          |
+| Iy_mem                | Iy_mem_0_25                    | port    |          |
+| Iy_mem                | Iy_mem_0_25_ap_vld             | port    |          |
+| Iy_mem                | Iy_mem_0_26                    | port    |          |
+| Iy_mem                | Iy_mem_0_26_ap_vld             | port    |          |
+| Iy_mem                | Iy_mem_0_27                    | port    |          |
+| Iy_mem                | Iy_mem_0_27_ap_vld             | port    |          |
+| Iy_mem                | Iy_mem_0_28                    | port    |          |
+| Iy_mem                | Iy_mem_0_28_ap_vld             | port    |          |
+| Iy_mem                | Iy_mem_0_29                    | port    |          |
+| Iy_mem                | Iy_mem_0_29_ap_vld             | port    |          |
+| Iy_mem                | Iy_mem_0_30                    | port    |          |
+| Iy_mem                | Iy_mem_0_30_ap_vld             | port    |          |
+| Iy_mem                | Iy_mem_0_31                    | port    |          |
+| Iy_mem                | Iy_mem_0_31_ap_vld             | port    |          |
+| Iy_mem                | Iy_mem_1_0_i                   | port    |          |
+| Iy_mem                | Iy_mem_1_0_o                   | port    |          |
+| Iy_mem                | Iy_mem_1_0_o_ap_vld            | port    |          |
+| Iy_mem                | Iy_mem_1_1_i                   | port    |          |
+| Iy_mem                | Iy_mem_1_1_o                   | port    |          |
+| Iy_mem                | Iy_mem_1_1_o_ap_vld            | port    |          |
+| Iy_mem                | Iy_mem_1_2_i                   | port    |          |
+| Iy_mem                | Iy_mem_1_2_o                   | port    |          |
+| Iy_mem                | Iy_mem_1_2_o_ap_vld            | port    |          |
+| Iy_mem                | Iy_mem_1_3_i                   | port    |          |
+| Iy_mem                | Iy_mem_1_3_o                   | port    |          |
+| Iy_mem                | Iy_mem_1_3_o_ap_vld            | port    |          |
+| Iy_mem                | Iy_mem_1_4_i                   | port    |          |
+| Iy_mem                | Iy_mem_1_4_o                   | port    |          |
+| Iy_mem                | Iy_mem_1_4_o_ap_vld            | port    |          |
+| Iy_mem                | Iy_mem_1_5_i                   | port    |          |
+| Iy_mem                | Iy_mem_1_5_o                   | port    |          |
+| Iy_mem                | Iy_mem_1_5_o_ap_vld            | port    |          |
+| Iy_mem                | Iy_mem_1_6_i                   | port    |          |
+| Iy_mem                | Iy_mem_1_6_o                   | port    |          |
+| Iy_mem                | Iy_mem_1_6_o_ap_vld            | port    |          |
+| Iy_mem                | Iy_mem_1_7_i                   | port    |          |
+| Iy_mem                | Iy_mem_1_7_o                   | port    |          |
+| Iy_mem                | Iy_mem_1_7_o_ap_vld            | port    |          |
+| Iy_mem                | Iy_mem_1_8_i                   | port    |          |
+| Iy_mem                | Iy_mem_1_8_o                   | port    |          |
+| Iy_mem                | Iy_mem_1_8_o_ap_vld            | port    |          |
+| Iy_mem                | Iy_mem_1_9_i                   | port    |          |
+| Iy_mem                | Iy_mem_1_9_o                   | port    |          |
+| Iy_mem                | Iy_mem_1_9_o_ap_vld            | port    |          |
+| Iy_mem                | Iy_mem_1_10_i                  | port    |          |
+| Iy_mem                | Iy_mem_1_10_o                  | port    |          |
+| Iy_mem                | Iy_mem_1_10_o_ap_vld           | port    |          |
+| Iy_mem                | Iy_mem_1_11_i                  | port    |          |
+| Iy_mem                | Iy_mem_1_11_o                  | port    |          |
+| Iy_mem                | Iy_mem_1_11_o_ap_vld           | port    |          |
+| Iy_mem                | Iy_mem_1_12_i                  | port    |          |
+| Iy_mem                | Iy_mem_1_12_o                  | port    |          |
+| Iy_mem                | Iy_mem_1_12_o_ap_vld           | port    |          |
+| Iy_mem                | Iy_mem_1_13_i                  | port    |          |
+| Iy_mem                | Iy_mem_1_13_o                  | port    |          |
+| Iy_mem                | Iy_mem_1_13_o_ap_vld           | port    |          |
+| Iy_mem                | Iy_mem_1_14_i                  | port    |          |
+| Iy_mem                | Iy_mem_1_14_o                  | port    |          |
+| Iy_mem                | Iy_mem_1_14_o_ap_vld           | port    |          |
+| Iy_mem                | Iy_mem_1_15_i                  | port    |          |
+| Iy_mem                | Iy_mem_1_15_o                  | port    |          |
+| Iy_mem                | Iy_mem_1_15_o_ap_vld           | port    |          |
+| Iy_mem                | Iy_mem_1_16_i                  | port    |          |
+| Iy_mem                | Iy_mem_1_16_o                  | port    |          |
+| Iy_mem                | Iy_mem_1_16_o_ap_vld           | port    |          |
+| Iy_mem                | Iy_mem_1_17_i                  | port    |          |
+| Iy_mem                | Iy_mem_1_17_o                  | port    |          |
+| Iy_mem                | Iy_mem_1_17_o_ap_vld           | port    |          |
+| Iy_mem                | Iy_mem_1_18_i                  | port    |          |
+| Iy_mem                | Iy_mem_1_18_o                  | port    |          |
+| Iy_mem                | Iy_mem_1_18_o_ap_vld           | port    |          |
+| Iy_mem                | Iy_mem_1_19_i                  | port    |          |
+| Iy_mem                | Iy_mem_1_19_o                  | port    |          |
+| Iy_mem                | Iy_mem_1_19_o_ap_vld           | port    |          |
+| Iy_mem                | Iy_mem_1_20_i                  | port    |          |
+| Iy_mem                | Iy_mem_1_20_o                  | port    |          |
+| Iy_mem                | Iy_mem_1_20_o_ap_vld           | port    |          |
+| Iy_mem                | Iy_mem_1_21_i                  | port    |          |
+| Iy_mem                | Iy_mem_1_21_o                  | port    |          |
+| Iy_mem                | Iy_mem_1_21_o_ap_vld           | port    |          |
+| Iy_mem                | Iy_mem_1_22_i                  | port    |          |
+| Iy_mem                | Iy_mem_1_22_o                  | port    |          |
+| Iy_mem                | Iy_mem_1_22_o_ap_vld           | port    |          |
+| Iy_mem                | Iy_mem_1_23_i                  | port    |          |
+| Iy_mem                | Iy_mem_1_23_o                  | port    |          |
+| Iy_mem                | Iy_mem_1_23_o_ap_vld           | port    |          |
+| Iy_mem                | Iy_mem_1_24_i                  | port    |          |
+| Iy_mem                | Iy_mem_1_24_o                  | port    |          |
+| Iy_mem                | Iy_mem_1_24_o_ap_vld           | port    |          |
+| Iy_mem                | Iy_mem_1_25_i                  | port    |          |
+| Iy_mem                | Iy_mem_1_25_o                  | port    |          |
+| Iy_mem                | Iy_mem_1_25_o_ap_vld           | port    |          |
+| Iy_mem                | Iy_mem_1_26_i                  | port    |          |
+| Iy_mem                | Iy_mem_1_26_o                  | port    |          |
+| Iy_mem                | Iy_mem_1_26_o_ap_vld           | port    |          |
+| Iy_mem                | Iy_mem_1_27_i                  | port    |          |
+| Iy_mem                | Iy_mem_1_27_o                  | port    |          |
+| Iy_mem                | Iy_mem_1_27_o_ap_vld           | port    |          |
+| Iy_mem                | Iy_mem_1_28_i                  | port    |          |
+| Iy_mem                | Iy_mem_1_28_o                  | port    |          |
+| Iy_mem                | Iy_mem_1_28_o_ap_vld           | port    |          |
+| Iy_mem                | Iy_mem_1_29_i                  | port    |          |
+| Iy_mem                | Iy_mem_1_29_o                  | port    |          |
+| Iy_mem                | Iy_mem_1_29_o_ap_vld           | port    |          |
+| Iy_mem                | Iy_mem_1_30_i                  | port    |          |
+| Iy_mem                | Iy_mem_1_30_o                  | port    |          |
+| Iy_mem                | Iy_mem_1_30_o_ap_vld           | port    |          |
+| Iy_mem                | Iy_mem_1_31_i                  | port    |          |
+| Iy_mem                | Iy_mem_1_31_o                  | port    |          |
+| Iy_mem                | Iy_mem_1_31_o_ap_vld           | port    |          |
+| last_pe_score         | last_pe_score_address0         | port    | offset   |
+| last_pe_score         | last_pe_score_ce0              | port    |          |
+| last_pe_score         | last_pe_score_we0              | port    |          |
+| last_pe_score         | last_pe_score_d0               | port    |          |
+| last_pe_score         | last_pe_score_address1         | port    | offset   |
+| last_pe_score         | last_pe_score_ce1              | port    |          |
+| last_pe_score         | last_pe_score_q1               | port    |          |
+| last_pe_scoreIx       | last_pe_scoreIx_address0       | port    | offset   |
+| last_pe_scoreIx       | last_pe_scoreIx_ce0            | port    |          |
+| last_pe_scoreIx       | last_pe_scoreIx_we0            | port    |          |
+| last_pe_scoreIx       | last_pe_scoreIx_d0             | port    |          |
+| last_pe_scoreIx       | last_pe_scoreIx_q0             | port    |          |
+| dp_matrix1            | dp_matrix1_0_address0          | port    | offset   |
+| dp_matrix1            | dp_matrix1_0_ce0               | port    |          |
+| dp_matrix1            | dp_matrix1_0_we0               | port    |          |
+| dp_matrix1            | dp_matrix1_0_d0                | port    |          |
+| dp_matrix1            | dp_matrix1_0_address1          | port    | offset   |
+| dp_matrix1            | dp_matrix1_0_ce1               | port    |          |
+| dp_matrix1            | dp_matrix1_0_we1               | port    |          |
+| dp_matrix1            | dp_matrix1_0_d1                | port    |          |
+| dp_matrix1            | dp_matrix1_1_address0          | port    | offset   |
+| dp_matrix1            | dp_matrix1_1_ce0               | port    |          |
+| dp_matrix1            | dp_matrix1_1_we0               | port    |          |
+| dp_matrix1            | dp_matrix1_1_d0                | port    |          |
+| dp_matrix1            | dp_matrix1_1_address1          | port    | offset   |
+| dp_matrix1            | dp_matrix1_1_ce1               | port    |          |
+| dp_matrix1            | dp_matrix1_1_we1               | port    |          |
+| dp_matrix1            | dp_matrix1_1_d1                | port    |          |
+| dp_matrix1            | dp_matrix1_2_address0          | port    | offset   |
+| dp_matrix1            | dp_matrix1_2_ce0               | port    |          |
+| dp_matrix1            | dp_matrix1_2_we0               | port    |          |
+| dp_matrix1            | dp_matrix1_2_d0                | port    |          |
+| dp_matrix1            | dp_matrix1_2_address1          | port    | offset   |
+| dp_matrix1            | dp_matrix1_2_ce1               | port    |          |
+| dp_matrix1            | dp_matrix1_2_we1               | port    |          |
+| dp_matrix1            | dp_matrix1_2_d1                | port    |          |
+| dp_matrix1            | dp_matrix1_3_address0          | port    | offset   |
+| dp_matrix1            | dp_matrix1_3_ce0               | port    |          |
+| dp_matrix1            | dp_matrix1_3_we0               | port    |          |
+| dp_matrix1            | dp_matrix1_3_d0                | port    |          |
+| dp_matrix1            | dp_matrix1_3_address1          | port    | offset   |
+| dp_matrix1            | dp_matrix1_3_ce1               | port    |          |
+| dp_matrix1            | dp_matrix1_3_we1               | port    |          |
+| dp_matrix1            | dp_matrix1_3_d1                | port    |          |
+| dp_matrix1            | dp_matrix1_4_address0          | port    | offset   |
+| dp_matrix1            | dp_matrix1_4_ce0               | port    |          |
+| dp_matrix1            | dp_matrix1_4_we0               | port    |          |
+| dp_matrix1            | dp_matrix1_4_d0                | port    |          |
+| dp_matrix1            | dp_matrix1_4_address1          | port    | offset   |
+| dp_matrix1            | dp_matrix1_4_ce1               | port    |          |
+| dp_matrix1            | dp_matrix1_4_we1               | port    |          |
+| dp_matrix1            | dp_matrix1_4_d1                | port    |          |
+| dp_matrix1            | dp_matrix1_5_address0          | port    | offset   |
+| dp_matrix1            | dp_matrix1_5_ce0               | port    |          |
+| dp_matrix1            | dp_matrix1_5_we0               | port    |          |
+| dp_matrix1            | dp_matrix1_5_d0                | port    |          |
+| dp_matrix1            | dp_matrix1_5_address1          | port    | offset   |
+| dp_matrix1            | dp_matrix1_5_ce1               | port    |          |
+| dp_matrix1            | dp_matrix1_5_we1               | port    |          |
+| dp_matrix1            | dp_matrix1_5_d1                | port    |          |
+| dp_matrix1            | dp_matrix1_6_address0          | port    | offset   |
+| dp_matrix1            | dp_matrix1_6_ce0               | port    |          |
+| dp_matrix1            | dp_matrix1_6_we0               | port    |          |
+| dp_matrix1            | dp_matrix1_6_d0                | port    |          |
+| dp_matrix1            | dp_matrix1_6_address1          | port    | offset   |
+| dp_matrix1            | dp_matrix1_6_ce1               | port    |          |
+| dp_matrix1            | dp_matrix1_6_we1               | port    |          |
+| dp_matrix1            | dp_matrix1_6_d1                | port    |          |
+| dp_matrix1            | dp_matrix1_7_address0          | port    | offset   |
+| dp_matrix1            | dp_matrix1_7_ce0               | port    |          |
+| dp_matrix1            | dp_matrix1_7_we0               | port    |          |
+| dp_matrix1            | dp_matrix1_7_d0                | port    |          |
+| dp_matrix1            | dp_matrix1_7_address1          | port    | offset   |
+| dp_matrix1            | dp_matrix1_7_ce1               | port    |          |
+| dp_matrix1            | dp_matrix1_7_we1               | port    |          |
+| dp_matrix1            | dp_matrix1_7_d1                | port    |          |
+| dp_matrix1            | dp_matrix1_8_address0          | port    | offset   |
+| dp_matrix1            | dp_matrix1_8_ce0               | port    |          |
+| dp_matrix1            | dp_matrix1_8_we0               | port    |          |
+| dp_matrix1            | dp_matrix1_8_d0                | port    |          |
+| dp_matrix1            | dp_matrix1_8_address1          | port    | offset   |
+| dp_matrix1            | dp_matrix1_8_ce1               | port    |          |
+| dp_matrix1            | dp_matrix1_8_we1               | port    |          |
+| dp_matrix1            | dp_matrix1_8_d1                | port    |          |
+| dp_matrix1            | dp_matrix1_9_address0          | port    | offset   |
+| dp_matrix1            | dp_matrix1_9_ce0               | port    |          |
+| dp_matrix1            | dp_matrix1_9_we0               | port    |          |
+| dp_matrix1            | dp_matrix1_9_d0                | port    |          |
+| dp_matrix1            | dp_matrix1_9_address1          | port    | offset   |
+| dp_matrix1            | dp_matrix1_9_ce1               | port    |          |
+| dp_matrix1            | dp_matrix1_9_we1               | port    |          |
+| dp_matrix1            | dp_matrix1_9_d1                | port    |          |
+| dp_matrix1            | dp_matrix1_10_address0         | port    | offset   |
+| dp_matrix1            | dp_matrix1_10_ce0              | port    |          |
+| dp_matrix1            | dp_matrix1_10_we0              | port    |          |
+| dp_matrix1            | dp_matrix1_10_d0               | port    |          |
+| dp_matrix1            | dp_matrix1_10_address1         | port    | offset   |
+| dp_matrix1            | dp_matrix1_10_ce1              | port    |          |
+| dp_matrix1            | dp_matrix1_10_we1              | port    |          |
+| dp_matrix1            | dp_matrix1_10_d1               | port    |          |
+| dp_matrix1            | dp_matrix1_11_address0         | port    | offset   |
+| dp_matrix1            | dp_matrix1_11_ce0              | port    |          |
+| dp_matrix1            | dp_matrix1_11_we0              | port    |          |
+| dp_matrix1            | dp_matrix1_11_d0               | port    |          |
+| dp_matrix1            | dp_matrix1_11_address1         | port    | offset   |
+| dp_matrix1            | dp_matrix1_11_ce1              | port    |          |
+| dp_matrix1            | dp_matrix1_11_we1              | port    |          |
+| dp_matrix1            | dp_matrix1_11_d1               | port    |          |
+| dp_matrix1            | dp_matrix1_12_address0         | port    | offset   |
+| dp_matrix1            | dp_matrix1_12_ce0              | port    |          |
+| dp_matrix1            | dp_matrix1_12_we0              | port    |          |
+| dp_matrix1            | dp_matrix1_12_d0               | port    |          |
+| dp_matrix1            | dp_matrix1_12_address1         | port    | offset   |
+| dp_matrix1            | dp_matrix1_12_ce1              | port    |          |
+| dp_matrix1            | dp_matrix1_12_we1              | port    |          |
+| dp_matrix1            | dp_matrix1_12_d1               | port    |          |
+| dp_matrix1            | dp_matrix1_13_address0         | port    | offset   |
+| dp_matrix1            | dp_matrix1_13_ce0              | port    |          |
+| dp_matrix1            | dp_matrix1_13_we0              | port    |          |
+| dp_matrix1            | dp_matrix1_13_d0               | port    |          |
+| dp_matrix1            | dp_matrix1_13_address1         | port    | offset   |
+| dp_matrix1            | dp_matrix1_13_ce1              | port    |          |
+| dp_matrix1            | dp_matrix1_13_we1              | port    |          |
+| dp_matrix1            | dp_matrix1_13_d1               | port    |          |
+| dp_matrix1            | dp_matrix1_14_address0         | port    | offset   |
+| dp_matrix1            | dp_matrix1_14_ce0              | port    |          |
+| dp_matrix1            | dp_matrix1_14_we0              | port    |          |
+| dp_matrix1            | dp_matrix1_14_d0               | port    |          |
+| dp_matrix1            | dp_matrix1_14_address1         | port    | offset   |
+| dp_matrix1            | dp_matrix1_14_ce1              | port    |          |
+| dp_matrix1            | dp_matrix1_14_we1              | port    |          |
+| dp_matrix1            | dp_matrix1_14_d1               | port    |          |
+| dp_matrix1            | dp_matrix1_15_address0         | port    | offset   |
+| dp_matrix1            | dp_matrix1_15_ce0              | port    |          |
+| dp_matrix1            | dp_matrix1_15_we0              | port    |          |
+| dp_matrix1            | dp_matrix1_15_d0               | port    |          |
+| dp_matrix1            | dp_matrix1_15_address1         | port    | offset   |
+| dp_matrix1            | dp_matrix1_15_ce1              | port    |          |
+| dp_matrix1            | dp_matrix1_15_we1              | port    |          |
+| dp_matrix1            | dp_matrix1_15_d1               | port    |          |
+| dp_matrix2            | dp_matrix2_address0            | port    | offset   |
+| dp_matrix2            | dp_matrix2_ce0                 | port    |          |
+| dp_matrix2            | dp_matrix2_we0                 | port    |          |
+| dp_matrix2            | dp_matrix2_d0                  | port    |          |
+| dp_matrix2            | dp_matrix2_q0                  | port    |          |
+| dp_matrix2            | dp_matrix2_address1            | port    | offset   |
+| dp_matrix2            | dp_matrix2_ce1                 | port    |          |
+| dp_matrix2            | dp_matrix2_we1                 | port    |          |
+| dp_matrix2            | dp_matrix2_d1                  | port    |          |
+| dp_matrix2            | dp_matrix2_q1                  | port    |          |
++-----------------------+--------------------------------+---------+----------+
+
+
+================================================================
+== Bind Op Report
+================================================================
++----------------------------------------+-----+--------+--------------+-----+--------+---------+
+| Name                                   | DSP | Pragma | Variable     | Op  | Impl   | Latency |
++----------------------------------------+-----+--------+--------------+-----+--------+---------+
+| + seq_align_multiple                   | 0   |        |              |     |        |         |
+|  + seq_align                           | 0   |        |              |     |        |         |
+|   + seq_align_Pipeline_VITIS_LOOP_76_1 | 0   |        |              |     |        |         |
+|     add_ln76_fu_357_p2                 | -   |        | add_ln76     | add | fabric | 0       |
+|   + seq_align_Pipeline_kernel_kernel1  | 0   |        |              |     |        |         |
+|     add_ln86_1_fu_13199_p2             | -   |        | add_ln86_1   | add | fabric | 0       |
+|     add_ln86_fu_13211_p2               | -   |        | add_ln86     | add | fabric | 0       |
+|     add_ln94_fu_13285_p2               | -   |        | add_ln94     | add | fabric | 0       |
+|     add_ln106_fu_14937_p2              | -   |        | add_ln106    | add | fabric | 0       |
+|     add_ln106_1_fu_14943_p2            | -   |        | add_ln106_1  | add | fabric | 0       |
+|     add_ln106_2_fu_14950_p2            | -   |        | add_ln106_2  | add | fabric | 0       |
+|     add_ln106_3_fu_14957_p2            | -   |        | add_ln106_3  | add | fabric | 0       |
+|     add_ln106_4_fu_14963_p2            | -   |        | add_ln106_4  | add | fabric | 0       |
+|     add_ln106_5_fu_14969_p2            | -   |        | add_ln106_5  | add | fabric | 0       |
+|     add_ln106_6_fu_14975_p2            | -   |        | add_ln106_6  | add | fabric | 0       |
+|     add_ln106_7_fu_14981_p2            | -   |        | add_ln106_7  | add | fabric | 0       |
+|     add_ln106_8_fu_14987_p2            | -   |        | add_ln106_8  | add | fabric | 0       |
+|     add_ln106_9_fu_14993_p2            | -   |        | add_ln106_9  | add | fabric | 0       |
+|     add_ln106_10_fu_14999_p2           | -   |        | add_ln106_10 | add | fabric | 0       |
+|     add_ln106_11_fu_15005_p2           | -   |        | add_ln106_11 | add | fabric | 0       |
+|     add_ln106_12_fu_15011_p2           | -   |        | add_ln106_12 | add | fabric | 0       |
+|     add_ln106_13_fu_15017_p2           | -   |        | add_ln106_13 | add | fabric | 0       |
+|     add_ln106_14_fu_15023_p2           | -   |        | add_ln106_14 | add | fabric | 0       |
+|     add_ln106_15_fu_15029_p2           | -   |        | add_ln106_15 | add | fabric | 0       |
+|     add_ln106_16_fu_15035_p2           | -   |        | add_ln106_16 | add | fabric | 0       |
+|     add_ln106_17_fu_15041_p2           | -   |        | add_ln106_17 | add | fabric | 0       |
+|     add_ln106_18_fu_15047_p2           | -   |        | add_ln106_18 | add | fabric | 0       |
+|     add_ln106_19_fu_15053_p2           | -   |        | add_ln106_19 | add | fabric | 0       |
+|     add_ln106_20_fu_15059_p2           | -   |        | add_ln106_20 | add | fabric | 0       |
+|     add_ln106_21_fu_15065_p2           | -   |        | add_ln106_21 | add | fabric | 0       |
+|     add_ln106_22_fu_15071_p2           | -   |        | add_ln106_22 | add | fabric | 0       |
+|     add_ln106_23_fu_15077_p2           | -   |        | add_ln106_23 | add | fabric | 0       |
+|     add_ln106_24_fu_15083_p2           | -   |        | add_ln106_24 | add | fabric | 0       |
+|     add_ln106_25_fu_15089_p2           | -   |        | add_ln106_25 | add | fabric | 0       |
+|     add_ln106_26_fu_15095_p2           | -   |        | add_ln106_26 | add | fabric | 0       |
+|     add_ln106_27_fu_15101_p2           | -   |        | add_ln106_27 | add | fabric | 0       |
+|     add_ln106_28_fu_15107_p2           | -   |        | add_ln106_28 | add | fabric | 0       |
+|     add_ln106_29_fu_15113_p2           | -   |        | add_ln106_29 | add | fabric | 0       |
+|     add_ln106_30_fu_15119_p2           | -   |        | add_ln106_30 | add | fabric | 0       |
+|     add_ln106_31_fu_15125_p2           | -   |        | add_ln106_31 | add | fabric | 0       |
+|     add_ln106_32_fu_15131_p2           | -   |        | add_ln106_32 | add | fabric | 0       |
+|     add_ln106_33_fu_15137_p2           | -   |        | add_ln106_33 | add | fabric | 0       |
+|     add_ln106_34_fu_15143_p2           | -   |        | add_ln106_34 | add | fabric | 0       |
+|     add_ln106_35_fu_15149_p2           | -   |        | add_ln106_35 | add | fabric | 0       |
+|     add_ln106_36_fu_15155_p2           | -   |        | add_ln106_36 | add | fabric | 0       |
+|     add_ln106_37_fu_15161_p2           | -   |        | add_ln106_37 | add | fabric | 0       |
+|     add_ln106_38_fu_15167_p2           | -   |        | add_ln106_38 | add | fabric | 0       |
+|     add_ln106_39_fu_15173_p2           | -   |        | add_ln106_39 | add | fabric | 0       |
+|     add_ln106_40_fu_15179_p2           | -   |        | add_ln106_40 | add | fabric | 0       |
+|     add_ln106_41_fu_15185_p2           | -   |        | add_ln106_41 | add | fabric | 0       |
+|     add_ln106_42_fu_15191_p2           | -   |        | add_ln106_42 | add | fabric | 0       |
+|     add_ln106_43_fu_15197_p2           | -   |        | add_ln106_43 | add | fabric | 0       |
+|     add_ln106_44_fu_15203_p2           | -   |        | add_ln106_44 | add | fabric | 0       |
+|     add_ln106_45_fu_15209_p2           | -   |        | add_ln106_45 | add | fabric | 0       |
+|     add_ln106_46_fu_15215_p2           | -   |        | add_ln106_46 | add | fabric | 0       |
+|     add_ln106_47_fu_15221_p2           | -   |        | add_ln106_47 | add | fabric | 0       |
+|     add_ln106_48_fu_15227_p2           | -   |        | add_ln106_48 | add | fabric | 0       |
+|     add_ln106_49_fu_15233_p2           | -   |        | add_ln106_49 | add | fabric | 0       |
+|     add_ln106_50_fu_15239_p2           | -   |        | add_ln106_50 | add | fabric | 0       |
+|     add_ln106_51_fu_15245_p2           | -   |        | add_ln106_51 | add | fabric | 0       |
+|     add_ln106_52_fu_15251_p2           | -   |        | add_ln106_52 | add | fabric | 0       |
+|     add_ln106_53_fu_15257_p2           | -   |        | add_ln106_53 | add | fabric | 0       |
+|     add_ln106_54_fu_15263_p2           | -   |        | add_ln106_54 | add | fabric | 0       |
+|     add_ln106_55_fu_15269_p2           | -   |        | add_ln106_55 | add | fabric | 0       |
+|     add_ln106_56_fu_15275_p2           | -   |        | add_ln106_56 | add | fabric | 0       |
+|     add_ln106_57_fu_15281_p2           | -   |        | add_ln106_57 | add | fabric | 0       |
+|     add_ln106_58_fu_15287_p2           | -   |        | add_ln106_58 | add | fabric | 0       |
+|     add_ln106_59_fu_15293_p2           | -   |        | add_ln106_59 | add | fabric | 0       |
+|     add_ln106_60_fu_15299_p2           | -   |        | add_ln106_60 | add | fabric | 0       |
+|     add_ln106_61_fu_15305_p2           | -   |        | add_ln106_61 | add | fabric | 0       |
+|     add_ln106_62_fu_15311_p2           | -   |        | add_ln106_62 | add | fabric | 0       |
+|     add_ln106_63_fu_15317_p2           | -   |        | add_ln106_63 | add | fabric | 0       |
+|     add_ln106_64_fu_15323_p2           | -   |        | add_ln106_64 | add | fabric | 0       |
+|     add_ln106_65_fu_15329_p2           | -   |        | add_ln106_65 | add | fabric | 0       |
+|     add_ln106_66_fu_15335_p2           | -   |        | add_ln106_66 | add | fabric | 0       |
+|     add_ln106_67_fu_15341_p2           | -   |        | add_ln106_67 | add | fabric | 0       |
+|     add_ln106_68_fu_15347_p2           | -   |        | add_ln106_68 | add | fabric | 0       |
+|     add_ln106_69_fu_15353_p2           | -   |        | add_ln106_69 | add | fabric | 0       |
+|     add_ln106_70_fu_15359_p2           | -   |        | add_ln106_70 | add | fabric | 0       |
+|     add_ln106_71_fu_15365_p2           | -   |        | add_ln106_71 | add | fabric | 0       |
+|     add_ln106_72_fu_15371_p2           | -   |        | add_ln106_72 | add | fabric | 0       |
+|     add_ln106_73_fu_15377_p2           | -   |        | add_ln106_73 | add | fabric | 0       |
+|     add_ln106_74_fu_15383_p2           | -   |        | add_ln106_74 | add | fabric | 0       |
+|     add_ln106_75_fu_15389_p2           | -   |        | add_ln106_75 | add | fabric | 0       |
+|     add_ln106_76_fu_15395_p2           | -   |        | add_ln106_76 | add | fabric | 0       |
+|     add_ln106_77_fu_15401_p2           | -   |        | add_ln106_77 | add | fabric | 0       |
+|     add_ln106_78_fu_15407_p2           | -   |        | add_ln106_78 | add | fabric | 0       |
+|     add_ln106_79_fu_15413_p2           | -   |        | add_ln106_79 | add | fabric | 0       |
+|     add_ln106_80_fu_15419_p2           | -   |        | add_ln106_80 | add | fabric | 0       |
+|     add_ln106_81_fu_15425_p2           | -   |        | add_ln106_81 | add | fabric | 0       |
+|     add_ln106_82_fu_15431_p2           | -   |        | add_ln106_82 | add | fabric | 0       |
+|     add_ln106_83_fu_15437_p2           | -   |        | add_ln106_83 | add | fabric | 0       |
+|     add_ln106_84_fu_15443_p2           | -   |        | add_ln106_84 | add | fabric | 0       |
+|     add_ln106_85_fu_15449_p2           | -   |        | add_ln106_85 | add | fabric | 0       |
+|     add_ln106_86_fu_15455_p2           | -   |        | add_ln106_86 | add | fabric | 0       |
+|     add_ln106_87_fu_15461_p2           | -   |        | add_ln106_87 | add | fabric | 0       |
+|     add_ln106_88_fu_15467_p2           | -   |        | add_ln106_88 | add | fabric | 0       |
+|     add_ln106_89_fu_15473_p2           | -   |        | add_ln106_89 | add | fabric | 0       |
+|     add_ln106_90_fu_15479_p2           | -   |        | add_ln106_90 | add | fabric | 0       |
+|     add_ln106_91_fu_15485_p2           | -   |        | add_ln106_91 | add | fabric | 0       |
+|     add_ln106_92_fu_15491_p2           | -   |        | add_ln106_92 | add | fabric | 0       |
+|     add_ln106_93_fu_15497_p2           | -   |        | add_ln106_93 | add | fabric | 0       |
+|     empty_44_fu_15515_p2               | -   |        | empty_44     | add | fabric | 0       |
+|     a3_fu_17145_p2                     | -   |        | a3           | add | fabric | 0       |
+|     a4_fu_17150_p2                     | -   |        | a4           | add | fabric | 0       |
+|     match_fu_17198_p2                  | -   |        | match        | add | fabric | 0       |
+|     add_ln116_fu_13338_p2              | -   |        | add_ln116    | add | fabric | 0       |
+|     add_ln54_fu_17274_p2               | -   |        | add_ln54     | add | fabric | 0       |
+|     add_ln116_31_fu_13344_p2           | -   |        | add_ln116_31 | add | fabric | 0       |
+|     match_1_fu_17331_p2                | -   |        | match_1      | add | fabric | 0       |
+|     add_ln116_1_fu_13396_p2            | -   |        | add_ln116_1  | add | fabric | 0       |
+|     add_ln54_1_fu_17398_p2             | -   |        | add_ln54_1   | add | fabric | 0       |
+|     add_ln116_32_fu_13402_p2           | -   |        | add_ln116_32 | add | fabric | 0       |
+|     match_2_fu_17455_p2                | -   |        | match_2      | add | fabric | 0       |
+|     add_ln116_2_fu_13454_p2            | -   |        | add_ln116_2  | add | fabric | 0       |
+|     add_ln54_2_fu_17522_p2             | -   |        | add_ln54_2   | add | fabric | 0       |
+|     add_ln116_33_fu_13460_p2           | -   |        | add_ln116_33 | add | fabric | 0       |
+|     match_3_fu_17579_p2                | -   |        | match_3      | add | fabric | 0       |
+|     add_ln116_3_fu_13512_p2            | -   |        | add_ln116_3  | add | fabric | 0       |
+|     add_ln54_3_fu_17646_p2             | -   |        | add_ln54_3   | add | fabric | 0       |
+|     add_ln116_34_fu_13518_p2           | -   |        | add_ln116_34 | add | fabric | 0       |
+|     match_4_fu_17703_p2                | -   |        | match_4      | add | fabric | 0       |
+|     add_ln116_4_fu_13570_p2            | -   |        | add_ln116_4  | add | fabric | 0       |
+|     add_ln54_4_fu_17770_p2             | -   |        | add_ln54_4   | add | fabric | 0       |
+|     add_ln116_35_fu_13576_p2           | -   |        | add_ln116_35 | add | fabric | 0       |
+|     match_5_fu_17827_p2                | -   |        | match_5      | add | fabric | 0       |
+|     add_ln116_5_fu_13628_p2            | -   |        | add_ln116_5  | add | fabric | 0       |
+|     add_ln54_5_fu_17894_p2             | -   |        | add_ln54_5   | add | fabric | 0       |
+|     add_ln116_36_fu_13634_p2           | -   |        | add_ln116_36 | add | fabric | 0       |
+|     match_6_fu_17951_p2                | -   |        | match_6      | add | fabric | 0       |
+|     add_ln116_6_fu_13686_p2            | -   |        | add_ln116_6  | add | fabric | 0       |
+|     add_ln54_6_fu_18018_p2             | -   |        | add_ln54_6   | add | fabric | 0       |
+|     add_ln116_37_fu_13692_p2           | -   |        | add_ln116_37 | add | fabric | 0       |
+|     match_7_fu_18075_p2                | -   |        | match_7      | add | fabric | 0       |
+|     add_ln116_7_fu_13744_p2            | -   |        | add_ln116_7  | add | fabric | 0       |
+|     add_ln54_7_fu_18142_p2             | -   |        | add_ln54_7   | add | fabric | 0       |
+|     add_ln116_38_fu_13750_p2           | -   |        | add_ln116_38 | add | fabric | 0       |
+|     match_8_fu_18199_p2                | -   |        | match_8      | add | fabric | 0       |
+|     add_ln116_8_fu_13802_p2            | -   |        | add_ln116_8  | add | fabric | 0       |
+|     add_ln54_8_fu_18266_p2             | -   |        | add_ln54_8   | add | fabric | 0       |
+|     add_ln116_39_fu_13808_p2           | -   |        | add_ln116_39 | add | fabric | 0       |
+|     match_9_fu_18323_p2                | -   |        | match_9      | add | fabric | 0       |
+|     add_ln116_9_fu_13860_p2            | -   |        | add_ln116_9  | add | fabric | 0       |
+|     add_ln54_9_fu_18390_p2             | -   |        | add_ln54_9   | add | fabric | 0       |
+|     add_ln116_40_fu_13866_p2           | -   |        | add_ln116_40 | add | fabric | 0       |
+|     match_10_fu_18447_p2               | -   |        | match_10     | add | fabric | 0       |
+|     add_ln116_10_fu_13918_p2           | -   |        | add_ln116_10 | add | fabric | 0       |
+|     add_ln54_10_fu_18514_p2            | -   |        | add_ln54_10  | add | fabric | 0       |
+|     add_ln116_41_fu_13924_p2           | -   |        | add_ln116_41 | add | fabric | 0       |
+|     match_11_fu_18571_p2               | -   |        | match_11     | add | fabric | 0       |
+|     add_ln116_11_fu_13976_p2           | -   |        | add_ln116_11 | add | fabric | 0       |
+|     add_ln54_11_fu_18638_p2            | -   |        | add_ln54_11  | add | fabric | 0       |
+|     add_ln116_42_fu_13982_p2           | -   |        | add_ln116_42 | add | fabric | 0       |
+|     match_12_fu_18695_p2               | -   |        | match_12     | add | fabric | 0       |
+|     add_ln116_12_fu_14034_p2           | -   |        | add_ln116_12 | add | fabric | 0       |
+|     add_ln54_12_fu_18762_p2            | -   |        | add_ln54_12  | add | fabric | 0       |
+|     add_ln116_43_fu_14040_p2           | -   |        | add_ln116_43 | add | fabric | 0       |
+|     match_13_fu_18819_p2               | -   |        | match_13     | add | fabric | 0       |
+|     add_ln116_13_fu_14092_p2           | -   |        | add_ln116_13 | add | fabric | 0       |
+|     add_ln54_13_fu_18886_p2            | -   |        | add_ln54_13  | add | fabric | 0       |
+|     add_ln116_44_fu_14098_p2           | -   |        | add_ln116_44 | add | fabric | 0       |
+|     match_14_fu_18943_p2               | -   |        | match_14     | add | fabric | 0       |
+|     add_ln116_14_fu_14150_p2           | -   |        | add_ln116_14 | add | fabric | 0       |
+|     add_ln54_14_fu_19010_p2            | -   |        | add_ln54_14  | add | fabric | 0       |
+|     add_ln116_45_fu_14156_p2           | -   |        | add_ln116_45 | add | fabric | 0       |
+|     match_15_fu_19067_p2               | -   |        | match_15     | add | fabric | 0       |
+|     add_ln116_15_fu_16177_p2           | -   |        | add_ln116_15 | add | fabric | 0       |
+|     add_ln54_15_fu_19134_p2            | -   |        | add_ln54_15  | add | fabric | 0       |
+|     add_ln116_46_fu_16182_p2           | -   |        | add_ln116_46 | add | fabric | 0       |
+|     match_16_fu_19233_p2               | -   |        | match_16     | add | fabric | 0       |
+|     add_ln116_16_fu_16233_p2           | -   |        | add_ln116_16 | add | fabric | 0       |
+|     add_ln54_16_fu_19300_p2            | -   |        | add_ln54_16  | add | fabric | 0       |
+|     add_ln116_47_fu_16238_p2           | -   |        | add_ln116_47 | add | fabric | 0       |
+|     match_17_fu_19399_p2               | -   |        | match_17     | add | fabric | 0       |
+|     add_ln116_17_fu_16289_p2           | -   |        | add_ln116_17 | add | fabric | 0       |
+|     add_ln54_17_fu_19466_p2            | -   |        | add_ln54_17  | add | fabric | 0       |
+|     add_ln116_48_fu_16294_p2           | -   |        | add_ln116_48 | add | fabric | 0       |
+|     match_18_fu_19565_p2               | -   |        | match_18     | add | fabric | 0       |
+|     add_ln116_18_fu_16345_p2           | -   |        | add_ln116_18 | add | fabric | 0       |
+|     add_ln54_18_fu_19632_p2            | -   |        | add_ln54_18  | add | fabric | 0       |
+|     add_ln116_49_fu_16350_p2           | -   |        | add_ln116_49 | add | fabric | 0       |
+|     match_19_fu_19731_p2               | -   |        | match_19     | add | fabric | 0       |
+|     add_ln116_19_fu_16401_p2           | -   |        | add_ln116_19 | add | fabric | 0       |
+|     add_ln54_19_fu_19798_p2            | -   |        | add_ln54_19  | add | fabric | 0       |
+|     add_ln116_50_fu_16406_p2           | -   |        | add_ln116_50 | add | fabric | 0       |
+|     match_20_fu_19897_p2               | -   |        | match_20     | add | fabric | 0       |
+|     add_ln116_20_fu_16457_p2           | -   |        | add_ln116_20 | add | fabric | 0       |
+|     add_ln54_20_fu_19964_p2            | -   |        | add_ln54_20  | add | fabric | 0       |
+|     add_ln116_51_fu_16462_p2           | -   |        | add_ln116_51 | add | fabric | 0       |
+|     match_21_fu_20063_p2               | -   |        | match_21     | add | fabric | 0       |
+|     add_ln116_21_fu_16513_p2           | -   |        | add_ln116_21 | add | fabric | 0       |
+|     add_ln54_21_fu_20130_p2            | -   |        | add_ln54_21  | add | fabric | 0       |
+|     add_ln116_52_fu_16518_p2           | -   |        | add_ln116_52 | add | fabric | 0       |
+|     match_22_fu_20229_p2               | -   |        | match_22     | add | fabric | 0       |
+|     add_ln116_22_fu_16569_p2           | -   |        | add_ln116_22 | add | fabric | 0       |
+|     add_ln54_22_fu_20296_p2            | -   |        | add_ln54_22  | add | fabric | 0       |
+|     add_ln116_53_fu_16574_p2           | -   |        | add_ln116_53 | add | fabric | 0       |
+|     match_23_fu_20395_p2               | -   |        | match_23     | add | fabric | 0       |
+|     add_ln116_23_fu_16625_p2           | -   |        | add_ln116_23 | add | fabric | 0       |
+|     add_ln54_23_fu_20462_p2            | -   |        | add_ln54_23  | add | fabric | 0       |
+|     add_ln116_54_fu_16630_p2           | -   |        | add_ln116_54 | add | fabric | 0       |
+|     match_24_fu_20561_p2               | -   |        | match_24     | add | fabric | 0       |
+|     add_ln116_24_fu_16681_p2           | -   |        | add_ln116_24 | add | fabric | 0       |
+|     add_ln54_24_fu_20628_p2            | -   |        | add_ln54_24  | add | fabric | 0       |
+|     add_ln116_55_fu_16686_p2           | -   |        | add_ln116_55 | add | fabric | 0       |
+|     match_25_fu_20727_p2               | -   |        | match_25     | add | fabric | 0       |
+|     add_ln116_25_fu_16737_p2           | -   |        | add_ln116_25 | add | fabric | 0       |
+|     add_ln54_25_fu_20794_p2            | -   |        | add_ln54_25  | add | fabric | 0       |
+|     add_ln116_56_fu_16742_p2           | -   |        | add_ln116_56 | add | fabric | 0       |
+|     match_26_fu_20893_p2               | -   |        | match_26     | add | fabric | 0       |
+|     add_ln116_26_fu_16793_p2           | -   |        | add_ln116_26 | add | fabric | 0       |
+|     add_ln54_26_fu_20960_p2            | -   |        | add_ln54_26  | add | fabric | 0       |
+|     add_ln116_57_fu_16798_p2           | -   |        | add_ln116_57 | add | fabric | 0       |
+|     match_27_fu_21059_p2               | -   |        | match_27     | add | fabric | 0       |
+|     add_ln116_27_fu_16849_p2           | -   |        | add_ln116_27 | add | fabric | 0       |
+|     add_ln54_27_fu_21126_p2            | -   |        | add_ln54_27  | add | fabric | 0       |
+|     add_ln116_58_fu_16854_p2           | -   |        | add_ln116_58 | add | fabric | 0       |
+|     match_28_fu_21225_p2               | -   |        | match_28     | add | fabric | 0       |
+|     add_ln116_28_fu_16905_p2           | -   |        | add_ln116_28 | add | fabric | 0       |
+|     add_ln54_28_fu_21292_p2            | -   |        | add_ln54_28  | add | fabric | 0       |
+|     add_ln116_59_fu_16910_p2           | -   |        | add_ln116_59 | add | fabric | 0       |
+|     match_29_fu_21391_p2               | -   |        | match_29     | add | fabric | 0       |
+|     add_ln116_29_fu_16961_p2           | -   |        | add_ln116_29 | add | fabric | 0       |
+|     add_ln54_29_fu_21458_p2            | -   |        | add_ln54_29  | add | fabric | 0       |
+|     add_ln116_60_fu_16966_p2           | -   |        | add_ln116_60 | add | fabric | 0       |
+|     match_30_fu_21557_p2               | -   |        | match_30     | add | fabric | 0       |
+|     add_ln116_30_fu_17017_p2           | -   |        | add_ln116_30 | add | fabric | 0       |
+|     add_ln54_30_fu_21624_p2            | -   |        | add_ln54_30  | add | fabric | 0       |
+|     add_ln116_61_fu_17022_p2           | -   |        | add_ln116_61 | add | fabric | 0       |
+|     a2_31_fu_21679_p2                  | -   |        | a2_31        | add | fabric | 0       |
+|     match_31_fu_21714_p2               | -   |        | match_31     | add | fabric | 0       |
+|     add_ln88_fu_14208_p2               | -   |        | add_ln88     | add | fabric | 0       |
++----------------------------------------+-----+--------+--------------+-----+--------+---------+
+
+
+================================================================
+== Bind Storage Report
+================================================================
++---------------------------+------+------+--------+----------------------+---------+------+---------+
+| Name                      | BRAM | URAM | Pragma | Variable             | Storage | Impl | Latency |
++---------------------------+------+------+--------+----------------------+---------+------+---------+
+| + seq_align_multiple      | 0    | 0    |        |                      |         |      |         |
+|  + seq_align              | 0    | 0    |        |                      |         |      |         |
+|    local_reference_V_U    | -    | -    |        | local_reference_V    | rom_np  | auto | 1       |
+|    local_reference_V_1_U  | -    | -    |        | local_reference_V_1  | rom_np  | auto | 1       |
+|    local_reference_V_2_U  | -    | -    |        | local_reference_V_2  | rom_np  | auto | 1       |
+|    local_reference_V_3_U  | -    | -    |        | local_reference_V_3  | rom_np  | auto | 1       |
+|    local_reference_V_4_U  | -    | -    |        | local_reference_V_4  | rom_np  | auto | 1       |
+|    local_reference_V_5_U  | -    | -    |        | local_reference_V_5  | rom_np  | auto | 1       |
+|    local_reference_V_6_U  | -    | -    |        | local_reference_V_6  | rom_np  | auto | 1       |
+|    local_reference_V_7_U  | -    | -    |        | local_reference_V_7  | rom_np  | auto | 1       |
+|    local_reference_V_8_U  | -    | -    |        | local_reference_V_8  | rom_np  | auto | 1       |
+|    local_reference_V_9_U  | -    | -    |        | local_reference_V_9  | rom_np  | auto | 1       |
+|    local_reference_V_10_U | -    | -    |        | local_reference_V_10 | rom_np  | auto | 1       |
+|    local_reference_V_11_U | -    | -    |        | local_reference_V_11 | rom_np  | auto | 1       |
+|    local_reference_V_12_U | -    | -    |        | local_reference_V_12 | rom_np  | auto | 1       |
+|    local_reference_V_13_U | -    | -    |        | local_reference_V_13 | rom_np  | auto | 1       |
+|    local_reference_V_14_U | -    | -    |        | local_reference_V_14 | rom_np  | auto | 1       |
+|    local_reference_V_15_U | -    | -    |        | local_reference_V_15 | rom_np  | auto | 1       |
++---------------------------+------+------+--------+----------------------+---------+------+---------+
+
+
+================================================================
+== Pragma Report
+================================================================
+* Valid Pragma Syntax
++-----------------+-------------------------------------------+---------------------------------------------------------------------------+
+| Type            | Options                                   | Location                                                                  |
++-----------------+-------------------------------------------+---------------------------------------------------------------------------+
+| inline          |                                           | ../src/local_seq_align_cpp/seq_align.cpp:18 in pe                         |
+| array_partition | variable=dp_mem dim=0 complete            | ../src/local_seq_align_cpp/seq_align.cpp:68 in seq_align, dp_mem          |
+| array_partition | variable=Iy_mem dim=0 complete            | ../src/local_seq_align_cpp/seq_align.cpp:69 in seq_align, Iy_mem          |
+| array_partition | variable=Ix_mem dim=0 complete            | ../src/local_seq_align_cpp/seq_align.cpp:70 in seq_align, Ix_mem          |
+| array_partition | variable=dp_matrix dim=1 cyclic factor=16 | ../src/local_seq_align_cpp/seq_align.cpp:71 in seq_align, dp_matrix       |
+| array_partition | variable=local_query dim=0 complete       | ../src/local_seq_align_cpp/seq_align.cpp:81 in seq_align, local_query     |
+| array_partition | variable=local_reference cyclic factor=16 | ../src/local_seq_align_cpp/seq_align.cpp:82 in seq_align, local_reference |
+| pipeline        | II=1                                      | ../src/local_seq_align_cpp/seq_align.cpp:90 in seq_align                  |
+| unroll          |                                           | ../src/local_seq_align_cpp/seq_align.cpp:99 in seq_align                  |
+| unroll          |                                           | ../src/local_seq_align_cpp/seq_align.cpp:114 in seq_align                 |
+| unroll          |                                           | ../src/local_seq_align_cpp/seq_align.cpp:221 in seq_align_multiple        |
++-----------------+-------------------------------------------+---------------------------------------------------------------------------+
+
+
