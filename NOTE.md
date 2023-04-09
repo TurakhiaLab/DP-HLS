@@ -13,3 +13,7 @@ have to be the same as the file name.
 ### C and C++
 For the same folder name in *src*, the *_cpp* suffix means the project are defined in C++, while 
 others are usually in C. 
+
+----
+# HLS
+## `ap_int.h`
