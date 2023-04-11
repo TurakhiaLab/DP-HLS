@@ -1,0 +1,509 @@
+<profile>
+
+<section name = "Vitis HLS Report for 'seq_align_multiple_Pipeline_VITIS_LOOP_93_36'" level="0">
+<item name = "Date">Mon Apr 10 17:48:43 2023
+</item>
+<item name = "Version">2022.2 (Build 3670227 on Oct 13 2022)</item>
+<item name = "Project">local_seq_align_multiple_sa_vitis</item>
+<item name = "Solution">local_seq_align_multiple_sa_vitis (Vivado IP Flow Target)</item>
+<item name = "Product family">virtexuplus</item>
+<item name = "Target device">xcvu5p-flva2104-1-e</item>
+</section>
+
+<section name = "Performance Estimates" level="0">
+<item name = "Timing">
+<section name = "" level="1">
+<item name = "Summary"><table name="" hasTotal="0">
+<keys size="4">Clock, Target, Estimated, Uncertainty</keys>
+<column name="ap_clk">10.00 ns, 1.316 ns, 2.70 ns</column>
+</table>
+</item>
+</section>
+</item>
+<item name = "Latency">
+<section name = "" level="1">
+<item name = "Summary"><table name="" hasTotal="0">
+<keys size="8">, min, max, min, max, min, max, Type</keys>
+<column name="">66, 66, 0.660 us, 0.660 us, 66, 66, no</column>
+</table>
+</item>
+<item name = "Detail">
+<section name = "" level="1">
+<item name = "Instance"><table name="" hasTotal="0">
+<keys size="9">Instance, Module, min, max, min, max, min, max, Type</keys>
+</table>
+</item>
+<item name = "Loop"><table name="" hasTotal="0">
+<keys size="8">Loop Name, min, max, Latency, achieved, target, Count, Pipelined</keys>
+<column name="- VITIS_LOOP_93_3">64, 64, 2, 1, 1, 64, yes</column>
+</table>
+</item>
+</section>
+</item>
+</section>
+</item>
+</section>
+
+<section name = "Utilization Estimates" level="0">
+<item name = "Summary"><table name="" hasTotal="1">
+<keys size="6">Name, BRAM_18K, DSP, FF, LUT, URAM</keys>
+<column name="DSP">-, -, -, -, -</column>
+<column name="Expression">-, -, 0, 155, -</column>
+<column name="FIFO">-, -, -, -, -</column>
+<column name="Instance">-, -, -, -, -</column>
+<column name="Memory">-, -, -, -, -</column>
+<column name="Multiplexer">-, -, -, 612, -</column>
+<column name="Register">-, -, 144, -, -</column>
+<specialColumn name="Available SLR">1024, 1737, 600577, 300288, 235</specialColumn>
+<specialColumn name="Utilization SLR (%)">0, 0, ~0, ~0, 0</specialColumn>
+<specialColumn name="Available">2048, 3474, 1201154, 600577, 470</specialColumn>
+<specialColumn name="Utilization (%)">0, 0, ~0, ~0, 0</specialColumn>
+</table>
+</item>
+<item name = "Detail">
+<section name = "" level="1">
+<item name = "Instance"><table name="" hasTotal="1">
+<keys size="7">Instance, Module, BRAM_18K, DSP, FF, LUT, URAM</keys>
+</table>
+</item>
+<item name = "DSP"><table name="" hasTotal="0">
+<keys size="3">Instance, Module, Expression</keys>
+</table>
+</item>
+<item name = "Memory"><table name="" hasTotal="1">
+<keys size="10">Memory, Module, BRAM_18K, FF, LUT, URAM, Words, Bits, Banks, W*Bits*Banks</keys>
+</table>
+</item>
+<item name = "FIFO"><table name="" hasTotal="1">
+<keys size="8">Name, BRAM_18K, FF, LUT, URAM, Depth, Bits, Size:D*B</keys>
+</table>
+</item>
+<item name = "Expression"><table name="" hasTotal="1">
+<keys size="7">Variable Name, Operation, DSP, FF, LUT, Bitwidth P0, Bitwidth P1</keys>
+<column name="add_ln93_fu_1775_p2">+, 0, 0, 14, 7, 1</column>
+<column name="ap_condition_1001">and, 0, 0, 2, 1, 1</column>
+<column name="ap_condition_1004">and, 0, 0, 2, 1, 1</column>
+<column name="ap_condition_1007">and, 0, 0, 2, 1, 1</column>
+<column name="ap_condition_1010">and, 0, 0, 2, 1, 1</column>
+<column name="ap_condition_1013">and, 0, 0, 2, 1, 1</column>
+<column name="ap_condition_1016">and, 0, 0, 2, 1, 1</column>
+<column name="ap_condition_1019">and, 0, 0, 2, 1, 1</column>
+<column name="ap_condition_1022">and, 0, 0, 2, 1, 1</column>
+<column name="ap_condition_1025">and, 0, 0, 2, 1, 1</column>
+<column name="ap_condition_1028">and, 0, 0, 2, 1, 1</column>
+<column name="ap_condition_1031">and, 0, 0, 2, 1, 1</column>
+<column name="ap_condition_1034">and, 0, 0, 2, 1, 1</column>
+<column name="ap_condition_1037">and, 0, 0, 2, 1, 1</column>
+<column name="ap_condition_1040">and, 0, 0, 2, 1, 1</column>
+<column name="ap_condition_1043">and, 0, 0, 2, 1, 1</column>
+<column name="ap_condition_1046">and, 0, 0, 2, 1, 1</column>
+<column name="ap_condition_1049">and, 0, 0, 2, 1, 1</column>
+<column name="ap_condition_1052">and, 0, 0, 2, 1, 1</column>
+<column name="ap_condition_1055">and, 0, 0, 2, 1, 1</column>
+<column name="ap_condition_1058">and, 0, 0, 2, 1, 1</column>
+<column name="ap_condition_1061">and, 0, 0, 2, 1, 1</column>
+<column name="ap_condition_1064">and, 0, 0, 2, 1, 1</column>
+<column name="ap_condition_1067">and, 0, 0, 2, 1, 1</column>
+<column name="ap_condition_1070">and, 0, 0, 2, 1, 1</column>
+<column name="ap_condition_1073">and, 0, 0, 2, 1, 1</column>
+<column name="ap_condition_1076">and, 0, 0, 2, 1, 1</column>
+<column name="ap_condition_1079">and, 0, 0, 2, 1, 1</column>
+<column name="ap_condition_890">and, 0, 0, 2, 1, 1</column>
+<column name="ap_condition_893">and, 0, 0, 2, 1, 1</column>
+<column name="ap_condition_896">and, 0, 0, 2, 1, 1</column>
+<column name="ap_condition_899">and, 0, 0, 2, 1, 1</column>
+<column name="ap_condition_902">and, 0, 0, 2, 1, 1</column>
+<column name="ap_condition_905">and, 0, 0, 2, 1, 1</column>
+<column name="ap_condition_908">and, 0, 0, 2, 1, 1</column>
+<column name="ap_condition_911">and, 0, 0, 2, 1, 1</column>
+<column name="ap_condition_914">and, 0, 0, 2, 1, 1</column>
+<column name="ap_condition_917">and, 0, 0, 2, 1, 1</column>
+<column name="ap_condition_920">and, 0, 0, 2, 1, 1</column>
+<column name="ap_condition_923">and, 0, 0, 2, 1, 1</column>
+<column name="ap_condition_926">and, 0, 0, 2, 1, 1</column>
+<column name="ap_condition_929">and, 0, 0, 2, 1, 1</column>
+<column name="ap_condition_932">and, 0, 0, 2, 1, 1</column>
+<column name="ap_condition_935">and, 0, 0, 2, 1, 1</column>
+<column name="ap_condition_938">and, 0, 0, 2, 1, 1</column>
+<column name="ap_condition_941">and, 0, 0, 2, 1, 1</column>
+<column name="ap_condition_944">and, 0, 0, 2, 1, 1</column>
+<column name="ap_condition_947">and, 0, 0, 2, 1, 1</column>
+<column name="ap_condition_950">and, 0, 0, 2, 1, 1</column>
+<column name="ap_condition_953">and, 0, 0, 2, 1, 1</column>
+<column name="ap_condition_956">and, 0, 0, 2, 1, 1</column>
+<column name="ap_condition_959">and, 0, 0, 2, 1, 1</column>
+<column name="ap_condition_962">and, 0, 0, 2, 1, 1</column>
+<column name="ap_condition_965">and, 0, 0, 2, 1, 1</column>
+<column name="ap_condition_968">and, 0, 0, 2, 1, 1</column>
+<column name="ap_condition_971">and, 0, 0, 2, 1, 1</column>
+<column name="ap_condition_974">and, 0, 0, 2, 1, 1</column>
+<column name="ap_condition_977">and, 0, 0, 2, 1, 1</column>
+<column name="ap_condition_980">and, 0, 0, 2, 1, 1</column>
+<column name="ap_condition_983">and, 0, 0, 2, 1, 1</column>
+<column name="ap_condition_986">and, 0, 0, 2, 1, 1</column>
+<column name="ap_condition_989">and, 0, 0, 2, 1, 1</column>
+<column name="ap_condition_992">and, 0, 0, 2, 1, 1</column>
+<column name="ap_condition_995">and, 0, 0, 2, 1, 1</column>
+<column name="ap_condition_998">and, 0, 0, 2, 1, 1</column>
+<column name="icmp_ln93_fu_1769_p2">icmp, 0, 0, 11, 7, 8</column>
+<column name="ap_enable_pp0">xor, 0, 0, 2, 1, 2</column>
+</table>
+</item>
+<item name = "Multiplexer"><table name="" hasTotal="1">
+<keys size="5">Name, LUT, Input Size, Bits, Total Bits</keys>
+<column name="ap_done_int">9, 2, 1, 2</column>
+<column name="ap_enable_reg_pp0_iter1">9, 2, 1, 2</column>
+<column name="ap_sig_allocacmp_i_1">9, 2, 7, 14</column>
+<column name="i_fu_336">9, 2, 7, 14</column>
+<column name="local_reference_V_1_10_fu_380">9, 2, 2, 4</column>
+<column name="local_reference_V_1_11_fu_384">9, 2, 2, 4</column>
+<column name="local_reference_V_1_12_fu_388">9, 2, 2, 4</column>
+<column name="local_reference_V_1_13_fu_392">9, 2, 2, 4</column>
+<column name="local_reference_V_1_14_fu_396">9, 2, 2, 4</column>
+<column name="local_reference_V_1_15_fu_400">9, 2, 2, 4</column>
+<column name="local_reference_V_1_16_fu_404">9, 2, 2, 4</column>
+<column name="local_reference_V_1_17_fu_408">9, 2, 2, 4</column>
+<column name="local_reference_V_1_18_fu_412">9, 2, 2, 4</column>
+<column name="local_reference_V_1_19_fu_416">9, 2, 2, 4</column>
+<column name="local_reference_V_1_1_fu_344">9, 2, 2, 4</column>
+<column name="local_reference_V_1_20_fu_420">9, 2, 2, 4</column>
+<column name="local_reference_V_1_21_fu_424">9, 2, 2, 4</column>
+<column name="local_reference_V_1_22_fu_428">9, 2, 2, 4</column>
+<column name="local_reference_V_1_23_fu_432">9, 2, 2, 4</column>
+<column name="local_reference_V_1_24_fu_436">9, 2, 2, 4</column>
+<column name="local_reference_V_1_25_fu_440">9, 2, 2, 4</column>
+<column name="local_reference_V_1_26_fu_444">9, 2, 2, 4</column>
+<column name="local_reference_V_1_27_fu_448">9, 2, 2, 4</column>
+<column name="local_reference_V_1_28_fu_452">9, 2, 2, 4</column>
+<column name="local_reference_V_1_29_fu_456">9, 2, 2, 4</column>
+<column name="local_reference_V_1_2_fu_348">9, 2, 2, 4</column>
+<column name="local_reference_V_1_30_fu_460">9, 2, 2, 4</column>
+<column name="local_reference_V_1_31_fu_464">9, 2, 2, 4</column>
+<column name="local_reference_V_1_32_fu_468">9, 2, 2, 4</column>
+<column name="local_reference_V_1_33_fu_472">9, 2, 2, 4</column>
+<column name="local_reference_V_1_34_fu_476">9, 2, 2, 4</column>
+<column name="local_reference_V_1_35_fu_480">9, 2, 2, 4</column>
+<column name="local_reference_V_1_36_fu_484">9, 2, 2, 4</column>
+<column name="local_reference_V_1_37_fu_488">9, 2, 2, 4</column>
+<column name="local_reference_V_1_38_fu_492">9, 2, 2, 4</column>
+<column name="local_reference_V_1_39_fu_496">9, 2, 2, 4</column>
+<column name="local_reference_V_1_3_fu_352">9, 2, 2, 4</column>
+<column name="local_reference_V_1_40_fu_500">9, 2, 2, 4</column>
+<column name="local_reference_V_1_41_fu_504">9, 2, 2, 4</column>
+<column name="local_reference_V_1_42_fu_508">9, 2, 2, 4</column>
+<column name="local_reference_V_1_43_fu_512">9, 2, 2, 4</column>
+<column name="local_reference_V_1_44_fu_516">9, 2, 2, 4</column>
+<column name="local_reference_V_1_45_fu_520">9, 2, 2, 4</column>
+<column name="local_reference_V_1_46_fu_524">9, 2, 2, 4</column>
+<column name="local_reference_V_1_47_fu_528">9, 2, 2, 4</column>
+<column name="local_reference_V_1_48_fu_532">9, 2, 2, 4</column>
+<column name="local_reference_V_1_49_fu_536">9, 2, 2, 4</column>
+<column name="local_reference_V_1_4_fu_356">9, 2, 2, 4</column>
+<column name="local_reference_V_1_50_fu_540">9, 2, 2, 4</column>
+<column name="local_reference_V_1_51_fu_544">9, 2, 2, 4</column>
+<column name="local_reference_V_1_52_fu_548">9, 2, 2, 4</column>
+<column name="local_reference_V_1_53_fu_552">9, 2, 2, 4</column>
+<column name="local_reference_V_1_54_fu_556">9, 2, 2, 4</column>
+<column name="local_reference_V_1_55_fu_560">9, 2, 2, 4</column>
+<column name="local_reference_V_1_56_fu_564">9, 2, 2, 4</column>
+<column name="local_reference_V_1_57_fu_568">9, 2, 2, 4</column>
+<column name="local_reference_V_1_58_fu_572">9, 2, 2, 4</column>
+<column name="local_reference_V_1_59_fu_576">9, 2, 2, 4</column>
+<column name="local_reference_V_1_5_fu_360">9, 2, 2, 4</column>
+<column name="local_reference_V_1_60_fu_580">9, 2, 2, 4</column>
+<column name="local_reference_V_1_61_fu_584">9, 2, 2, 4</column>
+<column name="local_reference_V_1_62_fu_588">9, 2, 2, 4</column>
+<column name="local_reference_V_1_63_fu_592">9, 2, 2, 4</column>
+<column name="local_reference_V_1_6_fu_364">9, 2, 2, 4</column>
+<column name="local_reference_V_1_7_fu_368">9, 2, 2, 4</column>
+<column name="local_reference_V_1_8_fu_372">9, 2, 2, 4</column>
+<column name="local_reference_V_1_9_fu_376">9, 2, 2, 4</column>
+<column name="local_reference_V_1_fu_340">9, 2, 2, 4</column>
+</table>
+</item>
+<item name = "Register"><table name="" hasTotal="1">
+<keys size="5">Name, FF, LUT, Bits, Const Bits</keys>
+<column name="ap_CS_fsm">1, 0, 1, 0</column>
+<column name="ap_done_reg">1, 0, 1, 0</column>
+<column name="ap_enable_reg_pp0_iter1">1, 0, 1, 0</column>
+<column name="i_fu_336">7, 0, 7, 0</column>
+<column name="local_reference_V_1_10_fu_380">2, 0, 2, 0</column>
+<column name="local_reference_V_1_11_fu_384">2, 0, 2, 0</column>
+<column name="local_reference_V_1_12_fu_388">2, 0, 2, 0</column>
+<column name="local_reference_V_1_13_fu_392">2, 0, 2, 0</column>
+<column name="local_reference_V_1_14_fu_396">2, 0, 2, 0</column>
+<column name="local_reference_V_1_15_fu_400">2, 0, 2, 0</column>
+<column name="local_reference_V_1_16_fu_404">2, 0, 2, 0</column>
+<column name="local_reference_V_1_17_fu_408">2, 0, 2, 0</column>
+<column name="local_reference_V_1_18_fu_412">2, 0, 2, 0</column>
+<column name="local_reference_V_1_19_fu_416">2, 0, 2, 0</column>
+<column name="local_reference_V_1_1_fu_344">2, 0, 2, 0</column>
+<column name="local_reference_V_1_20_fu_420">2, 0, 2, 0</column>
+<column name="local_reference_V_1_21_fu_424">2, 0, 2, 0</column>
+<column name="local_reference_V_1_22_fu_428">2, 0, 2, 0</column>
+<column name="local_reference_V_1_23_fu_432">2, 0, 2, 0</column>
+<column name="local_reference_V_1_24_fu_436">2, 0, 2, 0</column>
+<column name="local_reference_V_1_25_fu_440">2, 0, 2, 0</column>
+<column name="local_reference_V_1_26_fu_444">2, 0, 2, 0</column>
+<column name="local_reference_V_1_27_fu_448">2, 0, 2, 0</column>
+<column name="local_reference_V_1_28_fu_452">2, 0, 2, 0</column>
+<column name="local_reference_V_1_29_fu_456">2, 0, 2, 0</column>
+<column name="local_reference_V_1_2_fu_348">2, 0, 2, 0</column>
+<column name="local_reference_V_1_30_fu_460">2, 0, 2, 0</column>
+<column name="local_reference_V_1_31_fu_464">2, 0, 2, 0</column>
+<column name="local_reference_V_1_32_fu_468">2, 0, 2, 0</column>
+<column name="local_reference_V_1_33_fu_472">2, 0, 2, 0</column>
+<column name="local_reference_V_1_34_fu_476">2, 0, 2, 0</column>
+<column name="local_reference_V_1_35_fu_480">2, 0, 2, 0</column>
+<column name="local_reference_V_1_36_fu_484">2, 0, 2, 0</column>
+<column name="local_reference_V_1_37_fu_488">2, 0, 2, 0</column>
+<column name="local_reference_V_1_38_fu_492">2, 0, 2, 0</column>
+<column name="local_reference_V_1_39_fu_496">2, 0, 2, 0</column>
+<column name="local_reference_V_1_3_fu_352">2, 0, 2, 0</column>
+<column name="local_reference_V_1_40_fu_500">2, 0, 2, 0</column>
+<column name="local_reference_V_1_41_fu_504">2, 0, 2, 0</column>
+<column name="local_reference_V_1_42_fu_508">2, 0, 2, 0</column>
+<column name="local_reference_V_1_43_fu_512">2, 0, 2, 0</column>
+<column name="local_reference_V_1_44_fu_516">2, 0, 2, 0</column>
+<column name="local_reference_V_1_45_fu_520">2, 0, 2, 0</column>
+<column name="local_reference_V_1_46_fu_524">2, 0, 2, 0</column>
+<column name="local_reference_V_1_47_fu_528">2, 0, 2, 0</column>
+<column name="local_reference_V_1_48_fu_532">2, 0, 2, 0</column>
+<column name="local_reference_V_1_49_fu_536">2, 0, 2, 0</column>
+<column name="local_reference_V_1_4_fu_356">2, 0, 2, 0</column>
+<column name="local_reference_V_1_50_fu_540">2, 0, 2, 0</column>
+<column name="local_reference_V_1_51_fu_544">2, 0, 2, 0</column>
+<column name="local_reference_V_1_52_fu_548">2, 0, 2, 0</column>
+<column name="local_reference_V_1_53_fu_552">2, 0, 2, 0</column>
+<column name="local_reference_V_1_54_fu_556">2, 0, 2, 0</column>
+<column name="local_reference_V_1_55_fu_560">2, 0, 2, 0</column>
+<column name="local_reference_V_1_56_fu_564">2, 0, 2, 0</column>
+<column name="local_reference_V_1_57_fu_568">2, 0, 2, 0</column>
+<column name="local_reference_V_1_58_fu_572">2, 0, 2, 0</column>
+<column name="local_reference_V_1_59_fu_576">2, 0, 2, 0</column>
+<column name="local_reference_V_1_5_fu_360">2, 0, 2, 0</column>
+<column name="local_reference_V_1_60_fu_580">2, 0, 2, 0</column>
+<column name="local_reference_V_1_61_fu_584">2, 0, 2, 0</column>
+<column name="local_reference_V_1_62_fu_588">2, 0, 2, 0</column>
+<column name="local_reference_V_1_63_fu_592">2, 0, 2, 0</column>
+<column name="local_reference_V_1_6_fu_364">2, 0, 2, 0</column>
+<column name="local_reference_V_1_7_fu_368">2, 0, 2, 0</column>
+<column name="local_reference_V_1_8_fu_372">2, 0, 2, 0</column>
+<column name="local_reference_V_1_9_fu_376">2, 0, 2, 0</column>
+<column name="local_reference_V_1_fu_340">2, 0, 2, 0</column>
+<column name="trunc_ln94_reg_2848">4, 0, 4, 0</column>
+<column name="trunc_ln94_s_reg_2844">2, 0, 2, 0</column>
+</table>
+</item>
+</section>
+</item>
+</section>
+
+<section name = "Interface" level="0">
+<item name = "Summary"><table name="" hasTotal="0">
+<keys size="6">RTL Ports, Dir, Bits, Protocol, Source Object, C Type</keys>
+<column name="ap_clk">in, 1, ap_ctrl_hs, seq_align_multiple_Pipeline_VITIS_LOOP_93_36, return value</column>
+<column name="ap_rst">in, 1, ap_ctrl_hs, seq_align_multiple_Pipeline_VITIS_LOOP_93_36, return value</column>
+<column name="ap_start">in, 1, ap_ctrl_hs, seq_align_multiple_Pipeline_VITIS_LOOP_93_36, return value</column>
+<column name="ap_done">out, 1, ap_ctrl_hs, seq_align_multiple_Pipeline_VITIS_LOOP_93_36, return value</column>
+<column name="ap_idle">out, 1, ap_ctrl_hs, seq_align_multiple_Pipeline_VITIS_LOOP_93_36, return value</column>
+<column name="ap_ready">out, 1, ap_ctrl_hs, seq_align_multiple_Pipeline_VITIS_LOOP_93_36, return value</column>
+<column name="local_reference_V_3_15_3_reload">in, 2, ap_none, local_reference_V_3_15_3_reload, scalar</column>
+<column name="local_reference_V_2_15_3_reload">in, 2, ap_none, local_reference_V_2_15_3_reload, scalar</column>
+<column name="local_reference_V_1_15_3_reload">in, 2, ap_none, local_reference_V_1_15_3_reload, scalar</column>
+<column name="local_reference_V_0_15_3_reload">in, 2, ap_none, local_reference_V_0_15_3_reload, scalar</column>
+<column name="local_reference_V_3_14_3_reload">in, 2, ap_none, local_reference_V_3_14_3_reload, scalar</column>
+<column name="local_reference_V_2_14_3_reload">in, 2, ap_none, local_reference_V_2_14_3_reload, scalar</column>
+<column name="local_reference_V_1_14_3_reload">in, 2, ap_none, local_reference_V_1_14_3_reload, scalar</column>
+<column name="local_reference_V_0_14_3_reload">in, 2, ap_none, local_reference_V_0_14_3_reload, scalar</column>
+<column name="local_reference_V_3_13_3_reload">in, 2, ap_none, local_reference_V_3_13_3_reload, scalar</column>
+<column name="local_reference_V_2_13_3_reload">in, 2, ap_none, local_reference_V_2_13_3_reload, scalar</column>
+<column name="local_reference_V_1_13_3_reload">in, 2, ap_none, local_reference_V_1_13_3_reload, scalar</column>
+<column name="local_reference_V_0_13_3_reload">in, 2, ap_none, local_reference_V_0_13_3_reload, scalar</column>
+<column name="local_reference_V_3_12_3_reload">in, 2, ap_none, local_reference_V_3_12_3_reload, scalar</column>
+<column name="local_reference_V_2_12_3_reload">in, 2, ap_none, local_reference_V_2_12_3_reload, scalar</column>
+<column name="local_reference_V_1_12_3_reload">in, 2, ap_none, local_reference_V_1_12_3_reload, scalar</column>
+<column name="local_reference_V_0_12_3_reload">in, 2, ap_none, local_reference_V_0_12_3_reload, scalar</column>
+<column name="local_reference_V_3_11_3_reload">in, 2, ap_none, local_reference_V_3_11_3_reload, scalar</column>
+<column name="local_reference_V_2_11_3_reload">in, 2, ap_none, local_reference_V_2_11_3_reload, scalar</column>
+<column name="local_reference_V_1_11_3_reload">in, 2, ap_none, local_reference_V_1_11_3_reload, scalar</column>
+<column name="local_reference_V_0_11_3_reload">in, 2, ap_none, local_reference_V_0_11_3_reload, scalar</column>
+<column name="local_reference_V_3_10_3_reload">in, 2, ap_none, local_reference_V_3_10_3_reload, scalar</column>
+<column name="local_reference_V_2_10_3_reload">in, 2, ap_none, local_reference_V_2_10_3_reload, scalar</column>
+<column name="local_reference_V_1_10_3_reload">in, 2, ap_none, local_reference_V_1_10_3_reload, scalar</column>
+<column name="local_reference_V_0_10_3_reload">in, 2, ap_none, local_reference_V_0_10_3_reload, scalar</column>
+<column name="local_reference_V_3_9_3_reload">in, 2, ap_none, local_reference_V_3_9_3_reload, scalar</column>
+<column name="local_reference_V_2_9_3_reload">in, 2, ap_none, local_reference_V_2_9_3_reload, scalar</column>
+<column name="local_reference_V_1_9_3_reload">in, 2, ap_none, local_reference_V_1_9_3_reload, scalar</column>
+<column name="local_reference_V_0_9_3_reload">in, 2, ap_none, local_reference_V_0_9_3_reload, scalar</column>
+<column name="local_reference_V_3_8_3_reload">in, 2, ap_none, local_reference_V_3_8_3_reload, scalar</column>
+<column name="local_reference_V_2_8_3_reload">in, 2, ap_none, local_reference_V_2_8_3_reload, scalar</column>
+<column name="local_reference_V_1_8_3_reload">in, 2, ap_none, local_reference_V_1_8_3_reload, scalar</column>
+<column name="local_reference_V_0_8_3_reload">in, 2, ap_none, local_reference_V_0_8_3_reload, scalar</column>
+<column name="local_reference_V_3_7_3_reload">in, 2, ap_none, local_reference_V_3_7_3_reload, scalar</column>
+<column name="local_reference_V_2_7_3_reload">in, 2, ap_none, local_reference_V_2_7_3_reload, scalar</column>
+<column name="local_reference_V_1_7_3_reload">in, 2, ap_none, local_reference_V_1_7_3_reload, scalar</column>
+<column name="local_reference_V_0_7_3_reload">in, 2, ap_none, local_reference_V_0_7_3_reload, scalar</column>
+<column name="local_reference_V_3_6_3_reload">in, 2, ap_none, local_reference_V_3_6_3_reload, scalar</column>
+<column name="local_reference_V_2_6_3_reload">in, 2, ap_none, local_reference_V_2_6_3_reload, scalar</column>
+<column name="local_reference_V_1_6_3_reload">in, 2, ap_none, local_reference_V_1_6_3_reload, scalar</column>
+<column name="local_reference_V_0_6_3_reload">in, 2, ap_none, local_reference_V_0_6_3_reload, scalar</column>
+<column name="local_reference_V_3_5_3_reload">in, 2, ap_none, local_reference_V_3_5_3_reload, scalar</column>
+<column name="local_reference_V_2_5_3_reload">in, 2, ap_none, local_reference_V_2_5_3_reload, scalar</column>
+<column name="local_reference_V_1_5_3_reload">in, 2, ap_none, local_reference_V_1_5_3_reload, scalar</column>
+<column name="local_reference_V_0_5_3_reload">in, 2, ap_none, local_reference_V_0_5_3_reload, scalar</column>
+<column name="local_reference_V_3_4_3_reload">in, 2, ap_none, local_reference_V_3_4_3_reload, scalar</column>
+<column name="local_reference_V_2_4_3_reload">in, 2, ap_none, local_reference_V_2_4_3_reload, scalar</column>
+<column name="local_reference_V_1_4_3_reload">in, 2, ap_none, local_reference_V_1_4_3_reload, scalar</column>
+<column name="local_reference_V_0_4_3_reload">in, 2, ap_none, local_reference_V_0_4_3_reload, scalar</column>
+<column name="local_reference_V_3_3_3_reload">in, 2, ap_none, local_reference_V_3_3_3_reload, scalar</column>
+<column name="local_reference_V_2_3_3_reload">in, 2, ap_none, local_reference_V_2_3_3_reload, scalar</column>
+<column name="local_reference_V_1_3_3_reload">in, 2, ap_none, local_reference_V_1_3_3_reload, scalar</column>
+<column name="local_reference_V_0_3_3_reload">in, 2, ap_none, local_reference_V_0_3_3_reload, scalar</column>
+<column name="local_reference_V_3_2_3_reload">in, 2, ap_none, local_reference_V_3_2_3_reload, scalar</column>
+<column name="local_reference_V_2_2_3_reload">in, 2, ap_none, local_reference_V_2_2_3_reload, scalar</column>
+<column name="local_reference_V_1_2_3_reload">in, 2, ap_none, local_reference_V_1_2_3_reload, scalar</column>
+<column name="local_reference_V_0_2_3_reload">in, 2, ap_none, local_reference_V_0_2_3_reload, scalar</column>
+<column name="local_reference_V_3_1_3_reload">in, 2, ap_none, local_reference_V_3_1_3_reload, scalar</column>
+<column name="local_reference_V_2_1_3_reload">in, 2, ap_none, local_reference_V_2_1_3_reload, scalar</column>
+<column name="local_reference_V_1_1_3_reload">in, 2, ap_none, local_reference_V_1_1_3_reload, scalar</column>
+<column name="local_reference_V_0_1_3_reload">in, 2, ap_none, local_reference_V_0_1_3_reload, scalar</column>
+<column name="local_reference_V_3_354_reload">in, 2, ap_none, local_reference_V_3_354_reload, scalar</column>
+<column name="local_reference_V_2_339_reload">in, 2, ap_none, local_reference_V_2_339_reload, scalar</column>
+<column name="local_reference_V_1_324_reload">in, 2, ap_none, local_reference_V_1_324_reload, scalar</column>
+<column name="local_reference_V_0_38_reload">in, 2, ap_none, local_reference_V_0_38_reload, scalar</column>
+<column name="reference_string_comp_1_address0">out, 7, ap_memory, reference_string_comp_1, array</column>
+<column name="reference_string_comp_1_ce0">out, 1, ap_memory, reference_string_comp_1, array</column>
+<column name="reference_string_comp_1_q0">in, 2, ap_memory, reference_string_comp_1, array</column>
+<column name="local_reference_V_3_15_6_out">out, 2, ap_vld, local_reference_V_3_15_6_out, pointer</column>
+<column name="local_reference_V_3_15_6_out_ap_vld">out, 1, ap_vld, local_reference_V_3_15_6_out, pointer</column>
+<column name="local_reference_V_2_15_6_out">out, 2, ap_vld, local_reference_V_2_15_6_out, pointer</column>
+<column name="local_reference_V_2_15_6_out_ap_vld">out, 1, ap_vld, local_reference_V_2_15_6_out, pointer</column>
+<column name="local_reference_V_1_15_6_out">out, 2, ap_vld, local_reference_V_1_15_6_out, pointer</column>
+<column name="local_reference_V_1_15_6_out_ap_vld">out, 1, ap_vld, local_reference_V_1_15_6_out, pointer</column>
+<column name="local_reference_V_0_15_6_out">out, 2, ap_vld, local_reference_V_0_15_6_out, pointer</column>
+<column name="local_reference_V_0_15_6_out_ap_vld">out, 1, ap_vld, local_reference_V_0_15_6_out, pointer</column>
+<column name="local_reference_V_3_14_6_out">out, 2, ap_vld, local_reference_V_3_14_6_out, pointer</column>
+<column name="local_reference_V_3_14_6_out_ap_vld">out, 1, ap_vld, local_reference_V_3_14_6_out, pointer</column>
+<column name="local_reference_V_2_14_6_out">out, 2, ap_vld, local_reference_V_2_14_6_out, pointer</column>
+<column name="local_reference_V_2_14_6_out_ap_vld">out, 1, ap_vld, local_reference_V_2_14_6_out, pointer</column>
+<column name="local_reference_V_1_14_6_out">out, 2, ap_vld, local_reference_V_1_14_6_out, pointer</column>
+<column name="local_reference_V_1_14_6_out_ap_vld">out, 1, ap_vld, local_reference_V_1_14_6_out, pointer</column>
+<column name="local_reference_V_0_14_6_out">out, 2, ap_vld, local_reference_V_0_14_6_out, pointer</column>
+<column name="local_reference_V_0_14_6_out_ap_vld">out, 1, ap_vld, local_reference_V_0_14_6_out, pointer</column>
+<column name="local_reference_V_3_13_6_out">out, 2, ap_vld, local_reference_V_3_13_6_out, pointer</column>
+<column name="local_reference_V_3_13_6_out_ap_vld">out, 1, ap_vld, local_reference_V_3_13_6_out, pointer</column>
+<column name="local_reference_V_2_13_6_out">out, 2, ap_vld, local_reference_V_2_13_6_out, pointer</column>
+<column name="local_reference_V_2_13_6_out_ap_vld">out, 1, ap_vld, local_reference_V_2_13_6_out, pointer</column>
+<column name="local_reference_V_1_13_6_out">out, 2, ap_vld, local_reference_V_1_13_6_out, pointer</column>
+<column name="local_reference_V_1_13_6_out_ap_vld">out, 1, ap_vld, local_reference_V_1_13_6_out, pointer</column>
+<column name="local_reference_V_0_13_6_out">out, 2, ap_vld, local_reference_V_0_13_6_out, pointer</column>
+<column name="local_reference_V_0_13_6_out_ap_vld">out, 1, ap_vld, local_reference_V_0_13_6_out, pointer</column>
+<column name="local_reference_V_3_12_6_out">out, 2, ap_vld, local_reference_V_3_12_6_out, pointer</column>
+<column name="local_reference_V_3_12_6_out_ap_vld">out, 1, ap_vld, local_reference_V_3_12_6_out, pointer</column>
+<column name="local_reference_V_2_12_6_out">out, 2, ap_vld, local_reference_V_2_12_6_out, pointer</column>
+<column name="local_reference_V_2_12_6_out_ap_vld">out, 1, ap_vld, local_reference_V_2_12_6_out, pointer</column>
+<column name="local_reference_V_1_12_6_out">out, 2, ap_vld, local_reference_V_1_12_6_out, pointer</column>
+<column name="local_reference_V_1_12_6_out_ap_vld">out, 1, ap_vld, local_reference_V_1_12_6_out, pointer</column>
+<column name="local_reference_V_0_12_6_out">out, 2, ap_vld, local_reference_V_0_12_6_out, pointer</column>
+<column name="local_reference_V_0_12_6_out_ap_vld">out, 1, ap_vld, local_reference_V_0_12_6_out, pointer</column>
+<column name="local_reference_V_3_11_6_out">out, 2, ap_vld, local_reference_V_3_11_6_out, pointer</column>
+<column name="local_reference_V_3_11_6_out_ap_vld">out, 1, ap_vld, local_reference_V_3_11_6_out, pointer</column>
+<column name="local_reference_V_2_11_6_out">out, 2, ap_vld, local_reference_V_2_11_6_out, pointer</column>
+<column name="local_reference_V_2_11_6_out_ap_vld">out, 1, ap_vld, local_reference_V_2_11_6_out, pointer</column>
+<column name="local_reference_V_1_11_6_out">out, 2, ap_vld, local_reference_V_1_11_6_out, pointer</column>
+<column name="local_reference_V_1_11_6_out_ap_vld">out, 1, ap_vld, local_reference_V_1_11_6_out, pointer</column>
+<column name="local_reference_V_0_11_6_out">out, 2, ap_vld, local_reference_V_0_11_6_out, pointer</column>
+<column name="local_reference_V_0_11_6_out_ap_vld">out, 1, ap_vld, local_reference_V_0_11_6_out, pointer</column>
+<column name="local_reference_V_3_10_6_out">out, 2, ap_vld, local_reference_V_3_10_6_out, pointer</column>
+<column name="local_reference_V_3_10_6_out_ap_vld">out, 1, ap_vld, local_reference_V_3_10_6_out, pointer</column>
+<column name="local_reference_V_2_10_6_out">out, 2, ap_vld, local_reference_V_2_10_6_out, pointer</column>
+<column name="local_reference_V_2_10_6_out_ap_vld">out, 1, ap_vld, local_reference_V_2_10_6_out, pointer</column>
+<column name="local_reference_V_1_10_6_out">out, 2, ap_vld, local_reference_V_1_10_6_out, pointer</column>
+<column name="local_reference_V_1_10_6_out_ap_vld">out, 1, ap_vld, local_reference_V_1_10_6_out, pointer</column>
+<column name="local_reference_V_0_10_6_out">out, 2, ap_vld, local_reference_V_0_10_6_out, pointer</column>
+<column name="local_reference_V_0_10_6_out_ap_vld">out, 1, ap_vld, local_reference_V_0_10_6_out, pointer</column>
+<column name="local_reference_V_3_9_6_out">out, 2, ap_vld, local_reference_V_3_9_6_out, pointer</column>
+<column name="local_reference_V_3_9_6_out_ap_vld">out, 1, ap_vld, local_reference_V_3_9_6_out, pointer</column>
+<column name="local_reference_V_2_9_6_out">out, 2, ap_vld, local_reference_V_2_9_6_out, pointer</column>
+<column name="local_reference_V_2_9_6_out_ap_vld">out, 1, ap_vld, local_reference_V_2_9_6_out, pointer</column>
+<column name="local_reference_V_1_9_6_out">out, 2, ap_vld, local_reference_V_1_9_6_out, pointer</column>
+<column name="local_reference_V_1_9_6_out_ap_vld">out, 1, ap_vld, local_reference_V_1_9_6_out, pointer</column>
+<column name="local_reference_V_0_9_6_out">out, 2, ap_vld, local_reference_V_0_9_6_out, pointer</column>
+<column name="local_reference_V_0_9_6_out_ap_vld">out, 1, ap_vld, local_reference_V_0_9_6_out, pointer</column>
+<column name="local_reference_V_3_8_6_out">out, 2, ap_vld, local_reference_V_3_8_6_out, pointer</column>
+<column name="local_reference_V_3_8_6_out_ap_vld">out, 1, ap_vld, local_reference_V_3_8_6_out, pointer</column>
+<column name="local_reference_V_2_8_6_out">out, 2, ap_vld, local_reference_V_2_8_6_out, pointer</column>
+<column name="local_reference_V_2_8_6_out_ap_vld">out, 1, ap_vld, local_reference_V_2_8_6_out, pointer</column>
+<column name="local_reference_V_1_8_6_out">out, 2, ap_vld, local_reference_V_1_8_6_out, pointer</column>
+<column name="local_reference_V_1_8_6_out_ap_vld">out, 1, ap_vld, local_reference_V_1_8_6_out, pointer</column>
+<column name="local_reference_V_0_8_6_out">out, 2, ap_vld, local_reference_V_0_8_6_out, pointer</column>
+<column name="local_reference_V_0_8_6_out_ap_vld">out, 1, ap_vld, local_reference_V_0_8_6_out, pointer</column>
+<column name="local_reference_V_3_7_6_out">out, 2, ap_vld, local_reference_V_3_7_6_out, pointer</column>
+<column name="local_reference_V_3_7_6_out_ap_vld">out, 1, ap_vld, local_reference_V_3_7_6_out, pointer</column>
+<column name="local_reference_V_2_7_6_out">out, 2, ap_vld, local_reference_V_2_7_6_out, pointer</column>
+<column name="local_reference_V_2_7_6_out_ap_vld">out, 1, ap_vld, local_reference_V_2_7_6_out, pointer</column>
+<column name="local_reference_V_1_7_6_out">out, 2, ap_vld, local_reference_V_1_7_6_out, pointer</column>
+<column name="local_reference_V_1_7_6_out_ap_vld">out, 1, ap_vld, local_reference_V_1_7_6_out, pointer</column>
+<column name="local_reference_V_0_7_6_out">out, 2, ap_vld, local_reference_V_0_7_6_out, pointer</column>
+<column name="local_reference_V_0_7_6_out_ap_vld">out, 1, ap_vld, local_reference_V_0_7_6_out, pointer</column>
+<column name="local_reference_V_3_6_6_out">out, 2, ap_vld, local_reference_V_3_6_6_out, pointer</column>
+<column name="local_reference_V_3_6_6_out_ap_vld">out, 1, ap_vld, local_reference_V_3_6_6_out, pointer</column>
+<column name="local_reference_V_2_6_6_out">out, 2, ap_vld, local_reference_V_2_6_6_out, pointer</column>
+<column name="local_reference_V_2_6_6_out_ap_vld">out, 1, ap_vld, local_reference_V_2_6_6_out, pointer</column>
+<column name="local_reference_V_1_6_6_out">out, 2, ap_vld, local_reference_V_1_6_6_out, pointer</column>
+<column name="local_reference_V_1_6_6_out_ap_vld">out, 1, ap_vld, local_reference_V_1_6_6_out, pointer</column>
+<column name="local_reference_V_0_6_6_out">out, 2, ap_vld, local_reference_V_0_6_6_out, pointer</column>
+<column name="local_reference_V_0_6_6_out_ap_vld">out, 1, ap_vld, local_reference_V_0_6_6_out, pointer</column>
+<column name="local_reference_V_3_5_6_out">out, 2, ap_vld, local_reference_V_3_5_6_out, pointer</column>
+<column name="local_reference_V_3_5_6_out_ap_vld">out, 1, ap_vld, local_reference_V_3_5_6_out, pointer</column>
+<column name="local_reference_V_2_5_6_out">out, 2, ap_vld, local_reference_V_2_5_6_out, pointer</column>
+<column name="local_reference_V_2_5_6_out_ap_vld">out, 1, ap_vld, local_reference_V_2_5_6_out, pointer</column>
+<column name="local_reference_V_1_5_6_out">out, 2, ap_vld, local_reference_V_1_5_6_out, pointer</column>
+<column name="local_reference_V_1_5_6_out_ap_vld">out, 1, ap_vld, local_reference_V_1_5_6_out, pointer</column>
+<column name="local_reference_V_0_5_6_out">out, 2, ap_vld, local_reference_V_0_5_6_out, pointer</column>
+<column name="local_reference_V_0_5_6_out_ap_vld">out, 1, ap_vld, local_reference_V_0_5_6_out, pointer</column>
+<column name="local_reference_V_3_4_6_out">out, 2, ap_vld, local_reference_V_3_4_6_out, pointer</column>
+<column name="local_reference_V_3_4_6_out_ap_vld">out, 1, ap_vld, local_reference_V_3_4_6_out, pointer</column>
+<column name="local_reference_V_2_4_6_out">out, 2, ap_vld, local_reference_V_2_4_6_out, pointer</column>
+<column name="local_reference_V_2_4_6_out_ap_vld">out, 1, ap_vld, local_reference_V_2_4_6_out, pointer</column>
+<column name="local_reference_V_1_4_6_out">out, 2, ap_vld, local_reference_V_1_4_6_out, pointer</column>
+<column name="local_reference_V_1_4_6_out_ap_vld">out, 1, ap_vld, local_reference_V_1_4_6_out, pointer</column>
+<column name="local_reference_V_0_4_6_out">out, 2, ap_vld, local_reference_V_0_4_6_out, pointer</column>
+<column name="local_reference_V_0_4_6_out_ap_vld">out, 1, ap_vld, local_reference_V_0_4_6_out, pointer</column>
+<column name="local_reference_V_3_3_6_out">out, 2, ap_vld, local_reference_V_3_3_6_out, pointer</column>
+<column name="local_reference_V_3_3_6_out_ap_vld">out, 1, ap_vld, local_reference_V_3_3_6_out, pointer</column>
+<column name="local_reference_V_2_3_6_out">out, 2, ap_vld, local_reference_V_2_3_6_out, pointer</column>
+<column name="local_reference_V_2_3_6_out_ap_vld">out, 1, ap_vld, local_reference_V_2_3_6_out, pointer</column>
+<column name="local_reference_V_1_3_6_out">out, 2, ap_vld, local_reference_V_1_3_6_out, pointer</column>
+<column name="local_reference_V_1_3_6_out_ap_vld">out, 1, ap_vld, local_reference_V_1_3_6_out, pointer</column>
+<column name="local_reference_V_0_3_6_out">out, 2, ap_vld, local_reference_V_0_3_6_out, pointer</column>
+<column name="local_reference_V_0_3_6_out_ap_vld">out, 1, ap_vld, local_reference_V_0_3_6_out, pointer</column>
+<column name="local_reference_V_3_2_6_out">out, 2, ap_vld, local_reference_V_3_2_6_out, pointer</column>
+<column name="local_reference_V_3_2_6_out_ap_vld">out, 1, ap_vld, local_reference_V_3_2_6_out, pointer</column>
+<column name="local_reference_V_2_2_6_out">out, 2, ap_vld, local_reference_V_2_2_6_out, pointer</column>
+<column name="local_reference_V_2_2_6_out_ap_vld">out, 1, ap_vld, local_reference_V_2_2_6_out, pointer</column>
+<column name="local_reference_V_1_2_6_out">out, 2, ap_vld, local_reference_V_1_2_6_out, pointer</column>
+<column name="local_reference_V_1_2_6_out_ap_vld">out, 1, ap_vld, local_reference_V_1_2_6_out, pointer</column>
+<column name="local_reference_V_0_2_6_out">out, 2, ap_vld, local_reference_V_0_2_6_out, pointer</column>
+<column name="local_reference_V_0_2_6_out_ap_vld">out, 1, ap_vld, local_reference_V_0_2_6_out, pointer</column>
+<column name="local_reference_V_3_1_6_out">out, 2, ap_vld, local_reference_V_3_1_6_out, pointer</column>
+<column name="local_reference_V_3_1_6_out_ap_vld">out, 1, ap_vld, local_reference_V_3_1_6_out, pointer</column>
+<column name="local_reference_V_2_1_6_out">out, 2, ap_vld, local_reference_V_2_1_6_out, pointer</column>
+<column name="local_reference_V_2_1_6_out_ap_vld">out, 1, ap_vld, local_reference_V_2_1_6_out, pointer</column>
+<column name="local_reference_V_1_1_6_out">out, 2, ap_vld, local_reference_V_1_1_6_out, pointer</column>
+<column name="local_reference_V_1_1_6_out_ap_vld">out, 1, ap_vld, local_reference_V_1_1_6_out, pointer</column>
+<column name="local_reference_V_0_1_6_out">out, 2, ap_vld, local_reference_V_0_1_6_out, pointer</column>
+<column name="local_reference_V_0_1_6_out_ap_vld">out, 1, ap_vld, local_reference_V_0_1_6_out, pointer</column>
+<column name="local_reference_V_3_657_out">out, 2, ap_vld, local_reference_V_3_657_out, pointer</column>
+<column name="local_reference_V_3_657_out_ap_vld">out, 1, ap_vld, local_reference_V_3_657_out, pointer</column>
+<column name="local_reference_V_2_642_out">out, 2, ap_vld, local_reference_V_2_642_out, pointer</column>
+<column name="local_reference_V_2_642_out_ap_vld">out, 1, ap_vld, local_reference_V_2_642_out, pointer</column>
+<column name="local_reference_V_1_627_out">out, 2, ap_vld, local_reference_V_1_627_out, pointer</column>
+<column name="local_reference_V_1_627_out_ap_vld">out, 1, ap_vld, local_reference_V_1_627_out, pointer</column>
+<column name="local_reference_V_0_611_out">out, 2, ap_vld, local_reference_V_0_611_out, pointer</column>
+<column name="local_reference_V_0_611_out_ap_vld">out, 1, ap_vld, local_reference_V_0_611_out, pointer</column>
+</table>
+</item>
+</section>
+</profile>

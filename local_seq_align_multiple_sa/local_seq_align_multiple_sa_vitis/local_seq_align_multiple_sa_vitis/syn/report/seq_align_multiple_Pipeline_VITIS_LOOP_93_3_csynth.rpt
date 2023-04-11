@@ -1,0 +1,336 @@
+
+
+================================================================
+== Vitis HLS Report for 'seq_align_multiple_Pipeline_VITIS_LOOP_93_3'
+================================================================
+* Date:           Mon Apr 10 17:48:33 2023
+
+* Version:        2022.2 (Build 3670227 on Oct 13 2022)
+* Project:        local_seq_align_multiple_sa_vitis
+* Solution:       local_seq_align_multiple_sa_vitis (Vivado IP Flow Target)
+* Product family: virtexuplus
+* Target device:  xcvu5p-flva2104-1-e
+
+
+================================================================
+== Performance Estimates
+================================================================
++ Timing: 
+    * Summary: 
+    +--------+----------+----------+------------+
+    |  Clock |  Target  | Estimated| Uncertainty|
+    +--------+----------+----------+------------+
+    |ap_clk  |  10.00 ns|  1.316 ns|     2.70 ns|
+    +--------+----------+----------+------------+
+
++ Latency: 
+    * Summary: 
+    +---------+---------+----------+----------+-----+-----+---------+
+    |  Latency (cycles) |  Latency (absolute) |  Interval | Pipeline|
+    |   min   |   max   |    min   |    max   | min | max |   Type  |
+    +---------+---------+----------+----------+-----+-----+---------+
+    |       66|       66|  0.660 us|  0.660 us|   66|   66|       no|
+    +---------+---------+----------+----------+-----+-----+---------+
+
+    + Detail: 
+        * Instance: 
+        N/A
+
+        * Loop: 
+        +-------------------+---------+---------+----------+-----------+-----------+------+----------+
+        |                   |  Latency (cycles) | Iteration|  Initiation Interval  | Trip |          |
+        |     Loop Name     |   min   |   max   |  Latency |  achieved |   target  | Count| Pipelined|
+        +-------------------+---------+---------+----------+-----------+-----------+------+----------+
+        |- VITIS_LOOP_93_3  |       64|       64|         2|          1|          1|    64|       yes|
+        +-------------------+---------+---------+----------+-----------+-----------+------+----------+
+
+
+
+================================================================
+== Utilization Estimates
+================================================================
+* Summary: 
++---------------------+---------+------+---------+--------+-----+
+|         Name        | BRAM_18K|  DSP |    FF   |   LUT  | URAM|
++---------------------+---------+------+---------+--------+-----+
+|DSP                  |        -|     -|        -|       -|    -|
+|Expression           |        -|     -|        0|      27|    -|
+|FIFO                 |        -|     -|        -|       -|    -|
+|Instance             |        -|     -|        -|       -|    -|
+|Memory               |        -|     -|        -|       -|    -|
+|Multiplexer          |        -|     -|        -|      36|    -|
+|Register             |        -|     -|      144|       -|    -|
++---------------------+---------+------+---------+--------+-----+
+|Total                |        0|     0|      144|      63|    0|
++---------------------+---------+------+---------+--------+-----+
+|Available SLR        |     1024|  1737|   600577|  300288|  235|
++---------------------+---------+------+---------+--------+-----+
+|Utilization SLR (%)  |        0|     0|       ~0|      ~0|    0|
++---------------------+---------+------+---------+--------+-----+
+|Available            |     2048|  3474|  1201154|  600577|  470|
++---------------------+---------+------+---------+--------+-----+
+|Utilization (%)      |        0|     0|       ~0|      ~0|    0|
++---------------------+---------+------+---------+--------+-----+
+
++ Detail: 
+    * Instance: 
+    N/A
+
+    * DSP: 
+    N/A
+
+    * Memory: 
+    N/A
+
+    * FIFO: 
+    N/A
+
+    * Expression: 
+    +---------------------+----------+----+---+----+------------+------------+
+    |    Variable Name    | Operation| DSP| FF| LUT| Bitwidth P0| Bitwidth P1|
+    +---------------------+----------+----+---+----+------------+------------+
+    |add_ln93_fu_941_p2   |         +|   0|  0|  14|           7|           1|
+    |icmp_ln93_fu_935_p2  |      icmp|   0|  0|  11|           7|           8|
+    |ap_enable_pp0        |       xor|   0|  0|   2|           1|           2|
+    +---------------------+----------+----+---+----+------------+------------+
+    |Total                |          |   0|  0|  27|          15|          11|
+    +---------------------+----------+----+---+----+------------+------------+
+
+    * Multiplexer: 
+    +-------------------------+----+-----------+-----+-----------+
+    |           Name          | LUT| Input Size| Bits| Total Bits|
+    +-------------------------+----+-----------+-----+-----------+
+    |ap_done_int              |   9|          2|    1|          2|
+    |ap_enable_reg_pp0_iter1  |   9|          2|    1|          2|
+    |ap_sig_allocacmp_i_5     |   9|          2|    7|         14|
+    |i_fu_206                 |   9|          2|    7|         14|
+    +-------------------------+----+-----------+-----+-----------+
+    |Total                    |  36|          8|   16|         32|
+    +-------------------------+----+-----------+-----+-----------+
+
+    * Register: 
+    +--------------------------------+---+----+-----+-----------+
+    |              Name              | FF| LUT| Bits| Const Bits|
+    +--------------------------------+---+----+-----+-----------+
+    |ap_CS_fsm                       |  1|   0|    1|          0|
+    |ap_done_reg                     |  1|   0|    1|          0|
+    |ap_enable_reg_pp0_iter1         |  1|   0|    1|          0|
+    |i_fu_206                        |  7|   0|    7|          0|
+    |local_reference_V_1_454_fu_214  |  2|   0|    2|          0|
+    |local_reference_V_1_455_fu_218  |  2|   0|    2|          0|
+    |local_reference_V_1_456_fu_222  |  2|   0|    2|          0|
+    |local_reference_V_1_457_fu_226  |  2|   0|    2|          0|
+    |local_reference_V_1_458_fu_230  |  2|   0|    2|          0|
+    |local_reference_V_1_459_fu_234  |  2|   0|    2|          0|
+    |local_reference_V_1_460_fu_238  |  2|   0|    2|          0|
+    |local_reference_V_1_461_fu_242  |  2|   0|    2|          0|
+    |local_reference_V_1_462_fu_246  |  2|   0|    2|          0|
+    |local_reference_V_1_463_fu_250  |  2|   0|    2|          0|
+    |local_reference_V_1_464_fu_254  |  2|   0|    2|          0|
+    |local_reference_V_1_465_fu_258  |  2|   0|    2|          0|
+    |local_reference_V_1_466_fu_262  |  2|   0|    2|          0|
+    |local_reference_V_1_467_fu_266  |  2|   0|    2|          0|
+    |local_reference_V_1_468_fu_270  |  2|   0|    2|          0|
+    |local_reference_V_1_469_fu_274  |  2|   0|    2|          0|
+    |local_reference_V_1_470_fu_278  |  2|   0|    2|          0|
+    |local_reference_V_1_471_fu_282  |  2|   0|    2|          0|
+    |local_reference_V_1_472_fu_286  |  2|   0|    2|          0|
+    |local_reference_V_1_473_fu_290  |  2|   0|    2|          0|
+    |local_reference_V_1_474_fu_294  |  2|   0|    2|          0|
+    |local_reference_V_1_475_fu_298  |  2|   0|    2|          0|
+    |local_reference_V_1_476_fu_302  |  2|   0|    2|          0|
+    |local_reference_V_1_477_fu_306  |  2|   0|    2|          0|
+    |local_reference_V_1_478_fu_310  |  2|   0|    2|          0|
+    |local_reference_V_1_479_fu_314  |  2|   0|    2|          0|
+    |local_reference_V_1_480_fu_318  |  2|   0|    2|          0|
+    |local_reference_V_1_481_fu_322  |  2|   0|    2|          0|
+    |local_reference_V_1_482_fu_326  |  2|   0|    2|          0|
+    |local_reference_V_1_483_fu_330  |  2|   0|    2|          0|
+    |local_reference_V_1_484_fu_334  |  2|   0|    2|          0|
+    |local_reference_V_1_485_fu_338  |  2|   0|    2|          0|
+    |local_reference_V_1_486_fu_342  |  2|   0|    2|          0|
+    |local_reference_V_1_487_fu_346  |  2|   0|    2|          0|
+    |local_reference_V_1_488_fu_350  |  2|   0|    2|          0|
+    |local_reference_V_1_489_fu_354  |  2|   0|    2|          0|
+    |local_reference_V_1_490_fu_358  |  2|   0|    2|          0|
+    |local_reference_V_1_491_fu_362  |  2|   0|    2|          0|
+    |local_reference_V_1_492_fu_366  |  2|   0|    2|          0|
+    |local_reference_V_1_493_fu_370  |  2|   0|    2|          0|
+    |local_reference_V_1_494_fu_374  |  2|   0|    2|          0|
+    |local_reference_V_1_495_fu_378  |  2|   0|    2|          0|
+    |local_reference_V_1_496_fu_382  |  2|   0|    2|          0|
+    |local_reference_V_1_497_fu_386  |  2|   0|    2|          0|
+    |local_reference_V_1_498_fu_390  |  2|   0|    2|          0|
+    |local_reference_V_1_499_fu_394  |  2|   0|    2|          0|
+    |local_reference_V_1_500_fu_398  |  2|   0|    2|          0|
+    |local_reference_V_1_501_fu_402  |  2|   0|    2|          0|
+    |local_reference_V_1_502_fu_406  |  2|   0|    2|          0|
+    |local_reference_V_1_503_fu_410  |  2|   0|    2|          0|
+    |local_reference_V_1_504_fu_414  |  2|   0|    2|          0|
+    |local_reference_V_1_505_fu_418  |  2|   0|    2|          0|
+    |local_reference_V_1_506_fu_422  |  2|   0|    2|          0|
+    |local_reference_V_1_507_fu_426  |  2|   0|    2|          0|
+    |local_reference_V_1_508_fu_430  |  2|   0|    2|          0|
+    |local_reference_V_1_509_fu_434  |  2|   0|    2|          0|
+    |local_reference_V_1_510_fu_438  |  2|   0|    2|          0|
+    |local_reference_V_1_511_fu_442  |  2|   0|    2|          0|
+    |local_reference_V_1_512_fu_446  |  2|   0|    2|          0|
+    |local_reference_V_1_513_fu_450  |  2|   0|    2|          0|
+    |local_reference_V_1_514_fu_454  |  2|   0|    2|          0|
+    |local_reference_V_1_515_fu_458  |  2|   0|    2|          0|
+    |local_reference_V_1_516_fu_462  |  2|   0|    2|          0|
+    |local_reference_V_1_fu_210      |  2|   0|    2|          0|
+    |trunc_ln94_8_reg_1946           |  2|   0|    2|          0|
+    |trunc_ln94_reg_1950             |  4|   0|    4|          0|
+    +--------------------------------+---+----+-----+-----------+
+    |Total                           |144|   0|  144|          0|
+    +--------------------------------+---+----+-----+-----------+
+
+
+
+================================================================
+== Interface
+================================================================
+* Summary: 
++-------------------------------------+-----+-----+------------+---------------------------------------------+--------------+
+|              RTL Ports              | Dir | Bits|  Protocol  |                Source Object                |    C Type    |
++-------------------------------------+-----+-----+------------+---------------------------------------------+--------------+
+|ap_clk                               |   in|    1|  ap_ctrl_hs|  seq_align_multiple_Pipeline_VITIS_LOOP_93_3|  return value|
+|ap_rst                               |   in|    1|  ap_ctrl_hs|  seq_align_multiple_Pipeline_VITIS_LOOP_93_3|  return value|
+|ap_start                             |   in|    1|  ap_ctrl_hs|  seq_align_multiple_Pipeline_VITIS_LOOP_93_3|  return value|
+|ap_done                              |  out|    1|  ap_ctrl_hs|  seq_align_multiple_Pipeline_VITIS_LOOP_93_3|  return value|
+|ap_idle                              |  out|    1|  ap_ctrl_hs|  seq_align_multiple_Pipeline_VITIS_LOOP_93_3|  return value|
+|ap_ready                             |  out|    1|  ap_ctrl_hs|  seq_align_multiple_Pipeline_VITIS_LOOP_93_3|  return value|
+|reference_string_comp_0_address0     |  out|    7|   ap_memory|                      reference_string_comp_0|         array|
+|reference_string_comp_0_ce0          |  out|    1|   ap_memory|                      reference_string_comp_0|         array|
+|reference_string_comp_0_q0           |   in|    2|   ap_memory|                      reference_string_comp_0|         array|
+|local_reference_V_3_15_0_out         |  out|    2|      ap_vld|                 local_reference_V_3_15_0_out|       pointer|
+|local_reference_V_3_15_0_out_ap_vld  |  out|    1|      ap_vld|                 local_reference_V_3_15_0_out|       pointer|
+|local_reference_V_2_15_0_out         |  out|    2|      ap_vld|                 local_reference_V_2_15_0_out|       pointer|
+|local_reference_V_2_15_0_out_ap_vld  |  out|    1|      ap_vld|                 local_reference_V_2_15_0_out|       pointer|
+|local_reference_V_1_15_0_out         |  out|    2|      ap_vld|                 local_reference_V_1_15_0_out|       pointer|
+|local_reference_V_1_15_0_out_ap_vld  |  out|    1|      ap_vld|                 local_reference_V_1_15_0_out|       pointer|
+|local_reference_V_0_15_0_out         |  out|    2|      ap_vld|                 local_reference_V_0_15_0_out|       pointer|
+|local_reference_V_0_15_0_out_ap_vld  |  out|    1|      ap_vld|                 local_reference_V_0_15_0_out|       pointer|
+|local_reference_V_3_14_0_out         |  out|    2|      ap_vld|                 local_reference_V_3_14_0_out|       pointer|
+|local_reference_V_3_14_0_out_ap_vld  |  out|    1|      ap_vld|                 local_reference_V_3_14_0_out|       pointer|
+|local_reference_V_2_14_0_out         |  out|    2|      ap_vld|                 local_reference_V_2_14_0_out|       pointer|
+|local_reference_V_2_14_0_out_ap_vld  |  out|    1|      ap_vld|                 local_reference_V_2_14_0_out|       pointer|
+|local_reference_V_1_14_0_out         |  out|    2|      ap_vld|                 local_reference_V_1_14_0_out|       pointer|
+|local_reference_V_1_14_0_out_ap_vld  |  out|    1|      ap_vld|                 local_reference_V_1_14_0_out|       pointer|
+|local_reference_V_0_14_0_out         |  out|    2|      ap_vld|                 local_reference_V_0_14_0_out|       pointer|
+|local_reference_V_0_14_0_out_ap_vld  |  out|    1|      ap_vld|                 local_reference_V_0_14_0_out|       pointer|
+|local_reference_V_3_13_0_out         |  out|    2|      ap_vld|                 local_reference_V_3_13_0_out|       pointer|
+|local_reference_V_3_13_0_out_ap_vld  |  out|    1|      ap_vld|                 local_reference_V_3_13_0_out|       pointer|
+|local_reference_V_2_13_0_out         |  out|    2|      ap_vld|                 local_reference_V_2_13_0_out|       pointer|
+|local_reference_V_2_13_0_out_ap_vld  |  out|    1|      ap_vld|                 local_reference_V_2_13_0_out|       pointer|
+|local_reference_V_1_13_0_out         |  out|    2|      ap_vld|                 local_reference_V_1_13_0_out|       pointer|
+|local_reference_V_1_13_0_out_ap_vld  |  out|    1|      ap_vld|                 local_reference_V_1_13_0_out|       pointer|
+|local_reference_V_0_13_0_out         |  out|    2|      ap_vld|                 local_reference_V_0_13_0_out|       pointer|
+|local_reference_V_0_13_0_out_ap_vld  |  out|    1|      ap_vld|                 local_reference_V_0_13_0_out|       pointer|
+|local_reference_V_3_12_0_out         |  out|    2|      ap_vld|                 local_reference_V_3_12_0_out|       pointer|
+|local_reference_V_3_12_0_out_ap_vld  |  out|    1|      ap_vld|                 local_reference_V_3_12_0_out|       pointer|
+|local_reference_V_2_12_0_out         |  out|    2|      ap_vld|                 local_reference_V_2_12_0_out|       pointer|
+|local_reference_V_2_12_0_out_ap_vld  |  out|    1|      ap_vld|                 local_reference_V_2_12_0_out|       pointer|
+|local_reference_V_1_12_0_out         |  out|    2|      ap_vld|                 local_reference_V_1_12_0_out|       pointer|
+|local_reference_V_1_12_0_out_ap_vld  |  out|    1|      ap_vld|                 local_reference_V_1_12_0_out|       pointer|
+|local_reference_V_0_12_0_out         |  out|    2|      ap_vld|                 local_reference_V_0_12_0_out|       pointer|
+|local_reference_V_0_12_0_out_ap_vld  |  out|    1|      ap_vld|                 local_reference_V_0_12_0_out|       pointer|
+|local_reference_V_3_11_0_out         |  out|    2|      ap_vld|                 local_reference_V_3_11_0_out|       pointer|
+|local_reference_V_3_11_0_out_ap_vld  |  out|    1|      ap_vld|                 local_reference_V_3_11_0_out|       pointer|
+|local_reference_V_2_11_0_out         |  out|    2|      ap_vld|                 local_reference_V_2_11_0_out|       pointer|
+|local_reference_V_2_11_0_out_ap_vld  |  out|    1|      ap_vld|                 local_reference_V_2_11_0_out|       pointer|
+|local_reference_V_1_11_0_out         |  out|    2|      ap_vld|                 local_reference_V_1_11_0_out|       pointer|
+|local_reference_V_1_11_0_out_ap_vld  |  out|    1|      ap_vld|                 local_reference_V_1_11_0_out|       pointer|
+|local_reference_V_0_11_0_out         |  out|    2|      ap_vld|                 local_reference_V_0_11_0_out|       pointer|
+|local_reference_V_0_11_0_out_ap_vld  |  out|    1|      ap_vld|                 local_reference_V_0_11_0_out|       pointer|
+|local_reference_V_3_10_0_out         |  out|    2|      ap_vld|                 local_reference_V_3_10_0_out|       pointer|
+|local_reference_V_3_10_0_out_ap_vld  |  out|    1|      ap_vld|                 local_reference_V_3_10_0_out|       pointer|
+|local_reference_V_2_10_0_out         |  out|    2|      ap_vld|                 local_reference_V_2_10_0_out|       pointer|
+|local_reference_V_2_10_0_out_ap_vld  |  out|    1|      ap_vld|                 local_reference_V_2_10_0_out|       pointer|
+|local_reference_V_1_10_0_out         |  out|    2|      ap_vld|                 local_reference_V_1_10_0_out|       pointer|
+|local_reference_V_1_10_0_out_ap_vld  |  out|    1|      ap_vld|                 local_reference_V_1_10_0_out|       pointer|
+|local_reference_V_0_10_0_out         |  out|    2|      ap_vld|                 local_reference_V_0_10_0_out|       pointer|
+|local_reference_V_0_10_0_out_ap_vld  |  out|    1|      ap_vld|                 local_reference_V_0_10_0_out|       pointer|
+|local_reference_V_3_9_0_out          |  out|    2|      ap_vld|                  local_reference_V_3_9_0_out|       pointer|
+|local_reference_V_3_9_0_out_ap_vld   |  out|    1|      ap_vld|                  local_reference_V_3_9_0_out|       pointer|
+|local_reference_V_2_9_0_out          |  out|    2|      ap_vld|                  local_reference_V_2_9_0_out|       pointer|
+|local_reference_V_2_9_0_out_ap_vld   |  out|    1|      ap_vld|                  local_reference_V_2_9_0_out|       pointer|
+|local_reference_V_1_9_0_out          |  out|    2|      ap_vld|                  local_reference_V_1_9_0_out|       pointer|
+|local_reference_V_1_9_0_out_ap_vld   |  out|    1|      ap_vld|                  local_reference_V_1_9_0_out|       pointer|
+|local_reference_V_0_9_0_out          |  out|    2|      ap_vld|                  local_reference_V_0_9_0_out|       pointer|
+|local_reference_V_0_9_0_out_ap_vld   |  out|    1|      ap_vld|                  local_reference_V_0_9_0_out|       pointer|
+|local_reference_V_3_8_0_out          |  out|    2|      ap_vld|                  local_reference_V_3_8_0_out|       pointer|
+|local_reference_V_3_8_0_out_ap_vld   |  out|    1|      ap_vld|                  local_reference_V_3_8_0_out|       pointer|
+|local_reference_V_2_8_0_out          |  out|    2|      ap_vld|                  local_reference_V_2_8_0_out|       pointer|
+|local_reference_V_2_8_0_out_ap_vld   |  out|    1|      ap_vld|                  local_reference_V_2_8_0_out|       pointer|
+|local_reference_V_1_8_0_out          |  out|    2|      ap_vld|                  local_reference_V_1_8_0_out|       pointer|
+|local_reference_V_1_8_0_out_ap_vld   |  out|    1|      ap_vld|                  local_reference_V_1_8_0_out|       pointer|
+|local_reference_V_0_8_0_out          |  out|    2|      ap_vld|                  local_reference_V_0_8_0_out|       pointer|
+|local_reference_V_0_8_0_out_ap_vld   |  out|    1|      ap_vld|                  local_reference_V_0_8_0_out|       pointer|
+|local_reference_V_3_7_0_out          |  out|    2|      ap_vld|                  local_reference_V_3_7_0_out|       pointer|
+|local_reference_V_3_7_0_out_ap_vld   |  out|    1|      ap_vld|                  local_reference_V_3_7_0_out|       pointer|
+|local_reference_V_2_7_0_out          |  out|    2|      ap_vld|                  local_reference_V_2_7_0_out|       pointer|
+|local_reference_V_2_7_0_out_ap_vld   |  out|    1|      ap_vld|                  local_reference_V_2_7_0_out|       pointer|
+|local_reference_V_1_7_0_out          |  out|    2|      ap_vld|                  local_reference_V_1_7_0_out|       pointer|
+|local_reference_V_1_7_0_out_ap_vld   |  out|    1|      ap_vld|                  local_reference_V_1_7_0_out|       pointer|
+|local_reference_V_0_7_0_out          |  out|    2|      ap_vld|                  local_reference_V_0_7_0_out|       pointer|
+|local_reference_V_0_7_0_out_ap_vld   |  out|    1|      ap_vld|                  local_reference_V_0_7_0_out|       pointer|
+|local_reference_V_3_6_0_out          |  out|    2|      ap_vld|                  local_reference_V_3_6_0_out|       pointer|
+|local_reference_V_3_6_0_out_ap_vld   |  out|    1|      ap_vld|                  local_reference_V_3_6_0_out|       pointer|
+|local_reference_V_2_6_0_out          |  out|    2|      ap_vld|                  local_reference_V_2_6_0_out|       pointer|
+|local_reference_V_2_6_0_out_ap_vld   |  out|    1|      ap_vld|                  local_reference_V_2_6_0_out|       pointer|
+|local_reference_V_1_6_0_out          |  out|    2|      ap_vld|                  local_reference_V_1_6_0_out|       pointer|
+|local_reference_V_1_6_0_out_ap_vld   |  out|    1|      ap_vld|                  local_reference_V_1_6_0_out|       pointer|
+|local_reference_V_0_6_0_out          |  out|    2|      ap_vld|                  local_reference_V_0_6_0_out|       pointer|
+|local_reference_V_0_6_0_out_ap_vld   |  out|    1|      ap_vld|                  local_reference_V_0_6_0_out|       pointer|
+|local_reference_V_3_5_0_out          |  out|    2|      ap_vld|                  local_reference_V_3_5_0_out|       pointer|
+|local_reference_V_3_5_0_out_ap_vld   |  out|    1|      ap_vld|                  local_reference_V_3_5_0_out|       pointer|
+|local_reference_V_2_5_0_out          |  out|    2|      ap_vld|                  local_reference_V_2_5_0_out|       pointer|
+|local_reference_V_2_5_0_out_ap_vld   |  out|    1|      ap_vld|                  local_reference_V_2_5_0_out|       pointer|
+|local_reference_V_1_5_0_out          |  out|    2|      ap_vld|                  local_reference_V_1_5_0_out|       pointer|
+|local_reference_V_1_5_0_out_ap_vld   |  out|    1|      ap_vld|                  local_reference_V_1_5_0_out|       pointer|
+|local_reference_V_0_5_0_out          |  out|    2|      ap_vld|                  local_reference_V_0_5_0_out|       pointer|
+|local_reference_V_0_5_0_out_ap_vld   |  out|    1|      ap_vld|                  local_reference_V_0_5_0_out|       pointer|
+|local_reference_V_3_4_0_out          |  out|    2|      ap_vld|                  local_reference_V_3_4_0_out|       pointer|
+|local_reference_V_3_4_0_out_ap_vld   |  out|    1|      ap_vld|                  local_reference_V_3_4_0_out|       pointer|
+|local_reference_V_2_4_0_out          |  out|    2|      ap_vld|                  local_reference_V_2_4_0_out|       pointer|
+|local_reference_V_2_4_0_out_ap_vld   |  out|    1|      ap_vld|                  local_reference_V_2_4_0_out|       pointer|
+|local_reference_V_1_4_0_out          |  out|    2|      ap_vld|                  local_reference_V_1_4_0_out|       pointer|
+|local_reference_V_1_4_0_out_ap_vld   |  out|    1|      ap_vld|                  local_reference_V_1_4_0_out|       pointer|
+|local_reference_V_0_4_0_out          |  out|    2|      ap_vld|                  local_reference_V_0_4_0_out|       pointer|
+|local_reference_V_0_4_0_out_ap_vld   |  out|    1|      ap_vld|                  local_reference_V_0_4_0_out|       pointer|
+|local_reference_V_3_3_0_out          |  out|    2|      ap_vld|                  local_reference_V_3_3_0_out|       pointer|
+|local_reference_V_3_3_0_out_ap_vld   |  out|    1|      ap_vld|                  local_reference_V_3_3_0_out|       pointer|
+|local_reference_V_2_3_0_out          |  out|    2|      ap_vld|                  local_reference_V_2_3_0_out|       pointer|
+|local_reference_V_2_3_0_out_ap_vld   |  out|    1|      ap_vld|                  local_reference_V_2_3_0_out|       pointer|
+|local_reference_V_1_3_0_out          |  out|    2|      ap_vld|                  local_reference_V_1_3_0_out|       pointer|
+|local_reference_V_1_3_0_out_ap_vld   |  out|    1|      ap_vld|                  local_reference_V_1_3_0_out|       pointer|
+|local_reference_V_0_3_0_out          |  out|    2|      ap_vld|                  local_reference_V_0_3_0_out|       pointer|
+|local_reference_V_0_3_0_out_ap_vld   |  out|    1|      ap_vld|                  local_reference_V_0_3_0_out|       pointer|
+|local_reference_V_3_2_0_out          |  out|    2|      ap_vld|                  local_reference_V_3_2_0_out|       pointer|
+|local_reference_V_3_2_0_out_ap_vld   |  out|    1|      ap_vld|                  local_reference_V_3_2_0_out|       pointer|
+|local_reference_V_2_2_0_out          |  out|    2|      ap_vld|                  local_reference_V_2_2_0_out|       pointer|
+|local_reference_V_2_2_0_out_ap_vld   |  out|    1|      ap_vld|                  local_reference_V_2_2_0_out|       pointer|
+|local_reference_V_1_2_0_out          |  out|    2|      ap_vld|                  local_reference_V_1_2_0_out|       pointer|
+|local_reference_V_1_2_0_out_ap_vld   |  out|    1|      ap_vld|                  local_reference_V_1_2_0_out|       pointer|
+|local_reference_V_0_2_0_out          |  out|    2|      ap_vld|                  local_reference_V_0_2_0_out|       pointer|
+|local_reference_V_0_2_0_out_ap_vld   |  out|    1|      ap_vld|                  local_reference_V_0_2_0_out|       pointer|
+|local_reference_V_3_1_0_out          |  out|    2|      ap_vld|                  local_reference_V_3_1_0_out|       pointer|
+|local_reference_V_3_1_0_out_ap_vld   |  out|    1|      ap_vld|                  local_reference_V_3_1_0_out|       pointer|
+|local_reference_V_2_1_0_out          |  out|    2|      ap_vld|                  local_reference_V_2_1_0_out|       pointer|
+|local_reference_V_2_1_0_out_ap_vld   |  out|    1|      ap_vld|                  local_reference_V_2_1_0_out|       pointer|
+|local_reference_V_1_1_0_out          |  out|    2|      ap_vld|                  local_reference_V_1_1_0_out|       pointer|
+|local_reference_V_1_1_0_out_ap_vld   |  out|    1|      ap_vld|                  local_reference_V_1_1_0_out|       pointer|
+|local_reference_V_0_1_0_out          |  out|    2|      ap_vld|                  local_reference_V_0_1_0_out|       pointer|
+|local_reference_V_0_1_0_out_ap_vld   |  out|    1|      ap_vld|                  local_reference_V_0_1_0_out|       pointer|
+|local_reference_V_3_0_out            |  out|    2|      ap_vld|                    local_reference_V_3_0_out|       pointer|
+|local_reference_V_3_0_out_ap_vld     |  out|    1|      ap_vld|                    local_reference_V_3_0_out|       pointer|
+|local_reference_V_2_0_out            |  out|    2|      ap_vld|                    local_reference_V_2_0_out|       pointer|
+|local_reference_V_2_0_out_ap_vld     |  out|    1|      ap_vld|                    local_reference_V_2_0_out|       pointer|
+|local_reference_V_1_0_out            |  out|    2|      ap_vld|                    local_reference_V_1_0_out|       pointer|
+|local_reference_V_1_0_out_ap_vld     |  out|    1|      ap_vld|                    local_reference_V_1_0_out|       pointer|
+|local_reference_V_0_0_out            |  out|    2|      ap_vld|                    local_reference_V_0_0_out|       pointer|
+|local_reference_V_0_0_out_ap_vld     |  out|    1|      ap_vld|                    local_reference_V_0_0_out|       pointer|
++-------------------------------------+-----+-----+------------+---------------------------------------------+--------------+
+

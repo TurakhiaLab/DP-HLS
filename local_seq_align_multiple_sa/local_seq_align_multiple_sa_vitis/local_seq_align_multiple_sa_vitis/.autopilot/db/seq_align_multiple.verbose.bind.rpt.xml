@@ -1,0 +1,78 @@
+<profile>
+
+<section name = "Vitis HLS Report for 'seq_align_multiple'" level="0">
+<item name = "Date">Mon Apr 10 17:48:25 2023
+</item>
+<item name = "Version">2022.2 (Build 3670227 on Oct 13 2022)</item>
+<item name = "Project">local_seq_align_multiple_sa_vitis</item>
+<item name = "Solution">local_seq_align_multiple_sa_vitis (Vivado IP Flow Target)</item>
+<item name = "Product family">virtexuplus</item>
+<item name = "Target device">xcvu5p-flva2104-1-e</item>
+</section>
+
+<section name = "Performance Estimates" level="0">
+<item name = "Timing">
+<section name = "" level="1">
+<item name = "Summary"><table name="" hasTotal="0">
+<keys size="4">Clock, Target, Estimated, Uncertainty</keys>
+<column name="ap_clk">10.00 ns, 6.421 ns, 2.70 ns</column>
+</table>
+</item>
+</section>
+</item>
+<item name = "Latency">
+<section name = "" level="1">
+<item name = "Summary"><table name="" hasTotal="0">
+<keys size="8">, min, max, min, max, min, max, Type</keys>
+<column name="">73251, 73251, 0.733 ms, 0.733 ms, 73252, 73252, no</column>
+</table>
+</item>
+<item name = "Detail">
+<section name = "" level="1">
+<item name = "Instance"><table name="" hasTotal="0">
+<keys size="9">Instance, Module, min, max, min, max, min, max, Type</keys>
+<column name="grp_seq_align_multiple_Pipeline_VITIS_LOOP_75_1_VITIS_LOOP_76_2_fu_11437">seq_align_multiple_Pipeline_VITIS_LOOP_75_1_VITIS_LOOP_76_2, 4098, 4098, 40.980 us, 40.980 us, 4098, 4098, no</column>
+<column name="grp_seq_align_multiple_Pipeline_VITIS_LOOP_93_3_fu_11473">seq_align_multiple_Pipeline_VITIS_LOOP_93_3, 66, 66, 0.660 us, 0.660 us, 66, 66, no</column>
+<column name="grp_seq_align_multiple_Pipeline_kernel_kernel1_fu_11543">seq_align_multiple_Pipeline_kernel_kernel1, 950, 950, 9.500 us, 9.500 us, 950, 950, no</column>
+<column name="grp_seq_align_multiple_Pipeline_VITIS_LOOP_93_32_fu_11825">seq_align_multiple_Pipeline_VITIS_LOOP_93_32, 66, 66, 0.660 us, 0.660 us, 66, 66, no</column>
+<column name="grp_seq_align_multiple_Pipeline_pe1_pe2_fu_11959">seq_align_multiple_Pipeline_pe1_pe2, 4099, 4099, 40.990 us, 40.990 us, 4099, 4099, no</column>
+<column name="grp_seq_align_multiple_Pipeline_VITIS_LOOP_93_36_fu_11981">seq_align_multiple_Pipeline_VITIS_LOOP_93_36, 66, 66, 0.660 us, 0.660 us, 66, 66, no</column>
+<column name="grp_seq_align_multiple_Pipeline_VITIS_LOOP_75_1_VITIS_LOOP_76_21_fu_12115">seq_align_multiple_Pipeline_VITIS_LOOP_75_1_VITIS_LOOP_76_21, 4098, 4098, 40.980 us, 40.980 us, 4098, 4098, no</column>
+<column name="grp_seq_align_multiple_Pipeline_VITIS_LOOP_93_310_fu_12135">seq_align_multiple_Pipeline_VITIS_LOOP_93_310, 66, 66, 0.660 us, 0.660 us, 66, 66, no</column>
+<column name="grp_seq_align_multiple_Pipeline_kernel_kernel13_fu_12269">seq_align_multiple_Pipeline_kernel_kernel13, 950, 950, 9.500 us, 9.500 us, 950, 950, no</column>
+<column name="grp_seq_align_multiple_Pipeline_VITIS_LOOP_93_314_fu_12567">seq_align_multiple_Pipeline_VITIS_LOOP_93_314, 66, 66, 0.660 us, 0.660 us, 66, 66, no</column>
+<column name="grp_seq_align_multiple_Pipeline_pe1_pe24_fu_12701">seq_align_multiple_Pipeline_pe1_pe24, 4099, 4099, 40.990 us, 40.990 us, 4099, 4099, no</column>
+<column name="grp_seq_align_multiple_Pipeline_VITIS_LOOP_93_318_fu_12723">seq_align_multiple_Pipeline_VITIS_LOOP_93_318, 66, 66, 0.660 us, 0.660 us, 66, 66, no</column>
+<column name="grp_seq_align_multiple_Pipeline_VITIS_LOOP_75_1_VITIS_LOOP_76_25_fu_12857">seq_align_multiple_Pipeline_VITIS_LOOP_75_1_VITIS_LOOP_76_25, 4098, 4098, 40.980 us, 40.980 us, 4098, 4098, no</column>
+<column name="grp_seq_align_multiple_Pipeline_VITIS_LOOP_93_322_fu_12877">seq_align_multiple_Pipeline_VITIS_LOOP_93_322, 66, 66, 0.660 us, 0.660 us, 66, 66, no</column>
+<column name="grp_seq_align_multiple_Pipeline_kernel_kernel17_fu_13011">seq_align_multiple_Pipeline_kernel_kernel17, 950, 950, 9.500 us, 9.500 us, 950, 950, no</column>
+<column name="grp_seq_align_multiple_Pipeline_VITIS_LOOP_93_326_fu_13309">seq_align_multiple_Pipeline_VITIS_LOOP_93_326, 66, 66, 0.660 us, 0.660 us, 66, 66, no</column>
+<column name="grp_seq_align_multiple_Pipeline_pe1_pe28_fu_13443">seq_align_multiple_Pipeline_pe1_pe28, 4099, 4099, 40.990 us, 40.990 us, 4099, 4099, no</column>
+<column name="grp_seq_align_multiple_Pipeline_VITIS_LOOP_75_1_VITIS_LOOP_76_29_fu_13465">seq_align_multiple_Pipeline_VITIS_LOOP_75_1_VITIS_LOOP_76_29, 4098, 4098, 40.980 us, 40.980 us, 4098, 4098, no</column>
+<column name="grp_seq_align_multiple_Pipeline_kernel_kernel111_fu_13485">seq_align_multiple_Pipeline_kernel_kernel111, 950, 950, 9.500 us, 9.500 us, 950, 950, no</column>
+<column name="grp_seq_align_multiple_Pipeline_pe1_pe212_fu_13783">seq_align_multiple_Pipeline_pe1_pe212, 4099, 4099, 40.990 us, 40.990 us, 4099, 4099, no</column>
+<column name="grp_seq_align_multiple_Pipeline_VITIS_LOOP_75_1_VITIS_LOOP_76_213_fu_13805">seq_align_multiple_Pipeline_VITIS_LOOP_75_1_VITIS_LOOP_76_213, 4098, 4098, 40.980 us, 40.980 us, 4098, 4098, no</column>
+<column name="grp_seq_align_multiple_Pipeline_kernel_kernel115_fu_13825">seq_align_multiple_Pipeline_kernel_kernel115, 950, 950, 9.500 us, 9.500 us, 950, 950, no</column>
+<column name="grp_seq_align_multiple_Pipeline_pe1_pe216_fu_14123">seq_align_multiple_Pipeline_pe1_pe216, 4099, 4099, 40.990 us, 40.990 us, 4099, 4099, no</column>
+<column name="grp_seq_align_multiple_Pipeline_VITIS_LOOP_75_1_VITIS_LOOP_76_217_fu_14145">seq_align_multiple_Pipeline_VITIS_LOOP_75_1_VITIS_LOOP_76_217, 4098, 4098, 40.980 us, 40.980 us, 4098, 4098, no</column>
+<column name="grp_seq_align_multiple_Pipeline_kernel_kernel119_fu_14165">seq_align_multiple_Pipeline_kernel_kernel119, 950, 950, 9.500 us, 9.500 us, 950, 950, no</column>
+<column name="grp_seq_align_multiple_Pipeline_pe1_pe220_fu_14463">seq_align_multiple_Pipeline_pe1_pe220, 4099, 4099, 40.990 us, 40.990 us, 4099, 4099, no</column>
+<column name="grp_seq_align_multiple_Pipeline_VITIS_LOOP_75_1_VITIS_LOOP_76_221_fu_14485">seq_align_multiple_Pipeline_VITIS_LOOP_75_1_VITIS_LOOP_76_221, 4098, 4098, 40.980 us, 40.980 us, 4098, 4098, no</column>
+<column name="grp_seq_align_multiple_Pipeline_kernel_kernel123_fu_14505">seq_align_multiple_Pipeline_kernel_kernel123, 950, 950, 9.500 us, 9.500 us, 950, 950, no</column>
+<column name="grp_seq_align_multiple_Pipeline_pe1_pe224_fu_14803">seq_align_multiple_Pipeline_pe1_pe224, 4099, 4099, 40.990 us, 40.990 us, 4099, 4099, no</column>
+<column name="grp_seq_align_multiple_Pipeline_VITIS_LOOP_75_1_VITIS_LOOP_76_225_fu_14825">seq_align_multiple_Pipeline_VITIS_LOOP_75_1_VITIS_LOOP_76_225, 4098, 4098, 40.980 us, 40.980 us, 4098, 4098, no</column>
+<column name="grp_seq_align_multiple_Pipeline_kernel_kernel127_fu_14845">seq_align_multiple_Pipeline_kernel_kernel127, 950, 950, 9.500 us, 9.500 us, 950, 950, no</column>
+<column name="grp_seq_align_multiple_Pipeline_pe1_pe228_fu_15127">seq_align_multiple_Pipeline_pe1_pe228, 4099, 4099, 40.990 us, 40.990 us, 4099, 4099, no</column>
+<column name="grp_seq_align_multiple_Pipeline_VITIS_LOOP_286_2_fu_15149">seq_align_multiple_Pipeline_VITIS_LOOP_286_2, 10, 10, 0.100 us, 0.100 us, 10, 10, no</column>
+</table>
+</item>
+<item name = "Loop"><table name="" hasTotal="0">
+<keys size="8">Loop Name, min, max, Latency, achieved, target, Count, Pipelined</keys>
+</table>
+</item>
+</section>
+</item>
+</section>
+</item>
+</section>
+</profile>
