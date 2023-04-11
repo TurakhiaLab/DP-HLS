@@ -1,4 +1,0 @@
-equality comparison with extraneous parentheses
-remove extraneous parentheses around the comparison to silence this warning
-use '=' to turn this equality comparison into an assignment
-1 warning generated.
