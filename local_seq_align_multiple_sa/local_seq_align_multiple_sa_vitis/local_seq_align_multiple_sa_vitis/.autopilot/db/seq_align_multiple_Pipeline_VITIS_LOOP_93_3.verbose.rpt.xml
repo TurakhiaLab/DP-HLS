@@ -1,7 +1,7 @@
 <profile>
 
 <section name = "Vitis HLS Report for 'seq_align_multiple_Pipeline_VITIS_LOOP_93_3'" level="0">
-<item name = "Date">Mon Apr 10 17:48:33 2023
+<item name = "Date">Mon Apr 10 18:41:54 2023
 </item>
 <item name = "Version">2022.2 (Build 3670227 on Oct 13 2022)</item>
 <item name = "Project">local_seq_align_multiple_sa_vitis</item>
@@ -163,7 +163,7 @@
 <column name="local_reference_V_1_515_fu_458">2, 0, 2, 0</column>
 <column name="local_reference_V_1_516_fu_462">2, 0, 2, 0</column>
 <column name="local_reference_V_1_fu_210">2, 0, 2, 0</column>
-<column name="trunc_ln94_8_reg_1946">2, 0, 2, 0</column>
+<column name="trunc_ln94_8_reg_1941">2, 0, 2, 0</column>
 <column name="trunc_ln94_reg_1950">4, 0, 4, 0</column>
 </table>
 </item>
@@ -180,7 +180,7 @@
 <column name="ap_done">out, 1, ap_ctrl_hs, seq_align_multiple_Pipeline_VITIS_LOOP_93_3, return value</column>
 <column name="ap_idle">out, 1, ap_ctrl_hs, seq_align_multiple_Pipeline_VITIS_LOOP_93_3, return value</column>
 <column name="ap_ready">out, 1, ap_ctrl_hs, seq_align_multiple_Pipeline_VITIS_LOOP_93_3, return value</column>
-<column name="reference_string_comp_0_address0">out, 7, ap_memory, reference_string_comp_0, array</column>
+<column name="reference_string_comp_0_address0">out, 6, ap_memory, reference_string_comp_0, array</column>
 <column name="reference_string_comp_0_ce0">out, 1, ap_memory, reference_string_comp_0, array</column>
 <column name="reference_string_comp_0_q0">in, 2, ap_memory, reference_string_comp_0, array</column>
 <column name="local_reference_V_3_15_0_out">out, 2, ap_vld, local_reference_V_3_15_0_out, pointer</column>

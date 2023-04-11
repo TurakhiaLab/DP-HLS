@@ -45,13 +45,13 @@
 <pragma file="/tools/Xilinx/Vitis_HLS/2022.2/common/technology/autopilot/ap_int_base.h" line="175" pragmaType="inline" parentfunction="ap_int_base<2, false>::ap_int_base()" off="0" region="0" recursive="0"/>
 <pragma file="/tools/Xilinx/Vitis_HLS/2022.2/common/technology/autopilot/ap_fixed_base.h" line="395" pragmaType="inline" parentfunction="ap_fixed_base<10, 6, true, (ap_q_mode)5, (ap_o_mode)3, 0>::ap_fixed_base()" off="0" region="0" recursive="0"/>
 <pragma file="src/seq_align_multiple.cpp" line="269" pragmaType="unroll" parentfunction="seq_align_multiple" factor="-1" skip_exit_check="0"/>
-<pragma file="src/seq_align_multiple.cpp" line="257" pragmaType="array_partition" parentfunction="seq_align_multiple" dim="1" factor="4" mode="block" dynamic="0" variable="query_string_comp"/>
-<pragma file="src/seq_align_multiple.cpp" line="258" pragmaType="array_partition" parentfunction="seq_align_multiple" dim="1" factor="4" mode="block" dynamic="0" variable="reference_string_comp"/>
-<pragma file="src/seq_align_multiple.cpp" line="259" pragmaType="array_partition" parentfunction="seq_align_multiple" dim="1" factor="4" mode="block" dynamic="0" variable="dp_mem"/>
-<pragma file="src/seq_align_multiple.cpp" line="260" pragmaType="array_partition" parentfunction="seq_align_multiple" dim="1" factor="4" mode="block" dynamic="0" variable="Ix_mem"/>
-<pragma file="src/seq_align_multiple.cpp" line="261" pragmaType="array_partition" parentfunction="seq_align_multiple" dim="1" factor="4" mode="block" dynamic="0" variable="Iy_mem"/>
-<pragma file="src/seq_align_multiple.cpp" line="262" pragmaType="array_partition" parentfunction="seq_align_multiple" dim="1" factor="4" mode="block" dynamic="0" variable="last_pe_score"/>
-<pragma file="src/seq_align_multiple.cpp" line="263" pragmaType="array_partition" parentfunction="seq_align_multiple" dim="1" factor="4" mode="block" dynamic="0" variable="last_pe_scoreIx"/>
+<pragma file="src/seq_align_multiple.cpp" line="257" pragmaType="array_partition" parentfunction="seq_align_multiple" dim="1" factor="8" mode="block" dynamic="0" variable="query_string_comp"/>
+<pragma file="src/seq_align_multiple.cpp" line="258" pragmaType="array_partition" parentfunction="seq_align_multiple" dim="1" factor="8" mode="block" dynamic="0" variable="reference_string_comp"/>
+<pragma file="src/seq_align_multiple.cpp" line="259" pragmaType="array_partition" parentfunction="seq_align_multiple" dim="1" factor="8" mode="block" dynamic="0" variable="dp_mem"/>
+<pragma file="src/seq_align_multiple.cpp" line="260" pragmaType="array_partition" parentfunction="seq_align_multiple" dim="1" factor="8" mode="block" dynamic="0" variable="Ix_mem"/>
+<pragma file="src/seq_align_multiple.cpp" line="261" pragmaType="array_partition" parentfunction="seq_align_multiple" dim="1" factor="8" mode="block" dynamic="0" variable="Iy_mem"/>
+<pragma file="src/seq_align_multiple.cpp" line="262" pragmaType="array_partition" parentfunction="seq_align_multiple" dim="1" factor="8" mode="block" dynamic="0" variable="last_pe_score"/>
+<pragma file="src/seq_align_multiple.cpp" line="263" pragmaType="array_partition" parentfunction="seq_align_multiple" dim="1" factor="8" mode="block" dynamic="0" variable="last_pe_scoreIx"/>
 <pragma file="/tools/Xilinx/Vitis_HLS/2022.2/common/technology/autopilot/ap_fixed_base.h" line="1420" pragmaType="inline" parentfunction="ap_fixed_base<37, 33, true, (ap_q_mode)5, (ap_o_mode)3, 0>::operator!() const" off="0" region="0" recursive="0"/>
 <pragma file="/tools/Xilinx/Vitis_HLS/2022.2/common/technology/autopilot/ap_fixed_base.h" line="0" pragmaType="inline" parentfunction="report" off="0" region="0" recursive="0"/>
 <pragma file="/tools/Xilinx/Vitis_HLS/2022.2/common/technology/autopilot/ap_fixed_base.h" line="0" pragmaType="inline" parentfunction="report" off="0" region="0" recursive="0"/>

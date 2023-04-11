@@ -77,7 +77,7 @@ set C_modelArgList {
 	{ local_reference_V_2_1551_reload int 2 regular  }
 	{ local_reference_V_1_1536_reload int 2 regular  }
 	{ local_reference_V_0_1520_reload int 2 regular  }
-	{ reference_string_comp_3 int 2 regular {array 128 { 1 3 } 1 1 }  }
+	{ reference_string_comp_6 int 2 regular {array 64 { 1 3 } 1 1 }  }
 	{ local_reference_V_3_15_18_out int 2 regular {pointer 1}  }
 	{ local_reference_V_2_15_18_out int 2 regular {pointer 1}  }
 	{ local_reference_V_1_15_18_out int 2 regular {pointer 1}  }
@@ -208,7 +208,7 @@ set C_modelArgMapList {[
  	{ "Name" : "local_reference_V_2_1551_reload", "interface" : "wire", "bitwidth" : 2, "direction" : "READONLY"} , 
  	{ "Name" : "local_reference_V_1_1536_reload", "interface" : "wire", "bitwidth" : 2, "direction" : "READONLY"} , 
  	{ "Name" : "local_reference_V_0_1520_reload", "interface" : "wire", "bitwidth" : 2, "direction" : "READONLY"} , 
- 	{ "Name" : "reference_string_comp_3", "interface" : "memory", "bitwidth" : 2, "direction" : "READONLY"} , 
+ 	{ "Name" : "reference_string_comp_6", "interface" : "memory", "bitwidth" : 2, "direction" : "READONLY"} , 
  	{ "Name" : "local_reference_V_3_15_18_out", "interface" : "wire", "bitwidth" : 2, "direction" : "WRITEONLY"} , 
  	{ "Name" : "local_reference_V_2_15_18_out", "interface" : "wire", "bitwidth" : 2, "direction" : "WRITEONLY"} , 
  	{ "Name" : "local_reference_V_1_15_18_out", "interface" : "wire", "bitwidth" : 2, "direction" : "WRITEONLY"} , 
@@ -346,9 +346,9 @@ set portList {
 	{ local_reference_V_2_1551_reload sc_in sc_lv 2 signal 61 } 
 	{ local_reference_V_1_1536_reload sc_in sc_lv 2 signal 62 } 
 	{ local_reference_V_0_1520_reload sc_in sc_lv 2 signal 63 } 
-	{ reference_string_comp_3_address0 sc_out sc_lv 7 signal 64 } 
-	{ reference_string_comp_3_ce0 sc_out sc_logic 1 signal 64 } 
-	{ reference_string_comp_3_q0 sc_in sc_lv 2 signal 64 } 
+	{ reference_string_comp_6_address0 sc_out sc_lv 6 signal 64 } 
+	{ reference_string_comp_6_ce0 sc_out sc_logic 1 signal 64 } 
+	{ reference_string_comp_6_q0 sc_in sc_lv 2 signal 64 } 
 	{ local_reference_V_3_15_18_out sc_out sc_lv 2 signal 65 } 
 	{ local_reference_V_3_15_18_out_ap_vld sc_out sc_logic 1 outvld 65 } 
 	{ local_reference_V_2_15_18_out sc_out sc_lv 2 signal 66 } 
@@ -549,9 +549,9 @@ set NewPortList {[
  	{ "name": "local_reference_V_2_1551_reload", "direction": "in", "datatype": "sc_lv", "bitwidth":2, "type": "signal", "bundle":{"name": "local_reference_V_2_1551_reload", "role": "default" }} , 
  	{ "name": "local_reference_V_1_1536_reload", "direction": "in", "datatype": "sc_lv", "bitwidth":2, "type": "signal", "bundle":{"name": "local_reference_V_1_1536_reload", "role": "default" }} , 
  	{ "name": "local_reference_V_0_1520_reload", "direction": "in", "datatype": "sc_lv", "bitwidth":2, "type": "signal", "bundle":{"name": "local_reference_V_0_1520_reload", "role": "default" }} , 
- 	{ "name": "reference_string_comp_3_address0", "direction": "out", "datatype": "sc_lv", "bitwidth":7, "type": "signal", "bundle":{"name": "reference_string_comp_3", "role": "address0" }} , 
- 	{ "name": "reference_string_comp_3_ce0", "direction": "out", "datatype": "sc_logic", "bitwidth":1, "type": "signal", "bundle":{"name": "reference_string_comp_3", "role": "ce0" }} , 
- 	{ "name": "reference_string_comp_3_q0", "direction": "in", "datatype": "sc_lv", "bitwidth":2, "type": "signal", "bundle":{"name": "reference_string_comp_3", "role": "q0" }} , 
+ 	{ "name": "reference_string_comp_6_address0", "direction": "out", "datatype": "sc_lv", "bitwidth":6, "type": "signal", "bundle":{"name": "reference_string_comp_6", "role": "address0" }} , 
+ 	{ "name": "reference_string_comp_6_ce0", "direction": "out", "datatype": "sc_logic", "bitwidth":1, "type": "signal", "bundle":{"name": "reference_string_comp_6", "role": "ce0" }} , 
+ 	{ "name": "reference_string_comp_6_q0", "direction": "in", "datatype": "sc_lv", "bitwidth":2, "type": "signal", "bundle":{"name": "reference_string_comp_6", "role": "q0" }} , 
  	{ "name": "local_reference_V_3_15_18_out", "direction": "out", "datatype": "sc_lv", "bitwidth":2, "type": "signal", "bundle":{"name": "local_reference_V_3_15_18_out", "role": "default" }} , 
  	{ "name": "local_reference_V_3_15_18_out_ap_vld", "direction": "out", "datatype": "sc_logic", "bitwidth":1, "type": "outvld", "bundle":{"name": "local_reference_V_3_15_18_out", "role": "ap_vld" }} , 
  	{ "name": "local_reference_V_2_15_18_out", "direction": "out", "datatype": "sc_lv", "bitwidth":2, "type": "signal", "bundle":{"name": "local_reference_V_2_15_18_out", "role": "default" }} , 
@@ -761,7 +761,7 @@ set RtlHierarchyInfo {[
 			{"Name" : "local_reference_V_2_1551_reload", "Type" : "None", "Direction" : "I"},
 			{"Name" : "local_reference_V_1_1536_reload", "Type" : "None", "Direction" : "I"},
 			{"Name" : "local_reference_V_0_1520_reload", "Type" : "None", "Direction" : "I"},
-			{"Name" : "reference_string_comp_3", "Type" : "Memory", "Direction" : "I"},
+			{"Name" : "reference_string_comp_6", "Type" : "Memory", "Direction" : "I"},
 			{"Name" : "local_reference_V_3_15_18_out", "Type" : "Vld", "Direction" : "O"},
 			{"Name" : "local_reference_V_2_15_18_out", "Type" : "Vld", "Direction" : "O"},
 			{"Name" : "local_reference_V_1_15_18_out", "Type" : "Vld", "Direction" : "O"},
@@ -898,7 +898,7 @@ set ArgLastReadFirstWriteLatency {
 		local_reference_V_2_1551_reload {Type I LastRead 0 FirstWrite -1}
 		local_reference_V_1_1536_reload {Type I LastRead 0 FirstWrite -1}
 		local_reference_V_0_1520_reload {Type I LastRead 0 FirstWrite -1}
-		reference_string_comp_3 {Type I LastRead 0 FirstWrite -1}
+		reference_string_comp_6 {Type I LastRead 0 FirstWrite -1}
 		local_reference_V_3_15_18_out {Type O LastRead -1 FirstWrite 0}
 		local_reference_V_2_15_18_out {Type O LastRead -1 FirstWrite 0}
 		local_reference_V_1_15_18_out {Type O LastRead -1 FirstWrite 0}
@@ -1040,7 +1040,7 @@ set Spec2ImplPortList {
 	local_reference_V_2_1551_reload { ap_none {  { local_reference_V_2_1551_reload in_data 0 2 } } }
 	local_reference_V_1_1536_reload { ap_none {  { local_reference_V_1_1536_reload in_data 0 2 } } }
 	local_reference_V_0_1520_reload { ap_none {  { local_reference_V_0_1520_reload in_data 0 2 } } }
-	reference_string_comp_3 { ap_memory {  { reference_string_comp_3_address0 mem_address 1 7 }  { reference_string_comp_3_ce0 mem_ce 1 1 }  { reference_string_comp_3_q0 in_data 0 2 } } }
+	reference_string_comp_6 { ap_memory {  { reference_string_comp_6_address0 mem_address 1 6 }  { reference_string_comp_6_ce0 mem_ce 1 1 }  { reference_string_comp_6_q0 in_data 0 2 } } }
 	local_reference_V_3_15_18_out { ap_vld {  { local_reference_V_3_15_18_out out_data 1 2 }  { local_reference_V_3_15_18_out_ap_vld out_vld 1 1 } } }
 	local_reference_V_2_15_18_out { ap_vld {  { local_reference_V_2_15_18_out out_data 1 2 }  { local_reference_V_2_15_18_out_ap_vld out_vld 1 1 } } }
 	local_reference_V_1_15_18_out { ap_vld {  { local_reference_V_1_15_18_out out_data 1 2 }  { local_reference_V_1_15_18_out_ap_vld out_vld 1 1 } } }

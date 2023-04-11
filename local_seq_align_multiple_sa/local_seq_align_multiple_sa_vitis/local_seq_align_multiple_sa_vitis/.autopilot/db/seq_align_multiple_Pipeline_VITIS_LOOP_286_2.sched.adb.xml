@@ -273,7 +273,7 @@ for.end34.exitStub:0 %ret_ln0 = ret
 
 <Node id="16" bw="0" op_0_bw="0" op_1_bw="0">
 <![CDATA[
-for.inc32.split:1 %specloopname_ln286 = specloopname void @_ssdm_op_SpecLoopName, void @empty_2
+for.inc32.split:1 %specloopname_ln286 = specloopname void @_ssdm_op_SpecLoopName, void @empty_3
 
 ]]></Node>
 <StgValue><ssdm name="specloopname_ln286"/></StgValue>

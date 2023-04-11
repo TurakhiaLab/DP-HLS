@@ -135,7 +135,7 @@ attribute shreg_extract : string;
     signal ap_block_pp0_stage0_01001 : BOOLEAN;
     signal icmp_ln171_fu_372_p2 : STD_LOGIC_VECTOR (0 downto 0);
     signal add_ln168_3_fu_366_p2 : STD_LOGIC_VECTOR (6 downto 0);
-    signal p_cast331_mid2_v_fu_398_p4 : STD_LOGIC_VECTOR (1 downto 0);
+    signal p_cast329_mid2_v_fu_398_p4 : STD_LOGIC_VECTOR (1 downto 0);
     signal select_ln168_6_fu_378_p3 : STD_LOGIC_VECTOR (6 downto 0);
     signal tmp_s_fu_408_p3 : STD_LOGIC_VECTOR (7 downto 0);
     signal zext_ln1649_fu_420_p1 : STD_LOGIC_VECTOR (7 downto 0);
@@ -216,7 +216,7 @@ attribute shreg_extract : string;
 
 
 begin
-    mux_164_9_1_1_U2557 : component seq_align_multiple_mux_164_9_1_1
+    mux_164_9_1_1_U2753 : component seq_align_multiple_mux_164_9_1_1
     generic map (
         ID => 1,
         NUM_STAGE => 1,
@@ -708,14 +708,14 @@ begin
     max_row_value_fu_537_p3 <= 
         zext_ln168_fu_491_p1 when (icmp_ln1649_fu_531_p2(0) = '1') else 
         max_row_value_7_fu_88;
-    p_cast331_mid2_v_fu_398_p4 <= select_ln168_fu_386_p3(5 downto 4);
+    p_cast329_mid2_v_fu_398_p4 <= select_ln168_fu_386_p3(5 downto 4);
     select_ln168_6_fu_378_p3 <= 
         ap_const_lv7_0 when (icmp_ln171_fu_372_p2(0) = '1') else 
         ap_sig_allocacmp_max_col_value_load;
     select_ln168_fu_386_p3 <= 
         add_ln168_3_fu_366_p2 when (icmp_ln171_fu_372_p2(0) = '1') else 
         ap_sig_allocacmp_x_load;
-    tmp_s_fu_408_p3 <= (p_cast331_mid2_v_fu_398_p4 & ap_const_lv6_0);
+    tmp_s_fu_408_p3 <= (p_cast329_mid2_v_fu_398_p4 & ap_const_lv6_0);
     trunc_ln168_20_fu_394_p1 <= select_ln168_fu_386_p3(6 - 1 downto 0);
     trunc_ln168_21_fu_416_p1 <= select_ln168_fu_386_p3(4 - 1 downto 0);
     trunc_ln173_fu_450_p1 <= select_ln168_6_fu_378_p3(6 - 1 downto 0);

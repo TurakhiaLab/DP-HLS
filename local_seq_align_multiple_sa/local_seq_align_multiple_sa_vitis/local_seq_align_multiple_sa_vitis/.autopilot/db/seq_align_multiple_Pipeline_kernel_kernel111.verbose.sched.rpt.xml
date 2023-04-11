@@ -1,7 +1,7 @@
 <profile>
 
 <section name = "Vitis HLS Report for 'seq_align_multiple_Pipeline_kernel_kernel111'" level="0">
-<item name = "Date">Mon Apr 10 17:47:58 2023
+<item name = "Date">Mon Apr 10 18:41:20 2023
 </item>
 <item name = "Version">2022.2 (Build 3670227 on Oct 13 2022)</item>
 <item name = "Project">local_seq_align_multiple_sa_vitis</item>
@@ -15,7 +15,7 @@
 <section name = "" level="1">
 <item name = "Summary"><table name="" hasTotal="0">
 <keys size="4">Clock, Target, Estimated, Uncertainty</keys>
-<column name="ap_clk">10.00 ns, 6.104 ns, 2.70 ns</column>
+<column name="ap_clk">10.00 ns, 6.400 ns, 2.70 ns</column>
 </table>
 </item>
 </section>
@@ -24,7 +24,7 @@
 <section name = "" level="1">
 <item name = "Summary"><table name="" hasTotal="0">
 <keys size="8">, min, max, min, max, min, max, Type</keys>
-<column name="">950, 950, 9.500 us, 9.500 us, 950, 950, no</column>
+<column name="">320, 320, 3.200 us, 3.200 us, 320, 320, no</column>
 </table>
 </item>
 <item name = "Detail">
@@ -35,7 +35,7 @@
 </item>
 <item name = "Loop"><table name="" hasTotal="0">
 <keys size="8">Loop Name, min, max, Latency, achieved, target, Count, Pipelined</keys>
-<column name="- kernel_kernel1">948, 948, 3, 3, 1, 316, yes</column>
+<column name="- kernel_kernel1">318, 318, 4, 1, 1, 316, yes</column>
 </table>
 </item>
 </section>

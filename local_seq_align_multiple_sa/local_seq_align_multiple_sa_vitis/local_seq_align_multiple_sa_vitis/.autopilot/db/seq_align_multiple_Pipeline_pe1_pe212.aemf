@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<cdfg:DBCdfg xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:cdfg="http://www.autoesl.com/DBCdfg" timeStamp="1681174132745">
+<cdfg:DBCdfg xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:cdfg="http://www.autoesl.com/DBCdfg" timeStamp="1681177333277">
   <ports id="1" name="dp_matrix_V" type="PortType" coreName="RAM" coreId="62" bitwidth="9" iftype="IfTypeRegister" arraysize="256">
     <dataOutputObjs>getelementptr</dataOutputObjs>
   </ports>
@@ -12,46 +12,46 @@
   <ports id="4" name="dp_matrix_V_3" type="PortType" coreName="RAM" coreId="4294967293" bitwidth="9" iftype="IfTypeRegister" arraysize="256">
     <dataOutputObjs>getelementptr</dataOutputObjs>
   </ports>
-  <ports id="5" name="dp_matrix_V_4" type="PortType" coreName="RAM" coreId="740877168" bitwidth="9" iftype="IfTypeRegister" arraysize="256">
+  <ports id="5" name="dp_matrix_V_4" type="PortType" coreName="RAM" coreId="0" bitwidth="9" iftype="IfTypeRegister" arraysize="256">
     <dataOutputObjs>getelementptr</dataOutputObjs>
   </ports>
-  <ports id="6" name="dp_matrix_V_5" type="PortType" coreName="RAM" coreId="740735776" bitwidth="9" iftype="IfTypeRegister" arraysize="256">
+  <ports id="6" name="dp_matrix_V_5" type="PortType" coreName="RAM" coreId="3225820160" bitwidth="9" iftype="IfTypeRegister" arraysize="256">
     <dataOutputObjs>getelementptr</dataOutputObjs>
   </ports>
-  <ports id="7" name="dp_matrix_V_6" type="PortType" coreName="RAM" coreId="1299218288" bitwidth="9" iftype="IfTypeRegister" arraysize="256">
+  <ports id="7" name="dp_matrix_V_6" type="PortType" coreName="RAM" coreId="3801760656" bitwidth="9" iftype="IfTypeRegister" arraysize="256">
     <dataOutputObjs>getelementptr</dataOutputObjs>
   </ports>
-  <ports id="8" name="dp_matrix_V_7" type="PortType" coreName="RAM" coreId="1002154848" bitwidth="9" iftype="IfTypeRegister" arraysize="256">
+  <ports id="8" name="dp_matrix_V_7" type="PortType" coreName="RAM" coreId="1314013527" bitwidth="9" iftype="IfTypeRegister" arraysize="256">
     <dataOutputObjs>getelementptr</dataOutputObjs>
   </ports>
-  <ports id="9" name="dp_matrix_V_8" type="PortType" coreName="RAM" coreId="1953391981" bitwidth="9" iftype="IfTypeRegister" arraysize="256">
+  <ports id="9" name="dp_matrix_V_8" type="PortType" coreName="RAM" coreId="3252658832" bitwidth="9" iftype="IfTypeRegister" arraysize="256">
     <dataOutputObjs>getelementptr</dataOutputObjs>
   </ports>
-  <ports id="10" name="dp_matrix_V_9" type="PortType" coreName="RAM" coreId="1002153936" bitwidth="9" iftype="IfTypeRegister" arraysize="256">
+  <ports id="10" name="dp_matrix_V_9" type="PortType" coreName="RAM" coreId="3241723664" bitwidth="9" iftype="IfTypeRegister" arraysize="256">
     <dataOutputObjs>getelementptr</dataOutputObjs>
   </ports>
-  <ports id="11" name="dp_matrix_V_10" type="PortType" coreName="RAM" coreId="984044544" bitwidth="9" iftype="IfTypeRegister" arraysize="256">
+  <ports id="11" name="dp_matrix_V_10" type="PortType" coreName="RAM" coreId="3241934592" bitwidth="9" iftype="IfTypeRegister" arraysize="256">
     <dataOutputObjs>getelementptr</dataOutputObjs>
   </ports>
-  <ports id="12" name="dp_matrix_V_11" type="PortType" coreName="RAM" coreId="1000998736" bitwidth="9" iftype="IfTypeRegister" arraysize="256">
+  <ports id="12" name="dp_matrix_V_11" type="PortType" coreName="RAM" coreId="3235906888" bitwidth="9" iftype="IfTypeRegister" arraysize="256">
     <dataOutputObjs>getelementptr</dataOutputObjs>
   </ports>
-  <ports id="13" name="dp_matrix_V_12" type="PortType" coreName="RAM" coreId="1000443928" bitwidth="9" iftype="IfTypeRegister" arraysize="256">
+  <ports id="13" name="dp_matrix_V_12" type="PortType" coreName="RAM" coreId="94" bitwidth="9" iftype="IfTypeRegister" arraysize="256">
     <dataOutputObjs>getelementptr</dataOutputObjs>
   </ports>
-  <ports id="14" name="dp_matrix_V_13" type="PortType" coreName="RAM" coreId="1000998144" bitwidth="9" iftype="IfTypeRegister" arraysize="256">
+  <ports id="14" name="dp_matrix_V_13" type="PortType" coreName="RAM" coreId="3241741008" bitwidth="9" iftype="IfTypeRegister" arraysize="256">
     <dataOutputObjs>getelementptr</dataOutputObjs>
   </ports>
-  <ports id="15" name="dp_matrix_V_14" type="PortType" coreName="RAM" coreId="741342736" bitwidth="9" iftype="IfTypeRegister" arraysize="256">
+  <ports id="15" name="dp_matrix_V_14" type="PortType" coreName="RAM" coreId="3252659280" bitwidth="9" iftype="IfTypeRegister" arraysize="256">
     <dataOutputObjs>getelementptr</dataOutputObjs>
   </ports>
-  <ports id="16" name="dp_matrix_V_15" type="PortType" coreName="RAM" coreId="981325616" bitwidth="9" iftype="IfTypeRegister" arraysize="256">
+  <ports id="16" name="dp_matrix_V_15" type="PortType" coreName="RAM" coreId="543516513" bitwidth="9" iftype="IfTypeRegister" arraysize="256">
     <dataOutputObjs>getelementptr</dataOutputObjs>
   </ports>
-  <ports id="17" name="max_col_value_7_out" type="PortType" coreId="0" bitwidth="8" direction="DirOut">
+  <ports id="17" name="max_col_value_7_out" type="PortType" coreId="3249304832" bitwidth="8" direction="DirOut">
     <dataInputObjs>write</dataInputObjs>
   </ports>
-  <ports id="18" name="max_row_value_7_out" type="PortType" coreId="0" bitwidth="6" direction="DirOut">
+  <ports id="18" name="max_row_value_7_out" type="PortType" coreId="3252521296" bitwidth="6" direction="DirOut">
     <dataInputObjs>write</dataInputObjs>
   </ports>
   <edges id="115" source_obj="//@blocks.0/@node_objs.4" sink_obj="//@blocks.0/@node_objs.5"/>
@@ -215,42 +215,42 @@
       <dataOutputObjs>store</dataOutputObjs>
       <constName>empty</constName>
     </node_objs>
-    <node_objs xsi:type="cdfg:CdfgNode" id="23" name="indvar_flatten121" coreId="1004347456" bitwidth="13" opcode="alloca" m_display="0" m_topoIndex="5" m_clusterGroupNumber="-1">
+    <node_objs xsi:type="cdfg:CdfgNode" id="23" name="indvar_flatten121" coreId="3475355440" bitwidth="13" opcode="alloca" m_display="0" m_topoIndex="5" m_clusterGroupNumber="-1">
       <dataOutputObjs>store</dataOutputObjs>
       <dataOutputObjs>load</dataOutputObjs>
       <dataOutputObjs>store</dataOutputObjs>
       <constName>empty</constName>
     </node_objs>
-    <node_objs xsi:type="cdfg:CdfgNode" id="24" name="indvar_flatten121_write_ln0" coreId="1006276560" opcode="store" m_display="0" m_delay="0.46" m_topoIndex="6" m_clusterGroupNumber="-1">
+    <node_objs xsi:type="cdfg:CdfgNode" id="24" name="indvar_flatten121_write_ln0" coreId="3235177840" opcode="store" m_display="0" m_delay="0.46" m_topoIndex="6" m_clusterGroupNumber="-1">
       <dataInputObjs>alloca</dataInputObjs>
       <constName>empty</constName>
     </node_objs>
-    <node_objs xsi:type="cdfg:CdfgNode" id="25" name="x_write_ln0" coreId="1005347680" opcode="store" m_display="0" m_delay="0.46" m_topoIndex="7" m_clusterGroupNumber="-1">
+    <node_objs xsi:type="cdfg:CdfgNode" id="25" name="x_write_ln0" coreId="872075196" opcode="store" m_display="0" m_delay="0.46" m_topoIndex="7" m_clusterGroupNumber="-1">
       <dataInputObjs>alloca</dataInputObjs>
       <constName>empty</constName>
     </node_objs>
-    <node_objs xsi:type="cdfg:CdfgNode" id="26" name="max_col_value_write_ln0" coreId="1000404160" opcode="store" m_display="0" m_delay="0.46" m_topoIndex="8" m_clusterGroupNumber="-1">
+    <node_objs xsi:type="cdfg:CdfgNode" id="26" name="max_col_value_write_ln0" coreId="875703604" opcode="store" m_display="0" m_delay="0.46" m_topoIndex="8" m_clusterGroupNumber="-1">
       <dataInputObjs>alloca</dataInputObjs>
       <constName>empty</constName>
     </node_objs>
-    <node_objs xsi:type="cdfg:CdfgNode" id="27" name="br_ln0" coreId="1000408528" opcode="br" m_display="0" m_topoIndex="9" m_clusterGroupNumber="-1">
+    <node_objs xsi:type="cdfg:CdfgNode" id="27" name="br_ln0" coreId="3241746064" opcode="br" m_display="0" m_topoIndex="9" m_clusterGroupNumber="-1">
       <controlInputObjs>for.body246.i.3</controlInputObjs>
     </node_objs>
   </blocks>
   <blocks id="106" name="for.inc.3.exitStub" type="BlockType">
     <controlInputObjs>for.body246.i.3</controlInputObjs>
     <controlOutputObjs>br</controlOutputObjs>
-    <node_objs xsi:type="cdfg:CdfgNode" id="103" name="max_col_value_7_out_write_ln168" lineNumber="168" fileName="src/seq_align_multiple.cpp" fileDirectory=".." coreId="744320832" contextFuncName="seq_align" opcode="write" nodeLabel="1.0" m_display="0" m_topoIndex="77" m_clusterGroupNumber="-1">
+    <node_objs xsi:type="cdfg:CdfgNode" id="103" name="max_col_value_7_out_write_ln168" lineNumber="168" fileName="src/seq_align_multiple.cpp" fileDirectory=".." coreId="3241627896" contextFuncName="seq_align" opcode="write" nodeLabel="1.0" m_display="0" m_topoIndex="77" m_clusterGroupNumber="-1">
       <inlineStackInfo fileName="src/seq_align_multiple.cpp" linenumber="168" fileDirectory="/home/ioeddk/Desktop/DP-HLS/local_seq_align_multiple_sa" functionName="seq_align"/>
       <dataInputObjs>trunc</dataInputObjs>
       <dataOutputObjs>max_col_value_7_out</dataOutputObjs>
     </node_objs>
-    <node_objs xsi:type="cdfg:CdfgNode" id="104" name="max_row_value_7_out_write_ln168" lineNumber="168" fileName="src/seq_align_multiple.cpp" fileDirectory=".." coreId="0" contextFuncName="seq_align" opcode="write" nodeLabel="1.0" m_display="0" m_topoIndex="78" m_clusterGroupNumber="-1">
+    <node_objs xsi:type="cdfg:CdfgNode" id="104" name="max_row_value_7_out_write_ln168" lineNumber="168" fileName="src/seq_align_multiple.cpp" fileDirectory=".." coreId="6775040" contextFuncName="seq_align" opcode="write" nodeLabel="1.0" m_display="0" m_topoIndex="78" m_clusterGroupNumber="-1">
       <inlineStackInfo fileName="src/seq_align_multiple.cpp" linenumber="168" fileDirectory="/home/ioeddk/Desktop/DP-HLS/local_seq_align_multiple_sa" functionName="seq_align"/>
       <dataInputObjs>trunc</dataInputObjs>
       <dataOutputObjs>max_row_value_7_out</dataOutputObjs>
     </node_objs>
-    <node_objs xsi:type="cdfg:CdfgNode" id="105" name="_ln0" coreId="744322736" opcode="ret" nodeLabel="1.0" m_display="0" m_topoIndex="79" m_clusterGroupNumber="-1"/>
+    <node_objs xsi:type="cdfg:CdfgNode" id="105" name="_ln0" coreId="0" opcode="ret" nodeLabel="1.0" m_display="0" m_topoIndex="79" m_clusterGroupNumber="-1"/>
     <fileValidLineNumbers fileName="src/seq_align_multiple.cpp">
       <validLinenumbers>168</validLinenumbers>
     </fileValidLineNumbers>
@@ -263,30 +263,30 @@
       <controlOutputObjs>br</controlOutputObjs>
       <controlOutputObjs>for.inc.3.exitStub</controlOutputObjs>
       <controlOutputObjs>for.cond.cleanup245.i.3</controlOutputObjs>
-      <node_objs xsi:type="cdfg:CdfgNode" id="29" name="max_row_value_15" lineNumber="168" originalName="max_row_value" fileName="src/seq_align_multiple.cpp" fileDirectory=".." coreId="1000408816" contextFuncName="seq_align" bitwidth="32" opcode="load" nodeLabel="1.0" m_display="0" m_topoIndex="64" m_clusterGroupNumber="-1">
+      <node_objs xsi:type="cdfg:CdfgNode" id="29" name="max_row_value_15" lineNumber="168" originalName="max_row_value" fileName="src/seq_align_multiple.cpp" fileDirectory=".." coreId="1092762996" contextFuncName="seq_align" bitwidth="32" opcode="load" nodeLabel="1.0" m_display="0" m_topoIndex="64" m_clusterGroupNumber="-1">
         <inlineStackInfo fileName="src/seq_align_multiple.cpp" linenumber="168" fileDirectory="/home/ioeddk/Desktop/DP-HLS/local_seq_align_multiple_sa" functionName="seq_align"/>
         <dataInputObjs>alloca</dataInputObjs>
         <dataOutputObjs>trunc</dataOutputObjs>
         <dataOutputObjs>select</dataOutputObjs>
       </node_objs>
-      <node_objs xsi:type="cdfg:CdfgNode" id="30" name="max_col_value_22" lineNumber="168" originalName="max_col_value" fileName="src/seq_align_multiple.cpp" fileDirectory=".." coreId="512" contextFuncName="seq_align" bitwidth="32" opcode="load" nodeLabel="1.0" m_display="0" m_topoIndex="65" m_clusterGroupNumber="-1">
+      <node_objs xsi:type="cdfg:CdfgNode" id="30" name="max_col_value_22" lineNumber="168" originalName="max_col_value" fileName="src/seq_align_multiple.cpp" fileDirectory=".." coreId="3252521184" contextFuncName="seq_align" bitwidth="32" opcode="load" nodeLabel="1.0" m_display="0" m_topoIndex="65" m_clusterGroupNumber="-1">
         <inlineStackInfo fileName="src/seq_align_multiple.cpp" linenumber="168" fileDirectory="/home/ioeddk/Desktop/DP-HLS/local_seq_align_multiple_sa" functionName="seq_align"/>
         <dataInputObjs>alloca</dataInputObjs>
         <dataOutputObjs>trunc</dataOutputObjs>
         <dataOutputObjs>select</dataOutputObjs>
       </node_objs>
-      <node_objs xsi:type="cdfg:CdfgNode" id="31" name="indvar_flatten121_load" lineNumber="168" fileName="src/seq_align_multiple.cpp" fileDirectory=".." coreId="656" contextFuncName="seq_align" bitwidth="13" opcode="load" m_display="0" m_topoIndex="10" m_clusterGroupNumber="-1">
+      <node_objs xsi:type="cdfg:CdfgNode" id="31" name="indvar_flatten121_load" lineNumber="168" fileName="src/seq_align_multiple.cpp" fileDirectory=".." coreId="608" contextFuncName="seq_align" bitwidth="13" opcode="load" m_display="0" m_topoIndex="10" m_clusterGroupNumber="-1">
         <inlineStackInfo fileName="src/seq_align_multiple.cpp" linenumber="168" fileDirectory="/home/ioeddk/Desktop/DP-HLS/local_seq_align_multiple_sa" functionName="seq_align"/>
         <dataInputObjs>alloca</dataInputObjs>
         <dataOutputObjs>icmp</dataOutputObjs>
         <dataOutputObjs>add</dataOutputObjs>
       </node_objs>
-      <node_objs xsi:type="cdfg:CdfgNode" id="32" name="trunc_ln168" lineNumber="168" fileName="src/seq_align_multiple.cpp" fileDirectory=".." rtlName="max_row_value_7_out" coreId="0" contextFuncName="seq_align" bitwidth="6" opcode="trunc" nodeLabel="1.0" m_display="0" m_topoIndex="66" m_clusterGroupNumber="-1">
+      <node_objs xsi:type="cdfg:CdfgNode" id="32" name="trunc_ln168" lineNumber="168" fileName="src/seq_align_multiple.cpp" fileDirectory=".." rtlName="max_row_value_7_out" coreId="3252651968" contextFuncName="seq_align" bitwidth="6" opcode="trunc" nodeLabel="1.0" m_display="0" m_topoIndex="66" m_clusterGroupNumber="-1">
         <inlineStackInfo fileName="src/seq_align_multiple.cpp" linenumber="168" fileDirectory="/home/ioeddk/Desktop/DP-HLS/local_seq_align_multiple_sa" functionName="seq_align"/>
         <dataInputObjs>load</dataInputObjs>
         <dataOutputObjs>write</dataOutputObjs>
       </node_objs>
-      <node_objs xsi:type="cdfg:CdfgNode" id="33" name="trunc_ln168_19" lineNumber="168" fileName="src/seq_align_multiple.cpp" fileDirectory=".." rtlName="max_col_value_7_out" coreId="1000427040" contextFuncName="seq_align" bitwidth="8" opcode="trunc" nodeLabel="1.0" m_display="0" m_topoIndex="67" m_clusterGroupNumber="-1">
+      <node_objs xsi:type="cdfg:CdfgNode" id="33" name="trunc_ln168_19" lineNumber="168" fileName="src/seq_align_multiple.cpp" fileDirectory=".." rtlName="max_col_value_7_out" coreId="3252656384" contextFuncName="seq_align" bitwidth="8" opcode="trunc" nodeLabel="1.0" m_display="0" m_topoIndex="67" m_clusterGroupNumber="-1">
         <inlineStackInfo fileName="src/seq_align_multiple.cpp" linenumber="168" fileDirectory="/home/ioeddk/Desktop/DP-HLS/local_seq_align_multiple_sa" functionName="seq_align"/>
         <dataInputObjs>load</dataInputObjs>
         <dataOutputObjs>write</dataOutputObjs>
@@ -303,7 +303,7 @@
         <dataOutputObjs>store</dataOutputObjs>
         <constName>empty</constName>
       </node_objs>
-      <node_objs xsi:type="cdfg:CdfgNode" id="37" name="br_ln168" lineNumber="168" fileName="src/seq_align_multiple.cpp" fileDirectory=".." coreId="0" contextFuncName="seq_align" opcode="br" m_display="0" m_topoIndex="13" m_clusterGroupNumber="-1">
+      <node_objs xsi:type="cdfg:CdfgNode" id="37" name="br_ln168" lineNumber="168" fileName="src/seq_align_multiple.cpp" fileDirectory=".." coreId="3241741168" contextFuncName="seq_align" opcode="br" m_display="0" m_topoIndex="13" m_clusterGroupNumber="-1">
         <inlineStackInfo fileName="src/seq_align_multiple.cpp" linenumber="168" fileDirectory="/home/ioeddk/Desktop/DP-HLS/local_seq_align_multiple_sa" functionName="seq_align"/>
         <dataInputObjs>icmp</dataInputObjs>
         <controlInputObjs>for.cond.cleanup245.i.3</controlInputObjs>
@@ -317,13 +317,13 @@
       <controlInputObjs>for.body246.i.3</controlInputObjs>
       <controlOutputObjs>br</controlOutputObjs>
       <controlOutputObjs>for.body246.i.3</controlOutputObjs>
-      <node_objs xsi:type="cdfg:CdfgNode" id="39" name="max_col_value_load" lineNumber="171" fileName="src/seq_align_multiple.cpp" fileDirectory=".." coreId="1000409312" contextFuncName="seq_align" bitwidth="7" opcode="load" m_display="0" m_topoIndex="14" m_clusterGroupNumber="-1">
+      <node_objs xsi:type="cdfg:CdfgNode" id="39" name="max_col_value_load" lineNumber="171" fileName="src/seq_align_multiple.cpp" fileDirectory=".." coreId="0" contextFuncName="seq_align" bitwidth="7" opcode="load" m_display="0" m_topoIndex="14" m_clusterGroupNumber="-1">
         <inlineStackInfo fileName="src/seq_align_multiple.cpp" linenumber="171" fileDirectory="/home/ioeddk/Desktop/DP-HLS/local_seq_align_multiple_sa" functionName="seq_align"/>
         <dataInputObjs>alloca</dataInputObjs>
         <dataOutputObjs>icmp</dataOutputObjs>
         <dataOutputObjs>select</dataOutputObjs>
       </node_objs>
-      <node_objs xsi:type="cdfg:CdfgNode" id="40" name="x_load" lineNumber="168" fileName="src/seq_align_multiple.cpp" fileDirectory=".." coreId="1000420720" contextFuncName="seq_align" bitwidth="7" opcode="load" m_display="0" m_topoIndex="15" m_clusterGroupNumber="-1">
+      <node_objs xsi:type="cdfg:CdfgNode" id="40" name="x_load" lineNumber="168" fileName="src/seq_align_multiple.cpp" fileDirectory=".." coreId="0" contextFuncName="seq_align" bitwidth="7" opcode="load" m_display="0" m_topoIndex="15" m_clusterGroupNumber="-1">
         <inlineStackInfo fileName="src/seq_align_multiple.cpp" linenumber="168" fileDirectory="/home/ioeddk/Desktop/DP-HLS/local_seq_align_multiple_sa" functionName="seq_align"/>
         <dataInputObjs>alloca</dataInputObjs>
         <dataOutputObjs>add</dataOutputObjs>
@@ -361,34 +361,34 @@
         <dataOutputObjs>trunc</dataOutputObjs>
         <dataOutputObjs>store</dataOutputObjs>
       </node_objs>
-      <node_objs xsi:type="cdfg:CdfgNode" id="47" name="trunc_ln168_20" lineNumber="168" fileName="src/seq_align_multiple.cpp" fileDirectory=".." rtlName="trunc_ln168_20_fu_394_p1" coreId="1000379504" contextFuncName="seq_align" bitwidth="6" opcode="trunc" m_display="0" m_topoIndex="20" m_clusterGroupNumber="-1">
+      <node_objs xsi:type="cdfg:CdfgNode" id="47" name="trunc_ln168_20" lineNumber="168" fileName="src/seq_align_multiple.cpp" fileDirectory=".." rtlName="trunc_ln168_20_fu_394_p1" coreId="0" contextFuncName="seq_align" bitwidth="6" opcode="trunc" m_display="0" m_topoIndex="20" m_clusterGroupNumber="-1">
         <inlineStackInfo fileName="src/seq_align_multiple.cpp" linenumber="168" fileDirectory="/home/ioeddk/Desktop/DP-HLS/local_seq_align_multiple_sa" functionName="seq_align"/>
         <dataInputObjs>select</dataInputObjs>
         <dataOutputObjs>zext</dataOutputObjs>
       </node_objs>
-      <node_objs xsi:type="cdfg:CdfgNode" id="48" name="p_cast331_mid2_v" lineNumber="168" fileName="src/seq_align_multiple.cpp" fileDirectory=".." rtlName="p_cast331_mid2_v_fu_398_p4" coreId="0" contextFuncName="seq_align" bitwidth="2" opcode="partselect" m_display="0" m_topoIndex="21" m_clusterGroupNumber="-1">
+      <node_objs xsi:type="cdfg:CdfgNode" id="48" name="p_cast329_mid2_v" lineNumber="168" fileName="src/seq_align_multiple.cpp" fileDirectory=".." rtlName="p_cast329_mid2_v_fu_398_p4" coreId="3241686224" contextFuncName="seq_align" bitwidth="2" opcode="partselect" m_display="0" m_topoIndex="21" m_clusterGroupNumber="-1">
         <inlineStackInfo fileName="src/seq_align_multiple.cpp" linenumber="168" fileDirectory="/home/ioeddk/Desktop/DP-HLS/local_seq_align_multiple_sa" functionName="seq_align"/>
         <dataInputObjs>select</dataInputObjs>
         <dataOutputObjs>bitconcatenate</dataOutputObjs>
         <constName>empty</constName>
       </node_objs>
-      <node_objs xsi:type="cdfg:CdfgNode" id="49" name="tmp_s" lineNumber="1649" fileName="/tools/Xilinx/Vitis_HLS/2022.2/common/technology/autopilot/ap_fixed_base.h" fileDirectory=".." rtlName="tmp_s_fu_408_p3" coreId="1000344512" contextFuncName="operator_gt_32_32_true_AP_TRN_AP_WRAP_0" bitwidth="8" opcode="bitconcatenate" m_display="0" m_topoIndex="22" m_clusterGroupNumber="-1">
+      <node_objs xsi:type="cdfg:CdfgNode" id="49" name="tmp_s" lineNumber="1649" fileName="/tools/Xilinx/Vitis_HLS/2022.2/common/technology/autopilot/ap_fixed_base.h" fileDirectory=".." rtlName="tmp_s_fu_408_p3" coreId="0" contextFuncName="operator_gt_32_32_true_AP_TRN_AP_WRAP_0" bitwidth="8" opcode="bitconcatenate" m_display="0" m_topoIndex="22" m_clusterGroupNumber="-1">
         <inlineStackInfo fileName="/tools/Xilinx/Vitis_HLS/2022.2/common/technology/autopilot/ap_fixed_base.h" linenumber="1649" fileDirectory="/home/ioeddk/Desktop/DP-HLS/local_seq_align_multiple_sa" functionName="operator&amp;gt;&amp;lt;32, 32, true, AP_TRN, AP_WRAP, 0&amp;gt;"/>
         <dataInputObjs>partselect</dataInputObjs>
         <dataOutputObjs>add</dataOutputObjs>
         <constName>empty</constName>
       </node_objs>
-      <node_objs xsi:type="cdfg:CdfgNode" id="50" name="trunc_ln168_21" lineNumber="168" fileName="src/seq_align_multiple.cpp" fileDirectory=".." rtlName="trunc_ln168_21_fu_416_p1" coreId="1000344512" contextFuncName="seq_align" bitwidth="4" opcode="trunc" m_display="0" m_topoIndex="23" m_clusterGroupNumber="-1">
+      <node_objs xsi:type="cdfg:CdfgNode" id="50" name="trunc_ln168_21" lineNumber="168" fileName="src/seq_align_multiple.cpp" fileDirectory=".." rtlName="trunc_ln168_21_fu_416_p1" coreId="3241651264" contextFuncName="seq_align" bitwidth="4" opcode="trunc" m_display="0" m_topoIndex="23" m_clusterGroupNumber="-1">
         <inlineStackInfo fileName="src/seq_align_multiple.cpp" linenumber="168" fileDirectory="/home/ioeddk/Desktop/DP-HLS/local_seq_align_multiple_sa" functionName="seq_align"/>
         <dataInputObjs>select</dataInputObjs>
         <dataOutputObjs>mux</dataOutputObjs>
       </node_objs>
-      <node_objs xsi:type="cdfg:CdfgNode" id="51" name="zext_ln168" lineNumber="168" fileName="src/seq_align_multiple.cpp" fileDirectory=".." rtlName="zext_ln168_fu_491_p1" coreId="741536624" contextFuncName="seq_align" bitwidth="32" opcode="zext" nodeLabel="1.0" m_display="0" m_topoIndex="68" m_clusterGroupNumber="-1">
+      <node_objs xsi:type="cdfg:CdfgNode" id="51" name="zext_ln168" lineNumber="168" fileName="src/seq_align_multiple.cpp" fileDirectory=".." rtlName="zext_ln168_fu_491_p1" coreId="784" contextFuncName="seq_align" bitwidth="32" opcode="zext" nodeLabel="1.0" m_display="0" m_topoIndex="68" m_clusterGroupNumber="-1">
         <inlineStackInfo fileName="src/seq_align_multiple.cpp" linenumber="168" fileDirectory="/home/ioeddk/Desktop/DP-HLS/local_seq_align_multiple_sa" functionName="seq_align"/>
         <dataInputObjs>trunc</dataInputObjs>
         <dataOutputObjs>select</dataOutputObjs>
       </node_objs>
-      <node_objs xsi:type="cdfg:CdfgNode" id="53" name="zext_ln1649" lineNumber="1649" fileName="/tools/Xilinx/Vitis_HLS/2022.2/common/technology/autopilot/ap_fixed_base.h" fileDirectory=".." rtlName="zext_ln1649_fu_420_p1" coreId="1000358688" contextFuncName="operator_gt_32_32_true_AP_TRN_AP_WRAP_0" bitwidth="8" opcode="zext" m_display="0" m_topoIndex="24" m_clusterGroupNumber="-1">
+      <node_objs xsi:type="cdfg:CdfgNode" id="53" name="zext_ln1649" lineNumber="1649" fileName="/tools/Xilinx/Vitis_HLS/2022.2/common/technology/autopilot/ap_fixed_base.h" fileDirectory=".." rtlName="zext_ln1649_fu_420_p1" coreId="3241668288" contextFuncName="operator_gt_32_32_true_AP_TRN_AP_WRAP_0" bitwidth="8" opcode="zext" m_display="0" m_topoIndex="24" m_clusterGroupNumber="-1">
         <inlineStackInfo fileName="/tools/Xilinx/Vitis_HLS/2022.2/common/technology/autopilot/ap_fixed_base.h" linenumber="1649" fileDirectory="/home/ioeddk/Desktop/DP-HLS/local_seq_align_multiple_sa" functionName="operator&amp;gt;&amp;lt;32, 32, true, AP_TRN, AP_WRAP, 0&amp;gt;"/>
         <dataInputObjs>select</dataInputObjs>
         <dataOutputObjs>add</dataOutputObjs>
@@ -399,7 +399,7 @@
         <dataInputObjs>zext</dataInputObjs>
         <dataOutputObjs>zext</dataOutputObjs>
       </node_objs>
-      <node_objs xsi:type="cdfg:CdfgNode" id="55" name="zext_ln1649_7" lineNumber="1649" fileName="/tools/Xilinx/Vitis_HLS/2022.2/common/technology/autopilot/ap_fixed_base.h" fileDirectory=".." rtlName="zext_ln1649_7_fu_430_p1" coreId="176" contextFuncName="operator_gt_32_32_true_AP_TRN_AP_WRAP_0" bitwidth="64" opcode="zext" m_display="0" m_topoIndex="26" m_clusterGroupNumber="-1">
+      <node_objs xsi:type="cdfg:CdfgNode" id="55" name="zext_ln1649_7" lineNumber="1649" fileName="/tools/Xilinx/Vitis_HLS/2022.2/common/technology/autopilot/ap_fixed_base.h" fileDirectory=".." rtlName="zext_ln1649_7_fu_430_p1" coreId="1734820130" contextFuncName="operator_gt_32_32_true_AP_TRN_AP_WRAP_0" bitwidth="64" opcode="zext" m_display="0" m_topoIndex="26" m_clusterGroupNumber="-1">
         <inlineStackInfo fileName="/tools/Xilinx/Vitis_HLS/2022.2/common/technology/autopilot/ap_fixed_base.h" linenumber="1649" fileDirectory="/home/ioeddk/Desktop/DP-HLS/local_seq_align_multiple_sa" functionName="operator&amp;gt;&amp;lt;32, 32, true, AP_TRN, AP_WRAP, 0&amp;gt;"/>
         <dataInputObjs>add</dataInputObjs>
         <dataOutputObjs>getelementptr</dataOutputObjs>
@@ -426,105 +426,105 @@
         <dataOutputObjs>load</dataOutputObjs>
         <constName>empty</constName>
       </node_objs>
-      <node_objs xsi:type="cdfg:CdfgNode" id="57" name="dp_matrix_V_1_addr" lineNumber="1649" fileName="/tools/Xilinx/Vitis_HLS/2022.2/common/technology/autopilot/ap_fixed_base.h" fileDirectory=".." coreId="1000309536" contextFuncName="operator_gt_32_32_true_AP_TRN_AP_WRAP_0" bitwidth="8" opcode="getelementptr" m_display="0" m_topoIndex="28" m_clusterGroupNumber="-1">
+      <node_objs xsi:type="cdfg:CdfgNode" id="57" name="dp_matrix_V_1_addr" lineNumber="1649" fileName="/tools/Xilinx/Vitis_HLS/2022.2/common/technology/autopilot/ap_fixed_base.h" fileDirectory=".." coreId="3222812560" contextFuncName="operator_gt_32_32_true_AP_TRN_AP_WRAP_0" bitwidth="8" opcode="getelementptr" m_display="0" m_topoIndex="28" m_clusterGroupNumber="-1">
         <inlineStackInfo fileName="/tools/Xilinx/Vitis_HLS/2022.2/common/technology/autopilot/ap_fixed_base.h" linenumber="1649" fileDirectory="/home/ioeddk/Desktop/DP-HLS/local_seq_align_multiple_sa" functionName="operator&amp;gt;&amp;lt;32, 32, true, AP_TRN, AP_WRAP, 0&amp;gt;"/>
         <dataInputObjs>dp_matrix_V_1</dataInputObjs>
         <dataInputObjs>zext</dataInputObjs>
         <dataOutputObjs>load</dataOutputObjs>
         <constName>empty</constName>
       </node_objs>
-      <node_objs xsi:type="cdfg:CdfgNode" id="58" name="dp_matrix_V_2_addr" lineNumber="1649" fileName="/tools/Xilinx/Vitis_HLS/2022.2/common/technology/autopilot/ap_fixed_base.h" fileDirectory=".." coreId="1000309536" contextFuncName="operator_gt_32_32_true_AP_TRN_AP_WRAP_0" bitwidth="8" opcode="getelementptr" m_display="0" m_topoIndex="29" m_clusterGroupNumber="-1">
+      <node_objs xsi:type="cdfg:CdfgNode" id="58" name="dp_matrix_V_2_addr" lineNumber="1649" fileName="/tools/Xilinx/Vitis_HLS/2022.2/common/technology/autopilot/ap_fixed_base.h" fileDirectory=".." coreId="3222829424" contextFuncName="operator_gt_32_32_true_AP_TRN_AP_WRAP_0" bitwidth="8" opcode="getelementptr" m_display="0" m_topoIndex="29" m_clusterGroupNumber="-1">
         <inlineStackInfo fileName="/tools/Xilinx/Vitis_HLS/2022.2/common/technology/autopilot/ap_fixed_base.h" linenumber="1649" fileDirectory="/home/ioeddk/Desktop/DP-HLS/local_seq_align_multiple_sa" functionName="operator&amp;gt;&amp;lt;32, 32, true, AP_TRN, AP_WRAP, 0&amp;gt;"/>
         <dataInputObjs>dp_matrix_V_2</dataInputObjs>
         <dataInputObjs>zext</dataInputObjs>
         <dataOutputObjs>load</dataOutputObjs>
         <constName>empty</constName>
       </node_objs>
-      <node_objs xsi:type="cdfg:CdfgNode" id="59" name="dp_matrix_V_3_addr" lineNumber="1649" fileName="/tools/Xilinx/Vitis_HLS/2022.2/common/technology/autopilot/ap_fixed_base.h" fileDirectory=".." coreId="1000274624" contextFuncName="operator_gt_32_32_true_AP_TRN_AP_WRAP_0" bitwidth="8" opcode="getelementptr" m_display="0" m_topoIndex="30" m_clusterGroupNumber="-1">
+      <node_objs xsi:type="cdfg:CdfgNode" id="59" name="dp_matrix_V_3_addr" lineNumber="1649" fileName="/tools/Xilinx/Vitis_HLS/2022.2/common/technology/autopilot/ap_fixed_base.h" fileDirectory=".." coreId="3222812560" contextFuncName="operator_gt_32_32_true_AP_TRN_AP_WRAP_0" bitwidth="8" opcode="getelementptr" m_display="0" m_topoIndex="30" m_clusterGroupNumber="-1">
         <inlineStackInfo fileName="/tools/Xilinx/Vitis_HLS/2022.2/common/technology/autopilot/ap_fixed_base.h" linenumber="1649" fileDirectory="/home/ioeddk/Desktop/DP-HLS/local_seq_align_multiple_sa" functionName="operator&amp;gt;&amp;lt;32, 32, true, AP_TRN, AP_WRAP, 0&amp;gt;"/>
         <dataInputObjs>dp_matrix_V_3</dataInputObjs>
         <dataInputObjs>zext</dataInputObjs>
         <dataOutputObjs>load</dataOutputObjs>
         <constName>empty</constName>
       </node_objs>
-      <node_objs xsi:type="cdfg:CdfgNode" id="60" name="dp_matrix_V_4_addr" lineNumber="1649" fileName="/tools/Xilinx/Vitis_HLS/2022.2/common/technology/autopilot/ap_fixed_base.h" fileDirectory=".." coreId="1000291264" contextFuncName="operator_gt_32_32_true_AP_TRN_AP_WRAP_0" bitwidth="8" opcode="getelementptr" m_display="0" m_topoIndex="31" m_clusterGroupNumber="-1">
+      <node_objs xsi:type="cdfg:CdfgNode" id="60" name="dp_matrix_V_4_addr" lineNumber="1649" fileName="/tools/Xilinx/Vitis_HLS/2022.2/common/technology/autopilot/ap_fixed_base.h" fileDirectory=".." coreId="3222826448" contextFuncName="operator_gt_32_32_true_AP_TRN_AP_WRAP_0" bitwidth="8" opcode="getelementptr" m_display="0" m_topoIndex="31" m_clusterGroupNumber="-1">
         <inlineStackInfo fileName="/tools/Xilinx/Vitis_HLS/2022.2/common/technology/autopilot/ap_fixed_base.h" linenumber="1649" fileDirectory="/home/ioeddk/Desktop/DP-HLS/local_seq_align_multiple_sa" functionName="operator&amp;gt;&amp;lt;32, 32, true, AP_TRN, AP_WRAP, 0&amp;gt;"/>
         <dataInputObjs>dp_matrix_V_4</dataInputObjs>
         <dataInputObjs>zext</dataInputObjs>
         <dataOutputObjs>load</dataOutputObjs>
         <constName>empty</constName>
       </node_objs>
-      <node_objs xsi:type="cdfg:CdfgNode" id="61" name="dp_matrix_V_5_addr" lineNumber="1649" fileName="/tools/Xilinx/Vitis_HLS/2022.2/common/technology/autopilot/ap_fixed_base.h" fileDirectory=".." coreId="1000427040" contextFuncName="operator_gt_32_32_true_AP_TRN_AP_WRAP_0" bitwidth="8" opcode="getelementptr" m_display="0" m_topoIndex="32" m_clusterGroupNumber="-1">
+      <node_objs xsi:type="cdfg:CdfgNode" id="61" name="dp_matrix_V_5_addr" lineNumber="1649" fileName="/tools/Xilinx/Vitis_HLS/2022.2/common/technology/autopilot/ap_fixed_base.h" fileDirectory=".." coreId="3222777664" contextFuncName="operator_gt_32_32_true_AP_TRN_AP_WRAP_0" bitwidth="8" opcode="getelementptr" m_display="0" m_topoIndex="32" m_clusterGroupNumber="-1">
         <inlineStackInfo fileName="/tools/Xilinx/Vitis_HLS/2022.2/common/technology/autopilot/ap_fixed_base.h" linenumber="1649" fileDirectory="/home/ioeddk/Desktop/DP-HLS/local_seq_align_multiple_sa" functionName="operator&amp;gt;&amp;lt;32, 32, true, AP_TRN, AP_WRAP, 0&amp;gt;"/>
         <dataInputObjs>dp_matrix_V_5</dataInputObjs>
         <dataInputObjs>zext</dataInputObjs>
         <dataOutputObjs>load</dataOutputObjs>
         <constName>empty</constName>
       </node_objs>
-      <node_objs xsi:type="cdfg:CdfgNode" id="62" name="dp_matrix_V_6_addr" lineNumber="1649" fileName="/tools/Xilinx/Vitis_HLS/2022.2/common/technology/autopilot/ap_fixed_base.h" fileDirectory=".." coreId="1000427040" contextFuncName="operator_gt_32_32_true_AP_TRN_AP_WRAP_0" bitwidth="8" opcode="getelementptr" m_display="0" m_topoIndex="33" m_clusterGroupNumber="-1">
+      <node_objs xsi:type="cdfg:CdfgNode" id="62" name="dp_matrix_V_6_addr" lineNumber="1649" fileName="/tools/Xilinx/Vitis_HLS/2022.2/common/technology/autopilot/ap_fixed_base.h" fileDirectory=".." coreId="3222777664" contextFuncName="operator_gt_32_32_true_AP_TRN_AP_WRAP_0" bitwidth="8" opcode="getelementptr" m_display="0" m_topoIndex="33" m_clusterGroupNumber="-1">
         <inlineStackInfo fileName="/tools/Xilinx/Vitis_HLS/2022.2/common/technology/autopilot/ap_fixed_base.h" linenumber="1649" fileDirectory="/home/ioeddk/Desktop/DP-HLS/local_seq_align_multiple_sa" functionName="operator&amp;gt;&amp;lt;32, 32, true, AP_TRN, AP_WRAP, 0&amp;gt;"/>
         <dataInputObjs>dp_matrix_V_6</dataInputObjs>
         <dataInputObjs>zext</dataInputObjs>
         <dataOutputObjs>load</dataOutputObjs>
         <constName>empty</constName>
       </node_objs>
-      <node_objs xsi:type="cdfg:CdfgNode" id="63" name="dp_matrix_V_7_addr" lineNumber="1649" fileName="/tools/Xilinx/Vitis_HLS/2022.2/common/technology/autopilot/ap_fixed_base.h" fileDirectory=".." coreId="1000317392" contextFuncName="operator_gt_32_32_true_AP_TRN_AP_WRAP_0" bitwidth="8" opcode="getelementptr" m_display="0" m_topoIndex="34" m_clusterGroupNumber="-1">
+      <node_objs xsi:type="cdfg:CdfgNode" id="63" name="dp_matrix_V_7_addr" lineNumber="1649" fileName="/tools/Xilinx/Vitis_HLS/2022.2/common/technology/autopilot/ap_fixed_base.h" fileDirectory=".." coreId="3222777664" contextFuncName="operator_gt_32_32_true_AP_TRN_AP_WRAP_0" bitwidth="8" opcode="getelementptr" m_display="0" m_topoIndex="34" m_clusterGroupNumber="-1">
         <inlineStackInfo fileName="/tools/Xilinx/Vitis_HLS/2022.2/common/technology/autopilot/ap_fixed_base.h" linenumber="1649" fileDirectory="/home/ioeddk/Desktop/DP-HLS/local_seq_align_multiple_sa" functionName="operator&amp;gt;&amp;lt;32, 32, true, AP_TRN, AP_WRAP, 0&amp;gt;"/>
         <dataInputObjs>dp_matrix_V_7</dataInputObjs>
         <dataInputObjs>zext</dataInputObjs>
         <dataOutputObjs>load</dataOutputObjs>
         <constName>empty</constName>
       </node_objs>
-      <node_objs xsi:type="cdfg:CdfgNode" id="64" name="dp_matrix_V_8_addr" lineNumber="1649" fileName="/tools/Xilinx/Vitis_HLS/2022.2/common/technology/autopilot/ap_fixed_base.h" fileDirectory=".." coreId="1000320896" contextFuncName="operator_gt_32_32_true_AP_TRN_AP_WRAP_0" bitwidth="8" opcode="getelementptr" m_display="0" m_topoIndex="35" m_clusterGroupNumber="-1">
+      <node_objs xsi:type="cdfg:CdfgNode" id="64" name="dp_matrix_V_8_addr" lineNumber="1649" fileName="/tools/Xilinx/Vitis_HLS/2022.2/common/technology/autopilot/ap_fixed_base.h" fileDirectory=".." coreId="3222777664" contextFuncName="operator_gt_32_32_true_AP_TRN_AP_WRAP_0" bitwidth="8" opcode="getelementptr" m_display="0" m_topoIndex="35" m_clusterGroupNumber="-1">
         <inlineStackInfo fileName="/tools/Xilinx/Vitis_HLS/2022.2/common/technology/autopilot/ap_fixed_base.h" linenumber="1649" fileDirectory="/home/ioeddk/Desktop/DP-HLS/local_seq_align_multiple_sa" functionName="operator&amp;gt;&amp;lt;32, 32, true, AP_TRN, AP_WRAP, 0&amp;gt;"/>
         <dataInputObjs>dp_matrix_V_8</dataInputObjs>
         <dataInputObjs>zext</dataInputObjs>
         <dataOutputObjs>load</dataOutputObjs>
         <constName>empty</constName>
       </node_objs>
-      <node_objs xsi:type="cdfg:CdfgNode" id="65" name="dp_matrix_V_9_addr" lineNumber="1649" fileName="/tools/Xilinx/Vitis_HLS/2022.2/common/technology/autopilot/ap_fixed_base.h" fileDirectory=".." coreId="1000352368" contextFuncName="operator_gt_32_32_true_AP_TRN_AP_WRAP_0" bitwidth="8" opcode="getelementptr" m_display="0" m_topoIndex="36" m_clusterGroupNumber="-1">
+      <node_objs xsi:type="cdfg:CdfgNode" id="65" name="dp_matrix_V_9_addr" lineNumber="1649" fileName="/tools/Xilinx/Vitis_HLS/2022.2/common/technology/autopilot/ap_fixed_base.h" fileDirectory=".." coreId="3222742768" contextFuncName="operator_gt_32_32_true_AP_TRN_AP_WRAP_0" bitwidth="8" opcode="getelementptr" m_display="0" m_topoIndex="36" m_clusterGroupNumber="-1">
         <inlineStackInfo fileName="/tools/Xilinx/Vitis_HLS/2022.2/common/technology/autopilot/ap_fixed_base.h" linenumber="1649" fileDirectory="/home/ioeddk/Desktop/DP-HLS/local_seq_align_multiple_sa" functionName="operator&amp;gt;&amp;lt;32, 32, true, AP_TRN, AP_WRAP, 0&amp;gt;"/>
         <dataInputObjs>dp_matrix_V_9</dataInputObjs>
         <dataInputObjs>zext</dataInputObjs>
         <dataOutputObjs>load</dataOutputObjs>
         <constName>empty</constName>
       </node_objs>
-      <node_objs xsi:type="cdfg:CdfgNode" id="66" name="dp_matrix_V_10_addr" lineNumber="1649" fileName="/tools/Xilinx/Vitis_HLS/2022.2/common/technology/autopilot/ap_fixed_base.h" fileDirectory=".." coreId="1000355872" contextFuncName="operator_gt_32_32_true_AP_TRN_AP_WRAP_0" bitwidth="8" opcode="getelementptr" m_display="0" m_topoIndex="37" m_clusterGroupNumber="-1">
+      <node_objs xsi:type="cdfg:CdfgNode" id="66" name="dp_matrix_V_10_addr" lineNumber="1649" fileName="/tools/Xilinx/Vitis_HLS/2022.2/common/technology/autopilot/ap_fixed_base.h" fileDirectory=".." coreId="3222742768" contextFuncName="operator_gt_32_32_true_AP_TRN_AP_WRAP_0" bitwidth="8" opcode="getelementptr" m_display="0" m_topoIndex="37" m_clusterGroupNumber="-1">
         <inlineStackInfo fileName="/tools/Xilinx/Vitis_HLS/2022.2/common/technology/autopilot/ap_fixed_base.h" linenumber="1649" fileDirectory="/home/ioeddk/Desktop/DP-HLS/local_seq_align_multiple_sa" functionName="operator&amp;gt;&amp;lt;32, 32, true, AP_TRN, AP_WRAP, 0&amp;gt;"/>
         <dataInputObjs>dp_matrix_V_10</dataInputObjs>
         <dataInputObjs>zext</dataInputObjs>
         <dataOutputObjs>load</dataOutputObjs>
         <constName>empty</constName>
       </node_objs>
-      <node_objs xsi:type="cdfg:CdfgNode" id="67" name="dp_matrix_V_11_addr" lineNumber="1649" fileName="/tools/Xilinx/Vitis_HLS/2022.2/common/technology/autopilot/ap_fixed_base.h" fileDirectory=".." coreId="1000401984" contextFuncName="operator_gt_32_32_true_AP_TRN_AP_WRAP_0" bitwidth="8" opcode="getelementptr" m_display="0" m_topoIndex="38" m_clusterGroupNumber="-1">
+      <node_objs xsi:type="cdfg:CdfgNode" id="67" name="dp_matrix_V_11_addr" lineNumber="1649" fileName="/tools/Xilinx/Vitis_HLS/2022.2/common/technology/autopilot/ap_fixed_base.h" fileDirectory=".." coreId="3222742768" contextFuncName="operator_gt_32_32_true_AP_TRN_AP_WRAP_0" bitwidth="8" opcode="getelementptr" m_display="0" m_topoIndex="38" m_clusterGroupNumber="-1">
         <inlineStackInfo fileName="/tools/Xilinx/Vitis_HLS/2022.2/common/technology/autopilot/ap_fixed_base.h" linenumber="1649" fileDirectory="/home/ioeddk/Desktop/DP-HLS/local_seq_align_multiple_sa" functionName="operator&amp;gt;&amp;lt;32, 32, true, AP_TRN, AP_WRAP, 0&amp;gt;"/>
         <dataInputObjs>dp_matrix_V_11</dataInputObjs>
         <dataInputObjs>zext</dataInputObjs>
         <dataOutputObjs>load</dataOutputObjs>
         <constName>empty</constName>
       </node_objs>
-      <node_objs xsi:type="cdfg:CdfgNode" id="68" name="dp_matrix_V_12_addr" lineNumber="1649" fileName="/tools/Xilinx/Vitis_HLS/2022.2/common/technology/autopilot/ap_fixed_base.h" fileDirectory=".." coreId="1000401328" contextFuncName="operator_gt_32_32_true_AP_TRN_AP_WRAP_0" bitwidth="8" opcode="getelementptr" m_display="0" m_topoIndex="39" m_clusterGroupNumber="-1">
+      <node_objs xsi:type="cdfg:CdfgNode" id="68" name="dp_matrix_V_12_addr" lineNumber="1649" fileName="/tools/Xilinx/Vitis_HLS/2022.2/common/technology/autopilot/ap_fixed_base.h" fileDirectory=".." coreId="3222742768" contextFuncName="operator_gt_32_32_true_AP_TRN_AP_WRAP_0" bitwidth="8" opcode="getelementptr" m_display="0" m_topoIndex="39" m_clusterGroupNumber="-1">
         <inlineStackInfo fileName="/tools/Xilinx/Vitis_HLS/2022.2/common/technology/autopilot/ap_fixed_base.h" linenumber="1649" fileDirectory="/home/ioeddk/Desktop/DP-HLS/local_seq_align_multiple_sa" functionName="operator&amp;gt;&amp;lt;32, 32, true, AP_TRN, AP_WRAP, 0&amp;gt;"/>
         <dataInputObjs>dp_matrix_V_12</dataInputObjs>
         <dataInputObjs>zext</dataInputObjs>
         <dataOutputObjs>load</dataOutputObjs>
         <constName>empty</constName>
       </node_objs>
-      <node_objs xsi:type="cdfg:CdfgNode" id="69" name="dp_matrix_V_13_addr" lineNumber="1649" fileName="/tools/Xilinx/Vitis_HLS/2022.2/common/technology/autopilot/ap_fixed_base.h" fileDirectory=".." coreId="1000389904" contextFuncName="operator_gt_32_32_true_AP_TRN_AP_WRAP_0" bitwidth="8" opcode="getelementptr" m_display="0" m_topoIndex="40" m_clusterGroupNumber="-1">
+      <node_objs xsi:type="cdfg:CdfgNode" id="69" name="dp_matrix_V_13_addr" lineNumber="1649" fileName="/tools/Xilinx/Vitis_HLS/2022.2/common/technology/autopilot/ap_fixed_base.h" fileDirectory=".." coreId="3222672992" contextFuncName="operator_gt_32_32_true_AP_TRN_AP_WRAP_0" bitwidth="8" opcode="getelementptr" m_display="0" m_topoIndex="40" m_clusterGroupNumber="-1">
         <inlineStackInfo fileName="/tools/Xilinx/Vitis_HLS/2022.2/common/technology/autopilot/ap_fixed_base.h" linenumber="1649" fileDirectory="/home/ioeddk/Desktop/DP-HLS/local_seq_align_multiple_sa" functionName="operator&amp;gt;&amp;lt;32, 32, true, AP_TRN, AP_WRAP, 0&amp;gt;"/>
         <dataInputObjs>dp_matrix_V_13</dataInputObjs>
         <dataInputObjs>zext</dataInputObjs>
         <dataOutputObjs>load</dataOutputObjs>
         <constName>empty</constName>
       </node_objs>
-      <node_objs xsi:type="cdfg:CdfgNode" id="70" name="dp_matrix_V_14_addr" lineNumber="1649" fileName="/tools/Xilinx/Vitis_HLS/2022.2/common/technology/autopilot/ap_fixed_base.h" fileDirectory=".." coreId="1000391120" contextFuncName="operator_gt_32_32_true_AP_TRN_AP_WRAP_0" bitwidth="8" opcode="getelementptr" m_display="0" m_topoIndex="41" m_clusterGroupNumber="-1">
+      <node_objs xsi:type="cdfg:CdfgNode" id="70" name="dp_matrix_V_14_addr" lineNumber="1649" fileName="/tools/Xilinx/Vitis_HLS/2022.2/common/technology/autopilot/ap_fixed_base.h" fileDirectory=".." coreId="3222672992" contextFuncName="operator_gt_32_32_true_AP_TRN_AP_WRAP_0" bitwidth="8" opcode="getelementptr" m_display="0" m_topoIndex="41" m_clusterGroupNumber="-1">
         <inlineStackInfo fileName="/tools/Xilinx/Vitis_HLS/2022.2/common/technology/autopilot/ap_fixed_base.h" linenumber="1649" fileDirectory="/home/ioeddk/Desktop/DP-HLS/local_seq_align_multiple_sa" functionName="operator&amp;gt;&amp;lt;32, 32, true, AP_TRN, AP_WRAP, 0&amp;gt;"/>
         <dataInputObjs>dp_matrix_V_14</dataInputObjs>
         <dataInputObjs>zext</dataInputObjs>
         <dataOutputObjs>load</dataOutputObjs>
         <constName>empty</constName>
       </node_objs>
-      <node_objs xsi:type="cdfg:CdfgNode" id="71" name="dp_matrix_V_15_addr" lineNumber="1649" fileName="/tools/Xilinx/Vitis_HLS/2022.2/common/technology/autopilot/ap_fixed_base.h" fileDirectory=".." coreId="741335312" contextFuncName="operator_gt_32_32_true_AP_TRN_AP_WRAP_0" bitwidth="8" opcode="getelementptr" m_display="0" m_topoIndex="42" m_clusterGroupNumber="-1">
+      <node_objs xsi:type="cdfg:CdfgNode" id="71" name="dp_matrix_V_15_addr" lineNumber="1649" fileName="/tools/Xilinx/Vitis_HLS/2022.2/common/technology/autopilot/ap_fixed_base.h" fileDirectory=".." coreId="3222672992" contextFuncName="operator_gt_32_32_true_AP_TRN_AP_WRAP_0" bitwidth="8" opcode="getelementptr" m_display="0" m_topoIndex="42" m_clusterGroupNumber="-1">
         <inlineStackInfo fileName="/tools/Xilinx/Vitis_HLS/2022.2/common/technology/autopilot/ap_fixed_base.h" linenumber="1649" fileDirectory="/home/ioeddk/Desktop/DP-HLS/local_seq_align_multiple_sa" functionName="operator&amp;gt;&amp;lt;32, 32, true, AP_TRN, AP_WRAP, 0&amp;gt;"/>
         <dataInputObjs>dp_matrix_V_15</dataInputObjs>
         <dataInputObjs>zext</dataInputObjs>
@@ -611,7 +611,7 @@
         <dataInputObjs>getelementptr</dataInputObjs>
         <dataOutputObjs>mux</dataOutputObjs>
       </node_objs>
-      <node_objs xsi:type="cdfg:CdfgNode" id="89" name="tmp_7" lineNumber="1649" fileName="/tools/Xilinx/Vitis_HLS/2022.2/common/technology/autopilot/ap_fixed_base.h" fileDirectory=".." rtlName="mux_164_9_1_1_U2557" coreName="Multiplexer" implIndex="auto" control="no" opType="mux" coreId="76" contextFuncName="operator_gt_32_32_true_AP_TRN_AP_WRAP_0" bitwidth="9" opcode="mux" nodeLabel="1.0" m_display="0" m_delay="0.56" m_topoIndex="69" m_clusterGroupNumber="-1">
+      <node_objs xsi:type="cdfg:CdfgNode" id="89" name="tmp_7" lineNumber="1649" fileName="/tools/Xilinx/Vitis_HLS/2022.2/common/technology/autopilot/ap_fixed_base.h" fileDirectory=".." rtlName="mux_164_9_1_1_U2753" coreName="Multiplexer" implIndex="auto" control="no" opType="mux" coreId="76" contextFuncName="operator_gt_32_32_true_AP_TRN_AP_WRAP_0" bitwidth="9" opcode="mux" nodeLabel="1.0" m_display="0" m_delay="0.56" m_topoIndex="69" m_clusterGroupNumber="-1">
         <inlineStackInfo fileName="/tools/Xilinx/Vitis_HLS/2022.2/common/technology/autopilot/ap_fixed_base.h" linenumber="1649" fileDirectory="/home/ioeddk/Desktop/DP-HLS/local_seq_align_multiple_sa" functionName="operator&amp;gt;&amp;lt;32, 32, true, AP_TRN, AP_WRAP, 0&amp;gt;"/>
         <dataInputObjs>load</dataInputObjs>
         <dataInputObjs>load</dataInputObjs>
@@ -646,12 +646,12 @@
         <dataInputObjs>load</dataInputObjs>
         <dataOutputObjs>store</dataOutputObjs>
       </node_objs>
-      <node_objs xsi:type="cdfg:CdfgNode" id="92" name="trunc_ln173" lineNumber="173" fileName="src/seq_align_multiple.cpp" fileDirectory=".." rtlName="trunc_ln173_fu_450_p1" coreId="304" contextFuncName="seq_align" bitwidth="6" opcode="trunc" m_display="0" m_topoIndex="59" m_clusterGroupNumber="-1">
+      <node_objs xsi:type="cdfg:CdfgNode" id="92" name="trunc_ln173" lineNumber="173" fileName="src/seq_align_multiple.cpp" fileDirectory=".." rtlName="trunc_ln173_fu_450_p1" coreId="3242145152" contextFuncName="seq_align" bitwidth="6" opcode="trunc" m_display="0" m_topoIndex="59" m_clusterGroupNumber="-1">
         <inlineStackInfo fileName="src/seq_align_multiple.cpp" linenumber="173" fileDirectory="/home/ioeddk/Desktop/DP-HLS/local_seq_align_multiple_sa" functionName="seq_align"/>
         <dataInputObjs>select</dataInputObjs>
         <dataOutputObjs>zext</dataOutputObjs>
       </node_objs>
-      <node_objs xsi:type="cdfg:CdfgNode" id="93" name="zext_ln173" lineNumber="173" fileName="src/seq_align_multiple.cpp" fileDirectory=".." rtlName="zext_ln173_fu_545_p1" coreId="544108393" contextFuncName="seq_align" bitwidth="32" opcode="zext" nodeLabel="1.0" m_display="0" m_topoIndex="72" m_clusterGroupNumber="-1">
+      <node_objs xsi:type="cdfg:CdfgNode" id="93" name="zext_ln173" lineNumber="173" fileName="src/seq_align_multiple.cpp" fileDirectory=".." rtlName="zext_ln173_fu_545_p1" coreId="3222718288" contextFuncName="seq_align" bitwidth="32" opcode="zext" nodeLabel="1.0" m_display="0" m_topoIndex="72" m_clusterGroupNumber="-1">
         <inlineStackInfo fileName="src/seq_align_multiple.cpp" linenumber="173" fileDirectory="/home/ioeddk/Desktop/DP-HLS/local_seq_align_multiple_sa" functionName="seq_align"/>
         <dataInputObjs>trunc</dataInputObjs>
         <dataOutputObjs>select</dataOutputObjs>
@@ -669,32 +669,32 @@
         <dataOutputObjs>store</dataOutputObjs>
         <constName>empty</constName>
       </node_objs>
-      <node_objs xsi:type="cdfg:CdfgNode" id="96" name="indvar_flatten121_write_ln171" lineNumber="171" fileName="src/seq_align_multiple.cpp" fileDirectory=".." coreId="1000367104" contextFuncName="seq_align" opcode="store" m_display="0" m_delay="0.46" m_topoIndex="61" m_clusterGroupNumber="-1">
+      <node_objs xsi:type="cdfg:CdfgNode" id="96" name="indvar_flatten121_write_ln171" lineNumber="171" fileName="src/seq_align_multiple.cpp" fileDirectory=".." coreId="3222753168" contextFuncName="seq_align" opcode="store" m_display="0" m_delay="0.46" m_topoIndex="61" m_clusterGroupNumber="-1">
         <inlineStackInfo fileName="src/seq_align_multiple.cpp" linenumber="171" fileDirectory="/home/ioeddk/Desktop/DP-HLS/local_seq_align_multiple_sa" functionName="seq_align"/>
         <dataInputObjs>add</dataInputObjs>
         <dataInputObjs>alloca</dataInputObjs>
       </node_objs>
-      <node_objs xsi:type="cdfg:CdfgNode" id="97" name="x_write_ln171" lineNumber="171" fileName="src/seq_align_multiple.cpp" fileDirectory=".." coreId="1000351904" contextFuncName="seq_align" opcode="store" m_display="0" m_delay="0.46" m_topoIndex="62" m_clusterGroupNumber="-1">
+      <node_objs xsi:type="cdfg:CdfgNode" id="97" name="x_write_ln171" lineNumber="171" fileName="src/seq_align_multiple.cpp" fileDirectory=".." coreId="3222754160" contextFuncName="seq_align" opcode="store" m_display="0" m_delay="0.46" m_topoIndex="62" m_clusterGroupNumber="-1">
         <inlineStackInfo fileName="src/seq_align_multiple.cpp" linenumber="171" fileDirectory="/home/ioeddk/Desktop/DP-HLS/local_seq_align_multiple_sa" functionName="seq_align"/>
         <dataInputObjs>select</dataInputObjs>
         <dataInputObjs>alloca</dataInputObjs>
       </node_objs>
-      <node_objs xsi:type="cdfg:CdfgNode" id="98" name="max_col_value_write_ln171" lineNumber="171" fileName="src/seq_align_multiple.cpp" fileDirectory=".." coreId="3396588470" contextFuncName="seq_align" opcode="store" m_display="0" m_delay="0.46" m_topoIndex="63" m_clusterGroupNumber="-1">
+      <node_objs xsi:type="cdfg:CdfgNode" id="98" name="max_col_value_write_ln171" lineNumber="171" fileName="src/seq_align_multiple.cpp" fileDirectory=".." coreId="3222754752" contextFuncName="seq_align" opcode="store" m_display="0" m_delay="0.46" m_topoIndex="63" m_clusterGroupNumber="-1">
         <inlineStackInfo fileName="src/seq_align_multiple.cpp" linenumber="171" fileDirectory="/home/ioeddk/Desktop/DP-HLS/local_seq_align_multiple_sa" functionName="seq_align"/>
         <dataInputObjs>add</dataInputObjs>
         <dataInputObjs>alloca</dataInputObjs>
       </node_objs>
-      <node_objs xsi:type="cdfg:CdfgNode" id="99" name="max_col_value_7_write_ln171" lineNumber="171" fileName="src/seq_align_multiple.cpp" fileDirectory=".." coreId="744313584" contextFuncName="seq_align" opcode="store" nodeLabel="1.0" m_display="0" m_topoIndex="74" m_clusterGroupNumber="-1">
+      <node_objs xsi:type="cdfg:CdfgNode" id="99" name="max_col_value_7_write_ln171" lineNumber="171" fileName="src/seq_align_multiple.cpp" fileDirectory=".." coreId="3222788064" contextFuncName="seq_align" opcode="store" nodeLabel="1.0" m_display="0" m_topoIndex="74" m_clusterGroupNumber="-1">
         <inlineStackInfo fileName="src/seq_align_multiple.cpp" linenumber="171" fileDirectory="/home/ioeddk/Desktop/DP-HLS/local_seq_align_multiple_sa" functionName="seq_align"/>
         <dataInputObjs>select</dataInputObjs>
         <dataInputObjs>alloca</dataInputObjs>
       </node_objs>
-      <node_objs xsi:type="cdfg:CdfgNode" id="100" name="max_row_value_7_write_ln171" lineNumber="171" fileName="src/seq_align_multiple.cpp" fileDirectory=".." coreId="0" contextFuncName="seq_align" opcode="store" nodeLabel="1.0" m_display="0" m_topoIndex="75" m_clusterGroupNumber="-1">
+      <node_objs xsi:type="cdfg:CdfgNode" id="100" name="max_row_value_7_write_ln171" lineNumber="171" fileName="src/seq_align_multiple.cpp" fileDirectory=".." coreId="3222777664" contextFuncName="seq_align" opcode="store" nodeLabel="1.0" m_display="0" m_topoIndex="75" m_clusterGroupNumber="-1">
         <inlineStackInfo fileName="src/seq_align_multiple.cpp" linenumber="171" fileDirectory="/home/ioeddk/Desktop/DP-HLS/local_seq_align_multiple_sa" functionName="seq_align"/>
         <dataInputObjs>select</dataInputObjs>
         <dataInputObjs>alloca</dataInputObjs>
       </node_objs>
-      <node_objs xsi:type="cdfg:CdfgNode" id="101" name="br_ln171" lineNumber="171" fileName="src/seq_align_multiple.cpp" fileDirectory=".." coreId="0" contextFuncName="seq_align" opcode="br" nodeLabel="1.0" m_display="0" m_topoIndex="76" m_clusterGroupNumber="-1">
+      <node_objs xsi:type="cdfg:CdfgNode" id="101" name="br_ln171" lineNumber="171" fileName="src/seq_align_multiple.cpp" fileDirectory=".." coreId="3241626656" contextFuncName="seq_align" opcode="br" nodeLabel="1.0" m_display="0" m_topoIndex="76" m_clusterGroupNumber="-1">
         <inlineStackInfo fileName="src/seq_align_multiple.cpp" linenumber="171" fileDirectory="/home/ioeddk/Desktop/DP-HLS/local_seq_align_multiple_sa" functionName="seq_align"/>
         <controlInputObjs>for.body246.i.3</controlInputObjs>
       </node_objs>
@@ -791,6 +791,9 @@
   <expressionNodes realName="icmp_ln171_fu_372">
     <nodeIds>44</nodeIds>
   </expressionNodes>
+  <expressionNodes realName="p_cast329_mid2_v_fu_398">
+    <nodeIds>48</nodeIds>
+  </expressionNodes>
   <expressionNodes realName="x_fu_100">
     <nodeIds>22</nodeIds>
   </expressionNodes>
@@ -874,9 +877,6 @@
   </expressionNodes>
   <expressionNodes realName="dp_matrix_V_14_addr_gep_fu_220">
     <nodeIds>70</nodeIds>
-  </expressionNodes>
-  <expressionNodes realName="p_cast331_mid2_v_fu_398">
-    <nodeIds>48</nodeIds>
   </expressionNodes>
   <expressionNodes realName="tmp_s_fu_408">
     <nodeIds>49</nodeIds>

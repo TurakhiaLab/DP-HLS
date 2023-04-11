@@ -3,7 +3,7 @@
 ================================================================
 == Vitis HLS Report for 'seq_align_multiple_Pipeline_VITIS_LOOP_286_2'
 ================================================================
-* Date:           Mon Apr 10 17:48:19 2023
+* Date:           Mon Apr 10 18:41:40 2023
 
 * Version:        2022.2 (Build 3670227 on Oct 13 2022)
 * Project:        local_seq_align_multiple_sa_vitis
@@ -103,7 +103,7 @@ ST_1 : Operation 19 [1/1] (0.46ns)   --->   "%store_ln286 = store i4 %add_ln286,
 ST_1 : Operation 25 [1/1] (0.00ns)   --->   "%ret_ln0 = ret"   --->   Operation 25 'ret' 'ret_ln0' <Predicate = (icmp_ln286)> <Delay = 0.00>
 
 State 2 <SV = 1> <Delay = 1.46>
-ST_2 : Operation 20 [1/1] (0.00ns)   --->   "%specloopname_ln286 = specloopname void @_ssdm_op_SpecLoopName, void @empty_2" [src/seq_align_multiple.cpp:286]   --->   Operation 20 'specloopname' 'specloopname_ln286' <Predicate = true> <Delay = 0.00>
+ST_2 : Operation 20 [1/1] (0.00ns)   --->   "%specloopname_ln286 = specloopname void @_ssdm_op_SpecLoopName, void @empty_3" [src/seq_align_multiple.cpp:286]   --->   Operation 20 'specloopname' 'specloopname_ln286' <Predicate = true> <Delay = 0.00>
 ST_2 : Operation 21 [1/2] (0.73ns)   --->   "%dummies_inner_V_load = load i3 %dummies_inner_V_addr" [src/seq_align_multiple.cpp:287]   --->   Operation 21 'load' 'dummies_inner_V_load' <Predicate = true> <Delay = 0.73> <CoreInst = "RAM">   --->   Core 83 'RAM' <Latency = 1> <II = 1> <Delay = 0.73> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 10> <Depth = 8> <RAM>
 ST_2 : Operation 22 [1/1] (0.00ns)   --->   "%dummies_addr = getelementptr i10 %dummies, i64 0, i64 %block_i_cast" [src/seq_align_multiple.cpp:287]   --->   Operation 22 'getelementptr' 'dummies_addr' <Predicate = true> <Delay = 0.00>
 ST_2 : Operation 23 [1/1] (0.73ns)   --->   "%store_ln287 = store i10 %dummies_inner_V_load, i3 %dummies_addr" [src/seq_align_multiple.cpp:287]   --->   Operation 23 'store' 'store_ln287' <Predicate = true> <Delay = 0.73> <CoreInst = "RAM">   --->   Core 83 'RAM' <Latency = 1> <II = 1> <Delay = 0.73> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 10> <Depth = 8> <RAM>

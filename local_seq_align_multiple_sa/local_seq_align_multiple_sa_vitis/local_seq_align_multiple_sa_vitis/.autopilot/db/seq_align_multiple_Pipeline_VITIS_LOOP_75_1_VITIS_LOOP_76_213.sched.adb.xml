@@ -328,10 +328,10 @@ for.cond.cleanup11.i.4:7 %select_ln75_6 = select i1 %icmp_ln76, i7 %add_ln75_4, 
 
 <Node id="39" bw="2" op_0_bw="2" op_1_bw="7" op_2_bw="32" op_3_bw="32">
 <![CDATA[
-for.cond.cleanup11.i.4:8 %p_cast337_mid2_v = partselect i2 @_ssdm_op_PartSelect.i2.i7.i32.i32, i7 %select_ln75_6, i32 4, i32 5
+for.cond.cleanup11.i.4:8 %p_cast331_mid2_v = partselect i2 @_ssdm_op_PartSelect.i2.i7.i32.i32, i7 %select_ln75_6, i32 4, i32 5
 
 ]]></Node>
-<StgValue><ssdm name="p_cast337_mid2_v"/></StgValue>
+<StgValue><ssdm name="p_cast331_mid2_v"/></StgValue>
 </operation>
 
 <operation id="25" st_id="1" stage="1" lat="1">
@@ -344,7 +344,7 @@ for.cond.cleanup11.i.4:8 %p_cast337_mid2_v = partselect i2 @_ssdm_op_PartSelect.
 
 <Node id="40" bw="8" op_0_bw="8" op_1_bw="2" op_2_bw="6">
 <![CDATA[
-for.cond.cleanup11.i.4:9 %tmp_s = bitconcatenate i8 @_ssdm_op_BitConcatenate.i8.i2.i6, i2 %p_cast337_mid2_v, i6 0
+for.cond.cleanup11.i.4:9 %tmp_s = bitconcatenate i8 @_ssdm_op_BitConcatenate.i8.i2.i6, i2 %p_cast331_mid2_v, i6 0
 
 ]]></Node>
 <StgValue><ssdm name="tmp_s"/></StgValue>
@@ -696,7 +696,7 @@ for.cond.cleanup11.i.4:30 %dp_matrix_V_15_addr = getelementptr i9 %dp_matrix_V_1
 
 <Node id="62" bw="0" op_0_bw="0" op_1_bw="0">
 <![CDATA[
-for.cond.cleanup11.i.4:31 %specloopname_ln76 = specloopname void @_ssdm_op_SpecLoopName, void @empty_6
+for.cond.cleanup11.i.4:31 %specloopname_ln76 = specloopname void @_ssdm_op_SpecLoopName, void @empty_7
 
 ]]></Node>
 <StgValue><ssdm name="specloopname_ln76"/></StgValue>

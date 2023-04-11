@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<cdfg:DBCdfg xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:cdfg="http://www.autoesl.com/DBCdfg" timeStamp="1681174152505">
+<cdfg:DBCdfg xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:cdfg="http://www.autoesl.com/DBCdfg" timeStamp="1681177352792">
   <ports id="1" name="dummies" type="PortType" coreName="RAM" coreId="543517801" bitwidth="10" direction="DirOut" iftype="IfTypeRegister" arraysize="8">
     <dataInputObjs>getelementptr</dataInputObjs>
   </ports>
@@ -31,7 +31,7 @@
   <edges id="106" edge_type="VirtEdge" source_obj="//@regions.0/@basic_blocks.0/@node_objs.0" sink_obj="//@regions.0/@basic_blocks.1/@node_objs.5"/>
   <blocks id="7" name="newFuncRoot" type="BlockType">
     <controlOutputObjs>for.inc32</controlOutputObjs>
-    <node_objs xsi:type="cdfg:CdfgNode" id="2" name="block_i" originalName="block_i" coreId="1397508187" bitwidth="4" opcode="alloca" m_display="0" m_topoIndex="1" m_clusterGroupNumber="-1">
+    <node_objs xsi:type="cdfg:CdfgNode" id="2" name="block_i" originalName="block_i" coreId="3126188112" bitwidth="4" opcode="alloca" m_display="0" m_topoIndex="1" m_clusterGroupNumber="-1">
       <dataOutputObjs>store</dataOutputObjs>
       <dataOutputObjs>load</dataOutputObjs>
       <dataOutputObjs>store</dataOutputObjs>
@@ -42,11 +42,11 @@
       <dataOutputObjs>getelementptr</dataOutputObjs>
       <constName>empty</constName>
     </node_objs>
-    <node_objs xsi:type="cdfg:CdfgNode" id="5" name="block_i_write_ln0" coreId="606195968" opcode="store" m_display="0" m_delay="0.46" m_topoIndex="3" m_clusterGroupNumber="-1">
+    <node_objs xsi:type="cdfg:CdfgNode" id="5" name="block_i_write_ln0" coreId="3099467808" opcode="store" m_display="0" m_delay="0.46" m_topoIndex="3" m_clusterGroupNumber="-1">
       <dataInputObjs>alloca</dataInputObjs>
       <constName>empty</constName>
     </node_objs>
-    <node_objs xsi:type="cdfg:CdfgNode" id="6" name="br_ln0" coreId="606195968" opcode="br" m_display="0" m_topoIndex="4" m_clusterGroupNumber="-1">
+    <node_objs xsi:type="cdfg:CdfgNode" id="6" name="br_ln0" coreId="3108875008" opcode="br" m_display="0" m_topoIndex="4" m_clusterGroupNumber="-1">
       <controlInputObjs>for.inc32</controlInputObjs>
     </node_objs>
     <fileValidLineNumbers fileName="src/seq_align_multiple.cpp">
@@ -56,7 +56,7 @@
   <blocks id="25" name="for.end34.exitStub" type="BlockType">
     <controlInputObjs>for.inc32</controlInputObjs>
     <controlOutputObjs>br</controlOutputObjs>
-    <node_objs xsi:type="cdfg:CdfgNode" id="24" name="_ln0" coreId="608325088" opcode="ret" m_display="0" m_topoIndex="13" m_clusterGroupNumber="-1"/>
+    <node_objs xsi:type="cdfg:CdfgNode" id="24" name="_ln0" coreId="3110901088" opcode="ret" m_display="0" m_topoIndex="13" m_clusterGroupNumber="-1"/>
   </blocks>
   <regions anchor_node="-1" region_type="8" interval="1" typeName="Pipeline" iiViolation="" id="91" pipe_depth="2" RegionName="VITIS_LOOP_286_2">
     <basic_blocks id="14" name="for.inc32" type="BlockType">
@@ -66,7 +66,7 @@
       <controlOutputObjs>br</controlOutputObjs>
       <controlOutputObjs>for.end34.exitStub</controlOutputObjs>
       <controlOutputObjs>for.inc32.split</controlOutputObjs>
-      <node_objs xsi:type="cdfg:CdfgNode" id="8" name="block_i_1" lineNumber="286" originalName="block_i" fileName="src/seq_align_multiple.cpp" fileDirectory=".." coreId="3570937271" contextFuncName="seq_align_multiple" bitwidth="4" opcode="load" m_display="0" m_topoIndex="5" m_clusterGroupNumber="-1">
+      <node_objs xsi:type="cdfg:CdfgNode" id="8" name="block_i_1" lineNumber="286" originalName="block_i" fileName="src/seq_align_multiple.cpp" fileDirectory=".." coreId="3947081104" contextFuncName="seq_align_multiple" bitwidth="4" opcode="load" m_display="0" m_topoIndex="5" m_clusterGroupNumber="-1">
         <inlineStackInfo fileName="src/seq_align_multiple.cpp" linenumber="286" fileDirectory="/home/ioeddk/Desktop/DP-HLS/local_seq_align_multiple_sa" functionName="seq_align_multiple"/>
         <dataInputObjs>alloca</dataInputObjs>
         <dataOutputObjs>icmp</dataOutputObjs>
@@ -85,7 +85,7 @@
         <dataOutputObjs>store</dataOutputObjs>
         <constName>empty</constName>
       </node_objs>
-      <node_objs xsi:type="cdfg:CdfgNode" id="13" name="br_ln286" lineNumber="286" fileName="src/seq_align_multiple.cpp" fileDirectory=".." coreId="615500800" contextFuncName="seq_align_multiple" opcode="br" m_display="0" m_topoIndex="8" m_clusterGroupNumber="-1">
+      <node_objs xsi:type="cdfg:CdfgNode" id="13" name="br_ln286" lineNumber="286" fileName="src/seq_align_multiple.cpp" fileDirectory=".." coreId="3110901088" contextFuncName="seq_align_multiple" opcode="br" m_display="0" m_topoIndex="8" m_clusterGroupNumber="-1">
         <inlineStackInfo fileName="src/seq_align_multiple.cpp" linenumber="286" fileDirectory="/home/ioeddk/Desktop/DP-HLS/local_seq_align_multiple_sa" functionName="seq_align_multiple"/>
         <dataInputObjs>icmp</dataInputObjs>
         <controlInputObjs>for.inc32.split</controlInputObjs>
@@ -99,13 +99,13 @@
       <controlInputObjs>for.inc32</controlInputObjs>
       <controlOutputObjs>br</controlOutputObjs>
       <controlOutputObjs>for.inc32</controlOutputObjs>
-      <node_objs xsi:type="cdfg:CdfgNode" id="15" name="block_i_cast" lineNumber="286" fileName="src/seq_align_multiple.cpp" fileDirectory=".." rtlName="block_i_cast_fu_91_p1" coreId="3575335356" contextFuncName="seq_align_multiple" bitwidth="64" opcode="zext" m_display="0" m_topoIndex="9" m_clusterGroupNumber="-1">
+      <node_objs xsi:type="cdfg:CdfgNode" id="15" name="block_i_cast" lineNumber="286" fileName="src/seq_align_multiple.cpp" fileDirectory=".." rtlName="block_i_cast_fu_91_p1" coreId="3110901088" contextFuncName="seq_align_multiple" bitwidth="64" opcode="zext" m_display="0" m_topoIndex="9" m_clusterGroupNumber="-1">
         <inlineStackInfo fileName="src/seq_align_multiple.cpp" linenumber="286" fileDirectory="/home/ioeddk/Desktop/DP-HLS/local_seq_align_multiple_sa" functionName="seq_align_multiple"/>
         <dataInputObjs>load</dataInputObjs>
         <dataOutputObjs>getelementptr</dataOutputObjs>
         <dataOutputObjs>getelementptr</dataOutputObjs>
       </node_objs>
-      <node_objs xsi:type="cdfg:CdfgNode" id="17" name="dummies_inner_V_addr" lineNumber="287" fileName="src/seq_align_multiple.cpp" fileDirectory=".." coreId="608785568" contextFuncName="seq_align_multiple" bitwidth="3" opcode="getelementptr" m_display="0" m_topoIndex="10" m_clusterGroupNumber="-1">
+      <node_objs xsi:type="cdfg:CdfgNode" id="17" name="dummies_inner_V_addr" lineNumber="287" fileName="src/seq_align_multiple.cpp" fileDirectory=".." coreId="3110901088" contextFuncName="seq_align_multiple" bitwidth="3" opcode="getelementptr" m_display="0" m_topoIndex="10" m_clusterGroupNumber="-1">
         <inlineStackInfo fileName="src/seq_align_multiple.cpp" linenumber="287" fileDirectory="/home/ioeddk/Desktop/DP-HLS/local_seq_align_multiple_sa" functionName="seq_align_multiple"/>
         <dataInputObjs>alloca</dataInputObjs>
         <dataInputObjs>zext</dataInputObjs>
@@ -117,7 +117,7 @@
         <dataInputObjs>getelementptr</dataInputObjs>
         <dataOutputObjs>store</dataOutputObjs>
       </node_objs>
-      <node_objs xsi:type="cdfg:CdfgNode" id="19" name="dummies_addr" lineNumber="287" fileName="src/seq_align_multiple.cpp" fileDirectory=".." coreId="608325088" contextFuncName="seq_align_multiple" bitwidth="3" opcode="getelementptr" nodeLabel="1.0" m_display="0" m_topoIndex="14" m_clusterGroupNumber="-1">
+      <node_objs xsi:type="cdfg:CdfgNode" id="19" name="dummies_addr" lineNumber="287" fileName="src/seq_align_multiple.cpp" fileDirectory=".." coreId="1246116282" contextFuncName="seq_align_multiple" bitwidth="3" opcode="getelementptr" nodeLabel="1.0" m_display="0" m_topoIndex="14" m_clusterGroupNumber="-1">
         <inlineStackInfo fileName="src/seq_align_multiple.cpp" linenumber="287" fileDirectory="/home/ioeddk/Desktop/DP-HLS/local_seq_align_multiple_sa" functionName="seq_align_multiple"/>
         <dataInputObjs>zext</dataInputObjs>
         <dataOutputObjs>dummies</dataOutputObjs>
@@ -129,12 +129,12 @@
         <dataInputObjs>load</dataInputObjs>
         <dataInputObjs>getelementptr</dataInputObjs>
       </node_objs>
-      <node_objs xsi:type="cdfg:CdfgNode" id="21" name="block_i_write_ln286" lineNumber="286" fileName="src/seq_align_multiple.cpp" fileDirectory=".." coreId="609815280" contextFuncName="seq_align_multiple" opcode="store" m_display="0" m_delay="0.46" m_topoIndex="12" m_clusterGroupNumber="-1">
+      <node_objs xsi:type="cdfg:CdfgNode" id="21" name="block_i_write_ln286" lineNumber="286" fileName="src/seq_align_multiple.cpp" fileDirectory=".." coreId="3110901088" contextFuncName="seq_align_multiple" opcode="store" m_display="0" m_delay="0.46" m_topoIndex="12" m_clusterGroupNumber="-1">
         <inlineStackInfo fileName="src/seq_align_multiple.cpp" linenumber="286" fileDirectory="/home/ioeddk/Desktop/DP-HLS/local_seq_align_multiple_sa" functionName="seq_align_multiple"/>
         <dataInputObjs>add</dataInputObjs>
         <dataInputObjs>alloca</dataInputObjs>
       </node_objs>
-      <node_objs xsi:type="cdfg:CdfgNode" id="22" name="br_ln286" lineNumber="286" fileName="src/seq_align_multiple.cpp" fileDirectory=".." coreId="3580149760" contextFuncName="seq_align_multiple" opcode="br" nodeLabel="1.0" m_display="0" m_topoIndex="16" m_clusterGroupNumber="-1">
+      <node_objs xsi:type="cdfg:CdfgNode" id="22" name="br_ln286" lineNumber="286" fileName="src/seq_align_multiple.cpp" fileDirectory=".." coreId="3120336960" contextFuncName="seq_align_multiple" opcode="br" nodeLabel="1.0" m_display="0" m_topoIndex="16" m_clusterGroupNumber="-1">
         <inlineStackInfo fileName="src/seq_align_multiple.cpp" linenumber="286" fileDirectory="/home/ioeddk/Desktop/DP-HLS/local_seq_align_multiple_sa" functionName="seq_align_multiple"/>
         <controlInputObjs>for.inc32</controlInputObjs>
       </node_objs>

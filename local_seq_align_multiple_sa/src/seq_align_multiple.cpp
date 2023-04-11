@@ -254,13 +254,13 @@ void seq_align_multiple(ap_uint<2> query_string_comp[N_BLOCKS][query_length],
                                type_t last_pe_scoreIx[N_BLOCKS][ref_length],
                                type_t dummies[N_BLOCKS]){
 
-#pragma HLS array_partition variable=query_string_comp type=block factor=4
-#pragma HLS array_partition variable=reference_string_comp type=block factor=4
-#pragma HLS array_partition variable=dp_mem type=block factor=4
-#pragma HLS array_partition variable=Ix_mem type=block factor=4
-#pragma HLS array_partition variable=Iy_mem type=block factor=4
-#pragma HLS array_partition variable=last_pe_score type=block factor=4
-#pragma HLS array_partition variable=last_pe_scoreIx type=block factor=4
+#pragma HLS array_partition variable=query_string_comp type=block factor=N_BLOCKS
+#pragma HLS array_partition variable=reference_string_comp type=block factor=N_BLOCKS
+#pragma HLS array_partition variable=dp_mem type=block factor=N_BLOCKS
+#pragma HLS array_partition variable=Ix_mem type=block factor=N_BLOCKS
+#pragma HLS array_partition variable=Iy_mem type=block factor=N_BLOCKS
+#pragma HLS array_partition variable=last_pe_score type=block factor=N_BLOCKS
+#pragma HLS array_partition variable=last_pe_scoreIx type=block factor=N_BLOCKS
 
     type_t dummies_inner[N_BLOCKS];
 

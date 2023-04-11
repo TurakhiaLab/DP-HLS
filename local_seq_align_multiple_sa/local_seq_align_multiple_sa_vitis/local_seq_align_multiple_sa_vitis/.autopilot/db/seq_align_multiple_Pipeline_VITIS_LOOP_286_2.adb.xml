@@ -274,7 +274,7 @@ for.end34.exitStub:0 %ret_ln0 = ret
 
 <Node id="16" bw="0" op_0_bw="0" op_1_bw="0">
 <![CDATA[
-for.inc32.split:1 %specloopname_ln286 = specloopname void @_ssdm_op_SpecLoopName, void @empty_2
+for.inc32.split:1 %specloopname_ln286 = specloopname void @_ssdm_op_SpecLoopName, void @empty_3
 
 ]]></Node>
 <StgValue><ssdm name="specloopname_ln286"/></StgValue>
@@ -446,7 +446,7 @@ for.inc32.split:7 %br_ln286 = br void %for.inc32
 </dataflow>
 <dataflow id="98" from="_ssdm_op_SpecLoopName" to="specloopname_ln286" fromId="97" toId="20">
 </dataflow>
-<dataflow id="100" from="empty_2" to="specloopname_ln286" fromId="99" toId="20">
+<dataflow id="100" from="empty_3" to="specloopname_ln286" fromId="99" toId="20">
 </dataflow>
 <dataflow id="101" from="dummies_inner_V_addr" to="dummies_inner_V_load" fromId="17" toId="21">
 </dataflow>

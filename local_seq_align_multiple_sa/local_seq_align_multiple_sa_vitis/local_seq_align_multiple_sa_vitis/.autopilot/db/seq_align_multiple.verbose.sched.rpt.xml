@@ -1,7 +1,7 @@
 <profile>
 
 <section name = "Vitis HLS Report for 'seq_align_multiple'" level="0">
-<item name = "Date">Mon Apr 10 17:48:21 2023
+<item name = "Date">Mon Apr 10 18:41:42 2023
 </item>
 <item name = "Version">2022.2 (Build 3670227 on Oct 13 2022)</item>
 <item name = "Project">local_seq_align_multiple_sa_vitis</item>
@@ -15,7 +15,7 @@
 <section name = "" level="1">
 <item name = "Summary"><table name="" hasTotal="0">
 <keys size="4">Clock, Target, Estimated, Uncertainty</keys>
-<column name="ap_clk">10.00 ns, 6.421 ns, 2.70 ns</column>
+<column name="ap_clk">10.00 ns, 7.134 ns, 2.70 ns</column>
 </table>
 </item>
 </section>
@@ -24,7 +24,7 @@
 <section name = "" level="1">
 <item name = "Summary"><table name="" hasTotal="0">
 <keys size="8">, min, max, min, max, min, max, Type</keys>
-<column name="">73251, 73251, 0.733 ms, 0.733 ms, 73252, 73252, no</column>
+<column name="">68211, 68211, 0.682 ms, 0.682 ms, 68212, 68212, no</column>
 </table>
 </item>
 <item name = "Detail">

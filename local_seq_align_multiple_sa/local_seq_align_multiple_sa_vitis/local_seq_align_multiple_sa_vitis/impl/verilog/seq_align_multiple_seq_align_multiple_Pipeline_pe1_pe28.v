@@ -188,7 +188,7 @@ reg   [12:0] ap_sig_allocacmp_indvar_flatten88_load;
 wire    ap_block_pp0_stage0_01001;
 wire   [0:0] icmp_ln171_fu_372_p2;
 wire   [6:0] add_ln168_1_fu_366_p2;
-wire   [1:0] p_cast313_mid2_v_fu_398_p4;
+wire   [1:0] p_cast309_mid2_v_fu_398_p4;
 wire   [6:0] select_ln168_fu_378_p3;
 wire   [7:0] tmp_s_fu_408_p3;
 wire   [7:0] zext_ln1649_fu_420_p1;
@@ -234,7 +234,7 @@ seq_align_multiple_mux_164_9_1_1 #(
     .din15_WIDTH( 9 ),
     .din16_WIDTH( 4 ),
     .dout_WIDTH( 9 ))
-mux_164_9_1_1_U1894(
+mux_164_9_1_1_U2041(
     .din0(dp_matrix_V_q0),
     .din1(dp_matrix_V_1_q0),
     .din2(dp_matrix_V_2_q0),
@@ -654,13 +654,13 @@ assign max_row_value_3_fu_537_p3 = ((icmp_ln1649_fu_531_p2[0:0] == 1'b1) ? zext_
 
 assign max_row_value_5_out = max_row_value_fu_88[5:0];
 
-assign p_cast313_mid2_v_fu_398_p4 = {{select_ln168_1_fu_386_p3[5:4]}};
+assign p_cast309_mid2_v_fu_398_p4 = {{select_ln168_1_fu_386_p3[5:4]}};
 
 assign select_ln168_1_fu_386_p3 = ((icmp_ln171_fu_372_p2[0:0] == 1'b1) ? add_ln168_1_fu_366_p2 : ap_sig_allocacmp_x_load);
 
 assign select_ln168_fu_378_p3 = ((icmp_ln171_fu_372_p2[0:0] == 1'b1) ? 7'd0 : ap_sig_allocacmp_max_col_value_1_load);
 
-assign tmp_s_fu_408_p3 = {{p_cast313_mid2_v_fu_398_p4}, {6'd0}};
+assign tmp_s_fu_408_p3 = {{p_cast309_mid2_v_fu_398_p4}, {6'd0}};
 
 assign trunc_ln168_2_fu_394_p1 = select_ln168_1_fu_386_p3[5:0];
 

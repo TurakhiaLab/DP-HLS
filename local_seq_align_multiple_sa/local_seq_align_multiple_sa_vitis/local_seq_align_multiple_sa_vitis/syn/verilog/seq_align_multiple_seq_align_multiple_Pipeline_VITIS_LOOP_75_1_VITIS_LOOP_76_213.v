@@ -208,7 +208,7 @@ reg   [12:0] ap_sig_allocacmp_indvar_flatten131_load;
 wire   [3:0] trunc_ln75_fu_426_p1;
 wire   [0:0] icmp_ln76_fu_386_p2;
 wire   [6:0] add_ln75_4_fu_380_p2;
-wire   [1:0] p_cast337_mid2_v_fu_408_p4;
+wire   [1:0] p_cast331_mid2_v_fu_408_p4;
 wire   [6:0] select_ln75_fu_392_p3;
 wire   [7:0] tmp_s_fu_418_p3;
 wire   [7:0] zext_ln77_fu_430_p1;
@@ -707,13 +707,13 @@ assign icmp_ln75_fu_362_p2 = ((ap_sig_allocacmp_indvar_flatten131_load == 13'd40
 
 assign icmp_ln76_fu_386_p2 = ((ap_sig_allocacmp_rr_load == 7'd64) ? 1'b1 : 1'b0);
 
-assign p_cast337_mid2_v_fu_408_p4 = {{select_ln75_6_fu_400_p3[5:4]}};
+assign p_cast331_mid2_v_fu_408_p4 = {{select_ln75_6_fu_400_p3[5:4]}};
 
 assign select_ln75_6_fu_400_p3 = ((icmp_ln76_fu_386_p2[0:0] == 1'b1) ? add_ln75_4_fu_380_p2 : ap_sig_allocacmp_pp_load);
 
 assign select_ln75_fu_392_p3 = ((icmp_ln76_fu_386_p2[0:0] == 1'b1) ? 7'd0 : ap_sig_allocacmp_rr_load);
 
-assign tmp_s_fu_418_p3 = {{p_cast337_mid2_v_fu_408_p4}, {6'd0}};
+assign tmp_s_fu_418_p3 = {{p_cast331_mid2_v_fu_408_p4}, {6'd0}};
 
 assign trunc_ln75_fu_426_p1 = select_ln75_6_fu_400_p3[3:0];
 

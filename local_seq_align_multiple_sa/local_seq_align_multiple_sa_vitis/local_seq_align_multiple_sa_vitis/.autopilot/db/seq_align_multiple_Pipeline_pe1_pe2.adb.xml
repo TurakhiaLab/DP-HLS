@@ -70,10 +70,10 @@ newFuncRoot:2 %max_col_value_24 = alloca i32 1
 
 <Node id="22" bw="7" op_0_bw="32">
 <![CDATA[
-newFuncRoot:3 %max_row_value_16 = alloca i32 1
+newFuncRoot:3 %x = alloca i32 1
 
 ]]></Node>
-<StgValue><ssdm name="max_row_value_16"/></StgValue>
+<StgValue><ssdm name="x"/></StgValue>
 </operation>
 
 <operation id="9" st_id="1" stage="1" lat="1">
@@ -115,7 +115,7 @@ newFuncRoot:5 %store_ln0 = store i13 0, i13 %indvar_flatten22
 
 <Node id="25" bw="0" op_0_bw="7" op_1_bw="7">
 <![CDATA[
-newFuncRoot:6 %store_ln0 = store i7 0, i7 %max_row_value_16
+newFuncRoot:6 %store_ln0 = store i7 0, i7 %x
 
 ]]></Node>
 <StgValue><ssdm name="store_ln0"/></StgValue>
@@ -237,10 +237,10 @@ for.cond.cleanup245.i:0 %max_col_value_24_load = load i7 %max_col_value_24
 
 <Node id="40" bw="7" op_0_bw="7" op_1_bw="0">
 <![CDATA[
-for.cond.cleanup245.i:1 %max_row_value_16_load = load i7 %max_row_value_16
+for.cond.cleanup245.i:1 %x_load = load i7 %x
 
 ]]></Node>
-<StgValue><ssdm name="max_row_value_16_load"/></StgValue>
+<StgValue><ssdm name="x_load"/></StgValue>
 </operation>
 
 <operation id="20" st_id="1" stage="1" lat="1">
@@ -253,7 +253,7 @@ for.cond.cleanup245.i:1 %max_row_value_16_load = load i7 %max_row_value_16
 
 <Node id="41" bw="7" op_0_bw="7" op_1_bw="7">
 <![CDATA[
-for.cond.cleanup245.i:2 %add_ln168 = add i7 %max_row_value_16_load, i7 1
+for.cond.cleanup245.i:2 %add_ln168 = add i7 %x_load, i7 1
 
 ]]></Node>
 <StgValue><ssdm name="add_ln168"/></StgValue>
@@ -301,7 +301,7 @@ for.cond.cleanup245.i:6 %select_ln168 = select i1 %icmp_ln171, i7 0, i7 %max_col
 
 <Node id="46" bw="7" op_0_bw="1" op_1_bw="7" op_2_bw="7">
 <![CDATA[
-for.cond.cleanup245.i:7 %select_ln168_1 = select i1 %icmp_ln171, i7 %add_ln168, i7 %max_row_value_16_load
+for.cond.cleanup245.i:7 %select_ln168_1 = select i1 %icmp_ln171, i7 %add_ln168, i7 %x_load
 
 ]]></Node>
 <StgValue><ssdm name="select_ln168_1"/></StgValue>
@@ -333,10 +333,10 @@ for.cond.cleanup245.i:8 %trunc_ln168_23 = trunc i7 %select_ln168_1
 
 <Node id="48" bw="2" op_0_bw="2" op_1_bw="7" op_2_bw="32" op_3_bw="32">
 <![CDATA[
-for.cond.cleanup245.i:9 %p_cast286_mid2_v = partselect i2 @_ssdm_op_PartSelect.i2.i7.i32.i32, i7 %select_ln168_1, i32 4, i32 5
+for.cond.cleanup245.i:9 %p_cast269_mid2_v = partselect i2 @_ssdm_op_PartSelect.i2.i7.i32.i32, i7 %select_ln168_1, i32 4, i32 5
 
 ]]></Node>
-<StgValue><ssdm name="p_cast286_mid2_v"/></StgValue>
+<StgValue><ssdm name="p_cast269_mid2_v"/></StgValue>
 </operation>
 
 <operation id="26" st_id="1" stage="1" lat="1">
@@ -349,10 +349,10 @@ for.cond.cleanup245.i:9 %p_cast286_mid2_v = partselect i2 @_ssdm_op_PartSelect.i
 
 <Node id="49" bw="8" op_0_bw="8" op_1_bw="2" op_2_bw="6">
 <![CDATA[
-for.cond.cleanup245.i:10 %tmp_9 = bitconcatenate i8 @_ssdm_op_BitConcatenate.i8.i2.i6, i2 %p_cast286_mid2_v, i6 0
+for.cond.cleanup245.i:10 %tmp_s = bitconcatenate i8 @_ssdm_op_BitConcatenate.i8.i2.i6, i2 %p_cast269_mid2_v, i6 0
 
 ]]></Node>
-<StgValue><ssdm name="tmp_9"/></StgValue>
+<StgValue><ssdm name="tmp_s"/></StgValue>
 </operation>
 
 <operation id="27" st_id="1" stage="1" lat="1">
@@ -397,7 +397,7 @@ for.cond.cleanup245.i:14 %zext_ln1649 = zext i7 %select_ln168
 
 <Node id="54" bw="8" op_0_bw="8" op_1_bw="8">
 <![CDATA[
-for.cond.cleanup245.i:15 %add_ln1649 = add i8 %tmp_9, i8 %zext_ln1649
+for.cond.cleanup245.i:15 %add_ln1649 = add i8 %tmp_s, i8 %zext_ln1649
 
 ]]></Node>
 <StgValue><ssdm name="add_ln1649"/></StgValue>
@@ -989,7 +989,7 @@ for.cond.cleanup245.i:57 %store_ln171 = store i13 %add_ln168_5, i13 %indvar_flat
 
 <Node id="97" bw="0" op_0_bw="7" op_1_bw="7" op_2_bw="0" op_3_bw="0">
 <![CDATA[
-for.cond.cleanup245.i:58 %store_ln171 = store i7 %select_ln168_1, i7 %max_row_value_16
+for.cond.cleanup245.i:58 %store_ln171 = store i7 %select_ln168_1, i7 %x
 
 ]]></Node>
 <StgValue><ssdm name="store_ln171"/></StgValue>
@@ -1023,10 +1023,10 @@ for.cond.cleanup245.i:59 %store_ln171 = store i7 %add_ln171, i7 %max_col_value_2
 
 <Node id="29" bw="32" op_0_bw="32">
 <![CDATA[
-for.body246.i:0 %max_row_value_17 = load i32 %max_row_value_1
+for.body246.i:0 %max_row_value_16 = load i32 %max_row_value_1
 
 ]]></Node>
-<StgValue><ssdm name="max_row_value_17"/></StgValue>
+<StgValue><ssdm name="max_row_value_16"/></StgValue>
 </operation>
 
 <operation id="69" st_id="2" stage="1" lat="1">
@@ -1053,7 +1053,7 @@ for.body246.i:1 %max_col_value_25 = load i32 %max_col_value_1
 
 <Node id="32" bw="6" op_0_bw="32">
 <![CDATA[
-for.body246.i:3 %trunc_ln168 = trunc i32 %max_row_value_17
+for.body246.i:3 %trunc_ln168 = trunc i32 %max_row_value_16
 
 ]]></Node>
 <StgValue><ssdm name="trunc_ln168"/></StgValue>
@@ -1163,7 +1163,7 @@ for.cond.cleanup245.i:13 %specpipeline_ln0 = specpipeline void @_ssdm_op_SpecPip
 
 <Node id="72" bw="0" op_0_bw="0" op_1_bw="0">
 <![CDATA[
-for.cond.cleanup245.i:33 %specloopname_ln164 = specloopname void @_ssdm_op_SpecLoopName, void @empty_3
+for.cond.cleanup245.i:33 %specloopname_ln164 = specloopname void @_ssdm_op_SpecLoopName, void @empty_4
 
 ]]></Node>
 <StgValue><ssdm name="specloopname_ln164"/></StgValue>
@@ -1467,7 +1467,7 @@ for.cond.cleanup245.i:51 %icmp_ln1649 = icmp_ne  i9 %tmp, i9 0
 
 <Node id="91" bw="32" op_0_bw="1" op_1_bw="32" op_2_bw="32">
 <![CDATA[
-for.cond.cleanup245.i:52 %max_row_value = select i1 %icmp_ln1649, i32 %zext_ln168, i32 %max_row_value_17
+for.cond.cleanup245.i:52 %max_row_value = select i1 %icmp_ln1649, i32 %zext_ln168, i32 %max_row_value_16
 
 ]]></Node>
 <StgValue><ssdm name="max_row_value"/></StgValue>
@@ -1685,7 +1685,7 @@ for.inc.exitStub:2 %ret_ln0 = ret
 </dataflow>
 <dataflow id="135" from="StgValue_132" to="max_col_value_24" fromId="132" toId="7">
 </dataflow>
-<dataflow id="136" from="StgValue_132" to="max_row_value_16" fromId="132" toId="8">
+<dataflow id="136" from="StgValue_132" to="x" fromId="132" toId="8">
 </dataflow>
 <dataflow id="137" from="StgValue_132" to="indvar_flatten22" fromId="132" toId="9">
 </dataflow>
@@ -1695,7 +1695,7 @@ for.inc.exitStub:2 %ret_ln0 = ret
 </dataflow>
 <dataflow id="142" from="StgValue_141" to="store_ln0" fromId="141" toId="11">
 </dataflow>
-<dataflow id="143" from="max_row_value_16" to="store_ln0" fromId="8" toId="11">
+<dataflow id="143" from="x" to="store_ln0" fromId="8" toId="11">
 </dataflow>
 <dataflow id="144" from="StgValue_141" to="store_ln0" fromId="141" toId="12">
 </dataflow>
@@ -1715,9 +1715,9 @@ for.inc.exitStub:2 %ret_ln0 = ret
 </dataflow>
 <dataflow id="154" from="max_col_value_24" to="max_col_value_24_load" fromId="7" toId="18">
 </dataflow>
-<dataflow id="155" from="max_row_value_16" to="max_row_value_16_load" fromId="8" toId="19">
+<dataflow id="155" from="x" to="x_load" fromId="8" toId="19">
 </dataflow>
-<dataflow id="156" from="max_row_value_16_load" to="add_ln168" fromId="19" toId="20">
+<dataflow id="156" from="x_load" to="add_ln168" fromId="19" toId="20">
 </dataflow>
 <dataflow id="158" from="StgValue_157" to="add_ln168" fromId="157" toId="20">
 </dataflow>
@@ -1735,29 +1735,29 @@ for.inc.exitStub:2 %ret_ln0 = ret
 </dataflow>
 <dataflow id="166" from="add_ln168" to="select_ln168_1" fromId="20" toId="23">
 </dataflow>
-<dataflow id="167" from="max_row_value_16_load" to="select_ln168_1" fromId="19" toId="23">
+<dataflow id="167" from="x_load" to="select_ln168_1" fromId="19" toId="23">
 </dataflow>
 <dataflow id="168" from="select_ln168_1" to="trunc_ln168_23" fromId="23" toId="24">
 </dataflow>
-<dataflow id="170" from="_ssdm_op_PartSelect.i2.i7.i32.i32" to="p_cast286_mid2_v" fromId="169" toId="25">
+<dataflow id="170" from="_ssdm_op_PartSelect.i2.i7.i32.i32" to="p_cast269_mid2_v" fromId="169" toId="25">
 </dataflow>
-<dataflow id="171" from="select_ln168_1" to="p_cast286_mid2_v" fromId="23" toId="25">
+<dataflow id="171" from="select_ln168_1" to="p_cast269_mid2_v" fromId="23" toId="25">
 </dataflow>
-<dataflow id="173" from="StgValue_172" to="p_cast286_mid2_v" fromId="172" toId="25">
+<dataflow id="173" from="StgValue_172" to="p_cast269_mid2_v" fromId="172" toId="25">
 </dataflow>
-<dataflow id="175" from="StgValue_174" to="p_cast286_mid2_v" fromId="174" toId="25">
+<dataflow id="175" from="StgValue_174" to="p_cast269_mid2_v" fromId="174" toId="25">
 </dataflow>
-<dataflow id="177" from="_ssdm_op_BitConcatenate.i8.i2.i6" to="tmp_9" fromId="176" toId="26">
+<dataflow id="177" from="_ssdm_op_BitConcatenate.i8.i2.i6" to="tmp_s" fromId="176" toId="26">
 </dataflow>
-<dataflow id="178" from="p_cast286_mid2_v" to="tmp_9" fromId="25" toId="26">
+<dataflow id="178" from="p_cast269_mid2_v" to="tmp_s" fromId="25" toId="26">
 </dataflow>
-<dataflow id="180" from="StgValue_179" to="tmp_9" fromId="179" toId="26">
+<dataflow id="180" from="StgValue_179" to="tmp_s" fromId="179" toId="26">
 </dataflow>
 <dataflow id="181" from="select_ln168_1" to="trunc_ln168_24" fromId="23" toId="27">
 </dataflow>
 <dataflow id="182" from="select_ln168" to="zext_ln1649" fromId="22" toId="28">
 </dataflow>
-<dataflow id="183" from="tmp_9" to="add_ln1649" fromId="26" toId="29">
+<dataflow id="183" from="tmp_s" to="add_ln1649" fromId="26" toId="29">
 </dataflow>
 <dataflow id="184" from="zext_ln1649" to="add_ln1649" fromId="28" toId="29">
 </dataflow>
@@ -1903,17 +1903,17 @@ for.inc.exitStub:2 %ret_ln0 = ret
 </dataflow>
 <dataflow id="256" from="select_ln168_1" to="store_ln171" fromId="23" toId="66">
 </dataflow>
-<dataflow id="257" from="max_row_value_16" to="store_ln171" fromId="8" toId="66">
+<dataflow id="257" from="x" to="store_ln171" fromId="8" toId="66">
 </dataflow>
 <dataflow id="258" from="add_ln171" to="store_ln171" fromId="64" toId="67">
 </dataflow>
 <dataflow id="259" from="max_col_value_24" to="store_ln171" fromId="7" toId="67">
 </dataflow>
-<dataflow id="260" from="max_row_value_1" to="max_row_value_17" fromId="5" toId="68">
+<dataflow id="260" from="max_row_value_1" to="max_row_value_16" fromId="5" toId="68">
 </dataflow>
 <dataflow id="261" from="max_col_value_1" to="max_col_value_25" fromId="6" toId="69">
 </dataflow>
-<dataflow id="262" from="max_row_value_17" to="trunc_ln168" fromId="68" toId="70">
+<dataflow id="262" from="max_row_value_16" to="trunc_ln168" fromId="68" toId="70">
 </dataflow>
 <dataflow id="263" from="max_col_value_25" to="trunc_ln168_22" fromId="69" toId="71">
 </dataflow>
@@ -1957,7 +1957,7 @@ for.inc.exitStub:2 %ret_ln0 = ret
 </dataflow>
 <dataflow id="291" from="_ssdm_op_SpecLoopName" to="specloopname_ln164" fromId="274" toId="77">
 </dataflow>
-<dataflow id="293" from="empty_3" to="specloopname_ln164" fromId="292" toId="77">
+<dataflow id="293" from="empty_4" to="specloopname_ln164" fromId="292" toId="77">
 </dataflow>
 <dataflow id="294" from="dp_matrix_V_addr" to="dp_matrix_V_load" fromId="31" toId="78">
 </dataflow>
@@ -2035,7 +2035,7 @@ for.inc.exitStub:2 %ret_ln0 = ret
 </dataflow>
 <dataflow id="333" from="zext_ln168" to="max_row_value" fromId="75" toId="96">
 </dataflow>
-<dataflow id="334" from="max_row_value_17" to="max_row_value" fromId="68" toId="96">
+<dataflow id="334" from="max_row_value_16" to="max_row_value" fromId="68" toId="96">
 </dataflow>
 <dataflow id="335" from="trunc_ln173" to="zext_ln173" fromId="63" toId="97">
 </dataflow>

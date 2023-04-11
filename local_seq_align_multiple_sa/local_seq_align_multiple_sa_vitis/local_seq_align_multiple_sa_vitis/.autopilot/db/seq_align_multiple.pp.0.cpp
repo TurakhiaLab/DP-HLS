@@ -40284,13 +40284,13 @@ __attribute__((sdx_kernel("seq_align_multiple", 0))) void seq_align_multiple(ap_
 # 255 "src/seq_align_multiple.cpp"
 
 
-#pragma HLS array_partition variable=query_string_comp type=block factor=4
-#pragma HLS array_partition variable=reference_string_comp type=block factor=4
-#pragma HLS array_partition variable=dp_mem type=block factor=4
-#pragma HLS array_partition variable=Ix_mem type=block factor=4
-#pragma HLS array_partition variable=Iy_mem type=block factor=4
-#pragma HLS array_partition variable=last_pe_score type=block factor=4
-#pragma HLS array_partition variable=last_pe_scoreIx type=block factor=4
+#pragma HLS array_partition variable=query_string_comp type=block factor=8
+#pragma HLS array_partition variable=reference_string_comp type=block factor=8
+#pragma HLS array_partition variable=dp_mem type=block factor=8
+#pragma HLS array_partition variable=Ix_mem type=block factor=8
+#pragma HLS array_partition variable=Iy_mem type=block factor=8
+#pragma HLS array_partition variable=last_pe_score type=block factor=8
+#pragma HLS array_partition variable=last_pe_scoreIx type=block factor=8
 
  type_t dummies_inner[8];
 

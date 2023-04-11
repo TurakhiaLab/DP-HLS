@@ -1,7 +1,7 @@
 <profile>
 
 <section name = "Vitis HLS Report for 'seq_align_multiple_Pipeline_pe1_pe216'" level="0">
-<item name = "Date">Mon Apr 10 17:48:57 2023
+<item name = "Date">Mon Apr 10 18:42:17 2023
 </item>
 <item name = "Version">2022.2 (Build 3670227 on Oct 13 2022)</item>
 <item name = "Project">local_seq_align_multiple_sa_vitis</item>
@@ -64,7 +64,7 @@
 <section name = "" level="1">
 <item name = "Instance"><table name="" hasTotal="1">
 <keys size="7">Instance, Module, BRAM_18K, DSP, FF, LUT, URAM</keys>
-<column name="mux_164_9_1_1_U3220">mux_164_9_1_1, 0, 0, 0, 65, 0</column>
+<column name="mux_164_9_1_1_U3465">mux_164_9_1_1, 0, 0, 0, 65, 0</column>
 </table>
 </item>
 <item name = "DSP"><table name="" hasTotal="0">

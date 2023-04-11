@@ -78,9 +78,9 @@ module seq_align_multiple_seq_align_multiple_Pipeline_VITIS_LOOP_93_36 (
         local_reference_V_2_339_reload,
         local_reference_V_1_324_reload,
         local_reference_V_0_38_reload,
-        reference_string_comp_1_address0,
-        reference_string_comp_1_ce0,
-        reference_string_comp_1_q0,
+        reference_string_comp_2_address0,
+        reference_string_comp_2_ce0,
+        reference_string_comp_2_q0,
         local_reference_V_3_15_6_out,
         local_reference_V_3_15_6_out_ap_vld,
         local_reference_V_2_15_6_out,
@@ -283,9 +283,9 @@ input  [1:0] local_reference_V_3_354_reload;
 input  [1:0] local_reference_V_2_339_reload;
 input  [1:0] local_reference_V_1_324_reload;
 input  [1:0] local_reference_V_0_38_reload;
-output  [6:0] reference_string_comp_1_address0;
-output   reference_string_comp_1_ce0;
-input  [1:0] reference_string_comp_1_q0;
+output  [5:0] reference_string_comp_2_address0;
+output   reference_string_comp_2_ce0;
+input  [1:0] reference_string_comp_2_q0;
 output  [1:0] local_reference_V_3_15_6_out;
 output   local_reference_V_3_15_6_out_ap_vld;
 output  [1:0] local_reference_V_2_15_6_out;
@@ -416,7 +416,7 @@ output  [1:0] local_reference_V_0_611_out;
 output   local_reference_V_0_611_out_ap_vld;
 
 reg ap_idle;
-reg reference_string_comp_1_ce0;
+reg reference_string_comp_2_ce0;
 reg local_reference_V_3_15_6_out_ap_vld;
 reg local_reference_V_2_15_6_out_ap_vld;
 reg local_reference_V_1_15_6_out_ap_vld;
@@ -494,11 +494,11 @@ wire   [0:0] icmp_ln93_fu_1769_p2;
 reg    ap_condition_exit_pp0_iter0_stage0;
 wire    ap_loop_exit_ready;
 reg    ap_ready_int;
+reg   [1:0] trunc_ln94_s_reg_2839;
 wire    ap_block_pp0_stage0_11001;
-reg   [1:0] trunc_ln94_s_reg_2844;
 wire   [3:0] trunc_ln94_fu_1796_p1;
 reg   [3:0] trunc_ln94_reg_2848;
-wire   [63:0] i_2_cast300_fu_1781_p1;
+wire   [63:0] i_2_cast290_fu_1781_p1;
 wire    ap_block_pp0_stage0;
 reg   [6:0] i_fu_336;
 wire   [6:0] add_ln93_fu_1775_p2;
@@ -710,7 +710,7 @@ always @ (posedge ap_clk) begin
         if ((ap_loop_init == 1'b1)) begin
             local_reference_V_1_10_fu_380 <= local_reference_V_2_2_3_reload;
         end else if ((1'b1 == ap_condition_890)) begin
-            local_reference_V_1_10_fu_380 <= reference_string_comp_1_q0;
+            local_reference_V_1_10_fu_380 <= reference_string_comp_2_q0;
         end
     end
 end
@@ -720,7 +720,7 @@ always @ (posedge ap_clk) begin
         if ((ap_loop_init == 1'b1)) begin
             local_reference_V_1_11_fu_384 <= local_reference_V_3_2_3_reload;
         end else if ((1'b1 == ap_condition_893)) begin
-            local_reference_V_1_11_fu_384 <= reference_string_comp_1_q0;
+            local_reference_V_1_11_fu_384 <= reference_string_comp_2_q0;
         end
     end
 end
@@ -730,7 +730,7 @@ always @ (posedge ap_clk) begin
         if ((ap_loop_init == 1'b1)) begin
             local_reference_V_1_12_fu_388 <= local_reference_V_0_3_3_reload;
         end else if ((1'b1 == ap_condition_896)) begin
-            local_reference_V_1_12_fu_388 <= reference_string_comp_1_q0;
+            local_reference_V_1_12_fu_388 <= reference_string_comp_2_q0;
         end
     end
 end
@@ -740,7 +740,7 @@ always @ (posedge ap_clk) begin
         if ((ap_loop_init == 1'b1)) begin
             local_reference_V_1_13_fu_392 <= local_reference_V_1_3_3_reload;
         end else if ((1'b1 == ap_condition_899)) begin
-            local_reference_V_1_13_fu_392 <= reference_string_comp_1_q0;
+            local_reference_V_1_13_fu_392 <= reference_string_comp_2_q0;
         end
     end
 end
@@ -750,7 +750,7 @@ always @ (posedge ap_clk) begin
         if ((ap_loop_init == 1'b1)) begin
             local_reference_V_1_14_fu_396 <= local_reference_V_2_3_3_reload;
         end else if ((1'b1 == ap_condition_902)) begin
-            local_reference_V_1_14_fu_396 <= reference_string_comp_1_q0;
+            local_reference_V_1_14_fu_396 <= reference_string_comp_2_q0;
         end
     end
 end
@@ -760,7 +760,7 @@ always @ (posedge ap_clk) begin
         if ((ap_loop_init == 1'b1)) begin
             local_reference_V_1_15_fu_400 <= local_reference_V_3_3_3_reload;
         end else if ((1'b1 == ap_condition_905)) begin
-            local_reference_V_1_15_fu_400 <= reference_string_comp_1_q0;
+            local_reference_V_1_15_fu_400 <= reference_string_comp_2_q0;
         end
     end
 end
@@ -770,7 +770,7 @@ always @ (posedge ap_clk) begin
         if ((ap_loop_init == 1'b1)) begin
             local_reference_V_1_16_fu_404 <= local_reference_V_0_4_3_reload;
         end else if ((1'b1 == ap_condition_908)) begin
-            local_reference_V_1_16_fu_404 <= reference_string_comp_1_q0;
+            local_reference_V_1_16_fu_404 <= reference_string_comp_2_q0;
         end
     end
 end
@@ -780,7 +780,7 @@ always @ (posedge ap_clk) begin
         if ((ap_loop_init == 1'b1)) begin
             local_reference_V_1_17_fu_408 <= local_reference_V_1_4_3_reload;
         end else if ((1'b1 == ap_condition_911)) begin
-            local_reference_V_1_17_fu_408 <= reference_string_comp_1_q0;
+            local_reference_V_1_17_fu_408 <= reference_string_comp_2_q0;
         end
     end
 end
@@ -790,7 +790,7 @@ always @ (posedge ap_clk) begin
         if ((ap_loop_init == 1'b1)) begin
             local_reference_V_1_18_fu_412 <= local_reference_V_2_4_3_reload;
         end else if ((1'b1 == ap_condition_914)) begin
-            local_reference_V_1_18_fu_412 <= reference_string_comp_1_q0;
+            local_reference_V_1_18_fu_412 <= reference_string_comp_2_q0;
         end
     end
 end
@@ -800,7 +800,7 @@ always @ (posedge ap_clk) begin
         if ((ap_loop_init == 1'b1)) begin
             local_reference_V_1_19_fu_416 <= local_reference_V_3_4_3_reload;
         end else if ((1'b1 == ap_condition_917)) begin
-            local_reference_V_1_19_fu_416 <= reference_string_comp_1_q0;
+            local_reference_V_1_19_fu_416 <= reference_string_comp_2_q0;
         end
     end
 end
@@ -810,7 +810,7 @@ always @ (posedge ap_clk) begin
         if ((ap_loop_init == 1'b1)) begin
             local_reference_V_1_1_fu_344 <= local_reference_V_1_324_reload;
         end else if ((1'b1 == ap_condition_920)) begin
-            local_reference_V_1_1_fu_344 <= reference_string_comp_1_q0;
+            local_reference_V_1_1_fu_344 <= reference_string_comp_2_q0;
         end
     end
 end
@@ -820,7 +820,7 @@ always @ (posedge ap_clk) begin
         if ((ap_loop_init == 1'b1)) begin
             local_reference_V_1_20_fu_420 <= local_reference_V_0_5_3_reload;
         end else if ((1'b1 == ap_condition_923)) begin
-            local_reference_V_1_20_fu_420 <= reference_string_comp_1_q0;
+            local_reference_V_1_20_fu_420 <= reference_string_comp_2_q0;
         end
     end
 end
@@ -830,7 +830,7 @@ always @ (posedge ap_clk) begin
         if ((ap_loop_init == 1'b1)) begin
             local_reference_V_1_21_fu_424 <= local_reference_V_1_5_3_reload;
         end else if ((1'b1 == ap_condition_926)) begin
-            local_reference_V_1_21_fu_424 <= reference_string_comp_1_q0;
+            local_reference_V_1_21_fu_424 <= reference_string_comp_2_q0;
         end
     end
 end
@@ -840,7 +840,7 @@ always @ (posedge ap_clk) begin
         if ((ap_loop_init == 1'b1)) begin
             local_reference_V_1_22_fu_428 <= local_reference_V_2_5_3_reload;
         end else if ((1'b1 == ap_condition_929)) begin
-            local_reference_V_1_22_fu_428 <= reference_string_comp_1_q0;
+            local_reference_V_1_22_fu_428 <= reference_string_comp_2_q0;
         end
     end
 end
@@ -850,7 +850,7 @@ always @ (posedge ap_clk) begin
         if ((ap_loop_init == 1'b1)) begin
             local_reference_V_1_23_fu_432 <= local_reference_V_3_5_3_reload;
         end else if ((1'b1 == ap_condition_932)) begin
-            local_reference_V_1_23_fu_432 <= reference_string_comp_1_q0;
+            local_reference_V_1_23_fu_432 <= reference_string_comp_2_q0;
         end
     end
 end
@@ -860,7 +860,7 @@ always @ (posedge ap_clk) begin
         if ((ap_loop_init == 1'b1)) begin
             local_reference_V_1_24_fu_436 <= local_reference_V_0_6_3_reload;
         end else if ((1'b1 == ap_condition_935)) begin
-            local_reference_V_1_24_fu_436 <= reference_string_comp_1_q0;
+            local_reference_V_1_24_fu_436 <= reference_string_comp_2_q0;
         end
     end
 end
@@ -870,7 +870,7 @@ always @ (posedge ap_clk) begin
         if ((ap_loop_init == 1'b1)) begin
             local_reference_V_1_25_fu_440 <= local_reference_V_1_6_3_reload;
         end else if ((1'b1 == ap_condition_938)) begin
-            local_reference_V_1_25_fu_440 <= reference_string_comp_1_q0;
+            local_reference_V_1_25_fu_440 <= reference_string_comp_2_q0;
         end
     end
 end
@@ -880,7 +880,7 @@ always @ (posedge ap_clk) begin
         if ((ap_loop_init == 1'b1)) begin
             local_reference_V_1_26_fu_444 <= local_reference_V_2_6_3_reload;
         end else if ((1'b1 == ap_condition_941)) begin
-            local_reference_V_1_26_fu_444 <= reference_string_comp_1_q0;
+            local_reference_V_1_26_fu_444 <= reference_string_comp_2_q0;
         end
     end
 end
@@ -890,7 +890,7 @@ always @ (posedge ap_clk) begin
         if ((ap_loop_init == 1'b1)) begin
             local_reference_V_1_27_fu_448 <= local_reference_V_3_6_3_reload;
         end else if ((1'b1 == ap_condition_944)) begin
-            local_reference_V_1_27_fu_448 <= reference_string_comp_1_q0;
+            local_reference_V_1_27_fu_448 <= reference_string_comp_2_q0;
         end
     end
 end
@@ -900,7 +900,7 @@ always @ (posedge ap_clk) begin
         if ((ap_loop_init == 1'b1)) begin
             local_reference_V_1_28_fu_452 <= local_reference_V_0_7_3_reload;
         end else if ((1'b1 == ap_condition_947)) begin
-            local_reference_V_1_28_fu_452 <= reference_string_comp_1_q0;
+            local_reference_V_1_28_fu_452 <= reference_string_comp_2_q0;
         end
     end
 end
@@ -910,7 +910,7 @@ always @ (posedge ap_clk) begin
         if ((ap_loop_init == 1'b1)) begin
             local_reference_V_1_29_fu_456 <= local_reference_V_1_7_3_reload;
         end else if ((1'b1 == ap_condition_950)) begin
-            local_reference_V_1_29_fu_456 <= reference_string_comp_1_q0;
+            local_reference_V_1_29_fu_456 <= reference_string_comp_2_q0;
         end
     end
 end
@@ -920,7 +920,7 @@ always @ (posedge ap_clk) begin
         if ((ap_loop_init == 1'b1)) begin
             local_reference_V_1_2_fu_348 <= local_reference_V_2_339_reload;
         end else if ((1'b1 == ap_condition_953)) begin
-            local_reference_V_1_2_fu_348 <= reference_string_comp_1_q0;
+            local_reference_V_1_2_fu_348 <= reference_string_comp_2_q0;
         end
     end
 end
@@ -930,7 +930,7 @@ always @ (posedge ap_clk) begin
         if ((ap_loop_init == 1'b1)) begin
             local_reference_V_1_30_fu_460 <= local_reference_V_2_7_3_reload;
         end else if ((1'b1 == ap_condition_956)) begin
-            local_reference_V_1_30_fu_460 <= reference_string_comp_1_q0;
+            local_reference_V_1_30_fu_460 <= reference_string_comp_2_q0;
         end
     end
 end
@@ -940,7 +940,7 @@ always @ (posedge ap_clk) begin
         if ((ap_loop_init == 1'b1)) begin
             local_reference_V_1_31_fu_464 <= local_reference_V_3_7_3_reload;
         end else if ((1'b1 == ap_condition_959)) begin
-            local_reference_V_1_31_fu_464 <= reference_string_comp_1_q0;
+            local_reference_V_1_31_fu_464 <= reference_string_comp_2_q0;
         end
     end
 end
@@ -950,7 +950,7 @@ always @ (posedge ap_clk) begin
         if ((ap_loop_init == 1'b1)) begin
             local_reference_V_1_32_fu_468 <= local_reference_V_0_8_3_reload;
         end else if ((1'b1 == ap_condition_962)) begin
-            local_reference_V_1_32_fu_468 <= reference_string_comp_1_q0;
+            local_reference_V_1_32_fu_468 <= reference_string_comp_2_q0;
         end
     end
 end
@@ -960,7 +960,7 @@ always @ (posedge ap_clk) begin
         if ((ap_loop_init == 1'b1)) begin
             local_reference_V_1_33_fu_472 <= local_reference_V_1_8_3_reload;
         end else if ((1'b1 == ap_condition_965)) begin
-            local_reference_V_1_33_fu_472 <= reference_string_comp_1_q0;
+            local_reference_V_1_33_fu_472 <= reference_string_comp_2_q0;
         end
     end
 end
@@ -970,7 +970,7 @@ always @ (posedge ap_clk) begin
         if ((ap_loop_init == 1'b1)) begin
             local_reference_V_1_34_fu_476 <= local_reference_V_2_8_3_reload;
         end else if ((1'b1 == ap_condition_968)) begin
-            local_reference_V_1_34_fu_476 <= reference_string_comp_1_q0;
+            local_reference_V_1_34_fu_476 <= reference_string_comp_2_q0;
         end
     end
 end
@@ -980,7 +980,7 @@ always @ (posedge ap_clk) begin
         if ((ap_loop_init == 1'b1)) begin
             local_reference_V_1_35_fu_480 <= local_reference_V_3_8_3_reload;
         end else if ((1'b1 == ap_condition_971)) begin
-            local_reference_V_1_35_fu_480 <= reference_string_comp_1_q0;
+            local_reference_V_1_35_fu_480 <= reference_string_comp_2_q0;
         end
     end
 end
@@ -990,7 +990,7 @@ always @ (posedge ap_clk) begin
         if ((ap_loop_init == 1'b1)) begin
             local_reference_V_1_36_fu_484 <= local_reference_V_0_9_3_reload;
         end else if ((1'b1 == ap_condition_974)) begin
-            local_reference_V_1_36_fu_484 <= reference_string_comp_1_q0;
+            local_reference_V_1_36_fu_484 <= reference_string_comp_2_q0;
         end
     end
 end
@@ -1000,7 +1000,7 @@ always @ (posedge ap_clk) begin
         if ((ap_loop_init == 1'b1)) begin
             local_reference_V_1_37_fu_488 <= local_reference_V_1_9_3_reload;
         end else if ((1'b1 == ap_condition_977)) begin
-            local_reference_V_1_37_fu_488 <= reference_string_comp_1_q0;
+            local_reference_V_1_37_fu_488 <= reference_string_comp_2_q0;
         end
     end
 end
@@ -1010,7 +1010,7 @@ always @ (posedge ap_clk) begin
         if ((ap_loop_init == 1'b1)) begin
             local_reference_V_1_38_fu_492 <= local_reference_V_2_9_3_reload;
         end else if ((1'b1 == ap_condition_980)) begin
-            local_reference_V_1_38_fu_492 <= reference_string_comp_1_q0;
+            local_reference_V_1_38_fu_492 <= reference_string_comp_2_q0;
         end
     end
 end
@@ -1020,7 +1020,7 @@ always @ (posedge ap_clk) begin
         if ((ap_loop_init == 1'b1)) begin
             local_reference_V_1_39_fu_496 <= local_reference_V_3_9_3_reload;
         end else if ((1'b1 == ap_condition_983)) begin
-            local_reference_V_1_39_fu_496 <= reference_string_comp_1_q0;
+            local_reference_V_1_39_fu_496 <= reference_string_comp_2_q0;
         end
     end
 end
@@ -1030,7 +1030,7 @@ always @ (posedge ap_clk) begin
         if ((ap_loop_init == 1'b1)) begin
             local_reference_V_1_3_fu_352 <= local_reference_V_3_354_reload;
         end else if ((1'b1 == ap_condition_986)) begin
-            local_reference_V_1_3_fu_352 <= reference_string_comp_1_q0;
+            local_reference_V_1_3_fu_352 <= reference_string_comp_2_q0;
         end
     end
 end
@@ -1040,7 +1040,7 @@ always @ (posedge ap_clk) begin
         if ((ap_loop_init == 1'b1)) begin
             local_reference_V_1_40_fu_500 <= local_reference_V_0_10_3_reload;
         end else if ((1'b1 == ap_condition_989)) begin
-            local_reference_V_1_40_fu_500 <= reference_string_comp_1_q0;
+            local_reference_V_1_40_fu_500 <= reference_string_comp_2_q0;
         end
     end
 end
@@ -1050,7 +1050,7 @@ always @ (posedge ap_clk) begin
         if ((ap_loop_init == 1'b1)) begin
             local_reference_V_1_41_fu_504 <= local_reference_V_1_10_3_reload;
         end else if ((1'b1 == ap_condition_992)) begin
-            local_reference_V_1_41_fu_504 <= reference_string_comp_1_q0;
+            local_reference_V_1_41_fu_504 <= reference_string_comp_2_q0;
         end
     end
 end
@@ -1060,7 +1060,7 @@ always @ (posedge ap_clk) begin
         if ((ap_loop_init == 1'b1)) begin
             local_reference_V_1_42_fu_508 <= local_reference_V_2_10_3_reload;
         end else if ((1'b1 == ap_condition_995)) begin
-            local_reference_V_1_42_fu_508 <= reference_string_comp_1_q0;
+            local_reference_V_1_42_fu_508 <= reference_string_comp_2_q0;
         end
     end
 end
@@ -1070,7 +1070,7 @@ always @ (posedge ap_clk) begin
         if ((ap_loop_init == 1'b1)) begin
             local_reference_V_1_43_fu_512 <= local_reference_V_3_10_3_reload;
         end else if ((1'b1 == ap_condition_998)) begin
-            local_reference_V_1_43_fu_512 <= reference_string_comp_1_q0;
+            local_reference_V_1_43_fu_512 <= reference_string_comp_2_q0;
         end
     end
 end
@@ -1080,7 +1080,7 @@ always @ (posedge ap_clk) begin
         if ((ap_loop_init == 1'b1)) begin
             local_reference_V_1_44_fu_516 <= local_reference_V_0_11_3_reload;
         end else if ((1'b1 == ap_condition_1001)) begin
-            local_reference_V_1_44_fu_516 <= reference_string_comp_1_q0;
+            local_reference_V_1_44_fu_516 <= reference_string_comp_2_q0;
         end
     end
 end
@@ -1090,7 +1090,7 @@ always @ (posedge ap_clk) begin
         if ((ap_loop_init == 1'b1)) begin
             local_reference_V_1_45_fu_520 <= local_reference_V_1_11_3_reload;
         end else if ((1'b1 == ap_condition_1004)) begin
-            local_reference_V_1_45_fu_520 <= reference_string_comp_1_q0;
+            local_reference_V_1_45_fu_520 <= reference_string_comp_2_q0;
         end
     end
 end
@@ -1100,7 +1100,7 @@ always @ (posedge ap_clk) begin
         if ((ap_loop_init == 1'b1)) begin
             local_reference_V_1_46_fu_524 <= local_reference_V_2_11_3_reload;
         end else if ((1'b1 == ap_condition_1007)) begin
-            local_reference_V_1_46_fu_524 <= reference_string_comp_1_q0;
+            local_reference_V_1_46_fu_524 <= reference_string_comp_2_q0;
         end
     end
 end
@@ -1110,7 +1110,7 @@ always @ (posedge ap_clk) begin
         if ((ap_loop_init == 1'b1)) begin
             local_reference_V_1_47_fu_528 <= local_reference_V_3_11_3_reload;
         end else if ((1'b1 == ap_condition_1010)) begin
-            local_reference_V_1_47_fu_528 <= reference_string_comp_1_q0;
+            local_reference_V_1_47_fu_528 <= reference_string_comp_2_q0;
         end
     end
 end
@@ -1120,7 +1120,7 @@ always @ (posedge ap_clk) begin
         if ((ap_loop_init == 1'b1)) begin
             local_reference_V_1_48_fu_532 <= local_reference_V_0_12_3_reload;
         end else if ((1'b1 == ap_condition_1013)) begin
-            local_reference_V_1_48_fu_532 <= reference_string_comp_1_q0;
+            local_reference_V_1_48_fu_532 <= reference_string_comp_2_q0;
         end
     end
 end
@@ -1130,7 +1130,7 @@ always @ (posedge ap_clk) begin
         if ((ap_loop_init == 1'b1)) begin
             local_reference_V_1_49_fu_536 <= local_reference_V_1_12_3_reload;
         end else if ((1'b1 == ap_condition_1016)) begin
-            local_reference_V_1_49_fu_536 <= reference_string_comp_1_q0;
+            local_reference_V_1_49_fu_536 <= reference_string_comp_2_q0;
         end
     end
 end
@@ -1140,7 +1140,7 @@ always @ (posedge ap_clk) begin
         if ((ap_loop_init == 1'b1)) begin
             local_reference_V_1_4_fu_356 <= local_reference_V_0_1_3_reload;
         end else if ((1'b1 == ap_condition_1019)) begin
-            local_reference_V_1_4_fu_356 <= reference_string_comp_1_q0;
+            local_reference_V_1_4_fu_356 <= reference_string_comp_2_q0;
         end
     end
 end
@@ -1150,7 +1150,7 @@ always @ (posedge ap_clk) begin
         if ((ap_loop_init == 1'b1)) begin
             local_reference_V_1_50_fu_540 <= local_reference_V_2_12_3_reload;
         end else if ((1'b1 == ap_condition_1022)) begin
-            local_reference_V_1_50_fu_540 <= reference_string_comp_1_q0;
+            local_reference_V_1_50_fu_540 <= reference_string_comp_2_q0;
         end
     end
 end
@@ -1160,7 +1160,7 @@ always @ (posedge ap_clk) begin
         if ((ap_loop_init == 1'b1)) begin
             local_reference_V_1_51_fu_544 <= local_reference_V_3_12_3_reload;
         end else if ((1'b1 == ap_condition_1025)) begin
-            local_reference_V_1_51_fu_544 <= reference_string_comp_1_q0;
+            local_reference_V_1_51_fu_544 <= reference_string_comp_2_q0;
         end
     end
 end
@@ -1170,7 +1170,7 @@ always @ (posedge ap_clk) begin
         if ((ap_loop_init == 1'b1)) begin
             local_reference_V_1_52_fu_548 <= local_reference_V_0_13_3_reload;
         end else if ((1'b1 == ap_condition_1028)) begin
-            local_reference_V_1_52_fu_548 <= reference_string_comp_1_q0;
+            local_reference_V_1_52_fu_548 <= reference_string_comp_2_q0;
         end
     end
 end
@@ -1180,7 +1180,7 @@ always @ (posedge ap_clk) begin
         if ((ap_loop_init == 1'b1)) begin
             local_reference_V_1_53_fu_552 <= local_reference_V_1_13_3_reload;
         end else if ((1'b1 == ap_condition_1031)) begin
-            local_reference_V_1_53_fu_552 <= reference_string_comp_1_q0;
+            local_reference_V_1_53_fu_552 <= reference_string_comp_2_q0;
         end
     end
 end
@@ -1190,7 +1190,7 @@ always @ (posedge ap_clk) begin
         if ((ap_loop_init == 1'b1)) begin
             local_reference_V_1_54_fu_556 <= local_reference_V_2_13_3_reload;
         end else if ((1'b1 == ap_condition_1034)) begin
-            local_reference_V_1_54_fu_556 <= reference_string_comp_1_q0;
+            local_reference_V_1_54_fu_556 <= reference_string_comp_2_q0;
         end
     end
 end
@@ -1200,7 +1200,7 @@ always @ (posedge ap_clk) begin
         if ((ap_loop_init == 1'b1)) begin
             local_reference_V_1_55_fu_560 <= local_reference_V_3_13_3_reload;
         end else if ((1'b1 == ap_condition_1037)) begin
-            local_reference_V_1_55_fu_560 <= reference_string_comp_1_q0;
+            local_reference_V_1_55_fu_560 <= reference_string_comp_2_q0;
         end
     end
 end
@@ -1210,7 +1210,7 @@ always @ (posedge ap_clk) begin
         if ((ap_loop_init == 1'b1)) begin
             local_reference_V_1_56_fu_564 <= local_reference_V_0_14_3_reload;
         end else if ((1'b1 == ap_condition_1040)) begin
-            local_reference_V_1_56_fu_564 <= reference_string_comp_1_q0;
+            local_reference_V_1_56_fu_564 <= reference_string_comp_2_q0;
         end
     end
 end
@@ -1220,7 +1220,7 @@ always @ (posedge ap_clk) begin
         if ((ap_loop_init == 1'b1)) begin
             local_reference_V_1_57_fu_568 <= local_reference_V_1_14_3_reload;
         end else if ((1'b1 == ap_condition_1043)) begin
-            local_reference_V_1_57_fu_568 <= reference_string_comp_1_q0;
+            local_reference_V_1_57_fu_568 <= reference_string_comp_2_q0;
         end
     end
 end
@@ -1230,7 +1230,7 @@ always @ (posedge ap_clk) begin
         if ((ap_loop_init == 1'b1)) begin
             local_reference_V_1_58_fu_572 <= local_reference_V_2_14_3_reload;
         end else if ((1'b1 == ap_condition_1046)) begin
-            local_reference_V_1_58_fu_572 <= reference_string_comp_1_q0;
+            local_reference_V_1_58_fu_572 <= reference_string_comp_2_q0;
         end
     end
 end
@@ -1240,7 +1240,7 @@ always @ (posedge ap_clk) begin
         if ((ap_loop_init == 1'b1)) begin
             local_reference_V_1_59_fu_576 <= local_reference_V_3_14_3_reload;
         end else if ((1'b1 == ap_condition_1049)) begin
-            local_reference_V_1_59_fu_576 <= reference_string_comp_1_q0;
+            local_reference_V_1_59_fu_576 <= reference_string_comp_2_q0;
         end
     end
 end
@@ -1250,7 +1250,7 @@ always @ (posedge ap_clk) begin
         if ((ap_loop_init == 1'b1)) begin
             local_reference_V_1_5_fu_360 <= local_reference_V_1_1_3_reload;
         end else if ((1'b1 == ap_condition_1052)) begin
-            local_reference_V_1_5_fu_360 <= reference_string_comp_1_q0;
+            local_reference_V_1_5_fu_360 <= reference_string_comp_2_q0;
         end
     end
 end
@@ -1260,7 +1260,7 @@ always @ (posedge ap_clk) begin
         if ((ap_loop_init == 1'b1)) begin
             local_reference_V_1_60_fu_580 <= local_reference_V_0_15_3_reload;
         end else if ((1'b1 == ap_condition_1055)) begin
-            local_reference_V_1_60_fu_580 <= reference_string_comp_1_q0;
+            local_reference_V_1_60_fu_580 <= reference_string_comp_2_q0;
         end
     end
 end
@@ -1270,7 +1270,7 @@ always @ (posedge ap_clk) begin
         if ((ap_loop_init == 1'b1)) begin
             local_reference_V_1_61_fu_584 <= local_reference_V_1_15_3_reload;
         end else if ((1'b1 == ap_condition_1058)) begin
-            local_reference_V_1_61_fu_584 <= reference_string_comp_1_q0;
+            local_reference_V_1_61_fu_584 <= reference_string_comp_2_q0;
         end
     end
 end
@@ -1280,7 +1280,7 @@ always @ (posedge ap_clk) begin
         if ((ap_loop_init == 1'b1)) begin
             local_reference_V_1_62_fu_588 <= local_reference_V_2_15_3_reload;
         end else if ((1'b1 == ap_condition_1061)) begin
-            local_reference_V_1_62_fu_588 <= reference_string_comp_1_q0;
+            local_reference_V_1_62_fu_588 <= reference_string_comp_2_q0;
         end
     end
 end
@@ -1290,7 +1290,7 @@ always @ (posedge ap_clk) begin
         if ((ap_loop_init == 1'b1)) begin
             local_reference_V_1_63_fu_592 <= local_reference_V_3_15_3_reload;
         end else if ((1'b1 == ap_condition_1064)) begin
-            local_reference_V_1_63_fu_592 <= reference_string_comp_1_q0;
+            local_reference_V_1_63_fu_592 <= reference_string_comp_2_q0;
         end
     end
 end
@@ -1300,7 +1300,7 @@ always @ (posedge ap_clk) begin
         if ((ap_loop_init == 1'b1)) begin
             local_reference_V_1_6_fu_364 <= local_reference_V_2_1_3_reload;
         end else if ((1'b1 == ap_condition_1067)) begin
-            local_reference_V_1_6_fu_364 <= reference_string_comp_1_q0;
+            local_reference_V_1_6_fu_364 <= reference_string_comp_2_q0;
         end
     end
 end
@@ -1310,7 +1310,7 @@ always @ (posedge ap_clk) begin
         if ((ap_loop_init == 1'b1)) begin
             local_reference_V_1_7_fu_368 <= local_reference_V_3_1_3_reload;
         end else if ((1'b1 == ap_condition_1070)) begin
-            local_reference_V_1_7_fu_368 <= reference_string_comp_1_q0;
+            local_reference_V_1_7_fu_368 <= reference_string_comp_2_q0;
         end
     end
 end
@@ -1320,7 +1320,7 @@ always @ (posedge ap_clk) begin
         if ((ap_loop_init == 1'b1)) begin
             local_reference_V_1_8_fu_372 <= local_reference_V_0_2_3_reload;
         end else if ((1'b1 == ap_condition_1073)) begin
-            local_reference_V_1_8_fu_372 <= reference_string_comp_1_q0;
+            local_reference_V_1_8_fu_372 <= reference_string_comp_2_q0;
         end
     end
 end
@@ -1330,7 +1330,7 @@ always @ (posedge ap_clk) begin
         if ((ap_loop_init == 1'b1)) begin
             local_reference_V_1_9_fu_376 <= local_reference_V_1_2_3_reload;
         end else if ((1'b1 == ap_condition_1076)) begin
-            local_reference_V_1_9_fu_376 <= reference_string_comp_1_q0;
+            local_reference_V_1_9_fu_376 <= reference_string_comp_2_q0;
         end
     end
 end
@@ -1340,7 +1340,7 @@ always @ (posedge ap_clk) begin
         if ((ap_loop_init == 1'b1)) begin
             local_reference_V_1_fu_340 <= local_reference_V_0_38_reload;
         end else if ((1'b1 == ap_condition_1079)) begin
-            local_reference_V_1_fu_340 <= reference_string_comp_1_q0;
+            local_reference_V_1_fu_340 <= reference_string_comp_2_q0;
         end
     end
 end
@@ -1348,7 +1348,7 @@ end
 always @ (posedge ap_clk) begin
     if (((icmp_ln93_fu_1769_p2 == 1'd0) & (1'b0 == ap_block_pp0_stage0_11001) & (1'b1 == ap_CS_fsm_pp0_stage0))) begin
         trunc_ln94_reg_2848 <= trunc_ln94_fu_1796_p1;
-        trunc_ln94_s_reg_2844 <= {{ap_sig_allocacmp_i_1[5:4]}};
+        trunc_ln94_s_reg_2839 <= {{ap_sig_allocacmp_i_1[5:4]}};
     end
 end
 
@@ -1914,9 +1914,9 @@ end
 
 always @ (*) begin
     if (((1'b0 == ap_block_pp0_stage0_11001) & (ap_enable_reg_pp0_iter0 == 1'b1) & (1'b1 == ap_CS_fsm_pp0_stage0))) begin
-        reference_string_comp_1_ce0 = 1'b1;
+        reference_string_comp_2_ce0 = 1'b1;
     end else begin
-        reference_string_comp_1_ce0 = 1'b0;
+        reference_string_comp_2_ce0 = 1'b0;
     end
 end
 
@@ -1948,259 +1948,259 @@ assign ap_block_state1_pp0_stage0_iter0 = ~(1'b1 == 1'b1);
 assign ap_block_state2_pp0_stage0_iter1 = ~(1'b1 == 1'b1);
 
 always @ (*) begin
-    ap_condition_1001 = ((trunc_ln94_reg_2848 == 4'd11) & (trunc_ln94_s_reg_2844 == 2'd0) & (ap_enable_reg_pp0_iter1 == 1'b1));
+    ap_condition_1001 = ((trunc_ln94_reg_2848 == 4'd11) & (trunc_ln94_s_reg_2839 == 2'd0) & (ap_enable_reg_pp0_iter1 == 1'b1));
 end
 
 always @ (*) begin
-    ap_condition_1004 = ((trunc_ln94_reg_2848 == 4'd11) & (trunc_ln94_s_reg_2844 == 2'd1) & (ap_enable_reg_pp0_iter1 == 1'b1));
+    ap_condition_1004 = ((trunc_ln94_reg_2848 == 4'd11) & (trunc_ln94_s_reg_2839 == 2'd1) & (ap_enable_reg_pp0_iter1 == 1'b1));
 end
 
 always @ (*) begin
-    ap_condition_1007 = ((trunc_ln94_reg_2848 == 4'd11) & (trunc_ln94_s_reg_2844 == 2'd2) & (ap_enable_reg_pp0_iter1 == 1'b1));
+    ap_condition_1007 = ((trunc_ln94_reg_2848 == 4'd11) & (trunc_ln94_s_reg_2839 == 2'd2) & (ap_enable_reg_pp0_iter1 == 1'b1));
 end
 
 always @ (*) begin
-    ap_condition_1010 = ((trunc_ln94_reg_2848 == 4'd11) & (trunc_ln94_s_reg_2844 == 2'd3) & (ap_enable_reg_pp0_iter1 == 1'b1));
+    ap_condition_1010 = ((trunc_ln94_reg_2848 == 4'd11) & (trunc_ln94_s_reg_2839 == 2'd3) & (ap_enable_reg_pp0_iter1 == 1'b1));
 end
 
 always @ (*) begin
-    ap_condition_1013 = ((trunc_ln94_reg_2848 == 4'd12) & (trunc_ln94_s_reg_2844 == 2'd0) & (ap_enable_reg_pp0_iter1 == 1'b1));
+    ap_condition_1013 = ((trunc_ln94_reg_2848 == 4'd12) & (trunc_ln94_s_reg_2839 == 2'd0) & (ap_enable_reg_pp0_iter1 == 1'b1));
 end
 
 always @ (*) begin
-    ap_condition_1016 = ((trunc_ln94_reg_2848 == 4'd12) & (trunc_ln94_s_reg_2844 == 2'd1) & (ap_enable_reg_pp0_iter1 == 1'b1));
+    ap_condition_1016 = ((trunc_ln94_reg_2848 == 4'd12) & (trunc_ln94_s_reg_2839 == 2'd1) & (ap_enable_reg_pp0_iter1 == 1'b1));
 end
 
 always @ (*) begin
-    ap_condition_1019 = ((trunc_ln94_reg_2848 == 4'd1) & (trunc_ln94_s_reg_2844 == 2'd0) & (ap_enable_reg_pp0_iter1 == 1'b1));
+    ap_condition_1019 = ((trunc_ln94_reg_2848 == 4'd1) & (trunc_ln94_s_reg_2839 == 2'd0) & (ap_enable_reg_pp0_iter1 == 1'b1));
 end
 
 always @ (*) begin
-    ap_condition_1022 = ((trunc_ln94_reg_2848 == 4'd12) & (trunc_ln94_s_reg_2844 == 2'd2) & (ap_enable_reg_pp0_iter1 == 1'b1));
+    ap_condition_1022 = ((trunc_ln94_reg_2848 == 4'd12) & (trunc_ln94_s_reg_2839 == 2'd2) & (ap_enable_reg_pp0_iter1 == 1'b1));
 end
 
 always @ (*) begin
-    ap_condition_1025 = ((trunc_ln94_reg_2848 == 4'd12) & (trunc_ln94_s_reg_2844 == 2'd3) & (ap_enable_reg_pp0_iter1 == 1'b1));
+    ap_condition_1025 = ((trunc_ln94_reg_2848 == 4'd12) & (trunc_ln94_s_reg_2839 == 2'd3) & (ap_enable_reg_pp0_iter1 == 1'b1));
 end
 
 always @ (*) begin
-    ap_condition_1028 = ((trunc_ln94_reg_2848 == 4'd13) & (trunc_ln94_s_reg_2844 == 2'd0) & (ap_enable_reg_pp0_iter1 == 1'b1));
+    ap_condition_1028 = ((trunc_ln94_reg_2848 == 4'd13) & (trunc_ln94_s_reg_2839 == 2'd0) & (ap_enable_reg_pp0_iter1 == 1'b1));
 end
 
 always @ (*) begin
-    ap_condition_1031 = ((trunc_ln94_reg_2848 == 4'd13) & (trunc_ln94_s_reg_2844 == 2'd1) & (ap_enable_reg_pp0_iter1 == 1'b1));
+    ap_condition_1031 = ((trunc_ln94_reg_2848 == 4'd13) & (trunc_ln94_s_reg_2839 == 2'd1) & (ap_enable_reg_pp0_iter1 == 1'b1));
 end
 
 always @ (*) begin
-    ap_condition_1034 = ((trunc_ln94_reg_2848 == 4'd13) & (trunc_ln94_s_reg_2844 == 2'd2) & (ap_enable_reg_pp0_iter1 == 1'b1));
+    ap_condition_1034 = ((trunc_ln94_reg_2848 == 4'd13) & (trunc_ln94_s_reg_2839 == 2'd2) & (ap_enable_reg_pp0_iter1 == 1'b1));
 end
 
 always @ (*) begin
-    ap_condition_1037 = ((trunc_ln94_reg_2848 == 4'd13) & (trunc_ln94_s_reg_2844 == 2'd3) & (ap_enable_reg_pp0_iter1 == 1'b1));
+    ap_condition_1037 = ((trunc_ln94_reg_2848 == 4'd13) & (trunc_ln94_s_reg_2839 == 2'd3) & (ap_enable_reg_pp0_iter1 == 1'b1));
 end
 
 always @ (*) begin
-    ap_condition_1040 = ((trunc_ln94_reg_2848 == 4'd14) & (trunc_ln94_s_reg_2844 == 2'd0) & (ap_enable_reg_pp0_iter1 == 1'b1));
+    ap_condition_1040 = ((trunc_ln94_reg_2848 == 4'd14) & (trunc_ln94_s_reg_2839 == 2'd0) & (ap_enable_reg_pp0_iter1 == 1'b1));
 end
 
 always @ (*) begin
-    ap_condition_1043 = ((trunc_ln94_reg_2848 == 4'd14) & (trunc_ln94_s_reg_2844 == 2'd1) & (ap_enable_reg_pp0_iter1 == 1'b1));
+    ap_condition_1043 = ((trunc_ln94_reg_2848 == 4'd14) & (trunc_ln94_s_reg_2839 == 2'd1) & (ap_enable_reg_pp0_iter1 == 1'b1));
 end
 
 always @ (*) begin
-    ap_condition_1046 = ((trunc_ln94_reg_2848 == 4'd14) & (trunc_ln94_s_reg_2844 == 2'd2) & (ap_enable_reg_pp0_iter1 == 1'b1));
+    ap_condition_1046 = ((trunc_ln94_reg_2848 == 4'd14) & (trunc_ln94_s_reg_2839 == 2'd2) & (ap_enable_reg_pp0_iter1 == 1'b1));
 end
 
 always @ (*) begin
-    ap_condition_1049 = ((trunc_ln94_reg_2848 == 4'd14) & (trunc_ln94_s_reg_2844 == 2'd3) & (ap_enable_reg_pp0_iter1 == 1'b1));
+    ap_condition_1049 = ((trunc_ln94_reg_2848 == 4'd14) & (trunc_ln94_s_reg_2839 == 2'd3) & (ap_enable_reg_pp0_iter1 == 1'b1));
 end
 
 always @ (*) begin
-    ap_condition_1052 = ((trunc_ln94_reg_2848 == 4'd1) & (trunc_ln94_s_reg_2844 == 2'd1) & (ap_enable_reg_pp0_iter1 == 1'b1));
+    ap_condition_1052 = ((trunc_ln94_reg_2848 == 4'd1) & (trunc_ln94_s_reg_2839 == 2'd1) & (ap_enable_reg_pp0_iter1 == 1'b1));
 end
 
 always @ (*) begin
-    ap_condition_1055 = ((trunc_ln94_reg_2848 == 4'd15) & (trunc_ln94_s_reg_2844 == 2'd0) & (ap_enable_reg_pp0_iter1 == 1'b1));
+    ap_condition_1055 = ((trunc_ln94_reg_2848 == 4'd15) & (trunc_ln94_s_reg_2839 == 2'd0) & (ap_enable_reg_pp0_iter1 == 1'b1));
 end
 
 always @ (*) begin
-    ap_condition_1058 = ((trunc_ln94_reg_2848 == 4'd15) & (trunc_ln94_s_reg_2844 == 2'd1) & (ap_enable_reg_pp0_iter1 == 1'b1));
+    ap_condition_1058 = ((trunc_ln94_reg_2848 == 4'd15) & (trunc_ln94_s_reg_2839 == 2'd1) & (ap_enable_reg_pp0_iter1 == 1'b1));
 end
 
 always @ (*) begin
-    ap_condition_1061 = ((trunc_ln94_reg_2848 == 4'd15) & (trunc_ln94_s_reg_2844 == 2'd2) & (ap_enable_reg_pp0_iter1 == 1'b1));
+    ap_condition_1061 = ((trunc_ln94_reg_2848 == 4'd15) & (trunc_ln94_s_reg_2839 == 2'd2) & (ap_enable_reg_pp0_iter1 == 1'b1));
 end
 
 always @ (*) begin
-    ap_condition_1064 = ((trunc_ln94_reg_2848 == 4'd15) & (trunc_ln94_s_reg_2844 == 2'd3) & (ap_enable_reg_pp0_iter1 == 1'b1));
+    ap_condition_1064 = ((trunc_ln94_reg_2848 == 4'd15) & (trunc_ln94_s_reg_2839 == 2'd3) & (ap_enable_reg_pp0_iter1 == 1'b1));
 end
 
 always @ (*) begin
-    ap_condition_1067 = ((trunc_ln94_reg_2848 == 4'd1) & (trunc_ln94_s_reg_2844 == 2'd2) & (ap_enable_reg_pp0_iter1 == 1'b1));
+    ap_condition_1067 = ((trunc_ln94_reg_2848 == 4'd1) & (trunc_ln94_s_reg_2839 == 2'd2) & (ap_enable_reg_pp0_iter1 == 1'b1));
 end
 
 always @ (*) begin
-    ap_condition_1070 = ((trunc_ln94_reg_2848 == 4'd1) & (trunc_ln94_s_reg_2844 == 2'd3) & (ap_enable_reg_pp0_iter1 == 1'b1));
+    ap_condition_1070 = ((trunc_ln94_reg_2848 == 4'd1) & (trunc_ln94_s_reg_2839 == 2'd3) & (ap_enable_reg_pp0_iter1 == 1'b1));
 end
 
 always @ (*) begin
-    ap_condition_1073 = ((trunc_ln94_reg_2848 == 4'd2) & (trunc_ln94_s_reg_2844 == 2'd0) & (ap_enable_reg_pp0_iter1 == 1'b1));
+    ap_condition_1073 = ((trunc_ln94_reg_2848 == 4'd2) & (trunc_ln94_s_reg_2839 == 2'd0) & (ap_enable_reg_pp0_iter1 == 1'b1));
 end
 
 always @ (*) begin
-    ap_condition_1076 = ((trunc_ln94_reg_2848 == 4'd2) & (trunc_ln94_s_reg_2844 == 2'd1) & (ap_enable_reg_pp0_iter1 == 1'b1));
+    ap_condition_1076 = ((trunc_ln94_reg_2848 == 4'd2) & (trunc_ln94_s_reg_2839 == 2'd1) & (ap_enable_reg_pp0_iter1 == 1'b1));
 end
 
 always @ (*) begin
-    ap_condition_1079 = ((trunc_ln94_reg_2848 == 4'd0) & (trunc_ln94_s_reg_2844 == 2'd0) & (ap_enable_reg_pp0_iter1 == 1'b1));
+    ap_condition_1079 = ((trunc_ln94_reg_2848 == 4'd0) & (trunc_ln94_s_reg_2839 == 2'd0) & (ap_enable_reg_pp0_iter1 == 1'b1));
 end
 
 always @ (*) begin
-    ap_condition_890 = ((trunc_ln94_reg_2848 == 4'd2) & (trunc_ln94_s_reg_2844 == 2'd2) & (ap_enable_reg_pp0_iter1 == 1'b1));
+    ap_condition_890 = ((trunc_ln94_reg_2848 == 4'd2) & (trunc_ln94_s_reg_2839 == 2'd2) & (ap_enable_reg_pp0_iter1 == 1'b1));
 end
 
 always @ (*) begin
-    ap_condition_893 = ((trunc_ln94_reg_2848 == 4'd2) & (trunc_ln94_s_reg_2844 == 2'd3) & (ap_enable_reg_pp0_iter1 == 1'b1));
+    ap_condition_893 = ((trunc_ln94_reg_2848 == 4'd2) & (trunc_ln94_s_reg_2839 == 2'd3) & (ap_enable_reg_pp0_iter1 == 1'b1));
 end
 
 always @ (*) begin
-    ap_condition_896 = ((trunc_ln94_reg_2848 == 4'd3) & (trunc_ln94_s_reg_2844 == 2'd0) & (ap_enable_reg_pp0_iter1 == 1'b1));
+    ap_condition_896 = ((trunc_ln94_reg_2848 == 4'd3) & (trunc_ln94_s_reg_2839 == 2'd0) & (ap_enable_reg_pp0_iter1 == 1'b1));
 end
 
 always @ (*) begin
-    ap_condition_899 = ((trunc_ln94_reg_2848 == 4'd3) & (trunc_ln94_s_reg_2844 == 2'd1) & (ap_enable_reg_pp0_iter1 == 1'b1));
+    ap_condition_899 = ((trunc_ln94_reg_2848 == 4'd3) & (trunc_ln94_s_reg_2839 == 2'd1) & (ap_enable_reg_pp0_iter1 == 1'b1));
 end
 
 always @ (*) begin
-    ap_condition_902 = ((trunc_ln94_reg_2848 == 4'd3) & (trunc_ln94_s_reg_2844 == 2'd2) & (ap_enable_reg_pp0_iter1 == 1'b1));
+    ap_condition_902 = ((trunc_ln94_reg_2848 == 4'd3) & (trunc_ln94_s_reg_2839 == 2'd2) & (ap_enable_reg_pp0_iter1 == 1'b1));
 end
 
 always @ (*) begin
-    ap_condition_905 = ((trunc_ln94_reg_2848 == 4'd3) & (trunc_ln94_s_reg_2844 == 2'd3) & (ap_enable_reg_pp0_iter1 == 1'b1));
+    ap_condition_905 = ((trunc_ln94_reg_2848 == 4'd3) & (trunc_ln94_s_reg_2839 == 2'd3) & (ap_enable_reg_pp0_iter1 == 1'b1));
 end
 
 always @ (*) begin
-    ap_condition_908 = ((trunc_ln94_reg_2848 == 4'd4) & (trunc_ln94_s_reg_2844 == 2'd0) & (ap_enable_reg_pp0_iter1 == 1'b1));
+    ap_condition_908 = ((trunc_ln94_reg_2848 == 4'd4) & (trunc_ln94_s_reg_2839 == 2'd0) & (ap_enable_reg_pp0_iter1 == 1'b1));
 end
 
 always @ (*) begin
-    ap_condition_911 = ((trunc_ln94_reg_2848 == 4'd4) & (trunc_ln94_s_reg_2844 == 2'd1) & (ap_enable_reg_pp0_iter1 == 1'b1));
+    ap_condition_911 = ((trunc_ln94_reg_2848 == 4'd4) & (trunc_ln94_s_reg_2839 == 2'd1) & (ap_enable_reg_pp0_iter1 == 1'b1));
 end
 
 always @ (*) begin
-    ap_condition_914 = ((trunc_ln94_reg_2848 == 4'd4) & (trunc_ln94_s_reg_2844 == 2'd2) & (ap_enable_reg_pp0_iter1 == 1'b1));
+    ap_condition_914 = ((trunc_ln94_reg_2848 == 4'd4) & (trunc_ln94_s_reg_2839 == 2'd2) & (ap_enable_reg_pp0_iter1 == 1'b1));
 end
 
 always @ (*) begin
-    ap_condition_917 = ((trunc_ln94_reg_2848 == 4'd4) & (trunc_ln94_s_reg_2844 == 2'd3) & (ap_enable_reg_pp0_iter1 == 1'b1));
+    ap_condition_917 = ((trunc_ln94_reg_2848 == 4'd4) & (trunc_ln94_s_reg_2839 == 2'd3) & (ap_enable_reg_pp0_iter1 == 1'b1));
 end
 
 always @ (*) begin
-    ap_condition_920 = ((trunc_ln94_reg_2848 == 4'd0) & (trunc_ln94_s_reg_2844 == 2'd1) & (ap_enable_reg_pp0_iter1 == 1'b1));
+    ap_condition_920 = ((trunc_ln94_reg_2848 == 4'd0) & (trunc_ln94_s_reg_2839 == 2'd1) & (ap_enable_reg_pp0_iter1 == 1'b1));
 end
 
 always @ (*) begin
-    ap_condition_923 = ((trunc_ln94_reg_2848 == 4'd5) & (trunc_ln94_s_reg_2844 == 2'd0) & (ap_enable_reg_pp0_iter1 == 1'b1));
+    ap_condition_923 = ((trunc_ln94_reg_2848 == 4'd5) & (trunc_ln94_s_reg_2839 == 2'd0) & (ap_enable_reg_pp0_iter1 == 1'b1));
 end
 
 always @ (*) begin
-    ap_condition_926 = ((trunc_ln94_reg_2848 == 4'd5) & (trunc_ln94_s_reg_2844 == 2'd1) & (ap_enable_reg_pp0_iter1 == 1'b1));
+    ap_condition_926 = ((trunc_ln94_reg_2848 == 4'd5) & (trunc_ln94_s_reg_2839 == 2'd1) & (ap_enable_reg_pp0_iter1 == 1'b1));
 end
 
 always @ (*) begin
-    ap_condition_929 = ((trunc_ln94_reg_2848 == 4'd5) & (trunc_ln94_s_reg_2844 == 2'd2) & (ap_enable_reg_pp0_iter1 == 1'b1));
+    ap_condition_929 = ((trunc_ln94_reg_2848 == 4'd5) & (trunc_ln94_s_reg_2839 == 2'd2) & (ap_enable_reg_pp0_iter1 == 1'b1));
 end
 
 always @ (*) begin
-    ap_condition_932 = ((trunc_ln94_reg_2848 == 4'd5) & (trunc_ln94_s_reg_2844 == 2'd3) & (ap_enable_reg_pp0_iter1 == 1'b1));
+    ap_condition_932 = ((trunc_ln94_reg_2848 == 4'd5) & (trunc_ln94_s_reg_2839 == 2'd3) & (ap_enable_reg_pp0_iter1 == 1'b1));
 end
 
 always @ (*) begin
-    ap_condition_935 = ((trunc_ln94_reg_2848 == 4'd6) & (trunc_ln94_s_reg_2844 == 2'd0) & (ap_enable_reg_pp0_iter1 == 1'b1));
+    ap_condition_935 = ((trunc_ln94_reg_2848 == 4'd6) & (trunc_ln94_s_reg_2839 == 2'd0) & (ap_enable_reg_pp0_iter1 == 1'b1));
 end
 
 always @ (*) begin
-    ap_condition_938 = ((trunc_ln94_reg_2848 == 4'd6) & (trunc_ln94_s_reg_2844 == 2'd1) & (ap_enable_reg_pp0_iter1 == 1'b1));
+    ap_condition_938 = ((trunc_ln94_reg_2848 == 4'd6) & (trunc_ln94_s_reg_2839 == 2'd1) & (ap_enable_reg_pp0_iter1 == 1'b1));
 end
 
 always @ (*) begin
-    ap_condition_941 = ((trunc_ln94_reg_2848 == 4'd6) & (trunc_ln94_s_reg_2844 == 2'd2) & (ap_enable_reg_pp0_iter1 == 1'b1));
+    ap_condition_941 = ((trunc_ln94_reg_2848 == 4'd6) & (trunc_ln94_s_reg_2839 == 2'd2) & (ap_enable_reg_pp0_iter1 == 1'b1));
 end
 
 always @ (*) begin
-    ap_condition_944 = ((trunc_ln94_reg_2848 == 4'd6) & (trunc_ln94_s_reg_2844 == 2'd3) & (ap_enable_reg_pp0_iter1 == 1'b1));
+    ap_condition_944 = ((trunc_ln94_reg_2848 == 4'd6) & (trunc_ln94_s_reg_2839 == 2'd3) & (ap_enable_reg_pp0_iter1 == 1'b1));
 end
 
 always @ (*) begin
-    ap_condition_947 = ((trunc_ln94_reg_2848 == 4'd7) & (trunc_ln94_s_reg_2844 == 2'd0) & (ap_enable_reg_pp0_iter1 == 1'b1));
+    ap_condition_947 = ((trunc_ln94_reg_2848 == 4'd7) & (trunc_ln94_s_reg_2839 == 2'd0) & (ap_enable_reg_pp0_iter1 == 1'b1));
 end
 
 always @ (*) begin
-    ap_condition_950 = ((trunc_ln94_reg_2848 == 4'd7) & (trunc_ln94_s_reg_2844 == 2'd1) & (ap_enable_reg_pp0_iter1 == 1'b1));
+    ap_condition_950 = ((trunc_ln94_reg_2848 == 4'd7) & (trunc_ln94_s_reg_2839 == 2'd1) & (ap_enable_reg_pp0_iter1 == 1'b1));
 end
 
 always @ (*) begin
-    ap_condition_953 = ((trunc_ln94_reg_2848 == 4'd0) & (trunc_ln94_s_reg_2844 == 2'd2) & (ap_enable_reg_pp0_iter1 == 1'b1));
+    ap_condition_953 = ((trunc_ln94_reg_2848 == 4'd0) & (trunc_ln94_s_reg_2839 == 2'd2) & (ap_enable_reg_pp0_iter1 == 1'b1));
 end
 
 always @ (*) begin
-    ap_condition_956 = ((trunc_ln94_reg_2848 == 4'd7) & (trunc_ln94_s_reg_2844 == 2'd2) & (ap_enable_reg_pp0_iter1 == 1'b1));
+    ap_condition_956 = ((trunc_ln94_reg_2848 == 4'd7) & (trunc_ln94_s_reg_2839 == 2'd2) & (ap_enable_reg_pp0_iter1 == 1'b1));
 end
 
 always @ (*) begin
-    ap_condition_959 = ((trunc_ln94_reg_2848 == 4'd7) & (trunc_ln94_s_reg_2844 == 2'd3) & (ap_enable_reg_pp0_iter1 == 1'b1));
+    ap_condition_959 = ((trunc_ln94_reg_2848 == 4'd7) & (trunc_ln94_s_reg_2839 == 2'd3) & (ap_enable_reg_pp0_iter1 == 1'b1));
 end
 
 always @ (*) begin
-    ap_condition_962 = ((trunc_ln94_reg_2848 == 4'd8) & (trunc_ln94_s_reg_2844 == 2'd0) & (ap_enable_reg_pp0_iter1 == 1'b1));
+    ap_condition_962 = ((trunc_ln94_reg_2848 == 4'd8) & (trunc_ln94_s_reg_2839 == 2'd0) & (ap_enable_reg_pp0_iter1 == 1'b1));
 end
 
 always @ (*) begin
-    ap_condition_965 = ((trunc_ln94_reg_2848 == 4'd8) & (trunc_ln94_s_reg_2844 == 2'd1) & (ap_enable_reg_pp0_iter1 == 1'b1));
+    ap_condition_965 = ((trunc_ln94_reg_2848 == 4'd8) & (trunc_ln94_s_reg_2839 == 2'd1) & (ap_enable_reg_pp0_iter1 == 1'b1));
 end
 
 always @ (*) begin
-    ap_condition_968 = ((trunc_ln94_reg_2848 == 4'd8) & (trunc_ln94_s_reg_2844 == 2'd2) & (ap_enable_reg_pp0_iter1 == 1'b1));
+    ap_condition_968 = ((trunc_ln94_reg_2848 == 4'd8) & (trunc_ln94_s_reg_2839 == 2'd2) & (ap_enable_reg_pp0_iter1 == 1'b1));
 end
 
 always @ (*) begin
-    ap_condition_971 = ((trunc_ln94_reg_2848 == 4'd8) & (trunc_ln94_s_reg_2844 == 2'd3) & (ap_enable_reg_pp0_iter1 == 1'b1));
+    ap_condition_971 = ((trunc_ln94_reg_2848 == 4'd8) & (trunc_ln94_s_reg_2839 == 2'd3) & (ap_enable_reg_pp0_iter1 == 1'b1));
 end
 
 always @ (*) begin
-    ap_condition_974 = ((trunc_ln94_reg_2848 == 4'd9) & (trunc_ln94_s_reg_2844 == 2'd0) & (ap_enable_reg_pp0_iter1 == 1'b1));
+    ap_condition_974 = ((trunc_ln94_reg_2848 == 4'd9) & (trunc_ln94_s_reg_2839 == 2'd0) & (ap_enable_reg_pp0_iter1 == 1'b1));
 end
 
 always @ (*) begin
-    ap_condition_977 = ((trunc_ln94_reg_2848 == 4'd9) & (trunc_ln94_s_reg_2844 == 2'd1) & (ap_enable_reg_pp0_iter1 == 1'b1));
+    ap_condition_977 = ((trunc_ln94_reg_2848 == 4'd9) & (trunc_ln94_s_reg_2839 == 2'd1) & (ap_enable_reg_pp0_iter1 == 1'b1));
 end
 
 always @ (*) begin
-    ap_condition_980 = ((trunc_ln94_reg_2848 == 4'd9) & (trunc_ln94_s_reg_2844 == 2'd2) & (ap_enable_reg_pp0_iter1 == 1'b1));
+    ap_condition_980 = ((trunc_ln94_reg_2848 == 4'd9) & (trunc_ln94_s_reg_2839 == 2'd2) & (ap_enable_reg_pp0_iter1 == 1'b1));
 end
 
 always @ (*) begin
-    ap_condition_983 = ((trunc_ln94_reg_2848 == 4'd9) & (trunc_ln94_s_reg_2844 == 2'd3) & (ap_enable_reg_pp0_iter1 == 1'b1));
+    ap_condition_983 = ((trunc_ln94_reg_2848 == 4'd9) & (trunc_ln94_s_reg_2839 == 2'd3) & (ap_enable_reg_pp0_iter1 == 1'b1));
 end
 
 always @ (*) begin
-    ap_condition_986 = ((trunc_ln94_reg_2848 == 4'd0) & (trunc_ln94_s_reg_2844 == 2'd3) & (ap_enable_reg_pp0_iter1 == 1'b1));
+    ap_condition_986 = ((trunc_ln94_reg_2848 == 4'd0) & (trunc_ln94_s_reg_2839 == 2'd3) & (ap_enable_reg_pp0_iter1 == 1'b1));
 end
 
 always @ (*) begin
-    ap_condition_989 = ((trunc_ln94_reg_2848 == 4'd10) & (trunc_ln94_s_reg_2844 == 2'd0) & (ap_enable_reg_pp0_iter1 == 1'b1));
+    ap_condition_989 = ((trunc_ln94_reg_2848 == 4'd10) & (trunc_ln94_s_reg_2839 == 2'd0) & (ap_enable_reg_pp0_iter1 == 1'b1));
 end
 
 always @ (*) begin
-    ap_condition_992 = ((trunc_ln94_reg_2848 == 4'd10) & (trunc_ln94_s_reg_2844 == 2'd1) & (ap_enable_reg_pp0_iter1 == 1'b1));
+    ap_condition_992 = ((trunc_ln94_reg_2848 == 4'd10) & (trunc_ln94_s_reg_2839 == 2'd1) & (ap_enable_reg_pp0_iter1 == 1'b1));
 end
 
 always @ (*) begin
-    ap_condition_995 = ((trunc_ln94_reg_2848 == 4'd10) & (trunc_ln94_s_reg_2844 == 2'd2) & (ap_enable_reg_pp0_iter1 == 1'b1));
+    ap_condition_995 = ((trunc_ln94_reg_2848 == 4'd10) & (trunc_ln94_s_reg_2839 == 2'd2) & (ap_enable_reg_pp0_iter1 == 1'b1));
 end
 
 always @ (*) begin
-    ap_condition_998 = ((trunc_ln94_reg_2848 == 4'd10) & (trunc_ln94_s_reg_2844 == 2'd3) & (ap_enable_reg_pp0_iter1 == 1'b1));
+    ap_condition_998 = ((trunc_ln94_reg_2848 == 4'd10) & (trunc_ln94_s_reg_2839 == 2'd3) & (ap_enable_reg_pp0_iter1 == 1'b1));
 end
 
 assign ap_enable_pp0 = (ap_idle_pp0 ^ 1'b1);
@@ -2209,7 +2209,7 @@ assign ap_enable_reg_pp0_iter0 = ap_start_int;
 
 assign ap_loop_exit_ready = ap_condition_exit_pp0_iter0_stage0;
 
-assign i_2_cast300_fu_1781_p1 = ap_sig_allocacmp_i_1;
+assign i_2_cast290_fu_1781_p1 = ap_sig_allocacmp_i_1;
 
 assign icmp_ln93_fu_1769_p2 = ((ap_sig_allocacmp_i_1 == 7'd64) ? 1'b1 : 1'b0);
 
@@ -2341,7 +2341,7 @@ assign local_reference_V_3_8_6_out = local_reference_V_1_35_fu_480;
 
 assign local_reference_V_3_9_6_out = local_reference_V_1_39_fu_496;
 
-assign reference_string_comp_1_address0 = i_2_cast300_fu_1781_p1;
+assign reference_string_comp_2_address0 = i_2_cast290_fu_1781_p1;
 
 assign trunc_ln94_fu_1796_p1 = ap_sig_allocacmp_i_1[3:0];
 

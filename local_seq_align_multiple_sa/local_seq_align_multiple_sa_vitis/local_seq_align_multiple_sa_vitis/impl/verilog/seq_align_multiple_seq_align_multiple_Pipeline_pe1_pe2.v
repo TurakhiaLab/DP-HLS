@@ -179,18 +179,18 @@ reg   [6:0] max_col_value_24_fu_96;
 wire   [6:0] add_ln171_fu_454_p2;
 wire    ap_loop_init;
 reg   [6:0] ap_sig_allocacmp_max_col_value_24_load;
-reg   [6:0] max_row_value_16_fu_100;
+reg   [6:0] x_fu_100;
 wire   [6:0] select_ln168_1_fu_386_p3;
-reg   [6:0] ap_sig_allocacmp_max_row_value_16_load;
+reg   [6:0] ap_sig_allocacmp_x_load;
 reg   [12:0] indvar_flatten22_fu_104;
 wire   [12:0] add_ln168_5_fu_354_p2;
 reg   [12:0] ap_sig_allocacmp_indvar_flatten22_load;
 wire    ap_block_pp0_stage0_01001;
 wire   [0:0] icmp_ln171_fu_372_p2;
 wire   [6:0] add_ln168_fu_366_p2;
-wire   [1:0] p_cast286_mid2_v_fu_398_p4;
+wire   [1:0] p_cast269_mid2_v_fu_398_p4;
 wire   [6:0] select_ln168_fu_378_p3;
-wire   [7:0] tmp_9_fu_408_p3;
+wire   [7:0] tmp_s_fu_408_p3;
 wire   [7:0] zext_ln1649_fu_420_p1;
 wire   [7:0] add_ln1649_fu_424_p2;
 wire   [8:0] tmp_fu_494_p18;
@@ -234,7 +234,7 @@ seq_align_multiple_mux_164_9_1_1 #(
     .din15_WIDTH( 9 ),
     .din16_WIDTH( 4 ),
     .dout_WIDTH( 9 ))
-mux_164_9_1_1_U567(
+mux_164_9_1_1_U616(
     .din0(dp_matrix_V_q0),
     .din1(dp_matrix_V_1_q0),
     .din2(dp_matrix_V_2_q0),
@@ -333,9 +333,9 @@ end
 always @ (posedge ap_clk) begin
     if (((1'b0 == ap_block_pp0_stage0_11001) & (1'b1 == ap_CS_fsm_pp0_stage0))) begin
         if (((icmp_ln168_fu_348_p2 == 1'd0) & (ap_enable_reg_pp0_iter0 == 1'b1))) begin
-            max_row_value_16_fu_100 <= select_ln168_1_fu_386_p3;
+            x_fu_100 <= select_ln168_1_fu_386_p3;
         end else if ((ap_loop_init == 1'b1)) begin
-            max_row_value_16_fu_100 <= 7'd0;
+            x_fu_100 <= 7'd0;
         end
     end
 end
@@ -419,9 +419,9 @@ end
 
 always @ (*) begin
     if (((1'b0 == ap_block_pp0_stage0) & (ap_loop_init == 1'b1) & (1'b1 == ap_CS_fsm_pp0_stage0))) begin
-        ap_sig_allocacmp_max_row_value_16_load = 7'd0;
+        ap_sig_allocacmp_x_load = 7'd0;
     end else begin
-        ap_sig_allocacmp_max_row_value_16_load = max_row_value_16_fu_100;
+        ap_sig_allocacmp_x_load = x_fu_100;
     end
 end
 
@@ -580,11 +580,11 @@ always @ (*) begin
     endcase
 end
 
-assign add_ln1649_fu_424_p2 = (tmp_9_fu_408_p3 + zext_ln1649_fu_420_p1);
+assign add_ln1649_fu_424_p2 = (tmp_s_fu_408_p3 + zext_ln1649_fu_420_p1);
 
 assign add_ln168_5_fu_354_p2 = (ap_sig_allocacmp_indvar_flatten22_load + 13'd1);
 
-assign add_ln168_fu_366_p2 = (ap_sig_allocacmp_max_row_value_16_load + 7'd1);
+assign add_ln168_fu_366_p2 = (ap_sig_allocacmp_x_load + 7'd1);
 
 assign add_ln171_fu_454_p2 = (select_ln168_fu_378_p3 + 7'd1);
 
@@ -654,13 +654,13 @@ assign max_row_value_1_out = max_row_value_1_fu_88[5:0];
 
 assign max_row_value_fu_537_p3 = ((icmp_ln1649_fu_531_p2[0:0] == 1'b1) ? zext_ln168_fu_491_p1 : max_row_value_1_fu_88);
 
-assign p_cast286_mid2_v_fu_398_p4 = {{select_ln168_1_fu_386_p3[5:4]}};
+assign p_cast269_mid2_v_fu_398_p4 = {{select_ln168_1_fu_386_p3[5:4]}};
 
-assign select_ln168_1_fu_386_p3 = ((icmp_ln171_fu_372_p2[0:0] == 1'b1) ? add_ln168_fu_366_p2 : ap_sig_allocacmp_max_row_value_16_load);
+assign select_ln168_1_fu_386_p3 = ((icmp_ln171_fu_372_p2[0:0] == 1'b1) ? add_ln168_fu_366_p2 : ap_sig_allocacmp_x_load);
 
 assign select_ln168_fu_378_p3 = ((icmp_ln171_fu_372_p2[0:0] == 1'b1) ? 7'd0 : ap_sig_allocacmp_max_col_value_24_load);
 
-assign tmp_9_fu_408_p3 = {{p_cast286_mid2_v_fu_398_p4}, {6'd0}};
+assign tmp_s_fu_408_p3 = {{p_cast269_mid2_v_fu_398_p4}, {6'd0}};
 
 assign trunc_ln168_23_fu_394_p1 = select_ln168_1_fu_386_p3[5:0];
 

@@ -3,7 +3,7 @@
 ================================================================
 == Vitis HLS Report for 'seq_align_multiple_Pipeline_VITIS_LOOP_93_322'
 ================================================================
-* Date:           Mon Apr 10 17:49:02 2023
+* Date:           Mon Apr 10 18:42:23 2023
 
 * Version:        2022.2 (Build 3670227 on Oct 13 2022)
 * Project:        local_seq_align_multiple_sa_vitis
@@ -309,7 +309,7 @@
     |local_reference_V_1_191_fu_592  |  2|   0|    2|          0|
     |local_reference_V_1_fu_340      |  2|   0|    2|          0|
     |trunc_ln94_reg_2848             |  4|   0|    4|          0|
-    |trunc_ln94_s_reg_2844           |  2|   0|    2|          0|
+    |trunc_ln94_s_reg_2839           |  2|   0|    2|          0|
     +--------------------------------+---+----+-----+-----------+
     |Total                           |144|   0|  144|          0|
     +--------------------------------+---+----+-----+-----------+
@@ -393,9 +393,9 @@
 |local_reference_V_2_1551_reload       |   in|    2|     ap_none|                local_reference_V_2_1551_reload|        scalar|
 |local_reference_V_1_1536_reload       |   in|    2|     ap_none|                local_reference_V_1_1536_reload|        scalar|
 |local_reference_V_0_1520_reload       |   in|    2|     ap_none|                local_reference_V_0_1520_reload|        scalar|
-|reference_string_comp_3_address0      |  out|    7|   ap_memory|                        reference_string_comp_3|         array|
-|reference_string_comp_3_ce0           |  out|    1|   ap_memory|                        reference_string_comp_3|         array|
-|reference_string_comp_3_q0            |   in|    2|   ap_memory|                        reference_string_comp_3|         array|
+|reference_string_comp_6_address0      |  out|    6|   ap_memory|                        reference_string_comp_6|         array|
+|reference_string_comp_6_ce0           |  out|    1|   ap_memory|                        reference_string_comp_6|         array|
+|reference_string_comp_6_q0            |   in|    2|   ap_memory|                        reference_string_comp_6|         array|
 |local_reference_V_3_15_18_out         |  out|    2|      ap_vld|                  local_reference_V_3_15_18_out|       pointer|
 |local_reference_V_3_15_18_out_ap_vld  |  out|    1|      ap_vld|                  local_reference_V_3_15_18_out|       pointer|
 |local_reference_V_2_15_18_out         |  out|    2|      ap_vld|                  local_reference_V_2_15_18_out|       pointer|
