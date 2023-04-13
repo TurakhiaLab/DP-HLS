@@ -3,8 +3,8 @@
 #define mismatch_score -2
 #define match_score 6
 
-#define query_length 512
-#define ref_length 1024
+#define query_length 64
+#define ref_length 64
 
 #define PE_num 32
 
