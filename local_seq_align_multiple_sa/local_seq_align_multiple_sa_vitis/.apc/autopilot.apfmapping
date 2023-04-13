@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <autopilotfilemapping:AutoPilotFileMapping xmlns:autopilotfilemapping="www.autoesl.com/autopilotfilemapping">
   <source>
-    <originFiles name="params.h" path="/home/ioeddk/Desktop/DP-HLS/local_seq_align_multiple_sa/src/params.h"/>
-    <originFiles name="seq_align_multiple.cpp" path="/home/ioeddk/Desktop/DP-HLS/local_seq_align_multiple_sa/src/seq_align_multiple.cpp"/>
     <originFiles name="seq_align_multiple.h" path="/home/ioeddk/Desktop/DP-HLS/local_seq_align_multiple_sa/src/seq_align_multiple.h"/>
+    <originFiles name="seq_align_multiple.cpp" path="/home/ioeddk/Desktop/DP-HLS/local_seq_align_multiple_sa/src/seq_align_multiple.cpp"/>
+    <originFiles name="params.h" path="/home/ioeddk/Desktop/DP-HLS/local_seq_align_multiple_sa/src/params.h"/>
   </source>
   <testbench>
-    <originFiles name="params.h" path="/home/ioeddk/Desktop/DP-HLS/local_seq_align_multiple_sa/src/params.h"/>
     <originFiles name="seq_align_test.cpp" path="/home/ioeddk/Desktop/DP-HLS/local_seq_align_multiple_sa/src/seq_align_test.cpp"/>
+    <originFiles name="params.h" path="/home/ioeddk/Desktop/DP-HLS/local_seq_align_multiple_sa/src/params.h"/>
   </testbench>
 </autopilotfilemapping:AutoPilotFileMapping>
