@@ -30,8 +30,6 @@ void PE(ap_uint<2> local_ref_val, ap_uint<2> local_query_val, type_t up_prev, ty
 
     type_t max_value = (( (d > i) ? d : i ) > match ) ? ( ( d > i) ? d : i ) : match ;
 
-    //*traceback = (max_value == (diag_prev + match_score)) ? 11 : (max_value == d)? 10 : (max_value == i) ? 1 : 2;
-
     *score = (max_value < temp_pe) ? temp_pe : max_value;
 
     *final = *score;
@@ -55,8 +53,6 @@ void PE(ap_uint<2> local_ref_val, ap_uint<2> local_query_val, type_t up_prev, ty
     *score = (max_value < temp) ? temp : max_value;
 
     *final = *score;
-
-    //printf("local_ref_val is %c, local_query_val is %c, int up_prev is %d, int left_prev is %d, int diag_prev is %d, int *score is %d, final_value is %d \n", local_ref_val, local_query_val, up_prev, left_prev, diag_prev, *score, *final);
 
 }
 
@@ -97,7 +93,7 @@ void seq_align(ap_uint<2> query[query_length], ap_uint<2> reference[ref_length],
 #pragma HLS ARRAY_PARTITION variable=local_query dim=0 complete  // local query is at PE num so a complete partition assign each PE a distinct memory
 #pragma HLS ARRAY_PARTITION variable=local_reference cyclic factor=16
 
-    // iterating through the chunks of the laregr dp matrix
+    // iterating through the chunks of the larger dp matrix
     kernel:
     for (int qq = 0; qq < query_chunks; qq++) {  // query_chunks = query_length/PE_num
         // iterating through every wavefront
@@ -108,8 +104,7 @@ void seq_align(ap_uint<2> query[query_length], ap_uint<2> reference[ref_length],
 
             if (ii < PE_num) {
 
-                local_query[ii] = query[qq * PE_num +
-                                        ii];  // iterate through the local query as they are in different chunks
+                local_query[ii] = query[qq * PE_num + ii];  // iterate through the local query as they are in different chunks
             }
 
             // shifting wavefronts
@@ -183,46 +178,6 @@ void seq_align(ap_uint<2> query[query_length], ap_uint<2> reference[ref_length],
     type_t max_score = dp_matrix[max_row_value][max_col_value];
     *dummy = max_score;
 
-    //printf("max_score is %d\n", max_score);
-
-    /*type_t max_score = dp_matrix[max_row_value][max_col_value];
-    int col_value = max_col_value;
-    int row_value = max_row_value;
-
-    traceback_logic: while (dp_matrix[row_value][col_value] > 0){
-
-            if (tb[row_value][col_value] == 2){
-
-                max_score = max_score + mismatch_score;
-                row_value = row_value - 1;
-                col_value = col_value - 1;
-            }
-
-            else if (tb[row_value][col_value] == 11){
-
-                max_score = max_score + match_score;
-                row_value = row_value - 1;
-                col_value = col_value - 1;
-
-            }
-            else if (tb[row_value][col_value] == 10){
-
-                max_score = max_score + opening_score;
-                col_value = col_value - 1;
-
-            }
-            else if (tb[row_value][col_value] == 1){
-
-                max_score = max_score + extend_score;
-                row_value = row_value - 1;
-
-            }
-
-            if ((row_value+1 ) == 0 || (col_value+1) == 0) break;
-    }
-
-    *dummy = max_score;*/
-
     /* printf("\n printing dp matrix\n");
 
     for (int r = 0; r < query_length; r ++)
@@ -235,15 +190,6 @@ void seq_align(ap_uint<2> query[query_length], ap_uint<2> reference[ref_length],
      }*/
 
 }
-
-//void seq_align_multiple(ap_uint<2> chunk1[query_length], ap_uint<2> chunk2[query_length], ap_uint<2> ref1[ref_length],
-//                        ap_uint<2> ref2[ref_length],
-//                        type_t dp_mem[3][PE_num], type_t dp_mem2[3][PE_num],
-//                        type_t Ix_mem[2][PE_num], type_t Ix_mem2[2][PE_num],
-//                        type_t Iy_mem[2][PE_num], type_t Iy_mem2[2][PE_num],
-//                        type_t last_pe_score[ref_length], type_t last_pe_score2[ref_length],
-//                        type_t last_pe_scoreIx[ref_length], type_t last_pe_scoreIx2[ref_length],
-//                        type_t *dummy_3, type_t *dummy_4) {
 
 void seq_align_multiple(ap_uint<2> query_string_comp[N_BLOCKS][query_length],
                         ap_uint<2> reference_string_comp[N_BLOCKS][ref_length],
@@ -277,21 +223,9 @@ void seq_align_multiple(ap_uint<2> query_string_comp[N_BLOCKS][query_length],
                   &dummies[block_i]);
     }
 
-//    seq_align_1:
-//    seq_align(chunk1, ref1, dp_mem, Ix_mem, Iy_mem, last_pe_score, last_pe_scoreIx, &dummy1);
-//
-//    seq_align_2:
-//    seq_align(chunk2, ref2, dp_mem2, Ix_mem2, Iy_mem2, last_pe_score2, last_pe_scoreIx2, &dummy2);
-
     for (int block_i = 0; block_i < N_BLOCKS; block_i++){
         dummies[block_i] = dummies_inner[block_i];
     }
-
-//    *dummy_3 = dummy1;
-//    *dummy_4 = dummy2;
-    //seq_align(chunk3, reference_string_comp, dp_mem, Ix_mem, Iy_mem, last_pe_score, last_pe_scoreIx, &dummy[2]);
-    //seq_align(chunk4, reference_string_comp, dp_mem, Ix_mem, Iy_mem, last_pe_score, last_pe_scoreIx, &dummy[3]);
-
 
 }
 
