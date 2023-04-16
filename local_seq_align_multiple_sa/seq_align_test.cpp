@@ -17,46 +17,73 @@ int main() {
 
     srand(time(NULL));
 
-    char reference_string[N_BLOCKS * ref_length];
-    char query_string[N_BLOCKS * query_length];
-    ap_uint<2> reference_string_comp[N_BLOCKS * ref_length];
-    ap_uint<2> query_string_comp[N_BLOCKS * query_length];
+    char reference_string[N_BLOCKS][ref_length];
+    char query_string[N_BLOCKS][query_length];
+    ap_uint<2> reference_string_comp[N_BLOCKS][ref_length];
+    ap_uint<2> query_string_comp[N_BLOCKS][query_length];
 
-    char alphabet[4] = {'A', 'C', 'G', 'T'};
+    char alphabet[4] = { 'A', 'C', 'G', 'T' };
 
-    for (int i = 0; i < N_BLOCKS * ref_length; i++) {
-        reference_string[i] = alphabet[rand() % 4];
-    }
-
-    for (int i = 0; i < N_BLOCKS * query_length; i++) {
-        query_string[i] = alphabet[rand() % 4];
-    }
-
-    for (int p = 0; p < N_BLOCKS * ref_length; p++) {
-
-        if (reference_string[p] == 'A') {
-            reference_string_comp[p] = 0;
-        } else if (reference_string[p] == 'C') {
-            reference_string_comp[p] = 1;
-        } else if (reference_string[p] == 'G') {
-            reference_string_comp[p] = 2;
-        } else if (reference_string[p] == 'T') {
-            reference_string_comp[p] = 3;
+    for (int block_i = 0; block_i < N_BLOCKS; block_i++) {
+        for (int i = 0; i < ref_length; i++) {
+            reference_string[block_i][i] = alphabet[rand() % 4];
         }
     }
 
-    for (int p = 0; p < N_BLOCKS * query_length; p++) {
-
-        if (query_string[p] == 'A') {
-            query_string_comp[p] = 0;
-        } else if (query_string[p] == 'C') {
-            query_string_comp[p] = 1;
-        } else if (query_string[p] == 'G') {
-            query_string_comp[p] = 2;
-        } else if (query_string[p] == 'T') {
-            query_string_comp[p] = 3;
+    for (int block_i = 0; block_i < N_BLOCKS; block_i++) {
+        for (int i = 0; i < query_length; i++) {
+            query_string[block_i][i] = alphabet[rand() % 4];
         }
     }
+
+    for (int block_i = 0; block_i < N_BLOCKS; block_i++) {
+        for (int p = 0; p < ref_length; p++) {
+            ap_uint<2> symb = 0;
+            switch (reference_string[block_i][p])
+            {
+            case 'A':
+                symb = 0;
+                break;
+            case 'C':
+                symb = 1;
+                break;
+            case 'G':
+                symb = 2;
+                break;
+            case 'T':
+                symb = 3;
+                break;
+            }
+            reference_string_comp[block_i][p] = symb;
+
+        }
+    }
+
+    for (int block_i = 0; block_i < N_BLOCKS; block_i++) {
+        for (int p = 0; p < query_length; p++) {
+            ap_uint<2> symb = 0;
+            switch (query_string[block_i][p])
+            {
+            case 'A':
+                symb = 0;
+                break;
+            case 'C':
+                symb = 1;
+                break;
+            case 'G':
+                symb = 2;
+                break;
+            case 'T':
+                symb = 3;
+                break;
+            }
+            query_string_comp[block_i][p] = symb;
+        }
+    }
+
+    // bad naming, dummy is used to hold the max_score in seq_align_multiple.cpp
+//    type_t dummy_3;
+//    type_t dummy_4;
 
     // dummy is used to hold the max_score in seq_align_multiple.cpp
 
@@ -107,7 +134,7 @@ int main() {
     }
 
 
-    seq_align_multiple(query_string_comp, reference_string_comp, dp_mem, Ix_mem, Iy_mem, last_pe_score, last_pe_scoreIx, &dummies);
+    seq_align_multiple(query_string_comp, reference_string_comp, dp_mem, Ix_mem, Iy_mem, last_pe_score, last_pe_scoreIx, (&dummies)[N_BLOCKS]);
 
     //printf("max score is %d\n", dummy);
 

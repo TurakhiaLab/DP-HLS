@@ -80,7 +80,7 @@ void seq_align(ap_uint<2> query[query_length], ap_uint<2> reference[ref_length],
 #pragma HLS ARRAY_PARTITION variable=dp_mem dim=0 complete
 #pragma HLS ARRAY_PARTITION variable=Iy_mem dim=0 complete
 #pragma HLS ARRAY_PARTITION variable=Ix_mem dim=0 complete
-#pragma HLS ARRAY_PARTITION variable=dp_matrix dim=1 cyclic factor=16
+#pragma HLS ARRAY_PARTITION variable=dp_matrix dim=1 cyclic factor=PE_num
 
     ap_uint<2> local_query[PE_num];  // each PE process a element in query
     ap_uint<2> local_reference[ref_length];  // a group of PE process all references by shifting
