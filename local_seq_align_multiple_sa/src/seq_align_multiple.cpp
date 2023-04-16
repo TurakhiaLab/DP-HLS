@@ -95,7 +95,7 @@ void seq_align(ap_uint<2> query[query_length], ap_uint<2> reference[ref_length],
     }
 
 #pragma HLS ARRAY_PARTITION variable=local_query dim=0 complete  // local query is at PE num so a complete partition assign each PE a distinct memory
-#pragma HLS ARRAY_PARTITION variable=local_reference cyclic factor=16
+#pragma HLS ARRAY_PARTITION variable=local_reference cyclic factor=PE_num
 
     // iterating through the chunks of the laregr dp matrix
     kernel:
