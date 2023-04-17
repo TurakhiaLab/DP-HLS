@@ -10,7 +10,7 @@
 
 #define numofreads 1
 
-#define query_chunks query_length/PE_num
+#define query_chunks ceil((float)query_length/PE_num)
 
 #define M 10
 #define N 6

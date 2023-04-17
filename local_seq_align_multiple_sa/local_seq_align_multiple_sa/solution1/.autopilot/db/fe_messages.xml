@@ -1,0 +1,180 @@
+<xilinx:hls_fe_msgs>
+    <msg msg_groups="" msg_id="207-4827" msg_severity="WARNING" msg_loc="/usr/include/x86_64-linux-gnu/gmp.h:2142:345" msg_body="equality comparison with extraneous parentheses">
+        <args ClangWarningOption="parentheses-equality"/>
+    </msg>
+    <msg msg_groups="" msg_id="207-4186" msg_severity="INFO" msg_loc="/usr/include/x86_64-linux-gnu/gmp.h:2142:345" msg_body="remove extraneous parentheses around the comparison to silence this warning">
+        <args/>
+    </msg>
+    <msg msg_groups="" msg_id="207-4187" msg_severity="INFO" msg_loc="/usr/include/x86_64-linux-gnu/gmp.h:2142:345" msg_body="use '=' to turn this equality comparison into an assignment">
+        <args/>
+    </msg>
+    <msg msg_groups="" msg_id="207-4827" msg_severity="WARNING" msg_loc="/usr/include/x86_64-linux-gnu/gmp.h:2142:383" msg_body="equality comparison with extraneous parentheses">
+        <args ClangWarningOption="parentheses-equality"/>
+    </msg>
+    <msg msg_groups="" msg_id="207-4186" msg_severity="INFO" msg_loc="/usr/include/x86_64-linux-gnu/gmp.h:2142:383" msg_body="remove extraneous parentheses around the comparison to silence this warning">
+        <args/>
+    </msg>
+    <msg msg_groups="" msg_id="207-4187" msg_severity="INFO" msg_loc="/usr/include/x86_64-linux-gnu/gmp.h:2142:383" msg_body="use '=' to turn this equality comparison into an assignment">
+        <args/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="/home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/autopilot/ap_int_ref.h:724:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="and_reduce" ARG_PragmaIsValid="1" ARG_PragmaType="unroll" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="/home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/autopilot/ap_int_ref.h:738:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="or_reduce" ARG_PragmaIsValid="1" ARG_PragmaType="unroll" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="/home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/autopilot/ap_int_ref.h:752:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="xor_reduce" ARG_PragmaIsValid="1" ARG_PragmaType="unroll" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="seq_align_multiple.cpp:18:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="PE" ARG_PragmaIsValid="1" ARG_PragmaType="inline" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_INVALID" msg_id="207-1017" msg_severity="WARNING" msg_loc="seq_align_multiple.cpp:75:9" msg_body="unknown pragma ignored">
+        <args ClangWarningOption="invalid-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="seq_align_multiple.cpp:109:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="seq_align" ARG_PragmaIsValid="1" ARG_PragmaOptions="variable=dp_mem dim=0 complete" ARG_PragmaType="array_partition" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="seq_align_multiple.cpp:110:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="seq_align" ARG_PragmaIsValid="1" ARG_PragmaOptions="variable=Iy_mem dim=0 complete" ARG_PragmaType="array_partition" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="seq_align_multiple.cpp:111:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="seq_align" ARG_PragmaIsValid="1" ARG_PragmaOptions="variable=Ix_mem dim=0 complete" ARG_PragmaType="array_partition" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="seq_align_multiple.cpp:112:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="seq_align" ARG_PragmaIsValid="1" ARG_PragmaOptions="variable=dp_matrix dim=1 cyclic factor=16" ARG_PragmaType="array_partition" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="seq_align_multiple.cpp:122:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="seq_align" ARG_PragmaIsValid="1" ARG_PragmaOptions="variable=local_query dim=0 complete" ARG_PragmaType="array_partition" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="seq_align_multiple.cpp:123:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="seq_align" ARG_PragmaIsValid="1" ARG_PragmaOptions="variable=local_reference cyclic factor=16" ARG_PragmaType="array_partition" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="seq_align_multiple.cpp:131:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="seq_align" ARG_PragmaIsValid="1" ARG_PragmaOptions="II=1" ARG_PragmaType="pipeline" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="seq_align_multiple.cpp:140:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="seq_align" ARG_PragmaIsValid="1" ARG_PragmaType="unroll" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="seq_align_multiple.cpp:157:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="seq_align" ARG_PragmaIsValid="1" ARG_PragmaType="unroll" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="/home/AD.UCSD.EDU/jsliang/DP-HLS/local_seq_align_multiple_sa/local_seq_align_multiple_sa/solution1/csynth.tcl:16:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaContext="directive" ARG_PragmaFunction="seq_align_multiple" ARG_PragmaIsValid="1" ARG_PragmaOptions="name=seq_align_multiple" ARG_PragmaType="top" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="/home/AD.UCSD.EDU/jsliang/DP-HLS/local_seq_align_multiple_sa/local_seq_align_multiple_sa/solution1/directives.tcl:6:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaContext="directive" ARG_PragmaFunction="seq_align_multiple" ARG_PragmaIsValid="1" ARG_PragmaOptions="name=seq_align_multiple" ARG_PragmaType="top" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="CODE_UNSUPPORTED" msg_id="214-131" msg_severity="INFO" msg_loc="seq_align_multiple.cpp:173:6" msg_body="Inlining function 'PE(ap_uint&lt;2&gt;, ap_uint&lt;2&gt;, ap_fixed&lt;10, 6, (ap_q_mode)5, (ap_o_mode)3, 0&gt;, ap_fixed&lt;10, 6, (ap_q_mode)5, (ap_o_mode)3, 0&gt;, ap_fixed&lt;10, 6, (ap_q_mode)5, (ap_o_mode)3, 0&gt;, ap_fixed&lt;10, 6, (ap_q_mode)5, (ap_o_mode)3, 0&gt;*, ap_fixed&lt;10, 6, (ap_q_mode)5, (ap_o_mode)3, 0&gt;, ap_fixed&lt;10, 6, (ap_q_mode)5, (ap_o_mode)3, 0&gt;*, ap_fixed&lt;10, 6, (ap_q_mode)5, (ap_o_mode)3, 0&gt;, ap_fixed&lt;10, 6, (ap_q_mode)5, (ap_o_mode)3, 0&gt;*, ap_fixed&lt;10, 6, (ap_q_mode)5, (ap_o_mode)3, 0&gt;*)' into 'seq_align(ap_uint&lt;2&gt;*, ap_uint&lt;2&gt;*, ap_fixed&lt;10, 6, (ap_q_mode)5, (ap_o_mode)3, 0&gt;*)'">
+        <args Callee="PE(ap_uint&lt;2&gt;, ap_uint&lt;2&gt;, ap_fixed&lt;10, 6, (ap_q_mode)5, (ap_o_mode)3, 0&gt;, ap_fixed&lt;10, 6, (ap_q_mode)5, (ap_o_mode)3, 0&gt;, ap_fixed&lt;10, 6, (ap_q_mode)5, (ap_o_mode)3, 0&gt;, ap_fixed&lt;10, 6, (ap_q_mode)5, (ap_o_mode)3, 0&gt;*, ap_fixed&lt;10, 6, (ap_q_mode)5, (ap_o_mode)3, 0&gt;, ap_fixed&lt;10, 6, (ap_q_mode)5, (ap_o_mode)3, 0&gt;*, ap_fixed&lt;10, 6, (ap_q_mode)5, (ap_o_mode)3, 0&gt;, ap_fixed&lt;10, 6, (ap_q_mode)5, (ap_o_mode)3, 0&gt;*, ap_fixed&lt;10, 6, (ap_q_mode)5, (ap_o_mode)3, 0&gt;*)" Caller="seq_align(ap_uint&lt;2&gt;*, ap_uint&lt;2&gt;*, ap_fixed&lt;10, 6, (ap_q_mode)5, (ap_o_mode)3, 0&gt;*)"/>
+    </msg>
+    <msg msg_groups="CODE_UNSUPPORTED" msg_id="214-131" msg_severity="INFO" msg_loc="seq_align_multiple.cpp:167:6" msg_body="Inlining function 'PE(ap_uint&lt;2&gt;, ap_uint&lt;2&gt;, ap_fixed&lt;10, 6, (ap_q_mode)5, (ap_o_mode)3, 0&gt;, ap_fixed&lt;10, 6, (ap_q_mode)5, (ap_o_mode)3, 0&gt;, ap_fixed&lt;10, 6, (ap_q_mode)5, (ap_o_mode)3, 0&gt;, ap_fixed&lt;10, 6, (ap_q_mode)5, (ap_o_mode)3, 0&gt;*, ap_fixed&lt;10, 6, (ap_q_mode)5, (ap_o_mode)3, 0&gt;, ap_fixed&lt;10, 6, (ap_q_mode)5, (ap_o_mode)3, 0&gt;*, ap_fixed&lt;10, 6, (ap_q_mode)5, (ap_o_mode)3, 0&gt;, ap_fixed&lt;10, 6, (ap_q_mode)5, (ap_o_mode)3, 0&gt;*, ap_fixed&lt;10, 6, (ap_q_mode)5, (ap_o_mode)3, 0&gt;*)' into 'seq_align(ap_uint&lt;2&gt;*, ap_uint&lt;2&gt;*, ap_fixed&lt;10, 6, (ap_q_mode)5, (ap_o_mode)3, 0&gt;*)'">
+        <args Callee="PE(ap_uint&lt;2&gt;, ap_uint&lt;2&gt;, ap_fixed&lt;10, 6, (ap_q_mode)5, (ap_o_mode)3, 0&gt;, ap_fixed&lt;10, 6, (ap_q_mode)5, (ap_o_mode)3, 0&gt;, ap_fixed&lt;10, 6, (ap_q_mode)5, (ap_o_mode)3, 0&gt;, ap_fixed&lt;10, 6, (ap_q_mode)5, (ap_o_mode)3, 0&gt;*, ap_fixed&lt;10, 6, (ap_q_mode)5, (ap_o_mode)3, 0&gt;, ap_fixed&lt;10, 6, (ap_q_mode)5, (ap_o_mode)3, 0&gt;*, ap_fixed&lt;10, 6, (ap_q_mode)5, (ap_o_mode)3, 0&gt;, ap_fixed&lt;10, 6, (ap_q_mode)5, (ap_o_mode)3, 0&gt;*, ap_fixed&lt;10, 6, (ap_q_mode)5, (ap_o_mode)3, 0&gt;*)" Caller="seq_align(ap_uint&lt;2&gt;*, ap_uint&lt;2&gt;*, ap_fixed&lt;10, 6, (ap_q_mode)5, (ap_o_mode)3, 0&gt;*)"/>
+    </msg>
+    <msg msg_groups="PRAGMA_UNROLL" msg_id="214-291" msg_severity="INFO" msg_loc="seq_align_multiple.cpp:138:16" msg_body="Loop 'cbuff' is marked as complete unroll implied by the pipeline pragma">
+        <args LoopName="cbuff"/>
+    </msg>
+    <msg msg_groups="PRAGMA_UNROLL" msg_id="214-291" msg_severity="INFO" msg_loc="seq_align_multiple.cpp:155:16" msg_body="Loop 'peloop' is marked as complete unroll implied by the pipeline pragma">
+        <args LoopName="peloop"/>
+    </msg>
+    <msg msg_groups="PRAGMA_UNROLL" msg_id="214-186" msg_severity="INFO" msg_loc="seq_align_multiple.cpp:60:0" msg_body="Unrolling loop 'cbuff' (seq_align_multiple.cpp:138:16) in function 'seq_align' completely with a factor of 32">
+        <args Factor="32" LoopLoc="seq_align_multiple.cpp:138:16" LoopName="cbuff"/>
+    </msg>
+    <msg msg_groups="PRAGMA_UNROLL" msg_id="214-186" msg_severity="INFO" msg_loc="seq_align_multiple.cpp:60:0" msg_body="Unrolling loop 'peloop' (seq_align_multiple.cpp:155:16) in function 'seq_align' completely with a factor of 32">
+        <args Factor="32" LoopLoc="seq_align_multiple.cpp:155:16" LoopName="peloop"/>
+    </msg>
+    <msg msg_groups="PRAGMA_INLINE" msg_id="214-178" msg_severity="INFO" msg_loc="seq_align_multiple.cpp:60:0" msg_body="Inlining function 'std::ceil(float)' into 'seq_align(ap_uint&lt;2&gt;*, ap_uint&lt;2&gt;*, ap_fixed&lt;10, 6, (ap_q_mode)5, (ap_o_mode)3, 0&gt;*)'">
+        <args Callee="std::ceil(float)" Caller="seq_align(ap_uint&lt;2&gt;*, ap_uint&lt;2&gt;*, ap_fixed&lt;10, 6, (ap_q_mode)5, (ap_o_mode)3, 0&gt;*)"/>
+    </msg>
+    <msg msg_groups="PRAGMA_MISC" msg_id="214-248" msg_severity="INFO" msg_loc="seq_align_multiple.cpp:68:12" msg_body="Applying array_partition to 'dp_matrix': Cyclic partitioning with factor 16 on dimension 1.">
+        <args Dim="1" Factor="16" Mode="Cyclic" UOName="dp_matrix"/>
+    </msg>
+    <msg msg_groups="PRAGMA_MISC" msg_id="214-248" msg_severity="INFO" msg_loc="seq_align_multiple.cpp:69:12" msg_body="Applying array_partition to 'dp_mem': Complete partitioning on dimension 1. Complete partitioning on dimension 2.">
+        <args Dim="islist 1 2" Mode="islist Complete Complete" UOName="dp_mem"/>
+    </msg>
+    <msg msg_groups="PRAGMA_MISC" msg_id="214-248" msg_severity="INFO" msg_loc="seq_align_multiple.cpp:70:12" msg_body="Applying array_partition to 'Iy_mem': Complete partitioning on dimension 1. Complete partitioning on dimension 2.">
+        <args Dim="islist 1 2" Mode="islist Complete Complete" UOName="Iy_mem"/>
+    </msg>
+    <msg msg_groups="PRAGMA_MISC" msg_id="214-248" msg_severity="INFO" msg_loc="seq_align_multiple.cpp:71:12" msg_body="Applying array_partition to 'Ix_mem': Complete partitioning on dimension 1. Complete partitioning on dimension 2.">
+        <args Dim="islist 1 2" Mode="islist Complete Complete" UOName="Ix_mem"/>
+    </msg>
+    <msg msg_groups="PRAGMA_MISC" msg_id="214-248" msg_severity="INFO" msg_loc="seq_align_multiple.cpp:114:13" msg_body="Applying array_partition to 'local_query': Complete partitioning on dimension 1.">
+        <args Dim="1" Mode="Complete" UOName="local_query"/>
+    </msg>
+    <msg msg_groups="PRAGMA_MISC" msg_id="214-248" msg_severity="INFO" msg_loc="seq_align_multiple.cpp:115:16" msg_body="Applying array_partition to 'local_reference': Cyclic partitioning with factor 16 on dimension 1.">
+        <args Dim="1" Factor="16" Mode="Cyclic" UOName="local_reference"/>
+    </msg>
+    <msg msg_groups="PRAGMA_AGGREGATE" msg_id="214-241" msg_severity="INFO" msg_loc="seq_align_multiple.cpp:268:0" msg_body="Aggregating scalar variable 'dummy8_out' with compact=bit mode in 10-bits">
+        <args AggregateTypeName="compact=bit" Bitwidth="10" HwTyName="scalar" Name="dummy8_out"/>
+    </msg>
+    <msg msg_groups="PRAGMA_AGGREGATE" msg_id="214-241" msg_severity="INFO" msg_loc="seq_align_multiple.cpp:268:0" msg_body="Aggregating scalar variable 'dummy7_out' with compact=bit mode in 10-bits">
+        <args AggregateTypeName="compact=bit" Bitwidth="10" HwTyName="scalar" Name="dummy7_out"/>
+    </msg>
+    <msg msg_groups="PRAGMA_AGGREGATE" msg_id="214-241" msg_severity="INFO" msg_loc="seq_align_multiple.cpp:268:0" msg_body="Aggregating scalar variable 'dummy6_out' with compact=bit mode in 10-bits">
+        <args AggregateTypeName="compact=bit" Bitwidth="10" HwTyName="scalar" Name="dummy6_out"/>
+    </msg>
+    <msg msg_groups="PRAGMA_AGGREGATE" msg_id="214-241" msg_severity="INFO" msg_loc="seq_align_multiple.cpp:268:0" msg_body="Aggregating scalar variable 'dummy5_out' with compact=bit mode in 10-bits">
+        <args AggregateTypeName="compact=bit" Bitwidth="10" HwTyName="scalar" Name="dummy5_out"/>
+    </msg>
+    <msg msg_groups="PRAGMA_AGGREGATE" msg_id="214-241" msg_severity="INFO" msg_loc="seq_align_multiple.cpp:268:0" msg_body="Aggregating scalar variable 'dummy4_out' with compact=bit mode in 10-bits">
+        <args AggregateTypeName="compact=bit" Bitwidth="10" HwTyName="scalar" Name="dummy4_out"/>
+    </msg>
+    <msg msg_groups="PRAGMA_AGGREGATE" msg_id="214-241" msg_severity="INFO" msg_loc="seq_align_multiple.cpp:268:0" msg_body="Aggregating scalar variable 'dummy3_out' with compact=bit mode in 10-bits">
+        <args AggregateTypeName="compact=bit" Bitwidth="10" HwTyName="scalar" Name="dummy3_out"/>
+    </msg>
+    <msg msg_groups="PRAGMA_AGGREGATE" msg_id="214-241" msg_severity="INFO" msg_loc="seq_align_multiple.cpp:268:0" msg_body="Aggregating scalar variable 'dummy2_out' with compact=bit mode in 10-bits">
+        <args AggregateTypeName="compact=bit" Bitwidth="10" HwTyName="scalar" Name="dummy2_out"/>
+    </msg>
+    <msg msg_groups="PRAGMA_AGGREGATE" msg_id="214-241" msg_severity="INFO" msg_loc="seq_align_multiple.cpp:268:0" msg_body="Aggregating scalar variable 'dummy1_out' with compact=bit mode in 10-bits">
+        <args AggregateTypeName="compact=bit" Bitwidth="10" HwTyName="scalar" Name="dummy1_out"/>
+    </msg>
+    <msg msg_groups="PRAGMA_AGGREGATE" msg_id="214-241" msg_severity="INFO" msg_loc="seq_align_multiple.cpp:268:0" msg_body="Aggregating bram variable 'ref8' with compact=bit mode in 2-bits">
+        <args AggregateTypeName="compact=bit" Bitwidth="2" HwTyName="bram" Name="ref8"/>
+    </msg>
+    <msg msg_groups="PRAGMA_AGGREGATE" msg_id="214-241" msg_severity="INFO" msg_loc="seq_align_multiple.cpp:268:0" msg_body="Aggregating bram variable 'ref7' with compact=bit mode in 2-bits">
+        <args AggregateTypeName="compact=bit" Bitwidth="2" HwTyName="bram" Name="ref7"/>
+    </msg>
+    <msg msg_groups="PRAGMA_AGGREGATE" msg_id="214-241" msg_severity="INFO" msg_loc="seq_align_multiple.cpp:268:0" msg_body="Aggregating bram variable 'ref6' with compact=bit mode in 2-bits">
+        <args AggregateTypeName="compact=bit" Bitwidth="2" HwTyName="bram" Name="ref6"/>
+    </msg>
+    <msg msg_groups="PRAGMA_AGGREGATE" msg_id="214-241" msg_severity="INFO" msg_loc="seq_align_multiple.cpp:268:0" msg_body="Aggregating bram variable 'ref5' with compact=bit mode in 2-bits">
+        <args AggregateTypeName="compact=bit" Bitwidth="2" HwTyName="bram" Name="ref5"/>
+    </msg>
+    <msg msg_groups="PRAGMA_AGGREGATE" msg_id="214-241" msg_severity="INFO" msg_loc="seq_align_multiple.cpp:268:0" msg_body="Aggregating bram variable 'ref4' with compact=bit mode in 2-bits">
+        <args AggregateTypeName="compact=bit" Bitwidth="2" HwTyName="bram" Name="ref4"/>
+    </msg>
+    <msg msg_groups="PRAGMA_AGGREGATE" msg_id="214-241" msg_severity="INFO" msg_loc="seq_align_multiple.cpp:268:0" msg_body="Aggregating bram variable 'ref3' with compact=bit mode in 2-bits">
+        <args AggregateTypeName="compact=bit" Bitwidth="2" HwTyName="bram" Name="ref3"/>
+    </msg>
+    <msg msg_groups="PRAGMA_AGGREGATE" msg_id="214-241" msg_severity="INFO" msg_loc="seq_align_multiple.cpp:268:0" msg_body="Aggregating bram variable 'ref2' with compact=bit mode in 2-bits">
+        <args AggregateTypeName="compact=bit" Bitwidth="2" HwTyName="bram" Name="ref2"/>
+    </msg>
+    <msg msg_groups="PRAGMA_AGGREGATE" msg_id="214-241" msg_severity="INFO" msg_loc="seq_align_multiple.cpp:268:0" msg_body="Aggregating bram variable 'ref1' with compact=bit mode in 2-bits">
+        <args AggregateTypeName="compact=bit" Bitwidth="2" HwTyName="bram" Name="ref1"/>
+    </msg>
+    <msg msg_groups="PRAGMA_AGGREGATE" msg_id="214-241" msg_severity="INFO" msg_loc="seq_align_multiple.cpp:268:0" msg_body="Aggregating bram variable 'chunk8' with compact=bit mode in 2-bits">
+        <args AggregateTypeName="compact=bit" Bitwidth="2" HwTyName="bram" Name="chunk8"/>
+    </msg>
+    <msg msg_groups="PRAGMA_AGGREGATE" msg_id="214-241" msg_severity="INFO" msg_loc="seq_align_multiple.cpp:268:0" msg_body="Aggregating bram variable 'chunk7' with compact=bit mode in 2-bits">
+        <args AggregateTypeName="compact=bit" Bitwidth="2" HwTyName="bram" Name="chunk7"/>
+    </msg>
+    <msg msg_groups="PRAGMA_AGGREGATE" msg_id="214-241" msg_severity="INFO" msg_loc="seq_align_multiple.cpp:268:0" msg_body="Aggregating bram variable 'chunk6' with compact=bit mode in 2-bits">
+        <args AggregateTypeName="compact=bit" Bitwidth="2" HwTyName="bram" Name="chunk6"/>
+    </msg>
+    <msg msg_groups="PRAGMA_AGGREGATE" msg_id="214-241" msg_severity="INFO" msg_loc="seq_align_multiple.cpp:268:0" msg_body="Aggregating bram variable 'chunk5' with compact=bit mode in 2-bits">
+        <args AggregateTypeName="compact=bit" Bitwidth="2" HwTyName="bram" Name="chunk5"/>
+    </msg>
+    <msg msg_groups="PRAGMA_AGGREGATE" msg_id="214-241" msg_severity="INFO" msg_loc="seq_align_multiple.cpp:268:0" msg_body="Aggregating bram variable 'chunk4' with compact=bit mode in 2-bits">
+        <args AggregateTypeName="compact=bit" Bitwidth="2" HwTyName="bram" Name="chunk4"/>
+    </msg>
+    <msg msg_groups="PRAGMA_AGGREGATE" msg_id="214-241" msg_severity="INFO" msg_loc="seq_align_multiple.cpp:268:0" msg_body="Aggregating bram variable 'chunk3' with compact=bit mode in 2-bits">
+        <args AggregateTypeName="compact=bit" Bitwidth="2" HwTyName="bram" Name="chunk3"/>
+    </msg>
+    <msg msg_groups="PRAGMA_AGGREGATE" msg_id="214-241" msg_severity="INFO" msg_loc="seq_align_multiple.cpp:268:0" msg_body="Aggregating bram variable 'chunk2' with compact=bit mode in 2-bits">
+        <args AggregateTypeName="compact=bit" Bitwidth="2" HwTyName="bram" Name="chunk2"/>
+    </msg>
+    <msg msg_groups="PRAGMA_AGGREGATE" msg_id="214-241" msg_severity="INFO" msg_loc="seq_align_multiple.cpp:268:0" msg_body="Aggregating bram variable 'chunk1' with compact=bit mode in 2-bits">
+        <args AggregateTypeName="compact=bit" Bitwidth="2" HwTyName="bram" Name="chunk1"/>
+    </msg>
+</xilinx:hls_fe_msgs>
+

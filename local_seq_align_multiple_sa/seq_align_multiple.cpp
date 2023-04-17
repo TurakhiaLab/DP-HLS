@@ -75,12 +75,12 @@ void seq_align (ap_uint<2> query[query_length], ap_uint<2> reference[ref_length]
 #pragma HLS_RESOURCE variable=dp_matrix core=RAM_1P_BRAM
 
 
-    /*for (int pp = 0; pp < query_length; pp ++){
+    for (int pp = 0; pp < query_length; pp ++){
            for (int rr = 0; rr < ref_length; rr ++)
            {
                dp_matrix[pp][rr] = 0;
            }
-       }*/
+    }
 
     local_dpmem_loop: for (int gg = 0; gg < 3; gg ++){
          for (int ij = 0; ij < PE_num; ij++)
@@ -109,7 +109,7 @@ void seq_align (ap_uint<2> query[query_length], ap_uint<2> reference[ref_length]
 #pragma HLS ARRAY_PARTITION variable=dp_mem dim=0 complete
 #pragma HLS ARRAY_PARTITION variable=Iy_mem dim=0 complete
 #pragma HLS ARRAY_PARTITION variable=Ix_mem dim=0 complete
-#pragma HLS ARRAY_PARTITION variable=dp_matrix dim=1 cyclic factor=16
+#pragma HLS ARRAY_PARTITION variable=dp_matrix dim=1 cyclic factor=16	// will need to change to 16 later
 
     ap_uint<2> local_query[PE_num];
     ap_uint<2> local_reference[ref_length];
@@ -122,7 +122,9 @@ void seq_align (ap_uint<2> query[query_length], ap_uint<2> reference[ref_length]
 #pragma HLS ARRAY_PARTITION variable=local_query dim=0 complete
 #pragma HLS ARRAY_PARTITION variable=local_reference cyclic factor=16
 
-   kernel: for(int qq = 0; qq < query_chunks; qq ++){
+    int is_uneven = (query_length % PE_num != 0) ? true : false;
+
+    kernel: for(int qq = 0; qq < query_chunks; qq ++){
 
         kernel1: for (int ii = 0; ii < (PE_num + ref_length - 1); ii ++){
 
@@ -148,28 +150,35 @@ void seq_align (ap_uint<2> query[query_length], ap_uint<2> reference[ref_length]
 
         temp = (ii == 0) ? zero_fp : temp;
 
+        int diagonal_length = (is_uneven && qq == query_chunks-1) ? (query_length % PE_num) : PE_num;
+
         peloop:for(int kk = 0; kk < PE_num; kk ++){
 
 		#pragma HLS UNROLL
+        	// valid bit to detect whether all PEs have been used up
+        	bool valid = !is_uneven || (is_uneven && kk+1 <= diagonal_length);
 
-        	if ((ii-kk) >= 0 && (ii-kk) < ref_length){
+        	if (valid) {
 
-             if (kk == 0) {
+				if ((ii-kk) >= 0 && (ii-kk) < ref_length){
 
-        		PE(local_reference[ii], local_query[kk], last_pe_score[ii], dp_mem[1][kk], temp, &dp_mem[2][kk], last_pe_scoreIx[ii], &Ix_mem[1][kk], Iy_mem[0][kk], &Iy_mem[1][kk], &dp_matrix[kk+qq*PE_num][ii-kk]);
+				 if (kk == 0) {
 
-        		temp = last_pe_score[ii];
-             }
-             else
-             {
-            	PE(local_reference[ii-kk], local_query[kk], dp_mem[1][kk-1], dp_mem[1][kk], dp_mem[0][kk-1], &dp_mem[2][kk], Ix_mem[0][kk-1], &Ix_mem[1][kk], Iy_mem[0][kk], &Iy_mem[1][kk], &dp_matrix[kk+qq*PE_num][ii-kk]);
-             }
+					PE(local_reference[ii], local_query[kk], last_pe_score[ii], dp_mem[1][kk], temp, &dp_mem[2][kk], last_pe_scoreIx[ii], &Ix_mem[1][kk], Iy_mem[0][kk], &Iy_mem[1][kk], &dp_matrix[kk+qq*PE_num][ii-kk]);
 
-             if (ii > PE_num - 2 && kk == PE_num -1) {
+					temp = last_pe_score[ii];
+				 }
+				 else
+				 {
+					PE(local_reference[ii-kk], local_query[kk], dp_mem[1][kk-1], dp_mem[1][kk], dp_mem[0][kk-1], &dp_mem[2][kk], Ix_mem[0][kk-1], &Ix_mem[1][kk], Iy_mem[0][kk], &Iy_mem[1][kk], &dp_matrix[kk+qq*PE_num][ii-kk]);
+				 }
 
-            	 last_pe_score[ii-PE_num+1] = dp_mem[2][PE_num-1];
-            	 last_pe_scoreIx[ii-PE_num+1] = Ix_mem[1][PE_num-1];
-             }
+				 if (ii > PE_num - 2 && kk == PE_num -1) {
+
+					 last_pe_score[ii-PE_num+1] = dp_mem[2][PE_num-1];
+					 last_pe_scoreIx[ii-PE_num+1] = Ix_mem[1][PE_num-1];
+				 }
+				}
         	}
         }
 
@@ -238,7 +247,7 @@ void seq_align (ap_uint<2> query[query_length], ap_uint<2> reference[ref_length]
 
     *dummy = max_score;*/
 
-   /* printf("\n printing dp matrix\n");
+   /*printf("\n printing dp matrix\n");
 
    for (int r = 0; r < query_length; r ++)
     {
@@ -286,8 +295,3 @@ void seq_align_multiple(ap_uint<2> chunk1[query_length], ap_uint<2> chunk2[query
 	*dummy7_out = dummy7;
 	*dummy8_out = dummy8;
 }
-
-
-
-
-

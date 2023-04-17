@@ -33,6 +33,9 @@ int main ()
            query_string[i] = alphabet[rand() % 4];
        }
 
+    printf("Query string: %s\n", query_string);
+    printf("Reference string: %s\n", reference_string);
+
     for (int p = 0; p < 8*ref_length; p ++){
 
     	if (reference_string[p] == 'A'){
@@ -111,7 +114,7 @@ int main ()
     //seq_align_multiple(chunk, ref, dummy);
 	//seq_align_multiple(chunk1, chunk2, ref1, ref2, dp_mem, dp_mem2, Ix_mem, Ix_mem2, Iy_mem, Iy_mem2, last_pe_score, last_pe_score2, last_pe_scoreIx, last_pe_scoreIx2, &dummy_3, &dummy_4);
 
-    //printf("max score is %d\n", dummy);
+    //printf("max score is %d\n", dummy8);
 
     return 0;
 

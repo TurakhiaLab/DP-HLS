@@ -1,0 +1,343 @@
+INFO: [HLS 200-10] Running '/home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/bin/unwrapped/lnx64.o/vitis_hls'
+INFO: [HLS 200-10] For user 'jsliang@AD.UCSD.EDU' on host 'raptor.ucsd.edu' (Linux_x86_64 version 5.4.0-146-generic) on Sun Apr 16 22:10:00 PDT 2023
+INFO: [HLS 200-10] On os Ubuntu 20.04.6 LTS
+INFO: [HLS 200-10] In directory '/home/AD.UCSD.EDU/jsliang/DP-HLS/local_seq_align_multiple_sa'
+Sourcing Tcl script '/home/AD.UCSD.EDU/jsliang/DP-HLS/local_seq_align_multiple_sa/local_seq_align_multiple_sa/solution1/csynth.tcl'
+INFO: [HLS 200-1510] Running: source /home/AD.UCSD.EDU/jsliang/DP-HLS/local_seq_align_multiple_sa/local_seq_align_multiple_sa/solution1/csynth.tcl
+INFO: [HLS 200-1510] Running: open_project local_seq_align_multiple_sa 
+INFO: [HLS 200-10] Opening project '/home/AD.UCSD.EDU/jsliang/DP-HLS/local_seq_align_multiple_sa/local_seq_align_multiple_sa'.
+INFO: [HLS 200-1510] Running: set_top seq_align_multiple 
+INFO: [HLS 200-1510] Running: add_files seq_align_multiple.h 
+INFO: [HLS 200-10] Adding design file 'seq_align_multiple.h' to the project
+INFO: [HLS 200-1510] Running: add_files seq_align_multiple.cpp 
+INFO: [HLS 200-10] Adding design file 'seq_align_multiple.cpp' to the project
+INFO: [HLS 200-1510] Running: add_files params.h 
+INFO: [HLS 200-10] Adding design file 'params.h' to the project
+INFO: [HLS 200-1510] Running: add_files -tb seq_align_test.cpp -cflags -Wno-unknown-pragmas -csimflags -Wno-unknown-pragmas 
+INFO: [HLS 200-10] Adding test bench file 'seq_align_test.cpp' to the project
+INFO: [HLS 200-1510] Running: open_solution solution1 -flow_target vivado 
+INFO: [HLS 200-10] Opening solution '/home/AD.UCSD.EDU/jsliang/DP-HLS/local_seq_align_multiple_sa/local_seq_align_multiple_sa/solution1'.
+INFO: [SYN 201-201] Setting up clock 'default' with a period of 4ns.
+INFO: [HLS 200-1611] Setting target device to 'xcvu5p-flva2104-1-e'
+INFO: [HLS 200-1505] Using flow_target 'vivado'
+Resolution: For help on HLS 200-1505 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-1505.html
+INFO: [HLS 200-1510] Running: set_part xcvu5p-flva2104-1-e 
+INFO: [HLS 200-1510] Running: create_clock -period 4 -name default 
+INFO: [HLS 200-1510] Running: source ./local_seq_align_multiple_sa/solution1/directives.tcl
+INFO: [HLS 200-1510] Running: set_directive_top -name seq_align_multiple seq_align_multiple 
+INFO: [HLS 200-1510] Running: csynth_design 
+INFO: [HLS 200-111] Finished File checks and directory preparation: CPU user time: 0.01 seconds. CPU system time: 0 seconds. Elapsed time: 0.01 seconds; current allocated memory: 1.214 GB.
+INFO: [HLS 200-10] Analyzing design file 'seq_align_multiple.cpp' ... 
+WARNING: [HLS 207-4827] equality comparison with extraneous parentheses (/usr/include/x86_64-linux-gnu/gmp.h:2142:345)
+INFO: [HLS 207-4186] remove extraneous parentheses around the comparison to silence this warning (/usr/include/x86_64-linux-gnu/gmp.h:2142:345)
+INFO: [HLS 207-4187] use '=' to turn this equality comparison into an assignment (/usr/include/x86_64-linux-gnu/gmp.h:2142:345)
+WARNING: [HLS 207-4827] equality comparison with extraneous parentheses (/usr/include/x86_64-linux-gnu/gmp.h:2142:383)
+INFO: [HLS 207-4186] remove extraneous parentheses around the comparison to silence this warning (/usr/include/x86_64-linux-gnu/gmp.h:2142:383)
+INFO: [HLS 207-4187] use '=' to turn this equality comparison into an assignment (/usr/include/x86_64-linux-gnu/gmp.h:2142:383)
+WARNING: [HLS 207-1017] unknown pragma ignored (seq_align_multiple.cpp:75:9)
+INFO: [HLS 200-111] Finished Source Code Analysis and Preprocessing: CPU user time: 7.7 seconds. CPU system time: 0.96 seconds. Elapsed time: 6.76 seconds; current allocated memory: 209.445 MB.
+INFO: [HLS 200-777] Using interface defaults for 'Vivado' flow target.
+INFO: [HLS 214-131] Inlining function 'PE(ap_uint<2>, ap_uint<2>, ap_fixed<10, 6, (ap_q_mode)5, (ap_o_mode)3, 0>, ap_fixed<10, 6, (ap_q_mode)5, (ap_o_mode)3, 0>, ap_fixed<10, 6, (ap_q_mode)5, (ap_o_mode)3, 0>, ap_fixed<10, 6, (ap_q_mode)5, (ap_o_mode)3, 0>*, ap_fixed<10, 6, (ap_q_mode)5, (ap_o_mode)3, 0>, ap_fixed<10, 6, (ap_q_mode)5, (ap_o_mode)3, 0>*, ap_fixed<10, 6, (ap_q_mode)5, (ap_o_mode)3, 0>, ap_fixed<10, 6, (ap_q_mode)5, (ap_o_mode)3, 0>*, ap_fixed<10, 6, (ap_q_mode)5, (ap_o_mode)3, 0>*)' into 'seq_align(ap_uint<2>*, ap_uint<2>*, ap_fixed<10, 6, (ap_q_mode)5, (ap_o_mode)3, 0>*)' (seq_align_multiple.cpp:173:6)
+INFO: [HLS 214-131] Inlining function 'PE(ap_uint<2>, ap_uint<2>, ap_fixed<10, 6, (ap_q_mode)5, (ap_o_mode)3, 0>, ap_fixed<10, 6, (ap_q_mode)5, (ap_o_mode)3, 0>, ap_fixed<10, 6, (ap_q_mode)5, (ap_o_mode)3, 0>, ap_fixed<10, 6, (ap_q_mode)5, (ap_o_mode)3, 0>*, ap_fixed<10, 6, (ap_q_mode)5, (ap_o_mode)3, 0>, ap_fixed<10, 6, (ap_q_mode)5, (ap_o_mode)3, 0>*, ap_fixed<10, 6, (ap_q_mode)5, (ap_o_mode)3, 0>, ap_fixed<10, 6, (ap_q_mode)5, (ap_o_mode)3, 0>*, ap_fixed<10, 6, (ap_q_mode)5, (ap_o_mode)3, 0>*)' into 'seq_align(ap_uint<2>*, ap_uint<2>*, ap_fixed<10, 6, (ap_q_mode)5, (ap_o_mode)3, 0>*)' (seq_align_multiple.cpp:167:6)
+INFO: [HLS 214-291] Loop 'cbuff' is marked as complete unroll implied by the pipeline pragma (seq_align_multiple.cpp:138:16)
+INFO: [HLS 214-291] Loop 'peloop' is marked as complete unroll implied by the pipeline pragma (seq_align_multiple.cpp:155:16)
+INFO: [HLS 214-186] Unrolling loop 'cbuff' (seq_align_multiple.cpp:138:16) in function 'seq_align' completely with a factor of 32 (seq_align_multiple.cpp:60:0)
+INFO: [HLS 214-186] Unrolling loop 'peloop' (seq_align_multiple.cpp:155:16) in function 'seq_align' completely with a factor of 32 (seq_align_multiple.cpp:60:0)
+INFO: [HLS 214-178] Inlining function 'std::ceil(float)' into 'seq_align(ap_uint<2>*, ap_uint<2>*, ap_fixed<10, 6, (ap_q_mode)5, (ap_o_mode)3, 0>*)' (seq_align_multiple.cpp:60:0)
+INFO: [HLS 214-248] Applying array_partition to 'dp_matrix': Cyclic partitioning with factor 16 on dimension 1. (seq_align_multiple.cpp:68:12)
+INFO: [HLS 214-248] Applying array_partition to 'dp_mem': Complete partitioning on dimension 1. Complete partitioning on dimension 2. (seq_align_multiple.cpp:69:12)
+INFO: [HLS 214-248] Applying array_partition to 'Iy_mem': Complete partitioning on dimension 1. Complete partitioning on dimension 2. (seq_align_multiple.cpp:70:12)
+INFO: [HLS 214-248] Applying array_partition to 'Ix_mem': Complete partitioning on dimension 1. Complete partitioning on dimension 2. (seq_align_multiple.cpp:71:12)
+INFO: [HLS 214-248] Applying array_partition to 'local_query': Complete partitioning on dimension 1. (seq_align_multiple.cpp:114:13)
+INFO: [HLS 214-248] Applying array_partition to 'local_reference': Cyclic partitioning with factor 16 on dimension 1. (seq_align_multiple.cpp:115:16)
+INFO: [HLS 214-241] Aggregating scalar variable 'dummy8_out' with compact=bit mode in 10-bits (seq_align_multiple.cpp:268:0)
+INFO: [HLS 214-241] Aggregating scalar variable 'dummy7_out' with compact=bit mode in 10-bits (seq_align_multiple.cpp:268:0)
+INFO: [HLS 214-241] Aggregating scalar variable 'dummy6_out' with compact=bit mode in 10-bits (seq_align_multiple.cpp:268:0)
+INFO: [HLS 214-241] Aggregating scalar variable 'dummy5_out' with compact=bit mode in 10-bits (seq_align_multiple.cpp:268:0)
+INFO: [HLS 214-241] Aggregating scalar variable 'dummy4_out' with compact=bit mode in 10-bits (seq_align_multiple.cpp:268:0)
+INFO: [HLS 214-241] Aggregating scalar variable 'dummy3_out' with compact=bit mode in 10-bits (seq_align_multiple.cpp:268:0)
+INFO: [HLS 214-241] Aggregating scalar variable 'dummy2_out' with compact=bit mode in 10-bits (seq_align_multiple.cpp:268:0)
+INFO: [HLS 214-241] Aggregating scalar variable 'dummy1_out' with compact=bit mode in 10-bits (seq_align_multiple.cpp:268:0)
+INFO: [HLS 214-241] Aggregating bram variable 'ref8' with compact=bit mode in 2-bits (seq_align_multiple.cpp:268:0)
+INFO: [HLS 214-241] Aggregating bram variable 'ref7' with compact=bit mode in 2-bits (seq_align_multiple.cpp:268:0)
+INFO: [HLS 214-241] Aggregating bram variable 'ref6' with compact=bit mode in 2-bits (seq_align_multiple.cpp:268:0)
+INFO: [HLS 214-241] Aggregating bram variable 'ref5' with compact=bit mode in 2-bits (seq_align_multiple.cpp:268:0)
+INFO: [HLS 214-241] Aggregating bram variable 'ref4' with compact=bit mode in 2-bits (seq_align_multiple.cpp:268:0)
+INFO: [HLS 214-241] Aggregating bram variable 'ref3' with compact=bit mode in 2-bits (seq_align_multiple.cpp:268:0)
+INFO: [HLS 214-241] Aggregating bram variable 'ref2' with compact=bit mode in 2-bits (seq_align_multiple.cpp:268:0)
+INFO: [HLS 214-241] Aggregating bram variable 'ref1' with compact=bit mode in 2-bits (seq_align_multiple.cpp:268:0)
+INFO: [HLS 214-241] Aggregating bram variable 'chunk8' with compact=bit mode in 2-bits (seq_align_multiple.cpp:268:0)
+INFO: [HLS 214-241] Aggregating bram variable 'chunk7' with compact=bit mode in 2-bits (seq_align_multiple.cpp:268:0)
+INFO: [HLS 214-241] Aggregating bram variable 'chunk6' with compact=bit mode in 2-bits (seq_align_multiple.cpp:268:0)
+INFO: [HLS 214-241] Aggregating bram variable 'chunk5' with compact=bit mode in 2-bits (seq_align_multiple.cpp:268:0)
+INFO: [HLS 214-241] Aggregating bram variable 'chunk4' with compact=bit mode in 2-bits (seq_align_multiple.cpp:268:0)
+INFO: [HLS 214-241] Aggregating bram variable 'chunk3' with compact=bit mode in 2-bits (seq_align_multiple.cpp:268:0)
+INFO: [HLS 214-241] Aggregating bram variable 'chunk2' with compact=bit mode in 2-bits (seq_align_multiple.cpp:268:0)
+INFO: [HLS 214-241] Aggregating bram variable 'chunk1' with compact=bit mode in 2-bits (seq_align_multiple.cpp:268:0)
+INFO: [HLS 200-111] Finished Compiling Optimization and Transform: CPU user time: 15.24 seconds. CPU system time: 0.64 seconds. Elapsed time: 15.98 seconds; current allocated memory: 226.016 MB.
+INFO: [HLS 200-111] Finished Checking Pragmas: CPU user time: 0 seconds. CPU system time: 0 seconds. Elapsed time: 0.01 seconds; current allocated memory: 226.016 MB.
+INFO: [HLS 200-10] Starting code transformations ...
+INFO: [HLS 200-111] Finished Standard Transforms: CPU user time: 1.61 seconds. CPU system time: 0.03 seconds. Elapsed time: 1.65 seconds; current allocated memory: 262.504 MB.
+INFO: [HLS 200-10] Checking synthesizability ...
+INFO: [HLS 200-111] Finished Checking Synthesizability: CPU user time: 1.72 seconds. CPU system time: 0.03 seconds. Elapsed time: 1.76 seconds; current allocated memory: 295.754 MB.
+INFO: [XFORM 203-510] Pipelining loop 'VITIS_LOOP_79_2' in function 'seq_align' automatically.
+INFO: [XFORM 203-510] Pipelining loop 'VITIS_LOOP_86_3' in function 'seq_align' automatically.
+INFO: [XFORM 203-510] Pipelining loop 'VITIS_LOOP_93_4' in function 'seq_align' automatically.
+INFO: [XFORM 203-510] Pipelining loop 'VITIS_LOOP_100_5' in function 'seq_align' automatically.
+INFO: [XFORM 203-510] Pipelining loop 'VITIS_LOOP_117_6' (seq_align_multiple.cpp:117) in function 'seq_align' automatically.
+WARNING: [ANALYSIS 214-31] The program may have out of bound access of array variable 'last_pe_score.V' in function 'seq_align'.
+WARNING: [ANALYSIS 214-31] The program may have out of bound access of array variable 'last_pe_scoreIx.V' in function 'seq_align'.
+INFO: [XFORM 203-401] Performing if-conversion on hyperblock from (seq_align_multiple.cpp:66:12) to (seq_align_multiple.cpp:163:22) in function 'seq_align'... converting 31 basic blocks.
+INFO: [XFORM 203-401] Performing if-conversion on hyperblock from (seq_align_multiple.cpp:69:12) to (seq_align_multiple.cpp:163:22) in function 'seq_align'... converting 29 basic blocks.
+INFO: [HLS 200-111] Finished Loop, function and other optimizations: CPU user time: 3.01 seconds. CPU system time: 0.04 seconds. Elapsed time: 3.05 seconds; current allocated memory: 364.090 MB.
+INFO: [XFORM 203-541] Flattening a loop nest 'VITIS_LOOP_78_1' (seq_align_multiple.cpp:78:28) in function 'seq_align'.
+INFO: [XFORM 203-541] Flattening a loop nest 'local_dpmem_loop' (seq_align_multiple.cpp:85:32) in function 'seq_align'.
+INFO: [XFORM 203-541] Flattening a loop nest 'local_Ixmem_loop' (seq_align_multiple.cpp:92:32) in function 'seq_align'.
+INFO: [XFORM 203-541] Flattening a loop nest 'kernel' (seq_align_multiple.cpp:129:27) in function 'seq_align'.
+INFO: [HLS 200-472] Inferring partial write operation for 'dp_matrix.V' (seq_align_multiple.cpp:81:34)
+INFO: [HLS 200-472] Inferring partial write operation for 'last_pe_score.V' (seq_align_multiple.cpp:102:24)
+INFO: [HLS 200-472] Inferring partial write operation for 'last_pe_scoreIx.V' (seq_align_multiple.cpp:103:26)
+INFO: [HLS 200-472] Inferring partial write operation for 'local_reference.V' (seq_align_multiple.cpp:119:25)
+INFO: [HLS 200-472] Inferring partial write operation for 'dp_matrix.V' (seq_align_multiple.cpp:54:12)
+INFO: [HLS 200-472] Inferring partial write operation for 'last_pe_score.V' (seq_align_multiple.cpp:178:31)
+INFO: [HLS 200-472] Inferring partial write operation for 'last_pe_scoreIx.V' (seq_align_multiple.cpp:179:33)
+INFO: [HLS 200-111] Finished Architecture Synthesis: CPU user time: 2.01 seconds. CPU system time: 0.03 seconds. Elapsed time: 2.05 seconds; current allocated memory: 453.094 MB.
+INFO: [HLS 200-10] Starting hardware synthesis ...
+INFO: [HLS 200-10] Synthesizing 'seq_align_multiple' ...
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'seq_align_Pipeline_VITIS_LOOP_78_1_VITIS_LOOP_79_2' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining loop 'VITIS_LOOP_78_1_VITIS_LOOP_79_2'.
+INFO: [HLS 200-1470] Pipelining result : Target II = NA, Final II = 1, Depth = 3, loop 'VITIS_LOOP_78_1_VITIS_LOOP_79_2'
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 0.37 seconds. CPU system time: 0.05 seconds. Elapsed time: 0.39 seconds; current allocated memory: 455.352 MB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.03 seconds. CPU system time: 0 seconds. Elapsed time: 0.04 seconds; current allocated memory: 455.352 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'seq_align_Pipeline_local_dpmem_loop_VITIS_LOOP_86_3' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining loop 'local_dpmem_loop_VITIS_LOOP_86_3'.
+INFO: [HLS 200-1470] Pipelining result : Target II = NA, Final II = 1, Depth = 1, loop 'local_dpmem_loop_VITIS_LOOP_86_3'
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 0.17 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.18 seconds; current allocated memory: 458.590 MB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.06 seconds. CPU system time: 0 seconds. Elapsed time: 0.05 seconds; current allocated memory: 458.590 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'seq_align_Pipeline_local_Ixmem_loop_VITIS_LOOP_93_4' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining loop 'local_Ixmem_loop_VITIS_LOOP_93_4'.
+INFO: [HLS 200-1470] Pipelining result : Target II = NA, Final II = 1, Depth = 1, loop 'local_Ixmem_loop_VITIS_LOOP_93_4'
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 0.18 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.2 seconds; current allocated memory: 461.102 MB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.05 seconds. CPU system time: 0 seconds. Elapsed time: 0.05 seconds; current allocated memory: 461.102 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'seq_align_Pipeline_VITIS_LOOP_100_5' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining loop 'VITIS_LOOP_100_5'.
+INFO: [HLS 200-1470] Pipelining result : Target II = NA, Final II = 1, Depth = 1, loop 'VITIS_LOOP_100_5'
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 0.07 seconds. CPU system time: 0 seconds. Elapsed time: 0.07 seconds; current allocated memory: 461.102 MB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.02 seconds. CPU system time: 0 seconds. Elapsed time: 0.02 seconds; current allocated memory: 461.102 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'seq_align_Pipeline_VITIS_LOOP_117_6' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [HLS 200-1457] Automatically inferring inferring RAM_1WNR storage type for array 'local_reference_V_15'. Use bind_storage pragma to override this type.
+INFO: [HLS 200-1457] Automatically inferring inferring RAM_1WNR storage type for array 'local_reference_V'. Use bind_storage pragma to override this type.
+INFO: [HLS 200-1457] Automatically inferring inferring RAM_1WNR storage type for array 'local_reference_V_1'. Use bind_storage pragma to override this type.
+INFO: [HLS 200-1457] Automatically inferring inferring RAM_1WNR storage type for array 'local_reference_V_2'. Use bind_storage pragma to override this type.
+INFO: [HLS 200-1457] Automatically inferring inferring RAM_1WNR storage type for array 'local_reference_V_3'. Use bind_storage pragma to override this type.
+INFO: [HLS 200-1457] Automatically inferring inferring RAM_1WNR storage type for array 'local_reference_V_4'. Use bind_storage pragma to override this type.
+INFO: [HLS 200-1457] Automatically inferring inferring RAM_1WNR storage type for array 'local_reference_V_5'. Use bind_storage pragma to override this type.
+INFO: [HLS 200-1457] Automatically inferring inferring RAM_1WNR storage type for array 'local_reference_V_6'. Use bind_storage pragma to override this type.
+INFO: [HLS 200-1457] Automatically inferring inferring RAM_1WNR storage type for array 'local_reference_V_7'. Use bind_storage pragma to override this type.
+INFO: [HLS 200-1457] Automatically inferring inferring RAM_1WNR storage type for array 'local_reference_V_8'. Use bind_storage pragma to override this type.
+INFO: [HLS 200-1457] Automatically inferring inferring RAM_1WNR storage type for array 'local_reference_V_9'. Use bind_storage pragma to override this type.
+INFO: [HLS 200-1457] Automatically inferring inferring RAM_1WNR storage type for array 'local_reference_V_10'. Use bind_storage pragma to override this type.
+INFO: [HLS 200-1457] Automatically inferring inferring RAM_1WNR storage type for array 'local_reference_V_11'. Use bind_storage pragma to override this type.
+INFO: [HLS 200-1457] Automatically inferring inferring RAM_1WNR storage type for array 'local_reference_V_12'. Use bind_storage pragma to override this type.
+INFO: [HLS 200-1457] Automatically inferring inferring RAM_1WNR storage type for array 'local_reference_V_13'. Use bind_storage pragma to override this type.
+INFO: [HLS 200-1457] Automatically inferring inferring RAM_1WNR storage type for array 'local_reference_V_14'. Use bind_storage pragma to override this type.
+INFO: [SCHED 204-61] Pipelining loop 'VITIS_LOOP_117_6'.
+INFO: [HLS 200-1470] Pipelining result : Target II = NA, Final II = 1, Depth = 2, loop 'VITIS_LOOP_117_6'
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 0.08 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.1 seconds; current allocated memory: 461.387 MB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.03 seconds. CPU system time: 0 seconds. Elapsed time: 0.03 seconds; current allocated memory: 461.387 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'seq_align_Pipeline_kernel_kernel1' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [HLS 200-1457] Automatically inferring inferring RAM_1WNR storage type for array 'local_reference_V_15'. Use bind_storage pragma to override this type.
+INFO: [HLS 200-1457] Automatically inferring inferring RAM_1WNR storage type for array 'local_reference_V_14'. Use bind_storage pragma to override this type.
+INFO: [HLS 200-1457] Automatically inferring inferring RAM_1WNR storage type for array 'local_reference_V_13'. Use bind_storage pragma to override this type.
+INFO: [HLS 200-1457] Automatically inferring inferring RAM_1WNR storage type for array 'local_reference_V_12'. Use bind_storage pragma to override this type.
+INFO: [HLS 200-1457] Automatically inferring inferring RAM_1WNR storage type for array 'local_reference_V_11'. Use bind_storage pragma to override this type.
+INFO: [HLS 200-1457] Automatically inferring inferring RAM_1WNR storage type for array 'local_reference_V_10'. Use bind_storage pragma to override this type.
+INFO: [HLS 200-1457] Automatically inferring inferring RAM_1WNR storage type for array 'local_reference_V_9'. Use bind_storage pragma to override this type.
+INFO: [HLS 200-1457] Automatically inferring inferring RAM_1WNR storage type for array 'local_reference_V_8'. Use bind_storage pragma to override this type.
+INFO: [HLS 200-1457] Automatically inferring inferring RAM_1WNR storage type for array 'local_reference_V_7'. Use bind_storage pragma to override this type.
+INFO: [HLS 200-1457] Automatically inferring inferring RAM_1WNR storage type for array 'local_reference_V_6'. Use bind_storage pragma to override this type.
+INFO: [HLS 200-1457] Automatically inferring inferring RAM_1WNR storage type for array 'local_reference_V_5'. Use bind_storage pragma to override this type.
+INFO: [HLS 200-1457] Automatically inferring inferring RAM_1WNR storage type for array 'local_reference_V_4'. Use bind_storage pragma to override this type.
+INFO: [HLS 200-1457] Automatically inferring inferring RAM_1WNR storage type for array 'local_reference_V_3'. Use bind_storage pragma to override this type.
+INFO: [HLS 200-1457] Automatically inferring inferring RAM_1WNR storage type for array 'local_reference_V_2'. Use bind_storage pragma to override this type.
+INFO: [HLS 200-1457] Automatically inferring inferring RAM_1WNR storage type for array 'local_reference_V_1'. Use bind_storage pragma to override this type.
+INFO: [HLS 200-1457] Automatically inferring inferring RAM_1WNR storage type for array 'local_reference_V'. Use bind_storage pragma to override this type.
+INFO: [SCHED 204-61] Pipelining loop 'kernel_kernel1'.
+INFO: [HLS 200-1470] Pipelining result : Target II = 1, Final II = 1, Depth = 9, loop 'kernel_kernel1'
+WARNING: [HLS 200-871] Estimated clock period (6.04425ns) exceeds the target (target clock period: 4ns, clock uncertainty: 1.08ns, effective delay budget: 2.92ns).
+Resolution: For help on HLS 200-871 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-871.html
+WARNING: [HLS 200-1016] The critical path in module 'seq_align_Pipeline_kernel_kernel1' consists of the following:	'load' operation ('dp_mem_93_load', seq_align_multiple.cpp:143) on local variable 'dp_mem' [733]  (0 ns)
+	'select' operation ('dp_mem', seq_align_multiple.cpp:143) [767]  (0.374 ns)
+	'add' operation ('add_ln859') [879]  (0.933 ns)
+	'icmp' operation ('icmp_ln1695') [884]  (0.769 ns)
+	'select' operation ('Iy_mem', seq_align_multiple.cpp:43) [885]  (0.374 ns)
+	'icmp' operation ('icmp_ln1695_2') [891]  (0.769 ns)
+	'select' operation ('select_ln1695') [892]  (0.374 ns)
+	'icmp' operation ('icmp_ln1695_3') [893]  (0.769 ns)
+	'select' operation ('select_ln50', seq_align_multiple.cpp:50) [894]  (0.374 ns)
+	'select' operation ('dp_mem', seq_align_multiple.cpp:52) [897]  (0.387 ns)
+	multiplexor before 'phi' operation ('dp_mem') with incoming values : ('dp_mem', seq_align_multiple.cpp:52) [908]  (0.46 ns)
+	'phi' operation ('dp_mem') with incoming values : ('dp_mem', seq_align_multiple.cpp:52) [908]  (0 ns)
+	'store' operation ('dp_mem_93_write_ln129', seq_align_multiple.cpp:129) of variable 'zext_ln66', seq_align_multiple.cpp:66 on local variable 'dp_mem' [3045]  (0.46 ns)
+
+Resolution: For help on HLS 200-1016 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-1016.html
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 14.23 seconds. CPU system time: 0.04 seconds. Elapsed time: 14.27 seconds; current allocated memory: 498.367 MB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 2.01 seconds. CPU system time: 0.01 seconds. Elapsed time: 2.02 seconds; current allocated memory: 514.367 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'seq_align' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 2.93 seconds. CPU system time: 0.01 seconds. Elapsed time: 2.94 seconds; current allocated memory: 514.367 MB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.74 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.75 seconds; current allocated memory: 514.367 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'seq_align_multiple' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 2.08 seconds. CPU system time: 0 seconds. Elapsed time: 2.08 seconds; current allocated memory: 514.367 MB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 5.45 seconds. CPU system time: 0 seconds. Elapsed time: 5.46 seconds; current allocated memory: 514.367 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'seq_align_Pipeline_VITIS_LOOP_78_1_VITIS_LOOP_79_2' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-1030] Apply Unified Pipeline Control on module 'seq_align_Pipeline_VITIS_LOOP_78_1_VITIS_LOOP_79_2' pipeline 'VITIS_LOOP_78_1_VITIS_LOOP_79_2' pipeline type 'loop pipeline'
+INFO: [RTGEN 206-100] Finished creating RTL model for 'seq_align_Pipeline_VITIS_LOOP_78_1_VITIS_LOOP_79_2'.
+INFO: [HLS 200-111] Finished Creating RTL model: CPU user time: 16.11 seconds. CPU system time: 0.01 seconds. Elapsed time: 16.12 seconds; current allocated memory: 514.367 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'seq_align_Pipeline_local_dpmem_loop_VITIS_LOOP_86_3' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [RTGEN 206-100] Finished creating RTL model for 'seq_align_Pipeline_local_dpmem_loop_VITIS_LOOP_86_3'.
+INFO: [HLS 200-111] Finished Creating RTL model: CPU user time: 0.14 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.15 seconds; current allocated memory: 514.367 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'seq_align_Pipeline_local_Ixmem_loop_VITIS_LOOP_93_4' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [RTGEN 206-100] Finished creating RTL model for 'seq_align_Pipeline_local_Ixmem_loop_VITIS_LOOP_93_4'.
+INFO: [HLS 200-111] Finished Creating RTL model: CPU user time: 0.17 seconds. CPU system time: 0.02 seconds. Elapsed time: 0.18 seconds; current allocated memory: 514.367 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'seq_align_Pipeline_VITIS_LOOP_100_5' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [RTGEN 206-100] Finished creating RTL model for 'seq_align_Pipeline_VITIS_LOOP_100_5'.
+INFO: [HLS 200-111] Finished Creating RTL model: CPU user time: 0.16 seconds. CPU system time: 0 seconds. Elapsed time: 0.15 seconds; current allocated memory: 514.367 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'seq_align_Pipeline_VITIS_LOOP_117_6' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-1030] Apply Unified Pipeline Control on module 'seq_align_Pipeline_VITIS_LOOP_117_6' pipeline 'VITIS_LOOP_117_6' pipeline type 'loop pipeline'
+INFO: [RTGEN 206-100] Finished creating RTL model for 'seq_align_Pipeline_VITIS_LOOP_117_6'.
+INFO: [HLS 200-111] Finished Creating RTL model: CPU user time: 0.05 seconds. CPU system time: 0 seconds. Elapsed time: 0.05 seconds; current allocated memory: 514.367 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'seq_align_Pipeline_kernel_kernel1' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-1030] Apply Unified Pipeline Control on module 'seq_align_Pipeline_kernel_kernel1' pipeline 'kernel_kernel1' pipeline type 'loop pipeline'
+INFO: [RTGEN 206-100] Generating core module 'mux_164_2_1_1': 32 instance(s).
+INFO: [RTGEN 206-100] Finished creating RTL model for 'seq_align_Pipeline_kernel_kernel1'.
+INFO: [HLS 200-111] Finished Creating RTL model: CPU user time: 0.81 seconds. CPU system time: 0.02 seconds. Elapsed time: 0.82 seconds; current allocated memory: 539.391 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'seq_align' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [RTGEN 206-100] Finished creating RTL model for 'seq_align'.
+INFO: [HLS 200-111] Finished Creating RTL model: CPU user time: 9.24 seconds. CPU system time: 0.09 seconds. Elapsed time: 9.48 seconds; current allocated memory: 597.355 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'seq_align_multiple' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [RTGEN 206-500] Setting interface mode on port 'seq_align_multiple/chunk1' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'seq_align_multiple/chunk2' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'seq_align_multiple/chunk3' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'seq_align_multiple/chunk4' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'seq_align_multiple/chunk5' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'seq_align_multiple/chunk6' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'seq_align_multiple/chunk7' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'seq_align_multiple/chunk8' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'seq_align_multiple/ref1' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'seq_align_multiple/ref2' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'seq_align_multiple/ref3' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'seq_align_multiple/ref4' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'seq_align_multiple/ref5' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'seq_align_multiple/ref6' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'seq_align_multiple/ref7' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'seq_align_multiple/ref8' to 'ap_memory'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'seq_align_multiple/dummy1_out' to 'ap_vld'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'seq_align_multiple/dummy2_out' to 'ap_vld'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'seq_align_multiple/dummy3_out' to 'ap_vld'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'seq_align_multiple/dummy4_out' to 'ap_vld'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'seq_align_multiple/dummy5_out' to 'ap_vld'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'seq_align_multiple/dummy6_out' to 'ap_vld'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'seq_align_multiple/dummy7_out' to 'ap_vld'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'seq_align_multiple/dummy8_out' to 'ap_vld'.
+INFO: [RTGEN 206-500] Setting interface mode on function 'seq_align_multiple' to 'ap_ctrl_hs'.
+INFO: [RTGEN 206-100] Finished creating RTL model for 'seq_align_multiple'.
+INFO: [HLS 200-111] Finished Creating RTL model: CPU user time: 2.21 seconds. CPU system time: 0.01 seconds. Elapsed time: 2.24 seconds; current allocated memory: 597.355 MB.
+INFO: [RTMG 210-278] Implementing memory 'seq_align_multiple_seq_align_dp_matrix_V_RAM_AUTO_1R1W_ram (RAM)' using auto RAMs.
+INFO: [RTMG 210-278] Implementing memory 'seq_align_multiple_seq_align_last_pe_score_V_RAM_AUTO_1R1W_ram (RAM)' using auto RAMs.
+INFO: [RTMG 210-278] Implementing memory 'seq_align_multiple_seq_align_last_pe_scoreIx_V_RAM_AUTO_1R1W_ram (RAM)' using auto RAMs.
+INFO: [RTMG 210-278] Implementing memory 'seq_align_multiple_seq_align_local_reference_V_RAM_1WNR_AUTO_1R1W_ram (RAM_1WnR)' using auto RAMs.
+INFO: [HLS 200-111] Finished Generating all RTL models: CPU user time: 18.74 seconds. CPU system time: 0.02 seconds. Elapsed time: 18.75 seconds; current allocated memory: 597.355 MB.
+INFO: [HLS 200-111] Finished Updating report files: CPU user time: 1.57 seconds. CPU system time: 0.01 seconds. Elapsed time: 1.58 seconds; current allocated memory: 605.887 MB.
+INFO: [VHDL 208-304] Generating VHDL RTL for seq_align_multiple.
+INFO: [VLOG 209-307] Generating Verilog RTL for seq_align_multiple.
+INFO: [HLS 200-789] **** Estimated Fmax: 165.45 MHz
+INFO: [HLS 200-111] Finished Command csynth_design CPU user time: 109.07 seconds. CPU system time: 2.07 seconds. Elapsed time: 109.51 seconds; current allocated memory: -637.215 MB.
+INFO: [HLS 200-112] Total CPU user time: 110.79 seconds. Total CPU system time: 2.78 seconds. Total elapsed time: 111.12 seconds; peak allocated memory: 1.214 GB.
