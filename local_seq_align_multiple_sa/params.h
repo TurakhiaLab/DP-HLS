@@ -6,7 +6,7 @@
 #define query_length 1024
 #define ref_length 1024
 
-#define PE_num 32
+#define PE_num 64
 
 #define numofreads 1
 
@@ -14,3 +14,5 @@
 
 #define M 10
 #define N 6
+
+#define N_BLOCKS 8
