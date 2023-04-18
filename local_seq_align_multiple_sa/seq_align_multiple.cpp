@@ -56,16 +56,40 @@ void PE(ap_uint<2> local_ref_val, ap_uint<2> local_query_val, type_t up_prev, ty
 
 }
 
-void seq_align(ap_uint<2> query[query_length], ap_uint<2> reference[ref_length], type_t dp_mem[3][PE_num],
-               type_t Ix_mem[2][PE_num],
-               type_t Iy_mem[2][PE_num], type_t last_pe_score[ref_length], type_t last_pe_scoreIx[ref_length],
-               type_t *dummy) {
+void seq_align(ap_uint<2> query[query_length], ap_uint<2> reference[ref_length], type_t *dummy) {
     
 #pragma HLS inline
 
     type_t temp = 0;
 
     type_t dp_matrix[query_length][ref_length];  // declare dp matrix
+    type_t dp_mem[3][PE_num];
+    type_t Iy_mem[2][PE_num];
+    type_t Ix_mem[2][PE_num];
+    type_t last_pe_score[ref_length];
+    type_t last_pe_scoreIx[ref_length];
+
+    local_dpmem_loop: for (int gg = 0; gg < 3; gg ++){
+             for (int ij = 0; ij < PE_num; ij++)
+             {
+                 dp_mem[gg][ij] = 0;
+             }
+         }
+
+        local_Ixmem_loop: for (int mm = 0; mm < 2; mm ++){
+             for (int nn = 0; nn < PE_num; nn++)
+             {
+                 Ix_mem[mm][nn] = 0;
+                 Iy_mem[mm][nn] = 0;
+             }
+         }
+
+        for(int ip = 0; ip < ref_length;ip ++){
+
+        	last_pe_score[ip] = 0;
+        	last_pe_scoreIx[ip] = 0;
+        }
+
 
     // initialize the dp matrix to 0
     for (int pp = 0; pp < query_length; pp++) {
@@ -80,7 +104,7 @@ void seq_align(ap_uint<2> query[query_length], ap_uint<2> reference[ref_length],
 #pragma HLS ARRAY_PARTITION variable=dp_mem dim=0 complete
 #pragma HLS ARRAY_PARTITION variable=Iy_mem dim=0 complete
 #pragma HLS ARRAY_PARTITION variable=Ix_mem dim=0 complete
-#pragma HLS ARRAY_PARTITION variable=dp_matrix dim=1 cyclic factor=PE_num
+#pragma HLS ARRAY_PARTITION variable=dp_matrix dim=1 cyclic factor=32
 
     ap_uint<2> local_query[PE_num];  // each PE process a element in query
     ap_uint<2> local_reference[ref_length];  // a group of PE process all references by shifting
@@ -91,7 +115,7 @@ void seq_align(ap_uint<2> query[query_length], ap_uint<2> reference[ref_length],
     }
 
 #pragma HLS ARRAY_PARTITION variable=local_query dim=0 complete  // local query is at PE num so a complete partition assign each PE a distinct memory
-#pragma HLS ARRAY_PARTITION variable=local_reference cyclic factor=16
+#pragma HLS ARRAY_PARTITION variable=local_reference cyclic factor=32
 
     // iterating through the chunks of the larger dp matrix
     kernel:
@@ -155,27 +179,7 @@ void seq_align(ap_uint<2> query[query_length], ap_uint<2> reference[ref_length],
         }
     }
 
-    type_t max_dp = 0;
-    int max_row_value;
-    int max_col_value;
-
-    pe1:
-    for (int x = 0; x < query_length; x++) {
-
-        pe2:
-        for (int y = 0; y < ref_length; y++) {
-
-            if (dp_matrix[x][y] > 0) {
-                max_dp = dp_matrix[x][y];
-                max_row_value = x;
-                max_col_value = y;
-            }
-
-        }
-
-    }
-
-    type_t max_score = dp_matrix[max_row_value][max_col_value];
+    type_t max_score = dp_matrix[0][0];
     *dummy = max_score;
 
     /* printf("\n printing dp matrix\n");
@@ -193,33 +197,18 @@ void seq_align(ap_uint<2> query[query_length], ap_uint<2> reference[ref_length],
 
 void seq_align_multiple(ap_uint<2> query_string_comp[N_BLOCKS][query_length],
                         ap_uint<2> reference_string_comp[N_BLOCKS][ref_length],
-                               type_t dp_mem[N_BLOCKS][3][PE_num],
-                               type_t Ix_mem[N_BLOCKS][2][PE_num],
-                               type_t Iy_mem[N_BLOCKS][2][PE_num],
-                               type_t last_pe_score[N_BLOCKS][ref_length],
-                               type_t last_pe_scoreIx[N_BLOCKS][ref_length],
                                type_t dummies[N_BLOCKS]){
 
-#pragma HLS array_partition variable=query_string_comp type=block factor=N_BLOCKS
-#pragma HLS array_partition variable=reference_string_comp type=block factor=N_BLOCKS
-#pragma HLS array_partition variable=dp_mem type=block factor=N_BLOCKS
-#pragma HLS array_partition variable=Ix_mem type=block factor=N_BLOCKS
-#pragma HLS array_partition variable=Iy_mem type=block factor=N_BLOCKS
-#pragma HLS array_partition variable=last_pe_score type=block factor=N_BLOCKS
-#pragma HLS array_partition variable=last_pe_scoreIx type=block factor=N_BLOCKS
+#pragma HLS array_partition variable=query_string_comp type=block factor=8
+#pragma HLS array_partition variable=reference_string_comp type=block factor=8
 
     type_t dummies_inner[N_BLOCKS];
 
     // to be unrolled
     for (int block_i = 0; block_i < N_BLOCKS; block_i++){
-#pragma HLS unroll
+#pragma HLS UNROLL
         seq_align(query_string_comp[block_i],
                   reference_string_comp[block_i],
-                  dp_mem[block_i],
-                  Ix_mem[block_i],
-                  Iy_mem[block_i],
-                  last_pe_score[block_i],
-                  last_pe_scoreIx[block_i],
                   &dummies[block_i]);
     }
 
