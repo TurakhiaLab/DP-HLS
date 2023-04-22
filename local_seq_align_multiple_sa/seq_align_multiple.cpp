@@ -58,8 +58,8 @@ void PE(ap_uint<2> local_ref_val, ap_uint<2> local_query_val, type_t up_prev, ty
 
 void seq_align(ap_uint<2> query[query_length], ap_uint<2> reference[ref_length], type_t *dummy) {
     
-#pragma HLS inline
 
+	//*dummy = (query[query_length-1] == reference[ref_length-1])?1:5;
     type_t temp = 0;
 
     type_t dp_matrix[query_length][ref_length];  // declare dp matrix
@@ -104,7 +104,7 @@ void seq_align(ap_uint<2> query[query_length], ap_uint<2> reference[ref_length],
 #pragma HLS ARRAY_PARTITION variable=dp_mem dim=0 complete
 #pragma HLS ARRAY_PARTITION variable=Iy_mem dim=0 complete
 #pragma HLS ARRAY_PARTITION variable=Ix_mem dim=0 complete
-#pragma HLS ARRAY_PARTITION variable=dp_matrix dim=1 cyclic factor=32
+#pragma HLS ARRAY_PARTITION variable=dp_matrix dim=1 cyclic factor=16
 
     ap_uint<2> local_query[PE_num];  // each PE process a element in query
     ap_uint<2> local_reference[ref_length];  // a group of PE process all references by shifting
@@ -115,7 +115,7 @@ void seq_align(ap_uint<2> query[query_length], ap_uint<2> reference[ref_length],
     }
 
 #pragma HLS ARRAY_PARTITION variable=local_query dim=0 complete  // local query is at PE num so a complete partition assign each PE a distinct memory
-#pragma HLS ARRAY_PARTITION variable=local_reference cyclic factor=32
+#pragma HLS ARRAY_PARTITION variable=local_reference cyclic factor=16
 
     // iterating through the chunks of the larger dp matrix
     kernel:
@@ -191,28 +191,33 @@ void seq_align(ap_uint<2> query[query_length], ap_uint<2> reference[ref_length],
              printf("%d\t", dp_matrix[r][s]);
          }
          printf("\n");
-     }*/
-
+     }
+*/
 }
 
 void seq_align_multiple(ap_uint<2> query_string_comp[N_BLOCKS][query_length],
                         ap_uint<2> reference_string_comp[N_BLOCKS][ref_length],
                                type_t dummies[N_BLOCKS]){
 
-#pragma HLS array_partition variable=query_string_comp type=block factor=8
-#pragma HLS array_partition variable=reference_string_comp type=block factor=8
+#pragma HLS array_partition variable=query_string_comp type=block dim=1 factor=8
+#pragma HLS array_partition variable=reference_string_comp type=block dim=1 factor=8
+
+#pragma HLS array_partition variable=dummies type=complete
 
     type_t dummies_inner[N_BLOCKS];
+
+#pragma HLS array_partition variable=dummies_inner type=complete
 
     // to be unrolled
     for (int block_i = 0; block_i < N_BLOCKS; block_i++){
 #pragma HLS UNROLL
         seq_align(query_string_comp[block_i],
                   reference_string_comp[block_i],
-                  &dummies[block_i]);
+                  &dummies_inner[block_i]);
     }
 
     for (int block_i = 0; block_i < N_BLOCKS; block_i++){
+#pragma HLS UNROLL
         dummies[block_i] = dummies_inner[block_i];
     }
 
