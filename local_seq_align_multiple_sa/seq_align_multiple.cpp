@@ -9,8 +9,9 @@
 #include <iostream>
 #include "ap_int.h"
 #include "seq_align_multiple.h"
-#include <ap_shift_reg.h>
+#include "shift_reg.h"
 #include <hls_stream.h>
+
 
 using namespace hls;
 
@@ -70,6 +71,7 @@ void PE(ap_uint<2> local_ref_val, ap_uint<2> local_query_val, type_t up_prev, ty
 
 void seq_align(stream<ap_uint<2>, query_length> &query_stream, stream<ap_uint<2>, ref_length> &reference_stream, type_t *dummy) {
 
+
 	//*dummy = (query[query_length-1] == reference[ref_length-1])?1:5;
     type_t temp = 0;
 
@@ -81,9 +83,9 @@ void seq_align(stream<ap_uint<2>, query_length> &query_stream, stream<ap_uint<2>
     type_t last_pe_scoreIx[ref_length];
     
 
-    ap_uint<2> query[PE_num];  // declare shift register for query
-    ap_shift_reg<ap_uint<2>, PE_num> reference;
-#pragma HLS ARRAY_PARTITION variable=query dim=1 complete
+    ShiftRegister<ap_uint<2>, PE_num> query;  // declare shift register for query
+    ShiftRegister<ap_uint<2>, PE_num> reference;
+//#pragma HLS ARRAY_PARTITION variable=query dim=1 complete
 
     //stream<ap_uint<2>, ref_length> reference_abstream[2];
 
@@ -145,7 +147,7 @@ void seq_align(stream<ap_uint<2>, query_length> &query_stream, stream<ap_uint<2>
 
         for (int i = 0; i < PE_num; i++){
 #pragma HLS PIPELINE II=1
-            shift(query, query_stream.read());
+            query.shift(query_stream.read());
         }
 
         // iterating through every wavefront
@@ -198,6 +200,7 @@ void seq_align(stream<ap_uint<2>, query_length> &query_stream, stream<ap_uint<2>
 
                         temp = last_pe_score[ii];
                     } else {
+                        char c = 'c';
                         PE(local_reference[ii - kk], query[kk], dp_mem[1][kk - 1], dp_mem[1][kk],
                            dp_mem[0][kk - 1], &dp_mem[2][kk], Ix_mem[0][kk - 1], &Ix_mem[1][kk], Iy_mem[0][kk],
                            &Iy_mem[1][kk], &dp_matrix[kk + qq * PE_num][ii - kk]);
@@ -233,6 +236,9 @@ void seq_align(stream<ap_uint<2>, query_length> &query_stream, stream<ap_uint<2>
 void seq_align_multiple(stream<ap_uint<2>, query_length> (&query_string_comp)[N_BLOCKS],
                         stream<ap_uint<2>, ref_length> (&reference_string_comp)[N_BLOCKS],
                                type_t dummies[N_BLOCKS]){
+
+#pragma HLS INTERFACE mode=axis port=query_string_comp
+#pragma HLS INTERFACE mode=axis port=reference_string_comp
 
 #pragma HLS array_partition variable=query_string_comp type=block dim=1 factor=8
 #pragma HLS array_partition variable=reference_string_comp type=block dim=1 factor=8
