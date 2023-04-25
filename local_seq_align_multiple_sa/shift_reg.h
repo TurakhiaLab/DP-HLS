@@ -1,4 +1,5 @@
 #include "params.h"
+#include <cstdint>
 
 template <typename T, int LEN> class ShiftRegister{
 public:
@@ -6,7 +7,7 @@ public:
 #pragma HLS ARRAY_PARTITION variable=data dim=1 complete
     }
 
-    T operator[](char index){
+    T operator[](int index){
         return data[index];
     };
 
