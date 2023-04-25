@@ -9,8 +9,20 @@
 #include <iostream>
 #include "ap_int.h"
 #include "seq_align_multiple.h"
+#include <ap_shift_reg.h>
+#include <hls_stream.h>
 
-using namespace std;
+using namespace hls;
+
+// requires a completely partition array into it
+template <class T>
+void shift(T (&arr)[PE_num], T data){
+    for (int i = 1; i < PE_num; i++){
+#pragma HLS unroll
+        arr[i] = arr[i-1];
+    }
+    arr[0] = data;
+}
 
 void PE(ap_uint<2> local_ref_val, ap_uint<2> local_query_val, type_t up_prev, type_t left_prev, type_t diag_prev,
         type_t *score,
@@ -56,8 +68,7 @@ void PE(ap_uint<2> local_ref_val, ap_uint<2> local_query_val, type_t up_prev, ty
 
 }
 
-void seq_align(ap_uint<2> query[query_length], ap_uint<2> reference[ref_length], type_t *dummy) {
-    
+void seq_align(stream<ap_uint<2>, query_length> &query_stream, stream<ap_uint<2>, ref_length> &reference_stream, type_t *dummy) {
 
 	//*dummy = (query[query_length-1] == reference[ref_length-1])?1:5;
     type_t temp = 0;
@@ -68,6 +79,17 @@ void seq_align(ap_uint<2> query[query_length], ap_uint<2> reference[ref_length],
     type_t Ix_mem[2][PE_num];
     type_t last_pe_score[ref_length];
     type_t last_pe_scoreIx[ref_length];
+    
+
+    ap_uint<2> query[PE_num];  // declare shift register for query
+    ap_shift_reg<ap_uint<2>, PE_num> reference;
+#pragma HLS ARRAY_PARTITION variable=query dim=1 complete
+
+    //stream<ap_uint<2>, ref_length> reference_abstream[2];
+
+    //for (int i = 0; i < ref_length; i++){
+    //    reference_abstream[0].write(reference_stream.read());
+    //}
 
     local_dpmem_loop: for (int gg = 0; gg < 3; gg ++){
              for (int ij = 0; ij < PE_num; ij++)
@@ -98,6 +120,12 @@ void seq_align(ap_uint<2> query[query_length], ap_uint<2> reference[ref_length],
         }
     }
 
+    ap_uint<2> local_reference[ref_length];  // a group of PE process all references by shifting
+
+    for (int i = 0; i < ref_length; i++){
+        local_reference[i] = reference_stream.read();
+    }
+
     const type_t zero_fp = 0;
 
 // partition array for better access
@@ -105,31 +133,37 @@ void seq_align(ap_uint<2> query[query_length], ap_uint<2> reference[ref_length],
 #pragma HLS ARRAY_PARTITION variable=Iy_mem dim=0 complete
 #pragma HLS ARRAY_PARTITION variable=Ix_mem dim=0 complete
 #pragma HLS ARRAY_PARTITION variable=dp_matrix dim=1 cyclic factor=16
+#pragma HLS ARRAY_PARTITION variable=local_reference cyclic dim=1 factor=32
+    // ap_uint<2> local_query[PE_num];  // each PE process a element in query
 
-    ap_uint<2> local_query[PE_num];  // each PE process a element in query
-    ap_uint<2> local_reference[ref_length];  // a group of PE process all references by shifting
 
-    // initialize local reference from reference
-    for (int i = 0; i < ref_length; i++) {
-        local_reference[i] = reference[i];
-    }
-
-#pragma HLS ARRAY_PARTITION variable=local_query dim=0 complete  // local query is at PE num so a complete partition assign each PE a distinct memory
-#pragma HLS ARRAY_PARTITION variable=local_reference cyclic factor=16
+//#pragma HLS ARRAY_PARTITION variable=local_query dim=0 complete  // local query is at PE num so a complete partition assign each PE a distinct memory
 
     // iterating through the chunks of the larger dp matrix
     kernel:
     for (int qq = 0; qq < query_chunks; qq++) {  // query_chunks = query_length/PE_num
+
+        for (int i = 0; i < PE_num; i++){
+#pragma HLS PIPELINE II=1
+            shift(query, query_stream.read());
+        }
+
         // iterating through every wavefront
         kernel1:
         for (int ii = 0; ii < (PE_num + ref_length - 1); ii++) {
 
 #pragma HLS PIPELINE II=1
+//#pragma HLS dependence variable=query type=intra false
+
+
+            //reference.shift(reference_abstream[qq % 2].read());
+            //reference_abstream[(qq+1)%2].write(reference.read(0));
 
             if (ii < PE_num) {
-
-                local_query[ii] = query[qq * PE_num + ii];  // iterate through the local query as they are in different chunks
+                //query.shift(query_stream.read());
+                // local_query[ii] = query[qq * PE_num + ii];  // iterate through the local query as they are in different chunks
             }
+
 
             // shifting wavefronts
             cbuff:
@@ -152,21 +186,22 @@ void seq_align(ap_uint<2> query[query_length], ap_uint<2> reference[ref_length],
             for (int kk = 0; kk < PE_num; kk++) {
 
 #pragma HLS UNROLL
+//#pragma HLS protocol fixed
 
                 if ((ii - kk) >= 0 && (ii - kk) < ref_length) {
 
                     if (kk == 0) {
 
-                        PE(local_reference[ii], local_query[kk], last_pe_score[ii], dp_mem[1][kk], temp, &dp_mem[2][kk],
+                        PE(local_reference[ii], query[kk], last_pe_score[ii], dp_mem[1][kk], temp, &dp_mem[2][kk],
                            last_pe_scoreIx[ii], &Ix_mem[1][kk], Iy_mem[0][kk], &Iy_mem[1][kk],
                            &dp_matrix[kk + qq * PE_num][ii - kk]);
 
                         temp = last_pe_score[ii];
                     } else {
-                        PE(local_reference[ii - kk], local_query[kk], dp_mem[1][kk - 1], dp_mem[1][kk],
+                        PE(local_reference[ii - kk], query[kk], dp_mem[1][kk - 1], dp_mem[1][kk],
                            dp_mem[0][kk - 1], &dp_mem[2][kk], Ix_mem[0][kk - 1], &Ix_mem[1][kk], Iy_mem[0][kk],
                            &Iy_mem[1][kk], &dp_matrix[kk + qq * PE_num][ii - kk]);
-                    }
+                    }  // reversed access
 
                     if (ii > PE_num - 2 && kk == PE_num - 1) {
 
@@ -195,8 +230,8 @@ void seq_align(ap_uint<2> query[query_length], ap_uint<2> reference[ref_length],
 */
 }
 
-void seq_align_multiple(ap_uint<2> query_string_comp[N_BLOCKS][query_length],
-                        ap_uint<2> reference_string_comp[N_BLOCKS][ref_length],
+void seq_align_multiple(stream<ap_uint<2>, query_length> (&query_string_comp)[N_BLOCKS],
+                        stream<ap_uint<2>, ref_length> (&reference_string_comp)[N_BLOCKS],
                                type_t dummies[N_BLOCKS]){
 
 #pragma HLS array_partition variable=query_string_comp type=block dim=1 factor=8

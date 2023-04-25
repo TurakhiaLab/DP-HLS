@@ -9,9 +9,9 @@
 #include <iostream>
 #include "ap_int.h"
 #include "ap_fixed.h"
+#include <hls_stream.h>
 
-
-using namespace std;
+using namespace hls;
 
 int main() {
 
@@ -19,8 +19,8 @@ int main() {
 
     char reference_string[N_BLOCKS][ref_length];
     char query_string[N_BLOCKS][query_length];
-    ap_uint<2> reference_string_comp[N_BLOCKS][ref_length];
-    ap_uint<2> query_string_comp[N_BLOCKS][query_length];
+    stream<ap_uint<2>, ref_length> reference_string_comp[N_BLOCKS];
+    stream<ap_uint<2>, query_length> query_string_comp[N_BLOCKS];
 
     char alphabet[4] = { 'A', 'C', 'G', 'T' };
 
@@ -54,7 +54,7 @@ int main() {
                 symb = 3;
                 break;
             }
-            reference_string_comp[block_i][p] = symb;
+            reference_string_comp[block_i].write(symb);
 
         }
     }
@@ -77,7 +77,7 @@ int main() {
                 symb = 3;
                 break;
             }
-            query_string_comp[block_i][p] = symb;
+            query_string_comp[block_i].write(symb);
         }
     }
 
