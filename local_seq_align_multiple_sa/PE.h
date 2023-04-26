@@ -1,18 +1,17 @@
 #include "params.h"
-#include <ap_shift_reg.h>
 #include <hls_stream.h>
 #include <ap_int.h>
 #include <ap_fixed.h>
-
+#include "shift_reg.h"
 
 #ifndef PE_H
 #define PE_H
 
 class PE {
 public:
+	ShiftRegister<type_t, 2> score_reg;
 
 	PE(void);
-	PE(ap_shift_reg<type_t, 2> score_reg);
 
 	void compute(void);
 
@@ -20,34 +19,33 @@ public:
 
 private:
 	// this is used to hold temporary score before shifting. 
-	type_t score;
-	ap_shift_reg<type_t, 2> *score_reg;
+	type_t score;  // temporary score is set to be private to prevent cross access to supposed independant cells in a wavefront
 
 };
 
 class LinearPE : public PE {
 public:
-	LinearPE(ap_shift_reg<type_t, 2> score_reg);
+	ShiftRegister<type_t, 2> score_reg;
+
+	LinearPE(void);
 
 	void update();
 
 	void compute(ap_uint<2> local_ref_val, ap_uint<2> local_query_val,
-		type_t up_prev, type_t left_prev, type_t diag_prev,
-		ap_shift_reg<type_t, 3>& score,
+		ShiftRegister<type_t, 2> &up_score,
 		type_t* final);
 
 private:
 	type_t score;
-	ap_shift_reg<type_t, 2> *score_reg;
 
 };
 
 
 class AffinePE : public PE {
 public:
-	ap_shift_reg<type_t, 2> score_reg;
-	ap_shift_reg<type_t, 1> Ix_reg;
-	ap_shift_reg<type_t, 1> Iy_reg;
+	ShiftRegister<type_t, 2> score_reg;
+	ShiftRegister<type_t, 1> Ix_reg;
+	ShiftRegister<type_t, 1> Iy_reg;
 
 	AffinePE(void);
 
@@ -58,8 +56,8 @@ public:
 	void update();
 
 	void compute(ap_uint<2> local_ref_val, ap_uint<2> local_query_val,
-		ap_shift_reg<type_t, 2>& score_up,
-		ap_shift_reg<type_t, 1>& Ix_up,
+		ShiftRegister<type_t, 2>& score_up,
+		ShiftRegister<type_t, 1>& Ix_up,
 		type_t* final);
 
 private:

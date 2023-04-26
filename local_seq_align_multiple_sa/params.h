@@ -8,10 +8,10 @@
 #define mismatch_score -1
 #define match_score 2
 
-#define query_length 128
-#define ref_length 128
+#define query_length 1024
+#define ref_length 1024
 
-#define PE_num 8
+#define PE_num 32
 
 #define numofreads 1
 

@@ -15,8 +15,8 @@ using namespace hls;
 //typedef ap_int<16> type_t;
 
 extern "C" {
-	void seq_align_multiple(stream<ap_uint<2>, query_length> query_string_comp_blocks[N_BLOCKS],
-		stream<ap_uint<2>, ref_length> reference_string_comp_blocks[N_BLOCKS],
+	void seq_align_multiple(stream<ap_uint<2>, query_length> (&query_string_comp_blocks)[N_BLOCKS],
+		stream<ap_uint<2>, ref_length> (&reference_string_comp_blocks)[N_BLOCKS],
 		type_t dummies[N_BLOCKS]);
 }
 
