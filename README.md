@@ -17,14 +17,14 @@ We plan to accelerate and implement major important algorithms based on dynamic 
 
 Modify the parameters in `params.h` file as per your use-case before running our code. Currently our code generates random query and reference sequences as the inputs. You can configure this by reading the sequences from an input file in `seq_align_test.cpp`
 
-Select a device and clock frequency before synthesizing the code in Xilinx Vitis HLS.
+Create a project in Xilinx Vitis HLS tool and select our code as source files. Select a device and clock frequency, then synthesize the code. Follow the steps for synthesizing the code from [their documentation](https://docs.xilinx.com/r/en-US/ug1399-vitis-hls/Using-Vitis-HLS).
 
 ## <a name="results"></a> Results
 
 Currently our code performs local sequence alignment using Smith Waterman algorithm with affine gap penalty. 
 
 **HLS Tool**: Xilinx Vitis HLS<br>
-**Device**: Zynq UltraScale+ MPSoC (xczu7ev-ffvc1156-2-i)
+**Device**: Zynq UltraScale+ MPSoC (xczu7ev-ffvc1156-2-i) <br>
 **Frequency**: 250 MHz <br>
 **Length of the reference sequence (ref_length)**: 1024 <br> 
 **Length of the query sequence (query_length)**: 1024 <br>
