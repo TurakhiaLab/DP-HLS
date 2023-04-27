@@ -21,7 +21,7 @@ Create a project in Xilinx Vitis HLS tool and select our code as source files. S
 
 ## <a name="results"></a> Results
 
-Currently our code performs local sequence alignment using Smith Waterman algorithm with affine gap penalty. 
+Currently our code performs local sequence alignment using Smith Waterman algorithm with affine gap penalty (we do not perform traceback now. Support for traceback will be added soon)
 
 **HLS Tool**: Xilinx Vitis HLS<br>
 **Device**: Zynq UltraScale+ MPSoC (xczu7ev-ffvc1156-2-i) <br>
