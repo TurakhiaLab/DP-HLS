@@ -19,8 +19,8 @@ int main() {
 
     char reference_string[N_BLOCKS][ref_length];
     char query_string[N_BLOCKS][query_length];
-    stream<ap_uint<2>, ref_length> reference_string_comp[N_BLOCKS];
-    stream<ap_uint<2>, query_length> query_string_comp[N_BLOCKS];
+    hls::stream<ap_uint<2>, ref_length> reference_string_comp[N_BLOCKS];
+    hls::stream<ap_uint<2>, query_length> query_string_comp[N_BLOCKS];
 
     char alphabet[4] = { 'A', 'C', 'G', 'T' };
 

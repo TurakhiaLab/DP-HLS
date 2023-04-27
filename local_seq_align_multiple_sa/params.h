@@ -1,6 +1,6 @@
-#define opening_score -1
-#define extend_score -1
-#define mismatch_score -1
+#define opening_score -2
+#define extend_score -2
+#define mismatch_score -2
 #define match_score 2
 
 #define query_length 1024

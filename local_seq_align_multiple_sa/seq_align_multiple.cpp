@@ -69,7 +69,7 @@ void PE(ap_uint<2> local_ref_val, ap_uint<2> local_query_val, type_t up_prev, ty
 
 }
 
-void seq_align(stream<ap_uint<2>, query_length> &query_stream, stream<ap_uint<2>, ref_length> &reference_stream, type_t *dummy) {
+void seq_align(hls::stream<ap_uint<2>, query_length> &query_stream, hls::stream<ap_uint<2>, ref_length> &reference_stream, type_t *dummy) {
 
 
 	//*dummy = (query[query_length-1] == reference[ref_length-1])?1:5;
@@ -134,7 +134,7 @@ void seq_align(stream<ap_uint<2>, query_length> &query_stream, stream<ap_uint<2>
 #pragma HLS ARRAY_PARTITION variable=dp_mem dim=0 complete
 #pragma HLS ARRAY_PARTITION variable=Iy_mem dim=0 complete
 #pragma HLS ARRAY_PARTITION variable=Ix_mem dim=0 complete
-#pragma HLS ARRAY_PARTITION variable=dp_matrix dim=1 cyclic factor=16
+#pragma HLS ARRAY_PARTITION variable=dp_matrix dim=1 cyclic factor=32
 #pragma HLS ARRAY_PARTITION variable=local_reference cyclic dim=1 factor=32
     // ap_uint<2> local_query[PE_num];  // each PE process a element in query
 
@@ -233,8 +233,8 @@ void seq_align(stream<ap_uint<2>, query_length> &query_stream, stream<ap_uint<2>
 */
 }
 
-void seq_align_multiple(stream<ap_uint<2>, query_length> (&query_string_comp)[N_BLOCKS],
-                        stream<ap_uint<2>, ref_length> (&reference_string_comp)[N_BLOCKS],
+void seq_align_multiple(hls::stream<ap_uint<2>, query_length> (&query_string_comp)[N_BLOCKS],
+                        hls::stream<ap_uint<2>, ref_length> (&reference_string_comp)[N_BLOCKS],
                                type_t dummies[N_BLOCKS]){
 
 #pragma HLS INTERFACE mode=axis port=query_string_comp
