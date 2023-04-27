@@ -167,6 +167,13 @@ compute_block:
 		}
 	}
 
+// Need to clean the rest of the FIFO or the CoSim would hang
+	for (int i = 0; i < ref_length; i++) {
+#pragma HLS unroll
+		last_pe_score[(query_chunks + 1) % 2].read();
+		last_pe_score_Ix[(query_chunks+1) % 2].read();
+		ab_reference_stream[(query_chunks + 1) % 2].read();
+	}
 
 	type_t max_dp = 0;
 	int max_row_value;
