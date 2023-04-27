@@ -18,15 +18,20 @@ void SeqAlign::align(stream<ap_uint<2>, query_length> &query_stream, stream<ap_u
 
 	type_t temp = 0;
 
+	// those registers are used to hold the last_pe_score values so it can be passed into the first PE. 
+	// The first PE has the parameter of the type ShiftRegister<type_t, 2>
 	ShiftRegister<type_t, 2> phoney_pe;
-	ShiftRegister<type_t, 1> phoney_pe_Ix;
+	ShiftRegister<type_t, 1> phoney_pe_Ix; 
 
 	type_t dp_matrix[query_length][ref_length];  // declare dp matrix
 
+	// declare the last_pe_score even and odd fifo, because 
+	// a process cannot read and write to the same fifo. 
 	stream<ap_fixed<M, N>, ref_length> last_pe_score[2];
 	stream<ap_fixed<M, N>, ref_length> last_pe_score_Ix[2];
-	stream<ap_fixed<M, N>, ref_length> ab_reference_stream[2];
+	stream<ap_fixed<M, N>, ref_length> ab_reference_stream[2];  // we need to backup reference stream after processing each chunk
 
+	// initialize the last_pe_score fifo
 	for (int i = 0; i < ref_length; i++) {
 		last_pe_score[0].write(zero_fp);
 		last_pe_score_Ix[0].write(zero_fp);
@@ -43,47 +48,42 @@ void SeqAlign::align(stream<ap_uint<2>, query_length> &query_stream, stream<ap_u
 
 #pragma HLS ARRAY_PARTITION variable=dp_matrix dim=1 cyclic factor=16
 
-	ShiftRegister<ap_uint<2>, PE_num> query;  // each PE process a element in query
-	ShiftRegister<ap_uint<2>, PE_num> reference;  // create local reference
+	ShiftRegister<ap_uint<2>, PE_num> query;  // query shift register is used to hold a segment of query
+	ShiftRegister<ap_uint<2>, PE_num> reference;  // reference shift register is used to hold a segment of reference
 
-	AffinePE PE_group[PE_num];
+	AffinePE PE_group[PE_num];  // declare PE_num PEs in an array
+
 #pragma HLS ARRAY_PARTITION variable=PE_group dim=1 type=complete
 
-	// Start Streaming Out the DPMatrix From the Compute Block Middle Loop!
 
-
-	// iterating through the chunks of the larger dp matrix
+	// iterating through the chunks
 compute_block:
 	for (int qq = 0; qq < query_chunks; qq++) {
 
 
-		int predicate = 1;
+		int predicate = 1;  // used to index the pre-triangles and post-triangles
 
-		// query_chunks = query_length/PE_num
-		// iterating through every wavefront
 
 		// beginning loops
 	compute_row_pre:
 		for (int ii = 0; ii < PE_num; ii++) {
 #pragma HLS PIPELINE II=1
 
-			reference.shift(ab_reference_stream[qq % 2].read());  // update reference shift register
-			ab_reference_stream[(qq+1) % 2].write(reference[0]);  // copy the reference stream
+			reference.shift(ab_reference_stream[qq % 2].read());  // populate the reference shift register, one element per iteration of the wavefront. 
+			ab_reference_stream[(qq+1) % 2].write(reference[0]);  // backup the reference stream
 
 
-			phoney_pe.shift(last_pe_score[qq % 2].read());
+			phoney_pe.shift(last_pe_score[qq % 2].read());  // populate the phoney registers for PE[0]
 			phoney_pe_Ix.shift(last_pe_score_Ix[qq % 2].read());
 			
-			query.shift(query_stream.read());
+			query.shift(query_stream.read());  // populate the query stream
 
 
-			PE_group[0].compute(reference[0], query[0], phoney_pe, phoney_pe_Ix, &dp_matrix[qq * PE_num][ii]);
+			PE_group[0].compute(reference[0], query[0], phoney_pe, phoney_pe_Ix, &dp_matrix[qq * PE_num][ii]);  // PE[0] compute
 
 
-			//ap_uint<2> reference_read = reference.read();
-			//local_reference.shift(reference_read);  // shift one element to the local reference for each wavefront
 
-		pe_expand_pre:
+		pe_expand_pre:  // compute with the rest of the PEs
 			for (int kk = 1; kk < PE_num; kk++) {
 #pragma HLS UNROLL
 
@@ -91,6 +91,7 @@ compute_block:
 					PE_group[kk-1].Ix_reg, &dp_matrix[kk + qq * PE_num][ii - kk]);
 			}
 
+			// update the PE[s] accordingly. 
 			for (int kk = 0; kk < predicate; kk++) {
 #pragma HLS unroll factor=PE_num
 				PE_group[kk].update();
@@ -106,7 +107,7 @@ compute_block:
 
 #pragma HLS PIPELINE II=1
 
-			//local_reference.shift(reference.read());  // shift one element to the local reference for each wavefront
+
 			reference.shift(ab_reference_stream[qq % 2].read());  // update reference shift register
 			ab_reference_stream[(qq+1) % 2].write(reference[0]);  // copy the reference stream
 
@@ -116,7 +117,7 @@ compute_block:
 
 			PE_group[0].compute(reference[0], query[0], phoney_pe, phoney_pe_Ix, &dp_matrix[qq * PE_num][ii]);
 
-			//temp = last_pe_score.read();
+
 
 		pe_expand_mid:
 			for (int kk = 1; kk < PE_num - 1; kk++) {  // for each PE, indexed by kk
@@ -134,10 +135,6 @@ compute_block:
 
 			last_pe_score[(qq+1) % 2].write(PE_group[PE_num - 1].score_reg[0]);
 			last_pe_score_Ix[(qq+1) % 2].write(PE_group[PE_num - 1].Ix_reg[0]);
-
-			//last_pe_score.write(dp_mem[PE_num - 1].read(0));
-			//last_pe_scoreIx.write(Ix_mem[PE_num - 1].read(0));
-
 		}
 
 		predicate = 1;
@@ -150,7 +147,7 @@ compute_block:
 			query.shift(0);
 
 		pe_expand_post:
-			for (int kk = 1; kk < PE_num; kk++) {  // for each PE, indexed by kk
+			for (int kk = 1; kk < PE_num; kk++) {  
 #pragma HLS UNROLL
 
 				PE_group[kk].compute(reference[kk], query[kk], PE_group[kk-1].score_reg,

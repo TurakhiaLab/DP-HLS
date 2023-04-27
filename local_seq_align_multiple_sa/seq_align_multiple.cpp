@@ -20,7 +20,7 @@ using namespace hls;
 /*
  IMPORTANT: the indexing of the shift register is shift from smaller index to larger index.
  */
-extern "C" {
+extern "C" {  // extren "C" indiciates the part is executing on the device. 
 
 	void seq_align_multiple(stream<ap_uint<2>, query_length> (&query_string_comp_blocks)[N_BLOCKS],
 		stream<ap_uint<2>, ref_length> (&reference_string_comp_blocks)[N_BLOCKS],
