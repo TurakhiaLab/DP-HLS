@@ -66,7 +66,7 @@ compute_block:
 
 		// beginning loops
 	compute_row_pre:
-		for (int ii = 0; ii < PE_num; ii++) {
+		for (int ii = 0; ii < PE_num - 1; ii++) {
 #pragma HLS PIPELINE II=1
 
 			reference.shift(ab_reference_stream[qq % 2].read());  // populate the reference shift register, one element per iteration of the wavefront. 
@@ -103,7 +103,7 @@ compute_block:
 
 		// shifting while no predicate change is needed
 		compute_row_mid:
-		for (int ii = PE_num; ii < ref_length; ii++) {  // ii index wavefront
+		for (int ii = PE_num - 1; ii < ref_length; ii++) {  // ii index wavefront  32 - 1024 iterations
 
 #pragma HLS PIPELINE II=1
 
@@ -120,7 +120,7 @@ compute_block:
 
 
 		pe_expand_mid:
-			for (int kk = 1; kk < PE_num - 1; kk++) {  // for each PE, indexed by kk
+			for (int kk = 1; kk < PE_num; kk++) {  // for each PE, indexed by kk
 #pragma HLS UNROLL
 
 				PE_group[kk].compute(reference[kk], query[kk], PE_group[kk].score_reg,
