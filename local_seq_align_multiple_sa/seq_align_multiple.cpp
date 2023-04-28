@@ -18,14 +18,14 @@ using namespace hls;
 // requires a completely partition array into it
 template <class T>
 void shift(T (&arr)[PE_num], T data){
-    for (int i = 1; i < PE_num; i++){
+    for (int i = 0; i < PE_num-1; i++){
 #pragma HLS unroll
-        arr[i] = arr[i-1];
+        arr[i] = arr[i+1];
     }
-    arr[0] = data;
+    arr[PE_num - 1] = data;
 }
 
-void PE(ap_uint<2> local_ref_val, ap_uint<2> local_query_val, type_t up_prev, type_t left_prev, type_t diag_prev,
+void PE(type_char local_ref_val, type_char local_query_val, type_t up_prev, type_t left_prev, type_t diag_prev,
         type_t *score,
         type_t Ix_prev, type_t *Ix,
         type_t Iy_prev, type_t *Iy,
@@ -62,14 +62,16 @@ void PE(ap_uint<2> local_ref_val, ap_uint<2> local_query_val, type_t up_prev, ty
     const type_t match = (local_query_val == local_ref_val) ? diag_prev + match_score : diag_prev + mismatch_score;
 
     const type_t max_value = (((*Iy > *Ix) ? *Iy : *Ix) > match) ? ((*Iy > *Ix) ? *Iy : *Ix) : match;
+    //const type_t max_value = (((a1 > a3) ? a1 : a3) > match) ? ((a1 > a3) ? a1 : a3) : match; //THIS CALCULATES LINEAR GAP SCORES - JUST TO VERIFY THE OUTPUT OF DP MATRIX
 
     *score = (max_value < temp) ? temp : max_value;
 
     *final = *score;
 
+
 }
 
-void seq_align(hls::stream<ap_uint<2>, query_length> &query_stream, hls::stream<ap_uint<2>, ref_length> &reference_stream, type_t *dummy) {
+void seq_align(hls::stream<type_char, query_length> &query_stream, hls::stream<type_char, ref_length> &reference_stream, type_t *dummy) {
 
 
 	//*dummy = (query[query_length-1] == reference[ref_length-1])?1:5;
@@ -83,15 +85,10 @@ void seq_align(hls::stream<ap_uint<2>, query_length> &query_stream, hls::stream<
     type_t last_pe_scoreIx[ref_length];
     
 
-    ShiftRegister<ap_uint<2>, PE_num> query;  // declare shift register for query
-    ShiftRegister<ap_uint<2>, PE_num> reference;
+    ShiftRegister<type_char, PE_num> query;  // declare shift register for query
+    ShiftRegister<type_char, PE_num> reference;
 //#pragma HLS ARRAY_PARTITION variable=query dim=1 complete
 
-    //stream<ap_uint<2>, ref_length> reference_abstream[2];
-
-    //for (int i = 0; i < ref_length; i++){
-    //    reference_abstream[0].write(reference_stream.read());
-    //}
 
     local_dpmem_loop: for (int gg = 0; gg < 3; gg ++){
              for (int ij = 0; ij < PE_num; ij++)
@@ -122,7 +119,9 @@ void seq_align(hls::stream<ap_uint<2>, query_length> &query_stream, hls::stream<
         }
     }
 
-    ap_uint<2> local_reference[ref_length];  // a group of PE process all references by shifting
+    type_char local_reference[ref_length];  // a group of PE process all references by shifting
+
+    printf("streaming reference\n");
 
     for (int i = 0; i < ref_length; i++){
         local_reference[i] = reference_stream.read();
@@ -138,9 +137,6 @@ void seq_align(hls::stream<ap_uint<2>, query_length> &query_stream, hls::stream<
 #pragma HLS ARRAY_PARTITION variable=local_reference cyclic dim=1 factor=32
     // ap_uint<2> local_query[PE_num];  // each PE process a element in query
 
-
-//#pragma HLS ARRAY_PARTITION variable=local_query dim=0 complete  // local query is at PE num so a complete partition assign each PE a distinct memory
-
     // iterating through the chunks of the larger dp matrix
     kernel:
     for (int qq = 0; qq < query_chunks; qq++) {  // query_chunks = query_length/PE_num
@@ -155,17 +151,6 @@ void seq_align(hls::stream<ap_uint<2>, query_length> &query_stream, hls::stream<
         for (int ii = 0; ii < (PE_num + ref_length - 1); ii++) {
 
 #pragma HLS PIPELINE II=1
-//#pragma HLS dependence variable=query type=intra false
-
-
-            //reference.shift(reference_abstream[qq % 2].read());
-            //reference_abstream[(qq+1)%2].write(reference.read(0));
-
-            if (ii < PE_num) {
-                //query.shift(query_stream.read());
-                // local_query[ii] = query[qq * PE_num + ii];  // iterate through the local query as they are in different chunks
-            }
-
 
             // shifting wavefronts
             cbuff:
@@ -220,7 +205,7 @@ void seq_align(hls::stream<ap_uint<2>, query_length> &query_stream, hls::stream<
     type_t max_score = dp_matrix[0][0];
     *dummy = max_score;
 
-    /* printf("\n printing dp matrix\n");
+     /*printf("\n printing dp matrix\n");
 
     for (int r = 0; r < query_length; r ++)
      {
@@ -229,12 +214,12 @@ void seq_align(hls::stream<ap_uint<2>, query_length> &query_stream, hls::stream<
              printf("%d\t", dp_matrix[r][s]);
          }
          printf("\n");
-     }
-*/
+     }*/
+
 }
 
-void seq_align_multiple(hls::stream<ap_uint<2>, query_length> (&query_string_comp)[N_BLOCKS],
-                        hls::stream<ap_uint<2>, ref_length> (&reference_string_comp)[N_BLOCKS],
+void seq_align_multiple(hls::stream<type_char, query_length> (&query_string_comp)[N_BLOCKS],
+                        hls::stream<type_char, ref_length> (&reference_string_comp)[N_BLOCKS],
                                type_t dummies[N_BLOCKS]){
 
 #pragma HLS INTERFACE mode=axis port=query_string_comp

@@ -19,8 +19,8 @@ int main() {
 
     char reference_string[N_BLOCKS][ref_length];
     char query_string[N_BLOCKS][query_length];
-    hls::stream<ap_uint<2>, ref_length> reference_string_comp[N_BLOCKS];
-    hls::stream<ap_uint<2>, query_length> query_string_comp[N_BLOCKS];
+    hls::stream<type_char, ref_length> reference_string_comp[N_BLOCKS];
+    hls::stream<type_char, query_length> query_string_comp[N_BLOCKS];
 
     char alphabet[4] = { 'A', 'C', 'G', 'T' };
 
@@ -38,7 +38,7 @@ int main() {
 
     for (int block_i = 0; block_i < N_BLOCKS; block_i++) {
         for (int p = 0; p < ref_length; p++) {
-            ap_uint<2> symb = 0;
+            type_char symb = 0;
             switch (reference_string[block_i][p])
             {
             case 'A':
@@ -61,7 +61,7 @@ int main() {
 
     for (int block_i = 0; block_i < N_BLOCKS; block_i++) {
         for (int p = 0; p < query_length; p++) {
-            ap_uint<2> symb = 0;
+            type_char symb = 0;
             switch (query_string[block_i][p])
             {
             case 'A':
