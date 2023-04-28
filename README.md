@@ -67,9 +67,9 @@ Currently our code performs local sequence alignment using Smith Waterman algori
         <tr>
       <td rowspan="2">Affine</td>
       <td><input type="text" />Non Banded</td>
-      <td><input type="text" /></td>
-	 <td><input type="text" /></td>
-	  <td><input type="text" /></td>
+      <td><input type="text" />16590</td>
+	 <td><input type="text" />47526</td>
+	  <td><input type="text" />144</td>
     </tr>
     <tr>
       <td><input type="text" />Banded</td>
