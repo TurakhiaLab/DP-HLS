@@ -12,12 +12,12 @@ public:
     };
 
     void shift(T input){
-        for (int i = 1; i < LEN; i++){
+        for (int i = 0; i < LEN-1; i++){
 #pragma HLS unroll
             // expect to be done within one cycle
-            data[i] = data[i-1];
+            data[i] = data[i+1];
         }
-        data[0] = input;
+        data[LEN-1] = input;
     };
 
 private:
