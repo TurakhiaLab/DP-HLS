@@ -1,9 +1,3 @@
-/*
-* This file contains the definition of my own shift register class. 
-* It is a header only class. Include the header and use directly. 
-* 
-*/
-
 #ifndef SHIFT_REGISTER_H
 #define SHIFT_REGISTER_H
 

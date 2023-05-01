@@ -22,5 +22,12 @@
 
 
 #define N_BLOCKS 8
+
+typedef ap_uint<2> char_t;
 typedef ap_fixed<M, N> type_t;  // alias type_t with ap_fixed<M,N>
+
+enum tbp_t {
+	TB_LEFT, TB_DIAG, TB_UP, TB_IX, TB_IY
+};
+
 #endif
