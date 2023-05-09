@@ -8,6 +8,8 @@
 
 using namespace hls;
 
+
+
 PE::PE(void)
 {
     this->score = 0;
@@ -24,26 +26,39 @@ LinearPE::LinearPE(void)
     this->score = 0;
 }
 
-void LinearPE::update()
+tbp_t LinearPE::update()
 {
     this->score_reg.shift(this->score);
+    this->compute_cnt  += 1;
+    return this->tb_ptr;
 }
 
 void LinearPE::compute(ap_uint<2> local_ref_val, ap_uint<2> local_query_val,
-    ShiftRegister<type_t, 2>& up_score,
-    type_t* final) {
-#pragma HLS inline
+    ShiftRegister<type_t, 2>& up_score) {
 
-    type_t d = opening_score + this->score_reg[0];
-    type_t i = opening_score + up_score[0];
-    type_t temp_pe = 0;
+    if (local_query_val == 0){
+        const type_t left = this->score[0] + opening_score;
+        const type_t up = up_score[0] + opening_score;
+        
+        type_t max_value = (left > up) ? left : up;
+        tbp_t tb_pointer = (left > up) ? TB_LEFT : TB_UP;
 
-    type_t match = (local_query_val == local_ref_val) ? up_score[1] + match_score : up_score[1] + mismatch_score;
 
-    type_t max_value = (((d > i) ? d : i) > match) ? ((d > i) ? d : i) : match;
+        type_t match = (local_query_val == local_ref_val) ? up_score[1] + match_score : up_score[1] + mismatch_score;
+        max_value = (max_value > match) ? max_value : match;
+        tb_pointer = (max_value > match) ? tb_pointer : (tbp_t) TB_DIAG;
 
-    *final = this->score = (max_value < temp_pe) ? temp_pe : max_value;
+        this->score = max_value;
+        this->tb_ptr = tb_pointer;
 
+        if (this->pe_max_score < max_value) {
+            this->pe_max_score = max_value;
+            this->pe_max_score_cnt = this->compute_cnt;
+        }
+    } else {
+        this->score = zero_fp;
+        this->tb_ptr = TB_PH;
+    }
 }
 
 
@@ -53,7 +68,8 @@ AffinePE::AffinePE(void)
     this->score = 0;
     this->Ix = 0;
     this->Iy = 0;
-    this->PEIdx = 0;
+    // this->PEIdx = 0;
+    // this->tb_line_ct = 0;
 }
 
 AffinePE::AffinePE(char PEIdx)
@@ -61,9 +77,10 @@ AffinePE::AffinePE(char PEIdx)
     this->score = 0;
     this->Ix = 0;
     this->Iy = 0;
-    this->PEIdx = PEIdx;
-    this->curr_row = PEIdx;
-    this->curr_col = 0;
+    // this->PEIdx = PEIdx;
+    // this->curr_row = PEIdx;
+    // this->curr_col = 0;
+    // this->tb_line_ct = 0;
 }
 
 void AffinePE::compute(ap_uint<2> local_ref_val, ap_uint<2> local_query_val,
@@ -89,24 +106,24 @@ void AffinePE::compute(ap_uint<2> local_ref_val, ap_uint<2> local_query_val,
     const type_t match = (local_query_val == local_ref_val) ? score_up[1] + match_score : score_up[1] + mismatch_score;
     const type_t max_value = (((this->Iy > this->Ix) ? this->Iy : this->Ix) > match) ? ((this->Iy > this->Ix) ? this->Iy : this->Ix) : match;
 
-    this->traceback_ptr = (((this->Iy > this->Ix) ? tb_Iy : tb_Ix) > match) ? ((this->Iy > this->Ix) ? tb_Iy : tb_Ix) : TB_DIAG;  // update the traceback pointer filed
+    this->tb_pointer = (((this->Iy > this->Ix) ? this->Iy : this->Ix) > match) ? ((this->Iy > this->Ix) ? tb_Iy : tb_Ix) : (tbp_t) TB_DIAG;  // update the traceback pointer filed
 
     if (max_value > this->max_score) {  // set the max value of a PE
-        this->max_row = this->curr_row;
-        this->max_col = this->curr_col;
+        // this->max_row = this->curr_row;
+        // this->max_col = this->curr_col;
         this->max_score = max_value;
     }
 }
 
 void AffinePE::nextChunk()
 {
-    this->curr_row += PE_num;
+    // this->curr_row += PE_num;
 }
 
-void AffinePE::update(stream<tbp_t, ref_length* query_length / PE_num>& tbp_out) {
+tbp_t AffinePE::update() {
     this->score_reg.shift(this->score);
     this->Ix_reg.shift(this->Ix);
     this->Iy_reg.shift(this->Iy);
-    this->curr_col += 1;
-    tbp_out.write(this->traceback_ptr);
+    // this->curr_col += 1;
+    return this->tb_pointer;
 }

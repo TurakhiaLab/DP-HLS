@@ -12,6 +12,9 @@
 #include <hls_stream.h>
 #include "PE.h"
 #include "seq_align.h"
+
+
+
 // Link to vitis_hls/2022.2/include
 
 //using namespace std;
@@ -24,14 +27,15 @@ extern "C" {
 
 	void seq_align_multiple(stream<ap_uint<2>, query_length> (&query_string_comp_blocks)[N_BLOCKS],
 		stream<ap_uint<2>, ref_length> (&reference_string_comp_blocks)[N_BLOCKS],
+		stream<tbp_t, ref_length + query_length> (&tb_streams)[N_BLOCKS],
 		type_t dummies[N_BLOCKS]) {
 
 #pragma HLS INTERFACE axis port=query_string_comp_blocks
 #pragma HLS INTERFACE axis port=reference_string_comp_blocks
+#pragma HLS INTERFACE axis port=tb_streams
 
-
-#pragma HLS array_partition variable=query_string_comp_blocks type=block factor=N_BLOCKS dim=1
-#pragma HLS array_partition variable=reference_string_comp_blocks type=block factor=N_BLOCKS dim=1
+#pragma HLS array_partition variable=query_string_comp_blocks type=block factor=8 dim=1
+#pragma HLS array_partition variable=reference_string_comp_blocks type=block factor=8 dim=1
 
 
 
@@ -42,7 +46,6 @@ extern "C" {
 
 		// create alignment group
 		SeqAlign align_group[N_BLOCKS];
-#pragma HLS array_partition variable=align_group dim=1 type=complete
 
 		// to be unrolled
 		align_expand:
@@ -50,6 +53,7 @@ extern "C" {
 #pragma HLS unroll
 			align_group[block_i].align(query_string_comp_blocks[block_i],
 				reference_string_comp_blocks[block_i],
+				tb_streams[block_i],
 				dummies_inner[block_i]);
 		}
 

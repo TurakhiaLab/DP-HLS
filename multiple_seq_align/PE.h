@@ -3,6 +3,7 @@
 #include <ap_int.h>
 #include <ap_fixed.h>
 #include "shift_reg.h"
+#include <hls_streamofblocks.h>
 
 #ifndef PE_H
 #define PE_H
@@ -25,18 +26,22 @@ private:
 
 class LinearPE : public PE {
 public:
+
+	type_t pe_max_score;
+	int compute_cnt;
+	int pe_max_score_cnt;  // this is used to hold the location of the max score
 	ShiftRegister<type_t, 2> score_reg;
 
 	LinearPE(void);
 
-	void update();
+	tbp_t update();
 
 	void compute(ap_uint<2> local_ref_val, ap_uint<2> local_query_val,
-		ShiftRegister<type_t, 2>& up_score,
-		type_t* final);
+		ShiftRegister<type_t, 2>& up_score);
 
 private:
 	type_t score;
+	tbp_t tb_ptr;
 
 };
 
@@ -48,8 +53,7 @@ public:
 	ShiftRegister<type_t, 1> Iy_reg;
 
 	type_t max_score;
-	ap_uint<16> max_row;
-	ap_uint<16> max_col;
+	type_t *max_score_ptr;
 
 	AffinePE(void);
 
@@ -59,11 +63,12 @@ public:
 	//ap_shift_reg<type_t, 1> &Ix_reg,
 	//ap_shift_reg<type_t, 1> &Iy_reg);
 
-	void update(hls::stream<tbp_t, ref_length* query_length / PE_num>& tbp_out);
+	tbp_t update();
 
 	void compute(ap_uint<2> local_ref_val, ap_uint<2> local_query_val,
 		ShiftRegister<type_t, 2>& score_up,
 		ShiftRegister<type_t, 1>& Ix_up);
+
 
 	void nextChunk();
 
@@ -71,13 +76,7 @@ private:
 	type_t score;
 	type_t Ix;
 	type_t Iy;
-	tbp_t traceback_ptr;  // hold the traceback ptr of a compute call
-
-	char PEIdx;
-	ap_uint<16> curr_row;
-	ap_uint<16> curr_col;
-
-
+	tbp_t tb_pointer;  // hold the traceback ptr of a compute call
 };
 #endif // !PE_H
 

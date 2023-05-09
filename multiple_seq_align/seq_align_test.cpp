@@ -21,6 +21,7 @@ int main() {
     char query_string[N_BLOCKS][query_length];
     stream<ap_uint<2>, ref_length> reference_string_comp[N_BLOCKS];
     stream<ap_uint<2>, query_length> query_string_comp[N_BLOCKS];
+    stream<tbp_t, ref_length+query_length> tb_streams[N_BLOCKS];
 
     char alphabet[4] = { 'A', 'C', 'G', 'T' };
 
@@ -83,7 +84,7 @@ int main() {
 
     type_t dummies[N_BLOCKS];
 
-    seq_align_multiple(query_string_comp, reference_string_comp, (&dummies)[N_BLOCKS]);
+    seq_align_multiple(query_string_comp, reference_string_comp, tb_streams, (&dummies)[N_BLOCKS]);
 
     return 0;
 
