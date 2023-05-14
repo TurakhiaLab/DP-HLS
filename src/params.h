@@ -3,6 +3,7 @@
 
 #include <ap_fixed.h>
 
+#define linear_gap_penalty -1
 #define opening_score -1
 #define extend_score -1
 #define mismatch_score -1
@@ -32,7 +33,7 @@
 #define	TB_IX 4
 #define	TB_IY 5
 
-#define zero_fp 0
+
 
 #define TB_LINE_SIZE 64  // This defines the length of a line of TB pointers. Must be larger than PE_num
 
@@ -41,6 +42,17 @@ typedef ap_fixed<M, N> type_t;  // alias type_t with ap_fixed<M,N>
 
 typedef ap_uint<2> tbp_t;
 typedef ap_uint<3> tbp_line_t[TB_LINE_SIZE];
+
+#define zero_fp (type_t) 0
+
+#define corner_case 1
+
+#define query_chunks query_length / PE_num
+#define extra_PE_num query_length % PE_num
+
+// inflated ones takes care of corner case scenarios
+#define inflated_query_length query_chunks *PE_num + corner_case *PE_num
+#define inflated_query_chunks query_chunks + corner_case
 
 //enum tbp_t {
 //	TB_LEFT,

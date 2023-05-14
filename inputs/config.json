@@ -1,0 +1,40 @@
+{
+  "project_name": "sample_project",
+  "project_directory": "/home/yic033@AD.UCSD.EDU/DP-HLS/outputs",
+
+  "kernel": {
+    "inputs": {
+      "query_length": 1024,
+      "reference_length": 1024
+    },
+    "processing_element": {
+      "type": "affine",
+      "number": 32
+    },
+    "align_block": {
+      "type": "local",
+      "number": 8
+    },
+    "traceback": {
+      "do_traceback": "true",
+      "pointer_bits": 2
+    },
+    "panelties": {
+      "linear_gap_penalty": -1,
+      "match": 1,
+      "mismatch": -1,
+      "gap_open": -1,
+      "gap_extend": -1
+    }
+  },
+  "vitis_project": {
+    "platform": "xilinx_u280_xdma_201920_3",
+    "clock_period": "4ns"
+  },
+  "vitis_hls": {
+    "vitis_hls_home": "/home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS",
+    "env": {
+      "LD_PRELOAD": "/home/chye@AD.UCSD.EDU/libtinfo.so.5.9"
+    }
+  }
+}
