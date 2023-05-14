@@ -76,7 +76,6 @@ private:
 	type_t Iy;
 	tbp_t tb_pointer; // hold the traceback ptr of a compute call
 };
-#endif // !PE_H
 
 class PEGlobalLinear : PE
 {
@@ -110,5 +109,7 @@ public:
 				 type_t Iy_prev, type_t *Iy,
 				 ap_uint<3> *traceback);
 };
+
+#endif // !PE_H
 
 // Static data members are shared by all instances of a class.

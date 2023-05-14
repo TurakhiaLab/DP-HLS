@@ -17,7 +17,7 @@
     },
     "traceback": {
       "do_traceback": "true",
-      "pointer_bits": 2
+      "pointer_bits": 3
     },
     "panelties": {
       "linear_gap_penalty": -1,
