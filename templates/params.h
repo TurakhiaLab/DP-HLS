@@ -3,16 +3,16 @@
 
 #include <ap_fixed.h>
 
-#define linear_gap_penalty -1
-#define opening_score -1
-#define extend_score -1
-#define mismatch_score -1
-#define match_score 2
+#define linear_gap_penalty {{ linear_gap_panelty }};
+#define opening_score {{ opening_score }};
+#define extend_score {{ extend_score }};
+#define mismatch_score {{ mismatch_score }};
+#define match_score {{ match_score }};
 
-#define query_length 1024
-#define ref_length 1024
+#define query_length {{ query_length }};
+#define ref_length {{ reference_length }};
 
-#define PE_num 32
+#define PE_num {{ pe_num }};
 
 #define numofreads 1
 
@@ -40,7 +40,7 @@
 typedef ap_uint<2> char_t;
 typedef ap_fixed<M, N> type_t;  // alias type_t with ap_fixed<M,N>
 
-typedef ap_uint<2> tbp_t;
+typedef ap_uint<{{ traceback_bits }}> tbp_t;
 typedef ap_uint<3> tbp_line_t[TB_LINE_SIZE];
 
 #define zero_fp (type_t) 0
@@ -53,6 +53,9 @@ typedef ap_uint<3> tbp_line_t[TB_LINE_SIZE];
 // inflated ones takes care of corner case scenarios
 #define inflated_query_length query_chunks *PE_num + corner_case *PE_num
 #define inflated_query_chunks query_chunks + corner_case
+
+#define ALIGN_TYPE {{ aligh_type }}
+#define PE_TYPE {{ pe_type }};
 
 //enum tbp_t {
 //	TB_LEFT,

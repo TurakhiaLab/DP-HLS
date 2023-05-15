@@ -34,6 +34,7 @@
 #define	TB_IY 5
 
 
+#define ALIGN_TYPE SeqAlign
 
 #define TB_LINE_SIZE 64  // This defines the length of a line of TB pointers. Must be larger than PE_num
 

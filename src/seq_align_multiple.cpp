@@ -45,7 +45,7 @@ extern "C" {
 #pragma HLS array_partition variable=dummies_inner type=complete
 
 		// create alignment group
-		SeqAlign align_group[N_BLOCKS];
+		ALIGN_TYPE align_group[N_BLOCKS];
 
 		// to be unrolled
 		align_expand:
