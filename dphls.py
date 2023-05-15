@@ -1,8 +1,9 @@
-import argparse
+import argparse, shutil
 import json
 from jinja2 import Environment, FileSystemLoader
 import os
 import subprocess
+
 
 def main():
     parser = argparse.ArgumentParser(prog="dphls",
@@ -45,15 +46,16 @@ def write_source(config):
     """
     Write the source files for the project using the templates
     """
-    output_src_dir = os.path.join(config['project_directory'], 'src')
+    output_home = config['output_directory']
+    output_src_dir = os.path.join(output_home, 'src')
     os.makedirs(output_src_dir, exist_ok=True)
-    vitis_project_dir = os.path.join(config['project_directory'], 'vitis')
+    vitis_project_dir = os.path.join(output_home, 'vitis')
 
     # load template
     environment = Environment(loader=FileSystemLoader("templates/"))
 
     # define params.h
-    template = environment.get_template("params.h")
+    template = environment.get_template("src/params.h")
     kernel = config['kernel']
     inputs = kernel['inputs']
     processing_element = kernel['processing_element']
@@ -98,8 +100,8 @@ def write_source(config):
         num_blocks=align_block['number'],
         traceback_bits=traceback['pointer_bits'],
         # Special Configurable Variables
-        ALIGN_TYPE=align_type,
-        PE_TYPE=pe_type
+        align_type=align_type,
+        pe_type=pe_type
     )
 
     with open(os.path.join(output_src_dir, 'params.h'), mode="w", encoding="utf-8") as params:
@@ -113,10 +115,57 @@ def create_project(config):
     create the vitis hls project
     """
     vitis_home = config['vitis_hls']['vitis_hls_home']
-    # FIXME: don't know whether vitis hls is successfuly invoked or not
-    subprocess.run(['/bin/bash', os.path.join(vitis_home, 'settings64.sh'), '&&', os.path.join(vitis_home, '/bin/vitis_hls')])
+    vitis_project = config['vitis_project']
+    output_home = config['output_directory']
 
+    environment = Environment(loader=FileSystemLoader("templates/"))
+    template = environment.get_template('vitis/project_config.tcl')
 
+    # FIXME: added source files
+    source = ['PE.cpp', 'seq_align.cpp', 'traceback.cpp', 'seq_align_multiple.cpp']
+    source_headers = ['params.h', 'seq_align.h', 'traceback.h', 'seq_align_multiple.h', 'PE.h',
+                      os.path.join('utils', 'loop_counter.h'), os.path.join('utils', 'shift_reg.h')]
+    source = [os.path.join(output_home, 'src', file) for file in source]
+    source_headers = [os.path.join(output_home, 'src', file) for file in source_headers]
+
+    source_str = ''
+    source_header_str = ''
+    for file in source:
+        source_str += file + ' '
+    for file in source_headers:
+        source_header_str += file + ' '
+
+    content = template.render(
+        clock_period=vitis_project['clock_period'],
+        device=vitis_project['device'],
+        project_name=vitis_project['project_name'],
+        solution_name=vitis_project['solution_name'],
+        top_level_function=vitis_project['top_level_function'],
+        project_files=source_str + source_header_str,
+        testbench_files='outputs/testbench/seq_align_test.cpp'
+    )
+
+    with open(os.path.join(output_home, 'vitis', 'project_config.tcl'), mode="w", encoding="utf-8") as script:
+        script.write(content)
+
+    template = environment.get_template('vitis/create_project.tcl')
+    content = template.render(
+        project_config_path=os.path.join(output_home, 'vitis', 'project_config.tcl')
+    )
+    with open(os.path.join(output_home, 'vitis', 'create_project.tcl'), mode="w", encoding="utf-8") as script:
+        script.write(content)
+
+    template = environment.get_template('vitis/vitis_project.sh')
+    content = template.render(
+        path_setting64=os.path.join(vitis_home, 'settings64.sh'),
+        create_project_path=os.path.join(output_home, 'vitis', 'create_project.tcl')
+    )
+    with open(os.path.join(output_home, 'vitis', 'vitis_project.sh'), mode="w", encoding="utf-8") as script:
+        script.write(content)
+
+    os.system(f"chmod +x {os.path.join(output_home, 'vitis', '*.sh')}")
+    # {'LD_PRELOAD'}={config['vitis_hls']['env']['LD_PRELOAD']}
+    os.system(f"/bin/bash {os.path.join(output_home, 'vitis', 'vitis_project.sh')}")
 
     return 0
 

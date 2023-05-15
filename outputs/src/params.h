@@ -3,17 +3,16 @@
 
 #include <ap_fixed.h>
 
-#define linear_gap_penalty -1;
-#define opening_score -1;
-#define extend_score -1;
-#define mismatch_score -1;
-#define match_score 1;
+#define linear_gap_penalty -1
+#define opening_score -1
+#define extend_score -1
+#define mismatch_score -1
+#define match_score 1
 
-#define query_length 512;
-#define ref_length 1024;
+#define query_length 512
+#define ref_length 1024
 
-#define PE_num 32;
-
+#define PE_num 32
 #define numofreads 1
 
 #define query_chunks query_length/PE_num
@@ -23,8 +22,7 @@
 
 #define extra_PE_num query_length%PE_num
 
-#define N_BLOCKS 8;
-
+#define N_BLOCKS 8
 
 #define TB_PH 0  // this is place holder
 #define	TB_LEFT 1
@@ -53,8 +51,8 @@ typedef ap_uint<3> tbp_line_t[TB_LINE_SIZE];
 #define inflated_query_length query_chunks *PE_num + corner_case *PE_num
 #define inflated_query_chunks query_chunks + corner_case
 
-#define ALIGN_TYPE 
-#define PE_TYPE ;
+#define ALIGN_TYPE AlignLocalLinear
+#define PE_TYPE PELocalLinear
 
 //enum tbp_t {
 //	TB_LEFT,

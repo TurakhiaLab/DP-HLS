@@ -1,0 +1,896 @@
+INFO-FLOW: Workspace /home/yic033@AD.UCSD.EDU/DP-HLS/multiple_seq_align/multiple_seq_align opened at Mon May 15 03:19:14 PDT 2023
+Execute     send_msg_by_id INFO @200-1505@%s%s  vivado 
+INFO: [HLS 200-1505] Using flow_target 'vivado'
+Execute     get_config_interface -m_axi_latency 
+Execute     send_msg_by_id INFO @200-435@%s%s 'open_solution -flow_target vivado' config_interface -m_axi_latency=0 
+INFO: [HLS 200-435] Setting 'open_solution -flow_target vivado' configuration: config_interface -m_axi_latency=0
+Execute     config_interface -m_axi_latency=0 
+Execute     get_config_interface -m_axi_alignment_byte_size 
+Execute     get_config_interface -m_axi_max_widen_bitwidth 
+Execute     get_config_interface -default_interface 
+Execute     get_config_rtl -register_reset_num 
+Execute   set_part  xcvu5p-flva2104-1-e  
+INFO: [HLS 200-1510] Running: set_part  xcvu5p-flva2104-1-e  
+Execute     create_platform  xcvu5p-flva2104-1-e  -board  
+DBG:HLSDevice: Trying to load device library: /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/lib/lnx64.o/librdi_hlsvwrap.so
+DBG:HLSDevice: first parts/arch.xml in RDI_DATADIR: /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vivado/2022.1/data/parts/arch.xml
+DBG:HLSDevice: init success
+INFO: [HLS 200-1611] Setting target device to 'xcvu5p-flva2104-1-e'
+Command     create_platform done; 1.19 sec.
+Execute     source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/common/xilinx.gen 
+Execute       source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/interface/plb46.gen 
+Execute       source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/interface/axi4.gen 
+Execute       source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/interface/nativeAXI4.gen 
+Execute         source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/interface/saxilite.gen 
+Execute       source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/scripts/xilinxcoregen.gen 
+Execute       source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/interface/XilEDKCoreGen.gen 
+Execute       source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/ip/xfir.gen 
+Execute       source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/ip/dds_compiler.gen 
+Execute       source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/ip/util.gen 
+Execute       source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/ip/xfft.gen 
+Command       ap_source done; 0.11 sec.
+Execute       source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/DSP48/dsp48.gen 
+Command     ap_source done; 0.14 sec.
+Execute     ap_part_info -name xcvu5p-flva2104-1-e -data info 
+Execute     config_compile -quiet -complex-mul-dsp=0 
+Command   set_part done; 1.33 sec.
+Execute   create_clock -period -name default 
+INFO: [HLS 200-1510] Running: create_clock -period -name default 
+ERROR: [HLS 200-101] 'create_clock': Unknown option 'default'.
+Command   create_clock done; error code: 1; 
+Command ap_source done; error code: 1; 1.36 sec.
+Execute cleanup_all 
+INFO-FLOW: Workspace /home/yic033@AD.UCSD.EDU/DP-HLS/multiple_seq_align/multiple_seq_align opened at Mon May 15 15:48:01 PDT 2023
+Execute           set_part xcvu5p-flva2104-1-e 
+Execute             create_platform xcvu5p-flva2104-1-e -board  
+DBG:HLSDevice: Trying to load device library: /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/lib/lnx64.o/librdi_hlsvwrap.so
+DBG:HLSDevice: first parts/arch.xml in RDI_DATADIR: /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vivado/2022.1/data/parts/arch.xml
+DBG:HLSDevice: init success
+INFO: [HLS 200-1611] Setting target device to 'xcvu5p-flva2104-1-e'
+Command             create_platform done; 0.97 sec.
+Execute             source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/common/xilinx.gen 
+Execute               source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/interface/plb46.gen 
+Execute               source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/interface/axi4.gen 
+Execute               source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/interface/nativeAXI4.gen 
+Execute                 source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/interface/saxilite.gen 
+Execute               source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/scripts/xilinxcoregen.gen 
+Execute               source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/interface/XilEDKCoreGen.gen 
+Execute               source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/ip/xfir.gen 
+Execute               source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/ip/dds_compiler.gen 
+Execute               source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/ip/util.gen 
+Execute               source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/ip/xfft.gen 
+Execute               source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/DSP48/dsp48.gen 
+Command             ap_source done; 0.11 sec.
+Execute             ap_part_info -name xcvu5p-flva2104-1-e -data info 
+Execute             config_compile -quiet -complex-mul-dsp=0 
+Command           set_part done; 1.09 sec.
+Execute           send_msg_by_id INFO @200-1505@%s%s  vivado 
+INFO: [HLS 200-1505] Using flow_target 'vivado'
+Execute           get_config_interface -m_axi_latency 
+Execute           get_config_interface -m_axi_alignment_byte_size 
+Execute           get_config_interface -m_axi_max_widen_bitwidth 
+Execute           get_config_interface -default_interface 
+Execute           get_config_rtl -register_reset_num 
+Execute           send_msg_by_id INFO @200-1464@%s config_interface -m_axi_latency=0 
+INFO: [HLS 200-1464] Running solution command: config_interface -m_axi_latency=0
+Execute           config_interface -m_axi_latency=0 
+Command         open_solution done; 1.1 sec.
+Execute         set_part  xcvu5p-flva2104-1-e  
+INFO: [HLS 200-1510] Running: set_part  xcvu5p-flva2104-1-e  
+Execute           create_platform  xcvu5p-flva2104-1-e  -board  
+Execute           source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/common/xilinx.gen 
+Execute             source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/interface/plb46.gen 
+Execute             source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/interface/axi4.gen 
+Execute             source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/interface/nativeAXI4.gen 
+Execute               source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/interface/saxilite.gen 
+Execute             source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/scripts/xilinxcoregen.gen 
+Execute             source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/interface/XilEDKCoreGen.gen 
+Execute             source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/ip/xfir.gen 
+Execute             source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/ip/dds_compiler.gen 
+Execute             source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/ip/util.gen 
+Execute             source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/ip/xfft.gen 
+Execute             source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/DSP48/dsp48.gen 
+Execute           ap_part_info -name xcvu5p-flva2104-1-e -data info 
+Execute           config_compile -quiet -complex-mul-dsp=0 
+Command         set_part done; 0.11 sec.
+Execute         create_clock -period 4ns -name default 
+INFO: [HLS 200-1510] Running: create_clock -period 4ns -name default 
+Execute           ap_set_clock -name default -period 4 -unit ns -default=false 
+INFO: [SYN 201-201] Setting up clock 'default' with a period of 4ns.
+Command       ap_source done; 1.23 sec.
+Execute       get_project 
+Command     open_tcl_project done; 1.23 sec.
+Command   ap_source done; 1.23 sec.
+INFO-FLOW: Caught error in vitis_hls_bin: divide by zero
+    while executing
+"expr {$cursorLen % $COLUMNS}"
+    ("foreach" body line 6)
+    invoked from within
+"foreach line [split $txt "\n"] {
+        set len [expr {[string length $line]+1}]
+        incr totalLen $len
+        if {$found == 0 && $totalLen >= $..."
+    (procedure "prompt" line 31)
+    invoked from within
+"prompt $CMDLINE"
+    (procedure "tclline" line 108)
+    invoked from within
+"tclline "
+    (procedure "::TclReadLine::interact" line 58)
+    invoked from within
+"::TclReadLine::interact [::AP::get_product_name]"
+    (procedure "ap_internal_vitis_hls_bin" line 155)
+    invoked from within
+"ap_internal_vitis_hls_bin "
+Command vitis_hls_bin done; error code: 2; 1.29 sec.
+ERROR: [HLS 200-70] There is an error calling 'vitis_hls'; try '-help'.
+Execute cleanup_all 
+INFO-FLOW: Workspace /home/yic033@AD.UCSD.EDU/DP-HLS/multiple_seq_align/multiple_seq_align opened at Mon May 15 15:48:41 PDT 2023
+Execute           ap_set_clock -name default -period 4 -unit ns -default=false 
+INFO: [SYN 201-201] Setting up clock 'default' with a period of 4ns.
+Execute           set_part xcvu5p-flva2104-1-e 
+Execute             create_platform xcvu5p-flva2104-1-e -board  
+DBG:HLSDevice: Trying to load device library: /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/lib/lnx64.o/librdi_hlsvwrap.so
+DBG:HLSDevice: first parts/arch.xml in RDI_DATADIR: /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vivado/2022.1/data/parts/arch.xml
+DBG:HLSDevice: init success
+INFO: [HLS 200-1611] Setting target device to 'xcvu5p-flva2104-1-e'
+Command             create_platform done; 0.96 sec.
+Execute             source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/common/xilinx.gen 
+Execute               source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/interface/plb46.gen 
+Execute               source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/interface/axi4.gen 
+Execute               source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/interface/nativeAXI4.gen 
+Execute                 source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/interface/saxilite.gen 
+Execute               source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/scripts/xilinxcoregen.gen 
+Execute               source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/interface/XilEDKCoreGen.gen 
+Execute               source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/ip/xfir.gen 
+Execute               source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/ip/dds_compiler.gen 
+Execute               source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/ip/util.gen 
+Execute               source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/ip/xfft.gen 
+Execute               source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/DSP48/dsp48.gen 
+Command             ap_source done; 0.11 sec.
+Execute             ap_part_info -name xcvu5p-flva2104-1-e -data info 
+Execute             config_compile -quiet -complex-mul-dsp=0 
+Command           set_part done; 1.08 sec.
+Execute           send_msg_by_id INFO @200-1505@%s%s  vivado 
+INFO: [HLS 200-1505] Using flow_target 'vivado'
+Execute           get_config_interface -m_axi_latency 
+Execute           get_config_interface -m_axi_alignment_byte_size 
+Execute           get_config_interface -m_axi_max_widen_bitwidth 
+Execute           get_config_interface -default_interface 
+Execute           get_config_rtl -register_reset_num 
+Execute           send_msg_by_id INFO @200-1464@%s config_interface -m_axi_latency=0 
+INFO: [HLS 200-1464] Running solution command: config_interface -m_axi_latency=0
+Execute           config_interface -m_axi_latency=0 
+Command         open_solution done; 1.08 sec.
+Execute         set_part  xcvu5p-flva2104-1-e  
+INFO: [HLS 200-1510] Running: set_part  xcvu5p-flva2104-1-e  
+Execute           create_platform  xcvu5p-flva2104-1-e  -board  
+Execute           source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/common/xilinx.gen 
+Execute             source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/interface/plb46.gen 
+Execute             source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/interface/axi4.gen 
+Execute             source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/interface/nativeAXI4.gen 
+Execute               source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/interface/saxilite.gen 
+Execute             source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/scripts/xilinxcoregen.gen 
+Execute             source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/interface/XilEDKCoreGen.gen 
+Execute             source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/ip/xfir.gen 
+Execute             source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/ip/dds_compiler.gen 
+Execute             source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/ip/util.gen 
+Execute             source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/ip/xfft.gen 
+Execute             source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/DSP48/dsp48.gen 
+Execute           ap_part_info -name xcvu5p-flva2104-1-e -data info 
+Execute           config_compile -quiet -complex-mul-dsp=0 
+Command         set_part done; 0.12 sec.
+Execute         create_clock -period 4 -name default 
+INFO: [HLS 200-1510] Running: create_clock -period 4 -name default 
+Execute           ap_set_clock -name default -period 4 -default=false 
+INFO: [SYN 201-201] Setting up clock 'default' with a period of 4ns.
+Command       ap_source done; 1.22 sec.
+Execute       get_project 
+Command     open_tcl_project done; 1.22 sec.
+Command   ap_source done; 1.22 sec.
+INFO-FLOW: Caught error in vitis_hls_bin: divide by zero
+    while executing
+"expr {$cursorLen % $COLUMNS}"
+    ("foreach" body line 6)
+    invoked from within
+"foreach line [split $txt "\n"] {
+        set len [expr {[string length $line]+1}]
+        incr totalLen $len
+        if {$found == 0 && $totalLen >= $..."
+    (procedure "prompt" line 31)
+    invoked from within
+"prompt $CMDLINE"
+    (procedure "tclline" line 108)
+    invoked from within
+"tclline "
+    (procedure "::TclReadLine::interact" line 58)
+    invoked from within
+"::TclReadLine::interact [::AP::get_product_name]"
+    (procedure "ap_internal_vitis_hls_bin" line 155)
+    invoked from within
+"ap_internal_vitis_hls_bin "
+Command vitis_hls_bin done; error code: 2; 1.28 sec.
+ERROR: [HLS 200-70] There is an error calling 'vitis_hls'; try '-help'.
+Execute cleanup_all 
+INFO-FLOW: Workspace /home/yic033@AD.UCSD.EDU/DP-HLS/multiple_seq_align/multiple_seq_align opened at Mon May 15 15:49:56 PDT 2023
+Execute           ap_set_clock -name default -period 4 -default=false 
+INFO: [SYN 201-201] Setting up clock 'default' with a period of 4ns.
+Execute           set_part xcvu5p-flva2104-1-e 
+Execute             create_platform xcvu5p-flva2104-1-e -board  
+DBG:HLSDevice: Trying to load device library: /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/lib/lnx64.o/librdi_hlsvwrap.so
+DBG:HLSDevice: first parts/arch.xml in RDI_DATADIR: /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vivado/2022.1/data/parts/arch.xml
+DBG:HLSDevice: init success
+INFO: [HLS 200-1611] Setting target device to 'xcvu5p-flva2104-1-e'
+Command             create_platform done; 0.9 sec.
+Execute             source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/common/xilinx.gen 
+Execute               source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/interface/plb46.gen 
+Execute               source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/interface/axi4.gen 
+Execute               source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/interface/nativeAXI4.gen 
+Execute                 source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/interface/saxilite.gen 
+Execute               source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/scripts/xilinxcoregen.gen 
+Execute               source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/interface/XilEDKCoreGen.gen 
+Execute               source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/ip/xfir.gen 
+Execute               source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/ip/dds_compiler.gen 
+Execute               source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/ip/util.gen 
+Execute               source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/ip/xfft.gen 
+Execute               source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/DSP48/dsp48.gen 
+Command             ap_source done; 0.11 sec.
+Execute             ap_part_info -name xcvu5p-flva2104-1-e -data info 
+Execute             config_compile -quiet -complex-mul-dsp=0 
+Command           set_part done; 1.03 sec.
+Execute           send_msg_by_id INFO @200-1505@%s%s  vivado 
+INFO: [HLS 200-1505] Using flow_target 'vivado'
+Execute           get_config_interface -m_axi_latency 
+Execute           get_config_interface -m_axi_alignment_byte_size 
+Execute           get_config_interface -m_axi_max_widen_bitwidth 
+Execute           get_config_interface -default_interface 
+Execute           get_config_rtl -register_reset_num 
+Execute           send_msg_by_id INFO @200-1464@%s config_interface -m_axi_latency=0 
+INFO: [HLS 200-1464] Running solution command: config_interface -m_axi_latency=0
+Execute           config_interface -m_axi_latency=0 
+Command         open_solution done; 1.04 sec.
+Execute         set_part  xcvu5p-flva2104-1-e  
+INFO: [HLS 200-1510] Running: set_part  xcvu5p-flva2104-1-e  
+Execute           create_platform  xcvu5p-flva2104-1-e  -board  
+Execute           source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/common/xilinx.gen 
+Execute             source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/interface/plb46.gen 
+Execute             source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/interface/axi4.gen 
+Execute             source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/interface/nativeAXI4.gen 
+Execute               source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/interface/saxilite.gen 
+Execute             source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/scripts/xilinxcoregen.gen 
+Execute             source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/interface/XilEDKCoreGen.gen 
+Execute             source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/ip/xfir.gen 
+Execute             source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/ip/dds_compiler.gen 
+Execute             source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/ip/util.gen 
+Execute             source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/ip/xfft.gen 
+Execute             source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/DSP48/dsp48.gen 
+Execute           ap_part_info -name xcvu5p-flva2104-1-e -data info 
+Execute           config_compile -quiet -complex-mul-dsp=0 
+Command         set_part done; 0.11 sec.
+Execute         create_clock -period 40 -name default 
+INFO: [HLS 200-1510] Running: create_clock -period 40 -name default 
+Execute           ap_set_clock -name default -period 40 -default=false 
+INFO: [SYN 201-201] Setting up clock 'default' with a period of 40ns.
+Command       ap_source done; 1.16 sec.
+Execute       get_project 
+Command     open_tcl_project done; 1.17 sec.
+Command   ap_source done; 1.17 sec.
+INFO-FLOW: Caught error in vitis_hls_bin: divide by zero
+    while executing
+"expr {$cursorLen % $COLUMNS}"
+    ("foreach" body line 6)
+    invoked from within
+"foreach line [split $txt "\n"] {
+        set len [expr {[string length $line]+1}]
+        incr totalLen $len
+        if {$found == 0 && $totalLen >= $..."
+    (procedure "prompt" line 31)
+    invoked from within
+"prompt $CMDLINE"
+    (procedure "tclline" line 108)
+    invoked from within
+"tclline "
+    (procedure "::TclReadLine::interact" line 58)
+    invoked from within
+"::TclReadLine::interact [::AP::get_product_name]"
+    (procedure "ap_internal_vitis_hls_bin" line 155)
+    invoked from within
+"ap_internal_vitis_hls_bin "
+Command vitis_hls_bin done; error code: 2; 1.22 sec.
+ERROR: [HLS 200-70] There is an error calling 'vitis_hls'; try '-help'.
+Execute cleanup_all 
+INFO-FLOW: Workspace /home/yic033@AD.UCSD.EDU/DP-HLS/multiple_seq_align/multiple_seq_align opened at Mon May 15 15:53:42 PDT 2023
+Execute           ap_set_clock -name default -period 40 -default=false 
+INFO: [SYN 201-201] Setting up clock 'default' with a period of 40ns.
+Execute           set_part xcvu5p-flva2104-1-e 
+Execute             create_platform xcvu5p-flva2104-1-e -board  
+DBG:HLSDevice: Trying to load device library: /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/lib/lnx64.o/librdi_hlsvwrap.so
+DBG:HLSDevice: first parts/arch.xml in RDI_DATADIR: /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vivado/2022.1/data/parts/arch.xml
+DBG:HLSDevice: init success
+INFO: [HLS 200-1611] Setting target device to 'xcvu5p-flva2104-1-e'
+Command             create_platform done; 0.89 sec.
+Execute             source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/common/xilinx.gen 
+Execute               source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/interface/plb46.gen 
+Execute               source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/interface/axi4.gen 
+Execute               source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/interface/nativeAXI4.gen 
+Execute                 source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/interface/saxilite.gen 
+Execute               source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/scripts/xilinxcoregen.gen 
+Execute               source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/interface/XilEDKCoreGen.gen 
+Execute               source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/ip/xfir.gen 
+Execute               source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/ip/dds_compiler.gen 
+Execute               source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/ip/util.gen 
+Execute               source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/ip/xfft.gen 
+Execute               source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/DSP48/dsp48.gen 
+Command             ap_source done; 0.11 sec.
+Execute             ap_part_info -name xcvu5p-flva2104-1-e -data info 
+Execute             config_compile -quiet -complex-mul-dsp=0 
+Command           set_part done; 1 sec.
+Execute           send_msg_by_id INFO @200-1505@%s%s  vivado 
+INFO: [HLS 200-1505] Using flow_target 'vivado'
+Execute           get_config_interface -m_axi_latency 
+Execute           get_config_interface -m_axi_alignment_byte_size 
+Execute           get_config_interface -m_axi_max_widen_bitwidth 
+Execute           get_config_interface -default_interface 
+Execute           get_config_rtl -register_reset_num 
+Execute           send_msg_by_id INFO @200-1464@%s config_interface -m_axi_latency=0 
+INFO: [HLS 200-1464] Running solution command: config_interface -m_axi_latency=0
+Execute           config_interface -m_axi_latency=0 
+Command         open_solution done; 1.01 sec.
+Execute         set_part  xcvu5p-flva2104-1-e  
+INFO: [HLS 200-1510] Running: set_part  xcvu5p-flva2104-1-e  
+Execute           create_platform  xcvu5p-flva2104-1-e  -board  
+Execute           source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/common/xilinx.gen 
+Execute             source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/interface/plb46.gen 
+Execute             source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/interface/axi4.gen 
+Execute             source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/interface/nativeAXI4.gen 
+Execute               source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/interface/saxilite.gen 
+Execute             source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/scripts/xilinxcoregen.gen 
+Execute             source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/interface/XilEDKCoreGen.gen 
+Execute             source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/ip/xfir.gen 
+Execute             source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/ip/dds_compiler.gen 
+Execute             source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/ip/util.gen 
+Execute             source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/ip/xfft.gen 
+Execute             source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/DSP48/dsp48.gen 
+Execute           ap_part_info -name xcvu5p-flva2104-1-e -data info 
+Execute           config_compile -quiet -complex-mul-dsp=0 
+Execute         create_clock -period 40 -name default 
+INFO: [HLS 200-1510] Running: create_clock -period 40 -name default 
+Command       ap_source done; 1.13 sec.
+Execute       get_project 
+Command     open_tcl_project done; 1.13 sec.
+Command   ap_source done; 1.13 sec.
+INFO-FLOW: Caught error in vitis_hls_bin: divide by zero
+    while executing
+"expr {$cursorLen % $COLUMNS}"
+    ("foreach" body line 6)
+    invoked from within
+"foreach line [split $txt "\n"] {
+        set len [expr {[string length $line]+1}]
+        incr totalLen $len
+        if {$found == 0 && $totalLen >= $..."
+    (procedure "prompt" line 31)
+    invoked from within
+"prompt $CMDLINE"
+    (procedure "tclline" line 108)
+    invoked from within
+"tclline "
+    (procedure "::TclReadLine::interact" line 58)
+    invoked from within
+"::TclReadLine::interact [::AP::get_product_name]"
+    (procedure "ap_internal_vitis_hls_bin" line 155)
+    invoked from within
+"ap_internal_vitis_hls_bin "
+Command vitis_hls_bin done; error code: 2; 1.18 sec.
+ERROR: [HLS 200-70] There is an error calling 'vitis_hls'; try '-help'.
+Execute cleanup_all 
+INFO-FLOW: Workspace /home/yic033@AD.UCSD.EDU/DP-HLS/multiple_seq_align/multiple_seq_align opened at Mon May 15 15:55:49 PDT 2023
+Execute           ap_set_clock -name default -period 40 -default=false 
+INFO: [SYN 201-201] Setting up clock 'default' with a period of 40ns.
+Execute           set_part xcvu5p-flva2104-1-e 
+Execute             create_platform xcvu5p-flva2104-1-e -board  
+DBG:HLSDevice: Trying to load device library: /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/lib/lnx64.o/librdi_hlsvwrap.so
+DBG:HLSDevice: first parts/arch.xml in RDI_DATADIR: /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vivado/2022.1/data/parts/arch.xml
+DBG:HLSDevice: init success
+INFO: [HLS 200-1611] Setting target device to 'xcvu5p-flva2104-1-e'
+Command             create_platform done; 0.89 sec.
+Execute             source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/common/xilinx.gen 
+Execute               source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/interface/plb46.gen 
+Execute               source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/interface/axi4.gen 
+Execute               source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/interface/nativeAXI4.gen 
+Execute                 source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/interface/saxilite.gen 
+Execute               source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/scripts/xilinxcoregen.gen 
+Execute               source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/interface/XilEDKCoreGen.gen 
+Execute               source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/ip/xfir.gen 
+Execute               source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/ip/dds_compiler.gen 
+Execute               source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/ip/util.gen 
+Execute               source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/ip/xfft.gen 
+Execute               source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/DSP48/dsp48.gen 
+Command             ap_source done; 0.11 sec.
+Execute             ap_part_info -name xcvu5p-flva2104-1-e -data info 
+Execute             config_compile -quiet -complex-mul-dsp=0 
+Command           set_part done; 1.01 sec.
+Execute           send_msg_by_id INFO @200-1505@%s%s  vivado 
+INFO: [HLS 200-1505] Using flow_target 'vivado'
+Execute           get_config_interface -m_axi_latency 
+Execute           get_config_interface -m_axi_alignment_byte_size 
+Execute           get_config_interface -m_axi_max_widen_bitwidth 
+Execute           get_config_interface -default_interface 
+Execute           get_config_rtl -register_reset_num 
+Execute           send_msg_by_id INFO @200-1464@%s config_interface -m_axi_latency=0 
+INFO: [HLS 200-1464] Running solution command: config_interface -m_axi_latency=0
+Execute           config_interface -m_axi_latency=0 
+Command         open_solution done; 1.01 sec.
+Execute         set_part  xcvu5p-flva2104-1-e  
+INFO: [HLS 200-1510] Running: set_part  xcvu5p-flva2104-1-e  
+Execute           create_platform  xcvu5p-flva2104-1-e  -board  
+Execute           source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/common/xilinx.gen 
+Execute             source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/interface/plb46.gen 
+Execute             source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/interface/axi4.gen 
+Execute             source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/interface/nativeAXI4.gen 
+Execute               source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/interface/saxilite.gen 
+Execute             source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/scripts/xilinxcoregen.gen 
+Execute             source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/interface/XilEDKCoreGen.gen 
+Execute             source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/ip/xfir.gen 
+Execute             source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/ip/dds_compiler.gen 
+Execute             source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/ip/util.gen 
+Execute             source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/ip/xfft.gen 
+Execute             source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/DSP48/dsp48.gen 
+Execute           ap_part_info -name xcvu5p-flva2104-1-e -data info 
+Execute           config_compile -quiet -complex-mul-dsp=0 
+Command         set_part done; 0.11 sec.
+Execute         create_clock -period 40 -name default 
+INFO: [HLS 200-1510] Running: create_clock -period 40 -name default 
+Command       ap_source done; 1.14 sec.
+Execute       get_project 
+Command     open_tcl_project done; 1.14 sec.
+Command   ap_source done; 1.14 sec.
+INFO-FLOW: Caught error in vitis_hls_bin: divide by zero
+    while executing
+"expr {$cursorLen % $COLUMNS}"
+    ("foreach" body line 6)
+    invoked from within
+"foreach line [split $txt "\n"] {
+        set len [expr {[string length $line]+1}]
+        incr totalLen $len
+        if {$found == 0 && $totalLen >= $..."
+    (procedure "prompt" line 31)
+    invoked from within
+"prompt $CMDLINE"
+    (procedure "tclline" line 108)
+    invoked from within
+"tclline "
+    (procedure "::TclReadLine::interact" line 58)
+    invoked from within
+"::TclReadLine::interact [::AP::get_product_name]"
+    (procedure "ap_internal_vitis_hls_bin" line 155)
+    invoked from within
+"ap_internal_vitis_hls_bin "
+Command vitis_hls_bin done; error code: 2; 1.19 sec.
+ERROR: [HLS 200-70] There is an error calling 'vitis_hls'; try '-help'.
+Execute cleanup_all 
+INFO-FLOW: Workspace /home/yic033@AD.UCSD.EDU/DP-HLS/multiple_seq_align/multiple_seq_align opened at Mon May 15 15:59:21 PDT 2023
+Execute           ap_set_clock -name default -period 40 -default=false 
+INFO: [SYN 201-201] Setting up clock 'default' with a period of 40ns.
+Execute           set_part xcvu5p-flva2104-1-e 
+Execute             create_platform xcvu5p-flva2104-1-e -board  
+DBG:HLSDevice: Trying to load device library: /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/lib/lnx64.o/librdi_hlsvwrap.so
+DBG:HLSDevice: first parts/arch.xml in RDI_DATADIR: /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vivado/2022.1/data/parts/arch.xml
+DBG:HLSDevice: init success
+INFO: [HLS 200-1611] Setting target device to 'xcvu5p-flva2104-1-e'
+Command             create_platform done; 0.94 sec.
+Execute             source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/common/xilinx.gen 
+Execute               source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/interface/plb46.gen 
+Execute               source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/interface/axi4.gen 
+Execute               source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/interface/nativeAXI4.gen 
+Execute                 source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/interface/saxilite.gen 
+Execute               source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/scripts/xilinxcoregen.gen 
+Execute               source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/interface/XilEDKCoreGen.gen 
+Execute               source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/ip/xfir.gen 
+Execute               source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/ip/dds_compiler.gen 
+Execute               source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/ip/util.gen 
+Execute               source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/ip/xfft.gen 
+Execute               source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/DSP48/dsp48.gen 
+Command             ap_source done; 0.11 sec.
+Execute             ap_part_info -name xcvu5p-flva2104-1-e -data info 
+Execute             config_compile -quiet -complex-mul-dsp=0 
+Command           set_part done; 1.06 sec.
+Execute           send_msg_by_id INFO @200-1505@%s%s  vivado 
+INFO: [HLS 200-1505] Using flow_target 'vivado'
+Execute           get_config_interface -m_axi_latency 
+Execute           get_config_interface -m_axi_alignment_byte_size 
+Execute           get_config_interface -m_axi_max_widen_bitwidth 
+Execute           get_config_interface -default_interface 
+Execute           get_config_rtl -register_reset_num 
+Execute           send_msg_by_id INFO @200-1464@%s config_interface -m_axi_latency=0 
+INFO: [HLS 200-1464] Running solution command: config_interface -m_axi_latency=0
+Execute           config_interface -m_axi_latency=0 
+Command         open_solution done; 1.07 sec.
+Execute         set_part  xcvu5p-flva2104-1-e  
+INFO: [HLS 200-1510] Running: set_part  xcvu5p-flva2104-1-e  
+Execute           create_platform  xcvu5p-flva2104-1-e  -board  
+Execute           source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/common/xilinx.gen 
+Execute             source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/interface/plb46.gen 
+Execute             source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/interface/axi4.gen 
+Execute             source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/interface/nativeAXI4.gen 
+Execute               source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/interface/saxilite.gen 
+Execute             source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/scripts/xilinxcoregen.gen 
+Execute             source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/interface/XilEDKCoreGen.gen 
+Execute             source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/ip/xfir.gen 
+Execute             source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/ip/dds_compiler.gen 
+Execute             source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/ip/util.gen 
+Execute             source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/ip/xfft.gen 
+Execute             source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/DSP48/dsp48.gen 
+Execute           ap_part_info -name xcvu5p-flva2104-1-e -data info 
+Execute           config_compile -quiet -complex-mul-dsp=0 
+Command         set_part done; 0.11 sec.
+Execute         create_clock -period 40n -name default 
+INFO: [HLS 200-1510] Running: create_clock -period 40n -name default 
+Execute           ap_set_clock -name default -period 40 -unit ns -default=false 
+INFO: [SYN 201-201] Setting up clock 'default' with a period of 40ns.
+Command       ap_source done; 1.19 sec.
+Execute       get_project 
+Command     open_tcl_project done; 1.19 sec.
+Command   ap_source done; 1.19 sec.
+INFO-FLOW: Caught error in vitis_hls_bin: divide by zero
+    while executing
+"expr {$cursorLen % $COLUMNS}"
+    ("foreach" body line 6)
+    invoked from within
+"foreach line [split $txt "\n"] {
+        set len [expr {[string length $line]+1}]
+        incr totalLen $len
+        if {$found == 0 && $totalLen >= $..."
+    (procedure "prompt" line 31)
+    invoked from within
+"prompt $CMDLINE"
+    (procedure "tclline" line 108)
+    invoked from within
+"tclline "
+    (procedure "::TclReadLine::interact" line 58)
+    invoked from within
+"::TclReadLine::interact [::AP::get_product_name]"
+    (procedure "ap_internal_vitis_hls_bin" line 155)
+    invoked from within
+"ap_internal_vitis_hls_bin "
+Command vitis_hls_bin done; error code: 2; 1.25 sec.
+ERROR: [HLS 200-70] There is an error calling 'vitis_hls'; try '-help'.
+Execute cleanup_all 
+INFO-FLOW: Workspace /home/yic033@AD.UCSD.EDU/DP-HLS/multiple_seq_align/multiple_seq_align opened at Mon May 15 16:09:08 PDT 2023
+Execute           ap_set_clock -name default -period 40 -unit ns -default=false 
+INFO: [SYN 201-201] Setting up clock 'default' with a period of 40ns.
+Execute           set_part xcvu5p-flva2104-1-e 
+Execute             create_platform xcvu5p-flva2104-1-e -board  
+DBG:HLSDevice: Trying to load device library: /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/lib/lnx64.o/librdi_hlsvwrap.so
+DBG:HLSDevice: first parts/arch.xml in RDI_DATADIR: /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vivado/2022.1/data/parts/arch.xml
+DBG:HLSDevice: init success
+INFO: [HLS 200-1611] Setting target device to 'xcvu5p-flva2104-1-e'
+Command             create_platform done; 0.95 sec.
+Execute             source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/common/xilinx.gen 
+Execute               source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/interface/plb46.gen 
+Execute               source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/interface/axi4.gen 
+Execute               source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/interface/nativeAXI4.gen 
+Execute                 source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/interface/saxilite.gen 
+Execute               source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/scripts/xilinxcoregen.gen 
+Execute               source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/interface/XilEDKCoreGen.gen 
+Execute               source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/ip/xfir.gen 
+Execute               source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/ip/dds_compiler.gen 
+Execute               source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/ip/util.gen 
+Execute               source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/ip/xfft.gen 
+Execute               source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/DSP48/dsp48.gen 
+Command             ap_source done; 0.11 sec.
+Execute             ap_part_info -name xcvu5p-flva2104-1-e -data info 
+Execute             config_compile -quiet -complex-mul-dsp=0 
+Command           set_part done; 1.06 sec.
+Execute           send_msg_by_id INFO @200-1505@%s%s  vivado 
+INFO: [HLS 200-1505] Using flow_target 'vivado'
+Execute           get_config_interface -m_axi_latency 
+Execute           get_config_interface -m_axi_alignment_byte_size 
+Execute           get_config_interface -m_axi_max_widen_bitwidth 
+Execute           get_config_interface -default_interface 
+Execute           get_config_rtl -register_reset_num 
+Execute           send_msg_by_id INFO @200-1464@%s config_interface -m_axi_latency=0 
+INFO: [HLS 200-1464] Running solution command: config_interface -m_axi_latency=0
+Execute           config_interface -m_axi_latency=0 
+Command         open_solution done; 1.07 sec.
+Execute         set_part  xcvu5p-flva2104-1-e  
+INFO: [HLS 200-1510] Running: set_part  xcvu5p-flva2104-1-e  
+Execute           create_platform  xcvu5p-flva2104-1-e  -board  
+Execute           source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/common/xilinx.gen 
+Execute             source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/interface/plb46.gen 
+Execute             source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/interface/axi4.gen 
+Execute             source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/interface/nativeAXI4.gen 
+Execute               source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/interface/saxilite.gen 
+Execute             source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/scripts/xilinxcoregen.gen 
+Execute             source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/interface/XilEDKCoreGen.gen 
+Execute             source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/ip/xfir.gen 
+Execute             source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/ip/dds_compiler.gen 
+Execute             source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/ip/util.gen 
+Execute             source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/ip/xfft.gen 
+Execute             source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/DSP48/dsp48.gen 
+Execute           ap_part_info -name xcvu5p-flva2104-1-e -data info 
+Execute           config_compile -quiet -complex-mul-dsp=0 
+Command         set_part done; 0.11 sec.
+Execute         create_clock -period 40n -name default 
+INFO: [HLS 200-1510] Running: create_clock -period 40n -name default 
+Command       ap_source done; 1.19 sec.
+Execute       get_project 
+Command     open_tcl_project done; 1.2 sec.
+Command   ap_source done; 1.2 sec.
+INFO-FLOW: Caught error in vitis_hls_bin: divide by zero
+    while executing
+"expr {$cursorLen % $COLUMNS}"
+    ("foreach" body line 6)
+    invoked from within
+"foreach line [split $txt "\n"] {
+        set len [expr {[string length $line]+1}]
+        incr totalLen $len
+        if {$found == 0 && $totalLen >= $..."
+    (procedure "prompt" line 31)
+    invoked from within
+"prompt $CMDLINE"
+    (procedure "tclline" line 108)
+    invoked from within
+"tclline "
+    (procedure "::TclReadLine::interact" line 58)
+    invoked from within
+"::TclReadLine::interact [::AP::get_product_name]"
+    (procedure "ap_internal_vitis_hls_bin" line 155)
+    invoked from within
+"ap_internal_vitis_hls_bin "
+Command vitis_hls_bin done; error code: 2; 1.26 sec.
+ERROR: [HLS 200-70] There is an error calling 'vitis_hls'; try '-help'.
+Execute cleanup_all 
+INFO-FLOW: Workspace /home/yic033@AD.UCSD.EDU/DP-HLS/multiple_seq_align/multiple_seq_align opened at Mon May 15 16:10:45 PDT 2023
+Execute           ap_set_clock -name default -period 40 -unit ns -default=false 
+INFO: [SYN 201-201] Setting up clock 'default' with a period of 40ns.
+Execute           set_part xcvu5p-flva2104-1-e 
+Execute             create_platform xcvu5p-flva2104-1-e -board  
+DBG:HLSDevice: Trying to load device library: /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/lib/lnx64.o/librdi_hlsvwrap.so
+DBG:HLSDevice: first parts/arch.xml in RDI_DATADIR: /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vivado/2022.1/data/parts/arch.xml
+DBG:HLSDevice: init success
+INFO: [HLS 200-1611] Setting target device to 'xcvu5p-flva2104-1-e'
+Command             create_platform done; 0.95 sec.
+Execute             source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/common/xilinx.gen 
+Execute               source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/interface/plb46.gen 
+Execute               source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/interface/axi4.gen 
+Execute               source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/interface/nativeAXI4.gen 
+Execute                 source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/interface/saxilite.gen 
+Execute               source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/scripts/xilinxcoregen.gen 
+Execute               source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/interface/XilEDKCoreGen.gen 
+Execute               source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/ip/xfir.gen 
+Execute               source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/ip/dds_compiler.gen 
+Execute               source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/ip/util.gen 
+Execute               source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/ip/xfft.gen 
+Execute               source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/DSP48/dsp48.gen 
+Execute             ap_part_info -name xcvu5p-flva2104-1-e -data info 
+Execute             config_compile -quiet -complex-mul-dsp=0 
+Command           set_part done; 1.06 sec.
+Execute           send_msg_by_id INFO @200-1505@%s%s  vivado 
+INFO: [HLS 200-1505] Using flow_target 'vivado'
+Execute           get_config_interface -m_axi_latency 
+Execute           get_config_interface -m_axi_alignment_byte_size 
+Execute           get_config_interface -m_axi_max_widen_bitwidth 
+Execute           get_config_interface -default_interface 
+Execute           get_config_rtl -register_reset_num 
+Execute           send_msg_by_id INFO @200-1464@%s config_interface -m_axi_latency=0 
+INFO: [HLS 200-1464] Running solution command: config_interface -m_axi_latency=0
+Execute           config_interface -m_axi_latency=0 
+Command         open_solution done; 1.08 sec.
+Execute         set_part  xcvu5p-flva2104-1-e  
+INFO: [HLS 200-1510] Running: set_part  xcvu5p-flva2104-1-e  
+Execute           create_platform  xcvu5p-flva2104-1-e  -board  
+Execute           source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/common/xilinx.gen 
+Execute             source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/interface/plb46.gen 
+Execute             source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/interface/axi4.gen 
+Execute             source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/interface/nativeAXI4.gen 
+Execute               source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/interface/saxilite.gen 
+Execute             source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/scripts/xilinxcoregen.gen 
+Execute             source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/interface/XilEDKCoreGen.gen 
+Execute             source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/ip/xfir.gen 
+Execute             source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/ip/dds_compiler.gen 
+Execute             source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/ip/util.gen 
+Execute             source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/ip/xfft.gen 
+Execute             source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/DSP48/dsp48.gen 
+Execute           ap_part_info -name xcvu5p-flva2104-1-e -data info 
+Execute           config_compile -quiet -complex-mul-dsp=0 
+Command         set_part done; 0.11 sec.
+Execute         create_clock -period 40n -name default 
+INFO: [HLS 200-1510] Running: create_clock -period 40n -name default 
+Command       ap_source done; 1.2 sec.
+Execute       get_project 
+Command     open_tcl_project done; 1.2 sec.
+Command   ap_source done; 1.2 sec.
+INFO-FLOW: Caught error in vitis_hls_bin: divide by zero
+    while executing
+"expr {$cursorLen % $COLUMNS}"
+    ("foreach" body line 6)
+    invoked from within
+"foreach line [split $txt "\n"] {
+        set len [expr {[string length $line]+1}]
+        incr totalLen $len
+        if {$found == 0 && $totalLen >= $..."
+    (procedure "prompt" line 31)
+    invoked from within
+"prompt $CMDLINE"
+    (procedure "tclline" line 108)
+    invoked from within
+"tclline "
+    (procedure "::TclReadLine::interact" line 58)
+    invoked from within
+"::TclReadLine::interact [::AP::get_product_name]"
+    (procedure "ap_internal_vitis_hls_bin" line 155)
+    invoked from within
+"ap_internal_vitis_hls_bin "
+Command vitis_hls_bin done; error code: 2; 1.26 sec.
+ERROR: [HLS 200-70] There is an error calling 'vitis_hls'; try '-help'.
+Execute cleanup_all 
+INFO-FLOW: Workspace /home/yic033@AD.UCSD.EDU/DP-HLS/multiple_seq_align/multiple_seq_align opened at Mon May 15 16:11:41 PDT 2023
+Execute           ap_set_clock -name default -period 40 -unit ns -default=false 
+INFO: [SYN 201-201] Setting up clock 'default' with a period of 40ns.
+Execute           set_part xcvu5p-flva2104-1-e 
+Execute             create_platform xcvu5p-flva2104-1-e -board  
+DBG:HLSDevice: Trying to load device library: /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/lib/lnx64.o/librdi_hlsvwrap.so
+DBG:HLSDevice: first parts/arch.xml in RDI_DATADIR: /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vivado/2022.1/data/parts/arch.xml
+DBG:HLSDevice: init success
+INFO: [HLS 200-1611] Setting target device to 'xcvu5p-flva2104-1-e'
+Command             create_platform done; 0.98 sec.
+Execute             source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/common/xilinx.gen 
+Execute               source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/interface/plb46.gen 
+Execute               source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/interface/axi4.gen 
+Execute               source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/interface/nativeAXI4.gen 
+Execute                 source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/interface/saxilite.gen 
+Execute               source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/scripts/xilinxcoregen.gen 
+Execute               source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/interface/XilEDKCoreGen.gen 
+Execute               source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/ip/xfir.gen 
+Execute               source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/ip/dds_compiler.gen 
+Execute               source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/ip/util.gen 
+Execute               source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/ip/xfft.gen 
+Execute               source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/DSP48/dsp48.gen 
+Execute             ap_part_info -name xcvu5p-flva2104-1-e -data info 
+Execute             config_compile -quiet -complex-mul-dsp=0 
+Command           set_part done; 1.1 sec.
+Execute           send_msg_by_id INFO @200-1505@%s%s  vivado 
+INFO: [HLS 200-1505] Using flow_target 'vivado'
+Execute           get_config_interface -m_axi_latency 
+Execute           get_config_interface -m_axi_alignment_byte_size 
+Execute           get_config_interface -m_axi_max_widen_bitwidth 
+Execute           get_config_interface -default_interface 
+Execute           get_config_rtl -register_reset_num 
+Execute           send_msg_by_id INFO @200-1464@%s config_interface -m_axi_latency=0 
+INFO: [HLS 200-1464] Running solution command: config_interface -m_axi_latency=0
+Execute           config_interface -m_axi_latency=0 
+Command         open_solution done; 1.11 sec.
+Execute         set_part  xcvu5p-flva2104-1-e  
+INFO: [HLS 200-1510] Running: set_part  xcvu5p-flva2104-1-e  
+Execute           create_platform  xcvu5p-flva2104-1-e  -board  
+Execute           source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/common/xilinx.gen 
+Execute             source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/interface/plb46.gen 
+Execute             source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/interface/axi4.gen 
+Execute             source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/interface/nativeAXI4.gen 
+Execute               source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/interface/saxilite.gen 
+Execute             source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/scripts/xilinxcoregen.gen 
+Execute             source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/interface/XilEDKCoreGen.gen 
+Execute             source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/ip/xfir.gen 
+Execute             source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/ip/dds_compiler.gen 
+Execute             source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/ip/util.gen 
+Execute             source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/ip/xfft.gen 
+Execute             source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/DSP48/dsp48.gen 
+Execute           ap_part_info -name xcvu5p-flva2104-1-e -data info 
+Execute           config_compile -quiet -complex-mul-dsp=0 
+Command         set_part done; 0.11 sec.
+Execute         create_clock -period 40n -name default 
+INFO: [HLS 200-1510] Running: create_clock -period 40n -name default 
+Command       ap_source done; 1.24 sec.
+Execute       get_project 
+Command     open_tcl_project done; 1.24 sec.
+Command   ap_source done; 1.24 sec.
+INFO-FLOW: Caught error in vitis_hls_bin: divide by zero
+    while executing
+"expr {$cursorLen % $COLUMNS}"
+    ("foreach" body line 6)
+    invoked from within
+"foreach line [split $txt "\n"] {
+        set len [expr {[string length $line]+1}]
+        incr totalLen $len
+        if {$found == 0 && $totalLen >= $..."
+    (procedure "prompt" line 31)
+    invoked from within
+"prompt $CMDLINE"
+    (procedure "tclline" line 108)
+    invoked from within
+"tclline "
+    (procedure "::TclReadLine::interact" line 58)
+    invoked from within
+"::TclReadLine::interact [::AP::get_product_name]"
+    (procedure "ap_internal_vitis_hls_bin" line 155)
+    invoked from within
+"ap_internal_vitis_hls_bin "
+Command vitis_hls_bin done; error code: 2; 1.3 sec.
+ERROR: [HLS 200-70] There is an error calling 'vitis_hls'; try '-help'.
+Execute cleanup_all 
+INFO-FLOW: Workspace /home/yic033@AD.UCSD.EDU/DP-HLS/multiple_seq_align/multiple_seq_align opened at Mon May 15 16:17:45 PDT 2023
+Execute           ap_set_clock -name default -period 40 -unit ns -default=false 
+INFO: [SYN 201-201] Setting up clock 'default' with a period of 40ns.
+Execute           set_part xcvu5p-flva2104-1-e 
+Execute             create_platform xcvu5p-flva2104-1-e -board  
+DBG:HLSDevice: Trying to load device library: /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/lib/lnx64.o/librdi_hlsvwrap.so
+DBG:HLSDevice: first parts/arch.xml in RDI_DATADIR: /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vivado/2022.1/data/parts/arch.xml
+DBG:HLSDevice: init success
+INFO: [HLS 200-1611] Setting target device to 'xcvu5p-flva2104-1-e'
+Command             create_platform done; 1 sec.
+Execute             source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/common/xilinx.gen 
+Execute               source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/interface/plb46.gen 
+Execute               source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/interface/axi4.gen 
+Execute               source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/interface/nativeAXI4.gen 
+Execute                 source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/interface/saxilite.gen 
+Execute               source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/scripts/xilinxcoregen.gen 
+Execute               source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/interface/XilEDKCoreGen.gen 
+Execute               source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/ip/xfir.gen 
+Execute               source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/ip/dds_compiler.gen 
+Execute               source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/ip/util.gen 
+Execute               source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/ip/xfft.gen 
+Execute               source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/DSP48/dsp48.gen 
+Command             ap_source done; 0.11 sec.
+Execute             ap_part_info -name xcvu5p-flva2104-1-e -data info 
+Execute             config_compile -quiet -complex-mul-dsp=0 
+Command           set_part done; 1.12 sec.
+Execute           send_msg_by_id INFO @200-1505@%s%s  vivado 
+INFO: [HLS 200-1505] Using flow_target 'vivado'
+Execute           get_config_interface -m_axi_latency 
+Execute           get_config_interface -m_axi_alignment_byte_size 
+Execute           get_config_interface -m_axi_max_widen_bitwidth 
+Execute           get_config_interface -default_interface 
+Execute           get_config_rtl -register_reset_num 
+Execute           send_msg_by_id INFO @200-1464@%s config_interface -m_axi_latency=0 
+INFO: [HLS 200-1464] Running solution command: config_interface -m_axi_latency=0
+Execute           config_interface -m_axi_latency=0 
+Command         open_solution done; 1.14 sec.
+Execute         set_part  xcvu5p-flva2104-1-e  
+INFO: [HLS 200-1510] Running: set_part  xcvu5p-flva2104-1-e  
+Execute           create_platform  xcvu5p-flva2104-1-e  -board  
+Execute           source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/common/xilinx.gen 
+Execute             source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/interface/plb46.gen 
+Execute             source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/interface/axi4.gen 
+Execute             source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/interface/nativeAXI4.gen 
+Execute               source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/interface/saxilite.gen 
+Execute             source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/scripts/xilinxcoregen.gen 
+Execute             source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/interface/XilEDKCoreGen.gen 
+Execute             source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/ip/xfir.gen 
+Execute             source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/ip/dds_compiler.gen 
+Execute             source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/ip/util.gen 
+Execute             source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/ip/xfft.gen 
+Execute             source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/DSP48/dsp48.gen 
+Command           ap_source done; 0.12 sec.
+Execute           ap_part_info -name xcvu5p-flva2104-1-e -data info 
+Execute           config_compile -quiet -complex-mul-dsp=0 
+Command         set_part done; 0.14 sec.
+Execute         create_clock -period 40n -name default 
+INFO: [HLS 200-1510] Running: create_clock -period 40n -name default 
+Command       ap_source done; 1.29 sec.
+Execute       get_project 
+Command     open_tcl_project done; 1.29 sec.
+Command   ap_source done; 1.29 sec.
+INFO-FLOW: Caught error in vitis_hls_bin: divide by zero
+    while executing
+"expr {$cursorLen % $COLUMNS}"
+    ("foreach" body line 6)
+    invoked from within
+"foreach line [split $txt "\n"] {
+        set len [expr {[string length $line]+1}]
+        incr totalLen $len
+        if {$found == 0 && $totalLen >= $..."
+    (procedure "prompt" line 31)
+    invoked from within
+"prompt $CMDLINE"
+    (procedure "tclline" line 108)
+    invoked from within
+"tclline "
+    (procedure "::TclReadLine::interact" line 58)
+    invoked from within
+"::TclReadLine::interact [::AP::get_product_name]"
+    (procedure "ap_internal_vitis_hls_bin" line 155)
+    invoked from within
+"ap_internal_vitis_hls_bin "
+Command vitis_hls_bin done; error code: 2; 1.36 sec.
+ERROR: [HLS 200-70] There is an error calling 'vitis_hls'; try '-help'.
+Execute cleanup_all 

@@ -3,17 +3,16 @@
 
 #include <ap_fixed.h>
 
-#define linear_gap_penalty {{ linear_gap_penalty }};
-#define opening_score {{ opening_score }};
-#define extend_score {{ extend_score }};
-#define mismatch_score {{ mismatch_score }};
-#define match_score {{ match_score }};
+#define linear_gap_penalty {{ linear_gap_penalty }}
+#define opening_score {{ opening_score }}
+#define extend_score {{ extend_score }}
+#define mismatch_score {{ mismatch_score }}
+#define match_score {{ match_score }}
 
-#define query_length {{ query_length }};
-#define ref_length {{ reference_length }};
+#define query_length {{ query_length }}
+#define ref_length {{ reference_length }}
 
-#define PE_num {{ pe_num }};
-
+#define PE_num {{ pe_num }}
 #define numofreads 1
 
 #define query_chunks query_length/PE_num
@@ -23,8 +22,7 @@
 
 #define extra_PE_num query_length%PE_num
 
-#define N_BLOCKS {{ num_blocks }};
-
+#define N_BLOCKS {{ num_blocks }}
 
 #define TB_PH 0  // this is place holder
 #define	TB_LEFT 1
@@ -53,8 +51,8 @@ typedef ap_uint<3> tbp_line_t[TB_LINE_SIZE];
 #define inflated_query_length query_chunks *PE_num + corner_case *PE_num
 #define inflated_query_chunks query_chunks + corner_case
 
-#define ALIGN_TYPE {{ aligh_type }}
-#define PE_TYPE {{ pe_type }};
+#define ALIGN_TYPE {{ align_type }}
+#define PE_TYPE {{ pe_type }}
 
 //enum tbp_t {
 //	TB_LEFT,
