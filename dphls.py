@@ -1,7 +1,8 @@
 import argparse
 import json
-import jinja2
-
+from jinja2 import Environment, FileSystemLoader
+import os
+import subprocess
 
 def main():
     parser = argparse.ArgumentParser(prog="dphls",
@@ -14,6 +15,8 @@ def main():
         config = json.load(config_file)
 
     check_configuration(config)
+    write_source(config)
+    create_project(config)
 
     return 0
 
@@ -42,6 +45,65 @@ def write_source(config):
     """
     Write the source files for the project using the templates
     """
+    output_src_dir = os.path.join(config['project_directory'], 'src')
+    os.makedirs(output_src_dir, exist_ok=True)
+    vitis_project_dir = os.path.join(config['project_directory'], 'vitis')
+
+    # load template
+    environment = Environment(loader=FileSystemLoader("templates/"))
+
+    # define params.h
+    template = environment.get_template("params.h")
+    kernel = config['kernel']
+    inputs = kernel['inputs']
+    processing_element = kernel['processing_element']
+    align_block = kernel['align_block']
+    traceback = kernel['traceback']
+    penalties = kernel['penalties']
+
+    # render params.h
+    pe_type = None
+    align_type = None
+
+    if align_block['type'] == 'local':
+        if processing_element['type'] == 'linear':
+            pe_type = 'PELocalLinear'
+            align_type = 'AlignLocalLinear'
+        elif processing_element['type'] == 'affine':
+            pe_type = 'PELocalAffine'
+            align_type = 'AlignLocalAffine'
+        else:
+            raise NotImplementedError
+    elif align_block['type'] == 'global':
+        if processing_element['type'] == 'linear':
+            pe_type = 'PEGlobalLinear'
+            align_type = 'AlignGlobalLinear'
+        elif processing_element['type'] == 'affine':
+            pe_type = 'PEGlobalAffine'
+            align_type = 'AlignGlobalAffine'
+        else:
+            raise NotImplementedError
+    else:
+        raise NotImplementedError
+
+    content = template.render(
+        linear_gap_penalty=penalties['linear_gap_penalty'],
+        opening_score=penalties['gap_open'],
+        extend_score=penalties['gap_extend'],
+        mismatch_score=penalties['mismatch'],
+        match_score=penalties['match'],
+        query_length=inputs['query_length'],
+        reference_length=inputs['reference_length'],
+        pe_num=processing_element['number'],
+        num_blocks=align_block['number'],
+        traceback_bits=traceback['pointer_bits'],
+        # Special Configurable Variables
+        ALIGN_TYPE=align_type,
+        PE_TYPE=pe_type
+    )
+
+    with open(os.path.join(output_src_dir, 'params.h'), mode="w", encoding="utf-8") as params:
+        params.write(content)
 
     return 0
 
@@ -50,6 +112,11 @@ def create_project(config):
     """
     create the vitis hls project
     """
+    vitis_home = config['vitis_hls']['vitis_hls_home']
+    # FIXME: don't know whether vitis hls is successfuly invoked or not
+    subprocess.run(['/bin/bash', os.path.join(vitis_home, 'settings64.sh'), '&&', os.path.join(vitis_home, '/bin/vitis_hls')])
+
+
 
     return 0
 

@@ -4,7 +4,7 @@
 
   "kernel": {
     "inputs": {
-      "query_length": 1024,
+      "query_length": 512,
       "reference_length": 1024
     },
     "processing_element": {
@@ -19,7 +19,7 @@
       "do_traceback": "true",
       "pointer_bits": 3
     },
-    "panelties": {
+    "penalties": {
       "linear_gap_penalty": -1,
       "match": 1,
       "mismatch": -1,
@@ -32,7 +32,7 @@
     "clock_period": "4ns"
   },
   "vitis_hls": {
-    "vitis_hls_home": "/home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS",
+    "vitis_hls_home": "/home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1",
     "env": {
       "LD_PRELOAD": "/home/chye@AD.UCSD.EDU/libtinfo.so.5.9"
     }
