@@ -4,8 +4,8 @@
 
   "kernel": {
     "inputs": {
-      "query_length": 512,
-      "reference_length": 1024
+      "query_length": 256,
+      "reference_length": 256
     },
     "processing_element": {
       "type": "linear",
@@ -30,9 +30,9 @@
   "vitis_project": {
     "device": "xcvu5p-flva2104-1-e",
     "project_name": "multiple_seq_align",
-    "solution_name": "multiple_seq_align",
+    "solution_name": "solution1",
     "top_level_function": "seq_align_multiple",
-    "clock_period": "40n"
+    "clock_period": "4"
   },
   "vitis_hls": {
     "vitis_hls_home": "/home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1",

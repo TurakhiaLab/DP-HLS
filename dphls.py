@@ -142,7 +142,7 @@ def create_project(config):
         solution_name=vitis_project['solution_name'],
         top_level_function=vitis_project['top_level_function'],
         project_files=source_str + source_header_str,
-        testbench_files='outputs/testbench/seq_align_test.cpp'
+        testbench_files=os.path.join(output_home, 'testbench', 'seq_align_test.cpp')
     )
 
     with open(os.path.join(output_home, 'vitis', 'project_config.tcl'), mode="w", encoding="utf-8") as script:
@@ -164,10 +164,13 @@ def create_project(config):
         script.write(content)
 
     os.system(f"chmod +x {os.path.join(output_home, 'vitis', '*.sh')}")
+    
     # {'LD_PRELOAD'}={config['vitis_hls']['env']['LD_PRELOAD']}
+
     os.system(f"/bin/bash {os.path.join(output_home, 'vitis', 'vitis_project.sh')}")
 
     return 0
+
 
 
 if __name__ == '__main__':

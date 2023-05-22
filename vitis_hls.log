@@ -1,62 +1,92 @@
-
-****** Vitis HLS - High-Level Synthesis from C, C++ and OpenCL v2022.1 (64-bit)
-  **** SW Build 3526262 on Mon Apr 18 15:47:01 MDT 2022
-  **** IP Build 3524634 on Mon Apr 18 20:55:01 MDT 2022
-    ** Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
-
-source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/scripts/vitis_hls/hls.tcl -notrace
 INFO: [HLS 200-10] Running '/home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/bin/unwrapped/lnx64.o/vitis_hls'
-INFO: [HLS 200-10] For user 'yic033@AD.UCSD.EDU' on host 'raptor.ucsd.edu' (Linux_x86_64 version 5.4.0-146-generic) on Mon May 15 16:17:45 PDT 2023
+INFO: [HLS 200-10] For user 'yic033@AD.UCSD.EDU' on host 'raptor.ucsd.edu' (Linux_x86_64 version 5.4.0-146-generic) on Sat May 20 21:57:33 PDT 2023
 INFO: [HLS 200-10] On os Ubuntu 20.04.6 LTS
 INFO: [HLS 200-10] In directory '/home/yic033@AD.UCSD.EDU/DP-HLS'
-Sourcing Tcl script '/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/create_project.tcl'
+Sourcing Tcl script '/home/yic033@AD.UCSD.EDU/DP-HLS/multiple_seq_align/solution1/csynth.tcl'
+INFO: [HLS 200-1510] Running: source /home/yic033@AD.UCSD.EDU/DP-HLS/multiple_seq_align/solution1/csynth.tcl
 INFO: [HLS 200-1510] Running: open_project multiple_seq_align 
 INFO: [HLS 200-10] Opening project '/home/yic033@AD.UCSD.EDU/DP-HLS/multiple_seq_align'.
 INFO: [HLS 200-1510] Running: set_top seq_align_multiple 
-INFO: [HLS 200-1510] Running: add_files /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/PE.cpp /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/seq_align.cpp /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/traceback.cpp /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/seq_align_multiple.cpp /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/params.h /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/seq_align.h /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/traceback.h /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/seq_align_multiple.h /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/PE.h /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/utils/loop_counter.h /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/utils/shift_reg.h  
-INFO: [HLS 200-10] Adding design file '/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/PE.cpp' to the project
-INFO: [HLS 200-10] Adding design file '/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/seq_align.cpp' to the project
-INFO: [HLS 200-10] Adding design file '/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/traceback.cpp' to the project
-INFO: [HLS 200-10] Adding design file '/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/seq_align_multiple.cpp' to the project
-INFO: [HLS 200-10] Adding design file '/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/params.h' to the project
-INFO: [HLS 200-10] Adding design file '/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/seq_align.h' to the project
-INFO: [HLS 200-10] Adding design file '/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/traceback.h' to the project
-INFO: [HLS 200-10] Adding design file '/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/seq_align_multiple.h' to the project
-INFO: [HLS 200-10] Adding design file '/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/PE.h' to the project
-INFO: [HLS 200-10] Adding design file '/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/utils/loop_counter.h' to the project
-INFO: [HLS 200-10] Adding design file '/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/utils/shift_reg.h' to the project
-INFO: [HLS 200-1510] Running: add_files -tb outputs/testbench/seq_align_test.cpp 
+INFO: [HLS 200-1510] Running: add_files outputs/src/PE.cpp 
+INFO: [HLS 200-10] Adding design file 'outputs/src/PE.cpp' to the project
+INFO: [HLS 200-1510] Running: add_files outputs/src/seq_align.cpp 
+INFO: [HLS 200-10] Adding design file 'outputs/src/seq_align.cpp' to the project
+INFO: [HLS 200-1510] Running: add_files outputs/src/traceback.cpp 
+INFO: [HLS 200-10] Adding design file 'outputs/src/traceback.cpp' to the project
+INFO: [HLS 200-1510] Running: add_files outputs/src/seq_align_multiple.cpp 
+INFO: [HLS 200-10] Adding design file 'outputs/src/seq_align_multiple.cpp' to the project
+INFO: [HLS 200-1510] Running: add_files outputs/src/params.h 
+INFO: [HLS 200-10] Adding design file 'outputs/src/params.h' to the project
+INFO: [HLS 200-1510] Running: add_files outputs/src/seq_align.h 
+INFO: [HLS 200-10] Adding design file 'outputs/src/seq_align.h' to the project
+INFO: [HLS 200-1510] Running: add_files outputs/src/traceback.h 
+INFO: [HLS 200-10] Adding design file 'outputs/src/traceback.h' to the project
+INFO: [HLS 200-1510] Running: add_files outputs/src/seq_align_multiple.h 
+INFO: [HLS 200-10] Adding design file 'outputs/src/seq_align_multiple.h' to the project
+INFO: [HLS 200-1510] Running: add_files outputs/src/PE.h 
+INFO: [HLS 200-10] Adding design file 'outputs/src/PE.h' to the project
+INFO: [HLS 200-1510] Running: add_files outputs/src/utils/loop_counter.h 
+INFO: [HLS 200-10] Adding design file 'outputs/src/utils/loop_counter.h' to the project
+INFO: [HLS 200-1510] Running: add_files outputs/src/utils/shift_reg.h 
+INFO: [HLS 200-10] Adding design file 'outputs/src/utils/shift_reg.h' to the project
+INFO: [HLS 200-1510] Running: add_files outputs/src/PE.cpp 
+INFO: [HLS 200-10] Adding design file 'outputs/src/PE.cpp' to the project
+INFO: [HLS 200-1510] Running: add_files outputs/src/seq_align.cpp 
+INFO: [HLS 200-10] Adding design file 'outputs/src/seq_align.cpp' to the project
+INFO: [HLS 200-1510] Running: add_files outputs/src/traceback.cpp 
+INFO: [HLS 200-10] Adding design file 'outputs/src/traceback.cpp' to the project
+INFO: [HLS 200-1510] Running: add_files outputs/src/seq_align_multiple.cpp 
+INFO: [HLS 200-10] Adding design file 'outputs/src/seq_align_multiple.cpp' to the project
+INFO: [HLS 200-1510] Running: add_files outputs/src/params.h 
+INFO: [HLS 200-10] Adding design file 'outputs/src/params.h' to the project
+INFO: [HLS 200-1510] Running: add_files outputs/src/seq_align.h 
+INFO: [HLS 200-10] Adding design file 'outputs/src/seq_align.h' to the project
+INFO: [HLS 200-1510] Running: add_files outputs/src/traceback.h 
+INFO: [HLS 200-10] Adding design file 'outputs/src/traceback.h' to the project
+INFO: [HLS 200-1510] Running: add_files outputs/src/seq_align_multiple.h 
+INFO: [HLS 200-10] Adding design file 'outputs/src/seq_align_multiple.h' to the project
+INFO: [HLS 200-1510] Running: add_files outputs/src/PE.h 
+INFO: [HLS 200-10] Adding design file 'outputs/src/PE.h' to the project
+INFO: [HLS 200-1510] Running: add_files outputs/src/utils/loop_counter.h 
+INFO: [HLS 200-10] Adding design file 'outputs/src/utils/loop_counter.h' to the project
+INFO: [HLS 200-1510] Running: add_files outputs/src/utils/shift_reg.h 
+INFO: [HLS 200-10] Adding design file 'outputs/src/utils/shift_reg.h' to the project
+INFO: [HLS 200-1510] Running: add_files -tb outputs/testbench/seq_align_test.cpp -cflags -Wno-unknown-pragmas -csimflags -Wno-unknown-pragmas 
 INFO: [HLS 200-10] Adding test bench file 'outputs/testbench/seq_align_test.cpp' to the project
-INFO: [HLS 200-1510] Running: open_solution multiple_seq_align -flow_target vivado 
-INFO: [HLS 200-10] Opening solution '/home/yic033@AD.UCSD.EDU/DP-HLS/multiple_seq_align/multiple_seq_align'.
-INFO: [SYN 201-201] Setting up clock 'default' with a period of 40ns.
+INFO: [HLS 200-1510] Running: add_files -tb outputs/testbench/seq_align_test.cpp -cflags -Wno-unknown-pragmas -csimflags -Wno-unknown-pragmas 
+INFO: [HLS 200-10] Adding test bench file 'outputs/testbench/seq_align_test.cpp' to the project
+INFO: [HLS 200-1510] Running: add_files -tb testbench.cpp -cflags -Wno-unknown-pragmas -csimflags -Wno-unknown-pragmas 
+WARNING: [HLS 200-40] Cannot find test bench file 'testbench.cpp'
+INFO: [HLS 200-1510] Running: open_solution solution1 -flow_target vivado 
+INFO: [HLS 200-10] Opening solution '/home/yic033@AD.UCSD.EDU/DP-HLS/multiple_seq_align/solution1'.
+INFO: [SYN 201-201] Setting up clock 'default' with a period of 4ns.
 INFO: [HLS 200-1611] Setting target device to 'xcvu5p-flva2104-1-e'
 INFO: [HLS 200-1505] Using flow_target 'vivado'
 Resolution: For help on HLS 200-1505 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-1505.html
 INFO: [HLS 200-1464] Running solution command: config_interface -m_axi_latency=0
-INFO: [HLS 200-1510] Running: set_part  xcvu5p-flva2104-1-e  
-INFO: [HLS 200-1510] Running: create_clock -period 40n -name default 
-divide by zero
+INFO: [HLS 200-1510] Running: set_part xcvu5p-flva2104-1-e 
+INFO: [HLS 200-1510] Running: create_clock -period 4 -name default 
+INFO: [HLS 200-1510] Running: config_interface -m_axi_latency 0 
+INFO: [HLS 200-1510] Running: csynth_design 
+INFO: [HLS 200-111] Finished File checks and directory preparation: CPU user time: 0.01 seconds. CPU system time: 0 seconds. Elapsed time: 0.01 seconds; current allocated memory: 1.215 GB.
+INFO: [HLS 200-10] Analyzing design file 'outputs/src/seq_align_multiple.cpp' ... 
+WARNING: [HLS 207-910] 'query_chunks' macro redefined (outputs/src/params.h:47:9)
+INFO: [HLS 207-71] previous definition is here (outputs/src/params.h:18:9)
+WARNING: [HLS 207-910] 'extra_PE_num' macro redefined (outputs/src/params.h:48:9)
+INFO: [HLS 207-71] previous definition is here (outputs/src/params.h:23:9)
+WARNING: [HLS 207-4827] equality comparison with extraneous parentheses (/usr/include/x86_64-linux-gnu/gmp.h:2142:345)
+INFO: [HLS 207-4186] remove extraneous parentheses around the comparison to silence this warning (/usr/include/x86_64-linux-gnu/gmp.h:2142:345)
+INFO: [HLS 207-4187] use '=' to turn this equality comparison into an assignment (/usr/include/x86_64-linux-gnu/gmp.h:2142:345)
+INFO: [HLS 200-111] Finished Command csynth_design CPU user time: 7.24 seconds. CPU system time: 0.97 seconds. Elapsed time: 6.82 seconds; current allocated memory: -1033.656 MB.
+Compilation of the preprocessed source 'seq_align_multiple' failed
     while executing
-"expr {$cursorLen % $COLUMNS}"
-    ("foreach" body line 6)
+"source /home/yic033@AD.UCSD.EDU/DP-HLS/multiple_seq_align/solution1/csynth.tcl"
     invoked from within
-"foreach line [split $txt "\n"] {
-        set len [expr {[string length $line]+1}]
-        incr totalLen $len
-        if {$found == 0 && $totalLen >= $..."
-    (procedure "prompt" line 31)
+"hls::main /home/yic033@AD.UCSD.EDU/DP-HLS/multiple_seq_align/solution1/csynth.tcl"
+    ("uplevel" body line 1)
     invoked from within
-"prompt $CMDLINE"
-    (procedure "tclline" line 108)
+"uplevel 1 hls::main {*}$newargs"
+    (procedure "hls_proc" line 16)
     invoked from within
-"tclline "
-    (procedure "::TclReadLine::interact" line 58)
-    invoked from within
-"::TclReadLine::interact [::AP::get_product_name]"
-    (procedure "ap_internal_vitis_hls_bin" line 155)
-    invoked from within
-"ap_internal_vitis_hls_bin "
-ERROR: [HLS 200-70] There is an error calling 'vitis_hls'; try '-help'.
-INFO: [HLS 200-112] Total CPU user time: 1.87 seconds. Total CPU system time: 0.76 seconds. Total elapsed time: 1.66 seconds; peak allocated memory: 1.214 GB.
-INFO: [Common 17-206] Exiting vitis_hls at Mon May 15 16:17:47 2023...
+"hls_proc [info nameofexecutable] $argv"
+INFO: [HLS 200-112] Total CPU user time: 9.07 seconds. Total CPU system time: 1.74 seconds. Total elapsed time: 8.48 seconds; peak allocated memory: 1.215 GB.
