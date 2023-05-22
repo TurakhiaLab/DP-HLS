@@ -3,7 +3,10 @@
 .vscode/
 CMakeLists.txt
 cmake-build-debug/
-
+outputs/CMakeFiles/
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
 
 # ignore vitis projects
 local_seq_align_multiple_sa/local_seq_align_multiple_sa_vitis/
