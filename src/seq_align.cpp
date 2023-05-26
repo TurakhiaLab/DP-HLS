@@ -10,6 +10,8 @@
 #include "loop_counter.h"
 #include <hls_streamofblocks.h>
 #include "traceback.h"
+#include "debug.h"
+
 using namespace hls;
 
 void SeqAlign::align(stream<ap_uint<2>, query_length> &query_stream,
@@ -690,10 +692,18 @@ traceback_logic:
     printf("\n");*/
 }
 
-void AlignLocalLinear::align(hls::stream<char_t, query_length> &query_stream, hls::stream<char_t, ref_length> &reference_stream, type_t *dummy)
-{
+
+void AlignLocalLinear::align(hls::stream<char_t, query_length> &query_stream,
+                             hls::stream<char_t, ref_length> &reference_stream,
+                             hls::stream<tbp_t, ref_length + inflated_query_length> &traceback_out,
+#ifdef DEBUG
+                             Debugger &helper,
+#endif
+                             type_t *dummy){
+
+
     type_t temp = 0;
-    ap_uint<2> traceback[inflated_query_length][ref_length]; // declare traceback matrix
+    tbp_t traceback[inflated_query_length][ref_length]; // declare traceback matrix
     type_t dp_mem[3][PE_num];
     type_t last_pe_score[ref_length];
 
@@ -701,7 +711,7 @@ void AlignLocalLinear::align(hls::stream<char_t, query_length> &query_stream, hl
     type_t temp_score = 0;
     type_t max_row_value[PE_num];
     type_t max_col_value[PE_num];
-    ap_uint<2> final_traceback[ref_length + inflated_query_length];
+    tbp_t final_traceback[ref_length + inflated_query_length];
 
     type_t max = 0;
     type_t index = 0;
@@ -762,6 +772,9 @@ local_dpmem_loop:
     for (int i = 0; i < ref_length; i++)
     {
         local_reference[i] = reference_stream.read();
+#ifdef DEBUG
+        helper.data.ref.push(local_reference[i]);
+#endif
     }
 
     PELocalLinear PE_group[PE_num];
@@ -770,7 +783,7 @@ local_dpmem_loop:
 kernel:
     for (int qq = 0; qq < inflated_query_chunks; qq++)
     {
-        if (extra_PE_num != 0 && qq == query_chunks)
+        if (corner_case && (qq == query_chunks))
         { // last query block of corner case scenario
 
             const char_t zero_value = 0;
@@ -779,12 +792,18 @@ kernel:
             {
 #pragma HLS PIPELINE II = 1
                 query.shift(query_stream.read());
+#ifdef DEBUG
+                helper.data.query.push(query[0]);
+#endif
             }
 
             for (int i = 0; i < PE_num - extra_PE_num; i++)
             { // since all values won't be available for last query block of corner case, push 0
 #pragma HLS PIPELINE II = 1
                 query.shift(zero_value);
+#ifdef DEBUG
+                helper.data.query.push(zero_value);
+#endif
             }
         }
         else
@@ -793,6 +812,9 @@ kernel:
             {
 #pragma HLS PIPELINE II = 1
                 query.shift(query_stream.read());
+#ifdef DEBUG
+                helper.data.query.push(query[0]);
+#endif
             }
         }
 
@@ -872,39 +894,45 @@ kernel:
         }
     }
 
-    type_t count = 0;
+    type_t count = ref_length + inflated_query_length;
+
+
 
 // traceback logic
 traceback_logic:
     while (ultimate_row_value > -1 && ultimate_col_value > -1)
     {
-
-        if (traceback[ultimate_row_value][ultimate_col_value] == 1)
-        {
-
-            final_traceback[count] = 1;
-            count = count + 1;
+        tbp_t tbptr = traceback[ultimate_row_value][ultimate_col_value]; 
+        if (tbptr == TB_DIAG){
             ultimate_row_value = ultimate_row_value - 1;
             ultimate_col_value = ultimate_col_value - 1;
         }
-        else if (traceback[ultimate_row_value][ultimate_col_value] == 2)
-        {
-
-            final_traceback[count] = 2;
-            count = count + 1;
+        else if (tbptr == TB_LEFT){
             ultimate_col_value = ultimate_col_value - 1;
         }
-        else if (traceback[ultimate_row_value][ultimate_col_value] == 3)
-        {
-
-            final_traceback[count] = 3;
-            count = count + 1;
+        else if (tbptr == TB_UP){
             ultimate_row_value = ultimate_row_value - 1;
         }
+
+        final_traceback[count] = tbptr;
+        count -= 1;
+#ifdef DEBUG
+        helper.data.traceback.push(tbptr);
+#endif
 
         if ((ultimate_row_value + 1) == 0 || (ultimate_col_value + 1) == 0)
             break;
     }
+
+#ifdef DEBUG
+    helper.print_block_traceback(traceback, inflated_query_length, ref_length);
+
+    helper.print_query();
+    helper.print_reference();
+
+        helper.print_block_traceback_path_linear();
+
+#endif
 
     *dummy = ultimate_max_score;
 }

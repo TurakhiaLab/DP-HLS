@@ -8,6 +8,7 @@
 #include "PE.h"
 #include "params.h"
 #include "seq_align_multiple.h"
+#include "debug.h"
 
 using namespace hls;
 
@@ -28,7 +29,13 @@ public:
 
 class AlignLocalLinear : SeqAlign {
 public:
-	void align(hls::stream<char_t, query_length> &query_stream, hls::stream<char_t, ref_length> &reference_stream, type_t *dummy);
+	void align(hls::stream<char_t, query_length> &query_stream,
+               hls::stream<char_t, ref_length> &reference_stream,
+               stream<tbp_t, ref_length + inflated_query_length> &traceback_out,
+#ifdef DEBUG
+			   Debugger &helper,
+#endif
+               type_t *dummy);
 };
 
 class AlignLocalAffine : SeqAlign {

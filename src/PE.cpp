@@ -173,7 +173,7 @@ void PELocalLinear::compute(char_t local_ref_val, char_t local_query_val, type_t
 
          const type_t max_value = (((a1 > a3) ? a1 : a3) > match) ? ((a1 > a3) ? a1 : a3) : match;
 
-        *traceback = (max_value == match) ? 1 : ((max_value == a1) ? 2 : 3);
+        *traceback = (max_value == match) ? TB_DIAG : ((max_value == a1) ? TB_LEFT : TB_UP);
 
         *score = (max_value < temp) ? temp : max_value;
 

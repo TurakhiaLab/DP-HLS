@@ -18,10 +18,11 @@ int main() {
     srand(time(NULL));
 
     char reference_string[N_BLOCKS][ref_length];
-    char query_string[N_BLOCKS][query_length];
-    stream<ap_uint<2>, ref_length> reference_string_comp[N_BLOCKS];
-    stream<ap_uint<2>, query_length> query_string_comp[N_BLOCKS];
-    stream<tbp_t, ref_length+query_length> tb_streams[N_BLOCKS];
+    char query_string[N_BLOCKS][inflated_query_length];
+
+    stream<char_t, ref_length> reference_string_comp[N_BLOCKS];
+    stream<char_t, query_length> query_string_comp[N_BLOCKS];
+    stream<tbp_t, ref_length+inflated_query_length> tb_streams[N_BLOCKS];
 
     char alphabet[4] = { 'A', 'C', 'G', 'T' };
 
@@ -37,22 +38,23 @@ int main() {
         }
     }
 
+
     for (int block_i = 0; block_i < N_BLOCKS; block_i++) {
         for (int p = 0; p < ref_length; p++) {
-            ap_uint<2> symb = 0;
+            char_t symb = 0;
             switch (reference_string[block_i][p])
             {
             case 'A':
-                symb = 0;
-                break;
-            case 'C':
                 symb = 1;
                 break;
-            case 'G':
+            case 'C':
                 symb = 2;
                 break;
-            case 'T':
+            case 'G':
                 symb = 3;
+                break;
+            case 'T':
+                symb = 4;
                 break;
             }
             reference_string_comp[block_i].write(symb);
@@ -62,20 +64,20 @@ int main() {
 
     for (int block_i = 0; block_i < N_BLOCKS; block_i++) {
         for (int p = 0; p < query_length; p++) {
-            ap_uint<2> symb = 0;
+            char_t symb = 0;
             switch (query_string[block_i][p])
             {
             case 'A':
-                symb = 0;
-                break;
-            case 'C':
                 symb = 1;
                 break;
-            case 'G':
+            case 'C':
                 symb = 2;
                 break;
-            case 'T':
+            case 'G':
                 symb = 3;
+                break;
+            case 'T':
+                symb = 4;
                 break;
             }
             query_string_comp[block_i].write(symb);
@@ -84,7 +86,7 @@ int main() {
 
     type_t dummies[N_BLOCKS];
 
-    seq_align_multiple(query_string_comp, reference_string_comp, tb_streams, (&dummies)[N_BLOCKS]);
+    seq_align_multiple(query_string_comp, reference_string_comp, tb_streams, dummies);
 
     return 0;
 

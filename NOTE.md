@@ -14,6 +14,11 @@ have to be the same as the file name.
 For the same folder name in *src*, the *_cpp* suffix means the project are defined in C++, while 
 others are usually in C. 
 
+### Debug Suffix
+The suffix `_d` in the function or variable signiture is the debug version of the function or variable. 
+
 ----
 # HLS
 ## `ap_int.h`
+
+
