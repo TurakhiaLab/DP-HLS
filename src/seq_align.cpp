@@ -10,7 +10,11 @@
 #include "loop_counter.h"
 #include <hls_streamofblocks.h>
 #include "traceback.h"
+
+#ifdef DEBUG
 #include "debug.h"
+#endif // DEBUG
+
 
 using namespace hls;
 

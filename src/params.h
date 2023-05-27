@@ -9,10 +9,10 @@
 #define mismatch_score -3
 #define match_score 3
 
-#define query_length 16
-#define ref_length 16
+#define query_length 256
+#define ref_length 256
 
-#define PE_num 4
+#define PE_num 8
 
 #define numofreads 1
 
@@ -23,11 +23,9 @@
 #define M 10
 #define N 6
 
-#define DEBUG
+//#define DEBUG
 
-
-#define N_BLOCKS 2
-
+#define N_BLOCKS 4
 
 #define TB_PH 0  // this is place holder
 #define	TB_LEFT 1

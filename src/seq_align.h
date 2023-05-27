@@ -8,7 +8,11 @@
 #include "PE.h"
 #include "params.h"
 #include "seq_align_multiple.h"
+
+#ifdef DEBUG
 #include "debug.h"
+#endif // DEBUG
+
 
 using namespace hls;
 

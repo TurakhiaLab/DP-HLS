@@ -12,7 +12,12 @@
 #include <hls_stream.h>
 #include "PE.h"
 #include "seq_align.h"
+
+#ifdef DEBUG
 #include "debug.h"
+#endif // DEBUG
+
+
 
 
 // Link to vitis_hls/2022.2/include

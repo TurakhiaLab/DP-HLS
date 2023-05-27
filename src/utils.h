@@ -11,25 +11,19 @@ namespace utils{
 				top = -1;
 			}
 			void push(T item) {
-				if (top == V - 1) {
-					std::cout << "Stack Overflow" << std::endl;
-					return;
+				if (top != V - 1) {
+					data[++top] = item;
 				}
-				data[++top] = item;
 			}
 			T pop() {
-				if (top == -1) {
-					std::cout << "Stack Underflow" << std::endl;
-					return -1;
+				if (top != -1) {
+					return data[top--];
 				}
-				return data[top--];
 			}
 			T peek() {
-				if (top == -1) {
-					std::cout << "Stack Underflow" << std::endl;
-					return -1;
+				if (top != -1) {
+					return data[top];
 				}
-				return data[top];
 			}
 			bool isEmpty() {
 				return top == -1;
