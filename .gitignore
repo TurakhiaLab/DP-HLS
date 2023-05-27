@@ -9,7 +9,7 @@ CMakeCache.txt
 cmake_install.cmake
 .idea/
 seq_align_test
-
+out/
 Makefile
 
 # ignore vitis projects
