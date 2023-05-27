@@ -1,7 +1,6 @@
 # ignore visual studio cache file
 .vs/
 .vscode/
-CMakeLists.txt
 cmake-build-debug/
 cmake-build-release/
 outputs/CMakeFiles/
@@ -9,6 +8,9 @@ CMakeFiles/
 CMakeCache.txt
 cmake_install.cmake
 .idea/
+seq_align_test
+
+Makefile
 
 # ignore vitis projects
 local_seq_align_multiple_sa/local_seq_align_multiple_sa_vitis/
