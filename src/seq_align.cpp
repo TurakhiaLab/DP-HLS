@@ -925,12 +925,12 @@ traceback_logic:
     }
 
 #ifdef DEBUG
-    helper.print_block_traceback(traceback, inflated_query_length, ref_length);
+    helper.print_block_traceback_matrix(traceback, inflated_query_length, ref_length);
 
     helper.print_query();
     helper.print_reference();
 
-        helper.print_block_traceback_path_linear();
+    helper.print_block_traceback_linear();
 
 #endif
 

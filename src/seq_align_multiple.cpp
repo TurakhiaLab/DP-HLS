@@ -33,7 +33,7 @@ extern "C" {
 #ifdef DEBUG
 	Debugger helper[N_BLOCKS];
 	for (int i = 0; i < N_BLOCKS; i++) {
-		helper[i] = Debugger("/home/yic033@AD.UCSD.EDU/DP-HLS/debug/", "debug_kernel", i);
+		helper[i] = Debugger("/mnt/c/Users/Yingqi/OneDrive/GitHub/DP-HLS/debug/", "debug_kernel", i);
 	}
 #endif
 

@@ -8,7 +8,7 @@ endif()
 
 project ("DP-HLS")
 
-set(RAPTOR 1)
+set(RAPTOR 0)
 set(CMAKE_CXX_COMPILER g++)  # Use g++ compiler, but subject to change for v++ compiler.
 add_definitions(-DDEBUG=1)
 

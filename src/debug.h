@@ -19,6 +19,7 @@ namespace fs = std::filesystem;
 using namespace fs;
 using namespace std;
 
+
 class Debugger {
 public:
     string debugpath;
@@ -26,7 +27,7 @@ public:
     struct {
         queue<char_t> query;
         queue<char_t> ref;
-        queue<char_t> traceback;
+        queue<tbp_t> traceback;
         int max_row;
         int max_col;
     } data;
@@ -41,7 +42,7 @@ public:
         fs::path path(debugpath);  // get the path to the debug folder
         fs::remove_all(path);
         fs::create_directories(path);
-        this->filepath =  debugpath + filename + "_" + std::to_string(block);
+        this->filepath =  debugpath + "/" + filename + "_" + std::to_string(block);
         std::ofstream createFile(this->filepath);
         assert(createFile.is_open() && "Unable to Create File");  // create file to write =
         createFile.close();
@@ -66,6 +67,7 @@ public:
                 return "T";
                 break;
             default:
+                return " ";
                 break;
             }
     }
@@ -82,21 +84,25 @@ public:
         fclose(outputFile);
     }
 
-    void print_block_traceback(tbp_t matrix[query_length][ref_length], int rown, int coln){
+    void print_block_traceback_matrix(tbp_t matrix[query_length][ref_length], int rown, int coln){
         FILE *outputFile = std::fopen(this->filepath.c_str(), "a");
         fprintf(outputFile, "\nTraceback Matrix\n");
         fprintf(outputFile, "  ");
+        queue<char_t> tmp_ref;
+        queue<char_t> tmp_qry;
         for (int i = 0; i < ref_length; i++){
             fprintf(outputFile, (this->str(this->data.ref.front()) + " ").c_str());
-            this->data.ref.push(this->data.ref.front());
+            tmp_ref.push(this->data.ref.front());
             this->data.ref.pop();
         }
+        this->data.ref.swap(tmp_ref);
+
         fprintf(outputFile, "\n");
         for (int i = 0; i < rown; i++) {
             char_t qry_c = this->data.query.front();
             fprintf(outputFile, (this->str(qry_c) + " ").c_str());
+            tmp_qry.push(qry_c);
             this->data.query.pop();
-            this->data.query.push(qry_c);
             for (int j = 0; j < coln; j++){
                 switch ((tbp_t)matrix[i][j]){
                     case TB_UP: fprintf(outputFile, "\u2191 "); break;
@@ -106,6 +112,7 @@ public:
             }
             fprintf(outputFile, "\n");
         }
+        this->data.query.swap(tmp_qry);
         fclose(outputFile);
     }
 
@@ -120,11 +127,7 @@ public:
             this->data.query.pop();
         }
 
-        while (!tmp.empty()){
-            this->data.query.push(tmp.front());
-            tmp.pop();
-        }
-
+        this->data.query.swap(tmp);
         fprintf(outputFile, "\n");
         fclose(outputFile);
     }
@@ -140,22 +143,19 @@ public:
             this->data.ref.pop();
         }
 
-        while (!tmp.empty()){
-            this->data.ref.push(tmp.front());
-            tmp.pop();
-        }
+        this->data.ref.swap(tmp);
 
         fprintf(outputFile, "\n");
         fclose(outputFile);
     }
 
-    void print_block_traceback_path_linear(){
+    void print_block_traceback_linear(){
         FILE *outputFile = std::fopen(this->filepath.c_str(), "a");
         fprintf(outputFile, "\nTraceback Path\n");
         string ref_seq = "";
         string qry_seq = "";
-        queue<tbp_t> tmp_qry;
-        queue<tbp_t> tmp_ref;
+        queue<char_t> tmp_qry;
+        queue<char_t> tmp_ref;
         while (!this->data.traceback.empty()){
             tbp_t arrow = this->data.traceback.front();
             // printf("%d", (int) arrow);
@@ -188,19 +188,20 @@ public:
             }
             this->data.traceback.pop();
         }
-        while (!tmp_qry.empty()){
-            this->data.query.push(tmp_qry.front());
-            tmp_qry.pop();
+        while (!this->data.query.empty()){
+            tmp_qry.push(this->data.query.front());
+            this->data.query.pop();
         }
-        while (!tmp_ref.empty()){
-            this->data.ref.push(tmp_ref.front());
-            tmp_ref.pop();
-        }
+        while (!this->data.ref.empty()) {
+			tmp_ref.push(this->data.ref.front());
+			this->data.ref.pop();
+		}
+        this->data.query.swap(tmp_qry);
+        this->data.ref.swap(tmp_ref);
         fprintf(outputFile, (ref_seq + "\n").c_str());
         fprintf(outputFile, (qry_seq + "\n").c_str());
 
         fclose(outputFile);
-        
     }
 
     void pritn_traceback_affine(){};

@@ -4,13 +4,13 @@
 #include <ap_fixed.h>
 
 #define linear_gap_penalty -1
-#define opening_score -1
-#define extend_score -1
-#define mismatch_score -1
-#define match_score 2
+#define opening_score -2
+#define extend_score -2
+#define mismatch_score -3
+#define match_score 3
 
-#define query_length 64
-#define ref_length 64
+#define query_length 16
+#define ref_length 16
 
 #define PE_num 4
 
