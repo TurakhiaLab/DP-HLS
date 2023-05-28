@@ -730,8 +730,8 @@ void AlignLocalLinear::align(hls::stream<char_t, query_length> &query_stream,
 
 // partition array for better access
 #pragma HLS ARRAY_PARTITION variable = dp_mem dim = 0 complete
-#pragma HLS ARRAY_PARTITION variable = traceback dim = 1 cyclic factor = 32
-#pragma HLS ARRAY_PARTITION variable = local_reference cyclic dim = 1 factor = 32
+#pragma HLS ARRAY_PARTITION variable = traceback dim = 1 cyclic factor = 8
+#pragma HLS ARRAY_PARTITION variable = local_reference cyclic dim = 1 factor = 8
 #pragma HLS ARRAY_PARTITION variable = max_score dim = 0 complete
 #pragma HLS ARRAY_PARTITION variable = max_row_value dim = 0 complete
 #pragma HLS ARRAY_PARTITION variable = max_col_value dim = 0 complete
