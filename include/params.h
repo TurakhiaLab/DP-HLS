@@ -9,16 +9,16 @@
 #define mismatch_score -3
 #define match_score 3
 
-#define query_length 256
-#define ref_length 256
+#define max_query_length 256
+#define max_reference_length 256
 
 #define PE_num 8
 
 #define numofreads 1
 
-#define corner_case (query_length%PE_num != 0)
-#define query_chunks (query_length/PE_num)
-#define extra_PE_num (query_length%PE_num)
+#define corner_case (max_query_length%PE_num != 0)
+#define query_chunks (max_query_length/PE_num)
+#define extra_PE_num (max_query_length%PE_num)
 
 #define M 10
 #define N 6
@@ -39,13 +39,19 @@
 
 #define TB_LINE_SIZE 64  // This defines the length of a line of TB pointers. Must be larger than PE_num
 
+
+#define chunk_width 16  // this must larger than PE_num
+
 typedef ap_uint<3> char_t;
 typedef ap_fixed<M, N> type_t;  // alias type_t with ap_fixed<M,N>
 
-typedef ap_uint<2> tbp_t;
-typedef ap_uint<3> tbp_line_t[TB_LINE_SIZE];
+typedef ap_uint<3> tbp_t;
 
-#define zero_fp (type_t) 0
+#define zero_fp ((type_t)0)
+
+
+
+typedef char_t ref_buf[chunk_width];
 
 // inflated ones takes care of corner case scenarios
 #define inflated_query_length (query_chunks *PE_num + corner_case *PE_num)

@@ -4,6 +4,7 @@
 #include <ap_fixed.h>
 #include "shift_reg.h"
 #include <hls_streamofblocks.h>
+#include "traceback.h"
 
 #ifndef PE_H
 #define PE_H
@@ -37,7 +38,7 @@ public:
 	tbp_t update();
 
 	void compute(ap_uint<2> local_ref_val, ap_uint<2> local_query_val,
-				 ShiftRegister<type_t, 2> &up_score);
+		ShiftRegister<type_t, 2>& up_score);
 
 private:
 	type_t score;
@@ -52,7 +53,7 @@ public:
 	ShiftRegister<type_t, 1> Iy_reg;
 
 	type_t max_score;
-	type_t *max_score_ptr;
+	type_t* max_score_ptr;
 
 	AffinePE(void);
 
@@ -65,8 +66,8 @@ public:
 	tbp_t update();
 
 	void compute(ap_uint<2> local_ref_val, ap_uint<2> local_query_val,
-				 ShiftRegister<type_t, 2> &score_up,
-				 ShiftRegister<type_t, 1> &Ix_up);
+		ShiftRegister<type_t, 2>& score_up,
+		ShiftRegister<type_t, 1>& Ix_up);
 
 	void nextChunk();
 
@@ -81,33 +82,42 @@ class PEGlobalLinear : PE
 {
 public:
 	void compute(char_t local_ref_val, char_t local_query_val, type_t up_prev, type_t left_prev, type_t diag_prev,
-				 type_t *score,
-				 ap_uint<2> *traceback);
+		type_t* score,
+		ap_uint<2>* traceback);
 };
 class PEGlobalAffine : PE
 {
 public:
 	void compute(char_t local_ref_val, char_t local_query_val, type_t up_prev, type_t left_prev, type_t diag_prev,
-				 type_t *score,
-				 type_t Ix_prev, type_t *Ix,
-				 type_t Iy_prev, type_t *Iy,
-				 ap_uint<3> *traceback);
+		type_t* score,
+		type_t Ix_prev, type_t* Ix,
+		type_t Iy_prev, type_t* Iy,
+		ap_uint<3>* traceback);
 };
+
+
 class PELocalLinear : PE
 {
 public:
-	void compute(char_t local_ref_val, char_t local_query_val, type_t up_prev, type_t left_prev, type_t diag_prev,
-				 type_t *score,
-				 ap_uint<2> *traceback);
+	void compute(
+		char_t local_query_val, 
+		char_t local_reference_val, 
+		type_t up_prev, 
+		type_t left_prev, 
+		type_t diag_prev,
+		type_t* score,
+		TraceBack &tracer,
+		int idx,
+		bool predicate);
 };
 class PELocalAffine : PE
 {
 public:
 	void compute(char_t local_ref_val, char_t local_query_val, type_t up_prev, type_t left_prev, type_t diag_prev,
-				 type_t *score,
-				 type_t Ix_prev, type_t *Ix,
-				 type_t Iy_prev, type_t *Iy,
-				 ap_uint<3> *traceback);
+		type_t* score,
+		type_t Ix_prev, type_t* Ix,
+		type_t Iy_prev, type_t* Iy,
+		ap_uint<3>* traceback);
 };
 
 #endif // !PE_H

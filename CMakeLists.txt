@@ -10,21 +10,22 @@ project ("DP-HLS")
 
 set(RAPTOR 0)
 set(CMAKE_CXX_COMPILER g++)  # Use g++ compiler, but subject to change for v++ compiler.
-add_definitions(-DDEBUG=1)
+add_definitions(-DDEBUG=0)
 
 # Add source to this project's executable.
-add_executable(seq_align_test "src/seq_align.h"
-        "src/params.h"
-        "src/PE.h"
-        "src/seq_align_multiple.h"
+add_executable(seq_align_test "include/seq_align.h"
+        "include/params.h"
+        "include/PE.h"
+        "include/host.h"
+        "include/seq_align_multiple.h"
         "testbench/seq_align_test.cpp"
         "src/seq_align_multiple.cpp"
         "src/seq_align.cpp"
         "src/PE.cpp"
         "src/seq_align.cpp"
         "src/traceback.cpp"
-        "src/loop_counter.h"
-        "src/traceback.h")
+        "include/loop_counter.h"
+        "include/traceback.h")
 
 
 # Add include to Xilinx Library FIles

@@ -72,7 +72,8 @@ public:
             }
     }
 
-    void print_block_score(type_t matrix[query_length][ref_length], int rown, int coln){
+    // FIXME: function header
+    void print_block_score(type_t matrix[max_query_length][max_reference_length], int rown, int coln){
         FILE *outputFile = std::fopen(this->filepath.c_str(), "a");
         fprintf(outputFile, "\nRaw Score Matrix\n");
         for (int i = 0; i < rown; i++) {
@@ -84,13 +85,14 @@ public:
         fclose(outputFile);
     }
 
-    void print_block_traceback_matrix(tbp_t matrix[query_length][ref_length], int rown, int coln){
+    // FIXME: function header
+    void print_block_traceback_matrix(tbp_t matrix[max_query_length][max_reference_length], int rown, int coln){
         FILE *outputFile = std::fopen(this->filepath.c_str(), "a");
         fprintf(outputFile, "\nTraceback Matrix\n");
         fprintf(outputFile, "  ");
         queue<char_t> tmp_ref;
         queue<char_t> tmp_qry;
-        for (int i = 0; i < ref_length; i++){
+        for (int i = 0; i < max_reference_length; i++){
             fprintf(outputFile, (this->str(this->data.ref.front()) + " ").c_str());
             tmp_ref.push(this->data.ref.front());
             this->data.ref.pop();

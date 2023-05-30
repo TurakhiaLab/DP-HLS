@@ -32,6 +32,7 @@ namespace utils{
 				return top == V-1;
 			}
     };
+
 };
 
 #endif // UTILS_H

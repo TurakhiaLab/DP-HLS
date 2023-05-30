@@ -30,9 +30,10 @@ using namespace hls;
  */
 extern "C" {
 
-	void seq_align_multiple(stream<char_t , query_length> (&query_string_comp_blocks)[N_BLOCKS],
-		stream<char_t , ref_length> (&reference_string_comp_blocks)[N_BLOCKS],
-		stream<tbp_t, ref_length + inflated_query_length> (&tb_streams)[N_BLOCKS],
+	void seq_align_multiple(stream<char_t , max_query_length> (&query_string_comp_blocks)[N_BLOCKS],
+		stream<char_t , max_reference_length> (&reference_string_comp_blocks)[N_BLOCKS],
+		stream<tbp_t, max_reference_length + max_query_length> (&tb_streams)[N_BLOCKS],
+		int query_lengths[N_BLOCKS], int reference_lengths[N_BLOCKS],
 		type_t dummies[N_BLOCKS]) {
 
 #ifdef DEBUG
@@ -61,8 +62,11 @@ extern "C" {
 		align_expand:
 		for (int block_i = 0; block_i < N_BLOCKS; block_i++) {
 #pragma HLS unroll
-			align_group[block_i].align(query_string_comp_blocks[block_i],
+			align_group[block_i].align(
+				query_string_comp_blocks[block_i],
 				reference_string_comp_blocks[block_i],
+				query_lengths[block_i],
+				reference_lengths[block_i],
 				tb_streams[block_i],
 #ifdef DEBUG
 				helper[block_i],

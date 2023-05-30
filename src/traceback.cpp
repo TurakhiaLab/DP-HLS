@@ -9,18 +9,18 @@ void TraceBack::set_ptr(tbp_t ptr, int pe_idx)
     this->input_ptr[pe_idx] += 1;
 }
 
-int TraceBack::traceback(stream<tbp_t, ref_length + query_length> &tb_stream, int max_row, int max_col)
+int TraceBack::traceback(stream<tbp_t, max_reference_length + max_query_length> &tb_stream, int max_row, int max_col)
 {
     int stream_ctr = 0; // indexing output string
     int row_ctr = max_row;
     int col_ctr = max_col;
     LoopCounter<PE_num> pe_ctr(max_row % PE_num);
 
-    int arr_idx = (max_row / PE_num) * ref_length + max_col;
+    int arr_idx = (max_row / PE_num) * max_reference_length + max_col;
 
     tbp_t tmp;
 
-    for (int i = 0; i < ref_length + query_length; i++)
+    for (int i = 0; i < max_reference_length + max_query_length; i++)
     {
 
         if (row_ctr >= 0 && col_ctr >= 0)
@@ -31,7 +31,7 @@ int TraceBack::traceback(stream<tbp_t, ref_length + query_length> &tb_stream, in
             {
                 if (pe_ctr.val() == 0)
                 {
-                    arr_idx -= ref_length;
+                    arr_idx -= max_reference_length;
                 }
                 --pe_ctr;
 
@@ -48,7 +48,7 @@ int TraceBack::traceback(stream<tbp_t, ref_length + query_length> &tb_stream, in
 
                 if (pe_ctr.val() == 0)
                 {
-                    arr_idx -= ref_length;
+                    arr_idx -= max_reference_length;
                 }
                 --pe_ctr;
 
