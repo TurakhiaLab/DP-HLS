@@ -36,4 +36,6 @@ Resolution: For help on HLS 200-1505 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022
 INFO: [HLS 200-1464] Running solution command: config_interface -m_axi_latency=0
 INFO: [HLS 200-1510] Running: set_part  xcvu5p-flva2104-1-e  
 INFO: [HLS 200-1510] Running: create_clock -period 4 -name default 
-[2Kvitis_hls> [11C
+[2Kvitis_hls> [11C[2Kvitis_hls> ex[13C[2Kvitis_hls> exit[15C
+INFO: [HLS 200-112] Total CPU user time: 3.33 seconds. Total CPU system time: 0.82 seconds. Total elapsed time: 38.41 seconds; peak allocated memory: 209.277 MB.
+INFO: [Common 17-206] Exiting vitis_hls at Tue May 30 22:38:32 2023...

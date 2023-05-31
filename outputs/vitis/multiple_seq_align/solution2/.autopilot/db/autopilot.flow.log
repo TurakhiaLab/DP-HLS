@@ -102,3 +102,4 @@ Command       ap_source done; 1.18 sec.
 Execute       get_project 
 Command     open_tcl_project done; 1.18 sec.
 Command   ap_source done; 1.18 sec.
+Execute   cleanup_all 
