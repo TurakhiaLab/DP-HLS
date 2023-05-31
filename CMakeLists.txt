@@ -8,24 +8,28 @@ endif()
 
 project ("DP-HLS")
 
+
 set(RAPTOR 0)
 set(CMAKE_CXX_COMPILER g++)  # Use g++ compiler, but subject to change for v++ compiler.
 add_definitions(-DDEBUG=0)
 
+set(EXECUTABLE_TARGETS
+    align_local_linear
+)
+
 # Add source to this project's executable.
-add_executable(seq_align_test "include/seq_align.h"
-        "include/params.h"
-        "include/PE.h"
-        "include/host.h"
-        "include/seq_align_multiple.h"
-        "testbench/seq_align_test.cpp"
-        "src/seq_align_multiple.cpp"
-        "src/seq_align.cpp"
-        "src/PE.cpp"
-        "src/seq_align.cpp"
-        "src/traceback.cpp"
-        "include/loop_counter.h"
-        "include/traceback.h")
+add_executable(align_local_linear "include/seq_align.h"
+    "include/params.h"
+    "include/PE.h"
+    "include/host.h"
+    "include/seq_align_multiple.h"
+    "testbench/seq_align_test.cpp"
+    "src/toplevel/seq_align_multiple.cpp"
+    "src/pe/pe_local_linear.cpp"
+    "src/align/align_local_linear.cpp"
+    "src/traceback.cpp"
+    "include/loop_counter.h"
+    "include/traceback.h")
 
 
 # Add include to Xilinx Library FIles
@@ -33,22 +37,23 @@ if (RAPTOR)
     set(HLS_HOME "/home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1")
     set(XRT_HOME "/home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1")
 
-    target_include_directories(seq_align_test PUBLIC "${HLS_HOME}/include")
+    target_include_directories(EXECUTABLE_TARGETS PUBLIC "${HLS_HOME}/include")
     #target_link_directories(seq_align_test PUBLIC "${HLS_HOME}/lib")
     #target_link_libraries(seq_align_test PUBLIC xrt_coreutil)
-    target_compile_options(seq_align_test PUBLIC -pthread)
+    target_compile_options(EXECUTABLE_TARGETS PUBLIC -pthread)
 else()
     set(HLS_HOME "/tools/Xilinx/Vitis_HLS/2022.2")
     set(XRT_HOME "/opt/xilinx/xrt")
 
-    target_include_directories(seq_align_test PUBLIC "${XRT_HOME}/include" "${HLS_HOME}/include")
-    target_link_directories(seq_align_test PUBLIC "${HLS_HOME}/lib" "${XRT_HOME}/lib")
-    target_link_libraries(seq_align_test PUBLIC xrt_coreutil)
-    target_compile_options(seq_align_test PUBLIC -pthread)
+    target_include_directories(${EXECUTABLE_TARGETS} PUBLIC "./include")
+    target_include_directories(${EXECUTABLE_TARGETS} PUBLIC "${XRT_HOME}/include" "${HLS_HOME}/include")
+    target_link_directories(${EXECUTABLE_TARGETS} PUBLIC "${HLS_HOME}/lib" "${XRT_HOME}/lib")
+    target_link_libraries(${EXECUTABLE_TARGETS} PUBLIC xrt_coreutil)
+    target_compile_options(${EXECUTABLE_TARGETS} PUBLIC -pthread)
 endif()
 
 
 
 if (CMAKE_VERSION VERSION_GREATER 3.12)
-    set_property(TARGET seq_align_test PROPERTY CXX_STANDARD 20)
+    set_property(TARGET ${EXECUTABLE_TARGETS} PROPERTY CXX_STANDARD 17)
 endif()

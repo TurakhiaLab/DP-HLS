@@ -25,7 +25,7 @@ private:
 	type_t score; // temporary score is set to be private to prevent cross access to supposed independant cells in a wavefront
 };
 
-class LinearPE : public PE
+class LinearPE
 {
 public:
 	type_t pe_max_score;
@@ -45,7 +45,7 @@ private:
 	tbp_t tb_ptr;
 };
 
-class AffinePE : public PE
+class AffinePE
 {
 public:
 	ShiftRegister<type_t, 2> score_reg;
@@ -78,14 +78,14 @@ private:
 	tbp_t tb_pointer; // hold the traceback ptr of a compute call
 };
 
-class PEGlobalLinear : PE
+class PEGlobalLinear
 {
 public:
 	void compute(char_t local_ref_val, char_t local_query_val, type_t up_prev, type_t left_prev, type_t diag_prev,
 		type_t* score,
 		ap_uint<2>* traceback);
 };
-class PEGlobalAffine : PE
+class PEGlobalAffine
 {
 public:
 	void compute(char_t local_ref_val, char_t local_query_val, type_t up_prev, type_t left_prev, type_t diag_prev,
@@ -96,7 +96,7 @@ public:
 };
 
 
-class PELocalLinear : PE
+class PELocalLinear
 {
 public:
 	void compute(
@@ -110,7 +110,8 @@ public:
 		int idx,
 		bool predicate);
 };
-class PELocalAffine : PE
+
+class PELocalAffine
 {
 public:
 	void compute(char_t local_ref_val, char_t local_query_val, type_t up_prev, type_t left_prev, type_t diag_prev,

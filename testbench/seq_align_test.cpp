@@ -3,8 +3,8 @@
 #define __gmp_const const
 
 #include <stdio.h>
-#include "../src/seq_align_multiple.h"
-#include "../src/params.h"
+#include "../include/seq_align_multiple.h"
+#include "../include/params.h"
 #include <cstdlib>
 #include <iostream>
 #include <ap_int.h>
