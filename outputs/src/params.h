@@ -15,10 +15,12 @@
 #define PE_num 32
 #define numofreads 1
 
+#define query_chunks query_length/PE_num
 
 #define M 10
 #define N 6
 
+#define extra_PE_num query_length%PE_num
 
 #define N_BLOCKS 8
 

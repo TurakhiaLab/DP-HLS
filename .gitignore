@@ -9,6 +9,12 @@ cmake-build-debug/
 local_seq_align_multiple_sa/local_seq_align_multiple_sa_vitis/
 local_seq_align_multiple_sa/vitis_hls.log
 
+.idea/
+cmake-build-debug/
+cmake-build-release/
+CMakeFiles/
+
+
 # ingore vitis project folder
 vitis/
 c_cpp_properties.json
