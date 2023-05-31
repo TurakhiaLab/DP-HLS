@@ -1,1 +1,0 @@
-g++     CMakeFiles/seq_align_test_out.dir/testbench/seq_align_test.cpp.o CMakeFiles/seq_align_test_out.dir/src/PE.cpp.o CMakeFiles/seq_align_test_out.dir/src/seq_align.cpp.o CMakeFiles/seq_align_test_out.dir/src/seq_align_multiple.cpp.o CMakeFiles/seq_align_test_out.dir/src/traceback.cpp.o  -o seq_align_test_out 

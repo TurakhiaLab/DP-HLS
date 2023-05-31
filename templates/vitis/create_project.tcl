@@ -1,1 +1,1 @@
-source {{ project_config_path }}
+open_tcl_project {{ project_config_path }}

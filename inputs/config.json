@@ -30,7 +30,7 @@
   "vitis_project": {
     "device": "xcvu5p-flva2104-1-e",
     "project_name": "multiple_seq_align",
-    "solution_name": "solution1",
+    "solution_name": "solution2",
     "top_level_function": "seq_align_multiple",
     "clock_period": "4"
   },

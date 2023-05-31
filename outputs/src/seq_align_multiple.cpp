@@ -53,7 +53,8 @@ extern "C" {
 #pragma HLS unroll
 			align_group[block_i].align(query_string_comp_blocks[block_i],
 				reference_string_comp_blocks[block_i],
-				&dummies_inner[block_i]);
+				tb_streams[block_i],
+				dummies_inner[block_i]);
 		}
 
 		for (int block_i = 0; block_i < N_BLOCKS; block_i++) {

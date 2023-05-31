@@ -11,7 +11,7 @@ def main():
                                      epilog="Thanks for Using")
     parser.add_argument("-c", "--config", help="Specify the config file to use", type=str, required=True)
     args = parser.parse_args()
-    config = None
+    config = '/home/yic033@AD.UCSD.EDU/DP-HLS/inputs/config.json'
     with open(args.config) as config_file:
         config = json.load(config_file)
 
@@ -117,6 +117,8 @@ def create_project(config):
     vitis_home = config['vitis_hls']['vitis_hls_home']
     vitis_project = config['vitis_project']
     output_home = config['output_directory']
+    #print(output_home)
+    os.system(f"mkdir {os.path.join(output_home, 'vitis')}")
 
     environment = Environment(loader=FileSystemLoader("templates/"))
     template = environment.get_template('vitis/project_config.tcl')
@@ -145,6 +147,8 @@ def create_project(config):
         testbench_files=os.path.join(output_home, 'testbench', 'seq_align_test.cpp')
     )
 
+
+
     with open(os.path.join(output_home, 'vitis', 'project_config.tcl'), mode="w", encoding="utf-8") as script:
         script.write(content)
 
@@ -157,7 +161,8 @@ def create_project(config):
 
     template = environment.get_template('vitis/vitis_project.sh')
     content = template.render(
-        path_setting64=os.path.join(vitis_home, 'settings64.sh'),
+        project_path=os.path.join(output_home, 'vitis'),
+        path_settings64=os.path.join(vitis_home, 'settings64.sh'),
         create_project_path=os.path.join(output_home, 'vitis', 'create_project.tcl')
     )
     with open(os.path.join(output_home, 'vitis', 'vitis_project.sh'), mode="w", encoding="utf-8") as script:
@@ -166,7 +171,6 @@ def create_project(config):
     os.system(f"chmod +x {os.path.join(output_home, 'vitis', '*.sh')}")
     
     # {'LD_PRELOAD'}={config['vitis_hls']['env']['LD_PRELOAD']}
-
     os.system(f"/bin/bash {os.path.join(output_home, 'vitis', 'vitis_project.sh')}")
 
     return 0

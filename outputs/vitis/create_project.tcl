@@ -1,0 +1,1 @@
+open_tcl_project /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/project_config.tcl

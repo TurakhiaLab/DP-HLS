@@ -6,12 +6,12 @@
 
 source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/scripts/vitis_hls/hls.tcl -notrace
 INFO: [HLS 200-10] Running '/home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/bin/unwrapped/lnx64.o/vitis_hls'
-INFO: [HLS 200-10] For user 'yic033@AD.UCSD.EDU' on host 'raptor.ucsd.edu' (Linux_x86_64 version 5.4.0-149-generic) on Tue May 30 22:31:47 PDT 2023
+INFO: [HLS 200-10] For user 'yic033@AD.UCSD.EDU' on host 'raptor.ucsd.edu' (Linux_x86_64 version 5.4.0-149-generic) on Tue May 30 22:37:54 PDT 2023
 INFO: [HLS 200-10] On os Ubuntu 20.04.6 LTS
-INFO: [HLS 200-10] In directory '/home/yic033@AD.UCSD.EDU/DP-HLS'
+INFO: [HLS 200-10] In directory '/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis'
 Sourcing Tcl script '/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/create_project.tcl'
 INFO: [HLS 200-1510] Running: open_project multiple_seq_align 
-INFO: [HLS 200-10] Opening project '/home/yic033@AD.UCSD.EDU/DP-HLS/multiple_seq_align'.
+INFO: [HLS 200-10] Opening project '/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align'.
 INFO: [HLS 200-1510] Running: set_top seq_align_multiple 
 INFO: [HLS 200-1510] Running: add_files /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/PE.cpp /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/seq_align.cpp /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/traceback.cpp /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/seq_align_multiple.cpp /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/params.h /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/seq_align.h /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/traceback.h /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/seq_align_multiple.h /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/PE.h /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/utils/loop_counter.h /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/utils/shift_reg.h  
 INFO: [HLS 200-10] Adding design file '/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/PE.cpp' to the project
@@ -23,19 +23,17 @@ INFO: [HLS 200-10] Adding design file '/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/s
 INFO: [HLS 200-10] Adding design file '/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/traceback.h' to the project
 INFO: [HLS 200-10] Adding design file '/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/seq_align_multiple.h' to the project
 INFO: [HLS 200-10] Adding design file '/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/PE.h' to the project
-INFO: [HLS 200-10] Adding design file '/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/utils/loop_counter.h' to the project
-INFO: [HLS 200-10] Adding design file '/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/utils/shift_reg.h' to the project
+WARNING: [HLS 200-40] Cannot find design file '/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/utils/loop_counter.h'
+WARNING: [HLS 200-40] Cannot find design file '/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/utils/shift_reg.h'
 INFO: [HLS 200-1510] Running: add_files -tb /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/testbench/seq_align_test.cpp 
 INFO: [HLS 200-10] Adding test bench file '/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/testbench/seq_align_test.cpp' to the project
 INFO: [HLS 200-1510] Running: open_solution solution2 -flow_target vivado 
-INFO: [HLS 200-10] Creating and opening solution '/home/yic033@AD.UCSD.EDU/DP-HLS/multiple_seq_align/solution2'.
+INFO: [HLS 200-10] Opening solution '/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2'.
+INFO: [SYN 201-201] Setting up clock 'default' with a period of 4ns.
+INFO: [HLS 200-1611] Setting target device to 'xcvu5p-flva2104-1-e'
 INFO: [HLS 200-1505] Using flow_target 'vivado'
 Resolution: For help on HLS 200-1505 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-1505.html
-INFO: [HLS 200-435] Setting 'open_solution -flow_target vivado' configuration: config_interface -m_axi_latency=0
+INFO: [HLS 200-1464] Running solution command: config_interface -m_axi_latency=0
 INFO: [HLS 200-1510] Running: set_part  xcvu5p-flva2104-1-e  
-INFO: [HLS 200-1611] Setting target device to 'xcvu5p-flva2104-1-e'
 INFO: [HLS 200-1510] Running: create_clock -period 4 -name default 
-INFO: [SYN 201-201] Setting up clock 'default' with a period of 4ns.
-[2Kvitis_hls> [11C[2Kvitis_hls> [11C[2Kvitis_hls> [11C[2Kvitis_hls> e[12C[2Kvitis_hls> ex[13C[2Kvitis_hls> exi[14C[2Kvitis_hls> exit[15C
-INFO: [HLS 200-112] Total CPU user time: 3.18 seconds. Total CPU system time: 0.87 seconds. Total elapsed time: 249.96 seconds; peak allocated memory: 206.547 MB.
-INFO: [Common 17-206] Exiting vitis_hls at Tue May 30 22:35:57 2023...
+[2Kvitis_hls> [11C
