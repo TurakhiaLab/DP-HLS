@@ -16,5 +16,5 @@ CMakeFiles/
 
 
 # ingore vitis project folder
-vitis/
+/vitis/
 c_cpp_properties.json
