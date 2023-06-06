@@ -10,21 +10,24 @@ void PELocalLinear::compute(
 	tbp_t* tb_write,
 	bool predicate)
 {
-	const type_t a1 = left_prev + linear_gap_penalty;
-	const type_t a3 = up_prev + linear_gap_penalty;
+	type_t up = left_prev + linear_gap_penalty;
+	type_t left = up_prev + linear_gap_penalty;
 
-	const type_t match = (local_query_val == local_reference_val) ? diag_prev + match_score : diag_prev + mismatch_score;
 
-	const type_t max_value = (((a1 > a3) ? a1 : a3) > match) ? ((a1 > a3) ? a1 : a3) : match;
+	type_t match = (local_query_val == local_reference_val) ? diag_prev + match_score : diag_prev + mismatch_score;
+
+	type_t max = up > left ? up : left;
+	max = max > match ? max : match;
+	max = max > zero_fp ? max : zero_fp;
 
 	if (predicate)
 	{
-		*write_score = (max_value < zero_fp) ? zero_fp : max_value;
+		*write_score = max;
 		if (*write_score == zero_fp) { *tb_write = TB_PH; } 
-		else { *tb_write = (max_value == match) ? TB_DIAG : ((max_value == a1) ? TB_LEFT : TB_UP); }
+		else { *tb_write = (max == match) ? TB_DIAG : ((max == left) ? TB_LEFT : TB_UP); }
 
 #ifdef DEBUG
-		this->score->push_back((max_value < zero_fp) ? zero_fp : max_value);
+		this->score->push_back(*write_score);
 #endif // DEBUG
 	}
 }

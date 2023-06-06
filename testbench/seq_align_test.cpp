@@ -18,8 +18,8 @@ int main() {
 
     srand(time(NULL));
 
-    const int input_qry_length = 7;  // assume we know the length some how
-    const int input_ref_length = 9;
+    const int input_qry_length = 17;  // assume we know the length some how
+    const int input_ref_length = 15;
 
 
     char reference_string[N_BLOCKS][MAX_REFERENCE_LENGTH];
@@ -43,8 +43,8 @@ int main() {
         }
     }
 
-    const char* qry = "AGTCTAGGCGAATCGG";//"CCCTTGTATATCGGGGCCGTAGACCCGAACTTCGCGGTACACCTTCTGAAACCGTCCCTAATCCGACGAGCGCCTTGAGAACG";
-    const char* ref = "TGCCGCGACCGTCCCT";//"AATCCGACGAGCGCCTTGAGAACGTAGTCTAGGCGAATCGGCCCTTGTATATCGGGGCCGTAGACCCGAACTTCGCGGTACAC";
+    const char* qry = "AGTCTAGGCGAATCGGCCCTTGTATATCGGGG"; //CCGTAGACCCGAACTTCGCGGTACACCTTCTGAAACCGTCCCTAATCCGACGAGCGCCTTGAGAACG";
+    const char* ref = "TGCCGCGACCGTCCCTAATCCGACGAGCGCCT"; // TGAGAACGTAGTCTAGGCGAATCGGCCCTTGTATATCGGGGCCGTAGACCCGAACTTCGCGGTACAC";
 
     for (int block_i = 0; block_i < N_BLOCKS; block_i++) {
         const char* qry_ptr = qry;

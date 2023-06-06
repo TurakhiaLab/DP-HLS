@@ -71,7 +71,7 @@ public:
         MSG(string note, char_t* ptr, int size) {
             this->note = note;
             int cnt = 0;
-            while (cnt < size) {
+            while (cnt ++< size) {
                 this->arr += str(*ptr++).c_str();
             }
         }
@@ -79,8 +79,9 @@ public:
         MSG(string note, type_t* ptr, int size) {
             this->note = note;
             int cnt = 0;
-            while (cnt < size) {
-                this->arr += std::to_string((int) *ptr++) + ' ';
+            while (cnt++ < size) {
+                this->arr += to_string((int) *ptr++) + " ";
+                
             }
         }
     };
@@ -112,6 +113,11 @@ public:
         FILE* outputFile = std::fopen(this->filepath.c_str(), "a");
         fprintf(outputFile, "\nMessages\n");
 
+        for (auto a : this->msg_list) {
+            fprintf(outputFile, "%s\n%s\n\n", a.note.c_str(), a.arr.c_str());
+        }
+
+        fclose(outputFile);
     }
 
 
@@ -128,7 +134,7 @@ public:
         for (int i = 0; i < this->data.query_length; i++) {
             for (int j = 0; j < this->data.reference_length; j++) {
                 if (it[i % PE_NUM] != this->data.score[i % PE_NUM].end()) {
-                    fprintf(outputFile, "%d ", (int) *it[i%PE_NUM]++);
+                    fprintf(outputFile, "%d ", int (*(it[i%PE_NUM]++)));
                 }
             }
 

@@ -82,6 +82,7 @@ extern "C" {
 			debug[i].print_block_score();
 			debug[i].print_query();
 			debug[i].print_reference();
+			debug[i].print_msg();
 		}
 #endif // DEBUG
 

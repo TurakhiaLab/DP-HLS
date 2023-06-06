@@ -33,6 +33,21 @@ namespace utils{
 			}
     };
 
+	template <typename T>
+	class Reduction {  // this is a class that is used to do the reduction operations in HLS
+	public:
+		T* max(T* arr, int len);
+
+	};
+
+	template <typename T>
+	class Initial {
+	public:
+		static void fill(T* arr, int val, int len);
+	};
+
+
+
 };
 
 #endif // UTILS_H

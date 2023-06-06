@@ -30,7 +30,7 @@ add_executable(align_local_linear "testbench/seq_align_test.cpp"
     "src/toplevel/seq_align_multiple.cpp"
     "src/align/align_local_linear.cpp"
     "src/pe/pe_local_linear.cpp"
-    "src/traceback.cpp")
+    "src/traceback.cpp" "src/utils.cpp")
 
 add_executable(align_global_linear "testbench/seq_align_test.cpp"
     "configs/global_linear_params.h"  
@@ -43,7 +43,7 @@ add_executable(align_global_linear "testbench/seq_align_test.cpp"
     "src/toplevel/seq_align_multiple.cpp"
     "src/align/align_local_linear.cpp"
     "src/pe/pe_local_linear.cpp"
-    "src/traceback.cpp")
+    "src/traceback.cpp" "src/utils.cpp")
 
 
 # Add include to Xilinx Library FIles

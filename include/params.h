@@ -3,14 +3,10 @@
 
 #include <ap_fixed.h>
 
-#define linear_gap_penalty -1
-#define opening_score -2
-#define extend_score -2
-#define mismatch_score -3
-#define match_score 3
 
-#define MAX_QUERY_LENGTH 16
-#define MAX_REFERENCE_LENGTH 16
+
+#define MAX_QUERY_LENGTH 32
+#define MAX_REFERENCE_LENGTH 32
 
 #define PE_NUM 8
 
@@ -48,6 +44,12 @@ typedef ap_fixed<M, N> type_t;  // alias type_t with ap_fixed<M,N>
 typedef ap_uint<3> tbp_t;
 
 #define zero_fp ((type_t)0)
+
+#define linear_gap_penalty (type_t) (-2)
+#define opening_score -2
+#define extend_score -2
+#define mismatch_score (type_t) (-1)
+#define match_score (type_t) 3
 
 #define DEBUG_OUTPUT_PATH "/mnt/c/Users/Yingqi/OneDrive/GitHub/DP-HLS/debug/"
 #define DEBUG_FILENAME "debug_kernel"
