@@ -4,14 +4,14 @@
 
 #include <stdio.h>
 #include <math.h>
-#include "params.h"
+#include "../../include/params.h"
 #include <cstdlib>
 #include <iostream>
 #include <ap_int.h>
-#include "seq_align_multiple.h"
+#include "../../include/seq_align_multiple.h"
 #include <hls_stream.h>
-#include "PE.h"
-#include "seq_align.h"
+#include "../../include/PE.h"
+#include "../../include/seq_align.h"
 
 #ifdef DEBUG
 #include "debug.h"

@@ -1,4 +1,4 @@
-#include "PE.h"
+#include "../../include/PE.h"
 
 void PELocalLinear::compute(
 	char_t local_query_val,

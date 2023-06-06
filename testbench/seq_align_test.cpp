@@ -114,12 +114,12 @@ int main() {
 
     seq_align_multiple(query_string_comp, reference_string_comp, tb_streams, query_lengths, reference_lengths, dummies);
 
-    for (int block_i = 0; block_i < N_BLOCKS; block_i++) {
-        for (int i = 0; i < MAX_QUERY_LENGTH + MAX_REFERENCE_LENGTH; i++) {
-            if (!tb_streams[block_i].empty()) printf("%d ", tb_streams[block_i].read());
-        }
-        printf("\n");
-    }
+    // for (int block_i = 0; block_i < N_BLOCKS; block_i++) {
+    //     for (int i = 0; i < MAX_QUERY_LENGTH + MAX_REFERENCE_LENGTH; i++) {
+    //         if (!tb_streams[block_i].empty()) printf("%d ", tb_streams[block_i].read());
+    //     }
+    //     printf("\n");
+    // }
 
     return 0;
 

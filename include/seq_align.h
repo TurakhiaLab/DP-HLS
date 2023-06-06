@@ -43,7 +43,7 @@ public:
 	ShiftRegister<char_t, PE_NUM> local_reference;
 	ShiftRegister<char_t, PE_NUM> local_query;
 
-	char_t* query_ptr;
+	int query_ptr = 0;
 
 	char_t reference[MAX_REFERENCE_LENGTH];
 	char_t query[MAX_QUERY_LENGTH];

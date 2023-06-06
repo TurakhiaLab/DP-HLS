@@ -1,7 +1,7 @@
-#include "params.h"
-#include "seq_align.h"
-#include "PE.h"
-#include "utils.h"
+#include "../../include/params.h"
+#include "../../include/seq_align.h"
+#include "../../include/PE.h"
+#include "../../include/utils.h"
 
 #include <hls_stream.h>
 
@@ -57,7 +57,7 @@ void AlignLocalLinear::compute_chunk(const int active_pe, const int row_length, 
 	
 	for (int i = 0; i < PE_NUM; i++) {
 		this->local_query.shift_left(
-			i < active_pe ? *this->query_ptr++ : (char_t) 0);
+			i < active_pe ? query[this->query_ptr++] : (char_t) 0);
 	}  // This is where we actually needs the left shift operations
 
 	for (int i = 0; i < active_pe + row_length - 1; i++) {
@@ -100,9 +100,9 @@ void AlignLocalLinear::compute_chunk(const int active_pe, const int row_length, 
 				predicate[pi]
 			);
 		}
-
-		this->debug->collect("staging", this->staging, PE_NUM);  // ifdef debug
-
+#ifdef DEBUG
+	this->debug->collect("staging", this->staging, PE_NUM);  // ifdef debug
+#endif
 		if (predicate[PE_NUM - 1]) { *(last_row_w++) = this->staging[PE_NUM - 1]; }
 
 	}
@@ -141,7 +141,7 @@ void AlignLocalLinear::init(
 
 	//utils::Initial<type_t>::fill(this->staging, (int) zero_fp, PE_NUM);
 
-	this->query_ptr = this->query;
+	this->query_ptr = 0;
 
 #ifdef DEBUG
 	for (int i = 0; i < PE_NUM; i++) { this->PE_group[i].score = &this->debug->data.score[i];}
