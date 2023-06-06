@@ -32,27 +32,54 @@ using namespace hls;
 //};
 
 class AlignLocalLinear {
+	/*
+	I was thinking of another way of implementing the shift register for local reference and query, which is to use
+	an array of pointer to them. Incrementing the pointers can be easy with vitis hls vector library. 
+	*/
 public:
-	void align(  // distribute task
-		stream<char_t, max_query_length> &query_stream,
-        stream<char_t, max_reference_length> &reference_stream,
-		int query_length, int reference_length,		
-        stream<tbp_t, max_reference_length + max_query_length> &traceback_out,
+	// declear them here so don't need to pass them as function arguments
+
+	// an 3d array is enough to do store the traceback. 
+	ShiftRegister<char_t, PE_NUM> local_reference;
+	ShiftRegister<char_t, PE_NUM> local_query;
+
+	char_t* query_ptr;
+
+	char_t reference[MAX_REFERENCE_LENGTH];
+	char_t query[MAX_QUERY_LENGTH];
+	type_t last_pe_score[MAX_REFERENCE_LENGTH];
+
+	PELocalLinear PE_group[PE_NUM];
+	ShiftRegister<bool, PE_NUM> predicate;
+
+	ShiftRegisterBlock<type_t, PE_NUM, 2> dp_mem;
+
+	tbp_t tbmat[MAX_QUERY_LENGTH/PE_NUM][PE_NUM][MAX_REFERENCE_LENGTH];  // NOTE the corner case
+
+	TraceBack tracer;
+
 #ifdef DEBUG
-		Debugger &helper,
-#endif
+	Debugger *debug;
+#endif // DEBUG
+
+	void align(  // distribute task and top level wrapper
+		stream<char_t, MAX_QUERY_LENGTH> &query_stream,
+        stream<char_t, MAX_REFERENCE_LENGTH> &reference_stream,
+		int query_length, int reference_length,		
+        stream<tbp_t, MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH> &traceback_out,
         type_t *dummy);
 
-	void compute_chunk(  // compute a chunk
-		PELocalLinear pes[PE_num],
-		ShiftRegister<char_t, PE_num> &query,
-		ShiftRegister<char_t, PE_num + chunk_width> &reference,  // I can just read the very first several elements
-		ShiftRegister<type_t, PE_num + chunk_width> &last_row_score,
-		ShiftRegisterBlock<type_t, PE_num, 2> &dp_mem, 
-		TraceBack &tracer);
+	void compute_chunk(const int pred_length, const int read_length, int tb_idx);
+
+	void init(
+		stream<char_t, MAX_QUERY_LENGTH>& query_stream,
+		stream<char_t, MAX_REFERENCE_LENGTH>& reference_stream,
+		const int query_length, const int reference_length,
+		stream<tbp_t, MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH>& traceback_out,
+		type_t* dummy);
 
 private:
-	type_t staging[PE_num];
+	type_t staging[PE_NUM];
 };
 
 //class AlignLocalAffine : SeqAlign {

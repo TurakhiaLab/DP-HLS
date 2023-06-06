@@ -8,8 +8,7 @@ using namespace hls;
 
 class TraceBack {
 public:
-    tbp_t tb_matrix[PE_num][max_reference_length*max_query_length/PE_num];
-    int input_ptr[PE_num];
+    
 
     TraceBack(){
 #pragma HLS ARRAY_PARTITION variable=input_ptr factor=32 dim=0 type=complete
@@ -18,9 +17,10 @@ public:
 #pragma HLS bind_storage variable=tb_matrix type=RAM_1P impl=bram
     }
 
-    void set_ptr(tbp_t ptr, int pe_idx);
-    int traceback(stream<tbp_t, max_reference_length+max_query_length> &tb_stream, int max_row, int max_col);  // FIXME: THIS COULD BE IMPLEMENTED WITH A STREAM
-
+    int traceback(
+        tbp_t tbmat[MAX_QUERY_LENGTH/PE_NUM][PE_NUM][MAX_REFERENCE_LENGTH],
+        stream<tbp_t, MAX_REFERENCE_LENGTH+MAX_QUERY_LENGTH> &tb_stream, 
+        int max_row, int max_col);
 };
 
 #endif

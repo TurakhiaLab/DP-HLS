@@ -15,21 +15,35 @@ add_definitions(-DDEBUG=0)
 
 set(EXECUTABLE_TARGETS
     align_local_linear
+    align_global_linear
 )
 
 # Add source to this project's executable.
-add_executable(align_local_linear "include/seq_align.h"
-    "include/params.h"
+add_executable(align_local_linear "testbench/seq_align_test.cpp"
+    "configs/local_linear_params.h"  
+    "include/seq_align_multiple.h"
+    "include/seq_align.h"
     "include/PE.h"
     "include/host.h"
-    "include/seq_align_multiple.h"
-    "testbench/seq_align_test.cpp"
-    "src/toplevel/seq_align_multiple.cpp"
-    "src/pe/pe_local_linear.cpp"
-    "src/align/align_local_linear.cpp"
-    "src/traceback.cpp"
     "include/loop_counter.h"
-    "include/traceback.h")
+    "include/traceback.h"
+    "src/toplevel/seq_align_multiple.cpp"
+    "src/align/align_local_linear.cpp"
+    "src/pe/pe_local_linear.cpp"
+    "src/traceback.cpp")
+
+add_executable(align_global_linear "testbench/seq_align_test.cpp"
+    "configs/global_linear_params.h"  
+    "include/seq_align_multiple.h"
+    "include/seq_align.h"
+    "include/PE.h"
+    "include/host.h"
+    "include/loop_counter.h"
+    "include/traceback.h"
+    "src/toplevel/seq_align_multiple.cpp"
+    "src/align/align_local_linear.cpp"
+    "src/pe/pe_local_linear.cpp"
+    "src/traceback.cpp")
 
 
 # Add include to Xilinx Library FIles
@@ -45,11 +59,11 @@ else()
     set(HLS_HOME "/tools/Xilinx/Vitis_HLS/2022.2")
     set(XRT_HOME "/opt/xilinx/xrt")
 
-    target_include_directories(${EXECUTABLE_TARGETS} PUBLIC "./include")
-    target_include_directories(${EXECUTABLE_TARGETS} PUBLIC "${XRT_HOME}/include" "${HLS_HOME}/include")
-    target_link_directories(${EXECUTABLE_TARGETS} PUBLIC "${HLS_HOME}/lib" "${XRT_HOME}/lib")
-    target_link_libraries(${EXECUTABLE_TARGETS} PUBLIC xrt_coreutil)
-    target_compile_options(${EXECUTABLE_TARGETS} PUBLIC -pthread)
+    include_directories(${EXECUTABLE_TARGETS} PUBLIC ${PROJECT_SOURCE_DIR}/include)
+    include_directories(${EXECUTABLE_TARGETS} PUBLIC "${XRT_HOME}/include" "${HLS_HOME}/include")
+    link_directories(${EXECUTABLE_TARGETS} PUBLIC "${HLS_HOME}/lib" "${XRT_HOME}/lib")
+    link_libraries(${EXECUTABLE_TARGETS} PUBLIC xrt_coreutil)
+    add_compile_options(${EXECUTABLE_TARGETS} PUBLIC -pthread)
 endif()
 
 

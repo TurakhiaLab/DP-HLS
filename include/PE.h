@@ -1,3 +1,6 @@
+#ifndef PE_H
+#define PE_H
+
 #include "params.h"
 #include <hls_stream.h>
 #include <ap_int.h>
@@ -6,8 +9,11 @@
 #include <hls_streamofblocks.h>
 #include "traceback.h"
 
-#ifndef PE_H
-#define PE_H
+#ifdef DEBUG
+#include <list>
+#endif // DEBUG
+
+using namespace std;
 
 class PE
 {
@@ -100,15 +106,18 @@ class PELocalLinear
 {
 public:
 	void compute(
-		char_t local_query_val, 
-		char_t local_reference_val, 
-		type_t up_prev, 
-		type_t left_prev, 
+		char_t local_query_val,
+		char_t local_reference_val,
+		type_t up_prev,
+		type_t left_prev,
 		type_t diag_prev,
 		type_t* score,
-		TraceBack &tracer,
-		int idx,
+		tbp_t* tb_write,
 		bool predicate);
+
+#ifdef DEBUG
+	list<type_t> *score;
+#endif // DEBUG
 };
 
 class PELocalAffine

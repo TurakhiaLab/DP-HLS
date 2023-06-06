@@ -1,5 +1,11 @@
+#include "PE.h"
 
-void PEGlobalLinear::compute(char_t local_ref_val, char_t local_query_val, type_t up_prev, type_t left_prev, type_t diag_prev,
+void PEGlobalLinear::compute(
+	char_t local_ref_val, 
+	char_t local_query_val, 
+	type_t up_prev, 
+	type_t left_prev, 
+	type_t diag_prev,
 	type_t* score,
 	ap_uint<2>* traceback)
 {

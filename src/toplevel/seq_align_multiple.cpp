@@ -30,18 +30,11 @@ using namespace hls;
  */
 extern "C" {
 
-	void seq_align_multiple(stream<char_t , max_query_length> (&query_string_comp_blocks)[N_BLOCKS],
-		stream<char_t , max_reference_length> (&reference_string_comp_blocks)[N_BLOCKS],
-		stream<tbp_t, max_reference_length + max_query_length> (&tb_streams)[N_BLOCKS],
+	void seq_align_multiple(stream<char_t , MAX_QUERY_LENGTH> (&query_string_comp_blocks)[N_BLOCKS],
+		stream<char_t , MAX_REFERENCE_LENGTH> (&reference_string_comp_blocks)[N_BLOCKS],
+		stream<tbp_t, MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH> (&tb_streams)[N_BLOCKS],
 		int query_lengths[N_BLOCKS], int reference_lengths[N_BLOCKS],
 		type_t dummies[N_BLOCKS]) {
-
-#ifdef DEBUG
-	Debugger helper[N_BLOCKS];
-	for (int i = 0; i < N_BLOCKS; i++) {
-		helper[i] = Debugger("/mnt/c/Users/Yingqi/OneDrive/GitHub/DP-HLS/debug/", "debug_kernel", i);
-	}
-#endif
 
 #pragma HLS INTERFACE axis port=query_string_comp_blocks
 #pragma HLS INTERFACE axis port=reference_string_comp_blocks
@@ -58,6 +51,15 @@ extern "C" {
 		// create alignment group
 		ALIGN_TYPE align_group[N_BLOCKS];
 
+#ifdef DEBUG
+		Debugger debug[N_BLOCKS];
+		for (int i = 0; i < N_BLOCKS; i++) {
+			debug[i] = Debugger(DEBUG_OUTPUT_PATH, DEBUG_FILENAME, i, query_lengths[i], reference_lengths[i]);
+			align_group[i].debug = &debug[i];
+		}
+#endif // DEBUG
+
+
 		// to be unrolled
 		align_expand:
 		for (int block_i = 0; block_i < N_BLOCKS; block_i++) {
@@ -68,15 +70,21 @@ extern "C" {
 				query_lengths[block_i],
 				reference_lengths[block_i],
 				tb_streams[block_i],
-#ifdef DEBUG
-				helper[block_i],
-#endif
 				&dummies_inner[block_i]);
 		}
 
 		for (int block_i = 0; block_i < N_BLOCKS; block_i++) {
 			dummies[block_i] = dummies_inner[block_i];
 		}
+
+#ifdef DEBUG
+		for (int i = 0; i < N_BLOCKS; i++){
+			debug[i].print_block_score();
+			debug[i].print_query();
+			debug[i].print_reference();
+		}
+#endif // DEBUG
+
 
 	}
 

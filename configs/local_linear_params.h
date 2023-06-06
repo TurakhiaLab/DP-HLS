@@ -9,16 +9,16 @@
 #define mismatch_score -3
 #define match_score 3
 
-#define MAX_QUERY_LENGTH 16
-#define MAX_REFERENCE_LENGTH 16
+#define max_query_length 256
+#define max_reference_length 256
 
-#define PE_NUM 8
+#define PE_num 8
 
 #define numofreads 1
 
-#define corner_case (MAX_QUERY_LENGTH%PE_NUM != 0)
-#define query_chunks (MAX_QUERY_LENGTH/PE_NUM)
-#define extra_pe_num (MAX_QUERY_LENGTH%PE_NUM)
+#define corner_case (max_query_length%PE_num != 0)
+#define query_chunks (max_query_length/PE_num)
+#define extra_PE_num (max_query_length%PE_num)
 
 #define M 10
 #define N 6
@@ -49,14 +49,16 @@ typedef ap_uint<3> tbp_t;
 
 #define zero_fp ((type_t)0)
 
-#define DEBUG_OUTPUT_PATH "/mnt/c/Users/Yingqi/OneDrive/GitHub/DP-HLS/debug/"
-#define DEBUG_FILENAME "debug_kernel"
+
 
 typedef char_t ref_buf[chunk_width];
 
 // inflated ones takes care of corner case scenarios
-#define inflated_query_length (query_chunks *PE_NUM + corner_case *PE_NUM)
+#define inflated_query_length (query_chunks *PE_num + corner_case *PE_num)
 #define inflated_query_chunks (query_chunks + corner_case)
+
+#define DEBUG_OUTPUT_PATH 
+#define DEBUG_FILENAME 
 
 //enum tbp_t {
 //	TB_LEFT,

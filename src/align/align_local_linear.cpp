@@ -7,168 +7,138 @@
 using namespace hls;
 
 void AlignLocalLinear::align(
-    stream<char_t, max_query_length>& query_stream,
-    stream<char_t, max_reference_length>& reference_stream,
-    int query_length, int reference_length,
-    stream<tbp_t, max_reference_length + max_query_length>& traceback_out,
-#ifdef DEBUG
-    Debugger& helper,
-#endif
-    type_t* dummy) {
+	stream<char_t, MAX_QUERY_LENGTH>& query_stream,
+	stream<char_t, MAX_REFERENCE_LENGTH>& reference_stream,
+	const int query_length, const int reference_length,
+	stream<tbp_t, MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH>& traceback_out,
+	type_t* dummy) {
 
+	type_t temp = 0;
 
-    type_t temp = 0;
+	this->init(
+		query_stream,
+		reference_stream,
+		query_length,
+		reference_length,
+		traceback_out,
+		dummy
+	);
 
-    ShiftRegisterBlock<type_t, PE_num, 2> dp_mem;
-    PELocalLinear PE_group[PE_num];
+	// iterating through the chunks of the larger dp matrix
 
-
-    // replaced by traceback_out
-    //tbp_t final_traceback[ref_length + inflated_query_length];
-
-    const int num_chunks = (reference_length + chunk_width - 1) / chunk_width;
-    const int num_row = (query_length + PE_num - 1) / PE_num;
-
-    ShiftRegister<bool, PE_num> predicate;
-    ShiftRegister<type_t, PE_num + chunk_width> last_pe_score[num_chunks];
-    ShiftRegister<char_t, PE_num + chunk_width> reference[num_chunks];
-    ShiftRegister<char_t, PE_num> query;
-
-    TraceBack tracer;
-
-    // initialize reference
-    for (int i = 0; i < num_chunks; i++)
-    {
-        for (int j = 0; j < chunk_width + PE_num; j++)
-        {
-            reference[i].shift_right(
-                j < chunk_width ? reference_stream.read() : (char_t)0
-            );
-            last_pe_score[i].shift_left(0);
-        }
-    }
-
-    // iterating through the chunks of the larger dp matrix
 kernel:
-    for (int qq = 0; qq < query_length; qq += PE_num)
-    {
+	for (int row_idx = 0, row_cnt=0; row_idx < query_length; row_idx += PE_NUM, row_cnt++) {
+		this->compute_chunk(
+			PE_NUM < query_length - row_idx ? PE_NUM : query_length - row_idx,
+			reference_length,
+			row_cnt
+		);
+	}
 
-    fill_query:
-        for (int i = 0; i < PE_num; i++)
-        {
-            query.shift_right(
-                qq + i < query_length ? query_stream.read() : (char_t)0
-            );
-        }
+	this->tracer.traceback(
+		this->tbmat,
+		traceback_out,
+		6,
+		8
+	);
 
-        // compute chunks
-        for (int cc = 0; cc < num_chunks; cc++)
-        {
-            this->compute_chunk(
-                PE_group,
-                query,
-                reference[cc],
-                last_pe_score[cc],
-                dp_mem,
-                tracer
-            );
-        }
-
-
-    }
-
-    type_t count = max_reference_length + inflated_query_length;
-
-
-
-    //// traceback logic
-    //traceback_logic:
-    //    while (ultimate_row_value > -1 && ultimate_col_value > -1)
-    //    {
-    //        tbp_t tbptr = traceback[ultimate_row_value][ultimate_col_value]; 
-    //        if (tbptr == TB_DIAG){
-    //            ultimate_row_value = ultimate_row_value - 1;
-    //            ultimate_col_value = ultimate_col_value - 1;
-    //        }
-    //        else if (tbptr == TB_LEFT){
-    //            ultimate_col_value = ultimate_col_value - 1;
-    //        }
-    //        else if (tbptr == TB_UP){
-    //            ultimate_row_value = ultimate_row_value - 1;
-    //        }
-    //
-    //        final_traceback[count] = tbptr;
-    //        count -= 1;
-    //#ifdef DEBUG
-    //        helper.data.traceback.push(tbptr);
-    //#endif
-    //
-    //        if ((ultimate_row_value + 1) == 0 || (ultimate_col_value + 1) == 0)
-    //            break;
-    //    }
-
-    //#ifdef DEBUG
-    //    helper.print_block_traceback_matrix(traceback, inflated_query_length, ref_length);
-    //
-    //    helper.print_query();
-    //    helper.print_reference();
-    //
-    //    helper.print_block_traceback_linear();
-    //
-    //#endif
-
-        //*dummy = ultimate_max_score;
 }
 
-void AlignLocalLinear::compute_chunk(
-    PELocalLinear pes[PE_num],
-    ShiftRegister<char_t, PE_num>& query,
-    ShiftRegister<char_t, PE_num + chunk_width>& reference,
-    ShiftRegister<type_t, PE_num + chunk_width>& last_row_score,
-    ShiftRegisterBlock<type_t, PE_num, 2>& dp_mem,
-    TraceBack& tracer) {
+void AlignLocalLinear::compute_chunk(const int active_pe, const int row_length, int tb_idx) {
+	char_t* reference_ptr = this->reference;
+	type_t* last_row_r = this->last_pe_score;  // last row read
+	type_t* last_row_w = this->last_pe_score;  // last row write
+
+	int pe_cnt[PE_NUM];
+	for (int i = 0; i < PE_NUM; i++) { pe_cnt[i] = 0; }
+
+	this->dp_mem.shift_right(this->staging);  // initialize the DP-Mem to be 0
 
 
-    ShiftRegister<bool, PE_num> predicate;
-    for (int i = 0; i < PE_num + chunk_width; i++) {
-        predicate.shift_right(
-            i < chunk_width ? true : false
-        );
-        reference.shift_right(
-            i < chunk_width ? reference[0] : (char_t)0
-        );
+	for (int i = 0; i < active_pe + row_length; i++) {
+		
+		if (i < active_pe) {
+			predicate.shift_right(true);
+		}
+		else if (i > row_length) {
+			predicate.shift_right(false);
+		}
 
+		this->local_reference.shift_right(
+			i < row_length ? *(reference_ptr++) : (char_t)0
+		);
 
-        pes[0].compute(
-            query[0],
-            reference[0],
-            last_row_score[PE_num],
-            dp_mem[0][0],
-            i == 0 ? zero_fp : last_row_score[PE_num - 1],
-            &this->staging[0],
-            tracer,
-            0,
-            predicate[0]
-        );
+		if (i < PE_NUM) { 
+			this->local_query.shift_right(
+				*(this->query_ptr++)
+			); 
+		}
 
-        for (int pi = 1; pi < PE_num; pi++) {
-            pes[pi].compute(
-                query[pi],
-                reference[pi],
-                dp_mem[pi - 1][0],
-                dp_mem[pi][0],
-                dp_mem[pi - 1][1],
-                &this->staging[pi],
-                tracer,
-                pi,
-                predicate[pi]
-            );
-        }
+		// PE Loop
+		this->PE_group[0].compute(
+			this->local_query[0],
+			this->local_reference[0],
+			*last_row_r,
+			this->dp_mem[0][0],
+			i == 0 ? zero_fp : *(last_row_r-1),
+			&(this->staging[0]),
+			&this->tbmat[tb_idx][0][pe_cnt[0]++],
+			predicate[0]
+		);
 
-        last_row_score.shift_left(
-            predicate[PE_num - 1] ? dp_mem[PE_num - 1][0] : zero_fp
-        );
+		for (int pi = 1; pi < PE_NUM; pi++) {
+			this->PE_group[pi].compute(
+				this->local_query[pi],
+				this->local_reference[pi],
+				dp_mem[pi - 1][0],
+				dp_mem[pi][0],
+				dp_mem[pi - 1][1],
+				&this->staging[pi],
+				&this->tbmat[tb_idx][pi][pe_cnt[pi]++],
+				predicate[pi]
+			);
+		}
 
-        dp_mem.shift_right(this->staging);
-    }
+		if (predicate[PE_NUM - 1]) { *(last_row_w++) = this->staging[PE_NUM - 1]; }
+
+		dp_mem.shift_right(this->staging);
+	}
+}
+
+void AlignLocalLinear::init(
+	stream<char_t, MAX_QUERY_LENGTH>& query_stream,
+	stream<char_t, MAX_REFERENCE_LENGTH>& reference_stream,
+	const int query_length, const int reference_length,
+	stream<tbp_t, MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH>& traceback_out,
+	type_t* dummy) {
+
+#pragma HLS array_partition variable=staging type=complete
+
+	// init tbmat
+	for (int i = 0; i < MAX_QUERY_LENGTH / PE_NUM; i++) {
+		for (int j = 0; j < PE_NUM; j++) {
+			for (int k = 0; k < MAX_REFERENCE_LENGTH; k++) {
+				this->tbmat[i][j][k] = TB_PH;
+			}
+		}
+	}
+
+	// copy reference
+	for (int i = 0; i < MAX_REFERENCE_LENGTH; i++) {
+		this->reference[i] = reference_stream.read();
+	}
+	// copy query
+	for (int i = 0; i < MAX_QUERY_LENGTH; i++) {
+		this->query[i] = query_stream.read();  // prevent data left in FIFO causing simulation hang
+	}
+
+	this->query_ptr = this->query;
+
+#ifdef DEBUG
+	for (int i = 0; i < PE_NUM; i++) { this->PE_group[i].score = &this->debug->data.score[i];}
+	for (int i = 0; i < MAX_QUERY_LENGTH; i++) {this->debug->data.query.push_back(this->query[i]);}
+	for (int i = 0; i < MAX_REFERENCE_LENGTH; i++) { this->debug->data.ref.push_back(this->reference[i]); }
+	
+#endif // DEBUG
+	
 }

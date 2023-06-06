@@ -2,66 +2,61 @@
 #include "loop_counter.h"
 
 
-void TraceBack::set_ptr(tbp_t ptr, int pe_idx)
+int TraceBack::traceback(
+    tbp_t tbmat[MAX_QUERY_LENGTH / PE_NUM][PE_NUM][MAX_REFERENCE_LENGTH],
+    hls::stream<tbp_t, MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH> &tb_stream, 
+    const int max_row, const int max_col)
 {
+
+    // stop if the counter becomes 0 or traceback place holder
     
-    this->tb_matrix[pe_idx][this->input_ptr[pe_idx]] = ptr;
-    this->input_ptr[pe_idx] += 1;
-}
+    int row = max_row;
+    int col = max_col;
 
-int TraceBack::traceback(stream<tbp_t, max_reference_length + max_query_length> &tb_stream, int max_row, int max_col)
-{
-    int stream_ctr = 0; // indexing output string
-    int row_ctr = max_row;
-    int col_ctr = max_col;
-    LoopCounter<PE_num> pe_ctr(max_row % PE_num);
+    int chunk = max_row / PE_NUM;
+    LoopCounter<PE_NUM> pe_ctr(max_row % PE_NUM);
 
-    int arr_idx = (max_row / PE_num) * max_reference_length + max_col;
+    int cnt = 0;
 
-    tbp_t tmp;
+#ifdef DEBUG
+    for (int b = 0; b < 1; b++) {
+        for (int i = 0; i < 7; i++) {
+            for (int j = 0; j < 9; j++) {
+                printf("%d ", (int) tbmat[b][i][j]);
+            }
+            printf("\n");
+        }
+    }
+#endif // DEBUG
 
-    for (int i = 0; i < max_reference_length + max_query_length; i++)
-    {
 
-        if (row_ctr >= 0 && col_ctr >= 0)
+    while (row >= 0 && col >= 0) {
+        tbp_t tbptr = tbmat[chunk][pe_ctr.val()][col];
+        tb_stream.write(tbptr);
+        if (tbptr == TB_PH) { ++cnt;  break; }
+        switch (tbptr)
         {
-            tmp = this->tb_matrix[pe_ctr.val()][arr_idx];
-
-            if (tmp == TB_UP || tmp == TB_IX)
-            {
-                if (pe_ctr.val() == 0)
-                {
-                    arr_idx -= max_reference_length;
-                }
-                --pe_ctr;
-
-                row_ctr--;
-            }
-            else if (tmp == TB_LEFT || tmp == TB_IY)
-            {
-                arr_idx--;
-                col_ctr--;
-            }
-            else if (tmp == TB_DIAG)
-            {
-                arr_idx--;
-
-                if (pe_ctr.val() == 0)
-                {
-                    arr_idx -= max_reference_length;
-                }
-                --pe_ctr;
-
-                col_ctr--;
-                row_ctr--;
-            }
-
-            tb_stream.write(tmp);
-            stream_ctr++;
-        } else {
-            tb_stream.write(TB_PH);
+        case TB_DIAG:
+            --row;
+            --col;
+            if (pe_ctr.val() == 0) { --chunk; };
+            --pe_ctr;
+            cnt += 1;  // even 2 steps is considered one write in streams
+            break;
+        case TB_UP:
+            --row;
+            if (pe_ctr.val() == 0) { --chunk; };
+            --pe_ctr;
+            cnt += 1;
+            break;
+        case TB_LEFT:
+            --col;
+            cnt += 1;
+            break;
+        default:
+            break;
         }
     }
 
-    return stream_ctr; // retrun the length of the traceback
+    return 0; // retrun the length of the traceback
 }

@@ -15,9 +15,9 @@ using namespace hls;
 //typedef ap_int<16> type_t;
 
 extern "C" {
-	void seq_align_multiple(stream<char_t , max_query_length> (&query_string_comp_blocks)[N_BLOCKS],
-		stream<char_t, max_reference_length> (&reference_string_comp_blocks)[N_BLOCKS],
-		stream<tbp_t, max_reference_length + max_query_length> (&tb_streams)[N_BLOCKS],
+	void seq_align_multiple(stream<char_t , MAX_QUERY_LENGTH> (&query_string_comp_blocks)[N_BLOCKS],
+		stream<char_t, MAX_REFERENCE_LENGTH> (&reference_string_comp_blocks)[N_BLOCKS],
+		stream<tbp_t, MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH> (&tb_streams)[N_BLOCKS],
 		int query_lengths[N_BLOCKS], int reference_lengths[N_BLOCKS],
 		type_t dummies[N_BLOCKS]);
 }
