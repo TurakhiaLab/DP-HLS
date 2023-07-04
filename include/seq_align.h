@@ -8,7 +8,8 @@
 #include "PE.h"
 #include "params.h"
 #include "seq_align_multiple.h"
-
+#include "initial.h"
+#include <hls_vector.h>
 #ifdef DEBUG
 #include "debug.h"
 #endif // DEBUG
@@ -43,43 +44,48 @@ public:
 	ShiftRegister<char_t, PE_NUM> local_reference;
 	ShiftRegister<char_t, PE_NUM> local_query;
 
-	int query_ptr = 0;
+	addr_t query_ptr = 0;
+	addr_t init_left_brim_addr = 0;
 
 	char_t reference[MAX_REFERENCE_LENGTH];
 	char_t query[MAX_QUERY_LENGTH];
-	type_t last_pe_score[MAX_REFERENCE_LENGTH];
+	hls::vector<type_t, N_LAYERS> last_pe_score[MAX_REFERENCE_LENGTH];
+	hls::vector<type_t, N_LAYERS>  init_staging_score[MAX_QUERY_LENGTH];
 
 	PELocalLinear PE_group[PE_NUM];
 	ShiftRegister<bool, PE_NUM> predicate;
 
-	ShiftRegisterBlock<type_t, PE_NUM, 2> dp_mem;
+	ShiftRegisterBlock<hls::vector<type_t, N_LAYERS>, PE_NUM, 2> dp_mem;
 
-	tbp_t tbmat[MAX_QUERY_LENGTH/PE_NUM][PE_NUM][MAX_REFERENCE_LENGTH];  // NOTE the corner case
+	hls::vector<tbp_t, N_LAYERS> tbmat[MAX_QUERY_LENGTH/PE_NUM][PE_NUM][MAX_REFERENCE_LENGTH];  // NOTE the corner case
 
 	TraceBack tracer;
+
+	hls::vector<type_t, N_LAYERS>  zero_fp_arr = (type_t) 0;
+	
 
 #ifdef DEBUG
 	Debugger *debug;
 #endif // DEBUG
 
 	void align(  // distribute task and top level wrapper
-		stream<char_t, MAX_QUERY_LENGTH> &query_stream,
-        stream<char_t, MAX_REFERENCE_LENGTH> &reference_stream,
+		stream<char_t, MAX_QUERY_LENGTH>&query_stream,
+		stream<char_t, MAX_REFERENCE_LENGTH>&reference_stream,
 		int query_length, int reference_length,		
         stream<tbp_t, MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH> &traceback_out,
-        type_t *dummy);
+		InitialValues init_values);
 
 	void compute_chunk(const int pred_length, const int read_length, int tb_idx);
 
 	void init(
-		stream<char_t, MAX_QUERY_LENGTH>& query_stream,
-		stream<char_t, MAX_REFERENCE_LENGTH>& reference_stream,
+		stream<char_t, MAX_QUERY_LENGTH>&query_stream,
+		stream<char_t, MAX_REFERENCE_LENGTH>&reference_stream,
 		const int query_length, const int reference_length,
 		stream<tbp_t, MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH>& traceback_out,
-		type_t* dummy);
+		InitialValues init_values);
 
 private:
-	type_t staging[PE_NUM];
+	hls::vector<type_t, N_LAYERS>  staging[PE_NUM];
 };
 
 //class AlignLocalAffine : SeqAlign {

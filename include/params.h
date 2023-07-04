@@ -16,8 +16,8 @@
 #define query_chunks (MAX_QUERY_LENGTH/PE_NUM)
 #define extra_pe_num (MAX_QUERY_LENGTH%PE_NUM)
 
-#define M 10
-#define N 6
+#define MT 10
+#define NT 6
 
 //#define DEBUG
 
@@ -39,9 +39,11 @@
 #define chunk_width 16  // this must larger than PE_num
 
 typedef ap_uint<3> char_t;
-typedef ap_fixed<M, N> type_t;  // alias type_t with ap_fixed<M,N>
-
+typedef ap_fixed<MT, NT> type_t;  // alias type_t with ap_fixed<M,N>
+typedef ap_uint<16> addr_t;  // define a address type to resolve the pointer to pointer problems
 typedef ap_uint<3> tbp_t;
+
+typedef ap_uint<8> idx_t;
 
 #define zero_fp ((type_t)0)
 
@@ -51,7 +53,8 @@ typedef ap_uint<3> tbp_t;
 #define mismatch_score (type_t) (-1)
 #define match_score (type_t) 3
 
-#define DEBUG_OUTPUT_PATH "/mnt/c/Users/Yingqi/OneDrive/GitHub/DP-HLS/debug/"
+// #define DEBUG_OUTPUT_PATH "/mnt/c/Users/Yingqi/OneDrive/GitHub/DP-HLS/debug/"
+#define DEBUG_OUTPUT_PATH "/home/yic033@AD.UCSD.EDU/DP-HLS-Debug/"
 #define DEBUG_FILENAME "debug_kernel"
 
 typedef char_t ref_buf[chunk_width];
@@ -59,6 +62,8 @@ typedef char_t ref_buf[chunk_width];
 // inflated ones takes care of corner case scenarios
 #define inflated_query_length (query_chunks *PE_NUM + corner_case *PE_NUM)
 #define inflated_query_chunks (query_chunks + corner_case)
+
+#define N_LAYERS 1
 
 //enum tbp_t {
 //	TB_LEFT,

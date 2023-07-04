@@ -15,6 +15,7 @@
 #include <queue>
 #include <stack>
 #include <list>
+#include <hls_vector.h>
 
 namespace fs = std::filesystem;
 using namespace fs;
@@ -68,6 +69,15 @@ public:
         string note;
         string arr;
 
+        MSG(string note, hls::vector<type_t, N_LAYERS>* ptr, int size) {
+            this->note = note;
+            int cnt = 0;
+            while (cnt++ < size) {
+                this->arr += std::to_string ((*ptr)[0].to_int()) + " ";
+                ptr++;
+            }
+        }
+
         MSG(string note, char_t* ptr, int size) {
             this->note = note;
             int cnt = 0;
@@ -106,7 +116,9 @@ public:
 
     template <typename T>
     void collect(string note, T* arr, int size) {
-        this->msg_list.push_back(MSG(note, arr, size));
+        this->msg_list.push_back(
+            MSG(note, arr, size)
+        );
     }
 
     void print_msg() {

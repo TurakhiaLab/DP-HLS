@@ -12,7 +12,7 @@
 #include <hls_stream.h>
 #include "../../include/PE.h"
 #include "../../include/seq_align.h"
-
+#include "initial.h"
 #ifdef DEBUG
 #include "debug.h"
 #endif // DEBUG
@@ -34,7 +34,7 @@ extern "C" {
 		stream<char_t , MAX_REFERENCE_LENGTH> (&reference_string_comp_blocks)[N_BLOCKS],
 		stream<tbp_t, MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH> (&tb_streams)[N_BLOCKS],
 		int query_lengths[N_BLOCKS], int reference_lengths[N_BLOCKS],
-		type_t dummies[N_BLOCKS]) {
+		InitialValues init_values) {
 
 #pragma HLS INTERFACE axis port=query_string_comp_blocks
 #pragma HLS INTERFACE axis port=reference_string_comp_blocks
@@ -70,11 +70,7 @@ extern "C" {
 				query_lengths[block_i],
 				reference_lengths[block_i],
 				tb_streams[block_i],
-				&dummies_inner[block_i]);
-		}
-
-		for (int block_i = 0; block_i < N_BLOCKS; block_i++) {
-			dummies[block_i] = dummies_inner[block_i];
+				init_values);
 		}
 
 #ifdef DEBUG

@@ -11,15 +11,15 @@
 #include <ap_fixed.h>
 #include <hls_stream.h>
 #include <hls_streamofblocks.h>
-
+#include "initial.h"
 using namespace hls;
 
 int main() {
 
     srand(time(NULL));
 
-    const int input_qry_length = 17;  // assume we know the length some how
-    const int input_ref_length = 15;
+    const int input_qry_length = 15;  // assume we know the length some how
+    const int input_ref_length = 17;
 
 
     char reference_string[N_BLOCKS][MAX_REFERENCE_LENGTH];
@@ -111,8 +111,9 @@ int main() {
 
     type_t dummies[N_BLOCKS];
 
+    InitialValues initial_values = assign_value();
 
-    seq_align_multiple(query_string_comp, reference_string_comp, tb_streams, query_lengths, reference_lengths, dummies);
+    seq_align_multiple(query_string_comp, reference_string_comp, tb_streams, query_lengths, reference_lengths, initial_values);
 
     // for (int block_i = 0; block_i < N_BLOCKS; block_i++) {
     //     for (int i = 0; i < MAX_QUERY_LENGTH + MAX_REFERENCE_LENGTH; i++) {

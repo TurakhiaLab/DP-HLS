@@ -43,10 +43,26 @@ namespace utils{
 	template <typename T>
 	class Initial {
 	public:
-		static void fill(T* arr, int val, int len);
+		static void fill(T* arr, int val, int len);  // Fill a data strucutre with a value for desired length.
 	};
 
+	template <typename T>
+	class Tensor {
+	public:
+		T* data;
+		unsigned short ld1, ld2, ld3;
 
+		Tensor() = default;
+		Tensor(int d1);
+		Tensor(int d1, int d2);
+		Tensor(int d1, int d2, int d3);
+
+		void reshape(int d1, int d2);
+
+		T& operator()(int d1, int d2);
+
+
+	};
 
 };
 

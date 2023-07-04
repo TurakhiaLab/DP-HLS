@@ -8,6 +8,7 @@
 #include "shift_reg.h"
 #include <hls_streamofblocks.h>
 #include "traceback.h"
+#include <hls_vector.h>
 
 #ifdef DEBUG
 #include <list>
@@ -108,11 +109,11 @@ public:
 	void compute(
 		char_t local_query_val,
 		char_t local_reference_val,
-		type_t up_prev,
-		type_t left_prev,
-		type_t diag_prev,
-		type_t* score,
-		tbp_t* tb_write,
+		hls::vector<type_t, N_LAYERS> up_prev,
+		hls::vector<type_t, N_LAYERS>  left_prev,
+		hls::vector<type_t, N_LAYERS>  diag_prev,
+		hls::vector<type_t, N_LAYERS>& write_score,
+		hls::vector<tbp_t, N_LAYERS>& tb_write,
 		bool predicate);
 
 #ifdef DEBUG

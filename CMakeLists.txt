@@ -8,9 +8,10 @@ endif()
 
 project ("DP-HLS")
 
+set(RAPTOR 1)
+set(CMAKE_C_COMPILER "/usr/bin/gcc")
+set(CMAKE_CXX_COMPILER "/usr/bin/g++")  # Use g++ compiler, but subject to change for v++ compiler.
 
-set(RAPTOR 0)
-set(CMAKE_CXX_COMPILER g++)  # Use g++ compiler, but subject to change for v++ compiler.
 add_definitions(-DDEBUG=0)
 
 set(EXECUTABLE_TARGETS
@@ -20,7 +21,7 @@ set(EXECUTABLE_TARGETS
 
 # Add source to this project's executable.
 add_executable(align_local_linear "testbench/seq_align_test.cpp"
-    "configs/local_linear_params.h"  
+    "include/params.h"  
     "include/seq_align_multiple.h"
     "include/seq_align.h"
     "include/PE.h"
@@ -30,7 +31,7 @@ add_executable(align_local_linear "testbench/seq_align_test.cpp"
     "src/toplevel/seq_align_multiple.cpp"
     "src/align/align_local_linear.cpp"
     "src/pe/pe_local_linear.cpp"
-    "src/traceback.cpp" "src/utils.cpp")
+    "src/traceback.cpp" "src/utils.cpp" "include/initial.h" "src/initial.cpp")
 
 add_executable(align_global_linear "testbench/seq_align_test.cpp"
     "configs/global_linear_params.h"  
@@ -43,7 +44,7 @@ add_executable(align_global_linear "testbench/seq_align_test.cpp"
     "src/toplevel/seq_align_multiple.cpp"
     "src/align/align_local_linear.cpp"
     "src/pe/pe_local_linear.cpp"
-    "src/traceback.cpp" "src/utils.cpp")
+    "src/traceback.cpp" "src/utils.cpp" "include/initial.h" "src/initial.cpp")
 
 
 # Add include to Xilinx Library FIles
@@ -51,10 +52,12 @@ if (RAPTOR)
     set(HLS_HOME "/home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1")
     set(XRT_HOME "/home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1")
 
-    target_include_directories(EXECUTABLE_TARGETS PUBLIC "${HLS_HOME}/include")
-    #target_link_directories(seq_align_test PUBLIC "${HLS_HOME}/lib")
-    #target_link_libraries(seq_align_test PUBLIC xrt_coreutil)
-    target_compile_options(EXECUTABLE_TARGETS PUBLIC -pthread)
+    include_directories(${EXECUTABLE_TARGETS} PUBLIC "${HLS_HOME}/include")
+    include_directories(${EXECUTABLE_TARGETS} PUBLIC ${PROJECT_SOURCE_DIR}/include)
+    include_directories(${EXECUTABLE_TARGETS} PUBLIC "${XRT_HOME}/include" "${HLS_HOME}/include")
+    link_directories(${EXECUTABLE_TARGETS} PUBLIC "${HLS_HOME}/lib" "${XRT_HOME}/lib")
+    link_libraries(${EXECUTABLE_TARGETS} PUBLIC xrt_coreutil)
+    add_compile_options(${EXECUTABLE_TARGETS} PUBLIC -pthread)
 else()
     set(HLS_HOME "/tools/Xilinx/Vitis_HLS/2022.2")
     set(XRT_HOME "/opt/xilinx/xrt")
