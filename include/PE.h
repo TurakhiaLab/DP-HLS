@@ -146,7 +146,7 @@ public:
 		bool predicate);
 
 #ifdef DEBUG
-	list<type_t>* score;
+	list<hls::vector<type_t, N_LAYERS>>* score;
 #endif // DEBUG
 };
 

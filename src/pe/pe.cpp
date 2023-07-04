@@ -37,7 +37,7 @@ void PE::compute(
 
 #ifdef DEBUG
 
-		this->score->push_back(write_score[0]);
+		this->score->push_back(write_score);
 #endif // DEBUG
 	}
 }
@@ -75,7 +75,7 @@ void PE::compute(
 
 #ifdef DEBUG
 
-		this->score->push_back(write_score[0]);
+		this->score->push_back(write_score);
 #endif // DEBUG
 	}
 }
@@ -85,7 +85,7 @@ void PE::compute(
 // >>> LOCAL_AFFINE pe >>>
 #ifdef ALIGN_LOCAL_AFFINE
 
-void PELocalAffine::compute(
+void PE::compute(
 	char_t local_query_val,
 	char_t local_reference_val,
 	hls::vector<type_t, N_LAYERS> up_prev,
@@ -95,44 +95,53 @@ void PELocalAffine::compute(
 	hls::vector<tbp_t, N_LAYERS>& tb_write,
 	bool predicate)
 {
+	/*
+	* 1: P
+	* 2: D
+	* 3: Q
+	*/
 
-#pragma HLS inline
+	const type_t pd = up_prev[1] + opening_score + extend_score;
+	const type_t pp = up_prev[0] + extend_score;
+	const type_t qd = left_prev[1] + opening_score;
+	const type_t qq = left_prev[3] + extend_score;
 
-	const type_t temp = 0;
+	const type_t max_p = pd > pp ? pd : pp;
+	const type_t max_q = qd > qq ? qd : qq;
 
-	if (local_query_val != 0)
+	const type_t match = (local_query_val == local_reference_val) ? diag_prev[1] + match_score : diag_prev[1] + mismatch_score;
+
+	type_t max = max_p > max_q ? max_p : max_q;
+	max = max > match ? max : match;
+	max = max > zero_fp ? max : zero_fp;
+
+	if (predicate)
 	{
-		const type_t a1 = left_prev + opening_score;
-		const type_t a2 = Iy_prev + extend_score;
-		const type_t a3 = up_prev + opening_score;
-		const type_t a4 = Ix_prev + extend_score;
+		write_score[1] = max;
+		write_score[0] = max_p;
+		write_score[2] = max_q;
 
-		*Iy = a1 > a2 ? a1 : a2;
-		*Ix = a3 > a4 ? a3 : a4;
+		// FIXME: Traceback not correct yet
+		if (write_score[0] == zero_fp) { tb_write[0] = TB_PH; }
+		else { tb_write[0] = (max == match) ? TB_DIAG : ((max == max_p) ? TB_UP : TB_LEFT); }
 
-		const type_t match = (local_query_val == local_ref_val) ? diag_prev + match_score : diag_prev + mismatch_score;
-
-		const type_t max_value = (((*Iy > *Ix) ? *Iy : *Ix) > match) ? ((*Iy > *Ix) ? *Iy : *Ix) : match;
-
-		*traceback = (max_value == match) ? 1 : ((max_value == a1) ? 2 : ((max_value == a2) ? 3 : ((max_value == a3) ? 4 : 5)));
-
-		//printf("local query is %c, local ref is %c, max_value is %d, match is %d, a1 is %d, a2 is %d, a3 is %d, a4 is %d\n",
-		//		local_query_val, local_ref_val, max_value, match, a1, a2, a3, a4);
-
-		*score = (max_value < temp) ? temp : max_value;
-
+#ifdef DEBUG
+		this->score->push_back(write_score);
+#endif // DEBUG
 
 	}
-	else
-	{ // when local query is 0 (in case of corner case), PE will give out 0 as output without any computation
 
-		*score = temp;
-		*Ix = temp;
-		*Iy = temp;
-		*traceback = temp;
-	}
+	// *traceback = (max_value == match) ? 1 : ((max_value == a1) ? 2 : ((max_value == a2) ? 3 : ((max_value == a3) ? 4 : 5)));
+
+	//printf("local query is %c, local ref is %c, max_value is %d, match is %d, a1 is %d, a2 is %d, a3 is %d, a4 is %d\n",
+	//		local_query_val, local_ref_val, max_value, match, a1, a2, a3, a4);
+
+
+
+	// when local query is 0 (in case of corner case), PE will give out 0 as output without any computation
+
+
 }
-
 
 #endif
 

@@ -1,7 +1,7 @@
 #ifndef PARAMS_H
 #define PARAMS_H
 
-#define ALIGN_GLOBAL_LINEAR
+#define ALIGN_LOCAL_AFFINE
 
 // >>> LOCAL_LINEAR params >>>
 #ifdef ALIGN_LOCAL_LINEAR
@@ -99,8 +99,6 @@ typedef char_t ref_buf[chunk_width];
 #define	TB_IY 5
 
 
-
-
 #define TB_LINE_SIZE 64  // This defines the length of a line of TB pointers. Must be larger than PE_num
 
 
@@ -131,7 +129,7 @@ typedef char_t ref_buf[chunk_width];
 #define inflated_query_length (query_chunks *PE_NUM + corner_case *PE_NUM)
 #define inflated_query_chunks (query_chunks + corner_case)
 
-#define N_LAYERS 1
+#define N_LAYERS 3
 
 #endif 
 

@@ -31,7 +31,7 @@ public:
         list<char_t> query;
         list<char_t> ref;
         list<tbp_t> traceback;
-        list<type_t> score[PE_NUM];
+        list<hls::vector<type_t, N_LAYERS>> score[PE_NUM];
         int max_row;
         int max_col;
         int query_length;
@@ -136,22 +136,30 @@ public:
 
     void print_block_score(){
         FILE *outputFile = std::fopen(this->filepath.c_str(), "a");
-        fprintf(outputFile, "\nRaw Score Matrix\n");
+       
 
-        list<type_t>::iterator it[PE_NUM];
-        for (int i = 0; i < PE_NUM; i++) {
-            it[i] = this->data.score[i].begin();
-        }
-        
-        for (int i = 0; i < this->data.query_length; i++) {
-            for (int j = 0; j < this->data.reference_length; j++) {
-                if (it[i % PE_NUM] != this->data.score[i % PE_NUM].end()) {
-                    fprintf(outputFile, "%d ", int (*(it[i%PE_NUM]++)));
-                }
+        for (int l = 0; l < N_LAYERS; l++) {
+            fprintf(outputFile, "\nRaw Score Matrix %d\n", l);
+
+            list<hls::vector<type_t, N_LAYERS>>::iterator it[PE_NUM];
+            for (int i = 0; i < PE_NUM; i++) {
+                it[i] = this->data.score[i].begin();
             }
 
-            fprintf(outputFile, "\n");
+            for (int i = 0; i < this->data.query_length; i++) {
+                for (int j = 0; j < this->data.reference_length; j++) {
+                    if (it[i % PE_NUM] != this->data.score[i % PE_NUM].end()) {
+                        fprintf(outputFile, "%d ", int( (*(it[i % PE_NUM]++))[l]));
+                    }
+                }
+
+                fprintf(outputFile, "\n");
+            }
+
+
         }
+
+        
 
         fclose(outputFile);
     }

@@ -65,10 +65,9 @@ add_executable(align_local_affine "testbench/test_local_affine.cpp" "include/par
 
     "src/toplevel/seq_align_multiple.cpp"
     "src/align/align.cpp"
-    "src/pe/pe_local_affine.cpp"
     "src/traceback.cpp" 
     "src/utils.cpp"  
-    "src/initial.cpp" "src/pe/pe_local_affine.cpp")
+    "src/initial.cpp" "src/pe/pe.cpp")
 
 add_executable(align_global_affine "testbench/test_global_affine.cpp" "include/params.h"
     "include/seq_align_multiple.h"
