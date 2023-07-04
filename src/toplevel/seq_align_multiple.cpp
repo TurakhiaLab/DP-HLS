@@ -49,7 +49,7 @@ extern "C" {
 #pragma HLS array_partition variable=dummies_inner type=complete
 
 		// create alignment group
-		ALIGN_TYPE align_group[N_BLOCKS];
+		Align align_group[N_BLOCKS];
 
 #ifdef DEBUG
 		Debugger debug[N_BLOCKS];

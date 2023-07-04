@@ -111,7 +111,7 @@ int main() {
 
     type_t dummies[N_BLOCKS];
 
-    InitialValues initial_values = assign_value();
+    InitialValues initial_values = assign_value_local();
 
     seq_align_multiple(query_string_comp, reference_string_comp, tb_streams, query_lengths, reference_lengths, initial_values);
 

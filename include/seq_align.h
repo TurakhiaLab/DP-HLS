@@ -32,7 +32,7 @@ using namespace hls;
 //	void align(hls::stream<char_t, query_length> &query_stream, hls::stream<char_t, ref_length> &reference_stream, type_t *dummy);
 //};
 
-class AlignLocalLinear {
+class Align {
 	/*
 	I was thinking of another way of implementing the shift register for local reference and query, which is to use
 	an array of pointer to them. Incrementing the pointers can be easy with vitis hls vector library. 
@@ -52,7 +52,7 @@ public:
 	hls::vector<type_t, N_LAYERS> last_pe_score[MAX_REFERENCE_LENGTH];
 	hls::vector<type_t, N_LAYERS>  init_staging_score[MAX_QUERY_LENGTH];
 
-	PELocalLinear PE_group[PE_NUM];
+	PE PE_group[PE_NUM];
 	ShiftRegister<bool, PE_NUM> predicate;
 
 	ShiftRegisterBlock<hls::vector<type_t, N_LAYERS>, PE_NUM, 2> dp_mem;

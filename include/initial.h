@@ -9,6 +9,7 @@ struct InitialValues {
 	hls::vector<type_t, N_LAYERS> init_ref_scr[MAX_REFERENCE_LENGTH];
 };
 
-InitialValues assign_value();
+InitialValues assign_value_local();
+InitialValues assign_value_global();
 
 #endif // !INITIAL_H

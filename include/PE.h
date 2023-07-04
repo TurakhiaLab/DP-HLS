@@ -16,21 +16,21 @@
 
 using namespace std;
 
-class PE
-{
-public:
-	ShiftRegister<type_t, 2> score_reg;
-
-	PE(void);
-
-	void compute(void);
-
-	void update(void);
-
-private:
-	// this is used to hold temporary score before shifting.
-	type_t score; // temporary score is set to be private to prevent cross access to supposed independant cells in a wavefront
-};
+//class PE
+//{
+//public:
+//	ShiftRegister<type_t, 2> score_reg;
+//
+//	PE(void);
+//
+//	void compute(void);
+//
+//	void update(void);
+//
+//private:
+//	// this is used to hold temporary score before shifting.
+//	type_t score; // temporary score is set to be private to prevent cross access to supposed independant cells in a wavefront
+//};
 
 class LinearPE
 {
@@ -130,6 +130,26 @@ public:
 		type_t Iy_prev, type_t* Iy,
 		ap_uint<3>* traceback);
 };
+
+
+class PE
+{
+public:
+	void compute(
+		char_t local_query_val,
+		char_t local_reference_val,
+		hls::vector<type_t, N_LAYERS> up_prev,
+		hls::vector<type_t, N_LAYERS>  left_prev,
+		hls::vector<type_t, N_LAYERS>  diag_prev,
+		hls::vector<type_t, N_LAYERS>& write_score,
+		hls::vector<tbp_t, N_LAYERS>& tb_write,
+		bool predicate);
+
+#ifdef DEBUG
+	list<type_t>* score;
+#endif // DEBUG
+};
+
 
 #endif // !PE_H
 

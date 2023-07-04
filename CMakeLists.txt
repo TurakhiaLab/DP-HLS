@@ -17,35 +17,79 @@ add_definitions(-DDEBUG=0)
 set(EXECUTABLE_TARGETS
     align_local_linear
     align_global_linear
+    align_local_affine
+    align_global_affine
 )
 
 # Add source to this project's executable.
-add_executable(align_local_linear "testbench/seq_align_test.cpp"
-    "include/params.h"  
+add_executable(align_local_linear "testbench/test_local_linear.cpp" "include/params.h"
     "include/seq_align_multiple.h"
     "include/seq_align.h"
     "include/PE.h"
     "include/host.h"
     "include/loop_counter.h"
     "include/traceback.h"
-    "src/toplevel/seq_align_multiple.cpp"
-    "src/align/align_local_linear.cpp"
-    "src/pe/pe_local_linear.cpp"
-    "src/traceback.cpp" "src/utils.cpp" "include/initial.h" "src/initial.cpp")
+    "include/initial.h"
 
-add_executable(align_global_linear "testbench/seq_align_test.cpp"
-    "configs/global_linear_params.h"  
+    "src/toplevel/seq_align_multiple.cpp"
+    "src/align/align.cpp"
+    "src/traceback.cpp" 
+    "src/utils.cpp"  
+    "src/initial.cpp" 
+    "src/pe/pe.cpp")
+
+add_executable(align_global_linear "testbench/test_global_linear.cpp" "include/params.h"
     "include/seq_align_multiple.h"
     "include/seq_align.h"
     "include/PE.h"
     "include/host.h"
     "include/loop_counter.h"
     "include/traceback.h"
-    "src/toplevel/seq_align_multiple.cpp"
-    "src/align/align_local_linear.cpp"
-    "src/pe/pe_local_linear.cpp"
-    "src/traceback.cpp" "src/utils.cpp" "include/initial.h" "src/initial.cpp")
+    "include/initial.h" 
 
+    "src/toplevel/seq_align_multiple.cpp"
+    "src/align/align.cpp"
+    "src/pe/pe_global_linear.cpp"
+    "src/traceback.cpp"
+    "src/utils.cpp"
+    "src/initial.cpp" "src/pe/pe.cpp")
+
+add_executable(align_local_affine "testbench/test_local_affine.cpp" "include/params.h"
+    "include/seq_align_multiple.h"
+    "include/seq_align.h"
+    "include/PE.h"
+    "include/host.h"
+    "include/loop_counter.h"
+    "include/traceback.h"
+    "include/initial.h"
+
+    "src/toplevel/seq_align_multiple.cpp"
+    "src/align/align.cpp"
+    "src/pe/pe_local_affine.cpp"
+    "src/traceback.cpp" 
+    "src/utils.cpp"  
+    "src/initial.cpp" "src/pe/pe_local_affine.cpp")
+
+add_executable(align_global_affine "testbench/test_global_affine.cpp" "include/params.h"
+    "include/seq_align_multiple.h"
+    "include/seq_align.h"
+    "include/PE.h"
+    "include/host.h"
+    "include/loop_counter.h"
+    "include/traceback.h"
+    "include/initial.h"
+
+    "src/toplevel/seq_align_multiple.cpp"
+    "src/align/align.cpp"
+    "src/pe/pe_global_affine.cpp"
+    "src/traceback.cpp" 
+    "src/utils.cpp" 
+    "src/initial.cpp" "src/pe/pe_global_affine.cpp")
+
+#target_compile_definitions(align_local_linear PRIVATE ALIGN_LOCAL_LINEAR=1)
+#target_compile_definitions(align_local_affine PRIVATE ALIGN_LOCAL_AFFINE=1)
+#target_compile_definitions(align_global_linear PRIVATE ALIGN_GLOBAL_LINEAR=1)
+#target_compile_definitions(align_global_affine PRIVATE ALIGN_GLOBAL_AFFINE=1)
 
 # Add include to Xilinx Library FIles
 if (RAPTOR)
