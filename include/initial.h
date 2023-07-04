@@ -10,6 +10,8 @@ struct InitialValues {
 };
 
 InitialValues assign_value_local();
+InitialValues assign_value_local_affine();
+
 InitialValues assign_value_global();
 
 #endif // !INITIAL_H
