@@ -56,6 +56,7 @@ extern "C" {
 		for (int i = 0; i < N_BLOCKS; i++) {
 			debug[i] = Debugger(DEBUG_OUTPUT_PATH, DEBUG_FILENAME, i, query_lengths[i], reference_lengths[i]);
 			align_group[i].debug = &debug[i];
+			align_group[i].tracer.debugger = &debug[i];
 		}
 #endif // DEBUG
 
@@ -78,7 +79,8 @@ extern "C" {
 			debug[i].print_block_score();
 			debug[i].print_query();
 			debug[i].print_reference();
-			debug[i].print_msg();
+			// debug[i].print_msg();
+			debug[i].print_traceback_path_pointers();
 		}
 #endif // DEBUG
 

@@ -3,6 +3,12 @@
 
 #include "params.h"
 #include <hls_stream.h>
+#include <hls_vector.h>
+
+#ifdef DEBUG
+#include "debug.h"
+#endif // DEBUG
+
 
 using namespace hls;
 
@@ -18,9 +24,14 @@ public:
     }
 
     int traceback(
-        tbp_t tbmat[MAX_QUERY_LENGTH/PE_NUM][PE_NUM][MAX_REFERENCE_LENGTH],
+        hls::vector<tbp_t, N_LAYERS> tbmat[MAX_QUERY_LENGTH/PE_NUM][PE_NUM][MAX_REFERENCE_LENGTH],
         stream<tbp_t, MAX_REFERENCE_LENGTH+MAX_QUERY_LENGTH> &tb_stream, 
-        int max_row, int max_col);
+        const int max_layer, const int max_row, const int max_col);
+
+#ifdef DEBUG
+    Debugger* debugger;
+#endif // DEBUG
+
 };
 
 #endif

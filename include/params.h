@@ -1,7 +1,8 @@
 #ifndef PARAMS_H
 #define PARAMS_H
 
-#define ALIGN_LOCAL_AFFINE
+#define ALIGN_LOCAL_LINEAR
+#define DEBUG
 
 // >>> LOCAL_LINEAR params >>>
 #ifdef ALIGN_LOCAL_LINEAR
@@ -30,8 +31,14 @@
 #define	TB_LEFT 1
 #define	TB_DIAG 2
 #define	TB_UP 3
-#define	TB_IX 4
-#define	TB_IY 5
+#define	TB_ABOVE 4
+#define	TB_BELOW 5
+#define TB_LEFT_ABOVE 6
+#define TB_UP_BELOW 7
+// #define TB_LEFT_BELOW 8
+// #define TB_UP_ABOVE 9
+
+
 
 #define TB_LINE_SIZE 64  // This defines the length of a line of TB pointers. Must be larger than PE_num
 

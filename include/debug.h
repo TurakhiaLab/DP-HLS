@@ -64,6 +64,18 @@ public:
         }
     }
 
+    static string tbp_to_ascii(tbp_t ptr) {
+        switch (ptr.to_int())
+        {
+        
+        case TB_DIAG: return "\u2196 "; break;
+        case TB_LEFT: return "\u2190 "; break;
+        case TB_UP: return "\u2191 "; break;
+
+        default:  case TB_PH: return "_"; break;
+        }
+    }
+
     class MSG {
     public:
         string note;
@@ -132,6 +144,21 @@ public:
         fclose(outputFile);
     }
 
+    void print_traceback_path_pointers() {
+        FILE* outputFile = std::fopen(this->filepath.c_str(), "a");
+
+        fprintf(outputFile, "\nTraceback Path Pointer Sequence\n");
+
+        auto iter = this->data.traceback.begin();
+        while (iter != this->data.traceback.end()) {
+            /*printf("%d ", (*iter).to_int());
+            printf("%s ", tbp_to_ascii(*iter));*/
+            fprintf(outputFile, "%d ", int(*iter++));
+
+        }
+        fprintf(outputFile, "\n");
+
+    }
 
 
     void print_block_score(){

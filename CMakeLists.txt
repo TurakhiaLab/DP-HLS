@@ -12,7 +12,7 @@ set(RAPTOR 1)
 set(CMAKE_C_COMPILER "/usr/bin/gcc")
 set(CMAKE_CXX_COMPILER "/usr/bin/g++")  # Use g++ compiler, but subject to change for v++ compiler.
 
-add_definitions(-DDEBUG=0)
+#add_definitions(-DDEBUG=0)
 
 set(EXECUTABLE_TARGETS
     align_local_linear

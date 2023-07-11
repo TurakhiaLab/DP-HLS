@@ -50,12 +50,13 @@ kernel:
 		);
 	}
 
-	//this->tracer.traceback(
-	//	this->tbmat[],
-	//	traceback_out,
-	//	27,
-	//	30
-	//);
+	this->tracer.traceback(
+		this->tbmat,
+		traceback_out,
+		0,
+		10,
+		10
+	);
 
 }
 
@@ -124,7 +125,6 @@ void Align::compute_chunk(const int active_pe, const int row_length, int tb_idx)
 #ifdef DEBUG
 		// this->debug->collect("staging", this->staging, PE_NUM);  // ifdef debug
 		// this->debug->collect("last_pe_score", this->last_pe_score, row_length);  // ifdef debug
-
 #endif
 		if (predicate[PE_NUM - 1]) { this->last_pe_score[last_row_w++] = this->staging[PE_NUM - 1]; }  // If write, update the pointer
 
@@ -167,7 +167,6 @@ void Align::init(
 	this->query_ptr = 0;
 
 #ifdef DEBUG
-
 	for (int i = 0; i < PE_NUM; i++) { this->PE_group[i].score = &this->debug->data.score[i]; }
 	for (int i = 0; i < MAX_QUERY_LENGTH; i++) { this->debug->data.query.push_back(this->query[i]); }
 	for (int i = 0; i < MAX_REFERENCE_LENGTH; i++) { this->debug->data.ref.push_back(this->reference[i]); }
