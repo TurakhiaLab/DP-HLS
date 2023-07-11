@@ -4,12 +4,14 @@
 
 #include <stdio.h>
 #include "seq_align_multiple.h"
-#include "params.h"
+
 #include <cstdlib>
 #include <iostream>
 #include <ap_int.h>
 #include <ap_fixed.h>
 #include <hls_stream.h>
+
+#include "../src/params.h"
 
 using namespace hls;
 
@@ -84,7 +86,7 @@ int main() {
 
     type_t dummies[N_BLOCKS];
 
-    seq_align_multiple(query_string_comp, reference_string_comp, tb_streams, (&dummies)[N_BLOCKS]);
+    seq_align_multiple(query_string_comp, reference_string_comp, (&dummies)[N_BLOCKS]);
 
     return 0;
 

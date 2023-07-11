@@ -1,0 +1,705 @@
+<xilinx:hls_fe_msgs>
+    <msg msg_groups="" msg_id="207-4827" msg_severity="WARNING" msg_loc="/usr/include/x86_64-linux-gnu/gmp.h:2142:345" msg_body="equality comparison with extraneous parentheses">
+        <args ClangWarningOption="parentheses-equality"/>
+    </msg>
+    <msg msg_groups="" msg_id="207-4186" msg_severity="INFO" msg_loc="/usr/include/x86_64-linux-gnu/gmp.h:2142:345" msg_body="remove extraneous parentheses around the comparison to silence this warning">
+        <args/>
+    </msg>
+    <msg msg_groups="" msg_id="207-4187" msg_severity="INFO" msg_loc="/usr/include/x86_64-linux-gnu/gmp.h:2142:345" msg_body="use '=' to turn this equality comparison into an assignment">
+        <args/>
+    </msg>
+    <msg msg_groups="" msg_id="207-4827" msg_severity="WARNING" msg_loc="/usr/include/x86_64-linux-gnu/gmp.h:2142:383" msg_body="equality comparison with extraneous parentheses">
+        <args ClangWarningOption="parentheses-equality"/>
+    </msg>
+    <msg msg_groups="" msg_id="207-4186" msg_severity="INFO" msg_loc="/usr/include/x86_64-linux-gnu/gmp.h:2142:383" msg_body="remove extraneous parentheses around the comparison to silence this warning">
+        <args/>
+    </msg>
+    <msg msg_groups="" msg_id="207-4187" msg_severity="INFO" msg_loc="/usr/include/x86_64-linux-gnu/gmp.h:2142:383" msg_body="use '=' to turn this equality comparison into an assignment">
+        <args/>
+    </msg>
+    <msg msg_groups="" msg_id="207-5292" msg_severity="WARNING" msg_loc="/home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/autopilot/hls_streamofblocks.h:309:77" msg_body="unused parameter 'name'">
+        <args ClangWarningOption="unused-parameter"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="/home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/autopilot/ap_int_ref.h:724:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="and_reduce" ARG_PragmaIsValid="1" ARG_PragmaType="unroll" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="/home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/autopilot/ap_int_ref.h:738:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="or_reduce" ARG_PragmaIsValid="1" ARG_PragmaType="unroll" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="/home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/autopilot/ap_int_ref.h:752:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="xor_reduce" ARG_PragmaIsValid="1" ARG_PragmaType="unroll" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="../src/shift_reg.h:7:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="ShiftRegister&lt;T, LEN&gt;" ARG_PragmaIsValid="1" ARG_PragmaOptions="variable=data dim=1 complete" ARG_PragmaType="array_partition" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="../src/shift_reg.h:9:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="ShiftRegister&lt;T, LEN&gt;" ARG_PragmaIsValid="1" ARG_PragmaType="unroll" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="../src/shift_reg.h:20:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="shift" ARG_PragmaIsValid="1" ARG_PragmaType="unroll" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/csynth.tcl:25:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaContext="directive" ARG_PragmaFunction="seq_align_multiple" ARG_PragmaIsValid="1" ARG_PragmaOptions="name=seq_align_multiple" ARG_PragmaType="top" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="../src/seq_align_multiple.cpp:33:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="seq_align_multiple" ARG_PragmaIsValid="1" ARG_PragmaOptions="axis port=query_string_comp_blocks" ARG_PragmaType="interface" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="../src/seq_align_multiple.cpp:34:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="seq_align_multiple" ARG_PragmaIsValid="1" ARG_PragmaOptions="axis port=reference_string_comp_blocks" ARG_PragmaType="interface" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="../src/seq_align_multiple.cpp:36:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="seq_align_multiple" ARG_PragmaIsValid="1" ARG_PragmaOptions="variable=query_string_comp_blocks type=block factor=8 dim=1" ARG_PragmaType="array_partition" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="../src/seq_align_multiple.cpp:37:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="seq_align_multiple" ARG_PragmaIsValid="1" ARG_PragmaOptions="variable=reference_string_comp_blocks type=block factor=8 dim=1" ARG_PragmaType="array_partition" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="../src/seq_align_multiple.cpp:43:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="seq_align_multiple" ARG_PragmaIsValid="1" ARG_PragmaOptions="variable=dummies type=complete" ARG_PragmaType="array_partition" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="../src/seq_align_multiple.cpp:44:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="seq_align_multiple" ARG_PragmaIsValid="1" ARG_PragmaOptions="variable=dummies_inner type=complete" ARG_PragmaType="array_partition" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="../src/seq_align_multiple.cpp:52:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="seq_align_multiple" ARG_PragmaIsValid="1" ARG_PragmaType="unroll" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="" msg_id="207-5527" msg_severity="WARNING" msg_loc="../src/traceback.h:15:55" msg_body="'factor' in '#pragma HLS array_partition' is ignored">
+        <args ClangWarningOption="extra-tokens"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="/home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/autopilot/ap_int_ref.h:724:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="and_reduce" ARG_PragmaIsValid="1" ARG_PragmaType="unroll" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="/home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/autopilot/ap_int_ref.h:738:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="or_reduce" ARG_PragmaIsValid="1" ARG_PragmaType="unroll" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="/home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/autopilot/ap_int_ref.h:752:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="xor_reduce" ARG_PragmaIsValid="1" ARG_PragmaType="unroll" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="../src/traceback.h:15:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="TraceBack" ARG_PragmaIsValid="1" ARG_PragmaOptions="variable=input_ptr factor=32 dim=0 type=complete" ARG_PragmaType="array_partition" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="../src/traceback.h:16:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="TraceBack" ARG_PragmaIsValid="1" ARG_PragmaOptions="variable=tb_matrix factor = 32 dim=2 type=cyclic" ARG_PragmaType="array_partition" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="../src/traceback.h:17:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="TraceBack" ARG_PragmaIsValid="1" ARG_PragmaOptions="variable=tb_matrix compact=auto" ARG_PragmaType="aggregate" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="../src/traceback.h:18:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="TraceBack" ARG_PragmaIsValid="1" ARG_PragmaOptions="variable=tb_matrix type=RAM_1P impl=bram" ARG_PragmaType="bind_storage" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="" msg_id="207-4827" msg_severity="WARNING" msg_loc="/usr/include/x86_64-linux-gnu/gmp.h:2142:345" msg_body="equality comparison with extraneous parentheses">
+        <args ClangWarningOption="parentheses-equality"/>
+    </msg>
+    <msg msg_groups="" msg_id="207-4186" msg_severity="INFO" msg_loc="/usr/include/x86_64-linux-gnu/gmp.h:2142:345" msg_body="remove extraneous parentheses around the comparison to silence this warning">
+        <args/>
+    </msg>
+    <msg msg_groups="" msg_id="207-4187" msg_severity="INFO" msg_loc="/usr/include/x86_64-linux-gnu/gmp.h:2142:345" msg_body="use '=' to turn this equality comparison into an assignment">
+        <args/>
+    </msg>
+    <msg msg_groups="" msg_id="207-5527" msg_severity="WARNING" msg_loc="../src/traceback.h:15:55" msg_body="'factor' in '#pragma HLS array_partition' is ignored">
+        <args ClangWarningOption="extra-tokens"/>
+    </msg>
+    <msg msg_groups="" msg_id="207-4827" msg_severity="WARNING" msg_loc="/usr/include/x86_64-linux-gnu/gmp.h:2142:383" msg_body="equality comparison with extraneous parentheses">
+        <args ClangWarningOption="parentheses-equality"/>
+    </msg>
+    <msg msg_groups="" msg_id="207-4186" msg_severity="INFO" msg_loc="/usr/include/x86_64-linux-gnu/gmp.h:2142:383" msg_body="remove extraneous parentheses around the comparison to silence this warning">
+        <args/>
+    </msg>
+    <msg msg_groups="" msg_id="207-4187" msg_severity="INFO" msg_loc="/usr/include/x86_64-linux-gnu/gmp.h:2142:383" msg_body="use '=' to turn this equality comparison into an assignment">
+        <args/>
+    </msg>
+    <msg msg_groups="" msg_id="207-5292" msg_severity="WARNING" msg_loc="/home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/autopilot/hls_streamofblocks.h:309:77" msg_body="unused parameter 'name'">
+        <args ClangWarningOption="unused-parameter"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="/home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/autopilot/ap_int_ref.h:724:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="and_reduce" ARG_PragmaIsValid="1" ARG_PragmaType="unroll" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="/home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/autopilot/ap_int_ref.h:738:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="or_reduce" ARG_PragmaIsValid="1" ARG_PragmaType="unroll" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="/home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/autopilot/ap_int_ref.h:752:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="xor_reduce" ARG_PragmaIsValid="1" ARG_PragmaType="unroll" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="../src/shift_reg.h:7:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="ShiftRegister&lt;T, LEN&gt;" ARG_PragmaIsValid="1" ARG_PragmaOptions="variable=data dim=1 complete" ARG_PragmaType="array_partition" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="../src/shift_reg.h:9:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="ShiftRegister&lt;T, LEN&gt;" ARG_PragmaIsValid="1" ARG_PragmaType="unroll" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="../src/shift_reg.h:20:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="shift" ARG_PragmaIsValid="1" ARG_PragmaType="unroll" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="../src/traceback.h:15:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="TraceBack" ARG_PragmaIsValid="1" ARG_PragmaOptions="variable=input_ptr factor=32 dim=0 type=complete" ARG_PragmaType="array_partition" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="../src/traceback.h:16:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="TraceBack" ARG_PragmaIsValid="1" ARG_PragmaOptions="variable=tb_matrix factor = 32 dim=2 type=cyclic" ARG_PragmaType="array_partition" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="../src/traceback.h:17:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="TraceBack" ARG_PragmaIsValid="1" ARG_PragmaOptions="variable=tb_matrix compact=auto" ARG_PragmaType="aggregate" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="../src/traceback.h:18:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="TraceBack" ARG_PragmaIsValid="1" ARG_PragmaOptions="variable=tb_matrix type=RAM_1P impl=bram" ARG_PragmaType="bind_storage" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="../src/seq_align.cpp:67:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="align" ARG_PragmaIsValid="1" ARG_PragmaOptions="II = 1" ARG_PragmaType="pipeline" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="../src/seq_align.cpp:99:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="align" ARG_PragmaIsValid="1" ARG_PragmaType="unroll" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="../src/seq_align.cpp:107:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="align" ARG_PragmaIsValid="1" ARG_PragmaType="unroll" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="../src/seq_align.cpp:139:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="align" ARG_PragmaIsValid="1" ARG_PragmaOptions="II = 1" ARG_PragmaType="pipeline" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="../src/seq_align.cpp:156:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="align" ARG_PragmaIsValid="1" ARG_PragmaType="unroll" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="../src/seq_align.cpp:164:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="align" ARG_PragmaIsValid="1" ARG_PragmaType="unroll" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="../src/seq_align.cpp:185:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="align" ARG_PragmaIsValid="1" ARG_PragmaOptions="II = 1" ARG_PragmaType="pipeline" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="../src/seq_align.cpp:195:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="align" ARG_PragmaIsValid="1" ARG_PragmaType="unroll" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="../src/seq_align.cpp:203:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="align" ARG_PragmaIsValid="1" ARG_PragmaType="unroll" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="../src/seq_align.cpp:235:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="align" ARG_PragmaIsValid="1" ARG_PragmaType="unroll" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="../src/seq_align.cpp:261:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="align" ARG_PragmaIsValid="1" ARG_PragmaOptions="variable = dp_mem dim = 0 complete" ARG_PragmaType="array_partition" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="../src/seq_align.cpp:262:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="align" ARG_PragmaIsValid="1" ARG_PragmaOptions="variable = traceback dim = 1 cyclic factor = 32" ARG_PragmaType="array_partition" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="../src/seq_align.cpp:263:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="align" ARG_PragmaIsValid="1" ARG_PragmaOptions="variable = local_reference cyclic dim = 1 factor = 32" ARG_PragmaType="array_partition" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="../src/seq_align.cpp:317:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="align" ARG_PragmaIsValid="1" ARG_PragmaOptions="II = 1" ARG_PragmaType="pipeline" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="../src/seq_align.cpp:323:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="align" ARG_PragmaIsValid="1" ARG_PragmaOptions="II = 1" ARG_PragmaType="pipeline" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="../src/seq_align.cpp:331:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="align" ARG_PragmaIsValid="1" ARG_PragmaOptions="II = 1" ARG_PragmaType="pipeline" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="../src/seq_align.cpp:340:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="align" ARG_PragmaIsValid="1" ARG_PragmaOptions="II = 1" ARG_PragmaType="pipeline" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="../src/seq_align.cpp:345:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="align" ARG_PragmaIsValid="1" ARG_PragmaType="unroll" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="../src/seq_align.cpp:358:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="align" ARG_PragmaIsValid="1" ARG_PragmaType="unroll" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="../src/seq_align.cpp:453:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="align" ARG_PragmaIsValid="1" ARG_PragmaOptions="variable = dp_mem dim = 0 complete" ARG_PragmaType="array_partition" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="../src/seq_align.cpp:454:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="align" ARG_PragmaIsValid="1" ARG_PragmaOptions="variable = Iy_mem dim = 0 complete" ARG_PragmaType="array_partition" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="../src/seq_align.cpp:455:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="align" ARG_PragmaIsValid="1" ARG_PragmaOptions="variable = Ix_mem dim = 0 complete" ARG_PragmaType="array_partition" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="../src/seq_align.cpp:456:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="align" ARG_PragmaIsValid="1" ARG_PragmaOptions="variable = traceback dim = 1 cyclic factor = 32" ARG_PragmaType="array_partition" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="../src/seq_align.cpp:457:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="align" ARG_PragmaIsValid="1" ARG_PragmaOptions="variable = local_reference cyclic dim = 1 factor = 32" ARG_PragmaType="array_partition" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="../src/seq_align.cpp:523:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="align" ARG_PragmaIsValid="1" ARG_PragmaOptions="II = 1" ARG_PragmaType="pipeline" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="../src/seq_align.cpp:529:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="align" ARG_PragmaIsValid="1" ARG_PragmaOptions="II = 1" ARG_PragmaType="pipeline" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="../src/seq_align.cpp:537:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="align" ARG_PragmaIsValid="1" ARG_PragmaOptions="II = 1" ARG_PragmaType="pipeline" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="../src/seq_align.cpp:546:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="align" ARG_PragmaIsValid="1" ARG_PragmaOptions="II = 1" ARG_PragmaType="pipeline" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="../src/seq_align.cpp:551:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="align" ARG_PragmaIsValid="1" ARG_PragmaType="unroll" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="../src/seq_align.cpp:569:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="align" ARG_PragmaIsValid="1" ARG_PragmaType="unroll" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="../src/seq_align.cpp:718:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="align" ARG_PragmaIsValid="1" ARG_PragmaOptions="variable = dp_mem dim = 0 complete" ARG_PragmaType="array_partition" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="../src/seq_align.cpp:719:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="align" ARG_PragmaIsValid="1" ARG_PragmaOptions="variable = traceback dim = 1 cyclic factor = 32" ARG_PragmaType="array_partition" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="../src/seq_align.cpp:720:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="align" ARG_PragmaIsValid="1" ARG_PragmaOptions="variable = local_reference cyclic dim = 1 factor = 32" ARG_PragmaType="array_partition" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="../src/seq_align.cpp:721:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="align" ARG_PragmaIsValid="1" ARG_PragmaOptions="variable = max_score dim = 0 complete" ARG_PragmaType="array_partition" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="../src/seq_align.cpp:722:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="align" ARG_PragmaIsValid="1" ARG_PragmaOptions="variable = max_row_value dim = 0 complete" ARG_PragmaType="array_partition" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="../src/seq_align.cpp:723:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="align" ARG_PragmaIsValid="1" ARG_PragmaOptions="variable = max_col_value dim = 0 complete" ARG_PragmaType="array_partition" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="../src/seq_align.cpp:780:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="align" ARG_PragmaIsValid="1" ARG_PragmaOptions="II = 1" ARG_PragmaType="pipeline" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="../src/seq_align.cpp:786:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="align" ARG_PragmaIsValid="1" ARG_PragmaOptions="II = 1" ARG_PragmaType="pipeline" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="../src/seq_align.cpp:794:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="align" ARG_PragmaIsValid="1" ARG_PragmaOptions="II = 1" ARG_PragmaType="pipeline" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="../src/seq_align.cpp:804:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="align" ARG_PragmaIsValid="1" ARG_PragmaOptions="II = 1" ARG_PragmaType="pipeline" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="../src/seq_align.cpp:809:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="align" ARG_PragmaIsValid="1" ARG_PragmaType="unroll" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="../src/seq_align.cpp:822:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="align" ARG_PragmaIsValid="1" ARG_PragmaType="unroll" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="../src/seq_align.cpp:859:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="align" ARG_PragmaIsValid="1" ARG_PragmaOptions="II = 1" ARG_PragmaType="pipeline" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="../src/seq_align.cpp:940:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="align" ARG_PragmaIsValid="1" ARG_PragmaOptions="variable = dp_mem dim = 0 complete" ARG_PragmaType="array_partition" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="../src/seq_align.cpp:941:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="align" ARG_PragmaIsValid="1" ARG_PragmaOptions="variable = Iy_mem dim = 0 complete" ARG_PragmaType="array_partition" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="../src/seq_align.cpp:942:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="align" ARG_PragmaIsValid="1" ARG_PragmaOptions="variable = Ix_mem dim = 0 complete" ARG_PragmaType="array_partition" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="../src/seq_align.cpp:943:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="align" ARG_PragmaIsValid="1" ARG_PragmaOptions="variable = traceback dim = 1 cyclic factor = 32" ARG_PragmaType="array_partition" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="../src/seq_align.cpp:944:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="align" ARG_PragmaIsValid="1" ARG_PragmaOptions="variable = local_reference cyclic dim = 1 factor = 32" ARG_PragmaType="array_partition" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="../src/seq_align.cpp:945:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="align" ARG_PragmaIsValid="1" ARG_PragmaOptions="variable = max_score dim = 0 complete" ARG_PragmaType="array_partition" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="../src/seq_align.cpp:946:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="align" ARG_PragmaIsValid="1" ARG_PragmaOptions="variable = max_row_value dim = 0 complete" ARG_PragmaType="array_partition" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="../src/seq_align.cpp:947:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="align" ARG_PragmaIsValid="1" ARG_PragmaOptions="variable = max_col_value dim = 0 complete" ARG_PragmaType="array_partition" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="../src/seq_align.cpp:1015:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="align" ARG_PragmaIsValid="1" ARG_PragmaOptions="II = 1" ARG_PragmaType="pipeline" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="../src/seq_align.cpp:1021:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="align" ARG_PragmaIsValid="1" ARG_PragmaOptions="II = 1" ARG_PragmaType="pipeline" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="../src/seq_align.cpp:1029:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="align" ARG_PragmaIsValid="1" ARG_PragmaOptions="II = 1" ARG_PragmaType="pipeline" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="../src/seq_align.cpp:1039:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="align" ARG_PragmaIsValid="1" ARG_PragmaOptions="II = 1" ARG_PragmaType="pipeline" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="../src/seq_align.cpp:1044:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="align" ARG_PragmaIsValid="1" ARG_PragmaType="unroll" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="../src/seq_align.cpp:1061:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="align" ARG_PragmaIsValid="1" ARG_PragmaType="unroll" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="../src/seq_align.cpp:1100:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="align" ARG_PragmaIsValid="1" ARG_PragmaOptions="II = 1" ARG_PragmaType="pipeline" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="" msg_id="207-5292" msg_severity="WARNING" msg_loc="/home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/autopilot/hls_streamofblocks.h:309:77" msg_body="unused parameter 'name'">
+        <args ClangWarningOption="unused-parameter"/>
+    </msg>
+    <msg msg_groups="" msg_id="207-5292" msg_severity="WARNING" msg_loc="../src/PE.cpp:74:25" msg_body="unused parameter 'PEIdx'">
+        <args ClangWarningOption="unused-parameter"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="/home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/autopilot/ap_int_ref.h:724:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="and_reduce" ARG_PragmaIsValid="1" ARG_PragmaType="unroll" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="/home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/autopilot/ap_int_ref.h:738:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="or_reduce" ARG_PragmaIsValid="1" ARG_PragmaType="unroll" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="/home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/autopilot/ap_int_ref.h:752:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="xor_reduce" ARG_PragmaIsValid="1" ARG_PragmaType="unroll" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="../src/shift_reg.h:7:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="ShiftRegister&lt;T, LEN&gt;" ARG_PragmaIsValid="1" ARG_PragmaOptions="variable=data dim=1 complete" ARG_PragmaType="array_partition" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="../src/shift_reg.h:9:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="ShiftRegister&lt;T, LEN&gt;" ARG_PragmaIsValid="1" ARG_PragmaType="unroll" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="../src/shift_reg.h:20:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="shift" ARG_PragmaIsValid="1" ARG_PragmaType="unroll" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="../src/PE.cpp:88:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="compute" ARG_PragmaIsValid="1" ARG_PragmaType="inline" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="../src/PE.cpp:163:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="compute" ARG_PragmaIsValid="1" ARG_PragmaType="inline" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="../src/PE.cpp:196:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="compute" ARG_PragmaIsValid="1" ARG_PragmaType="inline" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="../src/PE.cpp:241:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="compute" ARG_PragmaIsValid="1" ARG_PragmaType="inline" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="" msg_id="207-5292" msg_severity="WARNING" msg_loc="/home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/autopilot/hls_streamofblocks.h:309:77" msg_body="unused parameter 'name'">
+        <args ClangWarningOption="unused-parameter"/>
+    </msg>
+    <msg msg_groups="" msg_id="207-5292" msg_severity="WARNING" msg_loc="/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/PE.cpp:74:25" msg_body="unused parameter 'PEIdx'">
+        <args ClangWarningOption="unused-parameter"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="/home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/autopilot/ap_int_ref.h:724:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="and_reduce" ARG_PragmaIsValid="1" ARG_PragmaType="unroll" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="/home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/autopilot/ap_int_ref.h:738:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="or_reduce" ARG_PragmaIsValid="1" ARG_PragmaType="unroll" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="/home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/autopilot/ap_int_ref.h:752:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="xor_reduce" ARG_PragmaIsValid="1" ARG_PragmaType="unroll" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/shift_reg.h:7:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="ShiftRegister&lt;T, LEN&gt;" ARG_PragmaIsValid="1" ARG_PragmaOptions="variable=data dim=1 complete" ARG_PragmaType="array_partition" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/shift_reg.h:9:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="ShiftRegister&lt;T, LEN&gt;" ARG_PragmaIsValid="1" ARG_PragmaType="unroll" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/shift_reg.h:20:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="shift" ARG_PragmaIsValid="1" ARG_PragmaType="unroll" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/PE.cpp:88:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="compute" ARG_PragmaIsValid="1" ARG_PragmaType="inline" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/PE.cpp:163:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="compute" ARG_PragmaIsValid="1" ARG_PragmaType="inline" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/PE.cpp:196:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="compute" ARG_PragmaIsValid="1" ARG_PragmaType="inline" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/PE.cpp:241:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="compute" ARG_PragmaIsValid="1" ARG_PragmaType="inline" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="" msg_id="207-4827" msg_severity="WARNING" msg_loc="/usr/include/x86_64-linux-gnu/gmp.h:2142:345" msg_body="equality comparison with extraneous parentheses">
+        <args ClangWarningOption="parentheses-equality"/>
+    </msg>
+    <msg msg_groups="" msg_id="207-4186" msg_severity="INFO" msg_loc="/usr/include/x86_64-linux-gnu/gmp.h:2142:345" msg_body="remove extraneous parentheses around the comparison to silence this warning">
+        <args/>
+    </msg>
+    <msg msg_groups="" msg_id="207-4187" msg_severity="INFO" msg_loc="/usr/include/x86_64-linux-gnu/gmp.h:2142:345" msg_body="use '=' to turn this equality comparison into an assignment">
+        <args/>
+    </msg>
+    <msg msg_groups="" msg_id="207-5527" msg_severity="WARNING" msg_loc="/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/traceback.h:15:55" msg_body="'factor' in '#pragma HLS array_partition' is ignored">
+        <args ClangWarningOption="extra-tokens"/>
+    </msg>
+    <msg msg_groups="" msg_id="207-4827" msg_severity="WARNING" msg_loc="/usr/include/x86_64-linux-gnu/gmp.h:2142:383" msg_body="equality comparison with extraneous parentheses">
+        <args ClangWarningOption="parentheses-equality"/>
+    </msg>
+    <msg msg_groups="" msg_id="207-4186" msg_severity="INFO" msg_loc="/usr/include/x86_64-linux-gnu/gmp.h:2142:383" msg_body="remove extraneous parentheses around the comparison to silence this warning">
+        <args/>
+    </msg>
+    <msg msg_groups="" msg_id="207-4187" msg_severity="INFO" msg_loc="/usr/include/x86_64-linux-gnu/gmp.h:2142:383" msg_body="use '=' to turn this equality comparison into an assignment">
+        <args/>
+    </msg>
+    <msg msg_groups="" msg_id="207-5292" msg_severity="WARNING" msg_loc="/home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/autopilot/hls_streamofblocks.h:309:77" msg_body="unused parameter 'name'">
+        <args ClangWarningOption="unused-parameter"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="/home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/autopilot/ap_int_ref.h:724:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="and_reduce" ARG_PragmaIsValid="1" ARG_PragmaType="unroll" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="/home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/autopilot/ap_int_ref.h:738:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="or_reduce" ARG_PragmaIsValid="1" ARG_PragmaType="unroll" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="/home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/autopilot/ap_int_ref.h:752:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="xor_reduce" ARG_PragmaIsValid="1" ARG_PragmaType="unroll" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/shift_reg.h:7:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="ShiftRegister&lt;T, LEN&gt;" ARG_PragmaIsValid="1" ARG_PragmaOptions="variable=data dim=1 complete" ARG_PragmaType="array_partition" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/shift_reg.h:9:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="ShiftRegister&lt;T, LEN&gt;" ARG_PragmaIsValid="1" ARG_PragmaType="unroll" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/shift_reg.h:20:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="shift" ARG_PragmaIsValid="1" ARG_PragmaType="unroll" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/traceback.h:15:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="TraceBack" ARG_PragmaIsValid="1" ARG_PragmaOptions="variable=input_ptr factor=32 dim=0 type=complete" ARG_PragmaType="array_partition" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/traceback.h:16:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="TraceBack" ARG_PragmaIsValid="1" ARG_PragmaOptions="variable=tb_matrix factor = 32 dim=2 type=cyclic" ARG_PragmaType="array_partition" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/traceback.h:17:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="TraceBack" ARG_PragmaIsValid="1" ARG_PragmaOptions="variable=tb_matrix compact=auto" ARG_PragmaType="aggregate" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/traceback.h:18:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="TraceBack" ARG_PragmaIsValid="1" ARG_PragmaOptions="variable=tb_matrix type=RAM_1P impl=bram" ARG_PragmaType="bind_storage" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/seq_align.cpp:67:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="align" ARG_PragmaIsValid="1" ARG_PragmaOptions="II = 1" ARG_PragmaType="pipeline" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/seq_align.cpp:99:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="align" ARG_PragmaIsValid="1" ARG_PragmaType="unroll" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/seq_align.cpp:107:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="align" ARG_PragmaIsValid="1" ARG_PragmaType="unroll" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/seq_align.cpp:139:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="align" ARG_PragmaIsValid="1" ARG_PragmaOptions="II = 1" ARG_PragmaType="pipeline" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/seq_align.cpp:156:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="align" ARG_PragmaIsValid="1" ARG_PragmaType="unroll" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/seq_align.cpp:164:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="align" ARG_PragmaIsValid="1" ARG_PragmaType="unroll" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/seq_align.cpp:185:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="align" ARG_PragmaIsValid="1" ARG_PragmaOptions="II = 1" ARG_PragmaType="pipeline" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/seq_align.cpp:195:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="align" ARG_PragmaIsValid="1" ARG_PragmaType="unroll" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/seq_align.cpp:203:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="align" ARG_PragmaIsValid="1" ARG_PragmaType="unroll" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/seq_align.cpp:235:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="align" ARG_PragmaIsValid="1" ARG_PragmaType="unroll" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/seq_align.cpp:261:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="align" ARG_PragmaIsValid="1" ARG_PragmaOptions="variable = dp_mem dim = 0 complete" ARG_PragmaType="array_partition" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/seq_align.cpp:262:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="align" ARG_PragmaIsValid="1" ARG_PragmaOptions="variable = traceback dim = 1 cyclic factor = 32" ARG_PragmaType="array_partition" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/seq_align.cpp:263:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="align" ARG_PragmaIsValid="1" ARG_PragmaOptions="variable = local_reference cyclic dim = 1 factor = 32" ARG_PragmaType="array_partition" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/seq_align.cpp:317:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="align" ARG_PragmaIsValid="1" ARG_PragmaOptions="II = 1" ARG_PragmaType="pipeline" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/seq_align.cpp:323:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="align" ARG_PragmaIsValid="1" ARG_PragmaOptions="II = 1" ARG_PragmaType="pipeline" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/seq_align.cpp:331:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="align" ARG_PragmaIsValid="1" ARG_PragmaOptions="II = 1" ARG_PragmaType="pipeline" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/seq_align.cpp:340:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="align" ARG_PragmaIsValid="1" ARG_PragmaOptions="II = 1" ARG_PragmaType="pipeline" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/seq_align.cpp:345:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="align" ARG_PragmaIsValid="1" ARG_PragmaType="unroll" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/seq_align.cpp:358:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="align" ARG_PragmaIsValid="1" ARG_PragmaType="unroll" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/seq_align.cpp:453:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="align" ARG_PragmaIsValid="1" ARG_PragmaOptions="variable = dp_mem dim = 0 complete" ARG_PragmaType="array_partition" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/seq_align.cpp:454:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="align" ARG_PragmaIsValid="1" ARG_PragmaOptions="variable = Iy_mem dim = 0 complete" ARG_PragmaType="array_partition" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/seq_align.cpp:455:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="align" ARG_PragmaIsValid="1" ARG_PragmaOptions="variable = Ix_mem dim = 0 complete" ARG_PragmaType="array_partition" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/seq_align.cpp:456:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="align" ARG_PragmaIsValid="1" ARG_PragmaOptions="variable = traceback dim = 1 cyclic factor = 32" ARG_PragmaType="array_partition" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/seq_align.cpp:457:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="align" ARG_PragmaIsValid="1" ARG_PragmaOptions="variable = local_reference cyclic dim = 1 factor = 32" ARG_PragmaType="array_partition" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/seq_align.cpp:523:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="align" ARG_PragmaIsValid="1" ARG_PragmaOptions="II = 1" ARG_PragmaType="pipeline" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/seq_align.cpp:529:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="align" ARG_PragmaIsValid="1" ARG_PragmaOptions="II = 1" ARG_PragmaType="pipeline" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/seq_align.cpp:537:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="align" ARG_PragmaIsValid="1" ARG_PragmaOptions="II = 1" ARG_PragmaType="pipeline" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/seq_align.cpp:546:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="align" ARG_PragmaIsValid="1" ARG_PragmaOptions="II = 1" ARG_PragmaType="pipeline" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/seq_align.cpp:551:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="align" ARG_PragmaIsValid="1" ARG_PragmaType="unroll" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/seq_align.cpp:569:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="align" ARG_PragmaIsValid="1" ARG_PragmaType="unroll" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/seq_align.cpp:718:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="align" ARG_PragmaIsValid="1" ARG_PragmaOptions="variable = dp_mem dim = 0 complete" ARG_PragmaType="array_partition" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/seq_align.cpp:719:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="align" ARG_PragmaIsValid="1" ARG_PragmaOptions="variable = traceback dim = 1 cyclic factor = 32" ARG_PragmaType="array_partition" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/seq_align.cpp:720:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="align" ARG_PragmaIsValid="1" ARG_PragmaOptions="variable = local_reference cyclic dim = 1 factor = 32" ARG_PragmaType="array_partition" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/seq_align.cpp:721:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="align" ARG_PragmaIsValid="1" ARG_PragmaOptions="variable = max_score dim = 0 complete" ARG_PragmaType="array_partition" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/seq_align.cpp:722:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="align" ARG_PragmaIsValid="1" ARG_PragmaOptions="variable = max_row_value dim = 0 complete" ARG_PragmaType="array_partition" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/seq_align.cpp:723:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="align" ARG_PragmaIsValid="1" ARG_PragmaOptions="variable = max_col_value dim = 0 complete" ARG_PragmaType="array_partition" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/seq_align.cpp:780:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="align" ARG_PragmaIsValid="1" ARG_PragmaOptions="II = 1" ARG_PragmaType="pipeline" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/seq_align.cpp:786:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="align" ARG_PragmaIsValid="1" ARG_PragmaOptions="II = 1" ARG_PragmaType="pipeline" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/seq_align.cpp:794:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="align" ARG_PragmaIsValid="1" ARG_PragmaOptions="II = 1" ARG_PragmaType="pipeline" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/seq_align.cpp:804:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="align" ARG_PragmaIsValid="1" ARG_PragmaOptions="II = 1" ARG_PragmaType="pipeline" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/seq_align.cpp:809:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="align" ARG_PragmaIsValid="1" ARG_PragmaType="unroll" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/seq_align.cpp:822:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="align" ARG_PragmaIsValid="1" ARG_PragmaType="unroll" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/seq_align.cpp:859:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="align" ARG_PragmaIsValid="1" ARG_PragmaOptions="II = 1" ARG_PragmaType="pipeline" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/seq_align.cpp:940:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="align" ARG_PragmaIsValid="1" ARG_PragmaOptions="variable = dp_mem dim = 0 complete" ARG_PragmaType="array_partition" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/seq_align.cpp:941:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="align" ARG_PragmaIsValid="1" ARG_PragmaOptions="variable = Iy_mem dim = 0 complete" ARG_PragmaType="array_partition" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/seq_align.cpp:942:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="align" ARG_PragmaIsValid="1" ARG_PragmaOptions="variable = Ix_mem dim = 0 complete" ARG_PragmaType="array_partition" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/seq_align.cpp:943:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="align" ARG_PragmaIsValid="1" ARG_PragmaOptions="variable = traceback dim = 1 cyclic factor = 32" ARG_PragmaType="array_partition" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/seq_align.cpp:944:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="align" ARG_PragmaIsValid="1" ARG_PragmaOptions="variable = local_reference cyclic dim = 1 factor = 32" ARG_PragmaType="array_partition" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/seq_align.cpp:945:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="align" ARG_PragmaIsValid="1" ARG_PragmaOptions="variable = max_score dim = 0 complete" ARG_PragmaType="array_partition" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/seq_align.cpp:946:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="align" ARG_PragmaIsValid="1" ARG_PragmaOptions="variable = max_row_value dim = 0 complete" ARG_PragmaType="array_partition" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/seq_align.cpp:947:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="align" ARG_PragmaIsValid="1" ARG_PragmaOptions="variable = max_col_value dim = 0 complete" ARG_PragmaType="array_partition" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/seq_align.cpp:1015:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="align" ARG_PragmaIsValid="1" ARG_PragmaOptions="II = 1" ARG_PragmaType="pipeline" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/seq_align.cpp:1021:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="align" ARG_PragmaIsValid="1" ARG_PragmaOptions="II = 1" ARG_PragmaType="pipeline" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/seq_align.cpp:1029:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="align" ARG_PragmaIsValid="1" ARG_PragmaOptions="II = 1" ARG_PragmaType="pipeline" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/seq_align.cpp:1039:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="align" ARG_PragmaIsValid="1" ARG_PragmaOptions="II = 1" ARG_PragmaType="pipeline" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/seq_align.cpp:1044:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="align" ARG_PragmaIsValid="1" ARG_PragmaType="unroll" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/seq_align.cpp:1061:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="align" ARG_PragmaIsValid="1" ARG_PragmaType="unroll" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/seq_align.cpp:1100:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="align" ARG_PragmaIsValid="1" ARG_PragmaOptions="II = 1" ARG_PragmaType="pipeline" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="" msg_id="207-5527" msg_severity="WARNING" msg_loc="/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/traceback.h:15:55" msg_body="'factor' in '#pragma HLS array_partition' is ignored">
+        <args ClangWarningOption="extra-tokens"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="/home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/autopilot/ap_int_ref.h:724:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="and_reduce" ARG_PragmaIsValid="1" ARG_PragmaType="unroll" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="/home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/autopilot/ap_int_ref.h:738:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="or_reduce" ARG_PragmaIsValid="1" ARG_PragmaType="unroll" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="/home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/autopilot/ap_int_ref.h:752:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="xor_reduce" ARG_PragmaIsValid="1" ARG_PragmaType="unroll" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/traceback.h:15:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="TraceBack" ARG_PragmaIsValid="1" ARG_PragmaOptions="variable=input_ptr factor=32 dim=0 type=complete" ARG_PragmaType="array_partition" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/traceback.h:16:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="TraceBack" ARG_PragmaIsValid="1" ARG_PragmaOptions="variable=tb_matrix factor = 32 dim=2 type=cyclic" ARG_PragmaType="array_partition" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/traceback.h:17:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="TraceBack" ARG_PragmaIsValid="1" ARG_PragmaOptions="variable=tb_matrix compact=auto" ARG_PragmaType="aggregate" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/traceback.h:18:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="TraceBack" ARG_PragmaIsValid="1" ARG_PragmaOptions="variable=tb_matrix type=RAM_1P impl=bram" ARG_PragmaType="bind_storage" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="" msg_id="207-4827" msg_severity="WARNING" msg_loc="/usr/include/x86_64-linux-gnu/gmp.h:2142:345" msg_body="equality comparison with extraneous parentheses">
+        <args ClangWarningOption="parentheses-equality"/>
+    </msg>
+    <msg msg_groups="" msg_id="207-4186" msg_severity="INFO" msg_loc="/usr/include/x86_64-linux-gnu/gmp.h:2142:345" msg_body="remove extraneous parentheses around the comparison to silence this warning">
+        <args/>
+    </msg>
+    <msg msg_groups="" msg_id="207-4187" msg_severity="INFO" msg_loc="/usr/include/x86_64-linux-gnu/gmp.h:2142:345" msg_body="use '=' to turn this equality comparison into an assignment">
+        <args/>
+    </msg>
+    <msg msg_groups="" msg_id="207-4827" msg_severity="WARNING" msg_loc="/usr/include/x86_64-linux-gnu/gmp.h:2142:383" msg_body="equality comparison with extraneous parentheses">
+        <args ClangWarningOption="parentheses-equality"/>
+    </msg>
+    <msg msg_groups="" msg_id="207-4186" msg_severity="INFO" msg_loc="/usr/include/x86_64-linux-gnu/gmp.h:2142:383" msg_body="remove extraneous parentheses around the comparison to silence this warning">
+        <args/>
+    </msg>
+    <msg msg_groups="" msg_id="207-4187" msg_severity="INFO" msg_loc="/usr/include/x86_64-linux-gnu/gmp.h:2142:383" msg_body="use '=' to turn this equality comparison into an assignment">
+        <args/>
+    </msg>
+    <msg msg_groups="" msg_id="207-5292" msg_severity="WARNING" msg_loc="/home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/autopilot/hls_streamofblocks.h:309:77" msg_body="unused parameter 'name'">
+        <args ClangWarningOption="unused-parameter"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="/home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/autopilot/ap_int_ref.h:724:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="and_reduce" ARG_PragmaIsValid="1" ARG_PragmaType="unroll" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="/home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/autopilot/ap_int_ref.h:738:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="or_reduce" ARG_PragmaIsValid="1" ARG_PragmaType="unroll" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="/home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/autopilot/ap_int_ref.h:752:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="xor_reduce" ARG_PragmaIsValid="1" ARG_PragmaType="unroll" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/shift_reg.h:7:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="ShiftRegister&lt;T, LEN&gt;" ARG_PragmaIsValid="1" ARG_PragmaOptions="variable=data dim=1 complete" ARG_PragmaType="array_partition" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/shift_reg.h:9:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="ShiftRegister&lt;T, LEN&gt;" ARG_PragmaIsValid="1" ARG_PragmaType="unroll" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/shift_reg.h:20:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="shift" ARG_PragmaIsValid="1" ARG_PragmaType="unroll" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/csynth.tcl:25:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaContext="directive" ARG_PragmaFunction="seq_align_multiple" ARG_PragmaIsValid="1" ARG_PragmaOptions="name=seq_align_multiple" ARG_PragmaType="top" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/seq_align_multiple.cpp:33:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="seq_align_multiple" ARG_PragmaIsValid="1" ARG_PragmaOptions="axis port=query_string_comp_blocks" ARG_PragmaType="interface" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/seq_align_multiple.cpp:34:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="seq_align_multiple" ARG_PragmaIsValid="1" ARG_PragmaOptions="axis port=reference_string_comp_blocks" ARG_PragmaType="interface" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/seq_align_multiple.cpp:36:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="seq_align_multiple" ARG_PragmaIsValid="1" ARG_PragmaOptions="variable=query_string_comp_blocks type=block factor=8 dim=1" ARG_PragmaType="array_partition" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/seq_align_multiple.cpp:37:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="seq_align_multiple" ARG_PragmaIsValid="1" ARG_PragmaOptions="variable=reference_string_comp_blocks type=block factor=8 dim=1" ARG_PragmaType="array_partition" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/seq_align_multiple.cpp:43:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="seq_align_multiple" ARG_PragmaIsValid="1" ARG_PragmaOptions="variable=dummies type=complete" ARG_PragmaType="array_partition" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/seq_align_multiple.cpp:44:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="seq_align_multiple" ARG_PragmaIsValid="1" ARG_PragmaOptions="variable=dummies_inner type=complete" ARG_PragmaType="array_partition" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/seq_align_multiple.cpp:52:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="seq_align_multiple" ARG_PragmaIsValid="1" ARG_PragmaType="unroll" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+</xilinx:hls_fe_msgs>
+

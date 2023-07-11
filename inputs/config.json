@@ -4,16 +4,16 @@
 
   "kernel": {
     "inputs": {
-      "query_length": 256,
-      "reference_length": 256
+      "query_length": 32,
+      "reference_length": 32
     },
     "processing_element": {
       "type": "linear",
-      "number": 32
+      "number": 4
     },
     "align_block": {
       "type": "local",
-      "number": 8
+      "number": 2
     },
     "traceback": {
       "do_traceback": "true",

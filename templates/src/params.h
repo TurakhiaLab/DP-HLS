@@ -44,8 +44,6 @@ typedef ap_uint<3> tbp_line_t[TB_LINE_SIZE];
 
 #define corner_case 1
 
-#define query_chunks query_length / PE_num
-#define extra_PE_num query_length % PE_num
 
 // inflated ones takes care of corner case scenarios
 #define inflated_query_length query_chunks *PE_num + corner_case *PE_num

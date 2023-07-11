@@ -1,105 +1,451 @@
-INFO-FLOW: Workspace /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2 opened at Tue May 30 22:36:11 PDT 2023
-Execute           send_msg_by_id INFO @200-1505@%s%s  vivado 
-INFO: [HLS 200-1505] Using flow_target 'vivado'
-Execute           get_config_interface -m_axi_latency 
-Execute           send_msg_by_id INFO @200-435@%s%s 'open_solution -flow_target vivado' config_interface -m_axi_latency=0 
-INFO: [HLS 200-435] Setting 'open_solution -flow_target vivado' configuration: config_interface -m_axi_latency=0
-Execute           config_interface -m_axi_latency=0 
-Execute           get_config_interface -m_axi_alignment_byte_size 
-Execute           get_config_interface -m_axi_max_widen_bitwidth 
-Execute           get_config_interface -default_interface 
-Execute           get_config_rtl -register_reset_num 
-Execute         set_part  xcvu5p-flva2104-1-e  
-INFO: [HLS 200-1510] Running: set_part  xcvu5p-flva2104-1-e  
-Execute           create_platform  xcvu5p-flva2104-1-e  -board  
+INFO-FLOW: Workspace /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2 opened at Wed May 31 15:23:49 PDT 2023
+Execute     ap_set_clock -name default -period 4 -default=false 
+INFO: [SYN 201-201] Setting up clock 'default' with a period of 4ns.
+Execute     set_part xcvu5p-flva2104-1-e 
+Execute       create_platform xcvu5p-flva2104-1-e -board  
 DBG:HLSDevice: Trying to load device library: /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/lib/lnx64.o/librdi_hlsvwrap.so
 DBG:HLSDevice: first parts/arch.xml in RDI_DATADIR: /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vivado/2022.1/data/parts/arch.xml
 DBG:HLSDevice: init success
 INFO: [HLS 200-1611] Setting target device to 'xcvu5p-flva2104-1-e'
-Command           create_platform done; 0.99 sec.
-Execute           source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/common/xilinx.gen 
-Execute             source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/interface/plb46.gen 
-Execute             source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/interface/axi4.gen 
-Execute             source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/interface/nativeAXI4.gen 
-Execute               source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/interface/saxilite.gen 
-Execute             source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/scripts/xilinxcoregen.gen 
-Execute             source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/interface/XilEDKCoreGen.gen 
-Execute             source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/ip/xfir.gen 
-Execute             source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/ip/dds_compiler.gen 
-Execute             source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/ip/util.gen 
-Execute             source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/ip/xfft.gen 
-Execute             source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/DSP48/dsp48.gen 
-Execute           ap_part_info -name xcvu5p-flva2104-1-e -data info 
-Execute           config_compile -quiet -complex-mul-dsp=0 
-Command         set_part done; 1.09 sec.
-Execute         create_clock -period 4 -name default 
-INFO: [HLS 200-1510] Running: create_clock -period 4 -name default 
-Execute           ap_set_clock -name default -period 4 -default=false 
-INFO: [SYN 201-201] Setting up clock 'default' with a period of 4ns.
-Command       ap_source done; 1.12 sec.
-Execute       get_project 
-Command     open_tcl_project done; 1.12 sec.
-Command   ap_source done; 1.12 sec.
-Execute   cleanup_all 
-INFO-FLOW: Workspace /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2 opened at Tue May 30 22:37:54 PDT 2023
-Execute           ap_set_clock -name default -period 4 -default=false 
-INFO: [SYN 201-201] Setting up clock 'default' with a period of 4ns.
-Execute           set_part xcvu5p-flva2104-1-e 
-Execute             create_platform xcvu5p-flva2104-1-e -board  
-DBG:HLSDevice: Trying to load device library: /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/lib/lnx64.o/librdi_hlsvwrap.so
-DBG:HLSDevice: first parts/arch.xml in RDI_DATADIR: /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vivado/2022.1/data/parts/arch.xml
-DBG:HLSDevice: init success
-INFO: [HLS 200-1611] Setting target device to 'xcvu5p-flva2104-1-e'
-Command             create_platform done; 0.89 sec.
-Execute             source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/common/xilinx.gen 
-Execute               source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/interface/plb46.gen 
-Execute               source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/interface/axi4.gen 
-Execute               source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/interface/nativeAXI4.gen 
-Execute                 source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/interface/saxilite.gen 
-Execute               source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/scripts/xilinxcoregen.gen 
-Execute               source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/interface/XilEDKCoreGen.gen 
-Execute               source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/ip/xfir.gen 
-Execute               source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/ip/dds_compiler.gen 
-Execute               source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/ip/util.gen 
-Execute               source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/ip/xfft.gen 
-Execute               source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/DSP48/dsp48.gen 
-Command             ap_source done; 0.14 sec.
-Execute             ap_part_info -name xcvu5p-flva2104-1-e -data info 
-Execute             config_compile -quiet -complex-mul-dsp=0 
-Command           set_part done; 1.03 sec.
-Execute           send_msg_by_id INFO @200-1505@%s%s  vivado 
+Command       create_platform done; 1.38 sec.
+Execute       source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/common/xilinx.gen 
+Execute         source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/interface/plb46.gen 
+Execute         source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/interface/axi4.gen 
+Execute         source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/interface/nativeAXI4.gen 
+Execute           source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/interface/saxilite.gen 
+Execute         source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/scripts/xilinxcoregen.gen 
+Execute         source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/interface/XilEDKCoreGen.gen 
+Execute         source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/ip/xfir.gen 
+Execute         source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/ip/dds_compiler.gen 
+Execute         source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/ip/util.gen 
+Execute         source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/ip/xfft.gen 
+Command         ap_source done; 0.12 sec.
+Execute         source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/DSP48/dsp48.gen 
+Command       ap_source done; 0.16 sec.
+Execute       ap_part_info -name xcvu5p-flva2104-1-e -data info 
+Execute       config_compile -quiet -complex-mul-dsp=0 
+Command     set_part done; 1.55 sec.
+Execute     send_msg_by_id INFO @200-1505@%s%s  vivado 
 INFO: [HLS 200-1505] Using flow_target 'vivado'
-Execute           get_config_interface -m_axi_latency 
-Execute           get_config_interface -m_axi_alignment_byte_size 
-Execute           get_config_interface -m_axi_max_widen_bitwidth 
-Execute           get_config_interface -default_interface 
-Execute           get_config_rtl -register_reset_num 
-Execute           send_msg_by_id INFO @200-1464@%s config_interface -m_axi_latency=0 
+Execute     get_config_interface -m_axi_latency 
+Execute     get_config_interface -m_axi_alignment_byte_size 
+Execute     get_config_interface -m_axi_max_widen_bitwidth 
+Execute     get_config_interface -default_interface 
+Execute     get_config_rtl -register_reset_num 
+Execute     send_msg_by_id INFO @200-1464@%s config_interface -m_axi_latency=0 
 INFO: [HLS 200-1464] Running solution command: config_interface -m_axi_latency=0
-Execute           config_interface -m_axi_latency=0 
-Command         open_solution done; 1.05 sec.
-Execute         set_part  xcvu5p-flva2104-1-e  
-INFO: [HLS 200-1510] Running: set_part  xcvu5p-flva2104-1-e  
-Execute           create_platform  xcvu5p-flva2104-1-e  -board  
-Execute           source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/common/xilinx.gen 
-Execute             source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/interface/plb46.gen 
-Execute             source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/interface/axi4.gen 
-Execute             source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/interface/nativeAXI4.gen 
-Execute               source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/interface/saxilite.gen 
-Execute             source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/scripts/xilinxcoregen.gen 
-Execute             source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/interface/XilEDKCoreGen.gen 
-Execute             source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/ip/xfir.gen 
-Execute             source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/ip/dds_compiler.gen 
-Execute             source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/ip/util.gen 
-Execute             source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/ip/xfft.gen 
-Execute             source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/DSP48/dsp48.gen 
-Execute           ap_part_info -name xcvu5p-flva2104-1-e -data info 
-Execute           config_compile -quiet -complex-mul-dsp=0 
-Command         set_part done; 0.12 sec.
-Execute         create_clock -period 4 -name default 
+Execute     config_interface -m_axi_latency=0 
+Command   open_solution done; 1.56 sec.
+Execute   set_part xcvu5p-flva2104-1-e 
+INFO: [HLS 200-1510] Running: set_part xcvu5p-flva2104-1-e 
+Execute     create_platform xcvu5p-flva2104-1-e -board  
+Execute     source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/common/xilinx.gen 
+Execute       source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/interface/plb46.gen 
+Execute       source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/interface/axi4.gen 
+Execute       source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/interface/nativeAXI4.gen 
+Execute         source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/interface/saxilite.gen 
+Execute       source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/scripts/xilinxcoregen.gen 
+Execute       source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/interface/XilEDKCoreGen.gen 
+Execute       source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/ip/xfir.gen 
+Execute       source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/ip/dds_compiler.gen 
+Execute       source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/ip/util.gen 
+Execute       source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/ip/xfft.gen 
+Command       ap_source done; 0.11 sec.
+Execute       source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/DSP48/dsp48.gen 
+Command     ap_source done; 0.15 sec.
+Execute     ap_part_info -name xcvu5p-flva2104-1-e -data info 
+Execute     config_compile -quiet -complex-mul-dsp=0 
+Command   set_part done; 0.17 sec.
+Execute   create_clock -period 4 -name default 
 INFO: [HLS 200-1510] Running: create_clock -period 4 -name default 
-Command       ap_source done; 1.18 sec.
-Execute       get_project 
-Command     open_tcl_project done; 1.18 sec.
-Command   ap_source done; 1.18 sec.
-Execute   cleanup_all 
+Execute   config_interface -m_axi_latency 0 
+INFO: [HLS 200-1510] Running: config_interface -m_axi_latency 0 
+Execute   csynth_design 
+INFO: [HLS 200-1510] Running: csynth_design 
+Execute     get_config_compile -effort 
+Execute     get_config_compile -enable_clang39 
+Execute     get_config_compile -g 
+Execute     get_config_compile -hw_syn 
+Execute     get_config_compile -ng 
+Execute     get_config_compile -opt_fp 
+Execute     get_config_compile -skip_cdt 
+Execute     get_config_compile -skip_syncheck 
+Execute     get_config_compile -skip_transform 
+Execute     get_config_compile -pre_tcl 
+Execute     get_config_compile -keep_printf 
+Execute     elaborate -effort=medium -skip_syncheck=0 -keep_printf=0 -skip_cdt=0 -skip_transform=0 -ng=0 -g=0 -opt_fp=0 -from_csynth_design=1 
+INFO: [HLS 200-111] Finished File checks and directory preparation: CPU user time: 0.01 seconds. CPU system time: 0 seconds. Elapsed time: 0.01 seconds; current allocated memory: 1.214 GB.
+INFO: [HLS 200-10] Analyzing design file '../src/seq_align_multiple.cpp' ... 
+INFO-FLOW: Compiling one TU...
+Execute       get_config_compile -pragma_strict_mode 
+INFO-FLOW: Handling ../src/seq_align_multiple.cpp as C++
+Execute       ap_part_info -name xcvu5p-flva2104-1-e -data info 
+INFO-FLOW: Running: GCC PP 39
+INFO-FLOW: Source preprocessing
+Execute       ap_eval exec -ignorestderr /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/lnx64/tools/clang-3.9-csynth/bin/clang ../src/seq_align_multiple.cpp -foptimization-record-file=/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/seq_align_multiple.cpp.clang.diag.yml -mllvm -pass-remarks-missed=reflow|pasta|unroll -mllvm -pass-remarks=reflow|pasta|unroll|inline -fno-limit-debug-info -gcc-toolchain /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/tps/lnx64/gcc-8.3.0 -fhls -fno-exceptions -E -fno-math-errno -c -emit-llvm -mllvm -disable-llvm-optzns -Werror=implicit-function-declaration -Werror=implicit-hls-streams -Werror=return-type -Wpragmas -Wunused-parameter -Wdump-hls-pragmas -fno-threadsafe-statics -fno-use-cxa-atexit -std=gnu++14 -target fpga64-xilinx-linux-gnu -fno-threadsafe-statics -fno-use-cxa-atexit -D__VITIS_HLS__ -DAESL_SYN -D__SYNTHESIS__ -D__HLS_SYN__ -I /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/autopilot -I /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/autopilot/ap_sysc -include etc/autopilot_ssdm_op.h -D__DSP48E2__ -I /usr/include/x86_64-linux-gnu -o /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/seq_align_multiple.pp.0.cpp -hls-platform-db-name=/home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/common/platform.db -hls-platform-name=virtexuplus_slow -device-resource-info=BRAM_2048.000000_DSP_3474.000000_FF_1201154.000000_LUT_600577.000000_SLICE_98520.000000_SLR_2.000000_URAM_470.000000 > /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/seq_align_multiple.cpp.clang.out.log 2> /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/seq_align_multiple.cpp.clang.err.log 
+Command       ap_eval done; 0.25 sec.
+INFO-FLOW: Done: GCC PP 39 time: 0.3 seconds per iteration
+Execute       set_directive_top seq_align_multiple -name=seq_align_multiple 
+Execute       source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/tps/tcl/tcllib1.11.1/yaml/huddle.tcl 
+Execute       source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/tps/tcl/tcllib1.11.1/yaml/json2huddle.tcl 
+INFO-FLOW: Source syntax check for synthesis
+Execute       ap_eval exec -ignorestderr /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/lnx64/tools/clang-3.9-csynth/bin/clang -foptimization-record-file=/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/clang.diag.yml -mllvm -pass-remarks-missed=reflow|pasta|unroll -mllvm -pass-remarks=reflow|pasta|unroll|inline -fsyntax-only -fhls -target fpga64-xilinx-linux-gnu /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/seq_align_multiple.pp.0.cpp -hls-platform-db-name=/home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/common/platform.db -hls-platform-name=virtexuplus_slow -device-resource-info=BRAM_2048.000000_DSP_3474.000000_FF_1201154.000000_LUT_600577.000000_SLICE_98520.000000_SLR_2.000000_URAM_470.000000 > /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/clang.out.log 2> /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/clang.err.log 
+Command       ap_eval done; 1.01 sec.
+WARNING: [HLS 207-4827] equality comparison with extraneous parentheses (/usr/include/x86_64-linux-gnu/gmp.h:2142:345)
+INFO: [HLS 207-4186] remove extraneous parentheses around the comparison to silence this warning (/usr/include/x86_64-linux-gnu/gmp.h:2142:345)
+INFO: [HLS 207-4187] use '=' to turn this equality comparison into an assignment (/usr/include/x86_64-linux-gnu/gmp.h:2142:345)
+Execute       clang_tidy xilinx-systemc-detector -desc systemc-detector /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/seq_align_multiple.pp.0.cpp std=gnu++14 -target fpga  -directive=/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/.systemc_flag 
+INFO-FLOW: exec /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/lnx64/tools/clang-3.9-csynth/bin/clang-tidy -header-filter=.* --checks=-*,xilinx-systemc-detector -import-directive=/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/.systemc_flag -fix-errors /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/seq_align_multiple.pp.0.cpp -- -std=gnu++14 -target fpga -fhls -ferror-limit=0
+Command       clang_tidy done; 0.88 sec.
+INFO-FLOW: Running: clang-tidy CDT preprocess 39
+Execute       clang_tidy xilinx-directive2pragma -desc directive2pragma /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/seq_align_multiple.pp.0.cpp std=gnu++14 -target fpga  -directive=/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/all.directive.json 
+INFO-FLOW: exec /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/lnx64/tools/clang-3.9-csynth/bin/clang-tidy -header-filter=.* --checks=-*,xilinx-directive2pragma -import-directive=/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/all.directive.json -fix-errors /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/seq_align_multiple.pp.0.cpp -- -std=gnu++14 -target fpga -fhls -ferror-limit=0
+Command       clang_tidy done; 1.14 sec.
+Execute       clang_tidy xilinx-remove-assert -desc remove-assert /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/seq_align_multiple.pp.0.cpp std=gnu++14 -target fpga  
+INFO-FLOW: exec /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/lnx64/tools/clang-3.9-csynth/bin/clang-tidy -header-filter=.* --checks=-*,xilinx-remove-assert -fix-errors /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/seq_align_multiple.pp.0.cpp -- -std=gnu++14 -target fpga -fhls -ferror-limit=0
+Command       clang_tidy done; 0.69 sec.
+INFO-FLOW: Done: clang-tidy CDT preprocess 39 time: 1.8 seconds per iteration
+INFO-FLOW: Calling xilinx-label-all-loops ... 
+INFO-FLOW: Calling xilinx-aggregate-on-hls-vector ... 
+Execute       clang_tidy -errorcheck -desc loop-label xilinx-label-all-loops,xilinx-aggregate-on-hls-vector,,xilinx-warn-mayneed-no-ctor-attribute /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/seq_align_multiple.pp.0.cpp std=gnu++14 -target fpga  
+Execute         ap_eval exec -ignorestderr /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/lnx64/tools/clang-3.9-csynth/bin/clang-tidy -export-fixes=/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/seq_align_multiple.pp.0.cpp.clang-tidy.loop-label.diag.yml -header-filter=.* --checks=-*,xilinx-label-all-loops,xilinx-aggregate-on-hls-vector,,xilinx-warn-mayneed-no-ctor-attribute -fix-errors /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/seq_align_multiple.pp.0.cpp -- -std=gnu++14 -target fpga -fhls -ferror-limit=0 > /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/seq_align_multiple.pp.0.cpp.clang-tidy.loop-label.out.log 2> /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/seq_align_multiple.pp.0.cpp.clang-tidy.loop-label.err.log 
+Command         ap_eval done; 1.73 sec.
+Execute         source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/tps/tcl/tcllib1.11.1/yaml/yaml.tcl 
+Command       clang_tidy done; 1.89 sec.
+Execute       get_config_dataflow -strict_mode 
+Execute       ap_eval exec -ignorestderr /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/lnx64/tools/clang-3.9-csynth/bin/xilinx-dataflow-lawyer -export-fixes=/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/seq_align_multiple.pp.0.cpp.xilinx-dataflow-lawyer.diag.yml /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/seq_align_multiple.pp.0.cpp -- -std=gnu++14 -target fpga -fhls -ferror-limit=0 -fstrict-dataflow > /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/seq_align_multiple.pp.0.cpp.xilinx-dataflow-lawyer.out.log 2> /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/seq_align_multiple.pp.0.cpp.xilinx-dataflow-lawyer.err.log 
+Command       ap_eval done; 0.67 sec.
+Execute       ap_part_info -name xcvu5p-flva2104-1-e -data info 
+INFO-FLOW: compiling source code to llvm bc
+Execute       ap_eval exec -ignorestderr /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/lnx64/tools/clang-3.9-csynth/bin/clang -foptimization-record-file=/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/seq_align_multiple.pp.0.cpp.clang.diag.yml -mllvm -pass-remarks-missed=reflow|pasta|unroll -mllvm -pass-remarks=reflow|pasta|unroll|inline -fno-limit-debug-info -fhls -flto -fno-exceptions -Wno-error=c++11-narrowing /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/seq_align_multiple.pp.0.cpp -fno-math-errno -c -emit-llvm -mllvm -disable-llvm-optzns -Werror=implicit-function-declaration -Werror=implicit-hls-streams -Werror=return-type -Wpragmas -Wunused-parameter -Wdump-hls-pragmas -fno-threadsafe-statics -fno-use-cxa-atexit -std=gnu++14 -target fpga64-xilinx-linux-gnu -D__VITIS_HLS__ -DAESL_SYN -D__SYNTHESIS__ -D__HLS_SYN__ -I /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/autopilot -I /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/autopilot/ap_sysc -include etc/autopilot_ssdm_op.h -D__DSP48E2__ -g -o /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/seq_align_multiple.bc -hls-platform-db-name=/home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/common/platform.db -hls-platform-name=virtexuplus_slow -device-resource-info=BRAM_2048.000000_DSP_3474.000000_FF_1201154.000000_LUT_600577.000000_SLICE_98520.000000_SLR_2.000000_URAM_470.000000 > /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/seq_align_multiple.pp.0.cpp.clang.out.log 2> /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/seq_align_multiple.pp.0.cpp.clang.err.log 
+Command       ap_eval done; 1.01 sec.
+WARNING: [HLS 207-4827] equality comparison with extraneous parentheses (/usr/include/x86_64-linux-gnu/gmp.h:2142:383)
+INFO: [HLS 207-4186] remove extraneous parentheses around the comparison to silence this warning (/usr/include/x86_64-linux-gnu/gmp.h:2142:383)
+INFO: [HLS 207-4187] use '=' to turn this equality comparison into an assignment (/usr/include/x86_64-linux-gnu/gmp.h:2142:383)
+WARNING: [HLS 207-5292] unused parameter 'name' (/home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/autopilot/hls_streamofblocks.h:309:77)
+INFO: [HLS 200-10] Analyzing design file '../src/traceback.cpp' ... 
+INFO-FLOW: Compiling one TU...
+Execute       get_config_compile -pragma_strict_mode 
+INFO-FLOW: Handling ../src/traceback.cpp as C++
+Execute       ap_part_info -name xcvu5p-flva2104-1-e -data info 
+INFO-FLOW: Running: GCC PP 39
+INFO-FLOW: Source preprocessing
+Execute       ap_eval exec -ignorestderr /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/lnx64/tools/clang-3.9-csynth/bin/clang ../src/traceback.cpp -foptimization-record-file=/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/traceback.cpp.clang.diag.yml -mllvm -pass-remarks-missed=reflow|pasta|unroll -mllvm -pass-remarks=reflow|pasta|unroll|inline -fno-limit-debug-info -gcc-toolchain /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/tps/lnx64/gcc-8.3.0 -fhls -fno-exceptions -E -fno-math-errno -c -emit-llvm -mllvm -disable-llvm-optzns -Werror=implicit-function-declaration -Werror=implicit-hls-streams -Werror=return-type -Wpragmas -Wunused-parameter -Wdump-hls-pragmas -fno-threadsafe-statics -fno-use-cxa-atexit -std=gnu++14 -target fpga64-xilinx-linux-gnu -fno-threadsafe-statics -fno-use-cxa-atexit -D__VITIS_HLS__ -DAESL_SYN -D__SYNTHESIS__ -D__HLS_SYN__ -I /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/autopilot -I /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/autopilot/ap_sysc -include etc/autopilot_ssdm_op.h -D__DSP48E2__ -I /usr/include/x86_64-linux-gnu -o /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/traceback.pp.0.cpp -hls-platform-db-name=/home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/common/platform.db -hls-platform-name=virtexuplus_slow -device-resource-info=BRAM_2048.000000_DSP_3474.000000_FF_1201154.000000_LUT_600577.000000_SLICE_98520.000000_SLR_2.000000_URAM_470.000000 > /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/traceback.cpp.clang.out.log 2> /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/traceback.cpp.clang.err.log 
+Command       ap_eval done; 0.16 sec.
+INFO-FLOW: Done: GCC PP 39 time: 0.2 seconds per iteration
+Execute       set_directive_top seq_align_multiple -name=seq_align_multiple 
+INFO-FLOW: Source syntax check for synthesis
+Execute       ap_eval exec -ignorestderr /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/lnx64/tools/clang-3.9-csynth/bin/clang -foptimization-record-file=/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/clang.diag.yml -mllvm -pass-remarks-missed=reflow|pasta|unroll -mllvm -pass-remarks=reflow|pasta|unroll|inline -fsyntax-only -fhls -target fpga64-xilinx-linux-gnu /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/traceback.pp.0.cpp -hls-platform-db-name=/home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/common/platform.db -hls-platform-name=virtexuplus_slow -device-resource-info=BRAM_2048.000000_DSP_3474.000000_FF_1201154.000000_LUT_600577.000000_SLICE_98520.000000_SLR_2.000000_URAM_470.000000 > /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/clang.out.log 2> /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/clang.err.log 
+Command       ap_eval done; 0.69 sec.
+WARNING: [HLS 207-5527] 'factor' in '#pragma HLS array_partition' is ignored (../src/traceback.h:15:55)
+Execute       clang_tidy xilinx-systemc-detector -desc systemc-detector /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/traceback.pp.0.cpp std=gnu++14 -target fpga  -directive=/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/.systemc_flag 
+INFO-FLOW: exec /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/lnx64/tools/clang-3.9-csynth/bin/clang-tidy -header-filter=.* --checks=-*,xilinx-systemc-detector -import-directive=/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/.systemc_flag -fix-errors /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/traceback.pp.0.cpp -- -std=gnu++14 -target fpga -fhls -ferror-limit=0
+Command       clang_tidy done; 0.63 sec.
+INFO-FLOW: Running: clang-tidy CDT preprocess 39
+Execute       clang_tidy xilinx-directive2pragma -desc directive2pragma /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/traceback.pp.0.cpp std=gnu++14 -target fpga  -directive=/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/all.directive.json 
+INFO-FLOW: exec /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/lnx64/tools/clang-3.9-csynth/bin/clang-tidy -header-filter=.* --checks=-*,xilinx-directive2pragma -import-directive=/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/all.directive.json -fix-errors /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/traceback.pp.0.cpp -- -std=gnu++14 -target fpga -fhls -ferror-limit=0
+Command       clang_tidy done; 0.63 sec.
+Execute       clang_tidy xilinx-remove-assert -desc remove-assert /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/traceback.pp.0.cpp std=gnu++14 -target fpga  
+INFO-FLOW: exec /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/lnx64/tools/clang-3.9-csynth/bin/clang-tidy -header-filter=.* --checks=-*,xilinx-remove-assert -fix-errors /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/traceback.pp.0.cpp -- -std=gnu++14 -target fpga -fhls -ferror-limit=0
+Command       clang_tidy done; 0.63 sec.
+INFO-FLOW: Done: clang-tidy CDT preprocess 39 time: 1.3 seconds per iteration
+INFO-FLOW: Calling xilinx-label-all-loops ... 
+INFO-FLOW: Calling xilinx-aggregate-on-hls-vector ... 
+Execute       clang_tidy -errorcheck -desc loop-label xilinx-label-all-loops,xilinx-aggregate-on-hls-vector,,xilinx-warn-mayneed-no-ctor-attribute /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/traceback.pp.0.cpp std=gnu++14 -target fpga  
+Execute         ap_eval exec -ignorestderr /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/lnx64/tools/clang-3.9-csynth/bin/clang-tidy -export-fixes=/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/traceback.pp.0.cpp.clang-tidy.loop-label.diag.yml -header-filter=.* --checks=-*,xilinx-label-all-loops,xilinx-aggregate-on-hls-vector,,xilinx-warn-mayneed-no-ctor-attribute -fix-errors /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/traceback.pp.0.cpp -- -std=gnu++14 -target fpga -fhls -ferror-limit=0 > /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/traceback.pp.0.cpp.clang-tidy.loop-label.out.log 2> /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/traceback.pp.0.cpp.clang-tidy.loop-label.err.log 
+Command         ap_eval done; 1.18 sec.
+Command       clang_tidy done; 1.21 sec.
+Execute       get_config_dataflow -strict_mode 
+Execute       ap_eval exec -ignorestderr /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/lnx64/tools/clang-3.9-csynth/bin/xilinx-dataflow-lawyer -export-fixes=/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/traceback.pp.0.cpp.xilinx-dataflow-lawyer.diag.yml /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/traceback.pp.0.cpp -- -std=gnu++14 -target fpga -fhls -ferror-limit=0 -fstrict-dataflow > /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/traceback.pp.0.cpp.xilinx-dataflow-lawyer.out.log 2> /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/traceback.pp.0.cpp.xilinx-dataflow-lawyer.err.log 
+Command       ap_eval done; 0.6 sec.
+Execute       ap_part_info -name xcvu5p-flva2104-1-e -data info 
+INFO-FLOW: compiling source code to llvm bc
+Execute       ap_eval exec -ignorestderr /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/lnx64/tools/clang-3.9-csynth/bin/clang -foptimization-record-file=/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/traceback.pp.0.cpp.clang.diag.yml -mllvm -pass-remarks-missed=reflow|pasta|unroll -mllvm -pass-remarks=reflow|pasta|unroll|inline -fno-limit-debug-info -fhls -flto -fno-exceptions -Wno-error=c++11-narrowing /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/traceback.pp.0.cpp -fno-math-errno -c -emit-llvm -mllvm -disable-llvm-optzns -Werror=implicit-function-declaration -Werror=implicit-hls-streams -Werror=return-type -Wpragmas -Wunused-parameter -Wdump-hls-pragmas -fno-threadsafe-statics -fno-use-cxa-atexit -std=gnu++14 -target fpga64-xilinx-linux-gnu -D__VITIS_HLS__ -DAESL_SYN -D__SYNTHESIS__ -D__HLS_SYN__ -I /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/autopilot -I /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/autopilot/ap_sysc -include etc/autopilot_ssdm_op.h -D__DSP48E2__ -g -o /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/traceback.bc -hls-platform-db-name=/home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/common/platform.db -hls-platform-name=virtexuplus_slow -device-resource-info=BRAM_2048.000000_DSP_3474.000000_FF_1201154.000000_LUT_600577.000000_SLICE_98520.000000_SLR_2.000000_URAM_470.000000 > /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/traceback.pp.0.cpp.clang.out.log 2> /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/traceback.pp.0.cpp.clang.err.log 
+Command       ap_eval done; 0.7 sec.
+INFO: [HLS 200-10] Analyzing design file '../src/seq_align.cpp' ... 
+INFO-FLOW: Compiling one TU...
+Execute       get_config_compile -pragma_strict_mode 
+INFO-FLOW: Handling ../src/seq_align.cpp as C++
+Execute       ap_part_info -name xcvu5p-flva2104-1-e -data info 
+INFO-FLOW: Running: GCC PP 39
+INFO-FLOW: Source preprocessing
+Execute       ap_eval exec -ignorestderr /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/lnx64/tools/clang-3.9-csynth/bin/clang ../src/seq_align.cpp -foptimization-record-file=/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/seq_align.cpp.clang.diag.yml -mllvm -pass-remarks-missed=reflow|pasta|unroll -mllvm -pass-remarks=reflow|pasta|unroll|inline -fno-limit-debug-info -gcc-toolchain /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/tps/lnx64/gcc-8.3.0 -fhls -fno-exceptions -E -fno-math-errno -c -emit-llvm -mllvm -disable-llvm-optzns -Werror=implicit-function-declaration -Werror=implicit-hls-streams -Werror=return-type -Wpragmas -Wunused-parameter -Wdump-hls-pragmas -fno-threadsafe-statics -fno-use-cxa-atexit -std=gnu++14 -target fpga64-xilinx-linux-gnu -fno-threadsafe-statics -fno-use-cxa-atexit -D__VITIS_HLS__ -DAESL_SYN -D__SYNTHESIS__ -D__HLS_SYN__ -I /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/autopilot -I /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/autopilot/ap_sysc -include etc/autopilot_ssdm_op.h -D__DSP48E2__ -I /usr/include/x86_64-linux-gnu -o /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/seq_align.pp.0.cpp -hls-platform-db-name=/home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/common/platform.db -hls-platform-name=virtexuplus_slow -device-resource-info=BRAM_2048.000000_DSP_3474.000000_FF_1201154.000000_LUT_600577.000000_SLICE_98520.000000_SLR_2.000000_URAM_470.000000 > /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/seq_align.cpp.clang.out.log 2> /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/seq_align.cpp.clang.err.log 
+Command       ap_eval done; 0.17 sec.
+INFO-FLOW: Done: GCC PP 39 time: 0.2 seconds per iteration
+Execute       set_directive_top seq_align_multiple -name=seq_align_multiple 
+INFO-FLOW: Source syntax check for synthesis
+Execute       ap_eval exec -ignorestderr /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/lnx64/tools/clang-3.9-csynth/bin/clang -foptimization-record-file=/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/clang.diag.yml -mllvm -pass-remarks-missed=reflow|pasta|unroll -mllvm -pass-remarks=reflow|pasta|unroll|inline -fsyntax-only -fhls -target fpga64-xilinx-linux-gnu /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/seq_align.pp.0.cpp -hls-platform-db-name=/home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/common/platform.db -hls-platform-name=virtexuplus_slow -device-resource-info=BRAM_2048.000000_DSP_3474.000000_FF_1201154.000000_LUT_600577.000000_SLICE_98520.000000_SLR_2.000000_URAM_470.000000 > /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/clang.out.log 2> /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/clang.err.log 
+Command       ap_eval done; 1.32 sec.
+WARNING: [HLS 207-4827] equality comparison with extraneous parentheses (/usr/include/x86_64-linux-gnu/gmp.h:2142:345)
+INFO: [HLS 207-4186] remove extraneous parentheses around the comparison to silence this warning (/usr/include/x86_64-linux-gnu/gmp.h:2142:345)
+INFO: [HLS 207-4187] use '=' to turn this equality comparison into an assignment (/usr/include/x86_64-linux-gnu/gmp.h:2142:345)
+WARNING: [HLS 207-5527] 'factor' in '#pragma HLS array_partition' is ignored (../src/traceback.h:15:55)
+Execute       clang_tidy xilinx-systemc-detector -desc systemc-detector /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/seq_align.pp.0.cpp std=gnu++14 -target fpga  -directive=/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/.systemc_flag 
+INFO-FLOW: exec /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/lnx64/tools/clang-3.9-csynth/bin/clang-tidy -header-filter=.* --checks=-*,xilinx-systemc-detector -import-directive=/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/.systemc_flag -fix-errors /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/seq_align.pp.0.cpp -- -std=gnu++14 -target fpga -fhls -ferror-limit=0
+Command       clang_tidy done; 1.23 sec.
+INFO-FLOW: Running: clang-tidy CDT preprocess 39
+Execute       clang_tidy xilinx-directive2pragma -desc directive2pragma /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/seq_align.pp.0.cpp std=gnu++14 -target fpga  -directive=/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/all.directive.json 
+INFO-FLOW: exec /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/lnx64/tools/clang-3.9-csynth/bin/clang-tidy -header-filter=.* --checks=-*,xilinx-directive2pragma -import-directive=/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/all.directive.json -fix-errors /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/seq_align.pp.0.cpp -- -std=gnu++14 -target fpga -fhls -ferror-limit=0
+Command       clang_tidy done; 1.24 sec.
+Execute       clang_tidy xilinx-remove-assert -desc remove-assert /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/seq_align.pp.0.cpp std=gnu++14 -target fpga  
+INFO-FLOW: exec /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/lnx64/tools/clang-3.9-csynth/bin/clang-tidy -header-filter=.* --checks=-*,xilinx-remove-assert -fix-errors /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/seq_align.pp.0.cpp -- -std=gnu++14 -target fpga -fhls -ferror-limit=0
+Command       clang_tidy done; 1.25 sec.
+INFO-FLOW: Done: clang-tidy CDT preprocess 39 time: 2.5 seconds per iteration
+INFO-FLOW: Calling xilinx-label-all-loops ... 
+INFO-FLOW: Calling xilinx-aggregate-on-hls-vector ... 
+Execute       clang_tidy -errorcheck -desc loop-label xilinx-label-all-loops,xilinx-aggregate-on-hls-vector,,xilinx-warn-mayneed-no-ctor-attribute /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/seq_align.pp.0.cpp std=gnu++14 -target fpga  
+Execute         ap_eval exec -ignorestderr /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/lnx64/tools/clang-3.9-csynth/bin/clang-tidy -export-fixes=/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/seq_align.pp.0.cpp.clang-tidy.loop-label.diag.yml -header-filter=.* --checks=-*,xilinx-label-all-loops,xilinx-aggregate-on-hls-vector,,xilinx-warn-mayneed-no-ctor-attribute -fix-errors /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/seq_align.pp.0.cpp -- -std=gnu++14 -target fpga -fhls -ferror-limit=0 > /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/seq_align.pp.0.cpp.clang-tidy.loop-label.out.log 2> /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/seq_align.pp.0.cpp.clang-tidy.loop-label.err.log 
+Command         ap_eval done; 2.36 sec.
+Command       clang_tidy done; 2.73 sec.
+Execute       get_config_dataflow -strict_mode 
+Execute       ap_eval exec -ignorestderr /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/lnx64/tools/clang-3.9-csynth/bin/xilinx-dataflow-lawyer -export-fixes=/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/seq_align.pp.0.cpp.xilinx-dataflow-lawyer.diag.yml /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/seq_align.pp.0.cpp -- -std=gnu++14 -target fpga -fhls -ferror-limit=0 -fstrict-dataflow > /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/seq_align.pp.0.cpp.xilinx-dataflow-lawyer.out.log 2> /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/seq_align.pp.0.cpp.xilinx-dataflow-lawyer.err.log 
+Command       ap_eval done; 1.19 sec.
+Execute       ap_part_info -name xcvu5p-flva2104-1-e -data info 
+INFO-FLOW: compiling source code to llvm bc
+Execute       ap_eval exec -ignorestderr /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/lnx64/tools/clang-3.9-csynth/bin/clang -foptimization-record-file=/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/seq_align.pp.0.cpp.clang.diag.yml -mllvm -pass-remarks-missed=reflow|pasta|unroll -mllvm -pass-remarks=reflow|pasta|unroll|inline -fno-limit-debug-info -fhls -flto -fno-exceptions -Wno-error=c++11-narrowing /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/seq_align.pp.0.cpp -fno-math-errno -c -emit-llvm -mllvm -disable-llvm-optzns -Werror=implicit-function-declaration -Werror=implicit-hls-streams -Werror=return-type -Wpragmas -Wunused-parameter -Wdump-hls-pragmas -fno-threadsafe-statics -fno-use-cxa-atexit -std=gnu++14 -target fpga64-xilinx-linux-gnu -D__VITIS_HLS__ -DAESL_SYN -D__SYNTHESIS__ -D__HLS_SYN__ -I /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/autopilot -I /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/autopilot/ap_sysc -include etc/autopilot_ssdm_op.h -D__DSP48E2__ -g -o /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/seq_align.bc -hls-platform-db-name=/home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/common/platform.db -hls-platform-name=virtexuplus_slow -device-resource-info=BRAM_2048.000000_DSP_3474.000000_FF_1201154.000000_LUT_600577.000000_SLICE_98520.000000_SLR_2.000000_URAM_470.000000 > /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/seq_align.pp.0.cpp.clang.out.log 2> /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/seq_align.pp.0.cpp.clang.err.log 
+Command       ap_eval done; 1.38 sec.
+WARNING: [HLS 207-4827] equality comparison with extraneous parentheses (/usr/include/x86_64-linux-gnu/gmp.h:2142:383)
+INFO: [HLS 207-4186] remove extraneous parentheses around the comparison to silence this warning (/usr/include/x86_64-linux-gnu/gmp.h:2142:383)
+INFO: [HLS 207-4187] use '=' to turn this equality comparison into an assignment (/usr/include/x86_64-linux-gnu/gmp.h:2142:383)
+WARNING: [HLS 207-5292] unused parameter 'name' (/home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/autopilot/hls_streamofblocks.h:309:77)
+INFO: [HLS 200-10] Analyzing design file '../src/PE.cpp' ... 
+INFO-FLOW: Compiling one TU...
+Execute       get_config_compile -pragma_strict_mode 
+INFO-FLOW: Handling ../src/PE.cpp as C++
+Execute       ap_part_info -name xcvu5p-flva2104-1-e -data info 
+INFO-FLOW: Running: GCC PP 39
+INFO-FLOW: Source preprocessing
+Execute       ap_eval exec -ignorestderr /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/lnx64/tools/clang-3.9-csynth/bin/clang ../src/PE.cpp -foptimization-record-file=/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/PE.cpp.clang.diag.yml -mllvm -pass-remarks-missed=reflow|pasta|unroll -mllvm -pass-remarks=reflow|pasta|unroll|inline -fno-limit-debug-info -gcc-toolchain /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/tps/lnx64/gcc-8.3.0 -fhls -fno-exceptions -E -fno-math-errno -c -emit-llvm -mllvm -disable-llvm-optzns -Werror=implicit-function-declaration -Werror=implicit-hls-streams -Werror=return-type -Wpragmas -Wunused-parameter -Wdump-hls-pragmas -fno-threadsafe-statics -fno-use-cxa-atexit -std=gnu++14 -target fpga64-xilinx-linux-gnu -fno-threadsafe-statics -fno-use-cxa-atexit -D__VITIS_HLS__ -DAESL_SYN -D__SYNTHESIS__ -D__HLS_SYN__ -I /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/autopilot -I /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/autopilot/ap_sysc -include etc/autopilot_ssdm_op.h -D__DSP48E2__ -I /usr/include/x86_64-linux-gnu -o /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/PE.pp.0.cpp -hls-platform-db-name=/home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/common/platform.db -hls-platform-name=virtexuplus_slow -device-resource-info=BRAM_2048.000000_DSP_3474.000000_FF_1201154.000000_LUT_600577.000000_SLICE_98520.000000_SLR_2.000000_URAM_470.000000 > /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/PE.cpp.clang.out.log 2> /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/PE.cpp.clang.err.log 
+Command       ap_eval done; 0.15 sec.
+INFO-FLOW: Done: GCC PP 39 time: 0.2 seconds per iteration
+Execute       set_directive_top seq_align_multiple -name=seq_align_multiple 
+INFO-FLOW: Source syntax check for synthesis
+Execute       ap_eval exec -ignorestderr /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/lnx64/tools/clang-3.9-csynth/bin/clang -foptimization-record-file=/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/clang.diag.yml -mllvm -pass-remarks-missed=reflow|pasta|unroll -mllvm -pass-remarks=reflow|pasta|unroll|inline -fsyntax-only -fhls -target fpga64-xilinx-linux-gnu /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/PE.pp.0.cpp -hls-platform-db-name=/home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/common/platform.db -hls-platform-name=virtexuplus_slow -device-resource-info=BRAM_2048.000000_DSP_3474.000000_FF_1201154.000000_LUT_600577.000000_SLICE_98520.000000_SLR_2.000000_URAM_470.000000 > /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/clang.out.log 2> /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/clang.err.log 
+Command       ap_eval done; 1.25 sec.
+Execute       clang_tidy xilinx-systemc-detector -desc systemc-detector /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/PE.pp.0.cpp std=gnu++14 -target fpga  -directive=/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/.systemc_flag 
+INFO-FLOW: exec /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/lnx64/tools/clang-3.9-csynth/bin/clang-tidy -header-filter=.* --checks=-*,xilinx-systemc-detector -import-directive=/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/.systemc_flag -fix-errors /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/PE.pp.0.cpp -- -std=gnu++14 -target fpga -fhls -ferror-limit=0
+Command       clang_tidy done; 1.19 sec.
+INFO-FLOW: Running: clang-tidy CDT preprocess 39
+Execute       clang_tidy xilinx-directive2pragma -desc directive2pragma /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/PE.pp.0.cpp std=gnu++14 -target fpga  -directive=/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/all.directive.json 
+INFO-FLOW: exec /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/lnx64/tools/clang-3.9-csynth/bin/clang-tidy -header-filter=.* --checks=-*,xilinx-directive2pragma -import-directive=/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/all.directive.json -fix-errors /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/PE.pp.0.cpp -- -std=gnu++14 -target fpga -fhls -ferror-limit=0
+Command       clang_tidy done; 1.21 sec.
+Execute       clang_tidy xilinx-remove-assert -desc remove-assert /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/PE.pp.0.cpp std=gnu++14 -target fpga  
+INFO-FLOW: exec /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/lnx64/tools/clang-3.9-csynth/bin/clang-tidy -header-filter=.* --checks=-*,xilinx-remove-assert -fix-errors /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/PE.pp.0.cpp -- -std=gnu++14 -target fpga -fhls -ferror-limit=0
+Command       clang_tidy done; 1.17 sec.
+INFO-FLOW: Done: clang-tidy CDT preprocess 39 time: 2.4 seconds per iteration
+INFO-FLOW: Calling xilinx-label-all-loops ... 
+INFO-FLOW: Calling xilinx-aggregate-on-hls-vector ... 
+Execute       clang_tidy -errorcheck -desc loop-label xilinx-label-all-loops,xilinx-aggregate-on-hls-vector,,xilinx-warn-mayneed-no-ctor-attribute /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/PE.pp.0.cpp std=gnu++14 -target fpga  
+Execute         ap_eval exec -ignorestderr /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/lnx64/tools/clang-3.9-csynth/bin/clang-tidy -export-fixes=/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/PE.pp.0.cpp.clang-tidy.loop-label.diag.yml -header-filter=.* --checks=-*,xilinx-label-all-loops,xilinx-aggregate-on-hls-vector,,xilinx-warn-mayneed-no-ctor-attribute -fix-errors /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/PE.pp.0.cpp -- -std=gnu++14 -target fpga -fhls -ferror-limit=0 > /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/PE.pp.0.cpp.clang-tidy.loop-label.out.log 2> /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/PE.pp.0.cpp.clang-tidy.loop-label.err.log 
+Command         ap_eval done; 1.81 sec.
+Command       clang_tidy done; 1.84 sec.
+Execute       get_config_dataflow -strict_mode 
+Execute       ap_eval exec -ignorestderr /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/lnx64/tools/clang-3.9-csynth/bin/xilinx-dataflow-lawyer -export-fixes=/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/PE.pp.0.cpp.xilinx-dataflow-lawyer.diag.yml /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/PE.pp.0.cpp -- -std=gnu++14 -target fpga -fhls -ferror-limit=0 -fstrict-dataflow > /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/PE.pp.0.cpp.xilinx-dataflow-lawyer.out.log 2> /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/PE.pp.0.cpp.xilinx-dataflow-lawyer.err.log 
+Command       ap_eval done; 1.16 sec.
+Execute       ap_part_info -name xcvu5p-flva2104-1-e -data info 
+INFO-FLOW: compiling source code to llvm bc
+Execute       ap_eval exec -ignorestderr /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/lnx64/tools/clang-3.9-csynth/bin/clang -foptimization-record-file=/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/PE.pp.0.cpp.clang.diag.yml -mllvm -pass-remarks-missed=reflow|pasta|unroll -mllvm -pass-remarks=reflow|pasta|unroll|inline -fno-limit-debug-info -fhls -flto -fno-exceptions -Wno-error=c++11-narrowing /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/PE.pp.0.cpp -fno-math-errno -c -emit-llvm -mllvm -disable-llvm-optzns -Werror=implicit-function-declaration -Werror=implicit-hls-streams -Werror=return-type -Wpragmas -Wunused-parameter -Wdump-hls-pragmas -fno-threadsafe-statics -fno-use-cxa-atexit -std=gnu++14 -target fpga64-xilinx-linux-gnu -D__VITIS_HLS__ -DAESL_SYN -D__SYNTHESIS__ -D__HLS_SYN__ -I /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/autopilot -I /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/autopilot/ap_sysc -include etc/autopilot_ssdm_op.h -D__DSP48E2__ -g -o /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/PE.bc -hls-platform-db-name=/home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/common/platform.db -hls-platform-name=virtexuplus_slow -device-resource-info=BRAM_2048.000000_DSP_3474.000000_FF_1201154.000000_LUT_600577.000000_SLICE_98520.000000_SLR_2.000000_URAM_470.000000 > /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/PE.pp.0.cpp.clang.out.log 2> /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/PE.pp.0.cpp.clang.err.log 
+Command       ap_eval done; 1.37 sec.
+WARNING: [HLS 207-5292] unused parameter 'name' (/home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/autopilot/hls_streamofblocks.h:309:77)
+WARNING: [HLS 207-5292] unused parameter 'PEIdx' (../src/PE.cpp:74:25)
+INFO: [HLS 200-10] Analyzing design file '/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/PE.cpp' ... 
+INFO-FLOW: Compiling one TU...
+Execute       get_config_compile -pragma_strict_mode 
+INFO-FLOW: Handling /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/PE.cpp as C++
+Execute       ap_part_info -name xcvu5p-flva2104-1-e -data info 
+INFO-FLOW: Running: GCC PP 39
+INFO-FLOW: Source preprocessing
+Execute       ap_eval exec -ignorestderr /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/lnx64/tools/clang-3.9-csynth/bin/clang /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/PE.cpp -foptimization-record-file=/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/PE.cpp.clang.diag.yml -mllvm -pass-remarks-missed=reflow|pasta|unroll -mllvm -pass-remarks=reflow|pasta|unroll|inline -fno-limit-debug-info -gcc-toolchain /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/tps/lnx64/gcc-8.3.0 -fhls -fno-exceptions -E -fno-math-errno -c -emit-llvm -mllvm -disable-llvm-optzns -Werror=implicit-function-declaration -Werror=implicit-hls-streams -Werror=return-type -Wpragmas -Wunused-parameter -Wdump-hls-pragmas -fno-threadsafe-statics -fno-use-cxa-atexit -std=gnu++14 -target fpga64-xilinx-linux-gnu -fno-threadsafe-statics -fno-use-cxa-atexit -D__VITIS_HLS__ -DAESL_SYN -D__SYNTHESIS__ -D__HLS_SYN__ -I /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/autopilot -I /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/autopilot/ap_sysc -include etc/autopilot_ssdm_op.h -D__DSP48E2__ -I /usr/include/x86_64-linux-gnu -o /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/PE.pp.0.cpp -hls-platform-db-name=/home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/common/platform.db -hls-platform-name=virtexuplus_slow -device-resource-info=BRAM_2048.000000_DSP_3474.000000_FF_1201154.000000_LUT_600577.000000_SLICE_98520.000000_SLR_2.000000_URAM_470.000000 > /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/PE.cpp.clang.out.log 2> /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/PE.cpp.clang.err.log 
+Command       ap_eval done; 0.15 sec.
+INFO-FLOW: Done: GCC PP 39 time: 0.2 seconds per iteration
+Execute       set_directive_top seq_align_multiple -name=seq_align_multiple 
+INFO-FLOW: Source syntax check for synthesis
+Execute       ap_eval exec -ignorestderr /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/lnx64/tools/clang-3.9-csynth/bin/clang -foptimization-record-file=/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/clang.diag.yml -mllvm -pass-remarks-missed=reflow|pasta|unroll -mllvm -pass-remarks=reflow|pasta|unroll|inline -fsyntax-only -fhls -target fpga64-xilinx-linux-gnu /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/PE.pp.0.cpp -hls-platform-db-name=/home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/common/platform.db -hls-platform-name=virtexuplus_slow -device-resource-info=BRAM_2048.000000_DSP_3474.000000_FF_1201154.000000_LUT_600577.000000_SLICE_98520.000000_SLR_2.000000_URAM_470.000000 > /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/clang.out.log 2> /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/clang.err.log 
+Command       ap_eval done; 1.27 sec.
+Execute       clang_tidy xilinx-systemc-detector -desc systemc-detector /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/PE.pp.0.cpp std=gnu++14 -target fpga  -directive=/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/.systemc_flag 
+INFO-FLOW: exec /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/lnx64/tools/clang-3.9-csynth/bin/clang-tidy -header-filter=.* --checks=-*,xilinx-systemc-detector -import-directive=/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/.systemc_flag -fix-errors /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/PE.pp.0.cpp -- -std=gnu++14 -target fpga -fhls -ferror-limit=0
+Command       clang_tidy done; 1.21 sec.
+INFO-FLOW: Running: clang-tidy CDT preprocess 39
+Execute       clang_tidy xilinx-directive2pragma -desc directive2pragma /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/PE.pp.0.cpp std=gnu++14 -target fpga  -directive=/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/all.directive.json 
+INFO-FLOW: exec /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/lnx64/tools/clang-3.9-csynth/bin/clang-tidy -header-filter=.* --checks=-*,xilinx-directive2pragma -import-directive=/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/all.directive.json -fix-errors /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/PE.pp.0.cpp -- -std=gnu++14 -target fpga -fhls -ferror-limit=0
+Command       clang_tidy done; 1.26 sec.
+Execute       clang_tidy xilinx-remove-assert -desc remove-assert /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/PE.pp.0.cpp std=gnu++14 -target fpga  
+INFO-FLOW: exec /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/lnx64/tools/clang-3.9-csynth/bin/clang-tidy -header-filter=.* --checks=-*,xilinx-remove-assert -fix-errors /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/PE.pp.0.cpp -- -std=gnu++14 -target fpga -fhls -ferror-limit=0
+Command       clang_tidy done; 1.21 sec.
+INFO-FLOW: Done: clang-tidy CDT preprocess 39 time: 2.5 seconds per iteration
+INFO-FLOW: Calling xilinx-label-all-loops ... 
+INFO-FLOW: Calling xilinx-aggregate-on-hls-vector ... 
+Execute       clang_tidy -errorcheck -desc loop-label xilinx-label-all-loops,xilinx-aggregate-on-hls-vector,,xilinx-warn-mayneed-no-ctor-attribute /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/PE.pp.0.cpp std=gnu++14 -target fpga  
+Execute         ap_eval exec -ignorestderr /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/lnx64/tools/clang-3.9-csynth/bin/clang-tidy -export-fixes=/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/PE.pp.0.cpp.clang-tidy.loop-label.diag.yml -header-filter=.* --checks=-*,xilinx-label-all-loops,xilinx-aggregate-on-hls-vector,,xilinx-warn-mayneed-no-ctor-attribute -fix-errors /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/PE.pp.0.cpp -- -std=gnu++14 -target fpga -fhls -ferror-limit=0 > /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/PE.pp.0.cpp.clang-tidy.loop-label.out.log 2> /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/PE.pp.0.cpp.clang-tidy.loop-label.err.log 
+Command         ap_eval done; 1.72 sec.
+Command       clang_tidy done; 1.76 sec.
+Execute       get_config_dataflow -strict_mode 
+Execute       ap_eval exec -ignorestderr /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/lnx64/tools/clang-3.9-csynth/bin/xilinx-dataflow-lawyer -export-fixes=/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/PE.pp.0.cpp.xilinx-dataflow-lawyer.diag.yml /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/PE.pp.0.cpp -- -std=gnu++14 -target fpga -fhls -ferror-limit=0 -fstrict-dataflow > /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/PE.pp.0.cpp.xilinx-dataflow-lawyer.out.log 2> /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/PE.pp.0.cpp.xilinx-dataflow-lawyer.err.log 
+Command       ap_eval done; 1.16 sec.
+Execute       ap_part_info -name xcvu5p-flva2104-1-e -data info 
+INFO-FLOW: compiling source code to llvm bc
+Execute       ap_eval exec -ignorestderr /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/lnx64/tools/clang-3.9-csynth/bin/clang -foptimization-record-file=/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/PE.pp.0.cpp.clang.diag.yml -mllvm -pass-remarks-missed=reflow|pasta|unroll -mllvm -pass-remarks=reflow|pasta|unroll|inline -fno-limit-debug-info -fhls -flto -fno-exceptions -Wno-error=c++11-narrowing /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/PE.pp.0.cpp -fno-math-errno -c -emit-llvm -mllvm -disable-llvm-optzns -Werror=implicit-function-declaration -Werror=implicit-hls-streams -Werror=return-type -Wpragmas -Wunused-parameter -Wdump-hls-pragmas -fno-threadsafe-statics -fno-use-cxa-atexit -std=gnu++14 -target fpga64-xilinx-linux-gnu -D__VITIS_HLS__ -DAESL_SYN -D__SYNTHESIS__ -D__HLS_SYN__ -I /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/autopilot -I /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/autopilot/ap_sysc -include etc/autopilot_ssdm_op.h -D__DSP48E2__ -g -o /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/PE.bc -hls-platform-db-name=/home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/common/platform.db -hls-platform-name=virtexuplus_slow -device-resource-info=BRAM_2048.000000_DSP_3474.000000_FF_1201154.000000_LUT_600577.000000_SLICE_98520.000000_SLR_2.000000_URAM_470.000000 > /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/PE.pp.0.cpp.clang.out.log 2> /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/PE.pp.0.cpp.clang.err.log 
+Command       ap_eval done; 1.36 sec.
+WARNING: [HLS 207-5292] unused parameter 'name' (/home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/autopilot/hls_streamofblocks.h:309:77)
+WARNING: [HLS 207-5292] unused parameter 'PEIdx' (/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/PE.cpp:74:25)
+INFO: [HLS 200-10] Analyzing design file '/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/seq_align.cpp' ... 
+INFO-FLOW: Compiling one TU...
+Execute       get_config_compile -pragma_strict_mode 
+INFO-FLOW: Handling /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/seq_align.cpp as C++
+Execute       ap_part_info -name xcvu5p-flva2104-1-e -data info 
+INFO-FLOW: Running: GCC PP 39
+INFO-FLOW: Source preprocessing
+Execute       ap_eval exec -ignorestderr /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/lnx64/tools/clang-3.9-csynth/bin/clang /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/seq_align.cpp -foptimization-record-file=/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/seq_align.cpp.clang.diag.yml -mllvm -pass-remarks-missed=reflow|pasta|unroll -mllvm -pass-remarks=reflow|pasta|unroll|inline -fno-limit-debug-info -gcc-toolchain /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/tps/lnx64/gcc-8.3.0 -fhls -fno-exceptions -E -fno-math-errno -c -emit-llvm -mllvm -disable-llvm-optzns -Werror=implicit-function-declaration -Werror=implicit-hls-streams -Werror=return-type -Wpragmas -Wunused-parameter -Wdump-hls-pragmas -fno-threadsafe-statics -fno-use-cxa-atexit -std=gnu++14 -target fpga64-xilinx-linux-gnu -fno-threadsafe-statics -fno-use-cxa-atexit -D__VITIS_HLS__ -DAESL_SYN -D__SYNTHESIS__ -D__HLS_SYN__ -I /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/autopilot -I /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/autopilot/ap_sysc -include etc/autopilot_ssdm_op.h -D__DSP48E2__ -I /usr/include/x86_64-linux-gnu -o /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/seq_align.pp.0.cpp -hls-platform-db-name=/home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/common/platform.db -hls-platform-name=virtexuplus_slow -device-resource-info=BRAM_2048.000000_DSP_3474.000000_FF_1201154.000000_LUT_600577.000000_SLICE_98520.000000_SLR_2.000000_URAM_470.000000 > /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/seq_align.cpp.clang.out.log 2> /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/seq_align.cpp.clang.err.log 
+Command       ap_eval done; 0.17 sec.
+INFO-FLOW: Done: GCC PP 39 time: 0.2 seconds per iteration
+Execute       set_directive_top seq_align_multiple -name=seq_align_multiple 
+INFO-FLOW: Source syntax check for synthesis
+Execute       ap_eval exec -ignorestderr /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/lnx64/tools/clang-3.9-csynth/bin/clang -foptimization-record-file=/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/clang.diag.yml -mllvm -pass-remarks-missed=reflow|pasta|unroll -mllvm -pass-remarks=reflow|pasta|unroll|inline -fsyntax-only -fhls -target fpga64-xilinx-linux-gnu /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/seq_align.pp.0.cpp -hls-platform-db-name=/home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/common/platform.db -hls-platform-name=virtexuplus_slow -device-resource-info=BRAM_2048.000000_DSP_3474.000000_FF_1201154.000000_LUT_600577.000000_SLICE_98520.000000_SLR_2.000000_URAM_470.000000 > /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/clang.out.log 2> /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/clang.err.log 
+Command       ap_eval done; 1.35 sec.
+WARNING: [HLS 207-4827] equality comparison with extraneous parentheses (/usr/include/x86_64-linux-gnu/gmp.h:2142:345)
+INFO: [HLS 207-4186] remove extraneous parentheses around the comparison to silence this warning (/usr/include/x86_64-linux-gnu/gmp.h:2142:345)
+INFO: [HLS 207-4187] use '=' to turn this equality comparison into an assignment (/usr/include/x86_64-linux-gnu/gmp.h:2142:345)
+WARNING: [HLS 207-5527] 'factor' in '#pragma HLS array_partition' is ignored (/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/traceback.h:15:55)
+Execute       clang_tidy xilinx-systemc-detector -desc systemc-detector /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/seq_align.pp.0.cpp std=gnu++14 -target fpga  -directive=/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/.systemc_flag 
+INFO-FLOW: exec /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/lnx64/tools/clang-3.9-csynth/bin/clang-tidy -header-filter=.* --checks=-*,xilinx-systemc-detector -import-directive=/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/.systemc_flag -fix-errors /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/seq_align.pp.0.cpp -- -std=gnu++14 -target fpga -fhls -ferror-limit=0
+Command       clang_tidy done; 1.29 sec.
+INFO-FLOW: Running: clang-tidy CDT preprocess 39
+Execute       clang_tidy xilinx-directive2pragma -desc directive2pragma /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/seq_align.pp.0.cpp std=gnu++14 -target fpga  -directive=/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/all.directive.json 
+INFO-FLOW: exec /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/lnx64/tools/clang-3.9-csynth/bin/clang-tidy -header-filter=.* --checks=-*,xilinx-directive2pragma -import-directive=/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/all.directive.json -fix-errors /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/seq_align.pp.0.cpp -- -std=gnu++14 -target fpga -fhls -ferror-limit=0
+Command       clang_tidy done; 1.26 sec.
+Execute       clang_tidy xilinx-remove-assert -desc remove-assert /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/seq_align.pp.0.cpp std=gnu++14 -target fpga  
+INFO-FLOW: exec /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/lnx64/tools/clang-3.9-csynth/bin/clang-tidy -header-filter=.* --checks=-*,xilinx-remove-assert -fix-errors /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/seq_align.pp.0.cpp -- -std=gnu++14 -target fpga -fhls -ferror-limit=0
+Command       clang_tidy done; 1.25 sec.
+INFO-FLOW: Done: clang-tidy CDT preprocess 39 time: 2.5 seconds per iteration
+INFO-FLOW: Calling xilinx-label-all-loops ... 
+INFO-FLOW: Calling xilinx-aggregate-on-hls-vector ... 
+Execute       clang_tidy -errorcheck -desc loop-label xilinx-label-all-loops,xilinx-aggregate-on-hls-vector,,xilinx-warn-mayneed-no-ctor-attribute /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/seq_align.pp.0.cpp std=gnu++14 -target fpga  
+Execute         ap_eval exec -ignorestderr /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/lnx64/tools/clang-3.9-csynth/bin/clang-tidy -export-fixes=/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/seq_align.pp.0.cpp.clang-tidy.loop-label.diag.yml -header-filter=.* --checks=-*,xilinx-label-all-loops,xilinx-aggregate-on-hls-vector,,xilinx-warn-mayneed-no-ctor-attribute -fix-errors /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/seq_align.pp.0.cpp -- -std=gnu++14 -target fpga -fhls -ferror-limit=0 > /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/seq_align.pp.0.cpp.clang-tidy.loop-label.out.log 2> /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/seq_align.pp.0.cpp.clang-tidy.loop-label.err.log 
+Command         ap_eval done; 2.33 sec.
+Command       clang_tidy done; 2.71 sec.
+Execute       get_config_dataflow -strict_mode 
+Execute       ap_eval exec -ignorestderr /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/lnx64/tools/clang-3.9-csynth/bin/xilinx-dataflow-lawyer -export-fixes=/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/seq_align.pp.0.cpp.xilinx-dataflow-lawyer.diag.yml /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/seq_align.pp.0.cpp -- -std=gnu++14 -target fpga -fhls -ferror-limit=0 -fstrict-dataflow > /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/seq_align.pp.0.cpp.xilinx-dataflow-lawyer.out.log 2> /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/seq_align.pp.0.cpp.xilinx-dataflow-lawyer.err.log 
+Command       ap_eval done; 1.2 sec.
+Execute       ap_part_info -name xcvu5p-flva2104-1-e -data info 
+INFO-FLOW: compiling source code to llvm bc
+Execute       ap_eval exec -ignorestderr /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/lnx64/tools/clang-3.9-csynth/bin/clang -foptimization-record-file=/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/seq_align.pp.0.cpp.clang.diag.yml -mllvm -pass-remarks-missed=reflow|pasta|unroll -mllvm -pass-remarks=reflow|pasta|unroll|inline -fno-limit-debug-info -fhls -flto -fno-exceptions -Wno-error=c++11-narrowing /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/seq_align.pp.0.cpp -fno-math-errno -c -emit-llvm -mllvm -disable-llvm-optzns -Werror=implicit-function-declaration -Werror=implicit-hls-streams -Werror=return-type -Wpragmas -Wunused-parameter -Wdump-hls-pragmas -fno-threadsafe-statics -fno-use-cxa-atexit -std=gnu++14 -target fpga64-xilinx-linux-gnu -D__VITIS_HLS__ -DAESL_SYN -D__SYNTHESIS__ -D__HLS_SYN__ -I /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/autopilot -I /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/autopilot/ap_sysc -include etc/autopilot_ssdm_op.h -D__DSP48E2__ -g -o /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/seq_align.bc -hls-platform-db-name=/home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/common/platform.db -hls-platform-name=virtexuplus_slow -device-resource-info=BRAM_2048.000000_DSP_3474.000000_FF_1201154.000000_LUT_600577.000000_SLICE_98520.000000_SLR_2.000000_URAM_470.000000 > /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/seq_align.pp.0.cpp.clang.out.log 2> /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/seq_align.pp.0.cpp.clang.err.log 
+Command       ap_eval done; 1.35 sec.
+WARNING: [HLS 207-4827] equality comparison with extraneous parentheses (/usr/include/x86_64-linux-gnu/gmp.h:2142:383)
+INFO: [HLS 207-4186] remove extraneous parentheses around the comparison to silence this warning (/usr/include/x86_64-linux-gnu/gmp.h:2142:383)
+INFO: [HLS 207-4187] use '=' to turn this equality comparison into an assignment (/usr/include/x86_64-linux-gnu/gmp.h:2142:383)
+WARNING: [HLS 207-5292] unused parameter 'name' (/home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/autopilot/hls_streamofblocks.h:309:77)
+INFO: [HLS 200-10] Analyzing design file '/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/traceback.cpp' ... 
+INFO-FLOW: Compiling one TU...
+Execute       get_config_compile -pragma_strict_mode 
+INFO-FLOW: Handling /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/traceback.cpp as C++
+Execute       ap_part_info -name xcvu5p-flva2104-1-e -data info 
+INFO-FLOW: Running: GCC PP 39
+INFO-FLOW: Source preprocessing
+Execute       ap_eval exec -ignorestderr /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/lnx64/tools/clang-3.9-csynth/bin/clang /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/traceback.cpp -foptimization-record-file=/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/traceback.cpp.clang.diag.yml -mllvm -pass-remarks-missed=reflow|pasta|unroll -mllvm -pass-remarks=reflow|pasta|unroll|inline -fno-limit-debug-info -gcc-toolchain /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/tps/lnx64/gcc-8.3.0 -fhls -fno-exceptions -E -fno-math-errno -c -emit-llvm -mllvm -disable-llvm-optzns -Werror=implicit-function-declaration -Werror=implicit-hls-streams -Werror=return-type -Wpragmas -Wunused-parameter -Wdump-hls-pragmas -fno-threadsafe-statics -fno-use-cxa-atexit -std=gnu++14 -target fpga64-xilinx-linux-gnu -fno-threadsafe-statics -fno-use-cxa-atexit -D__VITIS_HLS__ -DAESL_SYN -D__SYNTHESIS__ -D__HLS_SYN__ -I /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/autopilot -I /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/autopilot/ap_sysc -include etc/autopilot_ssdm_op.h -D__DSP48E2__ -I /usr/include/x86_64-linux-gnu -o /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/traceback.pp.0.cpp -hls-platform-db-name=/home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/common/platform.db -hls-platform-name=virtexuplus_slow -device-resource-info=BRAM_2048.000000_DSP_3474.000000_FF_1201154.000000_LUT_600577.000000_SLICE_98520.000000_SLR_2.000000_URAM_470.000000 > /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/traceback.cpp.clang.out.log 2> /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/traceback.cpp.clang.err.log 
+Command       ap_eval done; 0.16 sec.
+INFO-FLOW: Done: GCC PP 39 time: 0.2 seconds per iteration
+Execute       set_directive_top seq_align_multiple -name=seq_align_multiple 
+INFO-FLOW: Source syntax check for synthesis
+Execute       ap_eval exec -ignorestderr /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/lnx64/tools/clang-3.9-csynth/bin/clang -foptimization-record-file=/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/clang.diag.yml -mllvm -pass-remarks-missed=reflow|pasta|unroll -mllvm -pass-remarks=reflow|pasta|unroll|inline -fsyntax-only -fhls -target fpga64-xilinx-linux-gnu /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/traceback.pp.0.cpp -hls-platform-db-name=/home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/common/platform.db -hls-platform-name=virtexuplus_slow -device-resource-info=BRAM_2048.000000_DSP_3474.000000_FF_1201154.000000_LUT_600577.000000_SLICE_98520.000000_SLR_2.000000_URAM_470.000000 > /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/clang.out.log 2> /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/clang.err.log 
+Command       ap_eval done; 0.7 sec.
+WARNING: [HLS 207-5527] 'factor' in '#pragma HLS array_partition' is ignored (/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/traceback.h:15:55)
+Execute       clang_tidy xilinx-systemc-detector -desc systemc-detector /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/traceback.pp.0.cpp std=gnu++14 -target fpga  -directive=/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/.systemc_flag 
+INFO-FLOW: exec /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/lnx64/tools/clang-3.9-csynth/bin/clang-tidy -header-filter=.* --checks=-*,xilinx-systemc-detector -import-directive=/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/.systemc_flag -fix-errors /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/traceback.pp.0.cpp -- -std=gnu++14 -target fpga -fhls -ferror-limit=0
+Command       clang_tidy done; 0.63 sec.
+INFO-FLOW: Running: clang-tidy CDT preprocess 39
+Execute       clang_tidy xilinx-directive2pragma -desc directive2pragma /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/traceback.pp.0.cpp std=gnu++14 -target fpga  -directive=/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/all.directive.json 
+INFO-FLOW: exec /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/lnx64/tools/clang-3.9-csynth/bin/clang-tidy -header-filter=.* --checks=-*,xilinx-directive2pragma -import-directive=/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/all.directive.json -fix-errors /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/traceback.pp.0.cpp -- -std=gnu++14 -target fpga -fhls -ferror-limit=0
+Command       clang_tidy done; 0.64 sec.
+Execute       clang_tidy xilinx-remove-assert -desc remove-assert /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/traceback.pp.0.cpp std=gnu++14 -target fpga  
+INFO-FLOW: exec /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/lnx64/tools/clang-3.9-csynth/bin/clang-tidy -header-filter=.* --checks=-*,xilinx-remove-assert -fix-errors /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/traceback.pp.0.cpp -- -std=gnu++14 -target fpga -fhls -ferror-limit=0
+Command       clang_tidy done; 0.63 sec.
+INFO-FLOW: Done: clang-tidy CDT preprocess 39 time: 1.3 seconds per iteration
+INFO-FLOW: Calling xilinx-label-all-loops ... 
+INFO-FLOW: Calling xilinx-aggregate-on-hls-vector ... 
+Execute       clang_tidy -errorcheck -desc loop-label xilinx-label-all-loops,xilinx-aggregate-on-hls-vector,,xilinx-warn-mayneed-no-ctor-attribute /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/traceback.pp.0.cpp std=gnu++14 -target fpga  
+Execute         ap_eval exec -ignorestderr /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/lnx64/tools/clang-3.9-csynth/bin/clang-tidy -export-fixes=/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/traceback.pp.0.cpp.clang-tidy.loop-label.diag.yml -header-filter=.* --checks=-*,xilinx-label-all-loops,xilinx-aggregate-on-hls-vector,,xilinx-warn-mayneed-no-ctor-attribute -fix-errors /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/traceback.pp.0.cpp -- -std=gnu++14 -target fpga -fhls -ferror-limit=0 > /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/traceback.pp.0.cpp.clang-tidy.loop-label.out.log 2> /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/traceback.pp.0.cpp.clang-tidy.loop-label.err.log 
+Command         ap_eval done; 1.14 sec.
+Command       clang_tidy done; 1.17 sec.
+Execute       get_config_dataflow -strict_mode 
+Execute       ap_eval exec -ignorestderr /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/lnx64/tools/clang-3.9-csynth/bin/xilinx-dataflow-lawyer -export-fixes=/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/traceback.pp.0.cpp.xilinx-dataflow-lawyer.diag.yml /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/traceback.pp.0.cpp -- -std=gnu++14 -target fpga -fhls -ferror-limit=0 -fstrict-dataflow > /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/traceback.pp.0.cpp.xilinx-dataflow-lawyer.out.log 2> /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/traceback.pp.0.cpp.xilinx-dataflow-lawyer.err.log 
+Command       ap_eval done; 0.61 sec.
+Execute       ap_part_info -name xcvu5p-flva2104-1-e -data info 
+INFO-FLOW: compiling source code to llvm bc
+Execute       ap_eval exec -ignorestderr /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/lnx64/tools/clang-3.9-csynth/bin/clang -foptimization-record-file=/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/traceback.pp.0.cpp.clang.diag.yml -mllvm -pass-remarks-missed=reflow|pasta|unroll -mllvm -pass-remarks=reflow|pasta|unroll|inline -fno-limit-debug-info -fhls -flto -fno-exceptions -Wno-error=c++11-narrowing /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/traceback.pp.0.cpp -fno-math-errno -c -emit-llvm -mllvm -disable-llvm-optzns -Werror=implicit-function-declaration -Werror=implicit-hls-streams -Werror=return-type -Wpragmas -Wunused-parameter -Wdump-hls-pragmas -fno-threadsafe-statics -fno-use-cxa-atexit -std=gnu++14 -target fpga64-xilinx-linux-gnu -D__VITIS_HLS__ -DAESL_SYN -D__SYNTHESIS__ -D__HLS_SYN__ -I /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/autopilot -I /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/autopilot/ap_sysc -include etc/autopilot_ssdm_op.h -D__DSP48E2__ -g -o /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/traceback.bc -hls-platform-db-name=/home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/common/platform.db -hls-platform-name=virtexuplus_slow -device-resource-info=BRAM_2048.000000_DSP_3474.000000_FF_1201154.000000_LUT_600577.000000_SLICE_98520.000000_SLR_2.000000_URAM_470.000000 > /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/traceback.pp.0.cpp.clang.out.log 2> /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/traceback.pp.0.cpp.clang.err.log 
+Command       ap_eval done; 0.7 sec.
+INFO: [HLS 200-10] Analyzing design file '/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/seq_align_multiple.cpp' ... 
+INFO-FLOW: Compiling one TU...
+Execute       get_config_compile -pragma_strict_mode 
+INFO-FLOW: Handling /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/seq_align_multiple.cpp as C++
+Execute       ap_part_info -name xcvu5p-flva2104-1-e -data info 
+INFO-FLOW: Running: GCC PP 39
+INFO-FLOW: Source preprocessing
+Execute       ap_eval exec -ignorestderr /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/lnx64/tools/clang-3.9-csynth/bin/clang /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/seq_align_multiple.cpp -foptimization-record-file=/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/seq_align_multiple.cpp.clang.diag.yml -mllvm -pass-remarks-missed=reflow|pasta|unroll -mllvm -pass-remarks=reflow|pasta|unroll|inline -fno-limit-debug-info -gcc-toolchain /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/tps/lnx64/gcc-8.3.0 -fhls -fno-exceptions -E -fno-math-errno -c -emit-llvm -mllvm -disable-llvm-optzns -Werror=implicit-function-declaration -Werror=implicit-hls-streams -Werror=return-type -Wpragmas -Wunused-parameter -Wdump-hls-pragmas -fno-threadsafe-statics -fno-use-cxa-atexit -std=gnu++14 -target fpga64-xilinx-linux-gnu -fno-threadsafe-statics -fno-use-cxa-atexit -D__VITIS_HLS__ -DAESL_SYN -D__SYNTHESIS__ -D__HLS_SYN__ -I /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/autopilot -I /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/autopilot/ap_sysc -include etc/autopilot_ssdm_op.h -D__DSP48E2__ -I /usr/include/x86_64-linux-gnu -o /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/seq_align_multiple.pp.0.cpp -hls-platform-db-name=/home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/common/platform.db -hls-platform-name=virtexuplus_slow -device-resource-info=BRAM_2048.000000_DSP_3474.000000_FF_1201154.000000_LUT_600577.000000_SLICE_98520.000000_SLR_2.000000_URAM_470.000000 > /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/seq_align_multiple.cpp.clang.out.log 2> /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/seq_align_multiple.cpp.clang.err.log 
+Command       ap_eval done; 0.21 sec.
+INFO-FLOW: Done: GCC PP 39 time: 0.2 seconds per iteration
+Execute       set_directive_top seq_align_multiple -name=seq_align_multiple 
+INFO-FLOW: Source syntax check for synthesis
+Execute       ap_eval exec -ignorestderr /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/lnx64/tools/clang-3.9-csynth/bin/clang -foptimization-record-file=/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/clang.diag.yml -mllvm -pass-remarks-missed=reflow|pasta|unroll -mllvm -pass-remarks=reflow|pasta|unroll|inline -fsyntax-only -fhls -target fpga64-xilinx-linux-gnu /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/seq_align_multiple.pp.0.cpp -hls-platform-db-name=/home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/common/platform.db -hls-platform-name=virtexuplus_slow -device-resource-info=BRAM_2048.000000_DSP_3474.000000_FF_1201154.000000_LUT_600577.000000_SLICE_98520.000000_SLR_2.000000_URAM_470.000000 > /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/clang.out.log 2> /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/clang.err.log 
+Command       ap_eval done; 0.98 sec.
+WARNING: [HLS 207-4827] equality comparison with extraneous parentheses (/usr/include/x86_64-linux-gnu/gmp.h:2142:345)
+INFO: [HLS 207-4186] remove extraneous parentheses around the comparison to silence this warning (/usr/include/x86_64-linux-gnu/gmp.h:2142:345)
+INFO: [HLS 207-4187] use '=' to turn this equality comparison into an assignment (/usr/include/x86_64-linux-gnu/gmp.h:2142:345)
+Execute       clang_tidy xilinx-systemc-detector -desc systemc-detector /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/seq_align_multiple.pp.0.cpp std=gnu++14 -target fpga  -directive=/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/.systemc_flag 
+INFO-FLOW: exec /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/lnx64/tools/clang-3.9-csynth/bin/clang-tidy -header-filter=.* --checks=-*,xilinx-systemc-detector -import-directive=/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/.systemc_flag -fix-errors /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/seq_align_multiple.pp.0.cpp -- -std=gnu++14 -target fpga -fhls -ferror-limit=0
+Command       clang_tidy done; 0.93 sec.
+INFO-FLOW: Running: clang-tidy CDT preprocess 39
+Execute       clang_tidy xilinx-directive2pragma -desc directive2pragma /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/seq_align_multiple.pp.0.cpp std=gnu++14 -target fpga  -directive=/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/all.directive.json 
+INFO-FLOW: exec /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/lnx64/tools/clang-3.9-csynth/bin/clang-tidy -header-filter=.* --checks=-*,xilinx-directive2pragma -import-directive=/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/all.directive.json -fix-errors /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/seq_align_multiple.pp.0.cpp -- -std=gnu++14 -target fpga -fhls -ferror-limit=0
+Command       clang_tidy done; 1.52 sec.
+Execute       clang_tidy xilinx-remove-assert -desc remove-assert /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/seq_align_multiple.pp.0.cpp std=gnu++14 -target fpga  
+INFO-FLOW: exec /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/lnx64/tools/clang-3.9-csynth/bin/clang-tidy -header-filter=.* --checks=-*,xilinx-remove-assert -fix-errors /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/seq_align_multiple.pp.0.cpp -- -std=gnu++14 -target fpga -fhls -ferror-limit=0
+Command       clang_tidy done; 0.93 sec.
+INFO-FLOW: Done: clang-tidy CDT preprocess 39 time: 2.5 seconds per iteration
+INFO-FLOW: Calling xilinx-label-all-loops ... 
+INFO-FLOW: Calling xilinx-aggregate-on-hls-vector ... 
+Execute       clang_tidy -errorcheck -desc loop-label xilinx-label-all-loops,xilinx-aggregate-on-hls-vector,,xilinx-warn-mayneed-no-ctor-attribute /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/seq_align_multiple.pp.0.cpp std=gnu++14 -target fpga  
+Execute         ap_eval exec -ignorestderr /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/lnx64/tools/clang-3.9-csynth/bin/clang-tidy -export-fixes=/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/seq_align_multiple.pp.0.cpp.clang-tidy.loop-label.diag.yml -header-filter=.* --checks=-*,xilinx-label-all-loops,xilinx-aggregate-on-hls-vector,,xilinx-warn-mayneed-no-ctor-attribute -fix-errors /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/seq_align_multiple.pp.0.cpp -- -std=gnu++14 -target fpga -fhls -ferror-limit=0 > /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/seq_align_multiple.pp.0.cpp.clang-tidy.loop-label.out.log 2> /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/seq_align_multiple.pp.0.cpp.clang-tidy.loop-label.err.log 
+Command         ap_eval done; 2.44 sec.
+Command       clang_tidy done; 2.6 sec.
+Execute       get_config_dataflow -strict_mode 
+Execute       ap_eval exec -ignorestderr /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/lnx64/tools/clang-3.9-csynth/bin/xilinx-dataflow-lawyer -export-fixes=/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/seq_align_multiple.pp.0.cpp.xilinx-dataflow-lawyer.diag.yml /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/seq_align_multiple.pp.0.cpp -- -std=gnu++14 -target fpga -fhls -ferror-limit=0 -fstrict-dataflow > /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/seq_align_multiple.pp.0.cpp.xilinx-dataflow-lawyer.out.log 2> /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/seq_align_multiple.pp.0.cpp.xilinx-dataflow-lawyer.err.log 
+Command       ap_eval done; 0.87 sec.
+Execute       ap_part_info -name xcvu5p-flva2104-1-e -data info 
+INFO-FLOW: compiling source code to llvm bc
+Execute       ap_eval exec -ignorestderr /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/lnx64/tools/clang-3.9-csynth/bin/clang -foptimization-record-file=/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/seq_align_multiple.pp.0.cpp.clang.diag.yml -mllvm -pass-remarks-missed=reflow|pasta|unroll -mllvm -pass-remarks=reflow|pasta|unroll|inline -fno-limit-debug-info -fhls -flto -fno-exceptions -Wno-error=c++11-narrowing /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/seq_align_multiple.pp.0.cpp -fno-math-errno -c -emit-llvm -mllvm -disable-llvm-optzns -Werror=implicit-function-declaration -Werror=implicit-hls-streams -Werror=return-type -Wpragmas -Wunused-parameter -Wdump-hls-pragmas -fno-threadsafe-statics -fno-use-cxa-atexit -std=gnu++14 -target fpga64-xilinx-linux-gnu -D__VITIS_HLS__ -DAESL_SYN -D__SYNTHESIS__ -D__HLS_SYN__ -I /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/autopilot -I /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/autopilot/ap_sysc -include etc/autopilot_ssdm_op.h -D__DSP48E2__ -g -o /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/seq_align_multiple.bc -hls-platform-db-name=/home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/xilinx/common/platform.db -hls-platform-name=virtexuplus_slow -device-resource-info=BRAM_2048.000000_DSP_3474.000000_FF_1201154.000000_LUT_600577.000000_SLICE_98520.000000_SLR_2.000000_URAM_470.000000 > /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/seq_align_multiple.pp.0.cpp.clang.out.log 2> /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/seq_align_multiple.pp.0.cpp.clang.err.log 
+Command       ap_eval done; 1.02 sec.
+WARNING: [HLS 207-4827] equality comparison with extraneous parentheses (/usr/include/x86_64-linux-gnu/gmp.h:2142:383)
+INFO: [HLS 207-4186] remove extraneous parentheses around the comparison to silence this warning (/usr/include/x86_64-linux-gnu/gmp.h:2142:383)
+INFO: [HLS 207-4187] use '=' to turn this equality comparison into an assignment (/usr/include/x86_64-linux-gnu/gmp.h:2142:383)
+WARNING: [HLS 207-5292] unused parameter 'name' (/home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/autopilot/hls_streamofblocks.h:309:77)
+INFO: [HLS 200-111] Finished Source Code Analysis and Preprocessing: CPU user time: 64.46 seconds. CPU system time: 4.82 seconds. Elapsed time: 68.38 seconds; current allocated memory: 213.234 MB.
+INFO-FLOW: Linking Debug ...
+INFO-FLOW: Linking dut bc code.
+Execute       run_link_or_opt -out /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/a.g.ld.0.bc -args  "/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/seq_align_multiple.g.bc" "/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/traceback.g.bc" "/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/seq_align.g.bc" "/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/PE.g.bc" "/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/PE.g.bc" "/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/seq_align.g.bc" "/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/traceback.g.bc" "/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/seq_align_multiple.g.bc"  
+Execute         ap_eval exec -ignorestderr /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/lnx64/tools/clang-3.9-csynth/bin/llvm-link /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/seq_align_multiple.g.bc /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/traceback.g.bc /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/seq_align.g.bc /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/PE.g.bc /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/PE.g.bc /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/seq_align.g.bc /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/traceback.g.bc /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/seq_align_multiple.g.bc -o /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/a.g.ld.0.bc > /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/a.g.ld.0.bc.llvm-link.out.log 2> /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/.autopilot/db/a.g.ld.0.bc.llvm-link.err.log 
+Command         ap_eval done; error code: 1; 
+INFO-FLOW: {ERROR: Linking globals named '_ZN2PEC2Ev': symbol multiply defined!}
+INFO-FLOW: Caught error in run_link_or_opt: Error in llvm-link
+    while executing
+"ap_internal_run_link_or_opt "
+Command       run_link_or_opt done; error code: 2; 
+INFO-FLOW: Caught error in elaborate: Error in llvm-link
+    while executing
+"AP::ap_link_39 [::AP::get_bc_list  $dbgInfo] $skip_transform $LLVMFlags $dbgInfo"
+    (procedure "AP::compile_dut_files_39" line 19)
+    invoked from within
+"AP::compile_dut_files_39 $dut_files $dbgInfo $skip_cdt $skip_transform"
+    (procedure "AP::compile" line 103)
+    invoked from within
+"AP::compile 1 $skip_cdt $skip_transform"
+    (procedure "ap_internal_elaborate" line 83)
+    invoked from within
+"ap_internal_elaborate "
+Command     elaborate done; error code: 2; 68.46 sec.
+INFO-FLOW: Caught error in csynth_design: Error in llvm-link
+    while executing
+"ap_internal_csynth_design "
+Command   csynth_design done; error code: 2; 68.47 sec.
+INFO: [HLS 200-111] Finished Command csynth_design CPU user time: 64.52 seconds. CPU system time: 4.85 seconds. Elapsed time: 68.47 seconds; current allocated memory: -1030.117 MB.
+Command ap_source done; error code: 1; 70.23 sec.
+Execute cleanup_all 

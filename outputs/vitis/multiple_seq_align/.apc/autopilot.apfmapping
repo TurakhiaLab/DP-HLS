@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<autopilotfilemapping:AutoPilotFileMapping xmlns:autopilotfilemapping="www.autoesl.com/autopilotfilemapping">
+  <source>
+    <originFiles name="shift_reg.h" path="/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/utils/shift_reg.h"/>
+    <originFiles name="loop_counter.h" path="/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/utils/loop_counter.h"/>
+    <originFiles name="PE.h" path="/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/PE.h"/>
+    <originFiles name="seq_align_multiple.h" path="/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/seq_align_multiple.h"/>
+    <originFiles name="traceback.h" path="/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/traceback.h"/>
+    <originFiles name="seq_align.h" path="/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/seq_align.h"/>
+    <originFiles name="params.h" path="/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/params.h"/>
+    <originFiles name="seq_align_multiple.cpp" path="/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/seq_align_multiple.cpp"/>
+    <originFiles name="traceback.cpp" path="/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/traceback.cpp"/>
+    <originFiles name="seq_align.cpp" path="/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/seq_align.cpp"/>
+    <originFiles name="PE.cpp" path="/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/PE.cpp"/>
+    <originFiles name="PE.cpp" path="/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/PE.cpp"/>
+    <originFiles name="seq_align.cpp" path="/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/seq_align.cpp"/>
+    <originFiles name="traceback.cpp" path="/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/traceback.cpp"/>
+    <originFiles name="seq_align_multiple.cpp" path="/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/seq_align_multiple.cpp"/>
+    <originFiles name="params.h" path="/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/params.h"/>
+    <originFiles name="seq_align.h" path="/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/seq_align.h"/>
+    <originFiles name="traceback.h" path="/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/traceback.h"/>
+    <originFiles name="seq_align_multiple.h" path="/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/seq_align_multiple.h"/>
+    <originFiles name="PE.h" path="/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/PE.h"/>
+    <originFiles name="loop_counter.h" path="/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/utils/loop_counter.h"/>
+    <originFiles name="shift_reg.h" path="/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/utils/shift_reg.h"/>
+  </source>
+  <testbench>
+    <originFiles name="seq_align_test.cpp" path="/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/testbench/seq_align_test.cpp"/>
+    <originFiles name="seq_align_test.cpp" path="/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/testbench/seq_align_test.cpp"/>
+  </testbench>
+</autopilotfilemapping:AutoPilotFileMapping>

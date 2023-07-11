@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<vivadoHLSLog:LogRoot xmlns:vivadoHLSLog="www.xilinx.com/vivadoHLSLog">
+  <errorLogs>
+    <logs>
+      <synLog>
+        <logs message="Error in llvm-link&#xA;    while executing&#xA;&quot;source /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/csynth.tcl&quot;&#xA;    invoked from within&#xA;&quot;hls::main /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/csynth.tcl&quot;&#xA;    (&quot;uplevel&quot; body line 1)&#xA;    invoked from within&#xA;&quot;uplevel 1 hls::main {*}$newargs&quot;&#xA;    (procedure &quot;hls_proc&quot; line 16)&#xA;    invoked from within&#xA;&quot;hls_proc [info nameofexecutable] $argv&quot;" projectName="multiple_seq_align" solutionName="solution2" date="2023-05-31T15:24:59.627-0700"/>
+      </synLog>
+      <simLog/>
+      <mgLog/>
+      <packageLog/>
+      <csimLog/>
+    </logs>
+  </errorLogs>
+  <warningLogs>
+    <logs>
+      <synLog>
+        <logs message="WARNING: [HLS 207-5292] unused parameter 'name' (/home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/autopilot/hls_streamofblocks.h:309:77)" projectName="multiple_seq_align" solutionName="solution2" date="2023-05-31T15:24:59.551-0700" type="Warning"/>
+        <logs message="WARNING: [HLS 207-4827] equality comparison with extraneous parentheses (/usr/include/x86_64-linux-gnu/gmp.h:2142:383)" projectName="multiple_seq_align" solutionName="solution2" date="2023-05-31T15:24:59.542-0700" type="Warning"/>
+        <logs message="WARNING: [HLS 207-4827] equality comparison with extraneous parentheses (/usr/include/x86_64-linux-gnu/gmp.h:2142:345)" projectName="multiple_seq_align" solutionName="solution2" date="2023-05-31T15:24:51.614-0700" type="Warning"/>
+        <logs message="WARNING: [HLS 207-5527] 'factor' in '#pragma HLS array_partition' is ignored (/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/traceback.h:15:55)" projectName="multiple_seq_align" solutionName="solution2" date="2023-05-31T15:24:50.382-0700" type="Warning"/>
+        <logs message="WARNING: [HLS 207-5292] unused parameter 'name' (/home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/autopilot/hls_streamofblocks.h:309:77)" projectName="multiple_seq_align" solutionName="solution2" date="2023-05-31T15:24:45.076-0700" type="Warning"/>
+        <logs message="WARNING: [HLS 207-4827] equality comparison with extraneous parentheses (/usr/include/x86_64-linux-gnu/gmp.h:2142:383)" projectName="multiple_seq_align" solutionName="solution2" date="2023-05-31T15:24:45.065-0700" type="Warning"/>
+        <logs message="WARNING: [HLS 207-5527] 'factor' in '#pragma HLS array_partition' is ignored (/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/traceback.h:15:55)" projectName="multiple_seq_align" solutionName="solution2" date="2023-05-31T15:24:45.059-0700" type="Warning"/>
+        <logs message="WARNING: [HLS 207-4827] equality comparison with extraneous parentheses (/usr/include/x86_64-linux-gnu/gmp.h:2142:345)" projectName="multiple_seq_align" solutionName="solution2" date="2023-05-31T15:24:35.835-0700" type="Warning"/>
+        <logs message="WARNING: [HLS 207-5292] unused parameter 'PEIdx' (/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/PE.cpp:74:25)" projectName="multiple_seq_align" solutionName="solution2" date="2023-05-31T15:24:34.246-0700" type="Warning"/>
+        <logs message="WARNING: [HLS 207-5292] unused parameter 'name' (/home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/autopilot/hls_streamofblocks.h:309:77)" projectName="multiple_seq_align" solutionName="solution2" date="2023-05-31T15:24:34.241-0700" type="Warning"/>
+        <logs message="WARNING: [HLS 207-5292] unused parameter 'PEIdx' (../src/PE.cpp:74:25)" projectName="multiple_seq_align" solutionName="solution2" date="2023-05-31T15:24:24.792-0700" type="Warning"/>
+        <logs message="WARNING: [HLS 207-5292] unused parameter 'name' (/home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/autopilot/hls_streamofblocks.h:309:77)" projectName="multiple_seq_align" solutionName="solution2" date="2023-05-31T15:24:24.787-0700" type="Warning"/>
+        <logs message="WARNING: [HLS 207-5292] unused parameter 'name' (/home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/autopilot/hls_streamofblocks.h:309:77)" projectName="multiple_seq_align" solutionName="solution2" date="2023-05-31T15:24:15.387-0700" type="Warning"/>
+        <logs message="WARNING: [HLS 207-4827] equality comparison with extraneous parentheses (/usr/include/x86_64-linux-gnu/gmp.h:2142:383)" projectName="multiple_seq_align" solutionName="solution2" date="2023-05-31T15:24:15.375-0700" type="Warning"/>
+        <logs message="WARNING: [HLS 207-5527] 'factor' in '#pragma HLS array_partition' is ignored (../src/traceback.h:15:55)" projectName="multiple_seq_align" solutionName="solution2" date="2023-05-31T15:24:15.370-0700" type="Warning"/>
+        <logs message="WARNING: [HLS 207-4827] equality comparison with extraneous parentheses (/usr/include/x86_64-linux-gnu/gmp.h:2142:345)" projectName="multiple_seq_align" solutionName="solution2" date="2023-05-31T15:24:06.209-0700" type="Warning"/>
+        <logs message="WARNING: [HLS 207-5527] 'factor' in '#pragma HLS array_partition' is ignored (../src/traceback.h:15:55)" projectName="multiple_seq_align" solutionName="solution2" date="2023-05-31T15:24:04.699-0700" type="Warning"/>
+        <logs message="WARNING: [HLS 207-5292] unused parameter 'name' (/home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/autopilot/hls_streamofblocks.h:309:77)" projectName="multiple_seq_align" solutionName="solution2" date="2023-05-31T15:23:58.922-0700" type="Warning"/>
+        <logs message="WARNING: [HLS 207-4827] equality comparison with extraneous parentheses (/usr/include/x86_64-linux-gnu/gmp.h:2142:383)" projectName="multiple_seq_align" solutionName="solution2" date="2023-05-31T15:23:58.806-0700" type="Warning"/>
+        <logs message="WARNING: [HLS 207-4827] equality comparison with extraneous parentheses (/usr/include/x86_64-linux-gnu/gmp.h:2142:345)" projectName="multiple_seq_align" solutionName="solution2" date="2023-05-31T15:23:52.479-0700" type="Warning"/>
+      </synLog>
+      <simLog/>
+      <mgLog/>
+      <packageLog/>
+      <csimLog/>
+    </logs>
+  </warningLogs>
+</vivadoHLSLog:LogRoot>

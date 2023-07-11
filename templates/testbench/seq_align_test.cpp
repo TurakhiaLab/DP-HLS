@@ -4,7 +4,7 @@
 
 #include <stdio.h>
 #include "seq_align_multiple.h"
-#include "params.h"
+#include "../src/params.h"
 #include <cstdlib>
 #include <iostream>
 #include <ap_int.h>

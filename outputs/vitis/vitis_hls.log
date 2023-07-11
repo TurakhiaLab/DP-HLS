@@ -1,32 +1,36 @@
-
-****** Vitis HLS - High-Level Synthesis from C, C++ and OpenCL v2022.1 (64-bit)
-  **** SW Build 3526262 on Mon Apr 18 15:47:01 MDT 2022
-  **** IP Build 3524634 on Mon Apr 18 20:55:01 MDT 2022
-    ** Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
-
-source /home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/scripts/vitis_hls/hls.tcl -notrace
 INFO: [HLS 200-10] Running '/home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/bin/unwrapped/lnx64.o/vitis_hls'
-INFO: [HLS 200-10] For user 'yic033@AD.UCSD.EDU' on host 'raptor.ucsd.edu' (Linux_x86_64 version 5.4.0-149-generic) on Tue May 30 22:37:54 PDT 2023
+INFO: [HLS 200-10] For user 'yic033@AD.UCSD.EDU' on host 'raptor.ucsd.edu' (Linux_x86_64 version 5.4.0-149-generic) on Wed May 31 15:23:49 PDT 2023
 INFO: [HLS 200-10] On os Ubuntu 20.04.6 LTS
 INFO: [HLS 200-10] In directory '/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis'
-Sourcing Tcl script '/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/create_project.tcl'
+Sourcing Tcl script '/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/csynth.tcl'
+INFO: [HLS 200-1510] Running: source /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/csynth.tcl
 INFO: [HLS 200-1510] Running: open_project multiple_seq_align 
 INFO: [HLS 200-10] Opening project '/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align'.
 INFO: [HLS 200-1510] Running: set_top seq_align_multiple 
-INFO: [HLS 200-1510] Running: add_files /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/PE.cpp /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/seq_align.cpp /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/traceback.cpp /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/seq_align_multiple.cpp /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/params.h /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/seq_align.h /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/traceback.h /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/seq_align_multiple.h /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/PE.h /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/utils/loop_counter.h /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/utils/shift_reg.h  
-INFO: [HLS 200-10] Adding design file '/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/PE.cpp' to the project
-INFO: [HLS 200-10] Adding design file '/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/seq_align.cpp' to the project
-INFO: [HLS 200-10] Adding design file '/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/traceback.cpp' to the project
-INFO: [HLS 200-10] Adding design file '/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/seq_align_multiple.cpp' to the project
-INFO: [HLS 200-10] Adding design file '/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/params.h' to the project
-INFO: [HLS 200-10] Adding design file '/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/seq_align.h' to the project
-INFO: [HLS 200-10] Adding design file '/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/traceback.h' to the project
-INFO: [HLS 200-10] Adding design file '/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/seq_align_multiple.h' to the project
-INFO: [HLS 200-10] Adding design file '/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/PE.h' to the project
-WARNING: [HLS 200-40] Cannot find design file '/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/utils/loop_counter.h'
-WARNING: [HLS 200-40] Cannot find design file '/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/utils/shift_reg.h'
-INFO: [HLS 200-1510] Running: add_files -tb /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/testbench/seq_align_test.cpp 
-INFO: [HLS 200-10] Adding test bench file '/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/testbench/seq_align_test.cpp' to the project
+INFO: [HLS 200-1510] Running: add_files ../src/PE.cpp 
+INFO: [HLS 200-10] Adding design file '../src/PE.cpp' to the project
+INFO: [HLS 200-1510] Running: add_files ../src/seq_align.cpp 
+INFO: [HLS 200-10] Adding design file '../src/seq_align.cpp' to the project
+INFO: [HLS 200-1510] Running: add_files ../src/traceback.cpp 
+INFO: [HLS 200-10] Adding design file '../src/traceback.cpp' to the project
+INFO: [HLS 200-1510] Running: add_files ../src/seq_align_multiple.cpp 
+INFO: [HLS 200-10] Adding design file '../src/seq_align_multiple.cpp' to the project
+INFO: [HLS 200-1510] Running: add_files ../src/params.h 
+INFO: [HLS 200-10] Adding design file '../src/params.h' to the project
+INFO: [HLS 200-1510] Running: add_files ../src/seq_align.h 
+INFO: [HLS 200-10] Adding design file '../src/seq_align.h' to the project
+INFO: [HLS 200-1510] Running: add_files ../src/traceback.h 
+INFO: [HLS 200-10] Adding design file '../src/traceback.h' to the project
+INFO: [HLS 200-1510] Running: add_files ../src/seq_align_multiple.h 
+INFO: [HLS 200-10] Adding design file '../src/seq_align_multiple.h' to the project
+INFO: [HLS 200-1510] Running: add_files ../src/PE.h 
+INFO: [HLS 200-10] Adding design file '../src/PE.h' to the project
+INFO: [HLS 200-1510] Running: add_files ../src/utils/loop_counter.h 
+INFO: [HLS 200-10] Adding design file '../src/utils/loop_counter.h' to the project
+INFO: [HLS 200-1510] Running: add_files ../src/utils/shift_reg.h 
+INFO: [HLS 200-10] Adding design file '../src/utils/shift_reg.h' to the project
+INFO: [HLS 200-1510] Running: add_files -tb ../testbench/seq_align_test.cpp -cflags -Wno-unknown-pragmas -csimflags -Wno-unknown-pragmas 
+INFO: [HLS 200-10] Adding test bench file '../testbench/seq_align_test.cpp' to the project
 INFO: [HLS 200-1510] Running: open_solution solution2 -flow_target vivado 
 INFO: [HLS 200-10] Opening solution '/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2'.
 INFO: [SYN 201-201] Setting up clock 'default' with a period of 4ns.
@@ -34,8 +38,66 @@ INFO: [HLS 200-1611] Setting target device to 'xcvu5p-flva2104-1-e'
 INFO: [HLS 200-1505] Using flow_target 'vivado'
 Resolution: For help on HLS 200-1505 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-1505.html
 INFO: [HLS 200-1464] Running solution command: config_interface -m_axi_latency=0
-INFO: [HLS 200-1510] Running: set_part  xcvu5p-flva2104-1-e  
+INFO: [HLS 200-1510] Running: set_part xcvu5p-flva2104-1-e 
 INFO: [HLS 200-1510] Running: create_clock -period 4 -name default 
-[2Kvitis_hls> [11C[2Kvitis_hls> ex[13C[2Kvitis_hls> exit[15C
-INFO: [HLS 200-112] Total CPU user time: 3.33 seconds. Total CPU system time: 0.82 seconds. Total elapsed time: 38.41 seconds; peak allocated memory: 209.277 MB.
-INFO: [Common 17-206] Exiting vitis_hls at Tue May 30 22:38:32 2023...
+INFO: [HLS 200-1510] Running: config_interface -m_axi_latency 0 
+INFO: [HLS 200-1510] Running: csynth_design 
+INFO: [HLS 200-111] Finished File checks and directory preparation: CPU user time: 0.01 seconds. CPU system time: 0 seconds. Elapsed time: 0.01 seconds; current allocated memory: 1.214 GB.
+INFO: [HLS 200-10] Analyzing design file '../src/seq_align_multiple.cpp' ... 
+WARNING: [HLS 207-4827] equality comparison with extraneous parentheses (/usr/include/x86_64-linux-gnu/gmp.h:2142:345)
+INFO: [HLS 207-4186] remove extraneous parentheses around the comparison to silence this warning (/usr/include/x86_64-linux-gnu/gmp.h:2142:345)
+INFO: [HLS 207-4187] use '=' to turn this equality comparison into an assignment (/usr/include/x86_64-linux-gnu/gmp.h:2142:345)
+WARNING: [HLS 207-4827] equality comparison with extraneous parentheses (/usr/include/x86_64-linux-gnu/gmp.h:2142:383)
+INFO: [HLS 207-4186] remove extraneous parentheses around the comparison to silence this warning (/usr/include/x86_64-linux-gnu/gmp.h:2142:383)
+INFO: [HLS 207-4187] use '=' to turn this equality comparison into an assignment (/usr/include/x86_64-linux-gnu/gmp.h:2142:383)
+WARNING: [HLS 207-5292] unused parameter 'name' (/home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/autopilot/hls_streamofblocks.h:309:77)
+INFO: [HLS 200-10] Analyzing design file '../src/traceback.cpp' ... 
+WARNING: [HLS 207-5527] 'factor' in '#pragma HLS array_partition' is ignored (../src/traceback.h:15:55)
+INFO: [HLS 200-10] Analyzing design file '../src/seq_align.cpp' ... 
+WARNING: [HLS 207-4827] equality comparison with extraneous parentheses (/usr/include/x86_64-linux-gnu/gmp.h:2142:345)
+INFO: [HLS 207-4186] remove extraneous parentheses around the comparison to silence this warning (/usr/include/x86_64-linux-gnu/gmp.h:2142:345)
+INFO: [HLS 207-4187] use '=' to turn this equality comparison into an assignment (/usr/include/x86_64-linux-gnu/gmp.h:2142:345)
+WARNING: [HLS 207-5527] 'factor' in '#pragma HLS array_partition' is ignored (../src/traceback.h:15:55)
+WARNING: [HLS 207-4827] equality comparison with extraneous parentheses (/usr/include/x86_64-linux-gnu/gmp.h:2142:383)
+INFO: [HLS 207-4186] remove extraneous parentheses around the comparison to silence this warning (/usr/include/x86_64-linux-gnu/gmp.h:2142:383)
+INFO: [HLS 207-4187] use '=' to turn this equality comparison into an assignment (/usr/include/x86_64-linux-gnu/gmp.h:2142:383)
+WARNING: [HLS 207-5292] unused parameter 'name' (/home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/autopilot/hls_streamofblocks.h:309:77)
+INFO: [HLS 200-10] Analyzing design file '../src/PE.cpp' ... 
+WARNING: [HLS 207-5292] unused parameter 'name' (/home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/autopilot/hls_streamofblocks.h:309:77)
+WARNING: [HLS 207-5292] unused parameter 'PEIdx' (../src/PE.cpp:74:25)
+INFO: [HLS 200-10] Analyzing design file '/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/PE.cpp' ... 
+WARNING: [HLS 207-5292] unused parameter 'name' (/home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/autopilot/hls_streamofblocks.h:309:77)
+WARNING: [HLS 207-5292] unused parameter 'PEIdx' (/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/PE.cpp:74:25)
+INFO: [HLS 200-10] Analyzing design file '/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/seq_align.cpp' ... 
+WARNING: [HLS 207-4827] equality comparison with extraneous parentheses (/usr/include/x86_64-linux-gnu/gmp.h:2142:345)
+INFO: [HLS 207-4186] remove extraneous parentheses around the comparison to silence this warning (/usr/include/x86_64-linux-gnu/gmp.h:2142:345)
+INFO: [HLS 207-4187] use '=' to turn this equality comparison into an assignment (/usr/include/x86_64-linux-gnu/gmp.h:2142:345)
+WARNING: [HLS 207-5527] 'factor' in '#pragma HLS array_partition' is ignored (/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/traceback.h:15:55)
+WARNING: [HLS 207-4827] equality comparison with extraneous parentheses (/usr/include/x86_64-linux-gnu/gmp.h:2142:383)
+INFO: [HLS 207-4186] remove extraneous parentheses around the comparison to silence this warning (/usr/include/x86_64-linux-gnu/gmp.h:2142:383)
+INFO: [HLS 207-4187] use '=' to turn this equality comparison into an assignment (/usr/include/x86_64-linux-gnu/gmp.h:2142:383)
+WARNING: [HLS 207-5292] unused parameter 'name' (/home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/autopilot/hls_streamofblocks.h:309:77)
+INFO: [HLS 200-10] Analyzing design file '/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/traceback.cpp' ... 
+WARNING: [HLS 207-5527] 'factor' in '#pragma HLS array_partition' is ignored (/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/traceback.h:15:55)
+INFO: [HLS 200-10] Analyzing design file '/home/yic033@AD.UCSD.EDU/DP-HLS/outputs/src/seq_align_multiple.cpp' ... 
+WARNING: [HLS 207-4827] equality comparison with extraneous parentheses (/usr/include/x86_64-linux-gnu/gmp.h:2142:345)
+INFO: [HLS 207-4186] remove extraneous parentheses around the comparison to silence this warning (/usr/include/x86_64-linux-gnu/gmp.h:2142:345)
+INFO: [HLS 207-4187] use '=' to turn this equality comparison into an assignment (/usr/include/x86_64-linux-gnu/gmp.h:2142:345)
+WARNING: [HLS 207-4827] equality comparison with extraneous parentheses (/usr/include/x86_64-linux-gnu/gmp.h:2142:383)
+INFO: [HLS 207-4186] remove extraneous parentheses around the comparison to silence this warning (/usr/include/x86_64-linux-gnu/gmp.h:2142:383)
+INFO: [HLS 207-4187] use '=' to turn this equality comparison into an assignment (/usr/include/x86_64-linux-gnu/gmp.h:2142:383)
+WARNING: [HLS 207-5292] unused parameter 'name' (/home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/autopilot/hls_streamofblocks.h:309:77)
+INFO: [HLS 200-111] Finished Source Code Analysis and Preprocessing: CPU user time: 64.46 seconds. CPU system time: 4.82 seconds. Elapsed time: 68.38 seconds; current allocated memory: 213.234 MB.
+INFO: [HLS 200-111] Finished Command csynth_design CPU user time: 64.52 seconds. CPU system time: 4.85 seconds. Elapsed time: 68.47 seconds; current allocated memory: -1030.117 MB.
+Error in llvm-link
+    while executing
+"source /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/csynth.tcl"
+    invoked from within
+"hls::main /home/yic033@AD.UCSD.EDU/DP-HLS/outputs/vitis/multiple_seq_align/solution2/csynth.tcl"
+    ("uplevel" body line 1)
+    invoked from within
+"uplevel 1 hls::main {*}$newargs"
+    (procedure "hls_proc" line 16)
+    invoked from within
+"hls_proc [info nameofexecutable] $argv"
+INFO: [HLS 200-112] Total CPU user time: 67.16 seconds. Total CPU system time: 5.64 seconds. Total elapsed time: 70.57 seconds; peak allocated memory: 1.214 GB.

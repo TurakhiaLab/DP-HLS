@@ -27,7 +27,7 @@ def check_configuration(config):
     Checks the configuration file for invalid configrations
     """
     valid_pe = ['affine', 'linear']
-    valid_align_block = ['local', 'global']
+    valid_align_block = ['local', 'global', 'legacy']
     kernel = config['kernel']
 
     if kernel['processing_element']['type'] not in valid_pe:
@@ -85,6 +85,13 @@ def write_source(config):
             align_type = 'AlignGlobalAffine'
         else:
             raise NotImplementedError
+    elif align_block['type'] == 'legacy':
+        if processing_element['type'] == 'linear':
+            pe_type = 'LinearPE'
+            align_type = 'SeqAlign'
+        elif processing_element['type'] == 'affine':
+            pe_type = 'AffinePE'
+            align_type = 'SeqAlign'
     else:
         raise NotImplementedError
 

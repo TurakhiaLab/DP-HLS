@@ -1,0 +1,125 @@
+{"sourceFile": [{
+      "name": "",
+      "directive": [
+        {
+          "functionName": "seq_align_multiple",
+          "label": "",
+          "functionLabel": "",
+          "id": "1",
+          "sourceFile": "\/home\/yic033@AD.UCSD.EDU\/DP-HLS\/outputs\/vitis\/multiple_seq_align\/solution2\/csynth.tcl",
+          "sourceLine": "25",
+          "pragma": {
+            "name": "TOP",
+            "option": [{
+                "name": "name",
+                "value": "seq_align_multiple"
+              }]
+          }
+        },
+        {
+          "functionName": "seq_align_multiple",
+          "label": "",
+          "functionLabel": "",
+          "id": "2",
+          "sourceFile": "\/home\/yic033@AD.UCSD.EDU\/DP-HLS\/outputs\/vitis\/multiple_seq_align\/solution2\/csynth.tcl",
+          "sourceLine": "25",
+          "pragma": {
+            "name": "TOP",
+            "option": [{
+                "name": "name",
+                "value": "seq_align_multiple"
+              }]
+          }
+        },
+        {
+          "functionName": "seq_align_multiple",
+          "label": "",
+          "functionLabel": "",
+          "id": "3",
+          "sourceFile": "\/home\/yic033@AD.UCSD.EDU\/DP-HLS\/outputs\/vitis\/multiple_seq_align\/solution2\/csynth.tcl",
+          "sourceLine": "25",
+          "pragma": {
+            "name": "TOP",
+            "option": [{
+                "name": "name",
+                "value": "seq_align_multiple"
+              }]
+          }
+        },
+        {
+          "functionName": "seq_align_multiple",
+          "label": "",
+          "functionLabel": "",
+          "id": "4",
+          "sourceFile": "\/home\/yic033@AD.UCSD.EDU\/DP-HLS\/outputs\/vitis\/multiple_seq_align\/solution2\/csynth.tcl",
+          "sourceLine": "25",
+          "pragma": {
+            "name": "TOP",
+            "option": [{
+                "name": "name",
+                "value": "seq_align_multiple"
+              }]
+          }
+        },
+        {
+          "functionName": "seq_align_multiple",
+          "label": "",
+          "functionLabel": "",
+          "id": "5",
+          "sourceFile": "\/home\/yic033@AD.UCSD.EDU\/DP-HLS\/outputs\/vitis\/multiple_seq_align\/solution2\/csynth.tcl",
+          "sourceLine": "25",
+          "pragma": {
+            "name": "TOP",
+            "option": [{
+                "name": "name",
+                "value": "seq_align_multiple"
+              }]
+          }
+        },
+        {
+          "functionName": "seq_align_multiple",
+          "label": "",
+          "functionLabel": "",
+          "id": "6",
+          "sourceFile": "\/home\/yic033@AD.UCSD.EDU\/DP-HLS\/outputs\/vitis\/multiple_seq_align\/solution2\/csynth.tcl",
+          "sourceLine": "25",
+          "pragma": {
+            "name": "TOP",
+            "option": [{
+                "name": "name",
+                "value": "seq_align_multiple"
+              }]
+          }
+        },
+        {
+          "functionName": "seq_align_multiple",
+          "label": "",
+          "functionLabel": "",
+          "id": "7",
+          "sourceFile": "\/home\/yic033@AD.UCSD.EDU\/DP-HLS\/outputs\/vitis\/multiple_seq_align\/solution2\/csynth.tcl",
+          "sourceLine": "25",
+          "pragma": {
+            "name": "TOP",
+            "option": [{
+                "name": "name",
+                "value": "seq_align_multiple"
+              }]
+          }
+        },
+        {
+          "functionName": "seq_align_multiple",
+          "label": "",
+          "functionLabel": "",
+          "id": "8",
+          "sourceFile": "\/home\/yic033@AD.UCSD.EDU\/DP-HLS\/outputs\/vitis\/multiple_seq_align\/solution2\/csynth.tcl",
+          "sourceLine": "25",
+          "pragma": {
+            "name": "TOP",
+            "option": [{
+                "name": "name",
+                "value": "seq_align_multiple"
+              }]
+          }
+        }
+      ]
+    }]}

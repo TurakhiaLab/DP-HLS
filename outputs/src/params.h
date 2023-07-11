@@ -9,10 +9,10 @@
 #define mismatch_score -1
 #define match_score 1
 
-#define query_length 256
-#define ref_length 256
+#define query_length 32
+#define ref_length 32
 
-#define PE_num 32
+#define PE_num 4
 #define numofreads 1
 
 #define query_chunks query_length/PE_num
@@ -22,7 +22,7 @@
 
 #define extra_PE_num query_length%PE_num
 
-#define N_BLOCKS 8
+#define N_BLOCKS 2
 
 #define TB_PH 0  // this is place holder
 #define	TB_LEFT 1
@@ -44,8 +44,6 @@ typedef ap_uint<3> tbp_line_t[TB_LINE_SIZE];
 
 #define corner_case 1
 
-#define query_chunks query_length / PE_num
-#define extra_PE_num query_length % PE_num
 
 // inflated ones takes care of corner case scenarios
 #define inflated_query_length query_chunks *PE_num + corner_case *PE_num
