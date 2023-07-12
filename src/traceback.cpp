@@ -71,14 +71,14 @@ int TraceBack::traceback(
         }
     }
     // FIXME: this is a hack to make sure the traceback is filled
-    while (tb_stream.empty())
-    {
-        tb_stream.write(TB_PH);
-#ifdef DEBUG
-        this->debugger->data.traceback.push_back(TB_PH);
-#endif // DEBUG
+//     while (tb_stream.empty())
+//     {
+//         tb_stream.write(TB_PH);
+// #ifdef DEBUG
+//         this->debugger->data.traceback.push_back(TB_PH);
+// #endif // DEBUG
 
-    }
+//     }
 
     return 0; // retrun the length of the traceback
 }

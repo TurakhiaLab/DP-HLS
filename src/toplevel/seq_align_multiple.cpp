@@ -12,7 +12,7 @@
 #include <hls_stream.h>
 #include "../../include/PE.h"
 #include "../../include/seq_align.h"
-#include "initial.h"
+#include "../../include/initial.h"
 #ifdef DEBUG
 #include "debug.h"
 #endif // DEBUG
@@ -34,22 +34,27 @@ extern "C" {
 		stream<char_t , MAX_REFERENCE_LENGTH> (&reference_string_comp_blocks)[N_BLOCKS],
 		stream<tbp_t, MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH> (&tb_streams)[N_BLOCKS],
 		int query_lengths[N_BLOCKS], int reference_lengths[N_BLOCKS],
-		InitialValues init_values) {
+		InitialValues init_values[N_BLOCKS]) {
 
 #pragma HLS INTERFACE axis port=query_string_comp_blocks
 #pragma HLS INTERFACE axis port=reference_string_comp_blocks
 #pragma HLS INTERFACE axis port=tb_streams
+#pragma HLS INTERFACE axis port=init_values
+#pragma HLS INTERFACE axis port=query_lengths
+#pragma HLS INTERFACE axis port=reference_lengths
 
-#pragma HLS array_partition variable=query_string_comp_blocks type=block factor=4 dim=1
-#pragma HLS array_partition variable=reference_string_comp_blocks type=block factor=4 dim=1
+#pragma HLS array_partition variable=init_values dim=1 type=complete
+#pragma HLS array_partition variable=query_lengths dim=1 type=complete
+#pragma HLS array_partition variable=reference_lengths dim=1 type=complete
+#pragma HLS array_partition variable=tb_streams dim=1 type=complete
+#pragma HLS array_partition variable=query_string_comp_blocks dim=1 type=complete
+#pragma HLS array_partition variable=reference_string_comp_blocks dim=1 type=complete
 
-		type_t dummies_inner[N_BLOCKS];  // actual alignment score, max of the dp matrix
 
-#pragma HLS array_partition variable=dummies type=complete
-#pragma HLS array_partition variable=dummies_inner type=complete
 
 		// create alignment group
 		Align align_group[N_BLOCKS];
+//#pragma HLS array_partition variable=align_group dim=1 type=complete
 
 #ifdef DEBUG
 		Debugger debug[N_BLOCKS];
@@ -71,7 +76,7 @@ extern "C" {
 				query_lengths[block_i],
 				reference_lengths[block_i],
 				tb_streams[block_i],
-				init_values);
+				init_values[block_i]);
 		}
 
 #ifdef DEBUG

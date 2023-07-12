@@ -1,9 +1,11 @@
 #ifndef PARAMS_H
 #define PARAMS_H
 
-#define ALIGN_LOCAL_LINEAR
-#define DEBUG
 
+#define TRACEBACK_ROW 30
+#define TRACEBACK_COL 30
+#define ALIGN_LOCAL_LINEAR
+#undef DEBUG
 // >>> LOCAL_LINEAR params >>>
 #ifdef ALIGN_LOCAL_LINEAR
 

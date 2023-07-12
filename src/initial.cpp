@@ -1,5 +1,5 @@
-#include "initial.h"
-#include "params.h"
+#include "../include/initial.h"
+#include "../include/params.h"
 
 InitialValues assign_value_local()  // This is a typical method for user to define their own initial values, with maximum flexibility. 
 {
