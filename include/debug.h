@@ -31,6 +31,7 @@ public:
         list<char_t> query;
         list<char_t> ref;
         list<tbp_t> traceback;
+        // hls::vector<tbp_t, N_LAYERS> traceback_matrix;
         list<hls::vector<type_t, N_LAYERS>> score[PE_NUM];
         int max_row;
         int max_col;
@@ -65,15 +66,11 @@ public:
     }
 
     static string tbp_to_ascii(tbp_t ptr) {
-        switch (ptr.to_int())
-        {
-        
-        case TB_DIAG: return "\u2196 "; break;
-        case TB_LEFT: return "\u2190 "; break;
-        case TB_UP: return "\u2191 "; break;
-
-        default:  case TB_PH: return "_"; break;
-        }
+        if (ptr == TB_DIAG) return "\u2196 ";
+        if (ptr == TB_LEFT) return "\u2190 ";
+        if (ptr == TB_UP) return "\u2191 ";
+        if (ptr == TB_PH) return "_";
+        return " ";
     }
 
     class MSG {
@@ -153,7 +150,7 @@ public:
         while (iter != this->data.traceback.end()) {
             /*printf("%d ", (*iter).to_int());
             printf("%s ", tbp_to_ascii(*iter));*/
-            fprintf(outputFile, "%d ", int(*iter++));
+            fprintf(outputFile, "%f ", float(*iter++));
 
         }
         fprintf(outputFile, "\n");

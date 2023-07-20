@@ -18,8 +18,8 @@ int main() {
 
     srand(time(NULL));
 
-    const int input_qry_length = 15;  // assume we know the length some how
-    const int input_ref_length = 17;
+    const int input_qry_length = 20;  // assume we know the length some how
+    const int input_ref_length = 20;
 
 
     char reference_string[N_BLOCKS][MAX_REFERENCE_LENGTH];
@@ -112,10 +112,9 @@ int main() {
     type_t dummies[N_BLOCKS];
 
     InitialValues initial_values[N_BLOCKS];
-    for (int i = 0; i < N_BLOCKS; i++){
+    for (int i = 0; i < N_BLOCKS; i++) {
         initial_values[i] = assign_value_local();
     }
-
     seq_align_multiple(query_string_comp, reference_string_comp, tb_streams, query_lengths, reference_lengths, initial_values);
 
     // for (int block_i = 0; block_i < N_BLOCKS; block_i++) {
