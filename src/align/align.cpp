@@ -53,9 +53,9 @@ kernel:
 	this->tracer.traceback(
 		this->tbmat,
 		traceback_out,
-		0,
-		10,
-		10
+		TB_START_LEVEL,
+		TB_START_ROW,
+		TB_START_COL
 	);
 
 }
@@ -103,7 +103,7 @@ void Align::compute_chunk(const int active_pe, const int row_length, int tb_idx)
 			this->dp_mem[0][0],
 			i == 0 ? this->zero_fp_arr : last_pe_score[last_row_r - 1],  // diagnoal
 			this->staging[0],  // scores to write to the dp_mem
-			this->tbmat[tb_idx][0][pe_cnt[0]++],
+			this->tbmat[tb_idx][0][pe_cnt[0]],
 			predicate[0]
 		);
 
@@ -117,10 +117,16 @@ void Align::compute_chunk(const int active_pe, const int row_length, int tb_idx)
 				dp_mem[pi][0],
 				dp_mem[pi - 1][1],
 				this->staging[pi],
-				this->tbmat[tb_idx][pi][pe_cnt[pi]++],
+				this->tbmat[tb_idx][pi][pe_cnt[pi]],
 				predicate[pi]
 			);
 		}
+
+		for (int pi = 0; pi < PE_NUM; pi++) {
+			if (predicate[pi]) pe_cnt[pi]++;
+		}
+
+
 
 #ifdef DEBUG
 		// this->debug->collect("staging", this->staging, PE_NUM);  // ifdef debug

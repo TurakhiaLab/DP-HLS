@@ -4,6 +4,7 @@
 
 #ifdef DEBUG
 #include <debug.h>
+#include <cstdio>
 #endif // DEBUG
 
 int TraceBack::traceback(
@@ -18,9 +19,7 @@ int TraceBack::traceback(
     int col = max_col;
 
     int chunk = max_row / PE_NUM;
-    LoopCounter<PE_NUM> pe_ctr(max_row % PE_NUM);
 
-    int cnt = 0;
 
 //#ifdef DEBUG
 //    for (int b = 0; b < 1; b++) {
@@ -34,51 +33,52 @@ int TraceBack::traceback(
 //#endif // DEBUG
 
     int level = max_layer;
-
-    // hls::vector<tbp_t, N_LAYERS>* tbvec_ptr = tbmat[][][];
+    hls::vector<tbp_t, N_LAYERS>* tbvec_ptr = &tbmat[chunk][max_row % PE_NUM][max_col];
     
-
+    printf("begin traceback\n");
     while (row >= 0 && col >= 0) {
-        hls::vector<tbp_t, N_LAYERS> tbptr_vec = tbmat[chunk][pe_ctr.val()][col];
-        tbp_t tbptr = tbptr_vec[level];
+        tbp_t tbptr = (*tbvec_ptr)[level];
+        float ptr_flt = tbptr.to_float();
         tb_stream.write(tbptr);
-        
+        // printf("iteration: %d\n", i++);
+        // printf("row %d, col: %d\n", row, col);
 #ifdef DEBUG
         this->debugger->data.traceback.push_back(tbptr);
 #endif // DEBUG
-        if (tbptr == TB_PH) { ++cnt;  break; }
-        switch (tbptr)
-        {
-        case TB_DIAG:
-            --row;
-            --col;
-            if (pe_ctr.val() == 0) { --chunk; };
-            --pe_ctr;
-            cnt += 1;  // even 2 steps is considered one write in streams
-            break;
-        case TB_UP:
-            --row;
-            if (pe_ctr.val() == 0) { --chunk; };
-            --pe_ctr;
-            cnt += 1;
-            break;
-        case TB_LEFT:
-            --col;
-            cnt += 1;
-            break;
-        default:
+
+        int level_prev = level;
+        tbp_dir_t dir; dir(1,0) = tbptr(1, 0);
+        level = tbptr(WT - 1, 2).to_int(); // extract layer bit
+        auto value_dir = dir.to_float();
+        
+        
+        if ((dir == TB_PH) && (level == level_prev)) {
+            printf("ending at: %f\n", tbptr.to_float());
             break;
         }
-    }
-    // FIXME: this is a hack to make sure the traceback is filled
-    while (tb_stream.empty())
-    {
-        tb_stream.write(TB_PH);
+        else if (dir == TB_PH) {
+            continue;
+        }
+        else if (dir == TB_DIAG) {
+            row--; col--;
+            tbvec_ptr -= (1 + MAX_REFERENCE_LENGTH);
+        }
+        else if (dir == TB_UP) {
+            row--;
+            tbvec_ptr -= MAX_REFERENCE_LENGTH;
+        }
+        else if (dir == TB_LEFT) {
+            col--;
+            tbvec_ptr -= 1;
+        }
+        else {
 #ifdef DEBUG
-        this->debugger->data.traceback.push_back(TB_PH);
+            printf("default meet: %f, dir: %f\n", tbptr.to_float(), dir.to_float());
 #endif // DEBUG
+            break;  //break the loop
+        }
 
+        
     }
-
     return 0; // retrun the length of the traceback
 }

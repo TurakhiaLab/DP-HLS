@@ -18,8 +18,8 @@ int main() {
 
     srand(time(NULL));
 
-    const int input_qry_length = 15;  // assume we know the length some how
-    const int input_ref_length = 17;
+    const int input_qry_length = 20;  // assume we know the length some how
+    const int input_ref_length = 20;
 
 
     char reference_string[N_BLOCKS][MAX_REFERENCE_LENGTH];

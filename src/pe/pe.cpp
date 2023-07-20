@@ -19,21 +19,24 @@ void PE::compute(
 	hls::vector<tbp_t, N_LAYERS>& tb_write,
 	bool predicate)
 {
-	type_t up = left_prev[0] + linear_gap_penalty;
-	type_t left = up_prev[0] + linear_gap_penalty;
+	// >>> take scroes >>> 
+	type_t up = up_prev[0] + linear_gap_penalty;
+	type_t left = left_prev[0] + linear_gap_penalty;
 
 
 	type_t match = (local_query_val == local_reference_val) ? diag_prev[0] + match_score : diag_prev[0] + mismatch_score;
 
+	// >>> set traceback pointers
 	type_t max = up > left ? up : left;
 	max = max > match ? max : match;
 	max = max > zero_fp ? max : zero_fp;
 
+
 	if (predicate)
 	{
 		write_score[0] = max;
-		if (write_score[0] == zero_fp) { tb_write[0] = TB_PH; }
-		else { tb_write[0] = (max == match) ? TB_DIAG : ((max == left) ? TB_LEFT : TB_UP); }
+		if (write_score[0] == zero_fp) { tb_write[0] = tbp_t(0) + TB_PH; }
+		else { tb_write[0] = (max == match) ? tbp_t(0) + TB_DIAG : ((max == left) ? (tbp_t(0)+TB_LEFT) : (tbp_t(0) + TB_UP) ); }
 
 #ifdef DEBUG
 
@@ -96,14 +99,14 @@ void PE::compute(
 	bool predicate)
 {
 	/*
-	* 1: P
-	* 2: D
-	* 3: Q
+	* 0: P
+	* 1: D
+	* 2: Q
 	*/
 
 	const type_t pd = up_prev[1] + opening_score + extend_score;
 	const type_t pp = up_prev[0] + extend_score;
-	const type_t qd = left_prev[1] + opening_score;
+	const type_t qd = left_prev[1] + opening_score + extend_score;
 	const type_t qq = left_prev[3] + extend_score;
 
 	const type_t max_p = pd > pp ? pd : pp;
@@ -117,29 +120,29 @@ void PE::compute(
 
 	if (predicate)
 	{
-		write_score[1] = max;
+		
 		write_score[0] = max_p;
+		write_score[1] = max;
 		write_score[2] = max_q;
 
-		// FIXME: Traceback not correct yet
-		if (write_score[0] == zero_fp) { tb_write[0] = TB_PH; }
-		else { tb_write[0] = (max == match) ? TB_DIAG : ((max == max_p) ? TB_UP : TB_LEFT); }
+		// If same layer and PH, then terminate, since it cannot point to itself
+
+		// Diagonal Matrix Pointer Set
+		if (write_score[1] == zero_fp) { tb_write[1] = (tbp_t(1.0) + TB_PH); }
+		else { tb_write[1] = (max == match) ? (tbp_t(1.0) + TB_DIAG) : ( (max == max_p) ? (tbp_t(0.0) + TB_PH) : (tbp_t(2.0) +  TB_PH) ) ; }
+
+		// P matrix set
+		tb_write[0] = (max_p == pd) ? (tbp_t(1.0) + TB_UP) : (tbp_t(0.0) + TB_UP);
+
+		// Q matrix set
+		tb_write[2] = (max_q == qd) ? (tbp_t(1.0) + TB_LEFT) : (tbp_t(3.0) + TB_LEFT);
+
 
 #ifdef DEBUG
 		this->score->push_back(write_score);
 #endif // DEBUG
 
 	}
-
-	// *traceback = (max_value == match) ? 1 : ((max_value == a1) ? 2 : ((max_value == a2) ? 3 : ((max_value == a3) ? 4 : 5)));
-
-	//printf("local query is %c, local ref is %c, max_value is %d, match is %d, a1 is %d, a2 is %d, a3 is %d, a4 is %d\n",
-	//		local_query_val, local_ref_val, max_value, match, a1, a2, a3, a4);
-
-
-
-	// when local query is 0 (in case of corner case), PE will give out 0 as output without any computation
-
 
 }
 
