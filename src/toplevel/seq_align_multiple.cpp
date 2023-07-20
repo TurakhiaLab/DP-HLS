@@ -43,12 +43,12 @@ extern "C" {
 #pragma HLS INTERFACE axis port=query_lengths
 #pragma HLS INTERFACE axis port=reference_lengths
 
-#pragma HLS array_partition variable=init_values dim=1 type=complete
-#pragma HLS array_partition variable=query_lengths dim=1 type=complete
-#pragma HLS array_partition variable=reference_lengths dim=1 type=complete
-#pragma HLS array_partition variable=tb_streams dim=1 type=complete
-#pragma HLS array_partition variable=query_string_comp_blocks dim=1 type=complete
-#pragma HLS array_partition variable=reference_string_comp_blocks dim=1 type=complete
+#pragma HLS array_partition variable=init_values dim=1 type=block factor=8
+#pragma HLS array_partition variable=query_lengths dim=1 type=block factor=8
+#pragma HLS array_partition variable=reference_lengths dim=1 type=block factor=8
+#pragma HLS array_partition variable=tb_streams dim=1 type=block factor=8
+#pragma HLS array_partition variable=query_string_comp_blocks type=block factor=8
+#pragma HLS array_partition variable=reference_string_comp_blocks dim=1 type=block factor=8
 
 
 
