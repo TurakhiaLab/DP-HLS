@@ -1,0 +1,86 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.3.2"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "DP-HLS",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "align_global_affine::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-align_global_affine-Debug-86b08f7231663e3159df.json",
+					"name" : "align_global_affine",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "align_global_linear::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-align_global_linear-Debug-3fb8afe81601e1371492.json",
+					"name" : "align_global_linear",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "align_local_affine::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-align_local_affine-Debug-c7326cf04a649e016f88.json",
+					"name" : "align_local_affine",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "align_local_linear::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-align_local_linear-Debug-1aa326ea88a93ee31807.json",
+					"name" : "align_local_linear",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/home/yic033@AD.UCSD.EDU/DP-HLS/build",
+		"source" : "/home/yic033@AD.UCSD.EDU/DP-HLS"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 0
+	}
+}

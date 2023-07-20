@@ -40,6 +40,7 @@ class Align {
 public:
 	// declear them here so don't need to pass them as function arguments
 
+
 	// an 3d array is enough to do store the traceback. 
 	ShiftRegister<char_t, PE_NUM> local_reference;
 	ShiftRegister<char_t, PE_NUM> local_query;
@@ -86,6 +87,7 @@ public:
 
 private:
 	hls::vector<type_t, N_LAYERS>  staging[PE_NUM];
+
 };
 
 //class AlignLocalAffine : SeqAlign {

@@ -1,8 +1,8 @@
-#include "params.h"
+#include "../../include/params.h"
 #include "../../include/seq_align.h"
 #include "../../include/PE.h"
 #include "../../include/utils.h"
-#include "initial.h"
+#include "../../include/initial.h"
 #include <hls_stream.h>
 
 using namespace hls;
@@ -76,7 +76,7 @@ void Align::compute_chunk(const int active_pe, const int row_length, int tb_idx)
 	}  // This is where we actually needs the left shift operations
 
 	for (int i = 0; i < active_pe + row_length - 1; i++) {
-
+#pragma HLS pipeline II=1
 
 		this->dp_mem.shift_right(this->staging);  // initialize the DP-Mem to be 0
 
@@ -110,6 +110,7 @@ void Align::compute_chunk(const int active_pe, const int row_length, int tb_idx)
 		if (predicate[0]) last_row_r++;  // If read, update the pointer
 
 		for (int pi = 1; pi < PE_NUM; pi++) {
+#pragma HLS unroll
 			this->PE_group[pi].compute(
 				this->local_query[pi],
 				this->local_reference[pi],
@@ -143,10 +144,13 @@ void Align::init(
 	const int query_length, const int reference_length,
 	stream<tbp_t, MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH>& traceback_out,
 	InitialValues init_values) {
-
-#pragma HLS array_partition variable=staging type=complete
-
 	// copy reference
+#pragma HLS array_partition variable=staging type=complete
+#pragma HLS array_partition variable=tbmat type=complete dim=2
+
+#pragma HLS bind_storage variable=staging type=RAM_1WNR impl=LUTRAM
+#pragma HLS bind_storage variable=local_reference type=RAM_1WNR impl=LUTRAM
+#pragma HLS bind_storage variable=local_query type=RAM_1WNR impl=LUTRAM
 
 	for (int i = 0; i < MAX_REFERENCE_LENGTH; i++) {
 		this->reference[i] = reference_stream.read();

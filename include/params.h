@@ -2,8 +2,7 @@
 #define PARAMS_H
 
 #define ALIGN_LOCAL_AFFINE
-#define DEBUG
-
+#undef DEBUG
 // >>> LOCAL_LINEAR params >>>
 #ifdef ALIGN_LOCAL_LINEAR
 
