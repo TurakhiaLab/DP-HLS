@@ -11,10 +11,10 @@
 
 #include <ap_fixed.h>
 
-#define MAX_QUERY_LENGTH 32
-#define MAX_REFERENCE_LENGTH 32
+#define MAX_QUERY_LENGTH 256
+#define MAX_REFERENCE_LENGTH 256
 
-#define PE_NUM 8
+#define PE_NUM 32
 
 #define numofreads 1
 
@@ -27,7 +27,7 @@
 
 //#define DEBUG
 
-#define N_BLOCKS 4
+#define N_BLOCKS 8
 
 #define TB_PH 0  // this is place holder
 #define	TB_LEFT 1
