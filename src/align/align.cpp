@@ -28,7 +28,7 @@ void Align::align(
 	// iterating through the chunks of the larger dp matrix
 
 kernel:
-	for (int row_idx = 0, row_cnt = 0; row_idx < query_length; row_idx += PE_NUM, row_cnt++) {
+	for (int row_idx = 0; row_idx < query_length; row_idx += PE_NUM) {
 		for (int i = 0; i < PE_NUM; i++) {
 			for (int j = 0; j < N_LAYERS; j++) {
 				this->staging[i][j] = this->init_staging_score[this->init_left_brim_addr][j];
@@ -46,7 +46,7 @@ kernel:
 		this->compute_chunk(
 			PE_NUM < query_length - row_idx ? PE_NUM : query_length - row_idx,
 			reference_length,
-			row_cnt
+			row_idx
 		);
 	}
 
@@ -107,7 +107,7 @@ void Align::compute_chunk(const int active_pe, const int row_length, int tb_idx)
 			this->dp_mem[0][0],
 			i == 0 ? this->zero_fp_arr : last_pe_score[last_row_r - 1],  // diagnoal
 			this->staging[0],  // scores to write to the dp_mem
-			this->tbmat[tb_idx][0][pe_cnt[0]],
+			this->tbmat[tb_idx + 0][pe_cnt[0]],
 			predicate[0]
 		);
 
@@ -122,7 +122,7 @@ void Align::compute_chunk(const int active_pe, const int row_length, int tb_idx)
 				dp_mem[pi][0],
 				dp_mem[pi - 1][1],
 				this->staging[pi],
-				this->tbmat[tb_idx][pi][pe_cnt[pi]],
+				this->tbmat[tb_idx + pi][pe_cnt[pi]],
 				predicate[pi]
 			);
 		}

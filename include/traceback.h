@@ -24,7 +24,7 @@ public:
     }
 
     int traceback(
-        hls::vector<tbp_t, N_LAYERS> tbmat[MAX_QUERY_LENGTH/PE_NUM][PE_NUM][MAX_REFERENCE_LENGTH],
+        hls::vector<tbp_t, N_LAYERS> tbmat[MAX_QUERY_LENGTH][MAX_REFERENCE_LENGTH],
         stream<tbp_t, MAX_REFERENCE_LENGTH+MAX_QUERY_LENGTH> &tb_stream, 
         const int max_layer, const int max_row, const int max_col);
 

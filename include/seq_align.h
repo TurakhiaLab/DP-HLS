@@ -58,7 +58,7 @@ public:
 
 	ShiftRegisterBlock<hls::vector<type_t, N_LAYERS>, PE_NUM, 2> dp_mem;
 
-	hls::vector<tbp_t, N_LAYERS> tbmat[MAX_QUERY_LENGTH/PE_NUM][PE_NUM][MAX_REFERENCE_LENGTH];  // NOTE the corner case
+	hls::vector<tbp_t, N_LAYERS> tbmat[MAX_QUERY_LENGTH][MAX_REFERENCE_LENGTH];  // NOTE the corner case
 
 	TraceBack tracer;
 
