@@ -120,22 +120,23 @@ void PE::compute(
 
 	if (predicate)
 	{
-		
-		write_score[0] = max_p;
-		write_score[1] = max;
-		write_score[2] = max_q;
-
-		// If same layer and PH, then terminate, since it cannot point to itself
+		write_score = {max_p, max, max_q};
 
 		// Diagonal Matrix Pointer Set
-		if (write_score[1] == zero_fp) { tb_write[1] = (tbp_t(1.0) + TB_PH); }
-		else { tb_write[1] = (max == match) ? (tbp_t(1.0) + TB_DIAG) : ( (max == max_p) ? (tbp_t(0.0) + TB_PH) : (tbp_t(2.0) +  TB_PH) ) ; }
-
-		// P matrix set
-		tb_write[0] = (max_p == pd) ? (tbp_t(1.0) + TB_UP) : (tbp_t(0.0) + TB_UP);
-
-		// Q matrix set
-		tb_write[2] = (max_q == qd) ? (tbp_t(1.0) + TB_LEFT) : (tbp_t(3.0) + TB_LEFT);
+		if (max == zero_fp) { 
+			tb_write = {
+				(max_p == pd) ? (tbp_t(1.0) + TB_UP) : (tbp_t(0.0) + TB_UP),
+				(tbp_t(1.0) + TB_PH),
+				(max_q == qd) ? (tbp_t(1.0) + TB_LEFT) : (tbp_t(3.0) + TB_LEFT)
+			}; 
+		}
+		else { 
+			tb_write = {
+				(max_p == pd) ? (tbp_t(1.0) + TB_UP) : (tbp_t(0.0) + TB_UP),
+				(max == match) ? (tbp_t(1.0) + TB_DIAG) : ( (max == max_p) ? (tbp_t(0.0) + TB_PH) : (tbp_t(2.0) +  TB_PH) ),
+				(max_q == qd) ? (tbp_t(1.0) + TB_LEFT) : (tbp_t(3.0) + TB_LEFT)
+			}; 
+		}
 
 
 #ifdef DEBUG

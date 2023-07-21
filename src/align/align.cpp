@@ -14,7 +14,6 @@ void Align::align(
 	stream<tbp_t, MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH>& traceback_out,
 	InitialValues init_values) {
 
-	type_t temp = 0;
 
 	this->init(
 		query_stream,
@@ -37,8 +36,6 @@ kernel:
 
 		}  // initialize very first column of a chunk
 
-
-
 #ifdef DEBUG
 		this->debug->collect("initial staging", this->staging, PE_NUM);  // ifdef debug
 #endif
@@ -49,10 +46,6 @@ kernel:
 			row_idx
 		);
 	}
-
-	// hls::vector<tbp_t, N_LAYERS> (*test)[MAX_REFERENCE_LENGTH] = (this->tbmat)[0];
-
-	// foo: foo(test);
 
 	this->tracer.traceback(
 		this->tbmat,
@@ -66,13 +59,16 @@ kernel:
 
 void Align::compute_chunk(const int active_pe, const int row_length, int tb_idx) {
 	char_t* reference_ptr = this->reference;
-	addr_t last_row_r = 0;  // last row read
-	addr_t last_row_w = 0;  // last row write
+	hls::vector<type_t, N_LAYERS> *last_row_r = this->last_pe_score;  // last row read
+	hls::vector<type_t, N_LAYERS> *last_row_w = this->last_pe_score;  // last row write
 
 	this->dp_mem.clear();
 
 	int pe_cnt[PE_NUM];
-	for (int i = 0; i < PE_NUM; i++) { pe_cnt[i] = 0; }
+#pragma HLS ARRAY_PARTITION variable=pe_cnt type=complete
+	for (int i = 0; i < PE_NUM; i++) { 
+#pragma HLS unroll
+		pe_cnt[i] = 0; }
 
 	for (int i = 0; i < PE_NUM; i++) {  // populate the query
 		this->local_query.shift_left(
@@ -103,9 +99,9 @@ void Align::compute_chunk(const int active_pe, const int row_length, int tb_idx)
 		this->PE_group[0].compute(
 			this->local_query[0],
 			this->local_reference[0],
-			last_pe_score[last_row_r],  // FIXME! This is not correct, try to verify the correct pointer/reference
+			*last_row_r,  // FIXME! This is not correct, try to verify the correct pointer/reference
 			this->dp_mem[0][0],
-			i == 0 ? this->zero_fp_arr : last_pe_score[last_row_r - 1],  // diagnoal
+			i == 0 ? this->zero_fp_arr : *(last_row_r-1),  // diagnoal
 			this->staging[0],  // scores to write to the dp_mem
 			this->tbmat[tb_idx + 0][pe_cnt[0]],
 			predicate[0]
@@ -128,16 +124,15 @@ void Align::compute_chunk(const int active_pe, const int row_length, int tb_idx)
 		}
 
 		for (int pi = 0; pi < PE_NUM; pi++) {
+#pragma HLS unroll
 			if (predicate[pi]) pe_cnt[pi]++;
 		}
-
-
 
 #ifdef DEBUG
 		// this->debug->collect("staging", this->staging, PE_NUM);  // ifdef debug
 		// this->debug->collect("last_pe_score", this->last_pe_score, row_length);  // ifdef debug
 #endif
-		if (predicate[PE_NUM - 1]) { this->last_pe_score[last_row_w++] = this->staging[PE_NUM - 1]; }  // If write, update the pointer
+		if (predicate[PE_NUM - 1]) { *last_row_w++ = this->staging[PE_NUM - 1]; }  // If write, update the pointer
 
 	}
 }
@@ -150,9 +145,9 @@ void Align::init(
 	InitialValues init_values) {
 	// copy reference
 #pragma HLS array_partition variable=staging type=complete
-#pragma HLS array_partition variable=tbmat type=complete dim=2
+#pragma HLS array_partition variable=tbmat type=complete
+#pragma HLS array_partition variable=predicate type=complete
 
-#pragma HLS bind_storage variable=staging type=RAM_1WNR impl=LUTRAM
 #pragma HLS bind_storage variable=local_reference type=RAM_1WNR impl=LUTRAM
 #pragma HLS bind_storage variable=local_query type=RAM_1WNR impl=LUTRAM
 
@@ -160,16 +155,14 @@ void Align::init(
 		this->reference[i] = reference_stream.read();
 	}
 
-	for (int l = 0; l < N_LAYERS; l++) {
-		for (int i = 0; i < MAX_REFERENCE_LENGTH; i++) {
+	for (int i = 0; i < MAX_REFERENCE_LENGTH; i++) {
+		for (int l = 0; l < N_LAYERS; l++) {
 			// initialize last query
 			this->last_pe_score[i][l] = init_values.init_ref_scr[i][l];
 		}
 	}
 
-
 	// copy query
-
 	for (int i = 0; i < MAX_QUERY_LENGTH; i++) {
 		this->query[i] = query_stream.read();  // copy query
 		for (int j = 0; j < N_LAYERS; j++) {
