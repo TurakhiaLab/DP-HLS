@@ -4,7 +4,7 @@
 #include "../../include/utils.h"
 #include "../../include/initial.h"
 #include <hls_stream.h>
-
+#include "trivial.h"
 using namespace hls;
 
 void Align::align(
@@ -49,6 +49,10 @@ kernel:
 			row_cnt
 		);
 	}
+
+	// hls::vector<tbp_t, N_LAYERS> (*test)[MAX_REFERENCE_LENGTH] = (this->tbmat)[0];
+
+	// foo: foo(test);
 
 	this->tracer.traceback(
 		this->tbmat,

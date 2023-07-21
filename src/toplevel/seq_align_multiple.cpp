@@ -34,21 +34,21 @@ extern "C" {
 		stream<char_t , MAX_REFERENCE_LENGTH> (&reference_string_comp_blocks)[N_BLOCKS],
 		stream<tbp_t, MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH> (&tb_streams)[N_BLOCKS],
 		int query_lengths[N_BLOCKS], int reference_lengths[N_BLOCKS],
-		InitialValues init_values[N_BLOCKS]) {
+		InitialValues (&init_values)[N_BLOCKS]) {
 
-#pragma HLS INTERFACE axis port=query_string_comp_blocks
-#pragma HLS INTERFACE axis port=reference_string_comp_blocks
-#pragma HLS INTERFACE axis port=tb_streams
-#pragma HLS INTERFACE axis port=init_values
-#pragma HLS INTERFACE axis port=query_lengths
-#pragma HLS INTERFACE axis port=reference_lengths
+// #pragma HLS INTERFACE axis port=query_string_comp_blocks
+// #pragma HLS INTERFACE axis port=reference_string_comp_blocks
+// #pragma HLS INTERFACE axis port=tb_streams
+// #pragma HLS INTERFACE axis port=init_values
+// #pragma HLS INTERFACE axis port=query_lengths
+// #pragma HLS INTERFACE axis port=reference_lengths
 
-#pragma HLS array_partition variable=init_values dim=1 type=block factor=8
-#pragma HLS array_partition variable=query_lengths dim=1 type=block factor=8
-#pragma HLS array_partition variable=reference_lengths dim=1 type=block factor=8
-#pragma HLS array_partition variable=tb_streams dim=1 type=block factor=8
-#pragma HLS array_partition variable=query_string_comp_blocks type=block factor=8
-#pragma HLS array_partition variable=reference_string_comp_blocks dim=1 type=block factor=8
+// #pragma HLS array_partition variable=init_values dim=1 type=block factor=4
+// #pragma HLS array_partition variable=query_lengths dim=1 type=block factor=4
+// #pragma HLS array_partition variable=reference_lengths dim=1 type=block factor=4
+// #pragma HLS array_partition variable=tb_streams dim=1 type=block factor=4
+// #pragma HLS array_partition variable=query_string_comp_blocks type=block factor=4
+// #pragma HLS array_partition variable=reference_string_comp_blocks dim=1 type=block factor=4
 
 
 

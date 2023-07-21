@@ -35,10 +35,10 @@ int TraceBack::traceback(
     int level = max_layer;
     hls::vector<tbp_t, N_LAYERS>* tbvec_ptr = &tbmat[chunk][max_row % PE_NUM][max_col];
     
-    printf("begin traceback\n");
+    // printf("begin traceback\n");
     while (row >= 0 && col >= 0) {
         tbp_t tbptr = (*tbvec_ptr)[level];
-        float ptr_flt = tbptr.to_float();
+        // float ptr_flt = tbptr.to_float();
         tb_stream.write(tbptr);
         // printf("iteration: %d\n", i++);
         // printf("row %d, col: %d\n", row, col);
@@ -49,11 +49,11 @@ int TraceBack::traceback(
         int level_prev = level;
         tbp_dir_t dir; dir(1,0) = tbptr(1, 0);
         level = tbptr(WT - 1, 2).to_int(); // extract layer bit
-        auto value_dir = dir.to_float();
+        // auto value_dir = dir.to_float();
         
         
         if ((dir == TB_PH) && (level == level_prev)) {
-            printf("ending at: %f\n", tbptr.to_float());
+            // printf("ending at: %f\n", tbptr.to_float());
             break;
         }
         else if (dir == TB_PH) {

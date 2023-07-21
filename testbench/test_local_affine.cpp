@@ -11,7 +11,7 @@
 #include <ap_fixed.h>
 #include <hls_stream.h>
 #include <hls_streamofblocks.h>
-#include "initial.h"
+#include "../include/initial.h"
 using namespace hls;
 
 int main() {

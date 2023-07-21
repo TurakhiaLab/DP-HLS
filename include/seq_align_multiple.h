@@ -20,7 +20,7 @@ extern "C" {
 		stream<char_t, MAX_REFERENCE_LENGTH> (&reference_string_comp_blocks)[N_BLOCKS],
 		stream<tbp_t, MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH> (&tb_streams)[N_BLOCKS],
 		int query_lengths[N_BLOCKS], int reference_lengths[N_BLOCKS],
-		InitialValues init_values[N_BLOCKS]);
+		InitialValues (&init_values)[N_BLOCKS]);
 }
 
 #endif
