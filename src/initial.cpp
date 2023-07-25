@@ -19,6 +19,18 @@ InitialValues assign_value_local()  // This is a typical method for user to defi
 	return values;
 }
 
+void assign_qry_local_linear(hls::stream<hls::vector<type_t, N_LAYERS>, MAX_QUERY_LENGTH> &stm){
+	for (int i = 0; i < MAX_QUERY_LENGTH; i++){
+		stm.write({0});
+	}
+}
+void assign_ref_local_linear(hls::stream<hls::vector<type_t, N_LAYERS>, MAX_REFERENCE_LENGTH> &stm){
+	for (int i = 0; i < MAX_REFERENCE_LENGTH; i++){
+		stm.write({0});
+	}
+}
+
+
 void assign_qry_local_affine(hls::stream<hls::vector<type_t, N_LAYERS>, MAX_QUERY_LENGTH> &stm){
 	for (int i = 0; i < MAX_QUERY_LENGTH; i++){
 		stm.write({0, 0, -9999});
@@ -40,8 +52,6 @@ InitialValues assign_value_global()  // This is a typical method for user to def
 	for (int i = 0; i < MAX_REFERENCE_LENGTH; i++) {
 		row_val += linear_gap_penalty;
 		values.init_ref_scr[i] = (type_t)row_val;
-		
-
 	}
 
 	type_t col_val = 0;

@@ -45,8 +45,8 @@ public:
 	ShiftRegister<char_t, PE_NUM> local_reference;
 	ShiftRegister<char_t, PE_NUM> local_query;
 
-	addr_t query_ptr = 0;
-	addr_t init_left_brim_addr = 0;
+	idx_t query_ptr = 0;
+	idx_t init_left_brim_addr = 0;
 
 	char_t reference[MAX_REFERENCE_LENGTH];
 	char_t query[MAX_QUERY_LENGTH];

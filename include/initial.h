@@ -17,5 +17,8 @@ void assign_qry_local_affine(hls::stream<hls::vector<type_t, N_LAYERS>, MAX_QUER
 void assign_ref_local_affine(hls::stream<hls::vector<type_t, N_LAYERS>, MAX_REFERENCE_LENGTH> &stm);
 
 
+void assign_qry_local_linear(hls::stream<hls::vector<type_t, N_LAYERS>, MAX_QUERY_LENGTH> &stm);
+void assign_ref_local_linear(hls::stream<hls::vector<type_t, N_LAYERS>, MAX_REFERENCE_LENGTH> &stm);
+
 
 #endif // !INITIAL_H

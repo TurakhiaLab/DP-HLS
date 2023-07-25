@@ -21,10 +21,11 @@ void Align::align(
 #pragma HLS array_partition variable = this->predicate dim = 1 type = complete
 #pragma HLS array_partition variable = this->local_reference dim = 1 type = complete
 #pragma HLS array_partition variable = this->local_query dim = 1 type = complete
+#pragma HLS array_partition variable = this->last_pe_score type = complete
 
 #pragma HLS bind_storage variable = this->local_reference type = RAM_1WNR impl = LUTRAM
 #pragma HLS bind_storage variable = this->local_query type = RAM_1WNR impl = LUTRAM
-#pragma HLS bind_storage variable = this->last_pe_score type = RAM_1WNR impl = LUTRAM
+// #pragma HLS bind_storage variable = this->last_pe_score type = RAM_1WNR impl = LUTRAM
 
 	this->init(
 		query_stream,
@@ -71,8 +72,8 @@ kernel:
 void Align::compute_chunk(const int active_pe, const int row_length, int tb_idx)
 {
 	char_t *reference_ptr = this->reference;
-	hls::vector<type_t, N_LAYERS> *last_row_r = this->last_pe_score; // last row read
-	hls::vector<type_t, N_LAYERS> *last_row_w = this->last_pe_score; // last row write
+	idx_t last_row_r = 0; // last row read
+	idx_t last_row_w = 0; // last row write
 
 	this->dp_mem.clear();
 
@@ -117,9 +118,9 @@ void Align::compute_chunk(const int active_pe, const int row_length, int tb_idx)
 		this->PE_group[0].compute(
 			this->local_query[0],
 			this->local_reference[0],
-			*last_row_r,
+			this->last_pe_score[last_row_r],
 			this->dp_mem[0][0],
-			i == 0 ? this->zero_fp_arr : *(last_row_r - 1), // diagnoal
+			i == 0 ? this->zero_fp_arr : this->last_pe_score[last_row_r - 1], // diagnoal
 			this->staging[0],								// scores to write to the dp_mem
 			this->tbmat[tb_idx + 0][pe_cnt[0]],
 			predicate[0]);
@@ -154,7 +155,7 @@ void Align::compute_chunk(const int active_pe, const int row_length, int tb_idx)
 #endif
 		if (predicate[PE_NUM - 1])
 		{
-			*last_row_w++ = this->staging[PE_NUM - 1];
+			this->last_pe_score[last_row_w++] = this->staging[PE_NUM - 1];
 		} // If write, update the pointer
 	}
 }
@@ -168,8 +169,6 @@ void Align::init(
 	stream<tbp_t, MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH> &traceback_out)
 {
 	// copy reference
-
-
 	for (int i = 0; i < MAX_REFERENCE_LENGTH; i++)
 	{
 #pragma HLS dependence variable = last_pe_score type = inter dependent = false

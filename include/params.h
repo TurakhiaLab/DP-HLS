@@ -86,6 +86,7 @@ typedef char_t ref_buf[chunk_width];
 #ifdef ALIGN_LOCAL_AFFINE
 
 #include <ap_fixed.h>
+#include <hls_vector.h>
 
 #define MAX_QUERY_LENGTH 32
 #define MAX_REFERENCE_LENGTH 32
@@ -110,11 +111,9 @@ typedef char_t ref_buf[chunk_width];
 
 typedef ap_uint<3> char_t;
 typedef ap_fixed<MT, NT> type_t;  // alias type_t with ap_fixed<M,N>
-typedef ap_uint<16> addr_t;  // define a address type to resolve the pointer to pointer problems
+typedef ap_uint<8> idx_t; // define a address type to resolve the pointer to pointer problems
 typedef ap_ufixed<WT, IT> tbp_t;
 typedef ap_ufixed<2, 0> tbp_dir_t;
-
-typedef ap_uint<8> idx_t;
 
 #define zero_fp ((type_t)0)
 
@@ -143,6 +142,9 @@ typedef ap_uint<8> idx_t;
 #define inflated_query_chunks (query_chunks + corner_case)
 
 #define N_LAYERS 3
+
+typedef hls::vector<type_t, N_LAYERS> score_vec_t;
+typedef hls::vector<tbp_t, N_LAYERS> tbp_vec_t;
 
 #endif 
 
