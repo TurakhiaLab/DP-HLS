@@ -1,6 +1,7 @@
 #include "../include/initial.h"
 #include "../include/params.h"
-
+#include <hls_stream.h>
+#include <hls_vector.h>
 InitialValues assign_value_local()  // This is a typical method for user to define their own initial values, with maximum flexibility. 
 {
 	// here is an example of linear local decleration, with all 0 initialized. 
@@ -18,25 +19,15 @@ InitialValues assign_value_local()  // This is a typical method for user to defi
 	return values;
 }
 
-InitialValues assign_value_local_affine()  // This is a typical method for user to define their own initial values, with maximum flexibility. 
-{
-	// here is an example of linear local decleration, with all 0 initialized. 
-	InitialValues values;
-
-	for (int i = 0; i < MAX_REFERENCE_LENGTH; i++) {
-		values.init_ref_scr[i][0] = (type_t)-9999;
-		values.init_ref_scr[i][1] = (type_t)0;
-		values.init_ref_scr[i][2] = (type_t)0;
+void assign_qry_local_affine(hls::stream<hls::vector<type_t, N_LAYERS>, MAX_QUERY_LENGTH> &stm){
+	for (int i = 0; i < MAX_QUERY_LENGTH; i++){
+		stm.write({0, 0, -9999});
 	}
-
-
-	for (int i = 0; i < MAX_QUERY_LENGTH; i++) {
-		values.init_qry_scr[i][0] = (type_t)0;
-		values.init_qry_scr[i][1] = (type_t)0;
-		values.init_qry_scr[i][2] = (type_t)-9999;
+}
+void assign_ref_local_affine(hls::stream<hls::vector<type_t, N_LAYERS>, MAX_REFERENCE_LENGTH> &stm){
+	for (int i = 0; i < MAX_REFERENCE_LENGTH; i++){
+		stm.write({-9999, 0, 0});
 	}
-
-	return values;
 }
 
 

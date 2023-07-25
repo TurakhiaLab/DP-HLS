@@ -111,11 +111,21 @@ int main() {
 
     type_t dummies[N_BLOCKS];
 
-    InitialValues initial_values[N_BLOCKS];
+    hls::stream<hls::vector<type_t, N_LAYERS>, MAX_QUERY_LENGTH> init_qry_scr[N_BLOCKS];
+	hls::stream<hls::vector<type_t, N_LAYERS>, MAX_REFERENCE_LENGTH> init_ref_scr[N_BLOCKS];
+
     for (int i = 0; i < N_BLOCKS; i++) {
-        initial_values[i] = assign_value_local();
+        assign_qry_local_affine(init_qry_scr[i]);
+        assign_ref_local_affine(init_ref_scr[i]);
     }
-    seq_align_multiple(query_string_comp, reference_string_comp, tb_streams, query_lengths, reference_lengths, initial_values);
+    seq_align_multiple(
+        query_string_comp, 
+        reference_string_comp,
+        init_qry_scr,
+        init_ref_scr, 
+        query_lengths[0], 
+        reference_lengths[0], 
+        tb_streams);
 
     // for (int block_i = 0; block_i < N_BLOCKS; block_i++) {
     //     for (int i = 0; i < MAX_QUERY_LENGTH + MAX_REFERENCE_LENGTH; i++) {

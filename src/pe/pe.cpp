@@ -98,11 +98,15 @@ void PE::compute(
 	hls::vector<tbp_t, N_LAYERS>& tb_write,
 	bool predicate)
 {
+
 	/*
 	* 0: P
 	* 1: D
 	* 2: Q
 	*/
+
+#pragma HLS aggregate variable=tb_write compact=auto
+#pragma HLS aggregate variable=write_score compact=auto
 
 	const type_t pd = up_prev[1] + opening_score + extend_score;
 	const type_t pp = up_prev[0] + extend_score;

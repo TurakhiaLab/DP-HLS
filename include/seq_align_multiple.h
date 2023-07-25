@@ -1,9 +1,7 @@
 #ifndef SEQ_ALIGN_MULTIPLE_H
 #define SEQ_ALIGN_MULTIPLE_H
 
-//function prototype
-#include <gmp.h>
-#define __gmp_const const
+
 #include "params.h"
 #include "ap_int.h"
 #include "ap_fixed.h"
@@ -18,9 +16,11 @@ using namespace hls;
 extern "C" {
 	void seq_align_multiple(stream<char_t , MAX_QUERY_LENGTH> (&query_string_comp_blocks)[N_BLOCKS],
 		stream<char_t, MAX_REFERENCE_LENGTH> (&reference_string_comp_blocks)[N_BLOCKS],
-		stream<tbp_t, MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH> (&tb_streams)[N_BLOCKS],
-		int query_lengths[N_BLOCKS], int reference_lengths[N_BLOCKS],
-		InitialValues (&init_values)[N_BLOCKS]);
+		stream<hls::vector<type_t, N_LAYERS>, MAX_QUERY_LENGTH> (&init_qry_scr)[N_BLOCKS],
+		stream<hls::vector<type_t, N_LAYERS>, MAX_REFERENCE_LENGTH> (&init_ref_scr)[N_BLOCKS],
+		int query_lengths, int reference_lengths,
+		stream<tbp_t, MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH> (&tb_streams)[N_BLOCKS]
+		);
 }
 
 #endif

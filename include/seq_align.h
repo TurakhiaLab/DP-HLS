@@ -72,18 +72,22 @@ public:
 	void align(  // distribute task and top level wrapper
 		stream<char_t, MAX_QUERY_LENGTH>&query_stream,
 		stream<char_t, MAX_REFERENCE_LENGTH>&reference_stream,
+		stream<hls::vector<type_t, N_LAYERS>, MAX_QUERY_LENGTH> &init_qry_scr,
+		stream<hls::vector<type_t, N_LAYERS>, MAX_REFERENCE_LENGTH> &init_ref_scr,
 		int query_length, int reference_length,		
-        stream<tbp_t, MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH> &traceback_out,
-		InitialValues init_values);
+        stream<tbp_t, MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH> &traceback_out
+		);
 
 	void compute_chunk(const int pred_length, const int read_length, int tb_idx);
 
 	void init(
 		stream<char_t, MAX_QUERY_LENGTH>&query_stream,
 		stream<char_t, MAX_REFERENCE_LENGTH>&reference_stream,
+		stream<hls::vector<type_t, N_LAYERS>, MAX_QUERY_LENGTH> &init_qry_scr,
+		stream<hls::vector<type_t, N_LAYERS>, MAX_REFERENCE_LENGTH> &init_ref_scr,
 		const int query_length, const int reference_length,
-		stream<tbp_t, MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH>& traceback_out,
-		InitialValues init_values);
+		stream<tbp_t, MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH>& traceback_out
+		);
 
 private:
 	hls::vector<type_t, N_LAYERS>  staging[PE_NUM];

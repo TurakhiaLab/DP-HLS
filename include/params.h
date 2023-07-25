@@ -107,10 +107,6 @@ typedef char_t ref_buf[chunk_width];
 
 #define N_BLOCKS 4
 
-#define TB_LINE_SIZE 64  // This defines the length of a line of TB pointers. Must be larger than PE_num
-
-
-#define chunk_width 16  // this must larger than PE_num
 
 typedef ap_uint<3> char_t;
 typedef ap_fixed<MT, NT> type_t;  // alias type_t with ap_fixed<M,N>
@@ -141,8 +137,6 @@ typedef ap_uint<8> idx_t;
 // #define DEBUG_OUTPUT_PATH "/mnt/c/Users/Yingqi/OneDrive/GitHub/DP-HLS/debug/"
 #define DEBUG_OUTPUT_PATH "/home/yic033@AD.UCSD.EDU/DP-HLS-Debug/local_affine/"
 #define DEBUG_FILENAME "debug_kernel"
-
-typedef char_t ref_buf[chunk_width];
 
 // inflated ones takes care of corner case scenarios
 #define inflated_query_length (query_chunks *PE_NUM + corner_case *PE_NUM)
