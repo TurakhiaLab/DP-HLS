@@ -117,7 +117,7 @@ int main() {
         assign_qry_local_linear(init_qry[i]);
         assign_ref_local_linear(init_ref[i]);
     }
-     
+    
 
     seq_align_multiple(
         query_string_comp, 

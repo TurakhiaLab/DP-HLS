@@ -28,7 +28,7 @@ extern "C"
 		stream<char_t, MAX_REFERENCE_LENGTH> (&reference_string_comp_blocks)[N_BLOCKS],
 		stream<hls::vector<type_t, N_LAYERS>, MAX_QUERY_LENGTH> (&init_qry_scr)[N_BLOCKS],
 		stream<hls::vector<type_t, N_LAYERS>, MAX_REFERENCE_LENGTH> (&init_ref_scr)[N_BLOCKS],
-		int query_lengths, int reference_lengths,
+		// int query_lengths, int reference_lengths,
 		stream<tbp_t, MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH> (&tb_streams)[N_BLOCKS])
 	{
 
@@ -40,16 +40,16 @@ extern "C"
 // #pragma HLS INTERFACE axis port = reference_lengths
 // #pragma HLS INTERFACE axis port = tb_streams
 
-#pragma HLS array_partition variable = query_lengths dim = 1 type = block factor = 4
-#pragma HLS array_partition variable = reference_lengths dim = 1 type = block factor = 4
-#pragma HLS array_partition variable = init_qry_scr dim = 1 type = block factor = 4
-#pragma HLS array_partition variable = init_ref_scr dim = 1 type = block factor = 4
-#pragma HLS array_partition variable = query_string_comp_blocks type = block factor = 4
-#pragma HLS array_partition variable = reference_string_comp_blocks dim = 1 type = block factor = 4
-#pragma HLS array_partition variable = tb_streams dim = 1 type = block factor = 4
+//#pragma HLS array_partition variable = query_lengths dim = 1 type = block factor = 4
+//#pragma HLS array_partition variable = reference_lengths dim = 1 type = block factor = 4
+#pragma HLS array_partition variable = init_qry_scr dim = 1 type = block factor = 2
+#pragma HLS array_partition variable = init_ref_scr dim = 1 type = block factor = 2
+#pragma HLS array_partition variable = query_string_comp_blocks type = block factor = 2
+#pragma HLS array_partition variable = reference_string_comp_blocks dim = 1 type = block factor = 2
+#pragma HLS array_partition variable = tb_streams dim = 1 type = block factor = 2
 
 		// create alignment group
-		Align align_group[N_BLOCKS];
+		Align align;
 		// Align align1;
 		// Align align2;
 		// Align align3;
@@ -102,13 +102,13 @@ extern "C"
 		for (int block_i = 0; block_i < N_BLOCKS; block_i++)
 		{
 #pragma HLS unroll
-			align_group[block_i].align(
+			align.align(
 				query_string_comp_blocks[block_i],
 				reference_string_comp_blocks[block_i],
 				init_qry_scr[block_i],
 				init_ref_scr[block_i],
-				query_lengths,
-				reference_lengths,
+				//query_lengths,
+				//reference_lengths,
 				tb_streams[block_i]);
 		}
 

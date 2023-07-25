@@ -16,6 +16,7 @@ int TraceBack::traceback(
     int col = max_col;
     int level = max_layer;
 
+    traceback_loop:
     while (row >= 0 && col >= 0) {
         tbp_t tbptr = tbmat[row][col][level];
         tb_stream.write(tbptr);

@@ -74,7 +74,7 @@ public:
 		stream<char_t, MAX_REFERENCE_LENGTH>&reference_stream,
 		stream<hls::vector<type_t, N_LAYERS>, MAX_QUERY_LENGTH> &init_qry_scr,
 		stream<hls::vector<type_t, N_LAYERS>, MAX_REFERENCE_LENGTH> &init_ref_scr,
-		int query_length, int reference_length,		
+		// int query_length, int reference_length,		
         stream<tbp_t, MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH> &traceback_out
 		);
 

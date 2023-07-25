@@ -106,7 +106,7 @@ typedef char_t ref_buf[chunk_width];
 #define IT WT-2  // 2 bit represents layer
 //#define DEBUG
 
-#define N_BLOCKS 4
+#define N_BLOCKS 2
 
 
 typedef ap_uint<3> char_t;

@@ -9,7 +9,7 @@ template <typename T, int LEN> class ShiftRegister {  // This is a shift registe
 */
 public:
 	ShiftRegister(void) {
-#pragma HLS ARRAY_PARTITION variable=data dim=1 complete
+#pragma HLS ARRAY_PARTITION variable=data dim=1 type=complete
 		for (int i = 0; i < LEN; i++) {
 #pragma HLS unroll
 			
@@ -88,7 +88,7 @@ template <typename T, int NUM, int LEN> class ShiftRegisterBlock {
 public:
 	ShiftRegister<T, LEN> data[NUM];
 	ShiftRegisterBlock(void) {
-#pragma HLS ARRAY_PARTITION variable=data dim=1 complete
+#pragma HLS ARRAY_PARTITION variable=data dim=1 type=complete
 	}
 
 	void shift_right(T input[NUM]) {

@@ -105,8 +105,8 @@ void PE::compute(
 	* 2: Q
 	*/
 
-#pragma HLS aggregate variable=tb_write compact=auto
-#pragma HLS aggregate variable=write_score compact=auto
+
+
 
 	const type_t pd = up_prev[1] + opening_score + extend_score;
 	const type_t pp = up_prev[0] + extend_score;
@@ -124,22 +124,29 @@ void PE::compute(
 
 	if (predicate)
 	{
-		write_score = {max_p, max, max_q};
+		score_vec_t write_score_tmp = {max_p, max, max_q};
+		#pragma HLS aggregate variable=write_score compact=bit
+		write_score = write_score_tmp;
 
 		// Diagonal Matrix Pointer Set
 		if (max == zero_fp) { 
-			tb_write = {
+			tbp_vec_t tb_write_tmp = {
 				(max_p == pd) ? (tbp_t(1.0) + TB_UP) : (tbp_t(0.0) + TB_UP),
 				(tbp_t(1.0) + TB_PH),
 				(max_q == qd) ? (tbp_t(1.0) + TB_LEFT) : (tbp_t(3.0) + TB_LEFT)
 			}; 
+			#pragma HLS aggregate variable=tb_write compact=bit
+			tb_write = tb_write_tmp;
+
 		}
 		else { 
-			tb_write = {
+			tbp_vec_t tb_write_tmp = {
 				(max_p == pd) ? (tbp_t(1.0) + TB_UP) : (tbp_t(0.0) + TB_UP),
 				(max == match) ? (tbp_t(1.0) + TB_DIAG) : ( (max == max_p) ? (tbp_t(0.0) + TB_PH) : (tbp_t(2.0) +  TB_PH) ),
 				(max_q == qd) ? (tbp_t(1.0) + TB_LEFT) : (tbp_t(3.0) + TB_LEFT)
 			}; 
+			#pragma HLS aggregate variable=tb_write compact=bit
+			tb_write = tb_write_tmp;
 		}
 
 
