@@ -11,4 +11,4 @@ void foo(hls::vector<tbp_t,N_LAYERS> (*input)[MAX_REFERENCE_LENGTH]){
     }
 }
 
-#endif
+#endif 
