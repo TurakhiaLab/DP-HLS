@@ -5,10 +5,14 @@
 #include <iostream>
 #include <ap_int.h>
 #include "../../include/seq_align_multiple.h"
+
 #include <hls_stream.h>
 #include "../../include/PE.h"
 #include "../../include/seq_align.h"
 #include "../../include/initial.h"
+
+#include <hls_np_channel.h>
+
 #ifdef DEBUG
 #include "debug.h"
 #endif // DEBUG
@@ -28,17 +32,16 @@ extern "C"
 		stream<char_t, MAX_REFERENCE_LENGTH> (&reference_string_comp_blocks)[N_BLOCKS],
 		stream<hls::vector<type_t, N_LAYERS>, MAX_QUERY_LENGTH> (&init_qry_scr)[N_BLOCKS],
 		stream<hls::vector<type_t, N_LAYERS>, MAX_REFERENCE_LENGTH> (&init_ref_scr)[N_BLOCKS],
-		// int query_lengths, int reference_lengths,
+        int query_lengths, int reference_lengths,
 		stream<tbp_t, MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH> (&tb_streams)[N_BLOCKS])
 	{
 
-// #pragma HLS INTERFACE axis port = query_string_comp_blocks
-// #pragma HLS INTERFACE axis port = reference_string_comp_blocks
-// #pragma HLS INTERFACE axis port = init_qry_scr
-// #pragma HLS INTERFACE axis port = init_ref_scr
-// #pragma HLS INTERFACE axis port = query_lengths
-// #pragma HLS INTERFACE axis port = reference_lengths
-// #pragma HLS INTERFACE axis port = tb_streams
+ #pragma HLS INTERFACE axis port = query_string_comp_blocks
+ #pragma HLS INTERFACE axis port = reference_string_comp_blocks
+ #pragma HLS INTERFACE axis port = init_qry_scr
+ #pragma HLS INTERFACE axis port = init_ref_scr
+
+ #pragma HLS INTERFACE axis port = tb_streams
 
 //#pragma HLS array_partition variable = query_lengths dim = 1 type = block factor = 4
 //#pragma HLS array_partition variable = reference_lengths dim = 1 type = block factor = 4
@@ -49,7 +52,7 @@ extern "C"
 #pragma HLS array_partition variable = tb_streams dim = 1 type = block factor = 2
 
 		// create alignment group
-		Align align;
+
 		// Align align1;
 		// Align align2;
 		// Align align3;
@@ -64,6 +67,8 @@ extern "C"
 			align_group[i].tracer.debugger = &debug[i];
 		}
 #endif // DEBUG
+
+        Align align[N_BLOCKS];
 
 		// align1.align(
 		// 	query_string_comp_blocks[0],
@@ -98,17 +103,28 @@ extern "C"
 		// 	init_values[3]);
 
 		// to be unrolled
+
+
 	align_expand:
 		for (int block_i = 0; block_i < N_BLOCKS; block_i++)
 		{
 #pragma HLS unroll
+
+//            hls_thread_local hls::task tsk(align_wp,  query_string_comp_blocks[block_i],
+//                                           reference_string_comp_blocks[block_i],
+//                                           init_qry_scr[block_i],
+//                                           init_ref_scr[block_i],
+//                    //query_lengths,
+//                    //reference_lengths,
+//                                           tb_streams[block_i]);
+
 			align.align(
 				query_string_comp_blocks[block_i],
 				reference_string_comp_blocks[block_i],
 				init_qry_scr[block_i],
 				init_ref_scr[block_i],
-				//query_lengths,
-				//reference_lengths,
+				query_lengths,
+				reference_lengths,
 				tb_streams[block_i]);
 		}
 

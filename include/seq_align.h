@@ -70,12 +70,12 @@ public:
 #endif // DEBUG
 
 	void align(  // distribute task and top level wrapper
-		stream<char_t, MAX_QUERY_LENGTH>&query_stream,
-		stream<char_t, MAX_REFERENCE_LENGTH>&reference_stream,
-		stream<hls::vector<type_t, N_LAYERS>, MAX_QUERY_LENGTH> &init_qry_scr,
-		stream<hls::vector<type_t, N_LAYERS>, MAX_REFERENCE_LENGTH> &init_ref_scr,
-		// int query_length, int reference_length,		
-        stream<tbp_t, MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH> &traceback_out
+            hls::stream<char_t, MAX_QUERY_LENGTH>&query_stream,
+            hls::stream<char_t, MAX_REFERENCE_LENGTH>&reference_stream,
+            hls::stream<hls::vector<type_t, N_LAYERS>, MAX_QUERY_LENGTH> &init_qry_scr,
+            hls::stream<hls::vector<type_t, N_LAYERS>, MAX_REFERENCE_LENGTH> &init_ref_scr,
+            int query_length, int reference_length,
+            hls::stream<tbp_t, MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH> &traceback_out
 		);
 
 	void compute_chunk(const int pred_length, const int read_length, int tb_idx);
@@ -108,5 +108,11 @@ private:
 // 	void align(hls::stream<char_t, query_length> &query_stream, hls::stream<char_t, ref_length> &reference_stream, type_t *dummy);
 // };
 
+void align_wp(hls::stream<char_t, MAX_QUERY_LENGTH> &query_stream,
+              hls::stream<char_t, MAX_REFERENCE_LENGTH> &reference_stream,
+              hls::stream<hls::vector<type_t, N_LAYERS>, MAX_QUERY_LENGTH> &init_qry_scr,
+              hls::stream<hls::vector<type_t, N_LAYERS>, MAX_REFERENCE_LENGTH> &init_ref_scr,
+        //int query_length, int reference_length,
+              hls::stream<tbp_t, MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH> &traceback_out);
 
 #endif // !SEQ_ALIGN_H

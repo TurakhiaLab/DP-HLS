@@ -7,6 +7,7 @@
 #ifdef ALIGN_LOCAL_LINEAR
 
 #include <ap_fixed.h>
+#include <hls_vector.h>
 
 #define MAX_QUERY_LENGTH 256
 #define MAX_REFERENCE_LENGTH 256
@@ -35,17 +36,15 @@
 
 #define N_BLOCKS 8
 
-
-
 #define TB_LINE_SIZE 64  // This defines the length of a line of TB pointers. Must be larger than PE_num
 
 #define chunk_width 16  // this must larger than PE_num
 
-typedef ap_uint<3> char_t;
-typedef ap_fixed<WS, IS> type_t;  // alias type_t with ap_fixed<M,N>
-typedef ap_uint<16> addr_t;  // define a address type to resolve the pointer to pointer problems
-typedef ap_ufixed<WT, IT> tbp_t;
-typedef ap_ufixed<2, 0> tbp_dir_t;
+typedef ap_uint<3> char_t;  // type of sequence characters
+typedef ap_fixed<WS, IS> type_t;  // score matrix score type
+typedef ap_uint<8> idx_t; // define an address type to resolve the pointer to pointer problems
+typedef ap_ufixed<WT, IT> tbp_t;  // traceback pointer typ
+typedef ap_ufixed<2, 0> tbp_dir_t;  // direction bits type for traceback pointer
 
 //tbp_t TB_PH = 0.0;  // this is place holder
 //tbp_t TB_LEFT = 0.25;
@@ -56,8 +55,6 @@ typedef ap_ufixed<2, 0> tbp_dir_t;
 #define TB_LEFT (tbp_dir_t) 0.25
 #define TB_DIAG (tbp_dir_t) 0.5
 #define TB_UP (tbp_dir_t) 0.75
-
-typedef ap_uint<8> idx_t;
 
 #define zero_fp ((type_t)0)
 
@@ -78,6 +75,12 @@ typedef char_t ref_buf[chunk_width];
 #define inflated_query_chunks (query_chunks + corner_case)
 
 #define N_LAYERS 1
+
+typedef char_t ref_in_t[MAX_REFERENCE_LENGTH];
+typedef char_t qry_in_t[MAX_QUERY_LENGTH];
+typedef hls::vector<type_t, N_LAYERS> init_qry_t[MAX_QUERY_LENGTH];
+typedef hls::vector<type_t, N_LAYERS> init_ref_t[MAX_REFERENCE_LENGTH];
+typedef tbp_t tbs_t[MAX_QUERY_LENGTH+MAX_REFERENCE_LENGTH];
 
 #endif 
 
@@ -143,8 +146,11 @@ typedef ap_ufixed<2, 0> tbp_dir_t;
 
 #define N_LAYERS 3
 
-typedef hls::vector<type_t, N_LAYERS> score_vec_t;
-typedef hls::vector<tbp_t, N_LAYERS> tbp_vec_t;
+//typedef hls::vector<type_t, N_LAYERS> score_vec_t;
+//typedef hls::vector<tbp_t, N_LAYERS> tbp_vec_t;
+
+struct score_vec_t { type_t scores[N_LAYERS]; } ;
+struct tbp_vec_t { tbp_t tbps[N_LAYERS]; };
 
 #endif 
 

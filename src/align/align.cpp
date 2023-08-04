@@ -3,33 +3,37 @@
 #include "../../include/PE.h"
 #include "../../include/utils.h"
 #include "../../include/initial.h"
+#include <hls_task.h>
 #include <hls_stream.h>
 #include "trivial.h"
+
+#include <hls_streamofblocks.h>
 using namespace hls;
 
+
+
 void Align::align(
-	stream<char_t, MAX_QUERY_LENGTH> &query_stream,
-	stream<char_t, MAX_REFERENCE_LENGTH> &reference_stream,
-	stream<hls::vector<type_t, N_LAYERS>, MAX_QUERY_LENGTH> &init_qry_scr,
-	stream<hls::vector<type_t, N_LAYERS>, MAX_REFERENCE_LENGTH> &init_ref_scr,
-	//int query_length, int reference_length,
-	stream<tbp_t, MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH> &traceback_out)
+	hls::stream<char_t, MAX_QUERY_LENGTH> &query_stream,
+    hls::stream<char_t, MAX_REFERENCE_LENGTH> &reference_stream,
+    hls::stream<hls::vector<type_t, N_LAYERS>, MAX_QUERY_LENGTH> &init_qry_scr,
+    hls::stream<hls::vector<type_t, N_LAYERS>, MAX_REFERENCE_LENGTH> &init_ref_scr,
+	const int query_length, const int reference_length,
+    hls::stream<tbp_t, MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH> &traceback_out)
 {
-int query_length = 20;
-int reference_length=20;
 
-#pragma HLS array_partition variable = staging type = complete
-#pragma HLS array_partition variable = this->tbmat dim = 2 type = cyclic factor = 8
-#pragma HLS array_partition variable = this->predicate dim = 1 type = complete
-#pragma HLS array_partition variable = this->local_reference dim = 1 type = complete
-#pragma HLS array_partition variable = this->local_query dim = 1 type = complete
-#pragma HLS array_partition variable = this->last_pe_score type = complete
-#pragma HLS array_partition variable = this->dp_mem type = complete
 
-#pragma HLS bind_storage variable = this->local_reference type = RAM_1WNR impl = LUTRAM
-#pragma HLS bind_storage variable = this->local_query type = RAM_1WNR impl = LUTRAM
-// #pragma HLS bind_storage variable = this->last_pe_score type = RAM_1WNR impl = LUTRAM
-#pragma HLS bind_storage variable = this->dp_mem type = RAM_1WNR impl = LUTRAM
+//#pragma HLS array_partition variable = staging type = complete
+//#pragma HLS array_partition variable = this->tbmat dim = 2 type = cyclic factor = 8
+//#pragma HLS array_partition variable = this->predicate dim = 1 type = complete
+//#pragma HLS array_partition variable = this->local_reference dim = 1 type = complete
+//#pragma HLS array_partition variable = this->local_query dim = 1 type = complete
+//#pragma HLS array_partition variable = this->last_pe_score type = complete
+//#pragma HLS array_partition variable = this->dp_mem type = complete
+//
+//#pragma HLS bind_storage variable = this->local_reference type = RAM_1WNR impl = LUTRAM
+//#pragma HLS bind_storage variable = this->local_query type = RAM_1WNR impl = LUTRAM
+//// #pragma HLS bind_storage variable = this->last_pe_score type = RAM_1WNR impl = LUTRAM
+//#pragma HLS bind_storage variable = this->dp_mem type = RAM_1WNR impl = LUTRAM
 
 	this->init(
 		query_stream,
@@ -99,8 +103,8 @@ void Align::compute_chunk(const int active_pe, const int row_length, int tb_idx)
 	for (int i = 0; i < active_pe + row_length - 1; i++)
 	{
 #pragma HLS pipeline II = 1
-#pragma HLS dependence variable = this->last_pe_score type = inter dependent = false
-#pragma HLS dependence variable = this->PE_group type = intra dependent = false
+//#pragma HLS dependence variable = this->last_pe_score type = inter dependent = false
+//#pragma HLS dependence variable = this->PE_group type = intra dependent = false
 		this->dp_mem.shift_right(this->staging); // initialize the DP-Mem to be 0
 
 #ifdef DEBUG
@@ -136,7 +140,7 @@ void Align::compute_chunk(const int active_pe, const int row_length, int tb_idx)
 		for (int pi = 1; pi < PE_NUM; pi++)
 		{
 #pragma HLS unroll
-#pragma HLS dependence variable = PE_group type = inter dependent = false
+//#pragma HLS dependence variable = PE_group type = inter dependent = false
 			this->PE_group[pi].compute(
 				this->local_query[pi],
 				this->local_reference[pi],
@@ -177,12 +181,9 @@ void Align::init(
 	reference_cpy:
 	for (int i = 0; i < MAX_REFERENCE_LENGTH; i++)
 	{
-#pragma HLS dependence variable = last_pe_score type = inter dependent = false
-
 		this->reference[i] = reference_stream.read();
-		hls::vector<type_t, N_LAYERS> tmp_ref = init_ref_scr.read();
-#pragma HLS aggregate variable = tmp_ref compact=bit
-		this->last_pe_score[i] = tmp_ref;
+        hls::vector<type_t, N_LAYERS> tmp = init_ref_scr.read();
+		this->last_pe_score[i] = {tmp[0], tmp[1], tmp[2]};
 	}
 	query_cpy:
 	for (int i = 0; i < MAX_QUERY_LENGTH; i++)
@@ -207,4 +208,23 @@ void Align::init(
 		this->debug->data.ref.push_back(this->reference[i]);
 	}
 #endif // DEBUG
+}
+
+
+void align_wp(hls::stream<char_t, MAX_QUERY_LENGTH> &query_stream,
+              hls::stream<char_t, MAX_REFERENCE_LENGTH> &reference_stream,
+              hls::stream<hls::vector<type_t, N_LAYERS>, MAX_QUERY_LENGTH> &init_qry_scr,
+              hls::stream<hls::vector<type_t, N_LAYERS>, MAX_REFERENCE_LENGTH> &init_ref_scr,
+        //int query_length, int reference_length,
+              hls::stream<tbp_t, MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH> &traceback_out){
+    Align align;
+    align.align(
+            query_stream,
+            reference_stream,
+            init_qry_scr,
+            init_ref_scr,
+            //int query_length, int reference_length,
+            traceback_out
+            );
+
 }

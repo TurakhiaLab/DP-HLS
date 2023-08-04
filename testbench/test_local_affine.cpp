@@ -123,8 +123,8 @@ int main() {
         reference_string_comp,
         init_qry_scr,
         init_ref_scr, 
-        query_lengths[0], 
-        reference_lengths[0], 
+//        query_lengths[0],
+//        reference_lengths[0],
         tb_streams);
 
     // for (int block_i = 0; block_i < N_BLOCKS; block_i++) {
