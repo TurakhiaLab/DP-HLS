@@ -118,7 +118,7 @@ extern "C"
 //                    //reference_lengths,
 //                                           tb_streams[block_i]);
 
-			align.align(
+			align[block_i].align(
 				query_string_comp_blocks[block_i],
 				reference_string_comp_blocks[block_i],
 				init_qry_scr[block_i],
