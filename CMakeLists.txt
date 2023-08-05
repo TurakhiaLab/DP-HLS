@@ -19,7 +19,15 @@ set(EXECUTABLE_TARGETS
     align_global_linear
     align_local_affine
     align_global_affine
+    tests
 )
+
+# Testbench executable
+add_executable(tests "increment/testbench/main.cpp"
+    "increment/include/testbench.h"
+    "increment/include/PE.h"
+    "increment/testbench/testbench.cpp"
+    "increment/src/pe/pe.cpp")
 
 # Add source to this project's executable.
 add_executable(align_local_linear "testbench/test_local_linear.cpp" "include/params.h"
