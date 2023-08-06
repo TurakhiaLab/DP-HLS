@@ -18,7 +18,7 @@ using namespace std;
 
 namespace PE {
     void PELocalLinear();
-    
+
 }
 
 #endif // !PE_H
