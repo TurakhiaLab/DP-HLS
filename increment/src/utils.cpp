@@ -1,59 +1,19 @@
 #include "../include/utils.h"
 
-
-template<typename T>
-T* utils::Reduction<T>::max(T* arr, int len) {
-    T* tmp = arr;
-    for (int i = 0; i < len; i++) {
-        if (*tmp < *arr) { tmp = arr; ++arr; }
-    }
+template <typename T, int N>
+void Utils::Array::ShiftLeft(T arr[N], T new_data) {
+	for (int i = 0; i < N; i++) {
+#pragma HLS unroll
+		arr[i] = arr[i + 1];
+	}
+	arr[N - 1] = new_data;
 }
 
-template<typename T>
-void utils::Initial<T>::fill(T* arr, int val, int len) {
-    for (int i = 0; i < len; i++) {
-        *arr++ = (T)val;
-    }
-}
-
-// >>> The followings are the Tensor implementation >>>
-template<typename T>
-utils::Tensor<T>::Tensor(int d1) {
-    T arr[d1];
-    this->data = arr;
-    this->ld1 = d1;
-    this->ld2 = 1;
-    this->ld3 = 1;
-}
-
-template<typename T>
-utils::Tensor<T>::Tensor(int d1, int d2) {
-    T arr[d1 * d2];
-    this->data = arr;
-    this->ld1 = d1*d2;
-    this->ld2 = d2;
-    this->ld3 = 1;
-}
-
-template<typename T>
-utils::Tensor<T>::Tensor(int d1, int d2, int d3){
-    T arr[d1 * d2 * d3];
-    this->data = arr;
-    this->ld1 = d1*d2*d3;
-    this->ld2 = d2*d3;
-    this->ld3 = d3;
-}
-
-template<typename T>
-void utils::Tensor<T>::reshape(int d1, int d2)
-{
-    this->ld1 = d1 * d2;
-    this->ld2 = d2;
-    this->ld3 = 1;
-}
-
-template<typename T>
-T& utils::Tensor<T>::operator()(int d1, int d2)  // the problem was the bracket is a unary operator, it should not have two members
-{
-    return this->data[d1*this->ld2+d2];
+template <typename T, int N>
+void Utils::Array::ShiftRight(T arr[N], T new_data) {
+	for (int i = N-1; i >= 0; i--) {
+#pragma HLS unroll
+		arr[i] = arr[i - 1];
+	}
+	arr[0] = new_data;
 }

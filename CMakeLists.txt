@@ -10,7 +10,7 @@ project ("DP-HLS")
 
 set(RAPTOR 1)
 set(CMAKE_C_COMPILER "/usr/bin/gcc")
-set(CMAKE_CXX_COMPILER "/usr/bin/g++")  # Use g++ compiler, but subject to change for v++ compiler.
+set(CMAKE_CXX_COMPILER "/usr/bin/c++")  # Use g++ compiler, but subject to change for v++ compiler.
 
 #add_definitions(-DDEBUG=0)
 
@@ -20,7 +20,13 @@ set(EXECUTABLE_TARGETS
     align_local_affine
     align_global_affine
     tests
+    incremental_sim
 )
+
+add_executable(incremental_sim "increment/legacy/local_linear.h"
+    "increment/legacy/local_linear.cpp"
+    "increment/legacy/shift_register.h"
+    "increment/legacy/local_linear_testbench.cpp" )
 
 # Testbench executable
 add_executable(tests "increment/testbench/main.cpp"
@@ -107,8 +113,8 @@ if (RAPTOR)
     include_directories(${EXECUTABLE_TARGETS} PUBLIC ${PROJECT_SOURCE_DIR}/include)
     include_directories(${EXECUTABLE_TARGETS} PUBLIC "${XRT_HOME}/include" "${HLS_HOME}/include")
     link_directories(${EXECUTABLE_TARGETS} PUBLIC "${HLS_HOME}/lib" "${XRT_HOME}/lib")
-    link_libraries(${EXECUTABLE_TARGETS} PUBLIC xrt_coreutil)
-    add_compile_options(${EXECUTABLE_TARGETS} PUBLIC -pthread)
+    link_directories(${EXECUTABLE_TARGETS} PUBLIC "/usr/lib/x86_64-linux-gnu" "/usr/lib32" "/usr/libx32")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread")
 else()
     set(HLS_HOME "/tools/Xilinx/Vitis_HLS/2022.2")
     set(XRT_HOME "/opt/xilinx/xrt")

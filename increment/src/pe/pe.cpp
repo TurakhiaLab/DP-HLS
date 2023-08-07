@@ -1,12 +1,104 @@
+#include <hls_task.h>
 #include "../../include/PE.h"
 #include <hls_vector.h>
-
+#include <hls_np_channel.h>
+#include "../../include/params.h"
 #ifdef DEBUG
 #include "debug.h"
 #include <cstdio>
 #endif
 
-void PE::PELocalLinear() {
+void PE::LocalLinear::Compute(
+    hls::stream<char_t, STM_DEPTH>& local_query_val,
+    hls::stream<char_t, STM_DEPTH>& local_reference_val,
+    hls::stream<hls::vector<type_t, N_LAYERS>, STM_DEPTH>& up_prev_stm,
+    hls::stream<hls::vector<type_t, N_LAYERS>, STM_DEPTH>& diag_prev_stm,
+    hls::stream<hls::vector<type_t, N_LAYERS>, STM_DEPTH>& left_prev_stm,
+    hls::stream<hls::vector<type_t, N_LAYERS>, STM_DEPTH>& write_score_stm,
+    hls::stream<hls::vector<tbp_t, N_LAYERS>, STM_DEPTH>& write_tbp_stm
+) {
+    type_t up = up_prev_stm.read()[0] + linear_gap_penalty;
+    type_t left = left_prev_stm.read()[0] + linear_gap_penalty;
+    type_t diag_prev = diag_prev_stm.read()[0];
+
+    type_t match = (local_query_val.read() == local_reference_val.read()) ? diag_prev[0] + match_score : diag_prev[0] + mismatch_score;
+
+    type_t max = up > left ? up : left;
+    max = max > match ? max : match;
+    max = max > zero_fp ? max : zero_fp;
+    
+    write_score_stm.write({ max });
+    if (max == zero_fp) { write_tbp_stm.write({ tbp_t(0) + TB_PH }); }
+    else { write_tbp_stm.write({ (max == match) ? tbp_t(0) + TB_DIAG : ((max == left) ? (tbp_t(0) + TB_LEFT) : (tbp_t(0) + TB_UP)) }); }
+    
+}
+
+void PE::LocalLinear::Compute_Blocks() {
 
 }
 
+// FIXME: Currently just the functionality of expand the PE is used, rather than the full functioning
+//        kernel, since last_pe_score is not set yet. 
+// FIXME: Remove STM_DEPTH
+void PE::ExpandCompute(
+    char_t local_query[PE_NUM],
+    char_t local_reference[PE_NUM],
+    hls::vector<type_t, N_LAYERS> wavefronts[2][PE_NUM],
+    hls::vector<type_t, N_LAYERS> write_score_arr[PE_NUM],
+    hls::vector<tbp_t, N_LAYERS> write_traceback_arr[PE_NUM]
+) {
+    hls_thread_local hls::split::round_robin<char_t, PE_NUM, STM_DEPTH> local_query_split;
+    hls_thread_local hls::split::round_robin<char_t, PE_NUM, STM_DEPTH> local_reference_split;
+    hls_thread_local hls::split::round_robin<hls::vector<type_t, N_LAYERS>, PE_NUM> up_prev_split;
+    hls_thread_local hls::split::round_robin<hls::vector<type_t, N_LAYERS>, PE_NUM> diag_prev_split;
+    hls_thread_local hls::split::round_robin<hls::vector<type_t, N_LAYERS>, PE_NUM> left_prev_split;
+
+    hls_thread_local hls::merge::round_robin<hls::vector<type_t, N_LAYERS>, PE_NUM> score_write_merge;
+    hls_thread_local hls::merge::round_robin<hls::vector<tbp_t, N_LAYERS>, PE_NUM> tbp_write_merge;
+
+    // prepare the input loop
+    // could write in a function called distribute
+    for (int i = 0; i < PE_NUM; i++) {
+        local_query_split.in.write(local_query[i]);
+        local_reference_split.in.write(local_reference[i]);
+        up_prev_split.in.write(i == 0 ? hls::vector<type_t, N_LAYERS>(0) : wavefronts[1][i - 1]);  // temporarily use 0
+        diag_prev_split.in.write(i == 0 ? hls::vector<type_t, N_LAYERS>(0) : wavefronts[0][i - 1]);  // temporarily use 0
+        left_prev_split.in.write(wavefronts[0][i]);
+    }
+
+    //{
+    //    int i = 0;
+    //    hls_thread_local hls::task tmp(
+    //        PE::LocalLinear::Compute,
+    //        local_query_split.out[i],
+    //        local_reference_split.out[i],
+    //        up_prev_split.out[i],
+    //        diag_prev_split.out[i],
+    //        left_prev_split.out[i],
+    //        score_write_merge.in[i],
+    //        tbp_write_merge.in[i]
+    //    );
+    //}
+    
+
+    //hls_thread_local hls::task *t[PE_NUM];
+    for (int i = 0; i < PE_NUM; i++) {
+#pragma HLS unroll
+         hls_thread_local hls::task t(
+            PE::LocalLinear::Compute,
+            local_query_split.out[i],
+            local_reference_split.out[i],
+            up_prev_split.out[i],
+            diag_prev_split.out[i],
+            left_prev_split.out[i],
+            score_write_merge.in[i],
+            tbp_write_merge.in[i]);
+    }
+
+    // could write in a function called collect
+    for (int i = 0; i < PE_NUM; i++) {
+        write_score_arr[i] = score_write_merge.out.read();
+        write_traceback_arr[i] = tbp_write_merge.out.read();
+    }
+
+}

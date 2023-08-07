@@ -6,6 +6,8 @@
 // >>> LOCAL_LINEAR params >>>
 #ifdef ALIGN_LOCAL_LINEAR
 
+#define STM_DEPTH 4
+
 #include <ap_fixed.h>
 #include <hls_vector.h>
 

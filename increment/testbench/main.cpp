@@ -1,6 +1,6 @@
 #include "../include/testbench.h"
 
-void main() {
+int main() {
 	Testbench::test_task_channel_pe();
-
+	return 0;
 }
