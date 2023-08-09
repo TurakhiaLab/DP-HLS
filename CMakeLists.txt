@@ -12,7 +12,6 @@ set(RAPTOR 1)
 set(CMAKE_C_COMPILER "/usr/bin/gcc")
 set(CMAKE_CXX_COMPILER "/usr/bin/c++")  # Use g++ compiler, but subject to change for v++ compiler.
 
-#add_definitions(-DDEBUG=0)
 
 set(EXECUTABLE_TARGETS
     align_local_linear
@@ -106,8 +105,12 @@ add_executable(align_global_affine "testbench/test_global_affine.cpp" "include/p
 
 # Add include to Xilinx Library FIles
 if (RAPTOR)
-    set(HLS_HOME "/home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1")
-    set(XRT_HOME "/home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1")
+    set(HLS_HOME "/home/AD.UCSD.EDU/yic033/Xilinx/Vitis_HLS/2023.1")
+    set(XRT_HOME "/home/AD.UCSD.EDU/yic033/Xilinx/Vitis_HLS/2023.1")
+
+    #set(HLS_HOME "/home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1")
+    #set(XRT_HOME "/home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1")
+
 
     include_directories(${EXECUTABLE_TARGETS} PUBLIC "${HLS_HOME}/include")
     include_directories(${EXECUTABLE_TARGETS} PUBLIC ${PROJECT_SOURCE_DIR}/include)

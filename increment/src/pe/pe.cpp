@@ -9,13 +9,13 @@
 #endif
 
 void PE::LocalLinear::Compute(
-    hls::stream<char_t, STM_DEPTH>& local_query_val,
-    hls::stream<char_t, STM_DEPTH>& local_reference_val,
-    hls::stream<hls::vector<type_t, N_LAYERS>, STM_DEPTH>& up_prev_stm,
-    hls::stream<hls::vector<type_t, N_LAYERS>, STM_DEPTH>& diag_prev_stm,
-    hls::stream<hls::vector<type_t, N_LAYERS>, STM_DEPTH>& left_prev_stm,
-    hls::stream<hls::vector<type_t, N_LAYERS>, STM_DEPTH>& write_score_stm,
-    hls::stream<hls::vector<tbp_t, N_LAYERS>, STM_DEPTH>& write_tbp_stm
+    hls::stream<char_t>& local_query_val,
+    hls::stream<char_t>& local_reference_val,
+    hls::stream<hls::vector<type_t, N_LAYERS>>& up_prev_stm,
+    hls::stream<hls::vector<type_t, N_LAYERS>>& diag_prev_stm,
+    hls::stream<hls::vector<type_t, N_LAYERS>>& left_prev_stm,
+    hls::stream<hls::vector<type_t, N_LAYERS>>& write_score_stm,
+    hls::stream<hls::vector<tbp_t, N_LAYERS>>& write_tbp_stm
 ) {
     type_t up = up_prev_stm.read()[0] + linear_gap_penalty;
     type_t left = left_prev_stm.read()[0] + linear_gap_penalty;
@@ -66,25 +66,11 @@ void PE::ExpandCompute(
         left_prev_split.in.write(wavefronts[0][i]);
     }
 
-    //{
-    //    int i = 0;
-    //    hls_thread_local hls::task tmp(
-    //        PE::LocalLinear::Compute,
-    //        local_query_split.out[i],
-    //        local_reference_split.out[i],
-    //        up_prev_split.out[i],
-    //        diag_prev_split.out[i],
-    //        left_prev_split.out[i],
-    //        score_write_merge.in[i],
-    //        tbp_write_merge.in[i]
-    //    );
-    //}
-    
 
-    //hls_thread_local hls::task *t[PE_NUM];
+    hls_thread_local hls::task t[PE_NUM];
     for (int i = 0; i < PE_NUM; i++) {
 #pragma HLS unroll
-         hls_thread_local hls::task t(
+         t[i](
             PE::LocalLinear::Compute,
             local_query_split.out[i],
             local_reference_split.out[i],

@@ -20,13 +20,13 @@ namespace PE {
     
     namespace LocalLinear {
         void Compute(
-            hls::stream<char_t, STM_DEPTH> &local_query_val,
-            hls::stream<char_t, STM_DEPTH> &local_reference_val,
-            hls::stream<hls::vector<type_t, N_LAYERS>, STM_DEPTH> &up_prev,
-            hls::stream<hls::vector<type_t, N_LAYERS>, STM_DEPTH> &diag_prev,
-            hls::stream<hls::vector<type_t, N_LAYERS>, STM_DEPTH> &left_prev,
-            hls::stream<hls::vector<type_t, N_LAYERS>, STM_DEPTH> &write_score,  // out
-            hls::stream<hls::vector<tbp_t, N_LAYERS>, STM_DEPTH> &write_traceback  // out
+            hls::stream<char_t> &local_query_val,
+            hls::stream<char_t> &local_reference_val,
+            hls::stream<hls::vector<type_t, N_LAYERS>> &up_prev,
+            hls::stream<hls::vector<type_t, N_LAYERS>> &diag_prev,
+            hls::stream<hls::vector<type_t, N_LAYERS>> &left_prev,
+            hls::stream<hls::vector<type_t, N_LAYERS>> &write_score,  // out
+            hls::stream<hls::vector<tbp_t, N_LAYERS>> &write_traceback  // out
         );
 
         // Reserved for Array of Blocks Non Blocking Implementation
