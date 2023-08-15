@@ -1,7 +1,7 @@
 #ifndef PARAMS_H
 #define PARAMS_H
 
-#define ALIGN_LOCAL_LINEAR
+#define ALIGN_LOCAL_AFFINE
 #undef DEBUG
 // >>> LOCAL_LINEAR params >>>
 #ifdef ALIGN_LOCAL_LINEAR
@@ -9,10 +9,10 @@
 #include <ap_fixed.h>
 #include <hls_vector.h>
 
-#define MAX_QUERY_LENGTH 256
-#define MAX_REFERENCE_LENGTH 256
+#define MAX_QUERY_LENGTH 64
+#define MAX_REFERENCE_LENGTH 64
 
-#define PE_NUM 32
+#define PE_NUM 16
 
 #define numofreads 1
 
@@ -31,10 +31,10 @@
 
 #define TB_START_ROW 14
 #define TB_START_COL 10
-
+#define TB_START_LEVEL 0
 //#define DEBUG
 
-#define N_BLOCKS 8
+#define N_BLOCKS 4
 
 #define TB_LINE_SIZE 64  // This defines the length of a line of TB pointers. Must be larger than PE_num
 
@@ -76,11 +76,24 @@ typedef char_t ref_buf[chunk_width];
 
 #define N_LAYERS 1
 
-typedef char_t ref_in_t[MAX_REFERENCE_LENGTH];
-typedef char_t qry_in_t[MAX_QUERY_LENGTH];
-typedef hls::vector<type_t, N_LAYERS> init_qry_t[MAX_QUERY_LENGTH];
-typedef hls::vector<type_t, N_LAYERS> init_ref_t[MAX_REFERENCE_LENGTH];
-typedef tbp_t tbs_t[MAX_QUERY_LENGTH+MAX_REFERENCE_LENGTH];
+typedef char_t raw_query_block_t[MAX_QUERY_LENGTH];
+typedef char_t raw_reference_block_t[MAX_REFERENCE_LENGTH];
+typedef hls::vector<type_t, N_LAYERS> init_col_score_block_t[MAX_QUERY_LENGTH];
+typedef hls::vector<type_t, N_LAYERS> init_row_score_block_t[MAX_REFERENCE_LENGTH];
+typedef tbp_t traceback_block_t[MAX_QUERY_LENGTH + MAX_REFERENCE_LENGTH];
+
+struct BlockInputs {
+    raw_query_block_t query;
+    raw_reference_block_t reference;
+    init_col_score_block_t init_col_score;
+    init_row_score_block_t init_row_score;
+    int query_length;
+    int reference_length;
+};
+
+struct BlockOutputs {
+    traceback_block_t traceback;
+};
 
 #endif 
 
@@ -91,10 +104,10 @@ typedef tbp_t tbs_t[MAX_QUERY_LENGTH+MAX_REFERENCE_LENGTH];
 #include <ap_fixed.h>
 #include <hls_vector.h>
 
-#define MAX_QUERY_LENGTH 32
-#define MAX_REFERENCE_LENGTH 32
+#define MAX_QUERY_LENGTH 64
+#define MAX_REFERENCE_LENGTH 64
 
-#define PE_NUM 8
+#define PE_NUM 4
 
 #define numofreads 1
 
@@ -109,7 +122,7 @@ typedef tbp_t tbs_t[MAX_QUERY_LENGTH+MAX_REFERENCE_LENGTH];
 #define IT WT-2  // 2 bit represents layer
 //#define DEBUG
 
-#define N_BLOCKS 2
+#define N_BLOCKS 4
 
 
 typedef ap_uint<3> char_t;
@@ -149,8 +162,30 @@ typedef ap_ufixed<2, 0> tbp_dir_t;
 //typedef hls::vector<type_t, N_LAYERS> score_vec_t;
 //typedef hls::vector<tbp_t, N_LAYERS> tbp_vec_t;
 
-struct score_vec_t { type_t scores[N_LAYERS]; } ;
-struct tbp_vec_t { tbp_t tbps[N_LAYERS]; };
+//struct score_vec_t { type_t scores[N_LAYERS]; } ;
+//struct tbp_vec_t { tbp_t tbps[N_LAYERS]; };
+
+typedef char_t raw_query_block_t[MAX_QUERY_LENGTH];
+typedef char_t raw_reference_block_t[MAX_REFERENCE_LENGTH];
+typedef hls::vector<type_t, N_LAYERS> init_col_score_block_t[MAX_QUERY_LENGTH];
+typedef hls::vector<type_t, N_LAYERS> init_row_score_block_t[MAX_REFERENCE_LENGTH];
+typedef tbp_t traceback_block_t[MAX_QUERY_LENGTH + MAX_REFERENCE_LENGTH];
+typedef hls::vector<type_t, N_LAYERS> score_block_t[PE_NUM];
+typedef hls::vector<tbp_t, N_LAYERS> tbp_block_t[PE_NUM];
+typedef char_t input_char_block_t[PE_NUM];
+
+struct BlockInputs {
+    raw_query_block_t query;
+    raw_reference_block_t reference;
+    init_col_score_block_t init_col_score;
+    init_row_score_block_t init_row_score;
+    int query_length;
+    int reference_length;
+};
+
+struct BlockOutputs {
+    traceback_block_t traceback;
+};
 
 #endif 
 

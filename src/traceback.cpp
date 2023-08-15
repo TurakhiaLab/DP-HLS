@@ -9,17 +9,18 @@
 
 int TraceBack::traceback(
     hls::vector<tbp_t, N_LAYERS> tbmat[MAX_QUERY_LENGTH][MAX_REFERENCE_LENGTH],
-    hls::stream<tbp_t, MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH> &tb_stream, 
+    tbp_t (&traceback_out)[MAX_REFERENCE_LENGTH+MAX_QUERY_LENGTH],
     const int max_layer, const int max_row, const int max_col)  // starting index to traceback
 { 
     int row = max_row;
     int col = max_col;
     int level = max_layer;
+    int i = 0;
 
     traceback_loop:
     while (row >= 0 && col >= 0) {
         tbp_t tbptr = tbmat[row][col][level];
-        tb_stream.write(tbptr);
+        traceback_out[i++] = tbptr;
 
 #ifdef DEBUG
         this->debugger->data.traceback.push_back(tbptr);

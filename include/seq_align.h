@@ -48,10 +48,10 @@ public:
 	idx_t query_ptr = 0;
 	idx_t init_left_brim_addr = 0;
 
-	char_t reference[MAX_REFERENCE_LENGTH];
-	char_t query[MAX_QUERY_LENGTH];
-	hls::vector<type_t, N_LAYERS> last_pe_score[MAX_REFERENCE_LENGTH];
-	hls::vector<type_t, N_LAYERS>  init_staging_score[MAX_QUERY_LENGTH];
+	char_t (&reference)[MAX_REFERENCE_LENGTH];
+	char_t (&query)[MAX_QUERY_LENGTH];
+	hls::vector<type_t, N_LAYERS> (&last_pe_score)[MAX_REFERENCE_LENGTH];
+	hls::vector<type_t, N_LAYERS>  (&init_staging_score)[MAX_QUERY_LENGTH];
 
 	PE PE_group[PE_NUM];
 	ShiftRegister<bool, PE_NUM> predicate;
@@ -63,31 +63,23 @@ public:
 	TraceBack tracer;
 
 	hls::vector<type_t, N_LAYERS>  zero_fp_arr = (type_t) 0;
-	
+
+    Align(
+        char_t (&query)[MAX_QUERY_LENGTH], char_t (&reference)[MAX_REFERENCE_LENGTH],
+        hls::vector<type_t, N_LAYERS>  (&init_staging_score)[MAX_QUERY_LENGTH],
+        hls::vector<type_t, N_LAYERS> (&last_pe_score)[MAX_REFERENCE_LENGTH]);
 
 #ifdef DEBUG
 	Debugger *debug;
 #endif // DEBUG
 
 	void align(  // distribute task and top level wrapper
-            hls::stream<char_t, MAX_QUERY_LENGTH>&query_stream,
-            hls::stream<char_t, MAX_REFERENCE_LENGTH>&reference_stream,
-            hls::stream<hls::vector<type_t, N_LAYERS>, MAX_QUERY_LENGTH> &init_qry_scr,
-            hls::stream<hls::vector<type_t, N_LAYERS>, MAX_REFERENCE_LENGTH> &init_ref_scr,
-            int query_length, int reference_length,
-            hls::stream<tbp_t, MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH> &traceback_out
+            BlockInputs inputs,
+            tbp_t (&traceback_out)[MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH]
 		);
 
 	void compute_chunk(const int pred_length, const int read_length, int tb_idx);
 
-	void init(
-		stream<char_t, MAX_QUERY_LENGTH>&query_stream,
-		stream<char_t, MAX_REFERENCE_LENGTH>&reference_stream,
-		stream<hls::vector<type_t, N_LAYERS>, MAX_QUERY_LENGTH> &init_qry_scr,
-		stream<hls::vector<type_t, N_LAYERS>, MAX_REFERENCE_LENGTH> &init_ref_scr,
-		const int query_length, const int reference_length,
-		stream<tbp_t, MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH>& traceback_out
-		);
 
 private:
 	hls::vector<type_t, N_LAYERS>  staging[PE_NUM];
@@ -108,11 +100,7 @@ private:
 // 	void align(hls::stream<char_t, query_length> &query_stream, hls::stream<char_t, ref_length> &reference_stream, type_t *dummy);
 // };
 
-void align_wp(hls::stream<char_t, MAX_QUERY_LENGTH> &query_stream,
-              hls::stream<char_t, MAX_REFERENCE_LENGTH> &reference_stream,
-              hls::stream<hls::vector<type_t, N_LAYERS>, MAX_QUERY_LENGTH> &init_qry_scr,
-              hls::stream<hls::vector<type_t, N_LAYERS>, MAX_REFERENCE_LENGTH> &init_ref_scr,
-        //int query_length, int reference_length,
-              hls::stream<tbp_t, MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH> &traceback_out);
+void align_wp(hls::stream<BlockInputs> &inputs_stm,
+              hls::stream<BlockOutputs> &traceback_out);
 
 #endif // !SEQ_ALIGN_H

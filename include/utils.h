@@ -1,6 +1,12 @@
 #ifndef UTILS_H
 #define UTILS_H
 
+#include <hls_stream.h>
+#include <hls_streamofblocks.h>
+#include "params.h"
+
+using namespace hls;
+
 namespace utils{
     template <typename T, int V>
     class Stack {
@@ -65,5 +71,17 @@ namespace utils{
 	};
 
 };
+
+namespace Utils{
+    void PackInput(stream_of_blocks<raw_query_block_t> &query,
+                   stream_of_blocks<raw_reference_block_t> &reference,
+                   stream_of_blocks<init_col_score_block_t> &init_col_scr,
+                   stream_of_blocks<init_row_score_block_t> &init_row_scr,
+                   hls::stream<int> &query_length, hls::stream<int> &reference_length,
+                   hls::stream<BlockInputs> &input_stream);
+    void PackInputSimple(stream<BlockInputs> &copied, stream<BlockInputs> &copy);
+    void CollectTraceback(stream<BlockOutputs> &tbp_outputs, stream_of_blocks<traceback_block_t> &block_outputs);
+    void CollectTracebackSimple(stream<BlockOutputs> &copied, stream<BlockOutputs> &copy);
+}
 
 #endif // UTILS_H

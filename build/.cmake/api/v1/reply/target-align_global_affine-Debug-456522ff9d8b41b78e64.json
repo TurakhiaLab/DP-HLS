@@ -25,19 +25,19 @@
 			{
 				"command" : 0,
 				"file" : 0,
-				"line" : 72,
+				"line" : 85,
 				"parent" : 0
 			},
 			{
 				"command" : 1,
 				"file" : 0,
-				"line" : 98,
+				"line" : 115,
 				"parent" : 0
 			},
 			{
 				"command" : 1,
 				"file" : 0,
-				"line" : 99,
+				"line" : 116,
 				"parent" : 0
 			}
 		]
@@ -48,7 +48,7 @@
 			"compileCommandFragments" : 
 			[
 				{
-					"fragment" : "-g  "
+					"fragment" : " -pthread -g  "
 				},
 				{
 					"fragment" : "-std=gnu++17"
@@ -74,11 +74,19 @@
 				},
 				{
 					"backtrace" : 2,
+					"path" : "/home/yic033@AD.UCSD.EDU/DP-HLS/tests"
+				},
+				{
+					"backtrace" : 2,
+					"path" : "/home/yic033@AD.UCSD.EDU/DP-HLS/incremental_sim"
+				},
+				{
+					"backtrace" : 2,
 					"path" : "/home/yic033@AD.UCSD.EDU/DP-HLS/PUBLIC"
 				},
 				{
 					"backtrace" : 2,
-					"path" : "/home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/include"
+					"path" : "/home/AD.UCSD.EDU/yic033/Xilinx/Vitis_HLS/2023.1/include"
 				},
 				{
 					"backtrace" : 3,
@@ -104,7 +112,7 @@
 		"commandFragments" : 
 		[
 			{
-				"fragment" : "-g",
+				"fragment" : "-pthread -g",
 				"role" : "flags"
 			},
 			{

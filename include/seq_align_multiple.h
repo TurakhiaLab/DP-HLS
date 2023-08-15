@@ -15,13 +15,15 @@ using namespace hls;
 //typedef ap_int<16> type_t;
 
 extern "C" {
-	void seq_align_multiple(stream<char_t , MAX_QUERY_LENGTH> (&query_string_comp_blocks)[N_BLOCKS],
-		stream<char_t, MAX_REFERENCE_LENGTH> (&reference_string_comp_blocks)[N_BLOCKS],
-		stream<hls::vector<type_t, N_LAYERS>, MAX_QUERY_LENGTH> (&init_qry_scr)[N_BLOCKS],
-		stream<hls::vector<type_t, N_LAYERS>, MAX_REFERENCE_LENGTH> (&init_ref_scr)[N_BLOCKS],
-        int query_lengths, int reference_lengths,
-		stream<tbp_t, MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH> (&tb_streams)[N_BLOCKS]
-		);
+//	void seq_align_multiple(stream_of_blocks<raw_query_block_t> &query,
+//        stream_of_blocks<raw_reference_block_t> &reference,
+//        stream_of_blocks<init_col_score_block_t> &init_qry_scr,
+//        stream_of_blocks<init_row_score_block_t> &init_ref_scr,
+//        hls::stream<int> &query_length, hls::stream<int> &reference_length,
+//        stream_of_blocks<traceback_block_t> &tb_streams);
+	void seq_align_multiple(
+            stream<BlockInputs> &inputs,
+            stream<BlockOutputs> &outputs);
 }
 
 #endif

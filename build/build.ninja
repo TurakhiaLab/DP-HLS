@@ -51,50 +51,50 @@ build cmake_object_order_depends_target_align_global_affine: phony || CMakeFiles
 
 build CMakeFiles/align_global_affine.dir/testbench/test_global_affine.cpp.o: CXX_COMPILER__align_global_affine ../testbench/test_global_affine.cpp || cmake_object_order_depends_target_align_global_affine
   DEP_FILE = CMakeFiles/align_global_affine.dir/testbench/test_global_affine.cpp.o.d
-  FLAGS = -g   -std=gnu++17
-  INCLUDES = -I../align_local_linear -I../align_global_linear -I../align_local_affine -I../align_global_affine -I../PUBLIC -I/home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/include -I../include
+  FLAGS = -pthread -g   -std=gnu++17
+  INCLUDES = -I../align_local_linear -I../align_global_linear -I../align_local_affine -I../align_global_affine -I../tests -I../incremental_sim -I../PUBLIC -I/home/AD.UCSD.EDU/yic033/Xilinx/Vitis_HLS/2023.1/include -I../include
   OBJECT_DIR = CMakeFiles/align_global_affine.dir
   OBJECT_FILE_DIR = CMakeFiles/align_global_affine.dir/testbench
 
 build CMakeFiles/align_global_affine.dir/src/toplevel/seq_align_multiple.cpp.o: CXX_COMPILER__align_global_affine ../src/toplevel/seq_align_multiple.cpp || cmake_object_order_depends_target_align_global_affine
   DEP_FILE = CMakeFiles/align_global_affine.dir/src/toplevel/seq_align_multiple.cpp.o.d
-  FLAGS = -g   -std=gnu++17
-  INCLUDES = -I../align_local_linear -I../align_global_linear -I../align_local_affine -I../align_global_affine -I../PUBLIC -I/home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/include -I../include
+  FLAGS = -pthread -g   -std=gnu++17
+  INCLUDES = -I../align_local_linear -I../align_global_linear -I../align_local_affine -I../align_global_affine -I../tests -I../incremental_sim -I../PUBLIC -I/home/AD.UCSD.EDU/yic033/Xilinx/Vitis_HLS/2023.1/include -I../include
   OBJECT_DIR = CMakeFiles/align_global_affine.dir
   OBJECT_FILE_DIR = CMakeFiles/align_global_affine.dir/src/toplevel
 
 build CMakeFiles/align_global_affine.dir/src/align/align.cpp.o: CXX_COMPILER__align_global_affine ../src/align/align.cpp || cmake_object_order_depends_target_align_global_affine
   DEP_FILE = CMakeFiles/align_global_affine.dir/src/align/align.cpp.o.d
-  FLAGS = -g   -std=gnu++17
-  INCLUDES = -I../align_local_linear -I../align_global_linear -I../align_local_affine -I../align_global_affine -I../PUBLIC -I/home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/include -I../include
+  FLAGS = -pthread -g   -std=gnu++17
+  INCLUDES = -I../align_local_linear -I../align_global_linear -I../align_local_affine -I../align_global_affine -I../tests -I../incremental_sim -I../PUBLIC -I/home/AD.UCSD.EDU/yic033/Xilinx/Vitis_HLS/2023.1/include -I../include
   OBJECT_DIR = CMakeFiles/align_global_affine.dir
   OBJECT_FILE_DIR = CMakeFiles/align_global_affine.dir/src/align
 
 build CMakeFiles/align_global_affine.dir/src/pe/pe_global_affine.cpp.o: CXX_COMPILER__align_global_affine ../src/pe/pe_global_affine.cpp || cmake_object_order_depends_target_align_global_affine
   DEP_FILE = CMakeFiles/align_global_affine.dir/src/pe/pe_global_affine.cpp.o.d
-  FLAGS = -g   -std=gnu++17
-  INCLUDES = -I../align_local_linear -I../align_global_linear -I../align_local_affine -I../align_global_affine -I../PUBLIC -I/home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/include -I../include
+  FLAGS = -pthread -g   -std=gnu++17
+  INCLUDES = -I../align_local_linear -I../align_global_linear -I../align_local_affine -I../align_global_affine -I../tests -I../incremental_sim -I../PUBLIC -I/home/AD.UCSD.EDU/yic033/Xilinx/Vitis_HLS/2023.1/include -I../include
   OBJECT_DIR = CMakeFiles/align_global_affine.dir
   OBJECT_FILE_DIR = CMakeFiles/align_global_affine.dir/src/pe
 
 build CMakeFiles/align_global_affine.dir/src/traceback.cpp.o: CXX_COMPILER__align_global_affine ../src/traceback.cpp || cmake_object_order_depends_target_align_global_affine
   DEP_FILE = CMakeFiles/align_global_affine.dir/src/traceback.cpp.o.d
-  FLAGS = -g   -std=gnu++17
-  INCLUDES = -I../align_local_linear -I../align_global_linear -I../align_local_affine -I../align_global_affine -I../PUBLIC -I/home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/include -I../include
+  FLAGS = -pthread -g   -std=gnu++17
+  INCLUDES = -I../align_local_linear -I../align_global_linear -I../align_local_affine -I../align_global_affine -I../tests -I../incremental_sim -I../PUBLIC -I/home/AD.UCSD.EDU/yic033/Xilinx/Vitis_HLS/2023.1/include -I../include
   OBJECT_DIR = CMakeFiles/align_global_affine.dir
   OBJECT_FILE_DIR = CMakeFiles/align_global_affine.dir/src
 
 build CMakeFiles/align_global_affine.dir/src/utils.cpp.o: CXX_COMPILER__align_global_affine ../src/utils.cpp || cmake_object_order_depends_target_align_global_affine
   DEP_FILE = CMakeFiles/align_global_affine.dir/src/utils.cpp.o.d
-  FLAGS = -g   -std=gnu++17
-  INCLUDES = -I../align_local_linear -I../align_global_linear -I../align_local_affine -I../align_global_affine -I../PUBLIC -I/home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/include -I../include
+  FLAGS = -pthread -g   -std=gnu++17
+  INCLUDES = -I../align_local_linear -I../align_global_linear -I../align_local_affine -I../align_global_affine -I../tests -I../incremental_sim -I../PUBLIC -I/home/AD.UCSD.EDU/yic033/Xilinx/Vitis_HLS/2023.1/include -I../include
   OBJECT_DIR = CMakeFiles/align_global_affine.dir
   OBJECT_FILE_DIR = CMakeFiles/align_global_affine.dir/src
 
 build CMakeFiles/align_global_affine.dir/src/initial.cpp.o: CXX_COMPILER__align_global_affine ../src/initial.cpp || cmake_object_order_depends_target_align_global_affine
   DEP_FILE = CMakeFiles/align_global_affine.dir/src/initial.cpp.o.d
-  FLAGS = -g   -std=gnu++17
-  INCLUDES = -I../align_local_linear -I../align_global_linear -I../align_local_affine -I../align_global_affine -I../PUBLIC -I/home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/include -I../include
+  FLAGS = -pthread -g   -std=gnu++17
+  INCLUDES = -I../align_local_linear -I../align_global_linear -I../align_local_affine -I../align_global_affine -I../tests -I../incremental_sim -I../PUBLIC -I/home/AD.UCSD.EDU/yic033/Xilinx/Vitis_HLS/2023.1/include -I../include
   OBJECT_DIR = CMakeFiles/align_global_affine.dir
   OBJECT_FILE_DIR = CMakeFiles/align_global_affine.dir/src
 
@@ -107,7 +107,7 @@ build CMakeFiles/align_global_affine.dir/src/initial.cpp.o: CXX_COMPILER__align_
 # Link the executable align_global_affine
 
 build align_global_affine: CXX_EXECUTABLE_LINKER__align_global_affine CMakeFiles/align_global_affine.dir/testbench/test_global_affine.cpp.o CMakeFiles/align_global_affine.dir/src/toplevel/seq_align_multiple.cpp.o CMakeFiles/align_global_affine.dir/src/align/align.cpp.o CMakeFiles/align_global_affine.dir/src/pe/pe_global_affine.cpp.o CMakeFiles/align_global_affine.dir/src/traceback.cpp.o CMakeFiles/align_global_affine.dir/src/utils.cpp.o CMakeFiles/align_global_affine.dir/src/initial.cpp.o
-  FLAGS = -g
+  FLAGS = -pthread -g
   LINK_FLAGS = -rdynamic
   OBJECT_DIR = CMakeFiles/align_global_affine.dir
   POST_BUILD = :
@@ -126,50 +126,50 @@ build cmake_object_order_depends_target_align_local_affine: phony || CMakeFiles/
 
 build CMakeFiles/align_local_affine.dir/testbench/test_local_affine.cpp.o: CXX_COMPILER__align_local_affine ../testbench/test_local_affine.cpp || cmake_object_order_depends_target_align_local_affine
   DEP_FILE = CMakeFiles/align_local_affine.dir/testbench/test_local_affine.cpp.o.d
-  FLAGS = -g   -std=gnu++17
-  INCLUDES = -I../align_local_linear -I../align_global_linear -I../align_local_affine -I../align_global_affine -I../PUBLIC -I/home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/include -I../include
+  FLAGS = -pthread -g   -std=gnu++17
+  INCLUDES = -I../align_local_linear -I../align_global_linear -I../align_local_affine -I../align_global_affine -I../tests -I../incremental_sim -I../PUBLIC -I/home/AD.UCSD.EDU/yic033/Xilinx/Vitis_HLS/2023.1/include -I../include
   OBJECT_DIR = CMakeFiles/align_local_affine.dir
   OBJECT_FILE_DIR = CMakeFiles/align_local_affine.dir/testbench
 
 build CMakeFiles/align_local_affine.dir/src/toplevel/seq_align_multiple.cpp.o: CXX_COMPILER__align_local_affine ../src/toplevel/seq_align_multiple.cpp || cmake_object_order_depends_target_align_local_affine
   DEP_FILE = CMakeFiles/align_local_affine.dir/src/toplevel/seq_align_multiple.cpp.o.d
-  FLAGS = -g   -std=gnu++17
-  INCLUDES = -I../align_local_linear -I../align_global_linear -I../align_local_affine -I../align_global_affine -I../PUBLIC -I/home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/include -I../include
+  FLAGS = -pthread -g   -std=gnu++17
+  INCLUDES = -I../align_local_linear -I../align_global_linear -I../align_local_affine -I../align_global_affine -I../tests -I../incremental_sim -I../PUBLIC -I/home/AD.UCSD.EDU/yic033/Xilinx/Vitis_HLS/2023.1/include -I../include
   OBJECT_DIR = CMakeFiles/align_local_affine.dir
   OBJECT_FILE_DIR = CMakeFiles/align_local_affine.dir/src/toplevel
 
 build CMakeFiles/align_local_affine.dir/src/align/align.cpp.o: CXX_COMPILER__align_local_affine ../src/align/align.cpp || cmake_object_order_depends_target_align_local_affine
   DEP_FILE = CMakeFiles/align_local_affine.dir/src/align/align.cpp.o.d
-  FLAGS = -g   -std=gnu++17
-  INCLUDES = -I../align_local_linear -I../align_global_linear -I../align_local_affine -I../align_global_affine -I../PUBLIC -I/home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/include -I../include
+  FLAGS = -pthread -g   -std=gnu++17
+  INCLUDES = -I../align_local_linear -I../align_global_linear -I../align_local_affine -I../align_global_affine -I../tests -I../incremental_sim -I../PUBLIC -I/home/AD.UCSD.EDU/yic033/Xilinx/Vitis_HLS/2023.1/include -I../include
   OBJECT_DIR = CMakeFiles/align_local_affine.dir
   OBJECT_FILE_DIR = CMakeFiles/align_local_affine.dir/src/align
 
 build CMakeFiles/align_local_affine.dir/src/traceback.cpp.o: CXX_COMPILER__align_local_affine ../src/traceback.cpp || cmake_object_order_depends_target_align_local_affine
   DEP_FILE = CMakeFiles/align_local_affine.dir/src/traceback.cpp.o.d
-  FLAGS = -g   -std=gnu++17
-  INCLUDES = -I../align_local_linear -I../align_global_linear -I../align_local_affine -I../align_global_affine -I../PUBLIC -I/home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/include -I../include
+  FLAGS = -pthread -g   -std=gnu++17
+  INCLUDES = -I../align_local_linear -I../align_global_linear -I../align_local_affine -I../align_global_affine -I../tests -I../incremental_sim -I../PUBLIC -I/home/AD.UCSD.EDU/yic033/Xilinx/Vitis_HLS/2023.1/include -I../include
   OBJECT_DIR = CMakeFiles/align_local_affine.dir
   OBJECT_FILE_DIR = CMakeFiles/align_local_affine.dir/src
 
 build CMakeFiles/align_local_affine.dir/src/utils.cpp.o: CXX_COMPILER__align_local_affine ../src/utils.cpp || cmake_object_order_depends_target_align_local_affine
   DEP_FILE = CMakeFiles/align_local_affine.dir/src/utils.cpp.o.d
-  FLAGS = -g   -std=gnu++17
-  INCLUDES = -I../align_local_linear -I../align_global_linear -I../align_local_affine -I../align_global_affine -I../PUBLIC -I/home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/include -I../include
+  FLAGS = -pthread -g   -std=gnu++17
+  INCLUDES = -I../align_local_linear -I../align_global_linear -I../align_local_affine -I../align_global_affine -I../tests -I../incremental_sim -I../PUBLIC -I/home/AD.UCSD.EDU/yic033/Xilinx/Vitis_HLS/2023.1/include -I../include
   OBJECT_DIR = CMakeFiles/align_local_affine.dir
   OBJECT_FILE_DIR = CMakeFiles/align_local_affine.dir/src
 
 build CMakeFiles/align_local_affine.dir/src/initial.cpp.o: CXX_COMPILER__align_local_affine ../src/initial.cpp || cmake_object_order_depends_target_align_local_affine
   DEP_FILE = CMakeFiles/align_local_affine.dir/src/initial.cpp.o.d
-  FLAGS = -g   -std=gnu++17
-  INCLUDES = -I../align_local_linear -I../align_global_linear -I../align_local_affine -I../align_global_affine -I../PUBLIC -I/home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/include -I../include
+  FLAGS = -pthread -g   -std=gnu++17
+  INCLUDES = -I../align_local_linear -I../align_global_linear -I../align_local_affine -I../align_global_affine -I../tests -I../incremental_sim -I../PUBLIC -I/home/AD.UCSD.EDU/yic033/Xilinx/Vitis_HLS/2023.1/include -I../include
   OBJECT_DIR = CMakeFiles/align_local_affine.dir
   OBJECT_FILE_DIR = CMakeFiles/align_local_affine.dir/src
 
 build CMakeFiles/align_local_affine.dir/src/pe/pe.cpp.o: CXX_COMPILER__align_local_affine ../src/pe/pe.cpp || cmake_object_order_depends_target_align_local_affine
   DEP_FILE = CMakeFiles/align_local_affine.dir/src/pe/pe.cpp.o.d
-  FLAGS = -g   -std=gnu++17
-  INCLUDES = -I../align_local_linear -I../align_global_linear -I../align_local_affine -I../align_global_affine -I../PUBLIC -I/home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/include -I../include
+  FLAGS = -pthread -g   -std=gnu++17
+  INCLUDES = -I../align_local_linear -I../align_global_linear -I../align_local_affine -I../align_global_affine -I../tests -I../incremental_sim -I../PUBLIC -I/home/AD.UCSD.EDU/yic033/Xilinx/Vitis_HLS/2023.1/include -I../include
   OBJECT_DIR = CMakeFiles/align_local_affine.dir
   OBJECT_FILE_DIR = CMakeFiles/align_local_affine.dir/src/pe
 
@@ -182,13 +182,60 @@ build CMakeFiles/align_local_affine.dir/src/pe/pe.cpp.o: CXX_COMPILER__align_loc
 # Link the executable align_local_affine
 
 build align_local_affine: CXX_EXECUTABLE_LINKER__align_local_affine CMakeFiles/align_local_affine.dir/testbench/test_local_affine.cpp.o CMakeFiles/align_local_affine.dir/src/toplevel/seq_align_multiple.cpp.o CMakeFiles/align_local_affine.dir/src/align/align.cpp.o CMakeFiles/align_local_affine.dir/src/traceback.cpp.o CMakeFiles/align_local_affine.dir/src/utils.cpp.o CMakeFiles/align_local_affine.dir/src/initial.cpp.o CMakeFiles/align_local_affine.dir/src/pe/pe.cpp.o
-  FLAGS = -g
+  FLAGS = -pthread -g
   LINK_FLAGS = -rdynamic
   OBJECT_DIR = CMakeFiles/align_local_affine.dir
   POST_BUILD = :
   PRE_LINK = :
   TARGET_FILE = align_local_affine
   TARGET_PDB = align_local_affine.dbg
+
+# =============================================================================
+# Object build statements for EXECUTABLE target tests
+
+
+#############################################
+# Order-only phony target for tests
+
+build cmake_object_order_depends_target_tests: phony || CMakeFiles/tests.dir
+
+build CMakeFiles/tests.dir/increment/testbench/main.cpp.o: CXX_COMPILER__tests ../increment/testbench/main.cpp || cmake_object_order_depends_target_tests
+  DEP_FILE = CMakeFiles/tests.dir/increment/testbench/main.cpp.o.d
+  FLAGS = -pthread -g   -std=gnu++17
+  INCLUDES = -I../align_local_linear -I../align_global_linear -I../align_local_affine -I../align_global_affine -I../tests -I../incremental_sim -I../PUBLIC -I/home/AD.UCSD.EDU/yic033/Xilinx/Vitis_HLS/2023.1/include -I../include
+  OBJECT_DIR = CMakeFiles/tests.dir
+  OBJECT_FILE_DIR = CMakeFiles/tests.dir/increment/testbench
+
+build CMakeFiles/tests.dir/increment/testbench/testbench.cpp.o: CXX_COMPILER__tests ../increment/testbench/testbench.cpp || cmake_object_order_depends_target_tests
+  DEP_FILE = CMakeFiles/tests.dir/increment/testbench/testbench.cpp.o.d
+  FLAGS = -pthread -g   -std=gnu++17
+  INCLUDES = -I../align_local_linear -I../align_global_linear -I../align_local_affine -I../align_global_affine -I../tests -I../incremental_sim -I../PUBLIC -I/home/AD.UCSD.EDU/yic033/Xilinx/Vitis_HLS/2023.1/include -I../include
+  OBJECT_DIR = CMakeFiles/tests.dir
+  OBJECT_FILE_DIR = CMakeFiles/tests.dir/increment/testbench
+
+build CMakeFiles/tests.dir/increment/src/pe/pe.cpp.o: CXX_COMPILER__tests ../increment/src/pe/pe.cpp || cmake_object_order_depends_target_tests
+  DEP_FILE = CMakeFiles/tests.dir/increment/src/pe/pe.cpp.o.d
+  FLAGS = -pthread -g   -std=gnu++17
+  INCLUDES = -I../align_local_linear -I../align_global_linear -I../align_local_affine -I../align_global_affine -I../tests -I../incremental_sim -I../PUBLIC -I/home/AD.UCSD.EDU/yic033/Xilinx/Vitis_HLS/2023.1/include -I../include
+  OBJECT_DIR = CMakeFiles/tests.dir
+  OBJECT_FILE_DIR = CMakeFiles/tests.dir/increment/src/pe
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target tests
+
+
+#############################################
+# Link the executable tests
+
+build tests: CXX_EXECUTABLE_LINKER__tests CMakeFiles/tests.dir/increment/testbench/main.cpp.o CMakeFiles/tests.dir/increment/testbench/testbench.cpp.o CMakeFiles/tests.dir/increment/src/pe/pe.cpp.o
+  FLAGS = -pthread -g
+  LINK_FLAGS = -rdynamic
+  OBJECT_DIR = CMakeFiles/tests.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_FILE = tests
+  TARGET_PDB = tests.dbg
 
 
 #############################################
@@ -213,57 +260,57 @@ build cmake_object_order_depends_target_align_global_linear: phony || CMakeFiles
 
 build CMakeFiles/align_global_linear.dir/testbench/test_global_linear.cpp.o: CXX_COMPILER__align_global_linear ../testbench/test_global_linear.cpp || cmake_object_order_depends_target_align_global_linear
   DEP_FILE = CMakeFiles/align_global_linear.dir/testbench/test_global_linear.cpp.o.d
-  FLAGS = -g   -std=gnu++17
-  INCLUDES = -I../align_local_linear -I../align_global_linear -I../align_local_affine -I../align_global_affine -I../PUBLIC -I/home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/include -I../include
+  FLAGS = -pthread -g   -std=gnu++17
+  INCLUDES = -I../align_local_linear -I../align_global_linear -I../align_local_affine -I../align_global_affine -I../tests -I../incremental_sim -I../PUBLIC -I/home/AD.UCSD.EDU/yic033/Xilinx/Vitis_HLS/2023.1/include -I../include
   OBJECT_DIR = CMakeFiles/align_global_linear.dir
   OBJECT_FILE_DIR = CMakeFiles/align_global_linear.dir/testbench
 
 build CMakeFiles/align_global_linear.dir/src/toplevel/seq_align_multiple.cpp.o: CXX_COMPILER__align_global_linear ../src/toplevel/seq_align_multiple.cpp || cmake_object_order_depends_target_align_global_linear
   DEP_FILE = CMakeFiles/align_global_linear.dir/src/toplevel/seq_align_multiple.cpp.o.d
-  FLAGS = -g   -std=gnu++17
-  INCLUDES = -I../align_local_linear -I../align_global_linear -I../align_local_affine -I../align_global_affine -I../PUBLIC -I/home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/include -I../include
+  FLAGS = -pthread -g   -std=gnu++17
+  INCLUDES = -I../align_local_linear -I../align_global_linear -I../align_local_affine -I../align_global_affine -I../tests -I../incremental_sim -I../PUBLIC -I/home/AD.UCSD.EDU/yic033/Xilinx/Vitis_HLS/2023.1/include -I../include
   OBJECT_DIR = CMakeFiles/align_global_linear.dir
   OBJECT_FILE_DIR = CMakeFiles/align_global_linear.dir/src/toplevel
 
 build CMakeFiles/align_global_linear.dir/src/align/align.cpp.o: CXX_COMPILER__align_global_linear ../src/align/align.cpp || cmake_object_order_depends_target_align_global_linear
   DEP_FILE = CMakeFiles/align_global_linear.dir/src/align/align.cpp.o.d
-  FLAGS = -g   -std=gnu++17
-  INCLUDES = -I../align_local_linear -I../align_global_linear -I../align_local_affine -I../align_global_affine -I../PUBLIC -I/home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/include -I../include
+  FLAGS = -pthread -g   -std=gnu++17
+  INCLUDES = -I../align_local_linear -I../align_global_linear -I../align_local_affine -I../align_global_affine -I../tests -I../incremental_sim -I../PUBLIC -I/home/AD.UCSD.EDU/yic033/Xilinx/Vitis_HLS/2023.1/include -I../include
   OBJECT_DIR = CMakeFiles/align_global_linear.dir
   OBJECT_FILE_DIR = CMakeFiles/align_global_linear.dir/src/align
 
 build CMakeFiles/align_global_linear.dir/src/pe/pe_global_linear.cpp.o: CXX_COMPILER__align_global_linear ../src/pe/pe_global_linear.cpp || cmake_object_order_depends_target_align_global_linear
   DEP_FILE = CMakeFiles/align_global_linear.dir/src/pe/pe_global_linear.cpp.o.d
-  FLAGS = -g   -std=gnu++17
-  INCLUDES = -I../align_local_linear -I../align_global_linear -I../align_local_affine -I../align_global_affine -I../PUBLIC -I/home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/include -I../include
+  FLAGS = -pthread -g   -std=gnu++17
+  INCLUDES = -I../align_local_linear -I../align_global_linear -I../align_local_affine -I../align_global_affine -I../tests -I../incremental_sim -I../PUBLIC -I/home/AD.UCSD.EDU/yic033/Xilinx/Vitis_HLS/2023.1/include -I../include
   OBJECT_DIR = CMakeFiles/align_global_linear.dir
   OBJECT_FILE_DIR = CMakeFiles/align_global_linear.dir/src/pe
 
 build CMakeFiles/align_global_linear.dir/src/traceback.cpp.o: CXX_COMPILER__align_global_linear ../src/traceback.cpp || cmake_object_order_depends_target_align_global_linear
   DEP_FILE = CMakeFiles/align_global_linear.dir/src/traceback.cpp.o.d
-  FLAGS = -g   -std=gnu++17
-  INCLUDES = -I../align_local_linear -I../align_global_linear -I../align_local_affine -I../align_global_affine -I../PUBLIC -I/home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/include -I../include
+  FLAGS = -pthread -g   -std=gnu++17
+  INCLUDES = -I../align_local_linear -I../align_global_linear -I../align_local_affine -I../align_global_affine -I../tests -I../incremental_sim -I../PUBLIC -I/home/AD.UCSD.EDU/yic033/Xilinx/Vitis_HLS/2023.1/include -I../include
   OBJECT_DIR = CMakeFiles/align_global_linear.dir
   OBJECT_FILE_DIR = CMakeFiles/align_global_linear.dir/src
 
 build CMakeFiles/align_global_linear.dir/src/utils.cpp.o: CXX_COMPILER__align_global_linear ../src/utils.cpp || cmake_object_order_depends_target_align_global_linear
   DEP_FILE = CMakeFiles/align_global_linear.dir/src/utils.cpp.o.d
-  FLAGS = -g   -std=gnu++17
-  INCLUDES = -I../align_local_linear -I../align_global_linear -I../align_local_affine -I../align_global_affine -I../PUBLIC -I/home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/include -I../include
+  FLAGS = -pthread -g   -std=gnu++17
+  INCLUDES = -I../align_local_linear -I../align_global_linear -I../align_local_affine -I../align_global_affine -I../tests -I../incremental_sim -I../PUBLIC -I/home/AD.UCSD.EDU/yic033/Xilinx/Vitis_HLS/2023.1/include -I../include
   OBJECT_DIR = CMakeFiles/align_global_linear.dir
   OBJECT_FILE_DIR = CMakeFiles/align_global_linear.dir/src
 
 build CMakeFiles/align_global_linear.dir/src/initial.cpp.o: CXX_COMPILER__align_global_linear ../src/initial.cpp || cmake_object_order_depends_target_align_global_linear
   DEP_FILE = CMakeFiles/align_global_linear.dir/src/initial.cpp.o.d
-  FLAGS = -g   -std=gnu++17
-  INCLUDES = -I../align_local_linear -I../align_global_linear -I../align_local_affine -I../align_global_affine -I../PUBLIC -I/home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/include -I../include
+  FLAGS = -pthread -g   -std=gnu++17
+  INCLUDES = -I../align_local_linear -I../align_global_linear -I../align_local_affine -I../align_global_affine -I../tests -I../incremental_sim -I../PUBLIC -I/home/AD.UCSD.EDU/yic033/Xilinx/Vitis_HLS/2023.1/include -I../include
   OBJECT_DIR = CMakeFiles/align_global_linear.dir
   OBJECT_FILE_DIR = CMakeFiles/align_global_linear.dir/src
 
 build CMakeFiles/align_global_linear.dir/src/pe/pe.cpp.o: CXX_COMPILER__align_global_linear ../src/pe/pe.cpp || cmake_object_order_depends_target_align_global_linear
   DEP_FILE = CMakeFiles/align_global_linear.dir/src/pe/pe.cpp.o.d
-  FLAGS = -g   -std=gnu++17
-  INCLUDES = -I../align_local_linear -I../align_global_linear -I../align_local_affine -I../align_global_affine -I../PUBLIC -I/home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/include -I../include
+  FLAGS = -pthread -g   -std=gnu++17
+  INCLUDES = -I../align_local_linear -I../align_global_linear -I../align_local_affine -I../align_global_affine -I../tests -I../incremental_sim -I../PUBLIC -I/home/AD.UCSD.EDU/yic033/Xilinx/Vitis_HLS/2023.1/include -I../include
   OBJECT_DIR = CMakeFiles/align_global_linear.dir
   OBJECT_FILE_DIR = CMakeFiles/align_global_linear.dir/src/pe
 
@@ -276,7 +323,7 @@ build CMakeFiles/align_global_linear.dir/src/pe/pe.cpp.o: CXX_COMPILER__align_gl
 # Link the executable align_global_linear
 
 build align_global_linear: CXX_EXECUTABLE_LINKER__align_global_linear CMakeFiles/align_global_linear.dir/testbench/test_global_linear.cpp.o CMakeFiles/align_global_linear.dir/src/toplevel/seq_align_multiple.cpp.o CMakeFiles/align_global_linear.dir/src/align/align.cpp.o CMakeFiles/align_global_linear.dir/src/pe/pe_global_linear.cpp.o CMakeFiles/align_global_linear.dir/src/traceback.cpp.o CMakeFiles/align_global_linear.dir/src/utils.cpp.o CMakeFiles/align_global_linear.dir/src/initial.cpp.o CMakeFiles/align_global_linear.dir/src/pe/pe.cpp.o
-  FLAGS = -g
+  FLAGS = -pthread -g
   LINK_FLAGS = -rdynamic
   OBJECT_DIR = CMakeFiles/align_global_linear.dir
   POST_BUILD = :
@@ -295,50 +342,50 @@ build cmake_object_order_depends_target_align_local_linear: phony || CMakeFiles/
 
 build CMakeFiles/align_local_linear.dir/testbench/test_local_linear.cpp.o: CXX_COMPILER__align_local_linear ../testbench/test_local_linear.cpp || cmake_object_order_depends_target_align_local_linear
   DEP_FILE = CMakeFiles/align_local_linear.dir/testbench/test_local_linear.cpp.o.d
-  FLAGS = -g   -std=gnu++17
-  INCLUDES = -I../align_local_linear -I../align_global_linear -I../align_local_affine -I../align_global_affine -I../PUBLIC -I/home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/include -I../include
+  FLAGS = -pthread -g   -std=gnu++17
+  INCLUDES = -I../align_local_linear -I../align_global_linear -I../align_local_affine -I../align_global_affine -I../tests -I../incremental_sim -I../PUBLIC -I/home/AD.UCSD.EDU/yic033/Xilinx/Vitis_HLS/2023.1/include -I../include
   OBJECT_DIR = CMakeFiles/align_local_linear.dir
   OBJECT_FILE_DIR = CMakeFiles/align_local_linear.dir/testbench
 
 build CMakeFiles/align_local_linear.dir/src/toplevel/seq_align_multiple.cpp.o: CXX_COMPILER__align_local_linear ../src/toplevel/seq_align_multiple.cpp || cmake_object_order_depends_target_align_local_linear
   DEP_FILE = CMakeFiles/align_local_linear.dir/src/toplevel/seq_align_multiple.cpp.o.d
-  FLAGS = -g   -std=gnu++17
-  INCLUDES = -I../align_local_linear -I../align_global_linear -I../align_local_affine -I../align_global_affine -I../PUBLIC -I/home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/include -I../include
+  FLAGS = -pthread -g   -std=gnu++17
+  INCLUDES = -I../align_local_linear -I../align_global_linear -I../align_local_affine -I../align_global_affine -I../tests -I../incremental_sim -I../PUBLIC -I/home/AD.UCSD.EDU/yic033/Xilinx/Vitis_HLS/2023.1/include -I../include
   OBJECT_DIR = CMakeFiles/align_local_linear.dir
   OBJECT_FILE_DIR = CMakeFiles/align_local_linear.dir/src/toplevel
 
 build CMakeFiles/align_local_linear.dir/src/align/align.cpp.o: CXX_COMPILER__align_local_linear ../src/align/align.cpp || cmake_object_order_depends_target_align_local_linear
   DEP_FILE = CMakeFiles/align_local_linear.dir/src/align/align.cpp.o.d
-  FLAGS = -g   -std=gnu++17
-  INCLUDES = -I../align_local_linear -I../align_global_linear -I../align_local_affine -I../align_global_affine -I../PUBLIC -I/home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/include -I../include
+  FLAGS = -pthread -g   -std=gnu++17
+  INCLUDES = -I../align_local_linear -I../align_global_linear -I../align_local_affine -I../align_global_affine -I../tests -I../incremental_sim -I../PUBLIC -I/home/AD.UCSD.EDU/yic033/Xilinx/Vitis_HLS/2023.1/include -I../include
   OBJECT_DIR = CMakeFiles/align_local_linear.dir
   OBJECT_FILE_DIR = CMakeFiles/align_local_linear.dir/src/align
 
 build CMakeFiles/align_local_linear.dir/src/traceback.cpp.o: CXX_COMPILER__align_local_linear ../src/traceback.cpp || cmake_object_order_depends_target_align_local_linear
   DEP_FILE = CMakeFiles/align_local_linear.dir/src/traceback.cpp.o.d
-  FLAGS = -g   -std=gnu++17
-  INCLUDES = -I../align_local_linear -I../align_global_linear -I../align_local_affine -I../align_global_affine -I../PUBLIC -I/home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/include -I../include
+  FLAGS = -pthread -g   -std=gnu++17
+  INCLUDES = -I../align_local_linear -I../align_global_linear -I../align_local_affine -I../align_global_affine -I../tests -I../incremental_sim -I../PUBLIC -I/home/AD.UCSD.EDU/yic033/Xilinx/Vitis_HLS/2023.1/include -I../include
   OBJECT_DIR = CMakeFiles/align_local_linear.dir
   OBJECT_FILE_DIR = CMakeFiles/align_local_linear.dir/src
 
 build CMakeFiles/align_local_linear.dir/src/utils.cpp.o: CXX_COMPILER__align_local_linear ../src/utils.cpp || cmake_object_order_depends_target_align_local_linear
   DEP_FILE = CMakeFiles/align_local_linear.dir/src/utils.cpp.o.d
-  FLAGS = -g   -std=gnu++17
-  INCLUDES = -I../align_local_linear -I../align_global_linear -I../align_local_affine -I../align_global_affine -I../PUBLIC -I/home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/include -I../include
+  FLAGS = -pthread -g   -std=gnu++17
+  INCLUDES = -I../align_local_linear -I../align_global_linear -I../align_local_affine -I../align_global_affine -I../tests -I../incremental_sim -I../PUBLIC -I/home/AD.UCSD.EDU/yic033/Xilinx/Vitis_HLS/2023.1/include -I../include
   OBJECT_DIR = CMakeFiles/align_local_linear.dir
   OBJECT_FILE_DIR = CMakeFiles/align_local_linear.dir/src
 
 build CMakeFiles/align_local_linear.dir/src/initial.cpp.o: CXX_COMPILER__align_local_linear ../src/initial.cpp || cmake_object_order_depends_target_align_local_linear
   DEP_FILE = CMakeFiles/align_local_linear.dir/src/initial.cpp.o.d
-  FLAGS = -g   -std=gnu++17
-  INCLUDES = -I../align_local_linear -I../align_global_linear -I../align_local_affine -I../align_global_affine -I../PUBLIC -I/home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/include -I../include
+  FLAGS = -pthread -g   -std=gnu++17
+  INCLUDES = -I../align_local_linear -I../align_global_linear -I../align_local_affine -I../align_global_affine -I../tests -I../incremental_sim -I../PUBLIC -I/home/AD.UCSD.EDU/yic033/Xilinx/Vitis_HLS/2023.1/include -I../include
   OBJECT_DIR = CMakeFiles/align_local_linear.dir
   OBJECT_FILE_DIR = CMakeFiles/align_local_linear.dir/src
 
 build CMakeFiles/align_local_linear.dir/src/pe/pe.cpp.o: CXX_COMPILER__align_local_linear ../src/pe/pe.cpp || cmake_object_order_depends_target_align_local_linear
   DEP_FILE = CMakeFiles/align_local_linear.dir/src/pe/pe.cpp.o.d
-  FLAGS = -g   -std=gnu++17
-  INCLUDES = -I../align_local_linear -I../align_global_linear -I../align_local_affine -I../align_global_affine -I../PUBLIC -I/home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/include -I../include
+  FLAGS = -pthread -g   -std=gnu++17
+  INCLUDES = -I../align_local_linear -I../align_global_linear -I../align_local_affine -I../align_global_affine -I../tests -I../incremental_sim -I../PUBLIC -I/home/AD.UCSD.EDU/yic033/Xilinx/Vitis_HLS/2023.1/include -I../include
   OBJECT_DIR = CMakeFiles/align_local_linear.dir
   OBJECT_FILE_DIR = CMakeFiles/align_local_linear.dir/src/pe
 
@@ -351,13 +398,53 @@ build CMakeFiles/align_local_linear.dir/src/pe/pe.cpp.o: CXX_COMPILER__align_loc
 # Link the executable align_local_linear
 
 build align_local_linear: CXX_EXECUTABLE_LINKER__align_local_linear CMakeFiles/align_local_linear.dir/testbench/test_local_linear.cpp.o CMakeFiles/align_local_linear.dir/src/toplevel/seq_align_multiple.cpp.o CMakeFiles/align_local_linear.dir/src/align/align.cpp.o CMakeFiles/align_local_linear.dir/src/traceback.cpp.o CMakeFiles/align_local_linear.dir/src/utils.cpp.o CMakeFiles/align_local_linear.dir/src/initial.cpp.o CMakeFiles/align_local_linear.dir/src/pe/pe.cpp.o
-  FLAGS = -g
+  FLAGS = -pthread -g
   LINK_FLAGS = -rdynamic
   OBJECT_DIR = CMakeFiles/align_local_linear.dir
   POST_BUILD = :
   PRE_LINK = :
   TARGET_FILE = align_local_linear
   TARGET_PDB = align_local_linear.dbg
+
+# =============================================================================
+# Object build statements for EXECUTABLE target incremental_sim
+
+
+#############################################
+# Order-only phony target for incremental_sim
+
+build cmake_object_order_depends_target_incremental_sim: phony || CMakeFiles/incremental_sim.dir
+
+build CMakeFiles/incremental_sim.dir/increment/legacy/local_linear.cpp.o: CXX_COMPILER__incremental_sim ../increment/legacy/local_linear.cpp || cmake_object_order_depends_target_incremental_sim
+  DEP_FILE = CMakeFiles/incremental_sim.dir/increment/legacy/local_linear.cpp.o.d
+  FLAGS = -pthread -g   -std=gnu++17
+  INCLUDES = -I../align_local_linear -I../align_global_linear -I../align_local_affine -I../align_global_affine -I../tests -I../incremental_sim -I../PUBLIC -I/home/AD.UCSD.EDU/yic033/Xilinx/Vitis_HLS/2023.1/include -I../include
+  OBJECT_DIR = CMakeFiles/incremental_sim.dir
+  OBJECT_FILE_DIR = CMakeFiles/incremental_sim.dir/increment/legacy
+
+build CMakeFiles/incremental_sim.dir/increment/legacy/local_linear_testbench.cpp.o: CXX_COMPILER__incremental_sim ../increment/legacy/local_linear_testbench.cpp || cmake_object_order_depends_target_incremental_sim
+  DEP_FILE = CMakeFiles/incremental_sim.dir/increment/legacy/local_linear_testbench.cpp.o.d
+  FLAGS = -pthread -g   -std=gnu++17
+  INCLUDES = -I../align_local_linear -I../align_global_linear -I../align_local_affine -I../align_global_affine -I../tests -I../incremental_sim -I../PUBLIC -I/home/AD.UCSD.EDU/yic033/Xilinx/Vitis_HLS/2023.1/include -I../include
+  OBJECT_DIR = CMakeFiles/incremental_sim.dir
+  OBJECT_FILE_DIR = CMakeFiles/incremental_sim.dir/increment/legacy
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target incremental_sim
+
+
+#############################################
+# Link the executable incremental_sim
+
+build incremental_sim: CXX_EXECUTABLE_LINKER__incremental_sim CMakeFiles/incremental_sim.dir/increment/legacy/local_linear.cpp.o CMakeFiles/incremental_sim.dir/increment/legacy/local_linear_testbench.cpp.o
+  FLAGS = -pthread -g
+  LINK_FLAGS = -rdynamic
+  OBJECT_DIR = CMakeFiles/incremental_sim.dir
+  POST_BUILD = :
+  PRE_LINK = :
+  TARGET_FILE = incremental_sim
+  TARGET_PDB = incremental_sim.dbg
 
 # =============================================================================
 # Target aliases.
@@ -370,7 +457,7 @@ build align_local_linear: CXX_EXECUTABLE_LINKER__align_local_linear CMakeFiles/a
 #############################################
 # Folder: /home/yic033@AD.UCSD.EDU/DP-HLS/build
 
-build all: phony align_global_affine align_local_affine align_global_linear align_local_linear
+build all: phony align_global_affine align_local_affine tests align_global_linear align_local_linear incremental_sim
 
 # =============================================================================
 # Built-in targets
