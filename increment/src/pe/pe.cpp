@@ -69,6 +69,8 @@ void PE::LocalAffine::ComputeBlock(char_t local_query_val,
                                    hls::vector<type_t, N_LAYERS> left_prev,
                                    hls::vector<type_t, N_LAYERS> &write_score,
                                    hls::vector<tbp_t, N_LAYERS> &write_traceback) {
+#pragma HLS array_partition variable = local_query_val type = complete
+
 
 }
 
@@ -192,7 +194,7 @@ void PE::ReadInBlock(
 #pragma HLS array_partition variable = diag_prev_stm type=complete
 #pragma HLS array_partition variable = up_prev_stm type=complete
 
-        write_lock<input_char_block_t> local_qry_acc(local_qry_stm);
+        //write_lock<input_char_block_t> local_qry_acc(local_qry_stm);
         write_lock<input_char_block_t> local_ref_acc(local_ref_stm);
         write_lock<score_block_t> up_prev_acc(up_prev_stm);
         write_lock<score_block_t> diag_prev_acc(diag_prev_stm);
@@ -200,7 +202,7 @@ void PE::ReadInBlock(
 
     for (int i = 0; i < PE_NUM; i++) {
 #pragma HLS unroll
-        local_qry_acc[i] = local_qry_arr[i];
+        //local_qry_acc[i] = local_qry_arr[i];
         local_ref_acc[i] = local_ref_arr[i];
         up_prev_acc[i] = up_prev_arr[i];
         diag_prev_acc[i] = diag_prev_arr[i];
@@ -229,14 +231,14 @@ void PE::WriteOutBlock(
     }
 }
 
-void PE::ExpandComputeBlock(stream_of_blocks<input_char_block_t> &local_querys,
+void PE::ExpandComputeBlock(input_char_block_t &local_querys,
                             stream_of_blocks<input_char_block_t> &local_references,
                             stream_of_blocks<score_block_t> &up_prevs,
                             stream_of_blocks<score_block_t> &diag_prevs,
                             stream_of_blocks<score_block_t> &left_prevs,
                             stream_of_blocks<score_block_t> &output_scores,
                             stream_of_blocks<tbp_block_t> &output_tbp) {
-    hls::read_lock<input_char_block_t> query_acc(local_querys);
+    //hls::read_lock<input_char_block_t> query_acc(local_querys);
     hls::read_lock<input_char_block_t> reference_acc(local_references);
     hls::read_lock<score_block_t > up_acc(up_prevs);
     hls::read_lock<score_block_t > diag_acc(diag_prevs);
@@ -248,7 +250,7 @@ void PE::ExpandComputeBlock(stream_of_blocks<input_char_block_t> &local_querys,
     for (int i = 0; i < PE_NUM; i++){
 #pragma HLS unroll
         PE::LocalLinear::ComputeBlock(
-                query_acc[i],
+                local_querys[i],
                 reference_acc[i],
                 up_acc[i],
                 diag_acc[i],

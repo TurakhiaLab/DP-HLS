@@ -63,7 +63,7 @@ void DutExpandComputeBlock(input_char_block_t &local_querys,
 
 
     PE::ExpandComputeBlock(
-            local_querys_stm,
+            local_querys,
             local_references_stm,
             up_prevs_stm,
             diag_prevs_stm,

@@ -115,34 +115,41 @@ void Align::compute_chunk(const int active_pe, const int row_length, int tb_idx)
         this->local_reference.shift_right( // sihft the local reference
                 i < row_length ? *(reference_ptr++) : (char_t) 0);
 
+        // Process_PE_Expand:
+        // pe_wrap(
+        //         PE_group, this->local_query,
+        //         this->local_reference, this->last_pe_score, this->dp_mem, i, last_row_r,
+        //         tb_idx, pe_cnt, this->staging, this->tbmat, predicate
+        // );
+
         Single_PE_0:
-        this->PE_group[0].compute(
-                this->local_query[0],
-                this->local_reference[0],
-                this->last_pe_score[last_row_r],
-                this->dp_mem[0][0],
-                i == 0 ? this->zero_fp_arr : this->last_pe_score[last_row_r - 1], // diagnoal
-                this->staging[0],                                // scores to write to the dp_mem
-                this->tbmat[tb_idx + 0][pe_cnt[0]],
-                predicate[0]);
+PE_group[0].compute(
+        local_query[0],
+        local_reference[0],
+        last_pe_score[last_row_r],
+        dp_mem[0][0],
+        i == 0 ? zero_fp_arr : last_pe_score[last_row_r - 1], // diagnoal
+        staging[0],                                // scores to write to the dp_mem
+        tbmat[tb_idx + 0][pe_cnt[0]],
+        predicate[0]);
 
-        if (predicate[0])
-            last_row_r++; // If read, update the pointer
+if (predicate[0])
+        last_row_r++; // If read, update the pointer
 
-        PE_Expand_Loop:
-        for (int pi = 1; pi < PE_NUM; pi++) {
+PE_Expand_Loop:
+for (int pi = 1; pi < PE_NUM; pi++) {
 #pragma HLS unroll
 //#pragma HLS dependence variable = PE_group type = inter dependent = false
-            this->PE_group[pi].compute(
-                    this->local_query[pi],
-                    this->local_reference[pi],
-                    dp_mem[pi - 1][0],
-                    dp_mem[pi][0],
-                    dp_mem[pi - 1][1],
-                    this->staging[pi],
-                    this->tbmat[tb_idx + pi][pe_cnt[pi]],
-                    predicate[pi]);
-        }
+        PE_group[pi].compute(
+                local_query[pi],
+                local_reference[pi],
+                dp_mem[pi - 1][0],
+                dp_mem[pi][0],
+                dp_mem[pi - 1][1],
+                staging[pi],
+                tbmat[tb_idx + pi][pe_cnt[pi]],
+                predicate[pi]);
+}
 
         for (int pi = 0; pi < PE_NUM; pi++) {
 #pragma HLS unroll
@@ -184,4 +191,47 @@ void align_wp(hls::stream<BlockInputs> &inputs_stm,
     );
     traceback_out.write(output);
 
+}
+
+void pe_wrap(
+        PE (&array)[PE_NUM],
+        ShiftRegister<char_t, PE_NUM> &local_query,
+        ShiftRegister<char_t, PE_NUM> &local_reference,
+        hls::vector<type_t, N_LAYERS> (&last_pe_score)[MAX_REFERENCE_LENGTH],
+        ShiftRegisterBlock<hls::vector<type_t, N_LAYERS>, PE_NUM, 2> &dp_mem,
+        int &i, idx_t &last_row_r, int &tb_idx, int (&pe_cnt)[PE_NUM],
+        hls::vector<type_t, N_LAYERS>  (&staging)[PE_NUM],
+        hls::vector<tbp_t, N_LAYERS> (&tbmat)[MAX_QUERY_LENGTH][MAX_REFERENCE_LENGTH],
+        ShiftRegister<bool, PE_NUM> &predicate
+){
+        hls::vector<type_t, N_LAYERS>  zero_fp_arr = (type_t) 0;
+
+Single_PE_0:
+array[0].compute(
+        local_query[0],
+        local_reference[0],
+        last_pe_score[last_row_r],
+        dp_mem[0][0],
+        i == 0 ? zero_fp_arr : last_pe_score[last_row_r - 1], // diagnoal
+        staging[0],                                // scores to write to the dp_mem
+        tbmat[tb_idx + 0][pe_cnt[0]],
+        predicate[0]);
+
+if (predicate[0])
+        last_row_r++; // If read, update the pointer
+
+PE_Expand_Loop:
+for (int pi = 1; pi < PE_NUM; pi++) {
+#pragma HLS unroll
+//#pragma HLS dependence variable = PE_group type = inter dependent = false
+        array[pi].compute(
+                local_query[pi],
+                local_reference[pi],
+                dp_mem[pi - 1][0],
+                dp_mem[pi][0],
+                dp_mem[pi - 1][1],
+                staging[pi],
+                tbmat[tb_idx + pi][pe_cnt[pi]],
+                predicate[pi]);
+}
 }

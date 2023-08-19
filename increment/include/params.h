@@ -31,6 +31,7 @@
 #define WT 3  // 2 bits direction pointer
 #define IT WT-2  // 1 bit represents layer
 
+#define TB_START_LEVEL 0
 #define TB_START_ROW 14
 #define TB_START_COL 10
 
@@ -44,7 +45,7 @@
 
 typedef ap_uint<3> char_t;  // type of sequence characters
 typedef ap_fixed<WS, IS> type_t;  // score matrix score type
-typedef ap_uint<8> idx_t; // define an address type to resolve the pointer to pointer problems
+typedef ap_uint<16> idx_t; // define an address type to resolve the pointer to pointer problems
 typedef ap_ufixed<WT, IT> tbp_t;  // traceback pointer typ
 typedef ap_ufixed<2, 0> tbp_dir_t;  // direction bits type for traceback pointer
 
@@ -86,6 +87,10 @@ typedef tbp_t traceback_block_t[MAX_QUERY_LENGTH + MAX_REFERENCE_LENGTH];
 typedef hls::vector<type_t, N_LAYERS> score_block_t[PE_NUM];
 typedef hls::vector<tbp_t, N_LAYERS> tbp_block_t[PE_NUM];
 typedef char_t input_char_block_t[PE_NUM];
+typedef hls::vector<type_t, N_LAYERS> dp_mem_block_t[2][PE_NUM];
+typedef hls::vector<tbp_t, N_LAYERS> tbp_chunk_block_t[PE_NUM][MAX_REFERENCE_LENGTH];
+
+typedef hls::vector<type_t, N_LAYERS> score_vec_t;
 
 struct BlockInputs {
     raw_query_block_t query;
@@ -100,6 +105,11 @@ struct BlockOutputs {
     traceback_block_t traceback;
 };
 
+struct ScorePack{
+    type_t score;
+    idx_t row;
+    idx_t col;
+};
 
 #endif 
 

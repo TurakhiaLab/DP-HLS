@@ -48,7 +48,7 @@ namespace PE {
                           hls::vector<tbp_t, N_LAYERS> &write_traceback);
     }
 
-    void ExpandComputeBlock(stream_of_blocks<input_char_block_t> &local_querys,
+    void ExpandComputeBlock(input_char_block_t &local_querys,
                             stream_of_blocks<input_char_block_t> &local_references,
                             stream_of_blocks<score_block_t> &up_prevs,
                             stream_of_blocks<score_block_t> &diag_prevs,
@@ -56,7 +56,7 @@ namespace PE {
                             stream_of_blocks<score_block_t> &output_scores,
                             stream_of_blocks<tbp_block_t> &output_tbt);
 
-
+        
     // Expand a PE Array
     void ExpandCompute(
         char_t local_query[PE_NUM],

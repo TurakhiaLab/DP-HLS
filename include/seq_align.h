@@ -103,4 +103,17 @@ private:
 void align_wp(hls::stream<BlockInputs> &inputs_stm,
               hls::stream<BlockOutputs> &traceback_out);
 
+
+void pe_wrap(
+	PE (&array)[PE_NUM],
+	ShiftRegister<char_t, PE_NUM> &local_query,
+	ShiftRegister<char_t, PE_NUM> &local_reference,
+	hls::vector<type_t, N_LAYERS> (&last_pe_score)[MAX_REFERENCE_LENGTH],
+	ShiftRegisterBlock<hls::vector<type_t, N_LAYERS>, PE_NUM, 2> &dp_mem,
+	int &i, idx_t &last_row_r, int &tb_idx, int (&pe_cnt)[PE_NUM],
+	hls::vector<type_t, N_LAYERS>  (&staging)[PE_NUM],
+	hls::vector<tbp_t, N_LAYERS> (&tbmat)[MAX_QUERY_LENGTH][MAX_REFERENCE_LENGTH],
+	ShiftRegister<bool, PE_NUM> &predicate
+);
+
 #endif // !SEQ_ALIGN_H
