@@ -31,7 +31,7 @@ void assign_ref_local_affine(init_row_score_block_t &arr){
 void assign_qry_global_linear(init_col_score_block_t &arr){
 	int val = 0;
 	for (int i = 0; i < MAX_QUERY_LENGTH; i++){
-		val += linear_gap_penalty;
+		val = val + linear_gap_penalty;
 		arr[i] = {val};
 	}
 }

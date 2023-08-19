@@ -152,5 +152,71 @@ void PE::compute(
 
 #endif
 
+#ifdef ALIGN_GLOBAL_AFFINE
+
+void PE::compute(
+	char_t local_query_val,
+	char_t local_reference_val,
+	hls::vector<type_t, N_LAYERS> up_prev,
+	hls::vector<type_t, N_LAYERS>  left_prev,
+	hls::vector<type_t, N_LAYERS>  diag_prev,
+	hls::vector<type_t, N_LAYERS>& write_score,
+	hls::vector<tbp_t, N_LAYERS>& tb_write,
+	bool predicate)
+{
+
+	/*
+	* 0: P
+	* 1: D
+	* 2: Q
+	*/
+
+
+	const type_t pd = up_prev[1] + opening_score + extend_score;
+	const type_t pp = up_prev[0] + extend_score;
+	const type_t qd = left_prev[1] + opening_score + extend_score;
+	const type_t qq = left_prev[3] + extend_score;
+
+	const type_t max_p = pd > pp ? pd : pp;
+	const type_t max_q = qd > qq ? qd : qq;
+
+	const type_t match = (local_query_val == local_reference_val) ? diag_prev[1] + match_score : diag_prev[1] + mismatch_score;
+
+	type_t max = max_p > max_q ? max_p : max_q;
+	max = max > match ? max : match;
+	max = max > zero_fp ? max : zero_fp;
+
+	if (predicate)
+	{
+		write_score = {max_p, max, max_q};
+
+		// Diagonal Matrix Pointer Set
+		if (max == zero_fp) {
+            tb_write = {
+				(max_p == pd) ? (tbp_t(1.0) + TB_UP) : (tbp_t(0.0) + TB_UP),
+				(tbp_t(1.0) + TB_PH),
+				(max_q == qd) ? (tbp_t(1.0) + TB_LEFT) : (tbp_t(3.0) + TB_LEFT)
+			};
+
+		}
+		else {
+            tb_write = {
+				(max_p == pd) ? (tbp_t(1.0) + TB_UP) : (tbp_t(0.0) + TB_UP),
+				(max == match) ? (tbp_t(1.0) + TB_DIAG) : ( (max == max_p) ? (tbp_t(0.0) + TB_PH) : (tbp_t(2.0) +  TB_PH) ),
+				(max_q == qd) ? (tbp_t(1.0) + TB_LEFT) : (tbp_t(3.0) + TB_LEFT)
+			};
+		}
+
+
+#ifdef DEBUG
+		this->score->push_back(write_score);
+#endif // DEBUG
+
+	}
+
+}
+
+#endif
+
 
 

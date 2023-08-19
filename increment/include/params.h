@@ -207,16 +207,6 @@ struct tbp_vec_t { tbp_t tbps[N_LAYERS]; };
 
 #define N_BLOCKS 4
 
-#define TB_PH 0  // this is place holder
-#define	TB_LEFT 1
-#define	TB_DIAG 2
-#define	TB_UP 3
-#define	TB_IX 4
-#define	TB_IY 5
-
-
-
-
 #define TB_LINE_SIZE 64  // This defines the length of a line of TB pointers. Must be larger than PE_num
 
 
@@ -271,18 +261,12 @@ typedef char_t ref_buf[chunk_width];
 #define MT 10
 #define NT 6
 
+#define WT 4  // 2 bits direction pointer
+#define IT WT-2  // 2 bit represents layer
+
 //#define DEBUG
 
 #define N_BLOCKS 4
-
-#define TB_PH 0  // this is place holder
-#define	TB_LEFT 1
-#define	TB_DIAG 2
-#define	TB_UP 3
-#define	TB_IX 4
-#define	TB_IY 5
-
-
 
 #define TB_LINE_SIZE 64  // This defines the length of a line of TB pointers. Must be larger than PE_num
 
@@ -291,10 +275,19 @@ typedef char_t ref_buf[chunk_width];
 
 typedef ap_uint<3> char_t;
 typedef ap_fixed<MT, NT> type_t;  // alias type_t with ap_fixed<M,N>
-typedef ap_uint<16> addr_t;  // define a address type to resolve the pointer to pointer problems
-typedef ap_uint<3> tbp_t;
-
 typedef ap_uint<8> idx_t;
+typedef ap_ufixed<WT, IT> tbp_t;  // traceback pointer typ
+typedef ap_ufixed<2, 0> tbp_dir_t;  // direction bits type for traceback pointer
+
+//tbp_t TB_PH = 0.0;  // this is place holder
+//tbp_t TB_LEFT = 0.25;
+//tbp_t TB_DIAG = 0.5;
+//tbp_t TB_UP = 0.75;
+
+#define TB_PH (tbp_dir_t) 0.0
+#define TB_LEFT (tbp_dir_t) 0.25
+#define TB_DIAG (tbp_dir_t) 0.5
+#define TB_UP (tbp_dir_t) 0.75
 
 #define zero_fp ((type_t)0)
 
@@ -314,7 +307,40 @@ typedef char_t ref_buf[chunk_width];
 #define inflated_query_length (query_chunks *PE_NUM + corner_case *PE_NUM)
 #define inflated_query_chunks (query_chunks + corner_case)
 
-#define N_LAYERS 1
+#define N_LAYERS 3
+
+typedef char_t raw_query_block_t[MAX_QUERY_LENGTH];
+typedef char_t raw_reference_block_t[MAX_REFERENCE_LENGTH];
+typedef hls::vector<type_t, N_LAYERS> init_col_score_block_t[MAX_QUERY_LENGTH];
+typedef hls::vector<type_t, N_LAYERS> init_row_score_block_t[MAX_REFERENCE_LENGTH];
+typedef tbp_t traceback_block_t[MAX_QUERY_LENGTH + MAX_REFERENCE_LENGTH];
+typedef hls::vector<type_t, N_LAYERS> score_block_t[PE_NUM];
+typedef hls::vector<tbp_t, N_LAYERS> tbp_block_t[PE_NUM];
+typedef char_t input_char_block_t[PE_NUM];
+typedef hls::vector<type_t, N_LAYERS> dp_mem_block_t[2][PE_NUM];
+typedef hls::vector<tbp_t, N_LAYERS> tbp_chunk_block_t[PE_NUM][MAX_REFERENCE_LENGTH];
+
+typedef hls::vector<type_t, N_LAYERS> score_vec_t;
+
+struct BlockInputs {
+    raw_query_block_t query;
+    raw_reference_block_t reference;
+    init_col_score_block_t init_col_score;
+    init_row_score_block_t init_row_score;
+    int query_length;
+    int reference_length;
+};
+
+struct BlockOutputs {
+    traceback_block_t traceback;
+};
+
+struct ScorePack{
+    type_t score;
+    idx_t row;
+    idx_t col;
+};
+
 
 #endif
 

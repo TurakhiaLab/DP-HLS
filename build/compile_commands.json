@@ -19,12 +19,6 @@
 
 {
   "directory": "/home/yic033@AD.UCSD.EDU/DP-HLS/build",
-  "command": "/usr/bin/c++   -I../align_local_linear -I../align_global_linear -I../align_local_affine -I../align_global_affine -I../tests -I../incremental_sim -I../PUBLIC -I/home/AD.UCSD.EDU/yic033/Xilinx/Vitis_HLS/2023.1/include -I../include   -pthread -g   -std=gnu++17 -o CMakeFiles/align_global_affine.dir/src/pe/pe_global_affine.cpp.o -c /home/yic033@AD.UCSD.EDU/DP-HLS/src/pe/pe_global_affine.cpp",
-  "file": "/home/yic033@AD.UCSD.EDU/DP-HLS/src/pe/pe_global_affine.cpp"
-},
-
-{
-  "directory": "/home/yic033@AD.UCSD.EDU/DP-HLS/build",
   "command": "/usr/bin/c++   -I../align_local_linear -I../align_global_linear -I../align_local_affine -I../align_global_affine -I../tests -I../incremental_sim -I../PUBLIC -I/home/AD.UCSD.EDU/yic033/Xilinx/Vitis_HLS/2023.1/include -I../include   -pthread -g   -std=gnu++17 -o CMakeFiles/align_global_affine.dir/src/traceback.cpp.o -c /home/yic033@AD.UCSD.EDU/DP-HLS/src/traceback.cpp",
   "file": "/home/yic033@AD.UCSD.EDU/DP-HLS/src/traceback.cpp"
 },
@@ -39,6 +33,12 @@
   "directory": "/home/yic033@AD.UCSD.EDU/DP-HLS/build",
   "command": "/usr/bin/c++   -I../align_local_linear -I../align_global_linear -I../align_local_affine -I../align_global_affine -I../tests -I../incremental_sim -I../PUBLIC -I/home/AD.UCSD.EDU/yic033/Xilinx/Vitis_HLS/2023.1/include -I../include   -pthread -g   -std=gnu++17 -o CMakeFiles/align_global_affine.dir/src/initial.cpp.o -c /home/yic033@AD.UCSD.EDU/DP-HLS/src/initial.cpp",
   "file": "/home/yic033@AD.UCSD.EDU/DP-HLS/src/initial.cpp"
+},
+
+{
+  "directory": "/home/yic033@AD.UCSD.EDU/DP-HLS/build",
+  "command": "/usr/bin/c++   -I../align_local_linear -I../align_global_linear -I../align_local_affine -I../align_global_affine -I../tests -I../incremental_sim -I../PUBLIC -I/home/AD.UCSD.EDU/yic033/Xilinx/Vitis_HLS/2023.1/include -I../include   -pthread -g   -std=gnu++17 -o CMakeFiles/align_global_affine.dir/src/pe/pe.cpp.o -c /home/yic033@AD.UCSD.EDU/DP-HLS/src/pe/pe.cpp",
+  "file": "/home/yic033@AD.UCSD.EDU/DP-HLS/src/pe/pe.cpp"
 },
 
 {

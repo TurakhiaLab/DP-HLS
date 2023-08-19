@@ -1,7 +1,7 @@
 #ifndef PE_H
 #define PE_H
 
-#include "params.h"
+#include "./params.h"
 #include <hls_stream.h>
 #include <ap_int.h>
 #include <ap_fixed.h>

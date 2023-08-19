@@ -70,13 +70,6 @@ build CMakeFiles/align_global_affine.dir/src/align/align.cpp.o: CXX_COMPILER__al
   OBJECT_DIR = CMakeFiles/align_global_affine.dir
   OBJECT_FILE_DIR = CMakeFiles/align_global_affine.dir/src/align
 
-build CMakeFiles/align_global_affine.dir/src/pe/pe_global_affine.cpp.o: CXX_COMPILER__align_global_affine ../src/pe/pe_global_affine.cpp || cmake_object_order_depends_target_align_global_affine
-  DEP_FILE = CMakeFiles/align_global_affine.dir/src/pe/pe_global_affine.cpp.o.d
-  FLAGS = -pthread -g   -std=gnu++17
-  INCLUDES = -I../align_local_linear -I../align_global_linear -I../align_local_affine -I../align_global_affine -I../tests -I../incremental_sim -I../PUBLIC -I/home/AD.UCSD.EDU/yic033/Xilinx/Vitis_HLS/2023.1/include -I../include
-  OBJECT_DIR = CMakeFiles/align_global_affine.dir
-  OBJECT_FILE_DIR = CMakeFiles/align_global_affine.dir/src/pe
-
 build CMakeFiles/align_global_affine.dir/src/traceback.cpp.o: CXX_COMPILER__align_global_affine ../src/traceback.cpp || cmake_object_order_depends_target_align_global_affine
   DEP_FILE = CMakeFiles/align_global_affine.dir/src/traceback.cpp.o.d
   FLAGS = -pthread -g   -std=gnu++17
@@ -98,6 +91,13 @@ build CMakeFiles/align_global_affine.dir/src/initial.cpp.o: CXX_COMPILER__align_
   OBJECT_DIR = CMakeFiles/align_global_affine.dir
   OBJECT_FILE_DIR = CMakeFiles/align_global_affine.dir/src
 
+build CMakeFiles/align_global_affine.dir/src/pe/pe.cpp.o: CXX_COMPILER__align_global_affine ../src/pe/pe.cpp || cmake_object_order_depends_target_align_global_affine
+  DEP_FILE = CMakeFiles/align_global_affine.dir/src/pe/pe.cpp.o.d
+  FLAGS = -pthread -g   -std=gnu++17
+  INCLUDES = -I../align_local_linear -I../align_global_linear -I../align_local_affine -I../align_global_affine -I../tests -I../incremental_sim -I../PUBLIC -I/home/AD.UCSD.EDU/yic033/Xilinx/Vitis_HLS/2023.1/include -I../include
+  OBJECT_DIR = CMakeFiles/align_global_affine.dir
+  OBJECT_FILE_DIR = CMakeFiles/align_global_affine.dir/src/pe
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target align_global_affine
@@ -106,7 +106,7 @@ build CMakeFiles/align_global_affine.dir/src/initial.cpp.o: CXX_COMPILER__align_
 #############################################
 # Link the executable align_global_affine
 
-build align_global_affine: CXX_EXECUTABLE_LINKER__align_global_affine CMakeFiles/align_global_affine.dir/testbench/test_global_affine.cpp.o CMakeFiles/align_global_affine.dir/src/toplevel/seq_align_multiple.cpp.o CMakeFiles/align_global_affine.dir/src/align/align.cpp.o CMakeFiles/align_global_affine.dir/src/pe/pe_global_affine.cpp.o CMakeFiles/align_global_affine.dir/src/traceback.cpp.o CMakeFiles/align_global_affine.dir/src/utils.cpp.o CMakeFiles/align_global_affine.dir/src/initial.cpp.o
+build align_global_affine: CXX_EXECUTABLE_LINKER__align_global_affine CMakeFiles/align_global_affine.dir/testbench/test_global_affine.cpp.o CMakeFiles/align_global_affine.dir/src/toplevel/seq_align_multiple.cpp.o CMakeFiles/align_global_affine.dir/src/align/align.cpp.o CMakeFiles/align_global_affine.dir/src/traceback.cpp.o CMakeFiles/align_global_affine.dir/src/utils.cpp.o CMakeFiles/align_global_affine.dir/src/initial.cpp.o CMakeFiles/align_global_affine.dir/src/pe/pe.cpp.o
   FLAGS = -pthread -g
   LINK_FLAGS = -rdynamic
   OBJECT_DIR = CMakeFiles/align_global_affine.dir

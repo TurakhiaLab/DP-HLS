@@ -93,10 +93,9 @@ add_executable(align_global_affine "testbench/test_global_affine.cpp" "include/p
 
     "src/toplevel/seq_align_multiple.cpp"
     "src/align/align.cpp"
-    "src/pe/pe_global_affine.cpp"
     "src/traceback.cpp" 
     "src/utils.cpp" 
-    "src/initial.cpp" "src/pe/pe_global_affine.cpp")
+    "src/initial.cpp" "src/pe/pe.cpp")
 
 #target_compile_definitions(align_local_linear PRIVATE ALIGN_LOCAL_LINEAR=1)
 #target_compile_definitions(align_local_affine PRIVATE ALIGN_LOCAL_AFFINE=1)
