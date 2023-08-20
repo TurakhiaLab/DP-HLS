@@ -19,6 +19,9 @@ namespace Utils {
 
 	namespace Init {
 		void Predicate(bool predicate[PE_NUM]);
+		
+		template <typename T, int N>
+		void ArrSet(T arr[N], T val);
 	}
 }
 

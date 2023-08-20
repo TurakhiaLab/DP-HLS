@@ -37,3 +37,12 @@ void WriteStreamBlock(T arr[N], hls::stream_of_blocks<T[N]> &stream_block){
 		wr[i] = arr[i];
 	}
 }
+
+template <typename T, int N>
+void Utils::Init::ArrSet(T arr[N], T val){
+#pragma HLS array_partition variable = arr type = complete
+	for (int i = 0; i < N; i++){
+#pragma HLS unroll
+		arr[i] = val;
+	}
+}
