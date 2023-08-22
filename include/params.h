@@ -4,14 +4,18 @@
 #include <ap_fixed.h>
 #include <hls_vector.h>
 
+
+
 #define ALIGN_LOCAL_LINEAR
 #undef DEBUG
+#define COMPAT
+
 
 // >>> LOCAL_LINEAR params >>>
 #ifdef ALIGN_LOCAL_LINEAR
 
 #define MAX_QUERY_LENGTH 64
-#define MAX_REFERENCE_LENGTH 64
+#define MAX_REFERENCE_LENGTH 256
 
 #define PE_NUM 16
 
@@ -376,6 +380,12 @@ struct ScorePack{
     idx_t row;
     idx_t col;
 };
+
+#endif
+
+#ifdef COMPAT
+typedef char_t input_char_block_t[PE_NUM];
+typedef hls::vector<type_t, N_LAYERS> score_block_t[PE_NUM];
 
 #endif
 

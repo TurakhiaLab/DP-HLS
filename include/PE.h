@@ -132,7 +132,7 @@ public:
 };
 
 
-class PE
+class PECLS
 {
 public:
 	void compute(

@@ -6,10 +6,12 @@
 #include <hls_task.h>
 #include <hls_stream.h>
 #include "trivial.h"
-
+#include "../../increment/include/compat.h"
 #include <hls_streamofblocks.h>
 
+
 using namespace hls;
+
 
 void Align::align(
 	BlockInputs inputs,
@@ -129,35 +131,39 @@ wavefronts:
 		//         tb_idx, pe_cnt, this->staging, this->tbmat, predicate
 		// );
 
-	Single_PE_0:
-		PE_group[0].compute(
-			local_query[0],
-			local_reference[0],
-			last_pe_score[last_row_r],
-			dp_mem[0][0],
-			i == 0 ? zero_fp_arr : last_pe_score[last_row_r - 1], // diagnoal
-			staging[0],											  // scores to write to the dp_mem
-			tbmat[tb_idx + 0][pe_cnt[0]],
-			predicate[0]);
+
+
+// 	Single_PE_0:
+// 		PE_group[0].compute(
+// 			local_query[0],
+// 			local_reference[0],
+// 			last_pe_score[last_row_r],
+// 			dp_mem[0][0],
+// 			i == 0 ? zero_fp_arr : last_pe_score[last_row_r - 1], // diagnoal
+// 			staging[0],											  // scores to write to the dp_mem
+// 			tbmat[tb_idx + 0][pe_cnt[0]],
+// 			predicate[0]);
+
+
+
+// 	PE_Expand_Loop:
+// 		for (int pi = 1; pi < PE_NUM; pi++)
+// 		{
+// #pragma HLS unroll
+// 			// #pragma HLS dependence variable = PE_group type = inter dependent = false
+// 			PE_group[pi].compute(
+// 				local_query[pi],
+// 				local_reference[pi],
+// 				dp_mem[pi - 1][0],
+// 				dp_mem[pi][0],
+// 				dp_mem[pi - 1][1],
+// 				staging[pi],
+// 				tbmat[tb_idx + pi][pe_cnt[pi]],
+// 				predicate[pi]);
+// 		}
 
 		if (predicate[0])
 			last_row_r++; // If read, update the pointer
-
-	PE_Expand_Loop:
-		for (int pi = 1; pi < PE_NUM; pi++)
-		{
-#pragma HLS unroll
-			// #pragma HLS dependence variable = PE_group type = inter dependent = false
-			PE_group[pi].compute(
-				local_query[pi],
-				local_reference[pi],
-				dp_mem[pi - 1][0],
-				dp_mem[pi][0],
-				dp_mem[pi - 1][1],
-				staging[pi],
-				tbmat[tb_idx + pi][pe_cnt[pi]],
-				predicate[pi]);
-		}
 
 		for (int pi = 0; pi < PE_NUM; pi++)
 		{
@@ -199,7 +205,7 @@ void align_wp(hls::stream<BlockInputs> &inputs_stm,
 }
 
 void pe_wrap(
-	PE (&array)[PE_NUM],
+	PECLS (&array)[PE_NUM],
 	ShiftRegister<char_t, PE_NUM> &local_query,
 	ShiftRegister<char_t, PE_NUM> &local_reference,
 	hls::vector<type_t, N_LAYERS> (&last_pe_score)[MAX_REFERENCE_LENGTH],
@@ -211,33 +217,61 @@ void pe_wrap(
 {
 	hls::vector<type_t, N_LAYERS> zero_fp_arr = (type_t)0;
 
-Single_PE_0:
-	array[0].compute(
-		local_query[0],
-		local_reference[0],
-		last_pe_score[last_row_r],
-		dp_mem[0][0],
-		i == 0 ? zero_fp_arr : last_pe_score[last_row_r - 1], // diagnoal
-		staging[0],											  // scores to write to the dp_mem
-		tbmat[tb_idx + 0][pe_cnt[0]],
-		predicate[0]);
+	char_t local_query_arr[PE_NUM];
+	hls::stream_of_blocks<input_char_block_t> local_reference_out;
+	hls::stream_of_blocks<score_block_t> up_prev_out;
+	hls::stream_of_blocks<score_block_t> diag_prev_out;
+	hls::stream_of_blocks<score_block_t> left_prev_out;
 
-	if (predicate[0])
-		last_row_r++; // If read, update the pointer
 
-PE_Expand_Loop:
-	for (int pi = 1; pi < PE_NUM; pi++)
-	{
-#pragma HLS unroll
-		// #pragma HLS dependence variable = PE_group type = inter dependent = false
-		array[pi].compute(
-			local_query[pi],
-			local_reference[pi],
-			dp_mem[pi - 1][0],
-			dp_mem[pi][0],
-			dp_mem[pi - 1][1],
-			staging[pi],
-			tbmat[tb_idx + pi][pe_cnt[pi]],
-			predicate[pi]);
-	}
+	Compat::PrepareArrayInput(
+		local_query,
+		local_reference,
+		last_pe_score,
+		dp_mem,
+		i,
+		last_row_r,
+		tb_idx,
+		pe_cnt,
+		local_query_arr,
+		local_reference_out,
+		up_prev_out,
+		diag_prev_out,
+		left_prev_out);
+
+
+
+
+	
+
+
+// Single_PE_0:
+// 	array[0].compute(
+// 		local_query[0],
+// 		local_reference[0],
+// 		last_pe_score[last_row_r],
+// 		dp_mem[0][0],
+// 		i == 0 ? zero_fp_arr : last_pe_score[last_row_r - 1], // diagnoal
+// 		staging[0],											  // scores to write to the dp_mem
+// 		tbmat[tb_idx + 0][pe_cnt[0]],
+// 		predicate[0]);
+
+// 	if (predicate[0])
+// 		last_row_r++; // If read, update the pointer
+
+// PE_Expand_Loop:
+// 	for (int pi = 1; pi < PE_NUM; pi++)
+// 	{
+// #pragma HLS unroll
+// 		// #pragma HLS dependence variable = PE_group type = inter dependent = false
+// 		array[pi].compute(
+// 			local_query[pi],
+// 			local_reference[pi],
+// 			dp_mem[pi - 1][0],
+// 			dp_mem[pi][0],
+// 			dp_mem[pi - 1][1],
+// 			staging[pi],
+// 			tbmat[tb_idx + pi][pe_cnt[pi]],
+// 			predicate[pi]);
+// 	}
 }

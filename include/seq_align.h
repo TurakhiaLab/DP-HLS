@@ -53,7 +53,7 @@ public:
 	hls::vector<type_t, N_LAYERS> (&last_pe_score)[MAX_REFERENCE_LENGTH];
 	hls::vector<type_t, N_LAYERS>  (&init_staging_score)[MAX_QUERY_LENGTH];
 
-	PE PE_group[PE_NUM];
+	PECLS PE_group[PE_NUM];
 	ShiftRegister<bool, PE_NUM> predicate;
 
 	ShiftRegisterBlock<hls::vector<type_t, N_LAYERS>, PE_NUM, 2> dp_mem;
@@ -105,7 +105,7 @@ void align_wp(hls::stream<BlockInputs> &inputs_stm,
 
 
 void pe_wrap(
-	PE (&array)[PE_NUM],
+	PECLS (&array)[PE_NUM],
 	ShiftRegister<char_t, PE_NUM> &local_query,
 	ShiftRegister<char_t, PE_NUM> &local_reference,
 	hls::vector<type_t, N_LAYERS> (&last_pe_score)[MAX_REFERENCE_LENGTH],

@@ -1,6 +1,11 @@
 #ifndef PARAMS_H
 #define PARAMS_H
 
+#include <ap_fixed.h>
+#include <hls_vector.h>
+#include <hls_stream.h>
+#include <hls_streamofblocks.h> 
+
 #define ALIGN_LOCAL_LINEAR
 #undef DEBUG
 // >>> LOCAL_LINEAR params >>>
@@ -8,11 +13,10 @@
 
 #define STM_DEPTH 4
 
-#include <ap_fixed.h>
-#include <hls_vector.h>
 
-#define MAX_QUERY_LENGTH 256
-#define MAX_REFERENCE_LENGTH 256
+
+#define MAX_QUERY_LENGTH 79
+#define MAX_REFERENCE_LENGTH 255
 
 #define PE_NUM 32
 
@@ -117,9 +121,6 @@ struct ScorePack{
 
 #ifdef ALIGN_LOCAL_AFFINE
 
-#include <ap_fixed.h>
-#include <hls_vector.h>
-
 #define MAX_QUERY_LENGTH 32
 #define MAX_REFERENCE_LENGTH 32
 
@@ -187,8 +188,6 @@ struct tbp_vec_t { tbp_t tbps[N_LAYERS]; };
 
 #ifdef ALIGN_GLOBAL_LINEAR
 
-#include <ap_fixed.h>
-
 #define MAX_QUERY_LENGTH 32
 #define MAX_REFERENCE_LENGTH 32
 
@@ -245,7 +244,6 @@ typedef char_t ref_buf[chunk_width];
 
 #ifdef ALIGN_GLOBAL_AFFINE
 
-#include <ap_fixed.h>
 
 #define MAX_QUERY_LENGTH 32
 #define MAX_REFERENCE_LENGTH 32

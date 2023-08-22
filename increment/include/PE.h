@@ -4,9 +4,9 @@
 #include <hls_stream.h>
 #include <ap_int.h>
 #include <ap_fixed.h>
-#include "shift_reg.h"
+#include "./shift_reg.h"
 #include <hls_streamofblocks.h>
-#include "traceback.h"
+#include "./traceback.h"
 #include <hls_vector.h>
 #include "./params.h"
 
@@ -56,9 +56,19 @@ namespace PE {
                             stream_of_blocks<score_block_t> &output_scores,
                             stream_of_blocks<tbp_block_t> &output_tbt);
 
+    void ExpandComputeArr(
+        input_char_block_t &local_querys,
+        input_char_block_t &local_references,
+        score_block_t &up_prevs,
+        score_block_t &diag_prevs,
+        score_block_t &left_prevs,
+        score_block_t &output_scores,
+        tbp_block_t &output_tbt
+    );
+
         
     // Expand a PE Array
-    void ExpandCompute(
+    void ExpandComputeTask(
         char_t local_query[PE_NUM],
         char_t local_reference[PE_NUM],
         hls::vector<type_t, N_LAYERS> wavefronts[2][PE_NUM],   // or can define a variable called DEPTH which is the depth of the wavefront
@@ -111,7 +121,6 @@ void ExpandComputeTop(
     hls::vector<type_t, N_LAYERS> write_score_arr[PE_NUM],
     hls::vector<tbp_t, N_LAYERS> write_traceback_arr[PE_NUM]
 );
-
 
 
  

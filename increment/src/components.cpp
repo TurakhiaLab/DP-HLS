@@ -3,6 +3,11 @@
 //
 
 #include "../include/components.h"
+#include "../include/params.h"
+#include "../include/utils.h"
+
+// This file serves as a wrapper for the components in the increment/src/align/align.cpp. 
+// Some components requires a wrapper since structs such as stream of blocks is not allowed in the top level. 
 
 // Expand a PE Array
 void DutExpandCompute(
@@ -16,7 +21,7 @@ void DutExpandCompute(
      * This style have problem which is the single channel is responsible for distributing
      * the input for all the PEs, which is not wide enough and certainly a bottleneck.
      */
-    PE::ExpandCompute(
+    PE::ExpandComputeTask(
             local_query,
             local_reference,
             wavefronts,
@@ -60,8 +65,6 @@ void DutExpandComputeBlock(input_char_block_t &local_querys,
             diag_prevs_stm,
             left_prevs_stm);
 
-
-
     PE::ExpandComputeBlock(
             local_querys,
             local_references_stm,
@@ -77,3 +80,61 @@ void DutExpandComputeBlock(input_char_block_t &local_querys,
             output_scores,
             output_tbp);
 }
+
+void DutChunkComputeBlock(idx_t chunk_row_offset, 
+                     input_char_block_t &query,
+                     char_t (&reference)[MAX_REFERENCE_LENGTH],
+                     score_block_t &init_col_scr,
+                     hls::vector<type_t, N_LAYERS> (&init_row_scr)[MAX_REFERENCE_LENGTH],
+                     int query_length, int reference_length,
+                     hls::vector<type_t, N_LAYERS> (&preserved_row_scr)[MAX_REFERENCE_LENGTH],
+                     ScorePack &max, 
+                     tbp_chunk_block_t &tbp_out
+){
+
+#pragma HLS dataflow
+
+hls::stream_of_blocks<tbp_chunk_block_t> tbp_chunk_out;
+
+    Align::ChunkComputeBlock(
+            chunk_row_offset,
+            query,
+            reference,
+            init_col_scr,
+            init_row_scr,
+            query_length,
+            reference_length,
+            preserved_row_scr,
+            max,
+            tbp_chunk_out);
+
+	Utils::Matrix::ReadStreamBlock<tbp_chunk_block_t, PE_NUM, MAX_REFERENCE_LENGTH>(tbp_out, tbp_chunk_out);
+	
+}
+
+void DutChunkComputeArr(
+        idx_t chunk_row_offset,
+        input_char_block_t &query,
+        char_t (&reference)[MAX_REFERENCE_LENGTH],
+        score_block_t &init_col_scr,
+        hls::vector<type_t, N_LAYERS> (&init_row_scr)[MAX_REFERENCE_LENGTH],
+        int query_length, int reference_length,
+        hls::vector<type_t, N_LAYERS> (&preserved_row_scr)[MAX_REFERENCE_LENGTH],
+        ScorePack &max,  // write out so must pass by reference
+        tbp_chunk_block_t &tbp_out
+        ){
+    Align::ChunkComputeArr(
+            chunk_row_offset,
+            query,
+            reference,
+            init_col_scr,
+            init_row_scr,
+            query_length,
+            reference_length,
+            preserved_row_scr,
+            max,
+            tbp_out
+            );
+}
+
+// void DutChunkCompute()

@@ -31,8 +31,11 @@ add_executable(incremental_sim "increment/legacy/local_linear.h"
 add_executable(tests "increment/testbench/main.cpp"
     "increment/include/testbench.h"
     "increment/include/PE.h"
+    "increment/include/seq_align.h"
+    "increment/include/utils.h"
     "increment/testbench/testbench.cpp"
-    "increment/src/pe/pe.cpp")
+    "increment/src/pe/pe.cpp"
+    "increment/src/align/align.cpp")
 
 # Add source to this project's executable.
 add_executable(align_local_linear "testbench/test_local_linear.cpp" "include/params.h"

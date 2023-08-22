@@ -75,9 +75,10 @@ void PE::LocalAffine::ComputeBlock(char_t local_query_val,
 }
 
 
+
 // FIXME: Currently just the functionality of expand the PE is used, rather than the full functioning
 //        kernel, since last_pe_score is not set yet.
-void PE::ExpandCompute(
+void PE::ExpandComputeTask(
         char_t local_query[PE_NUM],
         char_t local_reference[PE_NUM],
         hls::vector<type_t, N_LAYERS> wavefronts[2][PE_NUM],
@@ -261,3 +262,25 @@ void PE::ExpandComputeBlock(input_char_block_t &local_querys,
 }
 
 
+void PE::ExpandComputeArr(
+    input_char_block_t &local_querys,
+    input_char_block_t &local_references,
+    score_block_t &up_prevs,
+    score_block_t &diag_prevs,
+    score_block_t &left_prevs,
+    score_block_t &output_scores,
+    tbp_block_t &output_tbt
+){
+
+    for (int i = 0; i < PE_NUM; i++){
+#pragma HLS unroll
+    PE::LocalLinear::ComputeBlock(
+            local_querys[i],
+            local_references[i],
+            up_prevs[i],
+            diag_prevs[i],
+            left_prevs[i],
+            output_scores[i],
+            output_tbt[i]);
+    }
+}

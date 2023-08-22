@@ -4,6 +4,7 @@
 #include "../include/testbench.h"
 #include "../include/params.h"
 #include "../include/PE.h"
+#include "../include/seq_align.h"
 
 void Testbench::test_task_channel_pe() {
 	/* Test whether the dataflow PE array works. 
@@ -33,7 +34,7 @@ void Testbench::test_task_channel_pe() {
             wavefronts[i][j] = hls::vector<type_t, N_LAYERS>(rand() % 100);
         }
     }
-    PE::ExpandCompute(
+    PE::ExpandComputeTask(
         local_query,
         local_reference,
         wavefronts,
@@ -47,7 +48,8 @@ void Testbench::test_block_pe(){
     * 
     */
 
-    stream_of_blocks<input_char_block_t > local_querys_stm;
+   char_t local_querys[PE_NUM];
+
     stream_of_blocks<input_char_block_t > local_references_stm;
     stream_of_blocks<score_block_t > up_prevs_stm;
     stream_of_blocks<score_block_t > diag_prevs_stm;
@@ -55,11 +57,10 @@ void Testbench::test_block_pe(){
     stream_of_blocks<score_block_t > output_scores_stm;
     stream_of_blocks<tbp_block_t > output_tbp_stm;
 
-    write_lock<input_char_block_t > local_querys_acc(local_querys_stm);
     write_lock<input_char_block_t > local_references_acc(local_references_stm);
 
     for (int i = 0; i < PE_NUM; i++) {
-        local_querys_acc[i] = rand() % 4;
+        local_querys[i] = rand() % 4;
         local_references_acc[i] = rand() % 4;
     }
 
@@ -74,7 +75,7 @@ void Testbench::test_block_pe(){
     }
 
     PE::ExpandComputeBlock(
-        local_querys_stm,
+        local_querys,
         local_references_stm,
         up_prevs_stm,
         diag_prevs_stm,
@@ -95,4 +96,80 @@ void Testbench::test_block_pe(){
         std::cout << float(output_tbp_acc[i][0]);
     }
     std::cout << std::endl;
+}
+
+void Testbench::test_compute_chunk_block(){
+    idx_t chunk_row_offset = 0;
+    input_char_block_t query;
+    char_t reference[MAX_REFERENCE_LENGTH];
+    score_block_t init_col;
+    hls::vector<type_t, N_LAYERS> init_row_scr[MAX_REFERENCE_LENGTH];
+    int query_len = 12;
+    int ref_len = 168;
+
+    hls::vector<type_t, N_LAYERS> preserved_row_scr[MAX_REFERENCE_LENGTH];
+    ScorePack max;  // write out so must pass by reference
+    hls::stream_of_blocks<tbp_chunk_block_t> tbp_out;
+
+
+    for (int i = 0; i < PE_NUM; i++) {
+        query[i] = rand() % 4;
+        init_col[i] = hls::vector<type_t, N_LAYERS>(rand() % 100);
+    }
+
+    for (int i = 0; i < MAX_REFERENCE_LENGTH; i++){
+        reference[i] = rand() % 4;
+        init_row_scr[i] = hls::vector<type_t, N_LAYERS>(rand() % 100);
+    }
+
+    Align::ChunkComputeBlock(
+        chunk_row_offset,
+        query,
+        reference,
+        init_col,
+        init_row_scr,
+        query_len,
+        ref_len,
+        preserved_row_scr,
+        max,
+        tbp_out
+    );
+    
+}
+
+void Testbench::test_compute_chunk_arr(){
+    idx_t chunk_row_offset = 0;
+    input_char_block_t query;
+    char_t reference[MAX_REFERENCE_LENGTH];
+    score_block_t init_col;
+    hls::vector<type_t, N_LAYERS> init_row_scr[MAX_REFERENCE_LENGTH];
+    int query_len = 12;
+    int ref_len = 168;
+
+    hls::vector<type_t, N_LAYERS> preserved_row_scr[MAX_REFERENCE_LENGTH];
+    ScorePack max;  // write out so must pass by reference
+    tbp_chunk_block_t tbp_out;
+
+        for (int i = 0; i < PE_NUM; i++) {
+        query[i] = rand() % 4;
+        init_col[i] = hls::vector<type_t, N_LAYERS>(rand() % 100);
+    }
+
+    for (int i = 0; i < MAX_REFERENCE_LENGTH; i++){
+        reference[i] = rand() % 4;
+        init_row_scr[i] = hls::vector<type_t, N_LAYERS>(rand() % 100);
+    }
+
+    Align::ChunkComputeArr(
+        chunk_row_offset,
+        query,
+        reference,
+        init_col,
+        init_row_scr,
+        query_len,
+        ref_len,
+        preserved_row_scr,
+        max,
+        tbp_out
+    );
 }

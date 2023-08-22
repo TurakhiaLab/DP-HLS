@@ -2,7 +2,7 @@
 	"artifacts" : 
 	[
 		{
-			"path" : "align_local_affine"
+			"path" : "align_local_linear"
 		}
 	],
 	"backtrace" : 1,
@@ -25,19 +25,19 @@
 			{
 				"command" : 0,
 				"file" : 0,
-				"line" : 70,
+				"line" : 41,
 				"parent" : 0
 			},
 			{
 				"command" : 1,
 				"file" : 0,
-				"line" : 114,
+				"line" : 117,
 				"parent" : 0
 			},
 			{
 				"command" : 1,
 				"file" : 0,
-				"line" : 115,
+				"line" : 118,
 				"parent" : 0
 			}
 		]
@@ -48,7 +48,7 @@
 			"compileCommandFragments" : 
 			[
 				{
-					"fragment" : " -pthread -g  "
+					"fragment" : " -pthread  "
 				},
 				{
 					"fragment" : "-std=gnu++17"
@@ -106,13 +106,13 @@
 			]
 		}
 	],
-	"id" : "align_local_affine::@6890427a1f51a3e7e1df",
+	"id" : "align_local_linear::@6890427a1f51a3e7e1df",
 	"link" : 
 	{
 		"commandFragments" : 
 		[
 			{
-				"fragment" : "-pthread -g",
+				"fragment" : "-pthread",
 				"role" : "flags"
 			},
 			{
@@ -122,8 +122,8 @@
 		],
 		"language" : "CXX"
 	},
-	"name" : "align_local_affine",
-	"nameOnDisk" : "align_local_affine",
+	"name" : "align_local_linear",
+	"nameOnDisk" : "align_local_linear",
 	"paths" : 
 	{
 		"build" : ".",
@@ -164,7 +164,7 @@
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
-			"path" : "testbench/test_local_affine.cpp",
+			"path" : "testbench/test_local_linear.cpp",
 			"sourceGroupIndex" : 0
 		},
 		{

@@ -2,7 +2,7 @@
 	"artifacts" : 
 	[
 		{
-			"path" : "tests"
+			"path" : "align_global_affine"
 		}
 	],
 	"backtrace" : 1,
@@ -25,19 +25,19 @@
 			{
 				"command" : 0,
 				"file" : 0,
-				"line" : 31,
+				"line" : 88,
 				"parent" : 0
 			},
 			{
 				"command" : 1,
 				"file" : 0,
-				"line" : 114,
+				"line" : 117,
 				"parent" : 0
 			},
 			{
 				"command" : 1,
 				"file" : 0,
-				"line" : 115,
+				"line" : 118,
 				"parent" : 0
 			}
 		]
@@ -48,7 +48,7 @@
 			"compileCommandFragments" : 
 			[
 				{
-					"fragment" : " -pthread -g  "
+					"fragment" : " -pthread  "
 				},
 				{
 					"fragment" : "-std=gnu++17"
@@ -97,18 +97,22 @@
 			"sourceIndexes" : 
 			[
 				0,
-				3,
-				4
+				9,
+				10,
+				11,
+				12,
+				13,
+				14
 			]
 		}
 	],
-	"id" : "tests::@6890427a1f51a3e7e1df",
+	"id" : "align_global_affine::@6890427a1f51a3e7e1df",
 	"link" : 
 	{
 		"commandFragments" : 
 		[
 			{
-				"fragment" : "-pthread -g",
+				"fragment" : "-pthread",
 				"role" : "flags"
 			},
 			{
@@ -118,8 +122,8 @@
 		],
 		"language" : "CXX"
 	},
-	"name" : "tests",
-	"nameOnDisk" : "tests",
+	"name" : "align_global_affine",
+	"nameOnDisk" : "align_global_affine",
 	"paths" : 
 	{
 		"build" : ".",
@@ -132,8 +136,12 @@
 			"sourceIndexes" : 
 			[
 				0,
-				3,
-				4
+				9,
+				10,
+				11,
+				12,
+				13,
+				14
 			]
 		},
 		{
@@ -141,7 +149,13 @@
 			"sourceIndexes" : 
 			[
 				1,
-				2
+				2,
+				3,
+				4,
+				5,
+				6,
+				7,
+				8
 			]
 		}
 	],
@@ -150,29 +164,83 @@
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
-			"path" : "increment/testbench/main.cpp",
+			"path" : "testbench/test_global_affine.cpp",
 			"sourceGroupIndex" : 0
 		},
 		{
 			"backtrace" : 1,
-			"path" : "increment/include/testbench.h",
+			"path" : "include/params.h",
 			"sourceGroupIndex" : 1
 		},
 		{
 			"backtrace" : 1,
-			"path" : "increment/include/PE.h",
+			"path" : "include/seq_align_multiple.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "include/seq_align.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "include/PE.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "include/host.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "include/loop_counter.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "include/traceback.h",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 1,
+			"path" : "include/initial.h",
 			"sourceGroupIndex" : 1
 		},
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
-			"path" : "increment/testbench/testbench.cpp",
+			"path" : "src/toplevel/seq_align_multiple.cpp",
 			"sourceGroupIndex" : 0
 		},
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
-			"path" : "increment/src/pe/pe.cpp",
+			"path" : "src/align/align.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/traceback.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/utils.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/initial.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/pe/pe.cpp",
 			"sourceGroupIndex" : 0
 		}
 	],

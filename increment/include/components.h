@@ -5,7 +5,10 @@
 #ifndef DP_HLS_COMPONENTS_H
 #define DP_HLS_COMPONENTS_H
 
-#include "PE.h"
+#include "./components.h"
+#include "./PE.h"
+#include "./seq_align.h"
+#include "./utils.h"
 
 // Expand a PE Array
 void DutExpandCompute(
@@ -22,5 +25,28 @@ void DutExpandComputeBlock(input_char_block_t local_querys,
                            score_block_t &left_prevs,
                            score_block_t &output_scores,
                            tbp_block_t &output_tbp);
+
+void DutChunkComputeBlock(idx_t chunk_row_offset, 
+                     input_char_block_t &query,
+                     char_t (&reference)[MAX_REFERENCE_LENGTH],
+                     score_block_t &init_col_scr,
+                     hls::vector<type_t, N_LAYERS> (&init_row_scr)[MAX_REFERENCE_LENGTH],
+                     int query_length, int reference_length,
+                     hls::vector<type_t, N_LAYERS> (&preserved_row_scr)[MAX_REFERENCE_LENGTH],
+                     ScorePack &max, 
+                     tbp_chunk_block_t &chunk_tbp_out);
+
+void DutChunkComputeArr(
+        idx_t chunk_row_offset,
+        input_char_block_t &query,
+        char_t (&reference)[MAX_REFERENCE_LENGTH],
+        score_block_t &init_col_scr,
+        hls::vector<type_t, N_LAYERS> (&init_row_scr)[MAX_REFERENCE_LENGTH],
+        int query_length, int reference_length,
+        hls::vector<type_t, N_LAYERS> (&preserved_row_scr)[MAX_REFERENCE_LENGTH],
+        ScorePack &max,  // write out so must pass by reference
+        tbp_chunk_block_t &chunk_tbp_out
+        );
+
 
 #endif //DP_HLS_COMPONENTS_H

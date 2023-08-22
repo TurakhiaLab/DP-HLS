@@ -9,7 +9,7 @@
 // >>> LOCAL_LINEAR pe >>>
 #ifdef ALIGN_LOCAL_LINEAR
 
-void PE::compute(
+void PECLS::compute(
 	char_t local_query_val,
 	char_t local_reference_val,
 	hls::vector<type_t, N_LAYERS> up_prev,
