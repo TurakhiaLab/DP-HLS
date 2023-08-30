@@ -31,6 +31,7 @@ void seq_align_multiple(
         stream<BlockInputs> &inputs,
         stream<BlockOutputs> &outputs)
 	{
+
 #pragma HLS dataflow
 #ifdef DEBUG
 		Debugger debug[N_BLOCKS];

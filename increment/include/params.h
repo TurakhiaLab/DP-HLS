@@ -6,17 +6,15 @@
 #include <hls_stream.h>
 #include <hls_streamofblocks.h> 
 
+// FIXME: Find max only works for linera isnce I don't know whether need to find max among multiple layers for affine
+
 #define ALIGN_LOCAL_LINEAR
 #undef DEBUG
 // >>> LOCAL_LINEAR params >>>
 #ifdef ALIGN_LOCAL_LINEAR
 
-#define STM_DEPTH 4
-
-
-
-#define MAX_QUERY_LENGTH 79
-#define MAX_REFERENCE_LENGTH 255
+#define MAX_QUERY_LENGTH 256
+#define MAX_REFERENCE_LENGTH 256
 
 #define PE_NUM 32
 
@@ -41,7 +39,7 @@
 
 //#define DEBUG
 
-#define N_BLOCKS 8
+#define N_BLOCKS 1
 
 #define TB_LINE_SIZE 64  // This defines the length of a line of TB pointers. Must be larger than PE_num
 
@@ -52,7 +50,7 @@ typedef ap_fixed<WS, IS> type_t;  // score matrix score type
 typedef ap_uint<16> idx_t; // define an address type to resolve the pointer to pointer problems
 typedef ap_ufixed<WT, IT> tbp_t;  // traceback pointer typ
 typedef ap_ufixed<2, 0> tbp_dir_t;  // direction bits type for traceback pointer
-
+typedef ap_uint<4> chunk_idx_t;  // chunk index type
 //tbp_t TB_PH = 0.0;  // this is place holder
 //tbp_t TB_LEFT = 0.25;
 //tbp_t TB_DIAG = 0.5;
@@ -96,6 +94,8 @@ typedef hls::vector<tbp_t, N_LAYERS> tbp_chunk_block_t[PE_NUM][MAX_REFERENCE_LEN
 
 typedef hls::vector<type_t, N_LAYERS> score_vec_t;
 
+#define LAYER_MAXIMIUM 0
+
 struct BlockInputs {
     raw_query_block_t query;
     raw_reference_block_t reference;
@@ -109,10 +109,17 @@ struct BlockOutputs {
     traceback_block_t traceback;
 };
 
-struct ScorePack{
-    type_t score;
-    idx_t row;
-    idx_t col;
+struct ScorePack{  
+    type_t score  = 0;
+    idx_t chunk_offset = 0;
+    idx_t pe = 0;
+    idx_t pe_offset = 0;
+    idx_t layer = 0;
+};
+
+template <typename T, int N>
+struct ArrayPack {
+    T data[N];
 };
 
 #endif 

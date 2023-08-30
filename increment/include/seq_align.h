@@ -28,6 +28,13 @@ void align_wp(hls::stream<char_t, MAX_QUERY_LENGTH> &query_stream,
               hls::stream<tbp_t, MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH> &traceback_out);
 
 namespace Align{
+
+	void PrepareLocalQueryBlock(
+		char_t (&query)[MAX_QUERY_LENGTH],
+		char_t (&local_query)[PE_NUM],
+		idx_t len
+	);
+
 	void DPMemUpdateBlock(
 		hls::stream_of_blocks<dp_mem_block_t> &dp_mem_in,
 		hls::stream_of_blocks<score_block_t> &score_in,
@@ -104,7 +111,7 @@ namespace Align{
 		int query_length, int reference_length,
 		hls::vector<type_t, N_LAYERS> (&preserved_row_scr)[MAX_REFERENCE_LENGTH],
 		ScorePack &max,  // write out so must pass by reference
-		tbp_chunk_block_t &chunk_tbp_out
+		hls::vector<tbp_t, N_LAYERS> (*chunk_tbp_out)[MAX_REFERENCE_LENGTH]
 	);
 
 	void WriteInitialColScore(int i, score_vec_t (&init_scores)[PE_NUM], 
@@ -120,7 +127,7 @@ namespace Align{
 	void ArrangeTBPArr(
 		tbp_block_t &tbp_in,
 		bool (&predicate)[PE_NUM], idx_t (&pe_offset)[PE_NUM],
-		tbp_chunk_block_t &tbp_chunk_out
+		hls::vector<tbp_t, N_LAYERS> (*chunk_tbp_out)[MAX_REFERENCE_LENGTH]
 	);
 
 	void ShiftPredicate(bool (&predicate)[PE_NUM], int idx, int query_len, int reference_len); 
@@ -137,14 +144,58 @@ namespace Align{
 		idx_t (&pe_offset)[PE_NUM]
 	);
 
-	// namespace FMWorkers {
-	// 	void WorkersTop(
-	// 		idx_t chunk_row_offset,
-	// 		idx_t (&pe_offset)[PE_NUM],
+	namespace FindMax {
+		// void UpdateMaximium(
+		// 	idx_t chunk_row_offset,
+		// 	idx_t (&pe_offset)[PE_NUM],
+		// 	bool (&predicate)[PE_NUM],
+		// 	ScorePack (&max)[PE_NUM],
+		// 	score_block_t &scores
+		// );
 
-	// 	);
-	// }
+		void UpdatePEMaximum(type_t (&new_scr)[PE_NUM], ScorePack (&max)[PE_NUM], idx_t (&pe_offsets)[PE_NUM], idx_t chunk_offset, bool (&predicate)[PE_NUM]);
 
+		void ExtractScoresLayer(score_block_t &scores, idx_t layer, type_t (&extracted)[PE_NUM]);
+
+		void InitPE(ScorePack (&packs)[PE_NUM]);
+
+		void GetChunkMax(ScorePack (&max)[PE_NUM], ScorePack &chunk_max);
+
+		// void ChunkMaximium();
+
+		// void Sender ()  // Used to send the scores out the compute logic by blocks to find the max. Implement in the future
+	};
+
+	/**
+	 * @brief Align function for a block for two sequencies. 
+	 * 
+	 * @param query: Query sequence.
+	 * @param reference: Reference sequence.
+	 * @param query_length: Length of the effect query to compute.
+	 * @param reference_length: Length of the effect reference to compute.
+	 * @param tb_streams: Output traceback pointers.
+	 */
+	void AlignStatic(
+		char_t (&querys)[MAX_QUERY_LENGTH],
+		char_t (&references)[MAX_REFERENCE_LENGTH],
+		idx_t query_length,
+		idx_t reference_length,
+		tbp_t (&tb_streams)[MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH]
+	);
+
+	void InitializeScores(
+		score_vec_t (&init_col_scr)[MAX_QUERY_LENGTH],
+		score_vec_t (&init_row_scr)[MAX_REFERENCE_LENGTH]
+	);
+
+	void ChunkMax(ScorePack &max, ScorePack new_scr);
+	
+	void UpdatePEOffset(idx_t (&pe_offset)[PE_NUM], bool (&predicate)[PE_NUM]);
+	
+	void Traceback(
+		hls::vector<tbp_t, N_LAYERS> (&tbmat)[MAX_QUERY_LENGTH][MAX_REFERENCE_LENGTH],
+		tbp_t (&traceback_out)[MAX_REFERENCE_LENGTH+MAX_QUERY_LENGTH],
+		const int max_row, const int max_col, const int max_layer);  // starting index to traceback
 	
 }
 

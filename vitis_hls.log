@@ -1,0 +1,78 @@
+
+****** Vitis HLS - High-Level Synthesis from C, C++ and OpenCL v2023.1 (64-bit)
+  **** SW Build 3854077 on May  4 2023
+  **** IP Build 3864474 on Sun May  7 20:36:21 MDT 2023
+  **** SharedData Build 3865790 on Sun May 07 13:33:03 MDT 2023
+    ** Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+    ** Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+
+source /home/AD.UCSD.EDU/swalia/Xilinx/Vitis_HLS/2023.1/scripts/vitis_hls/hls.tcl -notrace
+INFO: [HLS 200-10] Running '/home/AD.UCSD.EDU/swalia/Xilinx/Vitis_HLS/2023.1/bin/unwrapped/lnx64.o/vitis_hls'
+INFO: [HLS 200-10] For user 'yic033@AD.UCSD.EDU' on host 'raptor.ucsd.edu' (Linux_x86_64 version 5.4.0-149-generic) on Wed Aug 23 22:36:00 PDT 2023
+INFO: [HLS 200-10] On os Ubuntu 20.04.6 LTS
+INFO: [HLS 200-10] In directory '/home/yic033@AD.UCSD.EDU/DP-HLS'
+Sourcing Tcl script 'vitis/syn_modularized/local_linear/script.tcl'
+INFO: [HLS 200-1510] Running: open_project syn_modularized 
+INFO: [HLS 200-10] Creating and opening project '/home/yic033@AD.UCSD.EDU/DP-HLS/syn_modularized'.
+INFO: [HLS 200-1510] Running: set_top seq_align_multiple 
+INFO: [HLS 200-1510] Running: add_files ../include/PE.h 
+WARNING: [HLS 200-40] Cannot find design file '../include/PE.h'
+INFO: [HLS 200-1510] Running: add_files ../src/align/align.cpp 
+WARNING: [HLS 200-40] Cannot find design file '../src/align/align.cpp'
+INFO: [HLS 200-1510] Running: add_files ../include/initial.h 
+WARNING: [HLS 200-40] Cannot find design file '../include/initial.h'
+INFO: [HLS 200-1510] Running: add_files ../include/params.h 
+WARNING: [HLS 200-40] Cannot find design file '../include/params.h'
+INFO: [HLS 200-1510] Running: add_files ../src/pe/pe.cpp 
+WARNING: [HLS 200-40] Cannot find design file '../src/pe/pe.cpp'
+INFO: [HLS 200-1510] Running: add_files ../include/seq_align.h 
+WARNING: [HLS 200-40] Cannot find design file '../include/seq_align.h'
+INFO: [HLS 200-1510] Running: add_files ../src/toplevel/seq_align_multiple.cpp -cflags -I../../../include 
+WARNING: [HLS 200-40] Cannot find design file '../src/toplevel/seq_align_multiple.cpp'
+INFO: [HLS 200-1510] Running: add_files ../include/seq_align_multiple.h 
+WARNING: [HLS 200-40] Cannot find design file '../include/seq_align_multiple.h'
+INFO: [HLS 200-1510] Running: add_files ../include/shift_reg.h 
+WARNING: [HLS 200-40] Cannot find design file '../include/shift_reg.h'
+INFO: [HLS 200-1510] Running: add_files ../src/traceback.cpp 
+WARNING: [HLS 200-40] Cannot find design file '../src/traceback.cpp'
+INFO: [HLS 200-1510] Running: add_files ../include/traceback.h 
+WARNING: [HLS 200-40] Cannot find design file '../include/traceback.h'
+INFO: [HLS 200-1510] Running: add_files ../src/align/trivial.h 
+WARNING: [HLS 200-40] Cannot find design file '../src/align/trivial.h'
+INFO: [HLS 200-1510] Running: add_files ../src/utils.cpp 
+WARNING: [HLS 200-40] Cannot find design file '../src/utils.cpp'
+INFO: [HLS 200-1510] Running: add_files ../include/utils.h 
+WARNING: [HLS 200-40] Cannot find design file '../include/utils.h'
+INFO: [HLS 200-1510] Running: add_files -tb ../testbench/test_local_affine.cpp -cflags -Wno-unknown-pragmas 
+WARNING: [HLS 200-40] Cannot find test bench file '../testbench/test_local_affine.cpp'
+INFO: [HLS 200-1510] Running: add_files -tb ../include/seq_align_multiple.h -cflags -Wno-unknown-pragmas 
+WARNING: [HLS 200-40] Cannot find test bench file '../include/seq_align_multiple.h'
+INFO: [HLS 200-1510] Running: add_files -tb ../include/seq_align.h -cflags -Wno-unknown-pragmas 
+WARNING: [HLS 200-40] Cannot find test bench file '../include/seq_align.h'
+INFO: [HLS 200-1510] Running: add_files -tb ../include/params.h -cflags -Wno-unknown-pragmas 
+WARNING: [HLS 200-40] Cannot find test bench file '../include/params.h'
+INFO: [HLS 200-1510] Running: add_files -tb ../include/initial.h -cflags -Wno-unknown-pragmas 
+WARNING: [HLS 200-40] Cannot find test bench file '../include/initial.h'
+INFO: [HLS 200-1510] Running: add_files -tb ../src/initial.cpp -cflags -Wno-unknown-pragmas 
+WARNING: [HLS 200-40] Cannot find test bench file '../src/initial.cpp'
+INFO: [HLS 200-1510] Running: open_solution local_linear -flow_target vivado 
+INFO: [HLS 200-10] Creating and opening solution '/home/yic033@AD.UCSD.EDU/DP-HLS/syn_modularized/local_linear'.
+INFO: [HLS 200-1505] Using flow_target 'vivado'
+Resolution: For help on HLS 200-1505 see www.xilinx.com/cgi-bin/docs/rdoc?v=2023.1;t=hls+guidance;d=200-1505.html
+INFO: [HLS 200-1510] Running: set_part xcvu5p-flva2104-1-e 
+INFO: [HLS 200-1611] Setting target device to 'xcvu5p-flva2104-1-e'
+INFO: [HLS 200-1510] Running: create_clock -period 10 -name default 
+INFO: [SYN 201-201] Setting up clock 'default' with a period of 10ns.
+./syn_modularized/local_linear/directives.tcl can't be opened.
+couldn't read file "./syn_modularized/local_linear/directives.tcl": no such file or directory
+    while executing
+"source "./syn_modularized/local_linear/directives.tcl""
+    (file "vitis/syn_modularized/local_linear/script.tcl" line 32)
+    invoked from within
+"source vitis/syn_modularized/local_linear/script.tcl"
+    ("uplevel" body line 1)
+    invoked from within
+"uplevel \#0 [list source $arg] "
+
+INFO: [HLS 200-112] Total CPU user time: 3.34 seconds. Total CPU system time: 0.74 seconds. Total elapsed time: 3.86 seconds; peak allocated memory: 1.064 GB.
+INFO: [Common 17-206] Exiting vitis_hls at Wed Aug 23 22:36:03 2023...

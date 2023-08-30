@@ -15,13 +15,22 @@ using namespace hls;
 //typedef ap_int<16> type_t;
 
 extern "C" {
-	void seq_align_multiple(stream<char_t , MAX_QUERY_LENGTH> (&query_string_comp_blocks)[N_BLOCKS],
-		stream<char_t, MAX_REFERENCE_LENGTH> (&reference_string_comp_blocks)[N_BLOCKS],
-		stream<hls::vector<type_t, N_LAYERS>, MAX_QUERY_LENGTH> (&init_qry_scr)[N_BLOCKS],
-		stream<hls::vector<type_t, N_LAYERS>, MAX_REFERENCE_LENGTH> (&init_ref_scr)[N_BLOCKS],
-        int query_lengths, int reference_lengths,
-		stream<tbp_t, MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH> (&tb_streams)[N_BLOCKS]
-		);
+
+	void seq_align_multiple_static(
+		char_t (&querys)[N_BLOCKS][MAX_QUERY_LENGTH],
+		char_t (&references)[N_BLOCKS][MAX_REFERENCE_LENGTH],
+		idx_t (&query_lengths)[N_BLOCKS],
+		idx_t (&reference_lengths)[N_BLOCKS],
+		tbp_t (&tb_streams)[N_BLOCKS][MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH]);
+
+	// Have maximum input length of 2048 for 2 bit inputs. 
+	// void seq_align_multiple_dynamic(
+	// 	stream<ArrayPack<char_t, MAX_QUERY_LENGTH>> &querys,
+	// 	stream<ArrayPack<char_t, MAX_REFERENCE_LENGTH>> &references,
+	// 	stream<idx_t> &query_lengths,
+	// 	stream<idx_t> &reference_lengths,
+	// 	stream<tbp_t> &tb_streams);
+	
 }
 
 #endif

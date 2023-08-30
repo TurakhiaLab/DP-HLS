@@ -92,8 +92,8 @@ void PE::ExpandComputeTask(
 #pragma HLS array_partition variable=write_traceback_arr type=complete
 
 // FIXME: Can the use of stream of blocks possibly reduce the cycles to fill the channe to one?
-    hls_thread_local hls::split::round_robin<char_t, PE_NUM, STM_DEPTH> local_query_split;
-    hls_thread_local hls::split::round_robin<char_t, PE_NUM, STM_DEPTH> local_reference_split;
+    hls_thread_local hls::split::round_robin<char_t, PE_NUM> local_query_split;
+    hls_thread_local hls::split::round_robin<char_t, PE_NUM> local_reference_split;
     hls_thread_local hls::split::round_robin<hls::vector<type_t, N_LAYERS>, PE_NUM> up_prev_split;
     hls_thread_local hls::split::round_robin<hls::vector<type_t, N_LAYERS>, PE_NUM> diag_prev_split;
     hls_thread_local hls::split::round_robin<hls::vector<type_t, N_LAYERS>, PE_NUM> left_prev_split;

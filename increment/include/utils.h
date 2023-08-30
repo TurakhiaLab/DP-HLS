@@ -42,6 +42,23 @@ namespace Utils
 			}
 			arr[0] = new_data;
 		}
+
+		template <typename T, int M, int N, int LEN>
+		void Copy(T (&src)[M], T(&dst)[N], idx_t len, T default_num)
+		{
+			for (int i = 0; i < LEN; i++)
+			{
+#pragma HLS unroll
+				dst[i] = i < len ? src[i] : default_num;
+			}
+		}
+
+		template <typename T>
+		void Switch(T *arr1, T *arr2){
+			T *tmp = arr1;
+			arr1 = arr2;
+			arr2 = tmp;
+		}
 	}
 
 	namespace Init
@@ -57,6 +74,29 @@ namespace Utils
 				arr[i] = val;
 			}
 		}
+
+		template <typename T, int N>
+		void ArrSet(T (&arr)[N], idx_t layer, T val)
+		{
+
+			for (int i = 0; i < N; i++)
+			{
+#pragma HLS unroll
+				arr[i][layer] = val;
+			}
+		}
+
+		template <typename T, int LAY, int N>
+		void Linspace(hls::vector<T, LAY> (&arr)[N], idx_t layer, type_t start, type_t step)
+		{
+			type_t cnt = start;
+			for (int i = 0; i < N; i++)
+			{
+				cnt += step;
+				arr[i][layer] = cnt;
+			}
+		}
+
 	}
 
 	namespace Matrix
