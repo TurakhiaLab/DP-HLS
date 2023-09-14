@@ -9,7 +9,7 @@
 #include <cstdio>
 #endif
 
-void PE::LocalLinear::Compute(
+void PE::Linear::Compute(
         hls::stream<char_t> &local_query_val,
         hls::stream<char_t> &local_reference_val,
         hls::stream<hls::vector<type_t, N_LAYERS>> &up_prev_stm,
@@ -38,7 +38,7 @@ void PE::LocalLinear::Compute(
 
 }
 
-void PE::LocalLinear::ComputeBlock(char_t local_query_val,
+void PE::Linear::ComputeBlock(char_t local_query_val,
                                    char_t local_reference_val,
                                    hls::vector<type_t, N_LAYERS> up_prev,
                                    hls::vector<type_t, N_LAYERS> diag_prev,
@@ -62,7 +62,7 @@ void PE::LocalLinear::ComputeBlock(char_t local_query_val,
     }
 }
 
-void PE::LocalAffine::ComputeBlock(char_t local_query_val,
+void PE::Affine::ComputeBlock(char_t local_query_val,
                                    char_t local_reference_val,
                                    hls::vector<type_t, N_LAYERS> up_prev,
                                    hls::vector<type_t, N_LAYERS> diag_prev,
@@ -119,7 +119,7 @@ void PE::ExpandComputeTask(
     for (int i = 0; i < PE_NUM; i++) {
 #pragma HLS unroll
         t[i](
-                PE::LocalLinear::Compute,
+                PE::Linear::Compute,
                 local_query_split.out[i],
                 local_reference_split.out[i],
                 up_prev_split.out[i],
@@ -250,7 +250,7 @@ void PE::ExpandComputeBlock(input_char_block_t &local_querys,
 
     for (int i = 0; i < PE_NUM; i++){
 #pragma HLS unroll
-        PE::LocalLinear::ComputeBlock(
+        PE::Linear::ComputeBlock(
                 local_querys[i],
                 reference_acc[i],
                 up_acc[i],
@@ -274,7 +274,7 @@ void PE::ExpandComputeArr(
 
     for (int i = 0; i < PE_NUM; i++){
 #pragma HLS unroll
-    PE::LocalLinear::ComputeBlock(
+    PE::ALIGN_TYPE::ComputeBlock(
             local_querys[i],
             local_references[i],
             up_prevs[i],

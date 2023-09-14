@@ -18,7 +18,7 @@
 
 namespace PE {
     
-    namespace LocalLinear {
+    namespace Linear {
         void Compute(
             hls::stream<char_t> &local_query_val,
             hls::stream<char_t> &local_reference_val,
@@ -29,6 +29,17 @@ namespace PE {
             hls::stream<hls::vector<tbp_t, N_LAYERS>> &write_traceback  // out
         );
 
+        /**
+         * @brief PE compute function for a single PE. In a simple array implementation. 
+         * 
+         * @param local_query_val 
+         * @param local_reference_val 
+         * @param up_prev 
+         * @param diag_prev 
+         * @param left_prev 
+         * @param write_score 
+         * @param write_traceback 
+         */
         void ComputeBlock(char_t local_query_val,
                           char_t local_reference_val,
                           hls::vector<type_t, N_LAYERS> up_prev,
@@ -38,7 +49,7 @@ namespace PE {
                           hls::vector<tbp_t, N_LAYERS> &write_traceback);
     }
 
-    namespace LocalAffine {
+    namespace Affine {
         void ComputeBlock(char_t local_query_val,
                           char_t local_reference_val,
                           hls::vector<type_t, N_LAYERS> up_prev,
@@ -48,6 +59,7 @@ namespace PE {
                           hls::vector<tbp_t, N_LAYERS> &write_traceback);
     }
 
+    
     void ExpandComputeBlock(input_char_block_t &local_querys,
                             stream_of_blocks<input_char_block_t> &local_references,
                             stream_of_blocks<score_block_t> &up_prevs,
@@ -56,6 +68,18 @@ namespace PE {
                             stream_of_blocks<score_block_t> &output_scores,
                             stream_of_blocks<tbp_block_t> &output_tbt);
 
+    /**
+     * @brief Expand a PE Array, with simple array implementation. It calls compute block 
+     *        for a kind of PE. 
+     * 
+     * @param local_querys 
+     * @param local_references 
+     * @param up_prevs 
+     * @param diag_prevs 
+     * @param left_prevs 
+     * @param output_scores 
+     * @param output_tbt 
+     */
     void ExpandComputeArr(
         input_char_block_t &local_querys,
         input_char_block_t &local_references,
@@ -66,7 +90,6 @@ namespace PE {
         tbp_block_t &output_tbt
     );
 
-        
     // Expand a PE Array
     void ExpandComputeTask(
         char_t local_query[PE_NUM],
