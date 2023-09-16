@@ -480,13 +480,13 @@ void Align::InitializeScores(
 	Utils::Init::ArrSet<score_vec_t, MAX_QUERY_LENGTH>(init_col_scr, {0, 0, -9999});
 	Utils::Init::ArrSet<score_vec_t, MAX_REFERENCE_LENGTH>(init_row_scr, {-9999,0,0});
 #elif defined ALIGN_GLOBAL_AFFINE
-	Utils::Init::ArrSet<score_vec_t, MAX_QUERY_LENGTH>(init_col_scr, 0, 0);  // query layer 0
+	Utils::Init::ArrSet<score_vec_t, MAX_QUERY_LENGTH>(init_col_scr, 0, {0,0,0});  // query layer 0
 	Utils::Init::Linspace<type_t, 3, MAX_QUERY_LENGTH>(init_col_scr, 1, 0, extend_score);  // query layer 1
-	Utils::Init::ArrSet<score_vec_t, MAX_QUERY_LENGTH>(init_col_scr, 2, -9999 ) // query layer 2
+	Utils::Init::ArrSet<score_vec_t, MAX_QUERY_LENGTH>(init_col_scr, 2, {-9999,-9999,-9999}); // query layer 2
 
-	Utils::Init::ArrSet<score_vec_t, MAX_REFERENCE_LENGTH>(init_row_scr, 0, -9999);  // reference layer 0
+	Utils::Init::ArrSet<score_vec_t, MAX_REFERENCE_LENGTH>(init_row_scr, 0, {-9999,-9999,-9999});  // reference layer 0
 	Utils::Init::Linspace<type_t, 3, MAX_REFERENCE_LENGTH>(init_row_scr, 1, 0, extend_score);  // reference layer 1
-	Utils::Init::ArrSet<score_vec_t, MAX_REFERENCE_LENGTH>(init_row_scr, 2, 0) // reference layer 2
+	Utils::Init::ArrSet<score_vec_t, MAX_REFERENCE_LENGTH>(init_row_scr, 2, {0,0,0}); // reference layer 2
 #else
 	// Not initialized. 
 	int i = 0;

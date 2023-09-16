@@ -82,7 +82,7 @@ namespace Utils
 			for (int i = 0; i < N; i++)
 			{
 #pragma HLS unroll
-				arr[i][layer] = val;
+				arr[i][layer] = val[layer];
 			}
 		}
 
