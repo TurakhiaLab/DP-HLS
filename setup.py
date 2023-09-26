@@ -1,11 +1,15 @@
 from setuptools import setup, Extension
 import pybind11, glob, os
 
-cpp_args = ['-std=c++17', "-lpthread"]
+cpp_args = ['-std=c++17']
 
-sources=[]
+sources=["./increment/module.cpp"]
 
 for fpath in glob.glob(os.path.join('increment', '**', '*')):
+    if (fpath.endswith('.cpp')):
+        sources.append(fpath)
+
+for fpath in glob.glob(os.path.join('increment', '**', '**', '*')):
     if (fpath.endswith('.cpp')):
         sources.append(fpath)
 
@@ -17,8 +21,7 @@ sfc_module = Extension(
         "/home/AD.UCSD.EDU/swalia/Xilinx/Vitis_HLS/2023.1/include"    
     ],
     library_dirs=[
-        "/home/AD.UCSD.EDU/swalia/Xilinx/Vitis_HLS/2023.1/include/lib",
-        "/usr/lib/x86_64-linux-gnu"
+        "/home/AD.UCSD.EDU/swalia/Xilinx/Vitis_HLS/2023.1/include/lib"
     ],
     language='c++',
     extra_compile_args=cpp_args,

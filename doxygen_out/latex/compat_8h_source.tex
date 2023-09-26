@@ -1,0 +1,33 @@
+\doxysection{compat.\+h}
+\hypertarget{compat_8h_source}{}\label{compat_8h_source}\index{increment/include/compat.h@{increment/include/compat.h}}
+\mbox{\hyperlink{compat_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#ifndef\ COMPAT\_H}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#define\ COMPAT\_H}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{params_8h}{params.h}}"{}}}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ "{}../../include/shift\_reg.h"{}}}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespaceCompat}{Compat}}\ \{}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{namespaceCompat_acf3eaa0f42db24cccd20d7e1e7cf4c98}{PrepareArrayInput}}(}
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classShiftRegister}{ShiftRegister<char\_t,\ PE\_NUM>}}\ \&local\_query,}
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classShiftRegister}{ShiftRegister<char\_t,\ PE\_NUM>}}\ \&local\_reference,}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ hls::vector<type\_t,\ N\_LAYERS>\ (\&last\_pe\_score)[\mbox{\hyperlink{params_8h_a0083a9bee1ec159ad13954a3186ef6d9}{MAX\_REFERENCE\_LENGTH}}],}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classShiftRegisterBlock}{ShiftRegisterBlock}}<hls::vector<type\_t,\ N\_LAYERS>,\ \mbox{\hyperlink{params_8h_aceb4cc72bd33675b648bc2c8c1f7886b}{PE\_NUM}},\ 2>\ \&dp\_mem,}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \&i,\ \mbox{\hyperlink{params_8h_a0deac85b32dbd3d91a713912fa616412}{idx\_t}}\ \&last\_row\_r,\ \textcolor{keywordtype}{int}\ \&tb\_idx,\ \textcolor{keywordtype}{int}\ (\&pe\_cnt)[\mbox{\hyperlink{params_8h_aceb4cc72bd33675b648bc2c8c1f7886b}{PE\_NUM}}],}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{params_8h_aae0a4301a15974d8514ee65bcd2f78c5}{input\_char\_block\_t}}\ \&local\_query\_out,}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ hls::stream\_of\_blocks<input\_char\_block\_t>\ \&local\_reference\_out,}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ hls::stream\_of\_blocks<score\_block\_t>\ \&up\_prev\_out,}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ hls::stream\_of\_blocks<score\_block\_t>\ \&diag\_prev\_out,}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ hls::stream\_of\_blocks<score\_block\_t>\ \&left\_prev\_out}
+\DoxyCodeLine{00032\ \ \ \ \ );}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \}}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ COMPAT\_H}}
+
+\end{DoxyCode}

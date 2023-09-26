@@ -1,0 +1,41 @@
+\doxysection{increment/include/utils.h File Reference}
+\hypertarget{utils_8h}{}\label{utils_8h}\index{increment/include/utils.h@{increment/include/utils.h}}
+{\ttfamily \#include "{}params.\+h"{}}\newline
+\doxysubsubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+namespace \mbox{\hyperlink{namespaceUtils}{Utils}}
+\item 
+namespace \mbox{\hyperlink{namespaceUtils_1_1Array}{Utils\+::\+Array}}
+\item 
+namespace \mbox{\hyperlink{namespaceUtils_1_1Init}{Utils\+::\+Init}}
+\item 
+namespace \mbox{\hyperlink{namespaceUtils_1_1Matrix}{Utils\+::\+Matrix}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$typename T , int N$>$ }\\void \mbox{\hyperlink{namespaceUtils_1_1Array_a46f42d6dac7aacf46276151b869d73f5}{Utils\+::\+Array\+::\+Write\+Stream\+Block}} (T arr\mbox{[}N\mbox{]}, hls\+::stream\+\_\+of\+\_\+blocks$<$ T\mbox{[}N\mbox{]}$>$ \&stream\+\_\+block)
+\item 
+{\footnotesize template$<$typename T , int N$>$ }\\void \mbox{\hyperlink{namespaceUtils_1_1Array_ae9fad5e384276db30d0548b0db8b853c}{Utils\+::\+Array\+::\+Shift\+Left}} (T(\&arr)\mbox{[}N\mbox{]}, T new\+\_\+data)
+\item 
+{\footnotesize template$<$typename T , int N$>$ }\\void \mbox{\hyperlink{namespaceUtils_1_1Array_a969bfc696b755375b6bb2169f761efa2}{Utils\+::\+Array\+::\+Shift\+Right}} (T(\&arr)\mbox{[}N\mbox{]}, T new\+\_\+data)
+\item 
+{\footnotesize template$<$typename T , int M, int N, int LEN$>$ }\\void \mbox{\hyperlink{namespaceUtils_1_1Array_a537becc6d06ff218291ad888e001ee17}{Utils\+::\+Array\+::\+Copy}} (T(\&src)\mbox{[}M\mbox{]}, T(\&dst)\mbox{[}N\mbox{]}, \mbox{\hyperlink{params_8h_a0deac85b32dbd3d91a713912fa616412}{idx\+\_\+t}} len, T default\+\_\+num)
+\begin{DoxyCompactList}\small\item\em Copy length LEN of data from src to dst. If more than len, fill the rest with default\+\_\+num. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T $>$ }\\void \mbox{\hyperlink{namespaceUtils_1_1Array_a1e111bb9df847435ea2735324255eef8}{Utils\+::\+Array\+::\+Switch}} (T \texorpdfstring{$\ast$}{*}arr1, T \texorpdfstring{$\ast$}{*}arr2)
+\item 
+{\footnotesize template$<$typename T , int N$>$ }\\void \mbox{\hyperlink{namespaceUtils_1_1Init_a85315d0083bd843ca59bf4e758fac9cb}{Utils\+::\+Init\+::\+Arr\+Set}} (T(\&arr)\mbox{[}N\mbox{]}, T val)
+\item 
+{\footnotesize template$<$typename T , int N$>$ }\\void \mbox{\hyperlink{namespaceUtils_1_1Init_aa8135140a2d75d230fe6c86d38cd99e6}{Utils\+::\+Init\+::\+Arr\+Set}} (T(\&arr)\mbox{[}N\mbox{]}, \mbox{\hyperlink{params_8h_a0deac85b32dbd3d91a713912fa616412}{idx\+\_\+t}} layer, T val)
+\item 
+{\footnotesize template$<$typename T , int LAY, int N$>$ }\\void \mbox{\hyperlink{namespaceUtils_1_1Init_a4396415f12cddbfd6f32524bde93c408}{Utils\+::\+Init\+::\+Linspace}} (hls\+::vector$<$ T, LAY $>$(\&arr)\mbox{[}N\mbox{]}, \mbox{\hyperlink{params_8h_a0deac85b32dbd3d91a713912fa616412}{idx\+\_\+t}} layer, \mbox{\hyperlink{params_8h_ab854c148395db761c5fe6c171946ee9a}{type\+\_\+t}} start, \mbox{\hyperlink{params_8h_ab854c148395db761c5fe6c171946ee9a}{type\+\_\+t}} step)
+\item 
+{\footnotesize template$<$typename T , int M, int N$>$ }\\void \mbox{\hyperlink{namespaceUtils_1_1Matrix_ac216e9f282ebc23d52e5b09492214955}{Utils\+::\+Matrix\+::\+Write\+Stream\+Block}} (T arr\mbox{[}M\mbox{]}\mbox{[}N\mbox{]}, hls\+::stream\+\_\+of\+\_\+blocks$<$ T\mbox{[}M\mbox{]}\mbox{[}N\mbox{]}$>$ \&stream\+\_\+block)
+\item 
+{\footnotesize template$<$typename T , int M, int N$>$ }\\void \mbox{\hyperlink{namespaceUtils_1_1Matrix_ab59a5679bbb593cfe0050f536c5f55fa}{Utils\+::\+Matrix\+::\+Read\+Stream\+Block}} (T(\&arr)\mbox{[}M\mbox{]}\mbox{[}N\mbox{]}, hls\+::stream\+\_\+of\+\_\+blocks$<$ T\mbox{[}M\mbox{]}\mbox{[}N\mbox{]}$>$ \&stream\+\_\+block)
+\item 
+{\footnotesize template$<$typename T , int M, int N$>$ }\\void \mbox{\hyperlink{namespaceUtils_1_1Matrix_ac3e3084dd11026662da3a3b84c86276c}{Utils\+::\+Matrix\+::\+Write\+Stream\+Block}} (T arr, hls\+::stream\+\_\+of\+\_\+blocks$<$ T $>$ \&stream\+\_\+block)
+\begin{DoxyCompactList}\small\item\em This function is for alias typname for steram of blocks. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T , int M, int N$>$ }\\void \mbox{\hyperlink{namespaceUtils_1_1Matrix_affc15f561a6bc18cbe3e1aabe7838a7b}{Utils\+::\+Matrix\+::\+Read\+Stream\+Block}} (T \&arr, hls\+::stream\+\_\+of\+\_\+blocks$<$ T $>$ \&stream\+\_\+block)
+\end{DoxyCompactItemize}

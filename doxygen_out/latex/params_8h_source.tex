@@ -1,0 +1,474 @@
+\doxysection{params.\+h}
+\hypertarget{params_8h_source}{}\label{params_8h_source}\index{increment/include/params.h@{increment/include/params.h}}
+\mbox{\hyperlink{params_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ PARAMS\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ PARAMS\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <ap\_fixed.h>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <hls\_vector.h>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <hls\_stream.h>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <hls\_streamofblocks.h>}\ }
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#define\ ALIGN\_GLOBAL\_AFFINE}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#undef\ DEBUG}}
+\DoxyCodeLine{00011\ \textcolor{comment}{//\ >>>\ LOCAL\_LINEAR\ params\ >>>}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#ifdef\ ALIGN\_LOCAL\_LINEAR}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#define\ MAX\_QUERY\_LENGTH\ 256}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#define\ MAX\_REFERENCE\_LENGTH\ 256}}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#define\ PE\_NUM\ 32}}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#define\ numofreads\ 1}}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#define\ corner\_case\ (MAX\_QUERY\_LENGTH\%PE\_NUM\ !=\ 0)}}
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#define\ query\_chunks\ (MAX\_QUERY\_LENGTH/PE\_NUM)}}
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#define\ extra\_pe\_num\ (MAX\_QUERY\_LENGTH\%PE\_NUM)}}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#define\ ALIGN\_TYPE\ Linear}}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#define\ WS\ 16\ \ }}
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#define\ IS\ 6\ }}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \textcolor{comment}{//\ integer\ bits\ represent\ the\ pointer,\ always\ 2}}
+\DoxyCodeLine{00031\ \textcolor{comment}{//\ fraction\ bits\ represent\ the\ layer}}
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#define\ WT\ 3\ \ }\textcolor{comment}{//\ 2\ bits\ direction\ pointer}}
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#define\ IT\ WT-\/2\ \ }\textcolor{comment}{//\ 1\ bit\ represents\ layer}}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#define\ TB\_START\_LEVEL\ 0}}
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#define\ TB\_START\_ROW\ 14}}
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#define\ TB\_START\_COL\ 10}}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \textcolor{comment}{//\#define\ DEBUG}}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#define\ N\_BLOCKS\ 1}}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\#define\ TB\_LINE\_SIZE\ 64\ \ }\textcolor{comment}{//\ This\ defines\ the\ length\ of\ a\ line\ of\ TB\ pointers.\ Must\ be\ larger\ than\ PE\_num}}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#define\ chunk\_width\ 16\ \ }\textcolor{comment}{//\ this\ must\ larger\ than\ PE\_num}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{keyword}{typedef}\ ap\_uint<3>\ \mbox{\hyperlink{params_8h_ac7cce7368348bd25ead6f536eb2e9851}{char\_t}};\ \ \textcolor{comment}{//\ type\ of\ sequence\ characters}}
+\DoxyCodeLine{00048\ \textcolor{keyword}{typedef}\ ap\_fixed<WS,\ IS>\ \mbox{\hyperlink{params_8h_ab854c148395db761c5fe6c171946ee9a}{type\_t}};\ \ \textcolor{comment}{//\ score\ matrix\ score\ type}}
+\DoxyCodeLine{00049\ \textcolor{keyword}{typedef}\ ap\_uint<16>\ \mbox{\hyperlink{params_8h_a0deac85b32dbd3d91a713912fa616412}{idx\_t}};\ \textcolor{comment}{//\ define\ an\ address\ type\ to\ resolve\ the\ pointer\ to\ pointer\ problems}}
+\DoxyCodeLine{00050\ \textcolor{keyword}{typedef}\ ap\_ufixed<WT,\ IT>\ \mbox{\hyperlink{params_8h_a904688672ad769b7683603c2edeabd2b}{tbp\_t}};\ \ \textcolor{comment}{//\ traceback\ pointer\ typ}}
+\DoxyCodeLine{00051\ \textcolor{keyword}{typedef}\ ap\_ufixed<2,\ 0>\ \mbox{\hyperlink{params_8h_ab23aefc79821d65c310122b498aeb9e3}{tbp\_dir\_t}};\ \ \textcolor{comment}{//\ direction\ bits\ type\ for\ traceback\ pointer}}
+\DoxyCodeLine{00052\ \textcolor{keyword}{typedef}\ ap\_uint<4>\ chunk\_idx\_t;\ \ \textcolor{comment}{//\ chunk\ index\ type}}
+\DoxyCodeLine{00053\ \textcolor{comment}{//tbp\_t\ TB\_PH\ =\ 0.0;\ \ //\ this\ is\ place\ holder}}
+\DoxyCodeLine{00054\ \textcolor{comment}{//tbp\_t\ TB\_LEFT\ =\ 0.25;}}
+\DoxyCodeLine{00055\ \textcolor{comment}{//tbp\_t\ TB\_DIAG\ =\ 0.5;}}
+\DoxyCodeLine{00056\ \textcolor{comment}{//tbp\_t\ TB\_UP\ =\ 0.75;}}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\#define\ TB\_PH\ (tbp\_dir\_t)\ 0.0}}
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\#define\ TB\_LEFT\ (tbp\_dir\_t)\ 0.25}}
+\DoxyCodeLine{00060\ \textcolor{preprocessor}{\#define\ TB\_DIAG\ (tbp\_dir\_t)\ 0.5}}
+\DoxyCodeLine{00061\ \textcolor{preprocessor}{\#define\ TB\_UP\ (tbp\_dir\_t)\ 0.75}}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \textcolor{preprocessor}{\#define\ zero\_fp\ ((type\_t)0)}}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \textcolor{preprocessor}{\#define\ linear\_gap\_penalty\ (type\_t)\ (-\/2)}}
+\DoxyCodeLine{00066\ \textcolor{preprocessor}{\#define\ opening\_score\ -\/2}}
+\DoxyCodeLine{00067\ \textcolor{preprocessor}{\#define\ extend\_score\ -\/2}}
+\DoxyCodeLine{00068\ \textcolor{preprocessor}{\#define\ mismatch\_score\ (type\_t)\ (-\/1)}}
+\DoxyCodeLine{00069\ \textcolor{preprocessor}{\#define\ match\_score\ (type\_t)\ 3}}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ \textcolor{comment}{//\ \#define\ DEBUG\_OUTPUT\_PATH\ "{}/mnt/c/Users/Yingqi/OneDrive/GitHub/DP-\/HLS/debug/"{}}}
+\DoxyCodeLine{00072\ \textcolor{preprocessor}{\#define\ DEBUG\_OUTPUT\_PATH\ "{}/home/yic033@AD.UCSD.EDU/DP-\/HLS-\/Debug/local\_linear/"{}}}
+\DoxyCodeLine{00073\ \textcolor{preprocessor}{\#define\ DEBUG\_FILENAME\ "{}debug\_kernel"{}}}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ \textcolor{keyword}{typedef}\ \mbox{\hyperlink{params_8h_ac7cce7368348bd25ead6f536eb2e9851}{char\_t}}\ \mbox{\hyperlink{params_8h_aa72572047a24d1006cf7286944035323}{ref\_buf}}[\mbox{\hyperlink{params_8h_a8d5b929c134fc5af97d7c538d314f7da}{chunk\_width}}];}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \textcolor{comment}{//\ inflated\ ones\ takes\ care\ of\ corner\ case\ scenarios}}
+\DoxyCodeLine{00078\ \textcolor{preprocessor}{\#define\ inflated\_query\_length\ (query\_chunks\ *PE\_NUM\ +\ corner\_case\ *PE\_NUM)}}
+\DoxyCodeLine{00079\ \textcolor{preprocessor}{\#define\ inflated\_query\_chunks\ (query\_chunks\ +\ corner\_case)}}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00081\ \textcolor{preprocessor}{\#define\ N\_LAYERS\ 1}}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00083\ \textcolor{keyword}{typedef}\ \mbox{\hyperlink{params_8h_ac7cce7368348bd25ead6f536eb2e9851}{char\_t}}\ \mbox{\hyperlink{params_8h_ae4603d5d8a3ea47f94942e0f0f10ab0e}{raw\_query\_block\_t}}[\mbox{\hyperlink{params_8h_a8f04d03e80ec19dc2f6f36097e3f8202}{MAX\_QUERY\_LENGTH}}];}
+\DoxyCodeLine{00084\ \textcolor{keyword}{typedef}\ \mbox{\hyperlink{params_8h_ac7cce7368348bd25ead6f536eb2e9851}{char\_t}}\ \mbox{\hyperlink{params_8h_a3192f4d38b4bf8277e755f4e13bf06b1}{raw\_reference\_block\_t}}[\mbox{\hyperlink{params_8h_a0083a9bee1ec159ad13954a3186ef6d9}{MAX\_REFERENCE\_LENGTH}}];}
+\DoxyCodeLine{00085\ \textcolor{keyword}{typedef}\ hls::vector<type\_t,\ N\_LAYERS>\ \mbox{\hyperlink{params_8h_a19a31e5a9fb7924b0f86dccebd147910}{init\_col\_score\_block\_t}}[\mbox{\hyperlink{params_8h_a8f04d03e80ec19dc2f6f36097e3f8202}{MAX\_QUERY\_LENGTH}}];}
+\DoxyCodeLine{00086\ \textcolor{keyword}{typedef}\ hls::vector<type\_t,\ N\_LAYERS>\ \mbox{\hyperlink{params_8h_afa59c53c9600722cd3d1df1cec47b555}{init\_row\_score\_block\_t}}[\mbox{\hyperlink{params_8h_a0083a9bee1ec159ad13954a3186ef6d9}{MAX\_REFERENCE\_LENGTH}}];}
+\DoxyCodeLine{00087\ \textcolor{keyword}{typedef}\ \mbox{\hyperlink{params_8h_a904688672ad769b7683603c2edeabd2b}{tbp\_t}}\ \mbox{\hyperlink{params_8h_a42e970d5df4b3972b52f3f3a314a560a}{traceback\_block\_t}}[\mbox{\hyperlink{params_8h_a8f04d03e80ec19dc2f6f36097e3f8202}{MAX\_QUERY\_LENGTH}}\ +\ \mbox{\hyperlink{params_8h_a0083a9bee1ec159ad13954a3186ef6d9}{MAX\_REFERENCE\_LENGTH}}];}
+\DoxyCodeLine{00088\ \textcolor{keyword}{typedef}\ hls::vector<type\_t,\ N\_LAYERS>\ \mbox{\hyperlink{params_8h_a5c792b933d6f003bb1c5e08e940319ba}{score\_block\_t}}[\mbox{\hyperlink{params_8h_aceb4cc72bd33675b648bc2c8c1f7886b}{PE\_NUM}}];}
+\DoxyCodeLine{00089\ \textcolor{keyword}{typedef}\ hls::vector<tbp\_t,\ N\_LAYERS>\ \mbox{\hyperlink{params_8h_aa933d2cb25ab26a8ffbe600bf9689eae}{tbp\_block\_t}}[\mbox{\hyperlink{params_8h_aceb4cc72bd33675b648bc2c8c1f7886b}{PE\_NUM}}];}
+\DoxyCodeLine{00090\ \textcolor{keyword}{typedef}\ \mbox{\hyperlink{params_8h_ac7cce7368348bd25ead6f536eb2e9851}{char\_t}}\ \mbox{\hyperlink{params_8h_aae0a4301a15974d8514ee65bcd2f78c5}{input\_char\_block\_t}}[\mbox{\hyperlink{params_8h_aceb4cc72bd33675b648bc2c8c1f7886b}{PE\_NUM}}];}
+\DoxyCodeLine{00091\ \textcolor{keyword}{typedef}\ hls::vector<type\_t,\ N\_LAYERS>\ \mbox{\hyperlink{params_8h_ae4f28926330c68480c3d77d49137e189}{dp\_mem\_block\_t}}[2][\mbox{\hyperlink{params_8h_aceb4cc72bd33675b648bc2c8c1f7886b}{PE\_NUM}}];}
+\DoxyCodeLine{00092\ \textcolor{keyword}{typedef}\ hls::vector<tbp\_t,\ N\_LAYERS>\ \mbox{\hyperlink{params_8h_aaf7c6485e3271a08bbfa8a60052aadfc}{tbp\_chunk\_block\_t}}[\mbox{\hyperlink{params_8h_aceb4cc72bd33675b648bc2c8c1f7886b}{PE\_NUM}}][\mbox{\hyperlink{params_8h_a0083a9bee1ec159ad13954a3186ef6d9}{MAX\_REFERENCE\_LENGTH}}];}
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00094\ \textcolor{keyword}{typedef}\ hls::vector<type\_t,\ N\_LAYERS>\ \mbox{\hyperlink{params_8h_ad3fad65c31308e9db74520d3fa260ff0}{score\_vec\_t}};}
+\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00096\ \textcolor{preprocessor}{\#define\ LAYER\_MAXIMIUM\ 0}}
+\DoxyCodeLine{00097\ }
+\DoxyCodeLine{00098\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structBlockInputs}{BlockInputs}}\ \{}
+\DoxyCodeLine{00099\ \ \ \ \ \mbox{\hyperlink{params_8h_ae4603d5d8a3ea47f94942e0f0f10ab0e}{raw\_query\_block\_t}}\ \mbox{\hyperlink{structBlockInputs_a98b72ec2fa43146a17f818d17c3e4b0b}{query}};}
+\DoxyCodeLine{00100\ \ \ \ \ \mbox{\hyperlink{params_8h_a3192f4d38b4bf8277e755f4e13bf06b1}{raw\_reference\_block\_t}}\ \mbox{\hyperlink{structBlockInputs_aa41375d7b2357533cfee6d16ddea9a6a}{reference}};}
+\DoxyCodeLine{00101\ \ \ \ \ \mbox{\hyperlink{params_8h_a19a31e5a9fb7924b0f86dccebd147910}{init\_col\_score\_block\_t}}\ \mbox{\hyperlink{structBlockInputs_a59a911984bb1a4075835cd60c82b604a}{init\_col\_score}};}
+\DoxyCodeLine{00102\ \ \ \ \ \mbox{\hyperlink{params_8h_afa59c53c9600722cd3d1df1cec47b555}{init\_row\_score\_block\_t}}\ \mbox{\hyperlink{structBlockInputs_a6d224e8c2844c1c2f46a8c36ee5f7176}{init\_row\_score}};}
+\DoxyCodeLine{00103\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structBlockInputs_a92b2573f0f6759cdbf50ce70b7aae1c9}{query\_length}};}
+\DoxyCodeLine{00104\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structBlockInputs_a4f19b011988c6c8d5c1d2916315c19a7}{reference\_length}};}
+\DoxyCodeLine{00105\ \};}
+\DoxyCodeLine{00106\ }
+\DoxyCodeLine{00107\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structBlockOutputs}{BlockOutputs}}\ \{}
+\DoxyCodeLine{00108\ \ \ \ \ \mbox{\hyperlink{params_8h_a42e970d5df4b3972b52f3f3a314a560a}{traceback\_block\_t}}\ \mbox{\hyperlink{structBlockOutputs_ad80f057a1686ecf9f43b5b07b19c316b}{traceback}};}
+\DoxyCodeLine{00109\ \};}
+\DoxyCodeLine{00110\ }
+\DoxyCodeLine{00111\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structScorePack}{ScorePack}}\{\ \ }
+\DoxyCodeLine{00112\ \ \ \ \ \mbox{\hyperlink{params_8h_ab854c148395db761c5fe6c171946ee9a}{type\_t}}\ \mbox{\hyperlink{structScorePack_a34b2ca2a8a0e8bb93b7805153ba7ebed}{score}}\ \ =\ 0;}
+\DoxyCodeLine{00113\ \ \ \ \ \mbox{\hyperlink{params_8h_a0deac85b32dbd3d91a713912fa616412}{idx\_t}}\ \mbox{\hyperlink{structScorePack_ad6f880c15705ebeb28ead4270b94b35e}{chunk\_offset}}\ =\ 0;}
+\DoxyCodeLine{00114\ \ \ \ \ \mbox{\hyperlink{params_8h_a0deac85b32dbd3d91a713912fa616412}{idx\_t}}\ \mbox{\hyperlink{structScorePack_af79046045a8746f6dc9caae68000003a}{pe}}\ =\ 0;}
+\DoxyCodeLine{00115\ \ \ \ \ \mbox{\hyperlink{params_8h_a0deac85b32dbd3d91a713912fa616412}{idx\_t}}\ \mbox{\hyperlink{structScorePack_a9c50b16b688ae16a75da28857514f19d}{pe\_offset}}\ =\ 0;}
+\DoxyCodeLine{00116\ \ \ \ \ \mbox{\hyperlink{params_8h_a0deac85b32dbd3d91a713912fa616412}{idx\_t}}\ \mbox{\hyperlink{structScorePack_a939063a4774ac173044f841374b6b5ca}{layer}}\ =\ 0;}
+\DoxyCodeLine{00117\ \};}
+\DoxyCodeLine{00118\ }
+\DoxyCodeLine{00119\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ \textcolor{keywordtype}{int}\ N>}
+\DoxyCodeLine{00120\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structArrayPack}{ArrayPack}}\ \{}
+\DoxyCodeLine{00121\ \ \ \ \ T\ \mbox{\hyperlink{structArrayPack_a8e5d495ea20b34e78520e842a53052c8}{data}}[N];}
+\DoxyCodeLine{00122\ \};}
+\DoxyCodeLine{00123\ }
+\DoxyCodeLine{00124\ \textcolor{preprocessor}{\#endif\ }}
+\DoxyCodeLine{00125\ }
+\DoxyCodeLine{00126\ \textcolor{comment}{//\ >>>\ LOCAL\_AFFINE\ params\ >>>}}
+\DoxyCodeLine{00127\ }
+\DoxyCodeLine{00128\ \textcolor{preprocessor}{\#ifdef\ ALIGN\_LOCAL\_AFFINE}}
+\DoxyCodeLine{00129\ }
+\DoxyCodeLine{00130\ \textcolor{preprocessor}{\#define\ MAX\_QUERY\_LENGTH\ 32}}
+\DoxyCodeLine{00131\ \textcolor{preprocessor}{\#define\ MAX\_REFERENCE\_LENGTH\ 32}}
+\DoxyCodeLine{00132\ }
+\DoxyCodeLine{00133\ \textcolor{preprocessor}{\#define\ PE\_NUM\ 8}}
+\DoxyCodeLine{00134\ }
+\DoxyCodeLine{00135\ \textcolor{preprocessor}{\#define\ numofreads\ 1}}
+\DoxyCodeLine{00136\ }
+\DoxyCodeLine{00137\ \textcolor{preprocessor}{\#define\ corner\_case\ (MAX\_QUERY\_LENGTH\%PE\_NUM\ !=\ 0)}}
+\DoxyCodeLine{00138\ \textcolor{preprocessor}{\#define\ query\_chunks\ (MAX\_QUERY\_LENGTH/PE\_NUM)}}
+\DoxyCodeLine{00139\ \textcolor{preprocessor}{\#define\ extra\_pe\_num\ (MAX\_QUERY\_LENGTH\%PE\_NUM)}}
+\DoxyCodeLine{00140\ }
+\DoxyCodeLine{00141\ \textcolor{preprocessor}{\#define\ WS\ 10}}
+\DoxyCodeLine{00142\ \textcolor{preprocessor}{\#define\ IS\ 6}}
+\DoxyCodeLine{00143\ }
+\DoxyCodeLine{00144\ \textcolor{preprocessor}{\#define\ WT\ 4\ \ }\textcolor{comment}{//\ 2\ bits\ direction\ pointer}}
+\DoxyCodeLine{00145\ \textcolor{preprocessor}{\#define\ IT\ WT-\/2\ \ }\textcolor{comment}{//\ 2\ bit\ represents\ layer}}
+\DoxyCodeLine{00146\ \textcolor{comment}{//\#define\ DEBUG}}
+\DoxyCodeLine{00147\ }
+\DoxyCodeLine{00148\ \textcolor{preprocessor}{\#define\ N\_BLOCKS\ 2}}
+\DoxyCodeLine{00149\ }
+\DoxyCodeLine{00150\ \textcolor{preprocessor}{\#define\ TB\_START\_LEVEL\ 0}}
+\DoxyCodeLine{00151\ \textcolor{preprocessor}{\#define\ TB\_START\_ROW\ 14}}
+\DoxyCodeLine{00152\ \textcolor{preprocessor}{\#define\ TB\_START\_COL\ 10}}
+\DoxyCodeLine{00153\ }
+\DoxyCodeLine{00154\ \textcolor{keyword}{typedef}\ ap\_uint<3>\ \mbox{\hyperlink{params_8h_ac7cce7368348bd25ead6f536eb2e9851}{char\_t}};\ \ \textcolor{comment}{//\ type\ of\ sequence\ characters}}
+\DoxyCodeLine{00155\ \textcolor{keyword}{typedef}\ ap\_fixed<WS,\ IS>\ \mbox{\hyperlink{params_8h_ab854c148395db761c5fe6c171946ee9a}{type\_t}};\ \ \textcolor{comment}{//\ score\ matrix\ score\ type}}
+\DoxyCodeLine{00156\ \textcolor{keyword}{typedef}\ ap\_uint<16>\ \mbox{\hyperlink{params_8h_a0deac85b32dbd3d91a713912fa616412}{idx\_t}};\ \textcolor{comment}{//\ define\ an\ address\ type\ to\ resolve\ the\ pointer\ to\ pointer\ problems}}
+\DoxyCodeLine{00157\ \textcolor{keyword}{typedef}\ ap\_ufixed<WT,\ IT>\ \mbox{\hyperlink{params_8h_a904688672ad769b7683603c2edeabd2b}{tbp\_t}};\ \ \textcolor{comment}{//\ traceback\ pointer\ typ}}
+\DoxyCodeLine{00158\ \textcolor{keyword}{typedef}\ ap\_ufixed<2,\ 0>\ \mbox{\hyperlink{params_8h_ab23aefc79821d65c310122b498aeb9e3}{tbp\_dir\_t}};\ \ \textcolor{comment}{//\ direction\ bits\ type\ for\ traceback\ pointer}}
+\DoxyCodeLine{00159\ \textcolor{keyword}{typedef}\ ap\_uint<4>\ chunk\_idx\_t;\ \ \textcolor{comment}{//\ chunk\ index\ type}}
+\DoxyCodeLine{00160\ \textcolor{comment}{//tbp\_t\ TB\_PH\ =\ 0.0;\ \ //\ this\ is\ place\ holder}}
+\DoxyCodeLine{00161\ \textcolor{comment}{//tbp\_t\ TB\_LEFT\ =\ 0.25;}}
+\DoxyCodeLine{00162\ \textcolor{comment}{//tbp\_t\ TB\_DIAG\ =\ 0.5;}}
+\DoxyCodeLine{00163\ \textcolor{comment}{//tbp\_t\ TB\_UP\ =\ 0.75;}}
+\DoxyCodeLine{00164\ }
+\DoxyCodeLine{00165\ \textcolor{preprocessor}{\#define\ zero\_fp\ ((type\_t)0)}}
+\DoxyCodeLine{00166\ }
+\DoxyCodeLine{00167\ \textcolor{preprocessor}{\#define\ linear\_gap\_penalty\ (type\_t)\ (-\/2)}}
+\DoxyCodeLine{00168\ \textcolor{preprocessor}{\#define\ opening\_score\ -\/2}}
+\DoxyCodeLine{00169\ \textcolor{preprocessor}{\#define\ extend\_score\ -\/2}}
+\DoxyCodeLine{00170\ \textcolor{preprocessor}{\#define\ mismatch\_score\ (type\_t)\ (-\/1)}}
+\DoxyCodeLine{00171\ \textcolor{preprocessor}{\#define\ match\_score\ (type\_t)\ 3}}
+\DoxyCodeLine{00172\ }
+\DoxyCodeLine{00173\ \textcolor{preprocessor}{\#define\ TB\_PH\ (tbp\_dir\_t)\ 0.0}}
+\DoxyCodeLine{00174\ \textcolor{preprocessor}{\#define\ TB\_LEFT\ (tbp\_dir\_t)\ 0.25}}
+\DoxyCodeLine{00175\ \textcolor{preprocessor}{\#define\ TB\_DIAG\ (tbp\_dir\_t)\ 0.5}}
+\DoxyCodeLine{00176\ \textcolor{preprocessor}{\#define\ TB\_UP\ (tbp\_dir\_t)\ 0.75}}
+\DoxyCodeLine{00177\ }
+\DoxyCodeLine{00178\ \textcolor{preprocessor}{\#define\ TB\_START\_LEVEL\ 1}}
+\DoxyCodeLine{00179\ \textcolor{preprocessor}{\#define\ TB\_START\_ROW\ 15}}
+\DoxyCodeLine{00180\ \textcolor{preprocessor}{\#define\ TB\_START\_COL\ 11}}
+\DoxyCodeLine{00181\ }
+\DoxyCodeLine{00182\ \textcolor{preprocessor}{\#define\ ALIGN\_TYPE\ Affine}}
+\DoxyCodeLine{00183\ }
+\DoxyCodeLine{00184\ \textcolor{comment}{//\ \#define\ DEBUG\_OUTPUT\_PATH\ "{}/mnt/c/Users/Yingqi/OneDrive/GitHub/DP-\/HLS/debug/"{}}}
+\DoxyCodeLine{00185\ \textcolor{preprocessor}{\#define\ DEBUG\_OUTPUT\_PATH\ "{}/home/yic033@AD.UCSD.EDU/DP-\/HLS-\/Debug/local\_affine/"{}}}
+\DoxyCodeLine{00186\ \textcolor{preprocessor}{\#define\ DEBUG\_FILENAME\ "{}debug\_kernel"{}}}
+\DoxyCodeLine{00187\ }
+\DoxyCodeLine{00188\ \textcolor{comment}{//\ inflated\ ones\ takes\ care\ of\ corner\ case\ scenarios}}
+\DoxyCodeLine{00189\ \textcolor{preprocessor}{\#define\ inflated\_query\_length\ (query\_chunks\ *PE\_NUM\ +\ corner\_case\ *PE\_NUM)}}
+\DoxyCodeLine{00190\ \textcolor{preprocessor}{\#define\ inflated\_query\_chunks\ (query\_chunks\ +\ corner\_case)}}
+\DoxyCodeLine{00191\ }
+\DoxyCodeLine{00192\ \textcolor{preprocessor}{\#define\ N\_LAYERS\ 3}}
+\DoxyCodeLine{00193\ }
+\DoxyCodeLine{00194\ \textcolor{comment}{//typedef\ hls::vector<type\_t,\ N\_LAYERS>\ score\_vec\_t;}}
+\DoxyCodeLine{00195\ \textcolor{comment}{//typedef\ hls::vector<tbp\_t,\ N\_LAYERS>\ tbp\_vec\_t;}}
+\DoxyCodeLine{00196\ }
+\DoxyCodeLine{00197\ }
+\DoxyCodeLine{00198\ \textcolor{keyword}{typedef}\ \mbox{\hyperlink{params_8h_ac7cce7368348bd25ead6f536eb2e9851}{char\_t}}\ \mbox{\hyperlink{params_8h_ae4603d5d8a3ea47f94942e0f0f10ab0e}{raw\_query\_block\_t}}[\mbox{\hyperlink{params_8h_a8f04d03e80ec19dc2f6f36097e3f8202}{MAX\_QUERY\_LENGTH}}];}
+\DoxyCodeLine{00199\ \textcolor{keyword}{typedef}\ \mbox{\hyperlink{params_8h_ac7cce7368348bd25ead6f536eb2e9851}{char\_t}}\ \mbox{\hyperlink{params_8h_a3192f4d38b4bf8277e755f4e13bf06b1}{raw\_reference\_block\_t}}[\mbox{\hyperlink{params_8h_a0083a9bee1ec159ad13954a3186ef6d9}{MAX\_REFERENCE\_LENGTH}}];}
+\DoxyCodeLine{00200\ \textcolor{keyword}{typedef}\ hls::vector<type\_t,\ N\_LAYERS>\ \mbox{\hyperlink{params_8h_a19a31e5a9fb7924b0f86dccebd147910}{init\_col\_score\_block\_t}}[\mbox{\hyperlink{params_8h_a8f04d03e80ec19dc2f6f36097e3f8202}{MAX\_QUERY\_LENGTH}}];}
+\DoxyCodeLine{00201\ \textcolor{keyword}{typedef}\ hls::vector<type\_t,\ N\_LAYERS>\ \mbox{\hyperlink{params_8h_afa59c53c9600722cd3d1df1cec47b555}{init\_row\_score\_block\_t}}[\mbox{\hyperlink{params_8h_a0083a9bee1ec159ad13954a3186ef6d9}{MAX\_REFERENCE\_LENGTH}}];}
+\DoxyCodeLine{00202\ \textcolor{keyword}{typedef}\ \mbox{\hyperlink{params_8h_a904688672ad769b7683603c2edeabd2b}{tbp\_t}}\ \mbox{\hyperlink{params_8h_a42e970d5df4b3972b52f3f3a314a560a}{traceback\_block\_t}}[\mbox{\hyperlink{params_8h_a8f04d03e80ec19dc2f6f36097e3f8202}{MAX\_QUERY\_LENGTH}}\ +\ \mbox{\hyperlink{params_8h_a0083a9bee1ec159ad13954a3186ef6d9}{MAX\_REFERENCE\_LENGTH}}];}
+\DoxyCodeLine{00203\ \textcolor{keyword}{typedef}\ hls::vector<type\_t,\ N\_LAYERS>\ \mbox{\hyperlink{params_8h_a5c792b933d6f003bb1c5e08e940319ba}{score\_block\_t}}[\mbox{\hyperlink{params_8h_aceb4cc72bd33675b648bc2c8c1f7886b}{PE\_NUM}}];}
+\DoxyCodeLine{00204\ \textcolor{keyword}{typedef}\ hls::vector<tbp\_t,\ N\_LAYERS>\ \mbox{\hyperlink{params_8h_aa933d2cb25ab26a8ffbe600bf9689eae}{tbp\_block\_t}}[\mbox{\hyperlink{params_8h_aceb4cc72bd33675b648bc2c8c1f7886b}{PE\_NUM}}];}
+\DoxyCodeLine{00205\ \textcolor{keyword}{typedef}\ \mbox{\hyperlink{params_8h_ac7cce7368348bd25ead6f536eb2e9851}{char\_t}}\ \mbox{\hyperlink{params_8h_aae0a4301a15974d8514ee65bcd2f78c5}{input\_char\_block\_t}}[\mbox{\hyperlink{params_8h_aceb4cc72bd33675b648bc2c8c1f7886b}{PE\_NUM}}];}
+\DoxyCodeLine{00206\ \textcolor{keyword}{typedef}\ hls::vector<type\_t,\ N\_LAYERS>\ \mbox{\hyperlink{params_8h_ae4f28926330c68480c3d77d49137e189}{dp\_mem\_block\_t}}[2][\mbox{\hyperlink{params_8h_aceb4cc72bd33675b648bc2c8c1f7886b}{PE\_NUM}}];}
+\DoxyCodeLine{00207\ \textcolor{keyword}{typedef}\ hls::vector<tbp\_t,\ N\_LAYERS>\ \mbox{\hyperlink{params_8h_aaf7c6485e3271a08bbfa8a60052aadfc}{tbp\_chunk\_block\_t}}[\mbox{\hyperlink{params_8h_aceb4cc72bd33675b648bc2c8c1f7886b}{PE\_NUM}}][\mbox{\hyperlink{params_8h_a0083a9bee1ec159ad13954a3186ef6d9}{MAX\_REFERENCE\_LENGTH}}];}
+\DoxyCodeLine{00208\ }
+\DoxyCodeLine{00209\ \textcolor{keyword}{typedef}\ hls::vector<type\_t,\ N\_LAYERS>\ \mbox{\hyperlink{params_8h_ad3fad65c31308e9db74520d3fa260ff0}{score\_vec\_t}};}
+\DoxyCodeLine{00210\ }
+\DoxyCodeLine{00211\ \textcolor{preprocessor}{\#define\ LAYER\_MAXIMIUM\ 0}}
+\DoxyCodeLine{00212\ }
+\DoxyCodeLine{00213\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structBlockInputs}{BlockInputs}}\ \{}
+\DoxyCodeLine{00214\ \ \ \ \ \mbox{\hyperlink{params_8h_ae4603d5d8a3ea47f94942e0f0f10ab0e}{raw\_query\_block\_t}}\ \mbox{\hyperlink{structBlockInputs_a98b72ec2fa43146a17f818d17c3e4b0b}{query}};}
+\DoxyCodeLine{00215\ \ \ \ \ \mbox{\hyperlink{params_8h_a3192f4d38b4bf8277e755f4e13bf06b1}{raw\_reference\_block\_t}}\ \mbox{\hyperlink{structBlockInputs_aa41375d7b2357533cfee6d16ddea9a6a}{reference}};}
+\DoxyCodeLine{00216\ \ \ \ \ \mbox{\hyperlink{params_8h_a19a31e5a9fb7924b0f86dccebd147910}{init\_col\_score\_block\_t}}\ \mbox{\hyperlink{structBlockInputs_a59a911984bb1a4075835cd60c82b604a}{init\_col\_score}};}
+\DoxyCodeLine{00217\ \ \ \ \ \mbox{\hyperlink{params_8h_afa59c53c9600722cd3d1df1cec47b555}{init\_row\_score\_block\_t}}\ \mbox{\hyperlink{structBlockInputs_a6d224e8c2844c1c2f46a8c36ee5f7176}{init\_row\_score}};}
+\DoxyCodeLine{00218\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structBlockInputs_a92b2573f0f6759cdbf50ce70b7aae1c9}{query\_length}};}
+\DoxyCodeLine{00219\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structBlockInputs_a4f19b011988c6c8d5c1d2916315c19a7}{reference\_length}};}
+\DoxyCodeLine{00220\ \};}
+\DoxyCodeLine{00221\ }
+\DoxyCodeLine{00222\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structBlockOutputs}{BlockOutputs}}\ \{}
+\DoxyCodeLine{00223\ \ \ \ \ \mbox{\hyperlink{params_8h_a42e970d5df4b3972b52f3f3a314a560a}{traceback\_block\_t}}\ \mbox{\hyperlink{structBlockOutputs_ad80f057a1686ecf9f43b5b07b19c316b}{traceback}};}
+\DoxyCodeLine{00224\ \};}
+\DoxyCodeLine{00225\ }
+\DoxyCodeLine{00226\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structScorePack}{ScorePack}}\{\ \ }
+\DoxyCodeLine{00227\ \ \ \ \ \mbox{\hyperlink{params_8h_ab854c148395db761c5fe6c171946ee9a}{type\_t}}\ \mbox{\hyperlink{structScorePack_a34b2ca2a8a0e8bb93b7805153ba7ebed}{score}}\ \ =\ 0;}
+\DoxyCodeLine{00228\ \ \ \ \ \mbox{\hyperlink{params_8h_a0deac85b32dbd3d91a713912fa616412}{idx\_t}}\ \mbox{\hyperlink{structScorePack_ad6f880c15705ebeb28ead4270b94b35e}{chunk\_offset}}\ =\ 0;}
+\DoxyCodeLine{00229\ \ \ \ \ \mbox{\hyperlink{params_8h_a0deac85b32dbd3d91a713912fa616412}{idx\_t}}\ \mbox{\hyperlink{structScorePack_af79046045a8746f6dc9caae68000003a}{pe}}\ =\ 0;}
+\DoxyCodeLine{00230\ \ \ \ \ \mbox{\hyperlink{params_8h_a0deac85b32dbd3d91a713912fa616412}{idx\_t}}\ \mbox{\hyperlink{structScorePack_a9c50b16b688ae16a75da28857514f19d}{pe\_offset}}\ =\ 0;}
+\DoxyCodeLine{00231\ \ \ \ \ \mbox{\hyperlink{params_8h_a0deac85b32dbd3d91a713912fa616412}{idx\_t}}\ \mbox{\hyperlink{structScorePack_a939063a4774ac173044f841374b6b5ca}{layer}}\ =\ 0;}
+\DoxyCodeLine{00232\ \};}
+\DoxyCodeLine{00233\ }
+\DoxyCodeLine{00234\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ \textcolor{keywordtype}{int}\ N>}
+\DoxyCodeLine{00235\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structArrayPack}{ArrayPack}}\ \{}
+\DoxyCodeLine{00236\ \ \ \ \ T\ \mbox{\hyperlink{structArrayPack_a8e5d495ea20b34e78520e842a53052c8}{data}}[N];}
+\DoxyCodeLine{00237\ \};}
+\DoxyCodeLine{00238\ }
+\DoxyCodeLine{00239\ \textcolor{preprocessor}{\#endif\ }}
+\DoxyCodeLine{00240\ }
+\DoxyCodeLine{00241\ \textcolor{comment}{//\ >>>\ GLOBAL\_LINEAR\ params\ >>>}}
+\DoxyCodeLine{00242\ }
+\DoxyCodeLine{00243\ \textcolor{preprocessor}{\#ifdef\ ALIGN\_GLOBAL\_LINEAR}}
+\DoxyCodeLine{00244\ \textcolor{preprocessor}{\#define\ MAX\_QUERY\_LENGTH\ 256}}
+\DoxyCodeLine{00245\ \textcolor{preprocessor}{\#define\ MAX\_REFERENCE\_LENGTH\ 256}}
+\DoxyCodeLine{00246\ }
+\DoxyCodeLine{00247\ \textcolor{preprocessor}{\#define\ PE\_NUM\ 32}}
+\DoxyCodeLine{00248\ }
+\DoxyCodeLine{00249\ \textcolor{preprocessor}{\#define\ numofreads\ 1}}
+\DoxyCodeLine{00250\ }
+\DoxyCodeLine{00251\ \textcolor{preprocessor}{\#define\ corner\_case\ (MAX\_QUERY\_LENGTH\%PE\_NUM\ !=\ 0)}}
+\DoxyCodeLine{00252\ \textcolor{preprocessor}{\#define\ query\_chunks\ (MAX\_QUERY\_LENGTH/PE\_NUM)}}
+\DoxyCodeLine{00253\ \textcolor{preprocessor}{\#define\ extra\_pe\_num\ (MAX\_QUERY\_LENGTH\%PE\_NUM)}}
+\DoxyCodeLine{00254\ }
+\DoxyCodeLine{00255\ \textcolor{preprocessor}{\#define\ ALIGN\_TYPE\ Linear}}
+\DoxyCodeLine{00256\ }
+\DoxyCodeLine{00257\ \textcolor{preprocessor}{\#define\ WS\ 16\ \ }}
+\DoxyCodeLine{00258\ \textcolor{preprocessor}{\#define\ IS\ 6\ }}
+\DoxyCodeLine{00259\ }
+\DoxyCodeLine{00260\ \textcolor{comment}{//\ integer\ bits\ represent\ the\ pointer,\ always\ 2}}
+\DoxyCodeLine{00261\ \textcolor{comment}{//\ fraction\ bits\ represent\ the\ layer}}
+\DoxyCodeLine{00262\ \textcolor{preprocessor}{\#define\ WT\ 3\ \ }\textcolor{comment}{//\ 2\ bits\ direction\ pointer}}
+\DoxyCodeLine{00263\ \textcolor{preprocessor}{\#define\ IT\ WT-\/2\ \ }\textcolor{comment}{//\ 1\ bit\ represents\ layer}}
+\DoxyCodeLine{00264\ }
+\DoxyCodeLine{00265\ \textcolor{preprocessor}{\#define\ TB\_START\_LEVEL\ 0}}
+\DoxyCodeLine{00266\ \textcolor{preprocessor}{\#define\ TB\_START\_ROW\ 14}}
+\DoxyCodeLine{00267\ \textcolor{preprocessor}{\#define\ TB\_START\_COL\ 10}}
+\DoxyCodeLine{00268\ }
+\DoxyCodeLine{00269\ \textcolor{comment}{//\#define\ DEBUG}}
+\DoxyCodeLine{00270\ }
+\DoxyCodeLine{00271\ \textcolor{preprocessor}{\#define\ N\_BLOCKS\ 1}}
+\DoxyCodeLine{00272\ }
+\DoxyCodeLine{00273\ \textcolor{preprocessor}{\#define\ TB\_LINE\_SIZE\ 64\ \ }\textcolor{comment}{//\ This\ defines\ the\ length\ of\ a\ line\ of\ TB\ pointers.\ Must\ be\ larger\ than\ PE\_num}}
+\DoxyCodeLine{00274\ }
+\DoxyCodeLine{00275\ \textcolor{preprocessor}{\#define\ chunk\_width\ 16\ \ }\textcolor{comment}{//\ this\ must\ larger\ than\ PE\_num}}
+\DoxyCodeLine{00276\ }
+\DoxyCodeLine{00277\ \textcolor{keyword}{typedef}\ ap\_uint<3>\ \mbox{\hyperlink{params_8h_ac7cce7368348bd25ead6f536eb2e9851}{char\_t}};\ \ \textcolor{comment}{//\ type\ of\ sequence\ characters}}
+\DoxyCodeLine{00278\ \textcolor{keyword}{typedef}\ ap\_fixed<WS,\ IS>\ \mbox{\hyperlink{params_8h_ab854c148395db761c5fe6c171946ee9a}{type\_t}};\ \ \textcolor{comment}{//\ score\ matrix\ score\ type}}
+\DoxyCodeLine{00279\ \textcolor{keyword}{typedef}\ ap\_uint<16>\ \mbox{\hyperlink{params_8h_a0deac85b32dbd3d91a713912fa616412}{idx\_t}};\ \textcolor{comment}{//\ define\ an\ address\ type\ to\ resolve\ the\ pointer\ to\ pointer\ problems}}
+\DoxyCodeLine{00280\ \textcolor{keyword}{typedef}\ ap\_ufixed<WT,\ IT>\ \mbox{\hyperlink{params_8h_a904688672ad769b7683603c2edeabd2b}{tbp\_t}};\ \ \textcolor{comment}{//\ traceback\ pointer\ typ}}
+\DoxyCodeLine{00281\ \textcolor{keyword}{typedef}\ ap\_ufixed<2,\ 0>\ \mbox{\hyperlink{params_8h_ab23aefc79821d65c310122b498aeb9e3}{tbp\_dir\_t}};\ \ \textcolor{comment}{//\ direction\ bits\ type\ for\ traceback\ pointer}}
+\DoxyCodeLine{00282\ \textcolor{keyword}{typedef}\ ap\_uint<4>\ chunk\_idx\_t;\ \ \textcolor{comment}{//\ chunk\ index\ type}}
+\DoxyCodeLine{00283\ \textcolor{comment}{//tbp\_t\ TB\_PH\ =\ 0.0;\ \ //\ this\ is\ place\ holder}}
+\DoxyCodeLine{00284\ \textcolor{comment}{//tbp\_t\ TB\_LEFT\ =\ 0.25;}}
+\DoxyCodeLine{00285\ \textcolor{comment}{//tbp\_t\ TB\_DIAG\ =\ 0.5;}}
+\DoxyCodeLine{00286\ \textcolor{comment}{//tbp\_t\ TB\_UP\ =\ 0.75;}}
+\DoxyCodeLine{00287\ }
+\DoxyCodeLine{00288\ \textcolor{preprocessor}{\#define\ TB\_PH\ (tbp\_dir\_t)\ 0.0}}
+\DoxyCodeLine{00289\ \textcolor{preprocessor}{\#define\ TB\_LEFT\ (tbp\_dir\_t)\ 0.25}}
+\DoxyCodeLine{00290\ \textcolor{preprocessor}{\#define\ TB\_DIAG\ (tbp\_dir\_t)\ 0.5}}
+\DoxyCodeLine{00291\ \textcolor{preprocessor}{\#define\ TB\_UP\ (tbp\_dir\_t)\ 0.75}}
+\DoxyCodeLine{00292\ }
+\DoxyCodeLine{00293\ \textcolor{preprocessor}{\#define\ zero\_fp\ ((type\_t)0)}}
+\DoxyCodeLine{00294\ }
+\DoxyCodeLine{00295\ \textcolor{preprocessor}{\#define\ linear\_gap\_penalty\ (type\_t)\ (-\/2)}}
+\DoxyCodeLine{00296\ \textcolor{preprocessor}{\#define\ opening\_score\ -\/2}}
+\DoxyCodeLine{00297\ \textcolor{preprocessor}{\#define\ extend\_score\ -\/2}}
+\DoxyCodeLine{00298\ \textcolor{preprocessor}{\#define\ mismatch\_score\ (type\_t)\ (-\/1)}}
+\DoxyCodeLine{00299\ \textcolor{preprocessor}{\#define\ match\_score\ (type\_t)\ 3}}
+\DoxyCodeLine{00300\ }
+\DoxyCodeLine{00301\ \textcolor{comment}{//\ \#define\ DEBUG\_OUTPUT\_PATH\ "{}/mnt/c/Users/Yingqi/OneDrive/GitHub/DP-\/HLS/debug/"{}}}
+\DoxyCodeLine{00302\ \textcolor{preprocessor}{\#define\ DEBUG\_OUTPUT\_PATH\ "{}/home/yic033@AD.UCSD.EDU/DP-\/HLS-\/Debug/local\_linear/"{}}}
+\DoxyCodeLine{00303\ \textcolor{preprocessor}{\#define\ DEBUG\_FILENAME\ "{}debug\_kernel"{}}}
+\DoxyCodeLine{00304\ }
+\DoxyCodeLine{00305\ \textcolor{keyword}{typedef}\ \mbox{\hyperlink{params_8h_ac7cce7368348bd25ead6f536eb2e9851}{char\_t}}\ \mbox{\hyperlink{params_8h_aa72572047a24d1006cf7286944035323}{ref\_buf}}[\mbox{\hyperlink{params_8h_a8d5b929c134fc5af97d7c538d314f7da}{chunk\_width}}];}
+\DoxyCodeLine{00306\ }
+\DoxyCodeLine{00307\ \textcolor{comment}{//\ inflated\ ones\ takes\ care\ of\ corner\ case\ scenarios}}
+\DoxyCodeLine{00308\ \textcolor{preprocessor}{\#define\ inflated\_query\_length\ (query\_chunks\ *PE\_NUM\ +\ corner\_case\ *PE\_NUM)}}
+\DoxyCodeLine{00309\ \textcolor{preprocessor}{\#define\ inflated\_query\_chunks\ (query\_chunks\ +\ corner\_case)}}
+\DoxyCodeLine{00310\ }
+\DoxyCodeLine{00311\ \textcolor{preprocessor}{\#define\ N\_LAYERS\ 1}}
+\DoxyCodeLine{00312\ }
+\DoxyCodeLine{00313\ \textcolor{keyword}{typedef}\ \mbox{\hyperlink{params_8h_ac7cce7368348bd25ead6f536eb2e9851}{char\_t}}\ \mbox{\hyperlink{params_8h_ae4603d5d8a3ea47f94942e0f0f10ab0e}{raw\_query\_block\_t}}[\mbox{\hyperlink{params_8h_a8f04d03e80ec19dc2f6f36097e3f8202}{MAX\_QUERY\_LENGTH}}];}
+\DoxyCodeLine{00314\ \textcolor{keyword}{typedef}\ \mbox{\hyperlink{params_8h_ac7cce7368348bd25ead6f536eb2e9851}{char\_t}}\ \mbox{\hyperlink{params_8h_a3192f4d38b4bf8277e755f4e13bf06b1}{raw\_reference\_block\_t}}[\mbox{\hyperlink{params_8h_a0083a9bee1ec159ad13954a3186ef6d9}{MAX\_REFERENCE\_LENGTH}}];}
+\DoxyCodeLine{00315\ \textcolor{keyword}{typedef}\ hls::vector<type\_t,\ N\_LAYERS>\ \mbox{\hyperlink{params_8h_a19a31e5a9fb7924b0f86dccebd147910}{init\_col\_score\_block\_t}}[\mbox{\hyperlink{params_8h_a8f04d03e80ec19dc2f6f36097e3f8202}{MAX\_QUERY\_LENGTH}}];}
+\DoxyCodeLine{00316\ \textcolor{keyword}{typedef}\ hls::vector<type\_t,\ N\_LAYERS>\ \mbox{\hyperlink{params_8h_afa59c53c9600722cd3d1df1cec47b555}{init\_row\_score\_block\_t}}[\mbox{\hyperlink{params_8h_a0083a9bee1ec159ad13954a3186ef6d9}{MAX\_REFERENCE\_LENGTH}}];}
+\DoxyCodeLine{00317\ \textcolor{keyword}{typedef}\ \mbox{\hyperlink{params_8h_a904688672ad769b7683603c2edeabd2b}{tbp\_t}}\ \mbox{\hyperlink{params_8h_a42e970d5df4b3972b52f3f3a314a560a}{traceback\_block\_t}}[\mbox{\hyperlink{params_8h_a8f04d03e80ec19dc2f6f36097e3f8202}{MAX\_QUERY\_LENGTH}}\ +\ \mbox{\hyperlink{params_8h_a0083a9bee1ec159ad13954a3186ef6d9}{MAX\_REFERENCE\_LENGTH}}];}
+\DoxyCodeLine{00318\ \textcolor{keyword}{typedef}\ hls::vector<type\_t,\ N\_LAYERS>\ \mbox{\hyperlink{params_8h_a5c792b933d6f003bb1c5e08e940319ba}{score\_block\_t}}[\mbox{\hyperlink{params_8h_aceb4cc72bd33675b648bc2c8c1f7886b}{PE\_NUM}}];}
+\DoxyCodeLine{00319\ \textcolor{keyword}{typedef}\ hls::vector<tbp\_t,\ N\_LAYERS>\ \mbox{\hyperlink{params_8h_aa933d2cb25ab26a8ffbe600bf9689eae}{tbp\_block\_t}}[\mbox{\hyperlink{params_8h_aceb4cc72bd33675b648bc2c8c1f7886b}{PE\_NUM}}];}
+\DoxyCodeLine{00320\ \textcolor{keyword}{typedef}\ \mbox{\hyperlink{params_8h_ac7cce7368348bd25ead6f536eb2e9851}{char\_t}}\ \mbox{\hyperlink{params_8h_aae0a4301a15974d8514ee65bcd2f78c5}{input\_char\_block\_t}}[\mbox{\hyperlink{params_8h_aceb4cc72bd33675b648bc2c8c1f7886b}{PE\_NUM}}];}
+\DoxyCodeLine{00321\ \textcolor{keyword}{typedef}\ hls::vector<type\_t,\ N\_LAYERS>\ \mbox{\hyperlink{params_8h_ae4f28926330c68480c3d77d49137e189}{dp\_mem\_block\_t}}[2][\mbox{\hyperlink{params_8h_aceb4cc72bd33675b648bc2c8c1f7886b}{PE\_NUM}}];}
+\DoxyCodeLine{00322\ \textcolor{keyword}{typedef}\ hls::vector<tbp\_t,\ N\_LAYERS>\ \mbox{\hyperlink{params_8h_aaf7c6485e3271a08bbfa8a60052aadfc}{tbp\_chunk\_block\_t}}[\mbox{\hyperlink{params_8h_aceb4cc72bd33675b648bc2c8c1f7886b}{PE\_NUM}}][\mbox{\hyperlink{params_8h_a0083a9bee1ec159ad13954a3186ef6d9}{MAX\_REFERENCE\_LENGTH}}];}
+\DoxyCodeLine{00323\ }
+\DoxyCodeLine{00324\ \textcolor{keyword}{typedef}\ hls::vector<type\_t,\ N\_LAYERS>\ \mbox{\hyperlink{params_8h_ad3fad65c31308e9db74520d3fa260ff0}{score\_vec\_t}};}
+\DoxyCodeLine{00325\ }
+\DoxyCodeLine{00326\ \textcolor{preprocessor}{\#define\ LAYER\_MAXIMIUM\ 0}}
+\DoxyCodeLine{00327\ }
+\DoxyCodeLine{00328\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structBlockInputs}{BlockInputs}}\ \{}
+\DoxyCodeLine{00329\ \ \ \ \ \mbox{\hyperlink{params_8h_ae4603d5d8a3ea47f94942e0f0f10ab0e}{raw\_query\_block\_t}}\ \mbox{\hyperlink{structBlockInputs_a98b72ec2fa43146a17f818d17c3e4b0b}{query}};}
+\DoxyCodeLine{00330\ \ \ \ \ \mbox{\hyperlink{params_8h_a3192f4d38b4bf8277e755f4e13bf06b1}{raw\_reference\_block\_t}}\ \mbox{\hyperlink{structBlockInputs_aa41375d7b2357533cfee6d16ddea9a6a}{reference}};}
+\DoxyCodeLine{00331\ \ \ \ \ \mbox{\hyperlink{params_8h_a19a31e5a9fb7924b0f86dccebd147910}{init\_col\_score\_block\_t}}\ \mbox{\hyperlink{structBlockInputs_a59a911984bb1a4075835cd60c82b604a}{init\_col\_score}};}
+\DoxyCodeLine{00332\ \ \ \ \ \mbox{\hyperlink{params_8h_afa59c53c9600722cd3d1df1cec47b555}{init\_row\_score\_block\_t}}\ \mbox{\hyperlink{structBlockInputs_a6d224e8c2844c1c2f46a8c36ee5f7176}{init\_row\_score}};}
+\DoxyCodeLine{00333\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structBlockInputs_a92b2573f0f6759cdbf50ce70b7aae1c9}{query\_length}};}
+\DoxyCodeLine{00334\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structBlockInputs_a4f19b011988c6c8d5c1d2916315c19a7}{reference\_length}};}
+\DoxyCodeLine{00335\ \};}
+\DoxyCodeLine{00336\ }
+\DoxyCodeLine{00337\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structBlockOutputs}{BlockOutputs}}\ \{}
+\DoxyCodeLine{00338\ \ \ \ \ \mbox{\hyperlink{params_8h_a42e970d5df4b3972b52f3f3a314a560a}{traceback\_block\_t}}\ \mbox{\hyperlink{structBlockOutputs_ad80f057a1686ecf9f43b5b07b19c316b}{traceback}};}
+\DoxyCodeLine{00339\ \};}
+\DoxyCodeLine{00340\ }
+\DoxyCodeLine{00341\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structScorePack}{ScorePack}}\{\ \ }
+\DoxyCodeLine{00342\ \ \ \ \ \mbox{\hyperlink{params_8h_ab854c148395db761c5fe6c171946ee9a}{type\_t}}\ \mbox{\hyperlink{structScorePack_a34b2ca2a8a0e8bb93b7805153ba7ebed}{score}}\ \ =\ 0;}
+\DoxyCodeLine{00343\ \ \ \ \ \mbox{\hyperlink{params_8h_a0deac85b32dbd3d91a713912fa616412}{idx\_t}}\ \mbox{\hyperlink{structScorePack_ad6f880c15705ebeb28ead4270b94b35e}{chunk\_offset}}\ =\ 0;}
+\DoxyCodeLine{00344\ \ \ \ \ \mbox{\hyperlink{params_8h_a0deac85b32dbd3d91a713912fa616412}{idx\_t}}\ \mbox{\hyperlink{structScorePack_af79046045a8746f6dc9caae68000003a}{pe}}\ =\ 0;}
+\DoxyCodeLine{00345\ \ \ \ \ \mbox{\hyperlink{params_8h_a0deac85b32dbd3d91a713912fa616412}{idx\_t}}\ \mbox{\hyperlink{structScorePack_a9c50b16b688ae16a75da28857514f19d}{pe\_offset}}\ =\ 0;}
+\DoxyCodeLine{00346\ \ \ \ \ \mbox{\hyperlink{params_8h_a0deac85b32dbd3d91a713912fa616412}{idx\_t}}\ \mbox{\hyperlink{structScorePack_a939063a4774ac173044f841374b6b5ca}{layer}}\ =\ 0;}
+\DoxyCodeLine{00347\ \};}
+\DoxyCodeLine{00348\ }
+\DoxyCodeLine{00349\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ \textcolor{keywordtype}{int}\ N>}
+\DoxyCodeLine{00350\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structArrayPack}{ArrayPack}}\ \{}
+\DoxyCodeLine{00351\ \ \ \ \ T\ \mbox{\hyperlink{structArrayPack_a8e5d495ea20b34e78520e842a53052c8}{data}}[N];}
+\DoxyCodeLine{00352\ \};}
+\DoxyCodeLine{00353\ }
+\DoxyCodeLine{00354\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00355\ }
+\DoxyCodeLine{00356\ \textcolor{comment}{//\ >>>\ GLOBAL\_AFFINE\ params\ >>>}}
+\DoxyCodeLine{00357\ }
+\DoxyCodeLine{00358\ \textcolor{preprocessor}{\#ifdef\ ALIGN\_GLOBAL\_AFFINE}}
+\DoxyCodeLine{00359\ }
+\DoxyCodeLine{00360\ }
+\DoxyCodeLine{00361\ \textcolor{preprocessor}{\#define\ MAX\_QUERY\_LENGTH\ 121}}
+\DoxyCodeLine{00362\ \textcolor{preprocessor}{\#define\ MAX\_REFERENCE\_LENGTH\ 123}}
+\DoxyCodeLine{00363\ }
+\DoxyCodeLine{00364\ \textcolor{preprocessor}{\#define\ PE\_NUM\ 8}}
+\DoxyCodeLine{00365\ }
+\DoxyCodeLine{00366\ \textcolor{preprocessor}{\#define\ numofreads\ 1}}
+\DoxyCodeLine{00367\ }
+\DoxyCodeLine{00368\ \textcolor{preprocessor}{\#define\ corner\_case\ (MAX\_QUERY\_LENGTH\%PE\_NUM\ !=\ 0)}}
+\DoxyCodeLine{00369\ \textcolor{preprocessor}{\#define\ query\_chunks\ (MAX\_QUERY\_LENGTH/PE\_NUM)}}
+\DoxyCodeLine{00370\ \textcolor{preprocessor}{\#define\ extra\_pe\_num\ (MAX\_QUERY\_LENGTH\%PE\_NUM)}}
+\DoxyCodeLine{00371\ }
+\DoxyCodeLine{00372\ \textcolor{preprocessor}{\#define\ MT\ 10}}
+\DoxyCodeLine{00373\ \textcolor{preprocessor}{\#define\ NT\ 6}}
+\DoxyCodeLine{00374\ }
+\DoxyCodeLine{00375\ \textcolor{preprocessor}{\#define\ WT\ 4\ \ }\textcolor{comment}{//\ 2\ bits\ direction\ pointer}}
+\DoxyCodeLine{00376\ \textcolor{preprocessor}{\#define\ IT\ WT-\/2\ \ }\textcolor{comment}{//\ 2\ bit\ represents\ layer}}
+\DoxyCodeLine{00377\ }
+\DoxyCodeLine{00378\ \textcolor{comment}{//\#define\ DEBUG}}
+\DoxyCodeLine{00379\ }
+\DoxyCodeLine{00380\ \textcolor{preprocessor}{\#define\ N\_BLOCKS\ 4}}
+\DoxyCodeLine{00381\ }
+\DoxyCodeLine{00382\ \textcolor{preprocessor}{\#define\ TB\_LINE\_SIZE\ 64\ \ }\textcolor{comment}{//\ This\ defines\ the\ length\ of\ a\ line\ of\ TB\ pointers.\ Must\ be\ larger\ than\ PE\_num}}
+\DoxyCodeLine{00383\ }
+\DoxyCodeLine{00384\ \textcolor{preprocessor}{\#define\ ALIGN\_TYPE\ Affine}}
+\DoxyCodeLine{00385\ }
+\DoxyCodeLine{00386\ \textcolor{preprocessor}{\#define\ chunk\_width\ 16\ \ }\textcolor{comment}{//\ this\ must\ larger\ than\ PE\_num}}
+\DoxyCodeLine{00387\ }
+\DoxyCodeLine{00388\ \textcolor{keyword}{typedef}\ ap\_uint<3>\ \mbox{\hyperlink{params_8h_ac7cce7368348bd25ead6f536eb2e9851}{char\_t}};}
+\DoxyCodeLine{00389\ \textcolor{keyword}{typedef}\ ap\_fixed<MT,\ NT>\ \mbox{\hyperlink{params_8h_ab854c148395db761c5fe6c171946ee9a}{type\_t}};\ \ \textcolor{comment}{//\ alias\ type\_t\ with\ ap\_fixed<M,N>}}
+\DoxyCodeLine{00390\ \textcolor{keyword}{typedef}\ ap\_uint<8>\ \mbox{\hyperlink{params_8h_a0deac85b32dbd3d91a713912fa616412}{idx\_t}};}
+\DoxyCodeLine{00391\ \textcolor{keyword}{typedef}\ ap\_ufixed<WT,\ IT>\ \mbox{\hyperlink{params_8h_a904688672ad769b7683603c2edeabd2b}{tbp\_t}};\ \ \textcolor{comment}{//\ traceback\ pointer\ typ}}
+\DoxyCodeLine{00392\ \textcolor{keyword}{typedef}\ ap\_ufixed<2,\ 0>\ \mbox{\hyperlink{params_8h_ab23aefc79821d65c310122b498aeb9e3}{tbp\_dir\_t}};\ \ \textcolor{comment}{//\ direction\ bits\ type\ for\ traceback\ pointer}}
+\DoxyCodeLine{00393\ }
+\DoxyCodeLine{00394\ \textcolor{comment}{//tbp\_t\ TB\_PH\ =\ 0.0;\ \ //\ this\ is\ place\ holder}}
+\DoxyCodeLine{00395\ \textcolor{comment}{//tbp\_t\ TB\_LEFT\ =\ 0.25;}}
+\DoxyCodeLine{00396\ \textcolor{comment}{//tbp\_t\ TB\_DIAG\ =\ 0.5;}}
+\DoxyCodeLine{00397\ \textcolor{comment}{//tbp\_t\ TB\_UP\ =\ 0.75;}}
+\DoxyCodeLine{00398\ }
+\DoxyCodeLine{00399\ \textcolor{preprocessor}{\#define\ TB\_PH\ (tbp\_dir\_t)\ 0.0}}
+\DoxyCodeLine{00400\ \textcolor{preprocessor}{\#define\ TB\_LEFT\ (tbp\_dir\_t)\ 0.25}}
+\DoxyCodeLine{00401\ \textcolor{preprocessor}{\#define\ TB\_DIAG\ (tbp\_dir\_t)\ 0.5}}
+\DoxyCodeLine{00402\ \textcolor{preprocessor}{\#define\ TB\_UP\ (tbp\_dir\_t)\ 0.75}}
+\DoxyCodeLine{00403\ }
+\DoxyCodeLine{00404\ \textcolor{preprocessor}{\#define\ zero\_fp\ ((type\_t)0)}}
+\DoxyCodeLine{00405\ }
+\DoxyCodeLine{00406\ \textcolor{preprocessor}{\#define\ linear\_gap\_penalty\ (type\_t)\ (-\/2)}}
+\DoxyCodeLine{00407\ \textcolor{preprocessor}{\#define\ opening\_score\ -\/2}}
+\DoxyCodeLine{00408\ \textcolor{preprocessor}{\#define\ extend\_score\ -\/2}}
+\DoxyCodeLine{00409\ \textcolor{preprocessor}{\#define\ mismatch\_score\ (type\_t)\ (-\/1)}}
+\DoxyCodeLine{00410\ \textcolor{preprocessor}{\#define\ match\_score\ (type\_t)\ 3}}
+\DoxyCodeLine{00411\ }
+\DoxyCodeLine{00412\ \textcolor{comment}{//\ \#define\ DEBUG\_OUTPUT\_PATH\ "{}/mnt/c/Users/Yingqi/OneDrive/GitHub/DP-\/HLS/debug/"{}}}
+\DoxyCodeLine{00413\ \textcolor{preprocessor}{\#define\ DEBUG\_OUTPUT\_PATH\ "{}/home/yic033@AD.UCSD.EDU/DP-\/HLS-\/Debug/global\_affine/"{}}}
+\DoxyCodeLine{00414\ \textcolor{preprocessor}{\#define\ DEBUG\_FILENAME\ "{}debug\_kernel"{}}}
+\DoxyCodeLine{00415\ }
+\DoxyCodeLine{00416\ \textcolor{keyword}{typedef}\ \mbox{\hyperlink{params_8h_ac7cce7368348bd25ead6f536eb2e9851}{char\_t}}\ \mbox{\hyperlink{params_8h_aa72572047a24d1006cf7286944035323}{ref\_buf}}[\mbox{\hyperlink{params_8h_a8d5b929c134fc5af97d7c538d314f7da}{chunk\_width}}];}
+\DoxyCodeLine{00417\ }
+\DoxyCodeLine{00418\ \textcolor{comment}{//\ inflated\ ones\ takes\ care\ of\ corner\ case\ scenarios}}
+\DoxyCodeLine{00419\ \textcolor{preprocessor}{\#define\ inflated\_query\_length\ (query\_chunks\ *PE\_NUM\ +\ corner\_case\ *PE\_NUM)}}
+\DoxyCodeLine{00420\ \textcolor{preprocessor}{\#define\ inflated\_query\_chunks\ (query\_chunks\ +\ corner\_case)}}
+\DoxyCodeLine{00421\ }
+\DoxyCodeLine{00422\ \textcolor{preprocessor}{\#define\ N\_LAYERS\ 3}}
+\DoxyCodeLine{00423\ }
+\DoxyCodeLine{00424\ \textcolor{keyword}{typedef}\ \mbox{\hyperlink{params_8h_ac7cce7368348bd25ead6f536eb2e9851}{char\_t}}\ \mbox{\hyperlink{params_8h_ae4603d5d8a3ea47f94942e0f0f10ab0e}{raw\_query\_block\_t}}[\mbox{\hyperlink{params_8h_a8f04d03e80ec19dc2f6f36097e3f8202}{MAX\_QUERY\_LENGTH}}];}
+\DoxyCodeLine{00425\ \textcolor{keyword}{typedef}\ \mbox{\hyperlink{params_8h_ac7cce7368348bd25ead6f536eb2e9851}{char\_t}}\ \mbox{\hyperlink{params_8h_a3192f4d38b4bf8277e755f4e13bf06b1}{raw\_reference\_block\_t}}[\mbox{\hyperlink{params_8h_a0083a9bee1ec159ad13954a3186ef6d9}{MAX\_REFERENCE\_LENGTH}}];}
+\DoxyCodeLine{00426\ \textcolor{keyword}{typedef}\ hls::vector<type\_t,\ N\_LAYERS>\ \mbox{\hyperlink{params_8h_a19a31e5a9fb7924b0f86dccebd147910}{init\_col\_score\_block\_t}}[\mbox{\hyperlink{params_8h_a8f04d03e80ec19dc2f6f36097e3f8202}{MAX\_QUERY\_LENGTH}}];}
+\DoxyCodeLine{00427\ \textcolor{keyword}{typedef}\ hls::vector<type\_t,\ N\_LAYERS>\ \mbox{\hyperlink{params_8h_afa59c53c9600722cd3d1df1cec47b555}{init\_row\_score\_block\_t}}[\mbox{\hyperlink{params_8h_a0083a9bee1ec159ad13954a3186ef6d9}{MAX\_REFERENCE\_LENGTH}}];}
+\DoxyCodeLine{00428\ \textcolor{keyword}{typedef}\ \mbox{\hyperlink{params_8h_a904688672ad769b7683603c2edeabd2b}{tbp\_t}}\ \mbox{\hyperlink{params_8h_a42e970d5df4b3972b52f3f3a314a560a}{traceback\_block\_t}}[\mbox{\hyperlink{params_8h_a8f04d03e80ec19dc2f6f36097e3f8202}{MAX\_QUERY\_LENGTH}}\ +\ \mbox{\hyperlink{params_8h_a0083a9bee1ec159ad13954a3186ef6d9}{MAX\_REFERENCE\_LENGTH}}];}
+\DoxyCodeLine{00429\ \textcolor{keyword}{typedef}\ hls::vector<type\_t,\ N\_LAYERS>\ \mbox{\hyperlink{params_8h_a5c792b933d6f003bb1c5e08e940319ba}{score\_block\_t}}[\mbox{\hyperlink{params_8h_aceb4cc72bd33675b648bc2c8c1f7886b}{PE\_NUM}}];}
+\DoxyCodeLine{00430\ \textcolor{keyword}{typedef}\ hls::vector<tbp\_t,\ N\_LAYERS>\ \mbox{\hyperlink{params_8h_aa933d2cb25ab26a8ffbe600bf9689eae}{tbp\_block\_t}}[\mbox{\hyperlink{params_8h_aceb4cc72bd33675b648bc2c8c1f7886b}{PE\_NUM}}];}
+\DoxyCodeLine{00431\ \textcolor{keyword}{typedef}\ \mbox{\hyperlink{params_8h_ac7cce7368348bd25ead6f536eb2e9851}{char\_t}}\ \mbox{\hyperlink{params_8h_aae0a4301a15974d8514ee65bcd2f78c5}{input\_char\_block\_t}}[\mbox{\hyperlink{params_8h_aceb4cc72bd33675b648bc2c8c1f7886b}{PE\_NUM}}];}
+\DoxyCodeLine{00432\ \textcolor{keyword}{typedef}\ hls::vector<type\_t,\ N\_LAYERS>\ \mbox{\hyperlink{params_8h_ae4f28926330c68480c3d77d49137e189}{dp\_mem\_block\_t}}[2][\mbox{\hyperlink{params_8h_aceb4cc72bd33675b648bc2c8c1f7886b}{PE\_NUM}}];}
+\DoxyCodeLine{00433\ \textcolor{keyword}{typedef}\ hls::vector<tbp\_t,\ N\_LAYERS>\ \mbox{\hyperlink{params_8h_aaf7c6485e3271a08bbfa8a60052aadfc}{tbp\_chunk\_block\_t}}[\mbox{\hyperlink{params_8h_aceb4cc72bd33675b648bc2c8c1f7886b}{PE\_NUM}}][\mbox{\hyperlink{params_8h_a0083a9bee1ec159ad13954a3186ef6d9}{MAX\_REFERENCE\_LENGTH}}];}
+\DoxyCodeLine{00434\ }
+\DoxyCodeLine{00435\ \textcolor{keyword}{typedef}\ hls::vector<type\_t,\ N\_LAYERS>\ \mbox{\hyperlink{params_8h_ad3fad65c31308e9db74520d3fa260ff0}{score\_vec\_t}};}
+\DoxyCodeLine{00436\ }
+\DoxyCodeLine{00437\ \textcolor{preprocessor}{\#define\ LAYER\_MAXIMIUM\ 0}}
+\DoxyCodeLine{00438\ }
+\DoxyCodeLine{00439\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structBlockInputs}{BlockInputs}}\ \{}
+\DoxyCodeLine{00440\ \ \ \ \ \mbox{\hyperlink{params_8h_ae4603d5d8a3ea47f94942e0f0f10ab0e}{raw\_query\_block\_t}}\ \mbox{\hyperlink{structBlockInputs_a98b72ec2fa43146a17f818d17c3e4b0b}{query}};}
+\DoxyCodeLine{00441\ \ \ \ \ \mbox{\hyperlink{params_8h_a3192f4d38b4bf8277e755f4e13bf06b1}{raw\_reference\_block\_t}}\ \mbox{\hyperlink{structBlockInputs_aa41375d7b2357533cfee6d16ddea9a6a}{reference}};}
+\DoxyCodeLine{00442\ \ \ \ \ \mbox{\hyperlink{params_8h_a19a31e5a9fb7924b0f86dccebd147910}{init\_col\_score\_block\_t}}\ \mbox{\hyperlink{structBlockInputs_a59a911984bb1a4075835cd60c82b604a}{init\_col\_score}};}
+\DoxyCodeLine{00443\ \ \ \ \ \mbox{\hyperlink{params_8h_afa59c53c9600722cd3d1df1cec47b555}{init\_row\_score\_block\_t}}\ \mbox{\hyperlink{structBlockInputs_a6d224e8c2844c1c2f46a8c36ee5f7176}{init\_row\_score}};}
+\DoxyCodeLine{00444\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structBlockInputs_a92b2573f0f6759cdbf50ce70b7aae1c9}{query\_length}};}
+\DoxyCodeLine{00445\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structBlockInputs_a4f19b011988c6c8d5c1d2916315c19a7}{reference\_length}};}
+\DoxyCodeLine{00446\ \};}
+\DoxyCodeLine{00447\ }
+\DoxyCodeLine{00448\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structBlockOutputs}{BlockOutputs}}\ \{}
+\DoxyCodeLine{00449\ \ \ \ \ \mbox{\hyperlink{params_8h_a42e970d5df4b3972b52f3f3a314a560a}{traceback\_block\_t}}\ \mbox{\hyperlink{structBlockOutputs_ad80f057a1686ecf9f43b5b07b19c316b}{traceback}};}
+\DoxyCodeLine{00450\ \};}
+\DoxyCodeLine{00451\ }
+\DoxyCodeLine{00452\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structScorePack}{ScorePack}}\{\ \ }
+\DoxyCodeLine{00453\ \ \ \ \ \mbox{\hyperlink{params_8h_ab854c148395db761c5fe6c171946ee9a}{type\_t}}\ \mbox{\hyperlink{structScorePack_a34b2ca2a8a0e8bb93b7805153ba7ebed}{score}}\ \ =\ 0;}
+\DoxyCodeLine{00454\ \ \ \ \ \mbox{\hyperlink{params_8h_a0deac85b32dbd3d91a713912fa616412}{idx\_t}}\ \mbox{\hyperlink{structScorePack_ad6f880c15705ebeb28ead4270b94b35e}{chunk\_offset}}\ =\ 0;}
+\DoxyCodeLine{00455\ \ \ \ \ \mbox{\hyperlink{params_8h_a0deac85b32dbd3d91a713912fa616412}{idx\_t}}\ \mbox{\hyperlink{structScorePack_af79046045a8746f6dc9caae68000003a}{pe}}\ =\ 0;}
+\DoxyCodeLine{00456\ \ \ \ \ \mbox{\hyperlink{params_8h_a0deac85b32dbd3d91a713912fa616412}{idx\_t}}\ \mbox{\hyperlink{structScorePack_a9c50b16b688ae16a75da28857514f19d}{pe\_offset}}\ =\ 0;}
+\DoxyCodeLine{00457\ \ \ \ \ \mbox{\hyperlink{params_8h_a0deac85b32dbd3d91a713912fa616412}{idx\_t}}\ \mbox{\hyperlink{structScorePack_a939063a4774ac173044f841374b6b5ca}{layer}}\ =\ 0;}
+\DoxyCodeLine{00458\ \};}
+\DoxyCodeLine{00459\ }
+\DoxyCodeLine{00460\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ \textcolor{keywordtype}{int}\ N>}
+\DoxyCodeLine{00461\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structArrayPack}{ArrayPack}}\ \{}
+\DoxyCodeLine{00462\ \ \ \ \ T\ \mbox{\hyperlink{structArrayPack_a8e5d495ea20b34e78520e842a53052c8}{data}}[N];}
+\DoxyCodeLine{00463\ \};}
+\DoxyCodeLine{00464\ }
+\DoxyCodeLine{00465\ }
+\DoxyCodeLine{00466\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00467\ }
+\DoxyCodeLine{00468\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

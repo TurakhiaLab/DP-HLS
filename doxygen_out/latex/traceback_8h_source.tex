@@ -1,0 +1,43 @@
+\doxysection{traceback.\+h}
+\hypertarget{traceback_8h_source}{}\label{traceback_8h_source}\index{increment/include/traceback.h@{increment/include/traceback.h}}
+\mbox{\hyperlink{traceback_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ TRACEBACK\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ TRACEBACK\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{params_8h}{params.h}}"{}}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <hls\_stream.h>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <hls\_vector.h>}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#ifdef\ DEBUG}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{debug_8h}{debug.h}}"{}}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ DEBUG}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{keyword}{using\ namespace\ }hls;}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classTraceBack}{TraceBack}}\ \{}
+\DoxyCodeLine{00016\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00017\ \ \ \ \ }
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \ \ \ \ \mbox{\hyperlink{classTraceBack_a4d251cb1e4396cc8707f4f88f79f3fc4}{TraceBack}}()\{}
+\DoxyCodeLine{00020\ \textcolor{comment}{//\ \#pragma\ HLS\ ARRAY\_PARTITION\ variable=input\_ptr\ factor=32\ dim=0\ type=complete}}
+\DoxyCodeLine{00021\ \textcolor{comment}{//\ \#pragma\ HLS\ ARRAY\_PARTITION\ variable=tb\_matrix\ factor\ =\ 32\ dim=2\ type=cyclic}}
+\DoxyCodeLine{00022\ \textcolor{comment}{//\ \#pragma\ HLS\ aggregate\ variable=tb\_matrix\ compact=auto}}
+\DoxyCodeLine{00023\ \textcolor{comment}{//\ \#pragma\ HLS\ bind\_storage\ variable=tb\_matrix\ type=RAM\_1P\ impl=bram}}
+\DoxyCodeLine{00024\ \ \ \ \ \}}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classTraceBack_ae64db25255093e9e08c64461b5e52cef}{traceback}}(}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ hls::vector<tbp\_t,\ N\_LAYERS>\ tbmat[\mbox{\hyperlink{params_8h_a8f04d03e80ec19dc2f6f36097e3f8202}{MAX\_QUERY\_LENGTH}}][\mbox{\hyperlink{params_8h_a0083a9bee1ec159ad13954a3186ef6d9}{MAX\_REFERENCE\_LENGTH}}],}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ stream<tbp\_t,\ MAX\_REFERENCE\_LENGTH+MAX\_QUERY\_LENGTH>\ \&tb\_stream,\ }
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ max\_layer,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ max\_row,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ max\_col);}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#ifdef\ DEBUG}}
+\DoxyCodeLine{00032\ \ \ \ \ \mbox{\hyperlink{classDebugger}{Debugger}}*\ debugger;}
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ DEBUG}}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \};}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

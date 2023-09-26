@@ -1,0 +1,92 @@
+\chapter{DP-\/\+HLS\+: Dynamic Programming FPGA Acceleration using High-\/\+Level Synthesis}
+\hypertarget{md_README}{}\label{md_README}\index{DP-\/HLS: Dynamic Programming FPGA Acceleration using High-\/Level Synthesis@{DP-\/HLS: Dynamic Programming FPGA Acceleration using High-\/Level Synthesis}}
+\label{md_README_autotoc_md3}%
+\Hypertarget{md_README_autotoc_md3}%
+ {\bfseries{HLS Tool}}\+: Vitis HLS~\newline
+ {\bfseries{Device}}\+: ~\newline
+ {\bfseries{Frequency}}\+: 250MHz ~\newline
+ {\bfseries{Length of the reference sequence}}\+:64 ~\newline
+ {\bfseries{Length of the query sequence}}\+:64~\newline
+ {\bfseries{Number of Processing Elements (PE)}}\+:16~\newline
+\hypertarget{md_README_autotoc_md4}{}\doxysubsection{\texorpdfstring{Following is the table summarizing the resource usage with various set of sequence alignment algorithms\+:$<$br$>$}{Following is the table summarizing the resource usage with various set of sequence alignment algorithms:<br>}}\label{md_README_autotoc_md4}
+These resource utilization numbers are only for kernels implementing DP matrix and instantiates PEs. Extra numbers for additional logic (such as traceback, etc.) will be added soon.
+
+\tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{0}{|X[-1]}|}
+\hline
+\end{longtabu}
+
+
+Sequence Alignment Algorithms 
+
+Gap Penalty 
+
+Banding 
+
+Resource Utilization   
+
+FF 
+
+LUT 
+
+BRAM    
+
+Smith Waterman 
+
+Linear 
+
+$<$input type="{}text"{}$>$Non Banded 
+
+$<$input type="{}text"{}$>$1939 
+
+$<$input type="{}text"{} $>$9067 
+
+$<$input type="{}text"{} $>$16  
+
+$<$input type="{}text"{}$>$Banded 
+
+$<$input type="{}text"{} $>$4678 
+
+$<$input type="{}text"{} $>$40880 
+
+$<$input type="{}text"{} $>$32  
+
+Affine 
+
+$<$input type="{}text"{} $>$Non Banded 
+
+$<$input type="{}text"{} $>$4301 
+
+$<$input type="{}text"{} $>$16581 
+
+$<$input type="{}text"{} $>$32  
+
+$<$input type="{}text"{} $>$Banded 
+
+$<$input type="{}text"{} $>$ 
+
+$<$input type="{}text"{} $>$ 
+
+$<$input type="{}text"{} $>$  
+
+Needleman Wunsch 
+
+Linear 
+
+$<$input type="{}text"{} $>$ 
+
+$<$input type="{}text"{} $>$3358 
+
+$<$input type="{}text"{} $>$9384 
+
+$<$input type="{}text"{} $>$0  
+
+Affine 
+
+$<$input type="{}text"{} $>$ 
+
+$<$input type="{}text"{} $>$ 
+
+$<$input type="{}text"{} $>$ 
+
+$<$input type="{}text"{} $>$   

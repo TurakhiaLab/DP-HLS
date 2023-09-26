@@ -1,0 +1,179 @@
+\doxysection{utils.\+h}
+\hypertarget{utils_8h_source}{}\label{utils_8h_source}\index{increment/include/utils.h@{increment/include/utils.h}}
+\mbox{\hyperlink{utils_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ UTILS\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ UTILS\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{params_8h}{params.h}}"{}}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespaceUtils}{Utils}}}
+\DoxyCodeLine{00007\ \{}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \ \ \ \ \textcolor{keyword}{namespace\ }Array}
+\DoxyCodeLine{00010\ \ \ \ \ \{}
+\DoxyCodeLine{00011\ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ \textcolor{keywordtype}{int}\ N>}
+\DoxyCodeLine{00012\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{namespaceUtils_1_1Array_a46f42d6dac7aacf46276151b869d73f5}{WriteStreamBlock}}(T\ arr[N],\ hls::stream\_of\_blocks<T[N]>\ \&stream\_block)}
+\DoxyCodeLine{00013\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00014\ \ \ \ \ \ \ \ \ \ \ \ \ hls::write\_lock<T[N]>\ wr(stream\_block);}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#pragma\ HLS\ array\_partition\ variable\ =\ arr\ type\ =\ complete}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#pragma\ HLS\ array\_partition\ variable\ =\ wr\ type\ =\ complete}}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ N;\ i++)}
+\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#pragma\ HLS\ unroll}}
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ wr[i]\ =\ arr[i];}
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ \textcolor{keywordtype}{int}\ N>}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{namespaceUtils_1_1Array_ae9fad5e384276db30d0548b0db8b853c}{ShiftLeft}}(T\ (\&arr)[N],\ T\ new\_data)}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ N;\ i++)}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#pragma\ HLS\ unroll}}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ arr[i]\ =\ arr[i\ +\ 1];}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \ \ \ \ arr[N\ -\/\ 1]\ =\ new\_data;}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ \textcolor{keywordtype}{int}\ N>}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{namespaceUtils_1_1Array_a969bfc696b755375b6bb2169f761efa2}{ShiftRight}}(T\ (\&arr)[N],\ T\ new\_data)}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ N\ -\/\ 1;\ i\ >=\ 0;\ i-\/-\/)}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#pragma\ HLS\ unroll}}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ arr[i]\ =\ arr[i\ -\/\ 1];}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \ \ \ \ arr[0]\ =\ new\_data;}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ \textcolor{keywordtype}{int}\ M,\ \textcolor{keywordtype}{int}\ N,\ \textcolor{keywordtype}{int}\ LEN>}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{namespaceUtils_1_1Array_a537becc6d06ff218291ad888e001ee17}{Copy}}(T\ (\&src)[M],\ T(\&dst)[N],\ \mbox{\hyperlink{params_8h_a0deac85b32dbd3d91a713912fa616412}{idx\_t}}\ len,\ T\ default\_num)}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ LEN;\ i++)}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00062\ \textcolor{preprocessor}{\#pragma\ HLS\ unroll}}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dst[i]\ =\ i\ <\ len\ ?\ src[i]\ :\ default\_num;}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T>}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{namespaceUtils_1_1Array_a1e111bb9df847435ea2735324255eef8}{Switch}}(T\ *arr1,\ T\ *arr2)\{}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \ \ \ \ T\ *tmp\ =\ arr1;}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \ \ \ \ arr1\ =\ arr2;}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \ \ \ \ arr2\ =\ tmp;}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00073\ \ \ \ \ \}}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ \ \ \ \ \textcolor{keyword}{namespace\ }Init}
+\DoxyCodeLine{00076\ \ \ \ \ \{}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ \textcolor{keywordtype}{int}\ N>}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{namespaceUtils_1_1Init_a85315d0083bd843ca59bf4e758fac9cb}{ArrSet}}(T\ (\&arr)[N],\ T\ val)}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ N;\ i++)}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00084\ \textcolor{preprocessor}{\#pragma\ HLS\ unroll}}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ arr[i]\ =\ val;}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ \textcolor{keywordtype}{int}\ N>}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{namespaceUtils_1_1Init_a85315d0083bd843ca59bf4e758fac9cb}{ArrSet}}(T\ (\&arr)[N],\ \mbox{\hyperlink{params_8h_a0deac85b32dbd3d91a713912fa616412}{idx\_t}}\ layer,\ T\ val)}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ N;\ i++)}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00095\ \textcolor{preprocessor}{\#pragma\ HLS\ unroll}}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ arr[i][layer]\ =\ val[layer];}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00099\ }
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ \textcolor{keywordtype}{int}\ LAY,\ \textcolor{keywordtype}{int}\ N>}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{namespaceUtils_1_1Init_a4396415f12cddbfd6f32524bde93c408}{Linspace}}(hls::vector<T,\ LAY>\ (\&arr)[N],\ \mbox{\hyperlink{params_8h_a0deac85b32dbd3d91a713912fa616412}{idx\_t}}\ layer,\ \mbox{\hyperlink{params_8h_ab854c148395db761c5fe6c171946ee9a}{type\_t}}\ start,\ \mbox{\hyperlink{params_8h_ab854c148395db761c5fe6c171946ee9a}{type\_t}}\ step)}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{params_8h_ab854c148395db761c5fe6c171946ee9a}{type\_t}}\ cnt\ =\ start;}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ N;\ i++)}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cnt\ +=\ step;}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ arr[i][layer]\ =\ cnt;}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00110\ }
+\DoxyCodeLine{00111\ \ \ \ \ \}}
+\DoxyCodeLine{00112\ }
+\DoxyCodeLine{00113\ \ \ \ \ \textcolor{keyword}{namespace\ }Matrix}
+\DoxyCodeLine{00114\ \ \ \ \ \{}
+\DoxyCodeLine{00115\ }
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ \textcolor{keywordtype}{int}\ M,\ \textcolor{keywordtype}{int}\ N>}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{namespaceUtils_1_1Matrix_ac216e9f282ebc23d52e5b09492214955}{WriteStreamBlock}}(T\ arr[M][N],\ hls::stream\_of\_blocks<T[M][N]>\ \&stream\_block)}
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \ \ \ \ hls::write\_lock<T[M][N]>\ wr(stream\_block);}
+\DoxyCodeLine{00120\ }
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ M;\ i++)}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00123\ \textcolor{preprocessor}{\#pragma\ HLS\ unroll}}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ j\ =\ 0;\ j\ <\ N;\ j++)}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00126\ \textcolor{preprocessor}{\#pragma\ HLS\ unroll}}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ wr[i][j]\ =\ arr[i][j];}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00131\ }
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ \textcolor{keywordtype}{int}\ M,\ \textcolor{keywordtype}{int}\ N>}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{namespaceUtils_1_1Matrix_ab59a5679bbb593cfe0050f536c5f55fa}{ReadStreamBlock}}(T\ (\&arr)[M][N],\ hls::stream\_of\_blocks<T[M][N]>\ \&stream\_block)}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \ \ \ \ hls::read\_lock<T[M][N]>\ rd(stream\_block);}
+\DoxyCodeLine{00136\ }
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ M;\ i++)}
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00139\ \textcolor{preprocessor}{\#pragma\ HLS\ unroll}}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ j\ =\ 0;\ j\ <\ N;\ j++)}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00142\ \textcolor{preprocessor}{\#pragma\ HLS\ unroll}}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ arr[i][j]\ =\ rd[i][j];}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00147\ }
+\DoxyCodeLine{00148\ }
+\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ \textcolor{keywordtype}{int}\ M,\ \textcolor{keywordtype}{int}\ N>}
+\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{namespaceUtils_1_1Matrix_ac216e9f282ebc23d52e5b09492214955}{WriteStreamBlock}}(T\ arr,\ hls::stream\_of\_blocks<T>\ \&stream\_block)}
+\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00159\ \ \ \ \ \ \ \ \ \ \ \ \ hls::write\_lock<T>\ wr(stream\_block);}
+\DoxyCodeLine{00160\ }
+\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ M;\ i++)}
+\DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00163\ \textcolor{preprocessor}{\#pragma\ HLS\ unroll}}
+\DoxyCodeLine{00164\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ j\ =\ 0;\ j\ <\ N;\ j++)}
+\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00166\ \textcolor{preprocessor}{\#pragma\ HLS\ unroll}}
+\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ wr[i][j]\ =\ arr[i][j];}
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00171\ }
+\DoxyCodeLine{00172\ \ \ \ \ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ \textcolor{keywordtype}{int}\ M,\ \textcolor{keywordtype}{int}\ N>}
+\DoxyCodeLine{00173\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{namespaceUtils_1_1Matrix_ab59a5679bbb593cfe0050f536c5f55fa}{ReadStreamBlock}}(T\ \&arr,\ hls::stream\_of\_blocks<T>\ \&stream\_block)}
+\DoxyCodeLine{00174\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ \ \ \ \ hls::read\_lock<T>\ rd(stream\_block);}
+\DoxyCodeLine{00176\ }
+\DoxyCodeLine{00177\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ M;\ i++)}
+\DoxyCodeLine{00178\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00179\ \textcolor{preprocessor}{\#pragma\ HLS\ unroll}}
+\DoxyCodeLine{00180\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ j\ =\ 0;\ j\ <\ N;\ j++)}
+\DoxyCodeLine{00181\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00182\ \textcolor{preprocessor}{\#pragma\ HLS\ unroll}}
+\DoxyCodeLine{00183\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ arr[i][j]\ =\ rd[i][j];}
+\DoxyCodeLine{00184\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00185\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00186\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00187\ }
+\DoxyCodeLine{00188\ \ \ \ \ \}}
+\DoxyCodeLine{00189\ \}}
+\DoxyCodeLine{00190\ }
+\DoxyCodeLine{00191\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ UTILS\_H}}
+
+\end{DoxyCode}

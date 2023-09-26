@@ -1,0 +1,98 @@
+\doxysection{Shift\+Register\+Block\texorpdfstring{$<$}{<} T, NUM, LEN \texorpdfstring{$>$}{>} Class Template Reference}
+\hypertarget{classShiftRegisterBlock}{}\label{classShiftRegisterBlock}\index{ShiftRegisterBlock$<$ T, NUM, LEN $>$@{ShiftRegisterBlock$<$ T, NUM, LEN $>$}}
+
+
+{\ttfamily \#include $<$shift\+\_\+reg.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classShiftRegisterBlock_ade714d041eacb89a91055ddb6e33f60c}{Shift\+Register\+Block}} (void)
+\item 
+void \mbox{\hyperlink{classShiftRegisterBlock_aca0f2d835e378d1c6cb042b37e024353}{shift\+\_\+right}} (T input\mbox{[}NUM\mbox{]})
+\item 
+void \mbox{\hyperlink{classShiftRegisterBlock_af5f94ea59a7288e69cb9bb4cd99be4c3}{shift\+\_\+left}} (T input\mbox{[}NUM\mbox{]})
+\item 
+void \mbox{\hyperlink{classShiftRegisterBlock_accf56215fc0681f8641edc037396abd4}{shift\+\_\+right}} ()
+\item 
+void \mbox{\hyperlink{classShiftRegisterBlock_adba81a1c00a142cca2592473c22de127}{shift\+\_\+left}} ()
+\item 
+void \mbox{\hyperlink{classShiftRegisterBlock_ab65dbbdbce8ae65cd246a3be2236dddb}{clear}} ()
+\item 
+\mbox{\hyperlink{classShiftRegister}{Shift\+Register}}$<$ T, LEN $>$ \& \mbox{\hyperlink{classShiftRegisterBlock_a1421c5c8fd03e67a0787f918b49aef3f}{operator\mbox{[}$\,$\mbox{]}}} (int index)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classShiftRegister}{Shift\+Register}}$<$ T, LEN $>$ \mbox{\hyperlink{classShiftRegisterBlock_a0b8cfcf3819eb9be3e522872e9db7c91}{data}} \mbox{[}NUM\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classShiftRegisterBlock_ade714d041eacb89a91055ddb6e33f60c}\label{classShiftRegisterBlock_ade714d041eacb89a91055ddb6e33f60c} 
+\index{ShiftRegisterBlock$<$ T, NUM, LEN $>$@{ShiftRegisterBlock$<$ T, NUM, LEN $>$}!ShiftRegisterBlock@{ShiftRegisterBlock}}
+\index{ShiftRegisterBlock@{ShiftRegisterBlock}!ShiftRegisterBlock$<$ T, NUM, LEN $>$@{ShiftRegisterBlock$<$ T, NUM, LEN $>$}}
+\doxysubsubsection{\texorpdfstring{ShiftRegisterBlock()}{ShiftRegisterBlock()}}
+{\footnotesize\ttfamily template$<$typename T , int NUM, int LEN$>$ \\
+\mbox{\hyperlink{classShiftRegisterBlock}{Shift\+Register\+Block}}$<$ T, NUM, LEN $>$\mbox{\hyperlink{classShiftRegisterBlock}{\+::\+Shift\+Register\+Block}} (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classShiftRegisterBlock_ab65dbbdbce8ae65cd246a3be2236dddb}\label{classShiftRegisterBlock_ab65dbbdbce8ae65cd246a3be2236dddb} 
+\index{ShiftRegisterBlock$<$ T, NUM, LEN $>$@{ShiftRegisterBlock$<$ T, NUM, LEN $>$}!clear@{clear}}
+\index{clear@{clear}!ShiftRegisterBlock$<$ T, NUM, LEN $>$@{ShiftRegisterBlock$<$ T, NUM, LEN $>$}}
+\doxysubsubsection{\texorpdfstring{clear()}{clear()}}
+{\footnotesize\ttfamily template$<$typename T , int NUM, int LEN$>$ \\
+void \mbox{\hyperlink{classShiftRegisterBlock}{Shift\+Register\+Block}}$<$ T, NUM, LEN $>$\+::clear (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{classShiftRegisterBlock_a1421c5c8fd03e67a0787f918b49aef3f}\label{classShiftRegisterBlock_a1421c5c8fd03e67a0787f918b49aef3f} 
+\index{ShiftRegisterBlock$<$ T, NUM, LEN $>$@{ShiftRegisterBlock$<$ T, NUM, LEN $>$}!operator\mbox{[}\mbox{]}@{operator[]}}
+\index{operator\mbox{[}\mbox{]}@{operator[]}!ShiftRegisterBlock$<$ T, NUM, LEN $>$@{ShiftRegisterBlock$<$ T, NUM, LEN $>$}}
+\doxysubsubsection{\texorpdfstring{operator[]()}{operator[]()}}
+{\footnotesize\ttfamily template$<$typename T , int NUM, int LEN$>$ \\
+\mbox{\hyperlink{classShiftRegister}{Shift\+Register}}$<$ T, LEN $>$ \& \mbox{\hyperlink{classShiftRegisterBlock}{Shift\+Register\+Block}}$<$ T, NUM, LEN $>$\+::operator\mbox{[}$\,$\mbox{]} (\begin{DoxyParamCaption}\item[{int}]{index }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{classShiftRegisterBlock_adba81a1c00a142cca2592473c22de127}\label{classShiftRegisterBlock_adba81a1c00a142cca2592473c22de127} 
+\index{ShiftRegisterBlock$<$ T, NUM, LEN $>$@{ShiftRegisterBlock$<$ T, NUM, LEN $>$}!shift\_left@{shift\_left}}
+\index{shift\_left@{shift\_left}!ShiftRegisterBlock$<$ T, NUM, LEN $>$@{ShiftRegisterBlock$<$ T, NUM, LEN $>$}}
+\doxysubsubsection{\texorpdfstring{shift\_left()}{shift\_left()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename T , int NUM, int LEN$>$ \\
+void \mbox{\hyperlink{classShiftRegisterBlock}{Shift\+Register\+Block}}$<$ T, NUM, LEN $>$\+::shift\+\_\+left (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{classShiftRegisterBlock_af5f94ea59a7288e69cb9bb4cd99be4c3}\label{classShiftRegisterBlock_af5f94ea59a7288e69cb9bb4cd99be4c3} 
+\index{ShiftRegisterBlock$<$ T, NUM, LEN $>$@{ShiftRegisterBlock$<$ T, NUM, LEN $>$}!shift\_left@{shift\_left}}
+\index{shift\_left@{shift\_left}!ShiftRegisterBlock$<$ T, NUM, LEN $>$@{ShiftRegisterBlock$<$ T, NUM, LEN $>$}}
+\doxysubsubsection{\texorpdfstring{shift\_left()}{shift\_left()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename T , int NUM, int LEN$>$ \\
+void \mbox{\hyperlink{classShiftRegisterBlock}{Shift\+Register\+Block}}$<$ T, NUM, LEN $>$\+::shift\+\_\+left (\begin{DoxyParamCaption}\item[{T}]{input\mbox{[}\+NUM\mbox{]} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{classShiftRegisterBlock_accf56215fc0681f8641edc037396abd4}\label{classShiftRegisterBlock_accf56215fc0681f8641edc037396abd4} 
+\index{ShiftRegisterBlock$<$ T, NUM, LEN $>$@{ShiftRegisterBlock$<$ T, NUM, LEN $>$}!shift\_right@{shift\_right}}
+\index{shift\_right@{shift\_right}!ShiftRegisterBlock$<$ T, NUM, LEN $>$@{ShiftRegisterBlock$<$ T, NUM, LEN $>$}}
+\doxysubsubsection{\texorpdfstring{shift\_right()}{shift\_right()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename T , int NUM, int LEN$>$ \\
+void \mbox{\hyperlink{classShiftRegisterBlock}{Shift\+Register\+Block}}$<$ T, NUM, LEN $>$\+::shift\+\_\+right (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{classShiftRegisterBlock_aca0f2d835e378d1c6cb042b37e024353}\label{classShiftRegisterBlock_aca0f2d835e378d1c6cb042b37e024353} 
+\index{ShiftRegisterBlock$<$ T, NUM, LEN $>$@{ShiftRegisterBlock$<$ T, NUM, LEN $>$}!shift\_right@{shift\_right}}
+\index{shift\_right@{shift\_right}!ShiftRegisterBlock$<$ T, NUM, LEN $>$@{ShiftRegisterBlock$<$ T, NUM, LEN $>$}}
+\doxysubsubsection{\texorpdfstring{shift\_right()}{shift\_right()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename T , int NUM, int LEN$>$ \\
+void \mbox{\hyperlink{classShiftRegisterBlock}{Shift\+Register\+Block}}$<$ T, NUM, LEN $>$\+::shift\+\_\+right (\begin{DoxyParamCaption}\item[{T}]{input\mbox{[}\+NUM\mbox{]} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classShiftRegisterBlock_a0b8cfcf3819eb9be3e522872e9db7c91}\label{classShiftRegisterBlock_a0b8cfcf3819eb9be3e522872e9db7c91} 
+\index{ShiftRegisterBlock$<$ T, NUM, LEN $>$@{ShiftRegisterBlock$<$ T, NUM, LEN $>$}!data@{data}}
+\index{data@{data}!ShiftRegisterBlock$<$ T, NUM, LEN $>$@{ShiftRegisterBlock$<$ T, NUM, LEN $>$}}
+\doxysubsubsection{\texorpdfstring{data}{data}}
+{\footnotesize\ttfamily template$<$typename T , int NUM, int LEN$>$ \\
+\mbox{\hyperlink{classShiftRegister}{Shift\+Register}}$<$T, LEN$>$ \mbox{\hyperlink{classShiftRegisterBlock}{Shift\+Register\+Block}}$<$ T, NUM, LEN $>$\+::data\mbox{[}NUM\mbox{]}}
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+increment/include/\mbox{\hyperlink{shift__reg_8h}{shift\+\_\+reg.\+h}}\end{DoxyCompactItemize}

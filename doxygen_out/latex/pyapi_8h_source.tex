@@ -1,0 +1,36 @@
+\doxysection{pyapi.\+h}
+\hypertarget{pyapi_8h_source}{}\label{pyapi_8h_source}\index{increment/include/pyapi.h@{increment/include/pyapi.h}}
+\mbox{\hyperlink{pyapi_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ PYAPI\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ PYAPI\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{params_8h}{./params.h}}"{}}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{keyword}{using\ namespace\ }std;}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classResults}{Results}}\ \{}
+\DoxyCodeLine{00010\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00011\ \ \ \ \ \mbox{\hyperlink{params_8h_a904688672ad769b7683603c2edeabd2b}{tbp\_t}}\ \mbox{\hyperlink{classResults_a31ba40936b9084c67045678baa066a43}{tb\_streams}}[\mbox{\hyperlink{params_8h_aa714b8308c6a460183a00af49b098b37}{N\_BLOCKS}}][\mbox{\hyperlink{params_8h_a0083a9bee1ec159ad13954a3186ef6d9}{MAX\_REFERENCE\_LENGTH}}\ +\ \mbox{\hyperlink{params_8h_a8f04d03e80ec19dc2f6f36097e3f8202}{MAX\_QUERY\_LENGTH}}];}
+\DoxyCodeLine{00012\ \ \ \ \ hls::vector<type\_t,\ N\_LAYERS>\ \mbox{\hyperlink{classResults_a3d1a68853519e494d59c0a7e66cf3ff7}{scores}}[\mbox{\hyperlink{params_8h_aa714b8308c6a460183a00af49b098b37}{N\_BLOCKS}}][\mbox{\hyperlink{params_8h_a8f04d03e80ec19dc2f6f36097e3f8202}{MAX\_QUERY\_LENGTH}}][\mbox{\hyperlink{params_8h_a0083a9bee1ec159ad13954a3186ef6d9}{MAX\_REFERENCE\_LENGTH}}];}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \ \ \ \ \mbox{\hyperlink{classResults_ae15a9e843b67c54e98a6f59a56104e1f}{Results}}()\{}
+\DoxyCodeLine{00015\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ b\ =\ 0;\ b\ <\ \mbox{\hyperlink{params_8h_aa714b8308c6a460183a00af49b098b37}{N\_BLOCKS}};\ b++)\{}
+\DoxyCodeLine{00016\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ \mbox{\hyperlink{params_8h_a8f04d03e80ec19dc2f6f36097e3f8202}{MAX\_QUERY\_LENGTH}}\ +\ \mbox{\hyperlink{params_8h_a0083a9bee1ec159ad13954a3186ef6d9}{MAX\_REFERENCE\_LENGTH}};\ i++)\{}
+\DoxyCodeLine{00017\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classResults_a31ba40936b9084c67045678baa066a43}{tb\_streams}}[b][i]\ =\ 0;}
+\DoxyCodeLine{00018\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00019\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ \mbox{\hyperlink{params_8h_a8f04d03e80ec19dc2f6f36097e3f8202}{MAX\_QUERY\_LENGTH}};\ i++)\{}
+\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ j\ =\ 0;\ j\ <\ \mbox{\hyperlink{params_8h_a0083a9bee1ec159ad13954a3186ef6d9}{MAX\_REFERENCE\_LENGTH}};\ j++)\{}
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classResults_a3d1a68853519e494d59c0a7e66cf3ff7}{scores}}[b][i][j]\ =\ (\mbox{\hyperlink{params_8h_ad3fad65c31308e9db74520d3fa260ff0}{score\_vec\_t}})\ 0;}
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00025\ \ \ \ \ \};}
+\DoxyCodeLine{00026\ \};}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \mbox{\hyperlink{classResults}{Results}}\ \mbox{\hyperlink{pyapi_8h_afb9878d84b3f2974675e2f9fabe7fd74}{kernel\_traceback\_path}}(\textcolor{keywordtype}{string}\ query\_string,\ \textcolor{keywordtype}{string}\ reference\_string);}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

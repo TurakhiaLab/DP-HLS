@@ -1,0 +1,142 @@
+\doxysection{shift\+\_\+reg.\+h}
+\hypertarget{shift__reg_8h_source}{}\label{shift__reg_8h_source}\index{increment/include/shift\_reg.h@{increment/include/shift\_reg.h}}
+\mbox{\hyperlink{shift__reg_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ SHIFT\_REGISTER\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ SHIFT\_REGISTER\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{params_8h}{params.h}}"{}}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ \textcolor{keywordtype}{int}\ LEN>\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classShiftRegister}{ShiftRegister}}\ \{\ \ \textcolor{comment}{//\ This\ is\ a\ shift\ register,\ for\ data\ index\ 1,\ 2,\ 3,\ ...}}
+\DoxyCodeLine{00007\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00008\ \textcolor{comment}{*\ WARNING:\ This\ only\ works\ when\ used\ to\ hold\ scores}}
+\DoxyCodeLine{00009\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00010\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00011\ \ \ \ \ \mbox{\hyperlink{classShiftRegister_a16b82690b4ebe2e9d7f4f7821c42c6d6}{ShiftRegister}}(\textcolor{keywordtype}{void})\ \{}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#pragma\ HLS\ ARRAY\_PARTITION\ variable=data\ dim=1\ type=complete}}
+\DoxyCodeLine{00013\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ LEN;\ i++)\ \{}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#pragma\ HLS\ unroll}}
+\DoxyCodeLine{00015\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00016\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ data[i]\ =\ \mbox{\hyperlink{params_8h_ab3491cc343e9eaae8d2d81d53bc57fad}{zero\_fp}};}
+\DoxyCodeLine{00017\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00018\ \ \ \ \ \}}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \ \ \ \ T\ \mbox{\hyperlink{classShiftRegister_a2315bbca542fac824d34aac9904e3204}{operator[]}}(\textcolor{keywordtype}{int}\ index)\ \{}
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ data[index];\ \ \textcolor{comment}{//\ returning\ array\ is\ not\ allowed}}
+\DoxyCodeLine{00022\ \ \ \ \ \};}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classShiftRegister_aeb42a1f0c1bc7a4afce131b782f0f57b}{shift\_right}}(T\ input)\ \{}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ LEN\ -\/\ 1;\ i\ >\ 0;\ i-\/-\/)\ \{\ \ \textcolor{comment}{//\ shift\ towards\ the\ larger\ index}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#pragma\ HLS\ unroll}}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ expect\ to\ be\ done\ within\ one\ cycle}}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ data[i]\ =\ data[i\ -\/\ 1];}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \ \ \ \ data[0]\ =\ input;}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00036\ \ \ \ \ \};}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classShiftRegister_a57d1bdf21e6f3bff58cebc71de3b255e}{shift\_right}}()\ \{}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ LEN\ -\/\ 1;\ i\ >\ 0;\ i-\/-\/)\ \{\ \ \textcolor{comment}{//\ shift\ towards\ the\ larger\ index}}
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#pragma\ HLS\ unroll}}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ expect\ to\ be\ done\ within\ one\ cycle}}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ data[i]\ =\ data[i\ -\/\ 1];}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \ \ \ \ data[0]\ =\ \mbox{\hyperlink{params_8h_ab3491cc343e9eaae8d2d81d53bc57fad}{zero\_fp}};}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00049\ \ \ \ \ \};}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classShiftRegister_a7355c9be46790bd6e5dd77f46522a225}{shift\_left}}(T\ input)\ \{}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ LEN\ -\/\ 1;\ i++)\ \{\ \ \textcolor{comment}{//\ shift\ towards\ the\ smaller\ index}}
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#pragma\ HLS\ unroll}}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ expect\ to\ be\ done\ within\ one\ cycle}}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ data[i]\ =\ data[i\ +\ 1];}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \ \ \ \ data[LEN\ -\/\ 1]\ =\ input;}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00062\ \ \ \ \ \};}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00064\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classShiftRegister_a9c1daff7d38dffa67b8f9858a8aa0edd}{shift\_left}}()\ \{}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ LEN\ -\/\ 1;\ i++)\ \{\ \ \textcolor{comment}{//\ shift\ towards\ the\ smaller\ index}}
+\DoxyCodeLine{00066\ \textcolor{preprocessor}{\#pragma\ HLS\ unroll}}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ expect\ to\ be\ done\ within\ one\ cycle}}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ data[i]\ =\ data[i\ +\ 1];}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \ \ \ \ data[LEN\ -\/\ 1]\ =\ \mbox{\hyperlink{params_8h_ab3491cc343e9eaae8d2d81d53bc57fad}{zero\_fp}};}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00075\ \ \ \ \ \};}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classShiftRegister_a31790648e2fde559b14c6279bee20646}{clear}}()\ \{}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ LEN;\ i++)\ \{}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classShiftRegister_a9c1daff7d38dffa67b8f9858a8aa0edd}{shift\_left}}();}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00081\ \ \ \ \ \}}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00083\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00084\ \ \ \ \ T\ data[LEN];}
+\DoxyCodeLine{00085\ \};}
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00087\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T,\ \textcolor{keywordtype}{int}\ NUM,\ \textcolor{keywordtype}{int}\ LEN>\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classShiftRegisterBlock}{ShiftRegisterBlock}}\ \{}
+\DoxyCodeLine{00088\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00089\ \ \ \ \ \mbox{\hyperlink{classShiftRegister}{ShiftRegister<T,\ LEN>}}\ \mbox{\hyperlink{classShiftRegisterBlock_a0b8cfcf3819eb9be3e522872e9db7c91}{data}}[NUM];}
+\DoxyCodeLine{00090\ \ \ \ \ \mbox{\hyperlink{classShiftRegisterBlock_ade714d041eacb89a91055ddb6e33f60c}{ShiftRegisterBlock}}(\textcolor{keywordtype}{void})\ \{}
+\DoxyCodeLine{00091\ \textcolor{preprocessor}{\#pragma\ HLS\ ARRAY\_PARTITION\ variable=data\ dim=1\ type=complete}}
+\DoxyCodeLine{00092\ \ \ \ \ \}}
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00094\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classShiftRegisterBlock_aca0f2d835e378d1c6cb042b37e024353}{shift\_right}}(T\ input[NUM])\ \{}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ NUM;\ i++)\ \{}
+\DoxyCodeLine{00096\ \textcolor{preprocessor}{\#pragma\ HLS\ unroll}}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classShiftRegisterBlock_a0b8cfcf3819eb9be3e522872e9db7c91}{data}}[i].shift\_right(input[i]);}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00099\ \ \ \ \ \}}
+\DoxyCodeLine{00100\ }
+\DoxyCodeLine{00101\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classShiftRegisterBlock_af5f94ea59a7288e69cb9bb4cd99be4c3}{shift\_left}}(T\ input[NUM])\ \{}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ NUM;\ i++)\ \{}
+\DoxyCodeLine{00103\ \textcolor{preprocessor}{\#pragma\ HLS\ unroll}}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classShiftRegisterBlock_a0b8cfcf3819eb9be3e522872e9db7c91}{data}}[i].shift\_left(input[i]);}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00106\ \ \ \ \ \}}
+\DoxyCodeLine{00107\ }
+\DoxyCodeLine{00108\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classShiftRegisterBlock_accf56215fc0681f8641edc037396abd4}{shift\_right}}()\ \{}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ NUM;\ i++)\ \{}
+\DoxyCodeLine{00110\ }
+\DoxyCodeLine{00111\ \textcolor{preprocessor}{\#pragma\ HLS\ unroll}}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classShiftRegisterBlock_a0b8cfcf3819eb9be3e522872e9db7c91}{data}}[i].shift\_right();}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00114\ \ \ \ \ \}}
+\DoxyCodeLine{00115\ }
+\DoxyCodeLine{00116\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classShiftRegisterBlock_adba81a1c00a142cca2592473c22de127}{shift\_left}}()\ \{}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ NUM;\ i++)\ \{}
+\DoxyCodeLine{00118\ \textcolor{preprocessor}{\#pragma\ HLS\ unroll}}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classShiftRegisterBlock_a0b8cfcf3819eb9be3e522872e9db7c91}{data}}[i].shift\_left();}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00121\ \ \ \ \ \}}
+\DoxyCodeLine{00122\ }
+\DoxyCodeLine{00123\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classShiftRegisterBlock_ab65dbbdbce8ae65cd246a3be2236dddb}{clear}}()\ \{}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ NUM;\ i++)\ \{}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classShiftRegisterBlock_a0b8cfcf3819eb9be3e522872e9db7c91}{data}}[i].clear();}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00127\ \ \ \ \ \}}
+\DoxyCodeLine{00128\ }
+\DoxyCodeLine{00129\ \ \ \ \ \mbox{\hyperlink{classShiftRegister}{ShiftRegister<T,\ LEN>}}\&\ \mbox{\hyperlink{classShiftRegisterBlock_a1421c5c8fd03e67a0787f918b49aef3f}{operator[]}}(\textcolor{keywordtype}{int}\ index)\ \{}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{classShiftRegisterBlock_a0b8cfcf3819eb9be3e522872e9db7c91}{data}}[index];}
+\DoxyCodeLine{00131\ \ \ \ \ \}}
+\DoxyCodeLine{00132\ \};}
+\DoxyCodeLine{00133\ }
+\DoxyCodeLine{00134\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ !SHIFT\_REGISTER\_H}}
+\DoxyCodeLine{00135\ }
+\DoxyCodeLine{00136\ }
+
+\end{DoxyCode}

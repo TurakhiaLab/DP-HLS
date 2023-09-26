@@ -1,0 +1,64 @@
+\doxysection{increment/include/initial.h File Reference}
+\hypertarget{initial_8h}{}\label{initial_8h}\index{increment/include/initial.h@{increment/include/initial.h}}
+{\ttfamily \#include "{}params.\+h"{}}\newline
+{\ttfamily \#include $<$hls\+\_\+vector.\+h$>$}\newline
+{\ttfamily \#include $<$hls\+\_\+stream.\+h$>$}\newline
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structInitialValues}{Initial\+Values}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structInitialValues}{Initial\+Values}} \mbox{\hyperlink{initial_8h_aedb1b15c57a031e7c338dd0ba745db59}{assign\+\_\+value\+\_\+local}} ()
+\item 
+\mbox{\hyperlink{structInitialValues}{Initial\+Values}} \mbox{\hyperlink{initial_8h_af51abdd83924dedb9304078de6cd0ab1}{assign\+\_\+value\+\_\+global}} ()
+\item 
+void \mbox{\hyperlink{initial_8h_a37bf4eac6ca0f3087a2e67ed32b78385}{assign\+\_\+qry\+\_\+local\+\_\+affine}} (hls\+::stream$<$ hls\+::vector$<$ \mbox{\hyperlink{params_8h_ab854c148395db761c5fe6c171946ee9a}{type\+\_\+t}}, \mbox{\hyperlink{params_8h_a971dff48b4e712e06083451d36ed5507}{N\+\_\+\+LAYERS}} $>$, \mbox{\hyperlink{params_8h_a8f04d03e80ec19dc2f6f36097e3f8202}{MAX\+\_\+\+QUERY\+\_\+\+LENGTH}} $>$ \&stm)
+\item 
+void \mbox{\hyperlink{initial_8h_a70d573e4e843e572f666209fe1b6bf80}{assign\+\_\+ref\+\_\+local\+\_\+affine}} (hls\+::stream$<$ hls\+::vector$<$ \mbox{\hyperlink{params_8h_ab854c148395db761c5fe6c171946ee9a}{type\+\_\+t}}, \mbox{\hyperlink{params_8h_a971dff48b4e712e06083451d36ed5507}{N\+\_\+\+LAYERS}} $>$, \mbox{\hyperlink{params_8h_a0083a9bee1ec159ad13954a3186ef6d9}{MAX\+\_\+\+REFERENCE\+\_\+\+LENGTH}} $>$ \&stm)
+\item 
+void \mbox{\hyperlink{initial_8h_a4a7786fe44d0500c7de31dc8846d733c}{assign\+\_\+qry\+\_\+local\+\_\+linear}} (hls\+::stream$<$ hls\+::vector$<$ \mbox{\hyperlink{params_8h_ab854c148395db761c5fe6c171946ee9a}{type\+\_\+t}}, \mbox{\hyperlink{params_8h_a971dff48b4e712e06083451d36ed5507}{N\+\_\+\+LAYERS}} $>$, \mbox{\hyperlink{params_8h_a8f04d03e80ec19dc2f6f36097e3f8202}{MAX\+\_\+\+QUERY\+\_\+\+LENGTH}} $>$ \&stm)
+\item 
+void \mbox{\hyperlink{initial_8h_a8f5cb076fb2233cd04df5208a27903cd}{assign\+\_\+ref\+\_\+local\+\_\+linear}} (hls\+::stream$<$ hls\+::vector$<$ \mbox{\hyperlink{params_8h_ab854c148395db761c5fe6c171946ee9a}{type\+\_\+t}}, \mbox{\hyperlink{params_8h_a971dff48b4e712e06083451d36ed5507}{N\+\_\+\+LAYERS}} $>$, \mbox{\hyperlink{params_8h_a0083a9bee1ec159ad13954a3186ef6d9}{MAX\+\_\+\+REFERENCE\+\_\+\+LENGTH}} $>$ \&stm)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{initial_8h_a37bf4eac6ca0f3087a2e67ed32b78385}\label{initial_8h_a37bf4eac6ca0f3087a2e67ed32b78385} 
+\index{initial.h@{initial.h}!assign\_qry\_local\_affine@{assign\_qry\_local\_affine}}
+\index{assign\_qry\_local\_affine@{assign\_qry\_local\_affine}!initial.h@{initial.h}}
+\doxysubsubsection{\texorpdfstring{assign\_qry\_local\_affine()}{assign\_qry\_local\_affine()}}
+{\footnotesize\ttfamily void assign\+\_\+qry\+\_\+local\+\_\+affine (\begin{DoxyParamCaption}\item[{hls\+::stream$<$ hls\+::vector$<$ \mbox{\hyperlink{params_8h_ab854c148395db761c5fe6c171946ee9a}{type\+\_\+t}}, \mbox{\hyperlink{params_8h_a971dff48b4e712e06083451d36ed5507}{N\+\_\+\+LAYERS}} $>$, \mbox{\hyperlink{params_8h_a8f04d03e80ec19dc2f6f36097e3f8202}{MAX\+\_\+\+QUERY\+\_\+\+LENGTH}} $>$ \&}]{stm }\end{DoxyParamCaption})}
+
+\Hypertarget{initial_8h_a4a7786fe44d0500c7de31dc8846d733c}\label{initial_8h_a4a7786fe44d0500c7de31dc8846d733c} 
+\index{initial.h@{initial.h}!assign\_qry\_local\_linear@{assign\_qry\_local\_linear}}
+\index{assign\_qry\_local\_linear@{assign\_qry\_local\_linear}!initial.h@{initial.h}}
+\doxysubsubsection{\texorpdfstring{assign\_qry\_local\_linear()}{assign\_qry\_local\_linear()}}
+{\footnotesize\ttfamily void assign\+\_\+qry\+\_\+local\+\_\+linear (\begin{DoxyParamCaption}\item[{hls\+::stream$<$ hls\+::vector$<$ \mbox{\hyperlink{params_8h_ab854c148395db761c5fe6c171946ee9a}{type\+\_\+t}}, \mbox{\hyperlink{params_8h_a971dff48b4e712e06083451d36ed5507}{N\+\_\+\+LAYERS}} $>$, \mbox{\hyperlink{params_8h_a8f04d03e80ec19dc2f6f36097e3f8202}{MAX\+\_\+\+QUERY\+\_\+\+LENGTH}} $>$ \&}]{stm }\end{DoxyParamCaption})}
+
+\Hypertarget{initial_8h_a70d573e4e843e572f666209fe1b6bf80}\label{initial_8h_a70d573e4e843e572f666209fe1b6bf80} 
+\index{initial.h@{initial.h}!assign\_ref\_local\_affine@{assign\_ref\_local\_affine}}
+\index{assign\_ref\_local\_affine@{assign\_ref\_local\_affine}!initial.h@{initial.h}}
+\doxysubsubsection{\texorpdfstring{assign\_ref\_local\_affine()}{assign\_ref\_local\_affine()}}
+{\footnotesize\ttfamily void assign\+\_\+ref\+\_\+local\+\_\+affine (\begin{DoxyParamCaption}\item[{hls\+::stream$<$ hls\+::vector$<$ \mbox{\hyperlink{params_8h_ab854c148395db761c5fe6c171946ee9a}{type\+\_\+t}}, \mbox{\hyperlink{params_8h_a971dff48b4e712e06083451d36ed5507}{N\+\_\+\+LAYERS}} $>$, \mbox{\hyperlink{params_8h_a0083a9bee1ec159ad13954a3186ef6d9}{MAX\+\_\+\+REFERENCE\+\_\+\+LENGTH}} $>$ \&}]{stm }\end{DoxyParamCaption})}
+
+\Hypertarget{initial_8h_a8f5cb076fb2233cd04df5208a27903cd}\label{initial_8h_a8f5cb076fb2233cd04df5208a27903cd} 
+\index{initial.h@{initial.h}!assign\_ref\_local\_linear@{assign\_ref\_local\_linear}}
+\index{assign\_ref\_local\_linear@{assign\_ref\_local\_linear}!initial.h@{initial.h}}
+\doxysubsubsection{\texorpdfstring{assign\_ref\_local\_linear()}{assign\_ref\_local\_linear()}}
+{\footnotesize\ttfamily void assign\+\_\+ref\+\_\+local\+\_\+linear (\begin{DoxyParamCaption}\item[{hls\+::stream$<$ hls\+::vector$<$ \mbox{\hyperlink{params_8h_ab854c148395db761c5fe6c171946ee9a}{type\+\_\+t}}, \mbox{\hyperlink{params_8h_a971dff48b4e712e06083451d36ed5507}{N\+\_\+\+LAYERS}} $>$, \mbox{\hyperlink{params_8h_a0083a9bee1ec159ad13954a3186ef6d9}{MAX\+\_\+\+REFERENCE\+\_\+\+LENGTH}} $>$ \&}]{stm }\end{DoxyParamCaption})}
+
+\Hypertarget{initial_8h_af51abdd83924dedb9304078de6cd0ab1}\label{initial_8h_af51abdd83924dedb9304078de6cd0ab1} 
+\index{initial.h@{initial.h}!assign\_value\_global@{assign\_value\_global}}
+\index{assign\_value\_global@{assign\_value\_global}!initial.h@{initial.h}}
+\doxysubsubsection{\texorpdfstring{assign\_value\_global()}{assign\_value\_global()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structInitialValues}{Initial\+Values}} assign\+\_\+value\+\_\+global (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\Hypertarget{initial_8h_aedb1b15c57a031e7c338dd0ba745db59}\label{initial_8h_aedb1b15c57a031e7c338dd0ba745db59} 
+\index{initial.h@{initial.h}!assign\_value\_local@{assign\_value\_local}}
+\index{assign\_value\_local@{assign\_value\_local}!initial.h@{initial.h}}
+\doxysubsubsection{\texorpdfstring{assign\_value\_local()}{assign\_value\_local()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structInitialValues}{Initial\+Values}} assign\+\_\+value\+\_\+local (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+

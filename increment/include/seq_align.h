@@ -1,3 +1,14 @@
+/**
+ * @file seq_align.h
+ * @author Yingqi Cao (yic033@ucsd.edu)
+ * @brief This file contains codes for align functions. 
+ * @version 0.1
+ * @date 2023-09-25
+ * 
+ * @copyright Copyright (c) 2023
+ * 
+ */
+
 #ifndef SEQ_ALIGN_H
 #define SEQ_ALIGN_H
 
