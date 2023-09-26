@@ -123,7 +123,7 @@ void DutChunkComputeArr(
         ScorePack &max,  // write out so must pass by reference
         tbp_chunk_block_t &tbp_out
         ){
-    Align::ChunkComputeArr(
+    Align::ChunkCompute(
             chunk_row_offset,
             query,
             reference,

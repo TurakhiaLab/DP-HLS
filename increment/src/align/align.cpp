@@ -280,7 +280,7 @@ void Align::DPMemUpdateArr(
 	
 }
 
-void Align::ChunkComputeArr(
+void Align::ChunkCompute(
 	idx_t chunk_row_offset,
 	input_char_block_t &query,
 	char_t (&reference)[MAX_REFERENCE_LENGTH],
@@ -318,8 +318,8 @@ void Align::ChunkComputeArr(
 	dp_mem_block_t dp_mem;
 
 	score_vec_t last_chunk_scr[2];
-	last_chunk_scr[0] = {0};
-	last_chunk_scr[1] = {0};
+
+	Utils::Init::ArrSet(last_chunk_scr, {0,0,-9999});
 
 #pragma HLS array_partition variable = predicate type = complete
 #pragma HLS array_partition variable = pe_col_offsets type = complete
@@ -475,18 +475,17 @@ void Align::InitializeScores(
 #elif defined ALIGN_GLOBAL_LINEAR
 	Utils::Init::Linspace<type_t, 1, MAX_QUERY_LENGTH>(init_col_scr, 0, 0, linear_gap_penalty);
 	Utils::Init::Linspace<type_t, 1, MAX_REFERENCE_LENGTH>(init_row_scr, 0, 0, linear_gap_penalty);
-
 #elif defined ALIGN_LOCAL_AFFINE
 	Utils::Init::ArrSet<score_vec_t, MAX_QUERY_LENGTH>(init_col_scr, {0, 0, -9999});
 	Utils::Init::ArrSet<score_vec_t, MAX_REFERENCE_LENGTH>(init_row_scr, {-9999,0,0});
 #elif defined ALIGN_GLOBAL_AFFINE
-	Utils::Init::ArrSet<score_vec_t, MAX_QUERY_LENGTH>(init_col_scr, 0, {0,0,0});  // query layer 0
+	Utils::Init::ArrSet<score_vec_t, MAX_QUERY_LENGTH>(init_col_scr, 0, score_vec_t {0,0,0});  // query layer 0
 	Utils::Init::Linspace<type_t, 3, MAX_QUERY_LENGTH>(init_col_scr, 1, 0, extend_score);  // query layer 1
-	Utils::Init::ArrSet<score_vec_t, MAX_QUERY_LENGTH>(init_col_scr, 2, {-9999,-9999,-9999}); // query layer 2
+	Utils::Init::ArrSet<score_vec_t, MAX_QUERY_LENGTH>(init_col_scr, 2, score_vec_t {-9999,-9999,-9999}); // query layer 2
 
-	Utils::Init::ArrSet<score_vec_t, MAX_REFERENCE_LENGTH>(init_row_scr, 0, {-9999,-9999,-9999});  // reference layer 0
+	Utils::Init::ArrSet<score_vec_t, MAX_REFERENCE_LENGTH>(init_row_scr, 0, score_vec_t {-9999,-9999,-9999});  // reference layer 0
 	Utils::Init::Linspace<type_t, 3, MAX_REFERENCE_LENGTH>(init_row_scr, 1, 0, extend_score);  // reference layer 1
-	Utils::Init::ArrSet<score_vec_t, MAX_REFERENCE_LENGTH>(init_row_scr, 2, {0,0,0}); // reference layer 2
+	Utils::Init::ArrSet<score_vec_t, MAX_REFERENCE_LENGTH>(init_row_scr, 2, score_vec_t {0, 0,0}); // reference layer 2
 #else
 	// Not initialized. 
 	int i = 0;
@@ -494,14 +493,15 @@ void Align::InitializeScores(
 
 }
 
-void Align::PrepareLocalQueryBlock(
+void Align::PrepareLocalQuery(
 	char_t (&query)[MAX_QUERY_LENGTH],
 	char_t (&local_query)[PE_NUM],
+	idx_t offset,
 	idx_t len
 ){
 	for (int i = 0; i < PE_NUM; i++){
 #pragma HLS unroll
-		local_query[i] = i < len ? query[i] : (char_t) 0;
+		local_query[i] = i < len ? query[offset + i] : (char_t) 0;
 	}
 }
 
@@ -545,7 +545,6 @@ void Align::AlignStatic(
 	score_block_t local_init_col_score;
 	hls::vector<type_t, N_LAYERS> preserved_row_buffer[MAX_REFERENCE_LENGTH];
 
-
 #pragma HLS array_partition variable=local_query type=complete
 
 	for (idx_t i = 0; i < query_length; i += PE_NUM)
@@ -554,13 +553,12 @@ void Align::AlignStatic(
 
 		idx_t local_query_length = ((idx_t) PE_NUM < query_length - i) ? (idx_t) PE_NUM : (idx_t) (query_length - i);
 
-		Align::PrepareLocalQueryBlock(query, local_query, local_query_length);
+		Align::PrepareLocalQuery(query, local_query, i, local_query_length);  // FIXME: Why not coping rest of the query
 		Utils::Array::Copy<score_vec_t, MAX_QUERY_LENGTH, PE_NUM, PE_NUM>(init_col_scr, local_init_col_score, local_query_length, (score_vec_t) 0);
 
 		hls::vector<tbp_t, N_LAYERS> (*chunk_tbp_out)[MAX_REFERENCE_LENGTH] = &tbp_matrix[i];
 
-
-		Align::ChunkComputeArr(
+		Align::ChunkCompute(
 			i,
 			local_query,
 			reference,

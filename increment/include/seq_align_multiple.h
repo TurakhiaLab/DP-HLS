@@ -15,7 +15,12 @@ using namespace hls;
 //typedef ap_int<16> type_t;
 
 extern "C" {
-
+	/**
+	 * @brief Static kernel performing multiple pairwise sequence alignment. 
+	 * The specific number of sequences is defined by N_BLOCKS. Once compiled to 
+	 * kernel, the number of alignments cannot be changed without re-compiling. 
+	 * 
+	 */
 	void seq_align_multiple_static(
 		char_t (&querys)[N_BLOCKS][MAX_QUERY_LENGTH],
 		char_t (&references)[N_BLOCKS][MAX_REFERENCE_LENGTH],

@@ -29,9 +29,17 @@ void align_wp(hls::stream<char_t, MAX_QUERY_LENGTH> &query_stream,
 
 namespace Align{
 
-	void PrepareLocalQueryBlock(
+	/**
+	 * @brief Copy PE_NUM number of query values to the local
+	 * query buffer. 
+	 * 
+	 * @param offset: Offset in the query to copy. 
+	 * @param len: Length to copy. 
+	 */
+	void PrepareLocalQuery(
 		char_t (&query)[MAX_QUERY_LENGTH],
 		char_t (&local_query)[PE_NUM],
+		idx_t offset,
 		idx_t len
 	);
 
@@ -102,7 +110,17 @@ namespace Align{
 		hls::stream_of_blocks<tbp_chunk_block_t> &chunk_tbp_out
 	);
 
-	void ChunkComputeArr(
+	/**
+	 * @brief Compute the traceback pointers for a chunk of the size PE_NUM * REFERENCE_LENGTH.
+	 * 
+	 * @param chunk_row_offset : The row offset in the whole traceback matrix the beginning of the chunk.
+	 * @param query : Query sequence with length PE_NUM. 
+	 * @param init_col_scr : Initial score for the first column of this chunk. 
+	 * @param query_length : Length of the query < PE_NUM.
+	 * @param reference_length : Length of the reference < MAX_REFERENCE_LENGTH. 
+	 * @param max : Score pack of the maximium score of this chunk. 
+	 */
+	void ChunkCompute(
 		idx_t chunk_row_offset,
 		input_char_block_t &query,
 		char_t (&reference)[MAX_REFERENCE_LENGTH],
@@ -167,13 +185,13 @@ namespace Align{
 	};
 
 	/**
-	 * @brief Align function for a block for two sequencies. 
+	 * @brief Perform Pairwise alignment for two sequences. 
 	 * 
-	 * @param query: Query sequence.
-	 * @param reference: Reference sequence.
-	 * @param query_length: Length of the effect query to compute.
-	 * @param reference_length: Length of the effect reference to compute.
-	 * @param tb_streams: Output traceback pointers.
+	 * @param query: Query sequence buffer.
+	 * @param reference: Reference sequence buffer.
+	 * @param query_length: Length of the query.
+	 * @param reference_length: Length of the reference.
+	 * @param tb_streams: Output traceback path.
 	 */
 	void AlignStatic(
 		char_t (&querys)[MAX_QUERY_LENGTH],
@@ -183,6 +201,13 @@ namespace Align{
 		tbp_t (&tb_streams)[MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH]
 	);
 
+	/**
+	 * @brief Initialize initial scores for the first column and 
+	 * row on the device. 
+	 * 
+	 * @param init_col_scr: Initial scores for the first column.
+	 * @param init_row_scr: Initial scores for the first row.
+	 */
 	void InitializeScores(
 		score_vec_t (&init_col_scr)[MAX_QUERY_LENGTH],
 		score_vec_t (&init_row_scr)[MAX_REFERENCE_LENGTH]

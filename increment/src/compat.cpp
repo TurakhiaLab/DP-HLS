@@ -9,7 +9,7 @@
  * 
  */
 
-#include "compat.h"
+#include "../include/compat.h"
 
 void PrepareArrayInput(
     ShiftRegister<char_t, PE_NUM> &local_query,

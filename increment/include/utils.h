@@ -43,6 +43,17 @@ namespace Utils
 			arr[0] = new_data;
 		}
 
+		/**
+		 * @brief Copy length LEN of data from src to dst. If more than 
+		 * len, fill the rest with default_num.
+		 * 
+		 * @tparam T: Type of the elements
+		 * @tparam M: Length of src
+		 * @tparam N: Length of dst
+		 * @tparam LEN: Length to copy
+		 * @param len: Length of actual copying
+		 * @param default_num: default number to fill. 
+		 */
 		template <typename T, int M, int N, int LEN>
 		void Copy(T (&src)[M], T(&dst)[N], idx_t len, T default_num)
 		{

@@ -160,7 +160,7 @@ void Testbench::test_compute_chunk_arr(){
         init_row_scr[i] = hls::vector<type_t, N_LAYERS>(rand() % 100);
     }
 
-    Align::ChunkComputeArr(
+    Align::ChunkCompute(
         chunk_row_offset,
         query,
         reference,

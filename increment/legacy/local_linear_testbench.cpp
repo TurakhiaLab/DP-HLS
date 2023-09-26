@@ -3,8 +3,6 @@
 #define __gmp_const const
 
 #include <stdio.h>
-#include "seq_align_multiple.h"
-#include "params.h"
 #include <cstdlib>
 #include <iostream>
 #include "ap_int.h"
@@ -17,7 +15,6 @@ using namespace hls;
 
 int main()
 {
-
     srand(time(NULL));
 
     char reference_string[N_BLOCKS][ref_length];

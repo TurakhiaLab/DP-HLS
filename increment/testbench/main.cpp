@@ -1,7 +1,7 @@
 #include "../include/testbench.h"
 #include <cstdio>
 
-int main() {
+int components_test() {
 	printf("Test Task Channel PE\n");
 	Testbench::test_task_channel_pe();
 	

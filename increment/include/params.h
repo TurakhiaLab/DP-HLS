@@ -6,8 +6,6 @@
 #include <hls_stream.h>
 #include <hls_streamofblocks.h> 
 
-// FIXME: Find max only works for linera isnce I don't know whether need to find max among multiple layers for affine
-
 #define ALIGN_GLOBAL_AFFINE
 #undef DEBUG
 // >>> LOCAL_LINEAR params >>>
@@ -360,8 +358,8 @@ struct ArrayPack {
 #ifdef ALIGN_GLOBAL_AFFINE
 
 
-#define MAX_QUERY_LENGTH 32
-#define MAX_REFERENCE_LENGTH 32
+#define MAX_QUERY_LENGTH 121
+#define MAX_REFERENCE_LENGTH 123
 
 #define PE_NUM 8
 
