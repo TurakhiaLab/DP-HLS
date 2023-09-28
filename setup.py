@@ -6,7 +6,7 @@ cpp_args = ['-std=c++17']
 sources=["./increment/module.cpp"]
 
 for fpath in glob.glob(os.path.join('increment', '**', '*')):
-    if (fpath.endswith('.cpp')):
+    if (fpath.endswith('.cpp') and not fpath.endswith('test_pyapi.cpp')):
         sources.append(fpath)
 
 for fpath in glob.glob(os.path.join('increment', '**', '**', '*')):

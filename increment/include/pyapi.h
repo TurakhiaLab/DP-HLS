@@ -25,6 +25,8 @@ public:
     };
 };
 
-Results kernel_traceback_path(string query_string, string reference_string);
+Results kernel_traceback_path(
+    // string query_string, string reference_string
+    );
 
 #endif

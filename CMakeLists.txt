@@ -49,6 +49,20 @@ add_executable(test_align "increment/testbench/test_align.cpp"
     "increment/src/pe/pe.cpp"
     "increment/src/traceback.cpp")
 
+add_executable(test_pyapi_kernel_traceback "increment/testbench/test_pyapi.cpp"
+    "increment/include/params.h"
+    "increment/include/seq_align_multiple.h"
+    "increment/include/seq_align.h"
+    "increment/include/PE.h"
+    "increment/include/utils.h"
+    "increment/include/pyapi.h"
+    "increment/src/toplevel/seq_align_multiple.cpp"
+    "increment/src/align/align.cpp"
+    "increment/src/pe/pe.cpp"
+    "increment/src/traceback.cpp"
+    "increment/src/pyapi.cpp")
+
+
 
 # Add source to this project's executable.
 # add_executable(align_local_linear "testbench/test_local_linear.cpp" "include/params.h"

@@ -17,4 +17,5 @@ increment/src/pe/pe.cpp
 increment/src/toplevel/seq_align_multiple.cpp
 increment/testbench/main.cpp
 increment/testbench/test_align.cpp
+increment/testbench/test_pyapi.cpp
 increment/testbench/testbench.cpp

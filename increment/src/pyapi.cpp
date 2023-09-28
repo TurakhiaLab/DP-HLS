@@ -4,8 +4,10 @@
 using namespace std;
 
 Results kernel_traceback_path(
-    string query_string, string reference_string
+   // string query_string, string reference_string
 ){
+        string query_string = "AGTCTAGGCGAATCGGCCCTTGTATATCGGGG";
+    string reference_string = "TGCCGCGACCGTCCCTAATCCGACGAGCGCCT";
     Results results;
     
     std::vector<char> query(query_string.begin(), query_string.end());
@@ -33,7 +35,7 @@ Results kernel_traceback_path(
         case 'T':
             return 3;
         default:
-            throw std::runtime_error("Unrecognized Nucleotide from A, C, G, and T. "); // or throw an exception
+            throw std::runtime_error("Unrecognized Nucleotide " + std::string(1, c) + " from A, C, G, and T.\n"); // or throw an exception
         }
     };
 
@@ -65,4 +67,5 @@ Results kernel_traceback_path(
         ref_lengths,
         results.tb_streams);
 
+    return results;
 }
