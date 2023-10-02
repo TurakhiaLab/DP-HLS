@@ -5,9 +5,8 @@ import tracemalloc
 
 query = "CCGTAGACCCGAACTTCGCGGTACACCTTCTGAAACCGTCCCTAATCCGACGAGCGCCTTGAGAACG"
 reference = "TGAGAACGTAGTCTAGGCGAATCGGCCCTTGTATATCGGGGCCGTAGACCCGAACTTCGCGGTACAC"
-result = alignhls.kernel_traceback_path()
+result = alignhls.kernel_traceback_path(query, reference)
 
-print()
 
 # snapshot = tracemalloc.take_snapshot()
 # top_stats = snapshot.statistics('lineno')
