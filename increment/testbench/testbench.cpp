@@ -1,3 +1,14 @@
+/**
+ * @file testbench.cpp
+ * @author Yingqi Cao (yic033@ucsd.edu)
+ * @brief Testbench code for specific components of the alignHLS kernel.  
+ * @version 0.1
+ * @date 2023-10-01
+ * 
+ * @copyright Copyright (c) 2023
+ * 
+ */
+
 #include <hls_vector.h>
 #include <stdlib.h>
 
@@ -34,7 +45,7 @@ void Testbench::test_task_channel_pe() {
             wavefronts[i][j] = hls::vector<type_t, N_LAYERS>(rand() % 100);
         }
     }
-    PE::ExpandComputeTask(
+    PE::ExpandComputeTC(
         local_query,
         local_reference,
         wavefronts,
@@ -43,7 +54,7 @@ void Testbench::test_task_channel_pe() {
     );
 }
 
-void Testbench::test_block_pe(){
+void Testbench::test_stream_pe(){
     /* Test whether the dataflow PE array works. 
     * 
     */
@@ -74,7 +85,7 @@ void Testbench::test_block_pe(){
         left_prevs_acc[i] = hls::vector<type_t, N_LAYERS>(rand() % 100);
     }
 
-    PE::ExpandComputeBlock(
+    PE::ExpandComputeSoB(
         local_querys,
         local_references_stm,
         up_prevs_stm,
@@ -98,7 +109,7 @@ void Testbench::test_block_pe(){
     std::cout << std::endl;
 }
 
-void Testbench::test_compute_chunk_block(){
+void Testbench::test_compute_chunk_sob(){
     idx_t chunk_row_offset = 0;
     input_char_block_t query;
     char_t reference[MAX_REFERENCE_LENGTH];
@@ -122,7 +133,7 @@ void Testbench::test_compute_chunk_block(){
         init_row_scr[i] = hls::vector<type_t, N_LAYERS>(rand() % 100);
     }
 
-    Align::ChunkComputeBlock(
+    Align::ChunkComputeSoB(
         chunk_row_offset,
         query,
         reference,

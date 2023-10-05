@@ -372,8 +372,8 @@ struct ArrayPack {
 #define MT 10
 #define NT 6
 
-#define WT 4  // 2 bits direction pointer
-#define IT WT-2  // 2 bit represents layer
+// #define WT 4  // 2 bits direction pointer
+// #define IT WT-2  // 2 bit represents layer
 
 //#define DEBUG
 
@@ -388,24 +388,28 @@ struct ArrayPack {
 typedef ap_uint<3> char_t;
 typedef ap_fixed<MT, NT> type_t;  // alias type_t with ap_fixed<M,N>
 typedef ap_uint<8> idx_t;
-typedef ap_ufixed<WT, IT> tbp_t;  // traceback pointer typ
-typedef ap_ufixed<2, 0> tbp_dir_t;  // direction bits type for traceback pointer
+typedef ap_uint<4> tbp_t;
+typedef ap_uint<2> tbr_t;  // traceback result
 
-//tbp_t TB_PH = 0.0;  // this is place holder
-//tbp_t TB_LEFT = 0.25;
-//tbp_t TB_DIAG = 0.5;
-//tbp_t TB_UP = 0.75;
+// Set directions for the matrices
+#define TB_PH (tbp_t) 0b0000
+#define TB_LEFT (tbp_t) 0b0001
+#define TB_DIAG (tbp_t) 0b0010
+#define TB_UP (tbp_t) 0b0011
 
-#define TB_PH (tbp_dir_t) 0.0
-#define TB_LEFT (tbp_dir_t) 0.25
-#define TB_DIAG (tbp_dir_t) 0.5
-#define TB_UP (tbp_dir_t) 0.75
+#define TB_IMAT (tbp_t) 0b0100  // set bits for the insertion matrix
+#define TB_DMAT (tbp_t) 0b1000  // set bits for the deletion matrix
 
 #define zero_fp ((type_t)0)
 
+#define AL_MMI (tbr_t) 0b10  // Align Match/Mismatch
+#define AL_INS (tbr_t) 0b01
+#define AL_DEL (tbr_t) 0b11
+#define AL_END (tbr_t) 0b00
+
 #define linear_gap_penalty (type_t) (-2)
-#define opening_score -2
-#define extend_score -2
+#define opening_score (type_t) -2
+#define extend_score (type_t) -2
 #define mismatch_score (type_t) (-1)
 #define match_score (type_t) 3
 
@@ -427,11 +431,10 @@ typedef hls::vector<type_t, N_LAYERS> init_col_score_block_t[MAX_QUERY_LENGTH];
 typedef hls::vector<type_t, N_LAYERS> init_row_score_block_t[MAX_REFERENCE_LENGTH];
 typedef tbp_t traceback_block_t[MAX_QUERY_LENGTH + MAX_REFERENCE_LENGTH];
 typedef hls::vector<type_t, N_LAYERS> score_block_t[PE_NUM];
-typedef hls::vector<tbp_t, N_LAYERS> tbp_block_t[PE_NUM];
+typedef tbp_t tbp_block_t[PE_NUM];
 typedef char_t input_char_block_t[PE_NUM];
 typedef hls::vector<type_t, N_LAYERS> dp_mem_block_t[2][PE_NUM];
-typedef hls::vector<tbp_t, N_LAYERS> tbp_chunk_block_t[PE_NUM][MAX_REFERENCE_LENGTH];
-
+typedef tbp_t tbp_chunk_block_t[PE_NUM][MAX_REFERENCE_LENGTH];
 typedef hls::vector<type_t, N_LAYERS> score_vec_t;
 
 #define LAYER_MAXIMIUM 0

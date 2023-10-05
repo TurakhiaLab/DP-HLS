@@ -1,16 +1,10 @@
-import alignhls
-import tracemalloc
-
-# tracemalloc.start()
+from alignhls import AHRunner
 
 query = "CCGTAGACCCGAACTTCGCGGTACACCTTCTGAAACCGTCCCTAATCCGACGAGCGCCTTGAGAACG"
 reference = "TGAGAACGTAGTCTAGGCGAATCGGCCCTTGTATATCGGGGCCGTAGACCCGAACTTCGCGGTACAC"
-result = alignhls.kernel_traceback_path(query, reference)
 
 
-# snapshot = tracemalloc.take_snapshot()
-# top_stats = snapshot.statistics('lineno')
-
-# print("[ Top 10 ]")
-# for stat in top_stats[:10]:
-#     print(stat)
+runner = AHRunner()
+runner.run(query, reference)
+traceback = runner.get_traceback_path()
+print(traceback)

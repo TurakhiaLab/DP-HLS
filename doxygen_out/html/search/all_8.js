@@ -15,5 +15,5 @@ var searchData=
   ['initialvalues_12',['InitialValues',['../structInitialValues.html',1,'']]],
   ['initpe_13',['InitPE',['../namespaceAlign_1_1FindMax.html#a6ad6db830b72334397e356a3a847e0f0',1,'Align::FindMax']]],
   ['input_5fchar_5fblock_5ft_14',['input_char_block_t',['../params_8h.html#aae0a4301a15974d8514ee65bcd2f78c5',1,'params.h']]],
-  ['it_15',['IT',['../params_8h.html#af319bbb599cf60692950a42d1e487313',1,'params.h']]]
+  ['ins_15',['INS',['../traceback_8h.html#a4349d695aafa816505527a005e11843aa958fa7aa9ac4b5cd6e56237041b90584',1,'traceback.h']]]
 ];

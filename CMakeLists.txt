@@ -23,13 +23,14 @@ set(EXECUTABLE_TARGETS
     test_align
 )
 
+# Compile baseline kernel. 
 add_executable(baseline_local_linear "increment/legacy/local_linear.h"
     "increment/legacy/local_linear.cpp"
     "increment/legacy/shift_register.h"
     "increment/legacy/local_linear_testbench.cpp" )
 
 # Testbench for incremental components. 
-add_executable(tests "increment/testbench/main.cpp"
+add_executable(tests "increment/testbench/test_align.cpp"
     "increment/include/testbench.h"
     "increment/include/PE.h"
     "increment/include/seq_align.h"
@@ -38,6 +39,7 @@ add_executable(tests "increment/testbench/main.cpp"
     "increment/src/pe/pe.cpp"
     "increment/src/align/align.cpp")
 
+# Testbench for individual kernel. 
 add_executable(test_align "increment/testbench/test_align.cpp"
     "increment/include/params.h"
     "increment/include/seq_align_multiple.h"

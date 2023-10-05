@@ -26,7 +26,7 @@ extern "C" {
 		char_t (&references)[N_BLOCKS][MAX_REFERENCE_LENGTH],
 		idx_t (&query_lengths)[N_BLOCKS],
 		idx_t (&reference_lengths)[N_BLOCKS],
-		tbp_t (&tb_streams)[N_BLOCKS][MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH]);
+		tbr_t (&tb_streams)[N_BLOCKS][MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH]);
 
 	// Have maximum input length of 2048 for 2 bit inputs. 
 	// void seq_align_multiple_dynamic(

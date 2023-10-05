@@ -1,3 +1,14 @@
+/**
+ * @file test_align.cpp
+ * @author Yingqi Cao (yic033@ucsd.edu)
+ * @brief Testbench for Kernel with CMake. 
+ * @version 0.1
+ * @date 2023-10-01
+ * 
+ * @copyright Copyright (c) 2023
+ * 
+ */
+
 #include "../include/seq_align_multiple.h"
 #include "../include/params.h"
 
@@ -6,7 +17,7 @@
 
 using namespace std;
 
-int testbench()
+int main()
 {
 
     string query_string = "AGTCTAGGCGAATCGGCCCTTGTATATCGGGG";     // CCGTAGACCCGAACTTCGCGGTACACCTTCTGAAACCGTCCCTAATCCGACGAGCGCCTTGAGAACG";
@@ -23,7 +34,7 @@ int testbench()
 
     idx_t qry_lengths[N_BLOCKS], ref_lengths[N_BLOCKS];
 
-    tbp_t tb_streams[N_BLOCKS][MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH];
+    tbr_t tb_streams[N_BLOCKS][MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH];
 
     // Move this into another function that generalize sequences.
     // char alphabet[4] = {'A', 'C', 'G', 'T'};
@@ -72,6 +83,8 @@ int testbench()
         qry_lengths,
         ref_lengths,
         tb_streams);
+
+    
 
     return 0;
 }

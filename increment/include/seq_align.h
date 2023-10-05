@@ -109,7 +109,7 @@ namespace Align{
 	 * @param max 
 	 * @param tbp_out 
 	 */
-	void ChunkComputeBlock(
+	void ChunkComputeSoB(
 		idx_t chunk_row_offset,
 		input_char_block_t &query,
 		char_t (&reference)[MAX_REFERENCE_LENGTH],
@@ -140,7 +140,7 @@ namespace Align{
 		int query_length, int reference_length,
 		hls::vector<type_t, N_LAYERS> (&preserved_row_scr)[MAX_REFERENCE_LENGTH],
 		ScorePack &max,  // write out so must pass by reference
-		hls::vector<tbp_t, N_LAYERS> (*chunk_tbp_out)[MAX_REFERENCE_LENGTH]
+		tbp_t (*chunk_tbp_out)[MAX_REFERENCE_LENGTH]
 	);
 
 	void WriteInitialColScore(int i, score_vec_t (&init_scores)[PE_NUM], 
@@ -156,7 +156,7 @@ namespace Align{
 	void ArrangeTBPArr(
 		tbp_block_t &tbp_in,
 		bool (&predicate)[PE_NUM], idx_t (&pe_offset)[PE_NUM],
-		hls::vector<tbp_t, N_LAYERS> (*chunk_tbp_out)[MAX_REFERENCE_LENGTH]
+		tbp_t (*chunk_tbp_out)[MAX_REFERENCE_LENGTH]
 	);
 
 	void ShiftPredicate(bool (&predicate)[PE_NUM], int idx, int query_len, int reference_len); 
@@ -209,7 +209,7 @@ namespace Align{
 		char_t (&references)[MAX_REFERENCE_LENGTH],
 		idx_t query_length,
 		idx_t reference_length,
-		tbp_t (&tb_streams)[MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH]
+		tbr_t (&tb_streams)[MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH]
 	);
 
 	/**
@@ -227,12 +227,7 @@ namespace Align{
 	void ChunkMax(ScorePack &max, ScorePack new_scr);
 	
 	void UpdatePEOffset(idx_t (&pe_offset)[PE_NUM], bool (&predicate)[PE_NUM]);
-	
-	void Traceback(
-		hls::vector<tbp_t, N_LAYERS> (&tbmat)[MAX_QUERY_LENGTH][MAX_REFERENCE_LENGTH],
-		tbp_t (&traceback_out)[MAX_REFERENCE_LENGTH+MAX_QUERY_LENGTH],
-		const int max_row, const int max_col, const int max_layer);  // starting index to traceback
-	
+
 }
 
 #endif // !SEQ_ALIGN_H

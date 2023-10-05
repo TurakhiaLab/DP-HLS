@@ -1,12 +1,15 @@
 README.md
 setup.py
 ./increment/module.cpp
+./increment/src/pyapi.cpp
+./increment/src/traceback.cpp
+./increment/src/align/align.cpp
+./increment/src/pe/pe.cpp
+./increment/src/toplevel/seq_align_multiple.cpp
 alignhls.egg-info/PKG-INFO
 alignhls.egg-info/SOURCES.txt
 alignhls.egg-info/dependency_links.txt
 alignhls.egg-info/top_level.txt
-increment/legacy/local_linear.cpp
-increment/legacy/local_linear_testbench.cpp
 increment/src/compat.cpp
 increment/src/components.cpp
 increment/src/initial.cpp
@@ -15,7 +18,3 @@ increment/src/traceback.cpp
 increment/src/align/align.cpp
 increment/src/pe/pe.cpp
 increment/src/toplevel/seq_align_multiple.cpp
-increment/testbench/main.cpp
-increment/testbench/test_align.cpp
-increment/testbench/test_pyapi.cpp
-increment/testbench/testbench.cpp

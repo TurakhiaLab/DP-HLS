@@ -1,7 +1,7 @@
 #include "../include/pyapi.h"
 #include "../include/seq_align_multiple.h"
 #include "../include/pyapi.h"
-#include "pyapi.h"
+#include "../include/pyapi.h"
 
 using namespace std;
 
@@ -158,32 +158,31 @@ void AHRunner::run(string query_string, string reference_string)
         this->tb_streams); 
 }
 
-std::vector<std::vector<string>> AHRunner::get_traceback_path()
+std::vector<std::vector<char>> AHRunner::get_traceback_path()
 {
-    // if (this->tb_streams == NULL) {
-    //     throw std::runtime_error("Traceback path is never computed or unknown error.");
-    // }
 
-    // std::vector<std::vector<string>> traceback_paths;
+    auto to_char = [](const tbr_t binary) -> char {
+        if (binary == AL_INS) return 'I';
+        if (binary == AL_DEL) return 'D';
+        if (binary == AL_MMI) return 'M';
+        if (binary == AL_END) return 'E';
+        return '?';  // Handle invalid input gracefully
+    };
 
-    // for (int b = 0; b < N_BLOCKS; b++)
-    // {
-    //     for (int i = 0; i < MAX_QUERY_LENGTH + MAX_REFERENCE_LENGTH; i++)
-    //     {
-    //         tbp_t tbp = this->tb_streams[b][i];
-    //         if (tbp == 0)
-    //         {
-    //             break;
-    //         }
-    //         else
-    //         {
-    //             traceback_path.push_back(std::to_string(tbp));
-    //         }
-    //     }
-    //     traceback_paths.push_back(traceback_path);
-    // }
+     std::vector<std::vector<char>> traceback_paths;
 
-    // return traceback_paths;
+     for (auto & tb_stream : this->tb_streams)
+     {
+         std::vector<char> traceback_path;
+
+         tbr_t *tbp = &tb_stream[0];
+         while (*tbp != AL_END){
+             traceback_path.push_back(to_char(*tbp++));
+         }
+         traceback_paths.push_back(traceback_path);
+     }
+
+     return traceback_paths;
 }
 
 std::vector<std::vector<std::vector<std::vector<float>>>> AHRunner::get_scores()

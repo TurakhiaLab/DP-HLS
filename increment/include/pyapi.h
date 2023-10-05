@@ -9,7 +9,7 @@ using namespace std;
 
 class Results {
 public:
-    tbp_t tb_streams[N_BLOCKS][MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH];
+    tbr_t tb_streams[N_BLOCKS][MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH];
     hls::vector<type_t, N_LAYERS> scores[N_BLOCKS][MAX_QUERY_LENGTH][MAX_REFERENCE_LENGTH];
 
     Results(){
@@ -30,8 +30,11 @@ Results kernel_traceback_path(
     string query_string, string reference_string
     );
 
-class AHRunner {
+
+
+class AHRunner {  // AlignHLS Runner
 public:
+
     string query, reference;
 
     AHRunner(){
@@ -65,7 +68,7 @@ public:
      * 
      * @return std::vector<std::vector<string>> 
      */
-    std::vector<std::vector<string>> get_traceback_path();
+    std::vector<std::vector<char>> get_traceback_path();
 
     /**
      * @brief Get the scores of all the blocks. Each block score is a 3d vector with
@@ -83,12 +86,12 @@ private:
     string query_string;
     string reference_string;
     
-    tbp_t tb_streams[N_BLOCKS][MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH];
+    tbr_t tb_streams[N_BLOCKS][MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH];
 
     //FIXME: Scores could be represented by a simpler format. 
     hls::vector<type_t, N_LAYERS> scores[N_BLOCKS][MAX_QUERY_LENGTH][MAX_REFERENCE_LENGTH];
     
-    char_t base_to_num(char base);
+    static char_t base_to_num(char base);
 };
 
 

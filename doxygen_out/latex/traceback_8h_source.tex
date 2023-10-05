@@ -16,28 +16,29 @@
 \DoxyCodeLine{00012\ }
 \DoxyCodeLine{00013\ \textcolor{keyword}{using\ namespace\ }hls;}
 \DoxyCodeLine{00014\ }
-\DoxyCodeLine{00015\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classTraceBack}{TraceBack}}\ \{}
-\DoxyCodeLine{00016\ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00017\ \ \ \ \ }
-\DoxyCodeLine{00018\ }
-\DoxyCodeLine{00019\ \ \ \ \ \mbox{\hyperlink{classTraceBack_a4d251cb1e4396cc8707f4f88f79f3fc4}{TraceBack}}()\{}
-\DoxyCodeLine{00020\ \textcolor{comment}{//\ \#pragma\ HLS\ ARRAY\_PARTITION\ variable=input\_ptr\ factor=32\ dim=0\ type=complete}}
-\DoxyCodeLine{00021\ \textcolor{comment}{//\ \#pragma\ HLS\ ARRAY\_PARTITION\ variable=tb\_matrix\ factor\ =\ 32\ dim=2\ type=cyclic}}
-\DoxyCodeLine{00022\ \textcolor{comment}{//\ \#pragma\ HLS\ aggregate\ variable=tb\_matrix\ compact=auto}}
-\DoxyCodeLine{00023\ \textcolor{comment}{//\ \#pragma\ HLS\ bind\_storage\ variable=tb\_matrix\ type=RAM\_1P\ impl=bram}}
-\DoxyCodeLine{00024\ \ \ \ \ \}}
-\DoxyCodeLine{00025\ }
-\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classTraceBack_ae64db25255093e9e08c64461b5e52cef}{traceback}}(}
-\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ hls::vector<tbp\_t,\ N\_LAYERS>\ tbmat[\mbox{\hyperlink{params_8h_a8f04d03e80ec19dc2f6f36097e3f8202}{MAX\_QUERY\_LENGTH}}][\mbox{\hyperlink{params_8h_a0083a9bee1ec159ad13954a3186ef6d9}{MAX\_REFERENCE\_LENGTH}}],}
-\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ stream<tbp\_t,\ MAX\_REFERENCE\_LENGTH+MAX\_QUERY\_LENGTH>\ \&tb\_stream,\ }
-\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ max\_layer,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ max\_row,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ max\_col);}
-\DoxyCodeLine{00030\ }
-\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#ifdef\ DEBUG}}
-\DoxyCodeLine{00032\ \ \ \ \ \mbox{\hyperlink{classDebugger}{Debugger}}*\ debugger;}
-\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ DEBUG}}
-\DoxyCodeLine{00034\ }
-\DoxyCodeLine{00035\ \};}
-\DoxyCodeLine{00036\ }
-\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00015\ \textcolor{keyword}{enum}\ \mbox{\hyperlink{traceback_8h_a4349d695aafa816505527a005e11843a}{TB\_STATE}}\ \{}
+\DoxyCodeLine{00016\ \ \ \ \ \mbox{\hyperlink{traceback_8h_a4349d695aafa816505527a005e11843aa519a4a8945cef24205e65dbbc404da73}{MM}}\ =\ 0,\ \ \ \textcolor{comment}{//\ Match/Mismatch}}
+\DoxyCodeLine{00017\ \ \ \ \ \mbox{\hyperlink{traceback_8h_a4349d695aafa816505527a005e11843aa958fa7aa9ac4b5cd6e56237041b90584}{INS}}\ =\ 1,\ \ \textcolor{comment}{//\ Insertion}}
+\DoxyCodeLine{00018\ \ \ \ \ \mbox{\hyperlink{traceback_8h_a4349d695aafa816505527a005e11843aa11563127ec3be864b514a1784c5d37a6}{DEL}}\ =\ 2,\ \ \textcolor{comment}{//\ Deletion}}
+\DoxyCodeLine{00019\ \};}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespaceTraceback}{Traceback}}\ \{}
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{namespaceTraceback}{Traceback}}(}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{params_8h_af01971f7c8dd670620c681062e49a238}{tbp\_t}}\ (\&tbmat)[\mbox{\hyperlink{params_8h_a8f04d03e80ec19dc2f6f36097e3f8202}{MAX\_QUERY\_LENGTH}}][\mbox{\hyperlink{params_8h_a0083a9bee1ec159ad13954a3186ef6d9}{MAX\_REFERENCE\_LENGTH}}],}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{params_8h_ae948dbba5f80bacad848ac9b6e17ede2}{tbr\_t}}\ (\&traceback\_out)[\mbox{\hyperlink{params_8h_a0083a9bee1ec159ad13954a3186ef6d9}{MAX\_REFERENCE\_LENGTH}}+\mbox{\hyperlink{params_8h_a8f04d03e80ec19dc2f6f36097e3f8202}{MAX\_QUERY\_LENGTH}}],}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ max\_row,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ max\_col);\ \ \textcolor{comment}{//\ starting\ index\ to\ traceback}}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{namespaceTraceback_af90949b86f809f43de8fa5ecf64668c6}{pointer\_to\_coordinate}}(\mbox{\hyperlink{params_8h_af01971f7c8dd670620c681062e49a238}{tbp\_t}}\ tbp,\ \mbox{\hyperlink{traceback_8h_a4349d695aafa816505527a005e11843a}{TB\_STATE}}\ \&state,\ \textcolor{keywordtype}{int}\ \&row,\ \textcolor{keywordtype}{int}\ \&column);}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{namespaceTraceback_ac707a9f961afaaf8af2a48d6a9dbf761}{state\_initial}}(\mbox{\hyperlink{params_8h_af01971f7c8dd670620c681062e49a238}{tbp\_t}}\ tbp,\ \mbox{\hyperlink{traceback_8h_a4349d695aafa816505527a005e11843a}{TB\_STATE}}\ \&state);}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00060\ \ \ \ \ \mbox{\hyperlink{params_8h_af01971f7c8dd670620c681062e49a238}{tbp\_t}}\ \mbox{\hyperlink{namespaceTraceback_a264b1bdcf0a273a3bd4a4351e1902b24}{extract\_direction}}(\mbox{\hyperlink{params_8h_af01971f7c8dd670620c681062e49a238}{tbp\_t}}\ tbp);}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00066\ \ \ \ \ \mbox{\hyperlink{params_8h_ae948dbba5f80bacad848ac9b6e17ede2}{tbr\_t}}\ \mbox{\hyperlink{namespaceTraceback_a4fc84929b8218122ae1dbad96338f19d}{state\_to\_path}}(\mbox{\hyperlink{traceback_8h_a4349d695aafa816505527a005e11843a}{TB\_STATE}}\ state);}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00068\ \}}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ \textcolor{preprocessor}{\#endif}}
 
 \end{DoxyCode}

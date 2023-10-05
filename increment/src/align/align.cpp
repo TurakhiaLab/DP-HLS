@@ -85,7 +85,7 @@ void Align::PrepareScoresBlock(
 
 
 
-void Align::ChunkComputeBlock(
+void Align::ChunkComputeSoB(
 	idx_t chunk_row_offset,
 	input_char_block_t &query,
 	char_t (&reference)[MAX_REFERENCE_LENGTH],
@@ -156,7 +156,7 @@ void Align::ChunkComputeBlock(
 		Align::PrepareScoresBlock(dp_mem_stm, init_col_scr, i, last_chunk_scr_stm, up_scores, diag_scores, left_scores, initialized_dup);
 
 
-		PE::ExpandComputeBlock(
+		PE::ExpandComputeSoB(
 			query,
 			reference_in_stm,
 			up_scores,
@@ -289,7 +289,7 @@ void Align::ChunkCompute(
 	int query_length, int reference_length,
 	hls::vector<type_t, N_LAYERS> (&preserved_row_scr)[MAX_REFERENCE_LENGTH],
 	ScorePack &max,
-	hls::vector<tbp_t, N_LAYERS> (*chunk_tbp_out)[MAX_REFERENCE_LENGTH])
+	tbp_t(*chunk_tbp_out)[MAX_REFERENCE_LENGTH])
 {
 
 	bool predicate[PE_NUM];
@@ -346,7 +346,7 @@ void Align::ChunkCompute(
 
 		Align::PrepareScoresArr(dp_mem, init_col_scr, i, last_chunk_scr, up_scores, diag_scores, left_scores);
 
-		PE::ExpandComputeArr(
+		PE::ExpandCompute(
 			query,
 			local_reference,
 			up_scores,
@@ -392,7 +392,7 @@ void Align::FindMax::ExtractScoresLayer(score_block_t &scores, idx_t layer, type
 void Align::ArrangeTBPArr(
 	tbp_block_t &tbp_in,
 	bool (&predicate)[PE_NUM], idx_t (&pe_offset)[PE_NUM],
-	hls::vector<tbp_t, N_LAYERS> (*chunk_tbp_out)[MAX_REFERENCE_LENGTH]
+	tbp_t (*chunk_tbp_out)[MAX_REFERENCE_LENGTH]
 ){
 
 
@@ -520,7 +520,7 @@ void Align::AlignStatic(
 	char_t (&reference)[MAX_REFERENCE_LENGTH],
 	idx_t query_length,
 	idx_t reference_length,
-	tbp_t (&tb_out)[MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH])
+	tbr_t (&tb_out)[MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH])
 {
 
 // >>> Initialization >>>
@@ -534,7 +534,7 @@ void Align::AlignStatic(
 
 	Align::InitializeScores(init_col_scr, init_row_score);
 
-	hls::vector<tbp_t, N_LAYERS> tbp_matrix[MAX_QUERY_LENGTH][MAX_REFERENCE_LENGTH];
+	tbp_t tbp_matrix[MAX_QUERY_LENGTH][MAX_REFERENCE_LENGTH];
 
 #pragma HLS array_partition variable = tbp_matrix type = cyclic factor = PE_NUM dim = 1
 
@@ -556,7 +556,7 @@ void Align::AlignStatic(
 		Align::PrepareLocalQuery(query, local_query, i, local_query_length);  // FIXME: Why not coping rest of the query
 		Utils::Array::Copy<score_vec_t, MAX_QUERY_LENGTH, PE_NUM, PE_NUM>(init_col_scr, local_init_col_score, local_query_length, (score_vec_t) 0);
 
-		hls::vector<tbp_t, N_LAYERS> (*chunk_tbp_out)[MAX_REFERENCE_LENGTH] = &tbp_matrix[i];
+		tbp_t (*chunk_tbp_out)[MAX_REFERENCE_LENGTH] = &tbp_matrix[i];
 
 		Align::ChunkCompute(
 			i,
@@ -578,7 +578,7 @@ void Align::AlignStatic(
 	}
 
 // >>> Traceback >>>
-	Align::Traceback(tbp_matrix, tb_out, maximum.chunk_offset + maximum.pe, maximum.pe_offset, maximum.layer);
+	Traceback::Traceback(tbp_matrix, tb_out, maximum.chunk_offset + maximum.pe, maximum.pe_offset);
 	
 }
 
@@ -607,52 +607,3 @@ void Align::FindMax::InitPE(ScorePack (&pack)[PE_NUM]){
 	}
 }
 
-
-void Align::Traceback(
-		hls::vector<tbp_t, N_LAYERS> (&tbmat)[MAX_QUERY_LENGTH][MAX_REFERENCE_LENGTH],
-		tbp_t (&traceback_out)[MAX_REFERENCE_LENGTH+MAX_QUERY_LENGTH],
-		const int max_row, const int max_col, const int max_layer)  // starting index to traceback
-	{ 
-		int row = max_row;
-		int col = max_col;
-		int level = max_layer;
-		int i = 0;
-
-		traceback_loop:
-		while (row >= 0 && col >= 0) {
-			tbp_t tbptr = tbmat[row][col][level];
-			traceback_out[i++] = tbptr;
-
-	#ifdef DEBUG
-			this->debugger->data.traceback.push_back(tbptr);
-	#endif // DEBUG
-
-			int level_prev = level;
-			tbp_dir_t dir; dir(1,0) = tbptr(1, 0);
-			level = tbptr(WT - 1, 2).to_int(); // extract layer bit
-			
-			
-			if ((dir == TB_PH) && (level == level_prev)) {
-				// printf("ending at: %f\n", tbptr.to_float());
-				break;
-			}
-			else if (dir == TB_PH) {
-				continue;
-			}
-			else if (dir == TB_DIAG) {
-				row--; col--;
-			}
-			else if (dir == TB_UP) {
-				row--;
-			}
-			else if (dir == TB_LEFT) {
-				col--;
-			}
-			else {
-	#ifdef DEBUG
-				printf("default meet: %f, dir: %f\n", tbptr.to_float(), dir.to_float());
-	#endif // DEBUG
-				break;  //break the loop
-			}
-		}
-	}

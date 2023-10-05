@@ -21,7 +21,7 @@ void DutExpandCompute(
      * This style have problem which is the single channel is responsible for distributing
      * the input for all the PEs, which is not wide enough and certainly a bottleneck.
      */
-    PE::ExpandComputeTask(
+    PE::ExpandComputeTC(
             local_query,
             local_reference,
             wavefronts,
@@ -65,7 +65,7 @@ void DutExpandComputeBlock(input_char_block_t &local_querys,
             diag_prevs_stm,
             left_prevs_stm);
 
-    PE::ExpandComputeBlock(
+    PE::ExpandComputeSoB(
             local_querys,
             local_references_stm,
             up_prevs_stm,
@@ -96,7 +96,7 @@ void DutChunkComputeBlock(idx_t chunk_row_offset,
 
 hls::stream_of_blocks<tbp_chunk_block_t> tbp_chunk_out;
 
-    Align::ChunkComputeBlock(
+    Align::ChunkComputeSoB(
             chunk_row_offset,
             query,
             reference,

@@ -3,15 +3,15 @@ import pybind11, glob, os
 
 cpp_args = ['-std=c++17']
 
-sources=["./increment/module.cpp"]
+sources=[
+    "./increment/module.cpp",
+    "./increment/src/align/align.cpp",
+    "./increment/src/pe/pe.cpp",
+    "./increment/src/toplevel/seq_align_multiple.cpp",
+    "./increment/src/pyapi.cpp",
+    "./increment/src/traceback.cpp"
+         ]
 
-for fpath in glob.glob(os.path.join('increment', '**', '*')):
-    if (fpath.endswith('.cpp') and not fpath.endswith('test_pyapi.cpp')):
-        sources.append(fpath)
-
-for fpath in glob.glob(os.path.join('increment', '**', '**', '*')):
-    if (fpath.endswith('.cpp')):
-        sources.append(fpath)
 
 sfc_module = Extension(
     'alignhls',

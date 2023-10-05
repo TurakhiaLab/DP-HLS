@@ -76,7 +76,7 @@
 \DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{params_8h_a5c792b933d6f003bb1c5e08e940319ba}{score\_block\_t}}\ \&diag\_out,}
 \DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{params_8h_a5c792b933d6f003bb1c5e08e940319ba}{score\_block\_t}}\ \&left\_out);}
 \DoxyCodeLine{00101\ }
-\DoxyCodeLine{00112\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{namespaceAlign_add7b97d2ce15372695f3a50937d9ca0e}{ChunkComputeBlock}}(}
+\DoxyCodeLine{00112\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{namespaceAlign_a6450dede9f914eca05a4696f9112dec9}{ChunkComputeSoB}}(}
 \DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{params_8h_a0deac85b32dbd3d91a713912fa616412}{idx\_t}}\ chunk\_row\_offset,}
 \DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{params_8h_aae0a4301a15974d8514ee65bcd2f78c5}{input\_char\_block\_t}}\ \&query,}
 \DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{params_8h_ac7cce7368348bd25ead6f536eb2e9851}{char\_t}}\ (\&reference)[\mbox{\hyperlink{params_8h_a0083a9bee1ec159ad13954a3186ef6d9}{MAX\_REFERENCE\_LENGTH}}],}
@@ -88,7 +88,7 @@
 \DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ hls::stream\_of\_blocks<tbp\_chunk\_block\_t>\ \&chunk\_tbp\_out}
 \DoxyCodeLine{00122\ \ \ \ \ );}
 \DoxyCodeLine{00123\ }
-\DoxyCodeLine{00134\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{namespaceAlign_aecf304be87ea5a7cd4d1a4a93670a404}{ChunkCompute}}(}
+\DoxyCodeLine{00134\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{namespaceAlign_afe3f00c99ed1b663dc7334b86ec612fe}{ChunkCompute}}(}
 \DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{params_8h_a0deac85b32dbd3d91a713912fa616412}{idx\_t}}\ chunk\_row\_offset,}
 \DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{params_8h_aae0a4301a15974d8514ee65bcd2f78c5}{input\_char\_block\_t}}\ \&query,}
 \DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{params_8h_ac7cce7368348bd25ead6f536eb2e9851}{char\_t}}\ (\&reference)[\mbox{\hyperlink{params_8h_a0083a9bee1ec159ad13954a3186ef6d9}{MAX\_REFERENCE\_LENGTH}}],}
@@ -97,7 +97,7 @@
 \DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ query\_length,\ \textcolor{keywordtype}{int}\ reference\_length,}
 \DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ hls::vector<type\_t,\ N\_LAYERS>\ (\&preserved\_row\_scr)[\mbox{\hyperlink{params_8h_a0083a9bee1ec159ad13954a3186ef6d9}{MAX\_REFERENCE\_LENGTH}}],}
 \DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structScorePack}{ScorePack}}\ \&max,\ \ \textcolor{comment}{//\ write\ out\ so\ must\ pass\ by\ reference}}
-\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ hls::vector<tbp\_t,\ N\_LAYERS>\ (*chunk\_tbp\_out)[\mbox{\hyperlink{params_8h_a0083a9bee1ec159ad13954a3186ef6d9}{MAX\_REFERENCE\_LENGTH}}]}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{params_8h_af01971f7c8dd670620c681062e49a238}{tbp\_t}}\ (*chunk\_tbp\_out)[\mbox{\hyperlink{params_8h_a0083a9bee1ec159ad13954a3186ef6d9}{MAX\_REFERENCE\_LENGTH}}]}
 \DoxyCodeLine{00144\ \ \ \ \ );}
 \DoxyCodeLine{00145\ }
 \DoxyCodeLine{00146\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{namespaceAlign_af7f2171dda71f8dfed5e8d74fadd7357}{WriteInitialColScore}}(\textcolor{keywordtype}{int}\ i,\ \mbox{\hyperlink{params_8h_ad3fad65c31308e9db74520d3fa260ff0}{score\_vec\_t}}\ (\&init\_scores)[\mbox{\hyperlink{params_8h_aceb4cc72bd33675b648bc2c8c1f7886b}{PE\_NUM}}],\ }
@@ -110,10 +110,10 @@
 \DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ hls::stream\_of\_blocks<tbp\_chunk\_block\_t>\ \&tbp\_chunk\_out}
 \DoxyCodeLine{00154\ \ \ \ \ );}
 \DoxyCodeLine{00155\ }
-\DoxyCodeLine{00156\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{namespaceAlign_a09c7508402d3fb17a15436a84c76e82f}{ArrangeTBPArr}}(}
-\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{params_8h_aa933d2cb25ab26a8ffbe600bf9689eae}{tbp\_block\_t}}\ \&tbp\_in,}
+\DoxyCodeLine{00156\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{namespaceAlign_a916f10ccd010b94a65794dd8f778dd0e}{ArrangeTBPArr}}(}
+\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{params_8h_a9eb838767f86a3762daa205823af9517}{tbp\_block\_t}}\ \&tbp\_in,}
 \DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ (\&predicate)[\mbox{\hyperlink{params_8h_aceb4cc72bd33675b648bc2c8c1f7886b}{PE\_NUM}}],\ \mbox{\hyperlink{params_8h_a0deac85b32dbd3d91a713912fa616412}{idx\_t}}\ (\&pe\_offset)[\mbox{\hyperlink{params_8h_aceb4cc72bd33675b648bc2c8c1f7886b}{PE\_NUM}}],}
-\DoxyCodeLine{00159\ \ \ \ \ \ \ \ \ hls::vector<tbp\_t,\ N\_LAYERS>\ (*chunk\_tbp\_out)[\mbox{\hyperlink{params_8h_a0083a9bee1ec159ad13954a3186ef6d9}{MAX\_REFERENCE\_LENGTH}}]}
+\DoxyCodeLine{00159\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{params_8h_af01971f7c8dd670620c681062e49a238}{tbp\_t}}\ (*chunk\_tbp\_out)[\mbox{\hyperlink{params_8h_a0083a9bee1ec159ad13954a3186ef6d9}{MAX\_REFERENCE\_LENGTH}}]}
 \DoxyCodeLine{00160\ \ \ \ \ );}
 \DoxyCodeLine{00161\ }
 \DoxyCodeLine{00162\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{namespaceAlign_a304682b6f53cdf1158928d8aa253248b}{ShiftPredicate}}(\textcolor{keywordtype}{bool}\ (\&predicate)[\mbox{\hyperlink{params_8h_aceb4cc72bd33675b648bc2c8c1f7886b}{PE\_NUM}}],\ \textcolor{keywordtype}{int}\ idx,\ \textcolor{keywordtype}{int}\ query\_len,\ \textcolor{keywordtype}{int}\ reference\_len);\ }
@@ -152,12 +152,12 @@
 \DoxyCodeLine{00195\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ void\ Sender\ ()\ \ //\ Used\ to\ send\ the\ scores\ out\ the\ compute\ logic\ by\ blocks\ to\ find\ the\ max.\ Implement\ in\ the\ future}}
 \DoxyCodeLine{00196\ \ \ \ \ \};}
 \DoxyCodeLine{00197\ }
-\DoxyCodeLine{00207\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{namespaceAlign_a72287740d9a7894f0532e38049c1a506}{AlignStatic}}(}
+\DoxyCodeLine{00207\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{namespaceAlign_a9deede2ac8fc5fa15499593e816156d0}{AlignStatic}}(}
 \DoxyCodeLine{00208\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{params_8h_ac7cce7368348bd25ead6f536eb2e9851}{char\_t}}\ (\&querys)[\mbox{\hyperlink{params_8h_a8f04d03e80ec19dc2f6f36097e3f8202}{MAX\_QUERY\_LENGTH}}],}
 \DoxyCodeLine{00209\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{params_8h_ac7cce7368348bd25ead6f536eb2e9851}{char\_t}}\ (\&references)[\mbox{\hyperlink{params_8h_a0083a9bee1ec159ad13954a3186ef6d9}{MAX\_REFERENCE\_LENGTH}}],}
 \DoxyCodeLine{00210\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{params_8h_a0deac85b32dbd3d91a713912fa616412}{idx\_t}}\ query\_length,}
 \DoxyCodeLine{00211\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{params_8h_a0deac85b32dbd3d91a713912fa616412}{idx\_t}}\ reference\_length,}
-\DoxyCodeLine{00212\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{params_8h_a904688672ad769b7683603c2edeabd2b}{tbp\_t}}\ (\&tb\_streams)[\mbox{\hyperlink{params_8h_a0083a9bee1ec159ad13954a3186ef6d9}{MAX\_REFERENCE\_LENGTH}}\ +\ \mbox{\hyperlink{params_8h_a8f04d03e80ec19dc2f6f36097e3f8202}{MAX\_QUERY\_LENGTH}}]}
+\DoxyCodeLine{00212\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{params_8h_ae948dbba5f80bacad848ac9b6e17ede2}{tbr\_t}}\ (\&tb\_streams)[\mbox{\hyperlink{params_8h_a0083a9bee1ec159ad13954a3186ef6d9}{MAX\_REFERENCE\_LENGTH}}\ +\ \mbox{\hyperlink{params_8h_a8f04d03e80ec19dc2f6f36097e3f8202}{MAX\_QUERY\_LENGTH}}]}
 \DoxyCodeLine{00213\ \ \ \ \ );}
 \DoxyCodeLine{00214\ }
 \DoxyCodeLine{00222\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{namespaceAlign_ae52f8a1e49b3cb69233a7e46c2bc725a}{InitializeScores}}(}
@@ -168,14 +168,9 @@
 \DoxyCodeLine{00227\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{namespaceAlign_a781303e36556d883c4e05dd7e877a973}{ChunkMax}}(\mbox{\hyperlink{structScorePack}{ScorePack}}\ \&max,\ \mbox{\hyperlink{structScorePack}{ScorePack}}\ new\_scr);}
 \DoxyCodeLine{00228\ \ \ \ \ }
 \DoxyCodeLine{00229\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{namespaceAlign_a80fd5bb4d0fa5d05c7e4d18868b7b998}{UpdatePEOffset}}(\mbox{\hyperlink{params_8h_a0deac85b32dbd3d91a713912fa616412}{idx\_t}}\ (\&pe\_offset)[\mbox{\hyperlink{params_8h_aceb4cc72bd33675b648bc2c8c1f7886b}{PE\_NUM}}],\ \textcolor{keywordtype}{bool}\ (\&predicate)[\mbox{\hyperlink{params_8h_aceb4cc72bd33675b648bc2c8c1f7886b}{PE\_NUM}}]);}
-\DoxyCodeLine{00230\ \ \ \ \ }
-\DoxyCodeLine{00231\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{namespaceAlign_a60510cbc481b21348a81ab61e665c8d4}{Traceback}}(}
-\DoxyCodeLine{00232\ \ \ \ \ \ \ \ \ hls::vector<tbp\_t,\ N\_LAYERS>\ (\&tbmat)[\mbox{\hyperlink{params_8h_a8f04d03e80ec19dc2f6f36097e3f8202}{MAX\_QUERY\_LENGTH}}][\mbox{\hyperlink{params_8h_a0083a9bee1ec159ad13954a3186ef6d9}{MAX\_REFERENCE\_LENGTH}}],}
-\DoxyCodeLine{00233\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{params_8h_a904688672ad769b7683603c2edeabd2b}{tbp\_t}}\ (\&traceback\_out)[\mbox{\hyperlink{params_8h_a0083a9bee1ec159ad13954a3186ef6d9}{MAX\_REFERENCE\_LENGTH}}+\mbox{\hyperlink{params_8h_a8f04d03e80ec19dc2f6f36097e3f8202}{MAX\_QUERY\_LENGTH}}],}
-\DoxyCodeLine{00234\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ max\_row,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ max\_col,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ max\_layer);\ \ \textcolor{comment}{//\ starting\ index\ to\ traceback}}
-\DoxyCodeLine{00235\ \ \ \ \ }
-\DoxyCodeLine{00236\ \}}
-\DoxyCodeLine{00237\ }
-\DoxyCodeLine{00238\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ !SEQ\_ALIGN\_H}}
+\DoxyCodeLine{00230\ }
+\DoxyCodeLine{00231\ \}}
+\DoxyCodeLine{00232\ }
+\DoxyCodeLine{00233\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ !SEQ\_ALIGN\_H}}
 
 \end{DoxyCode}
