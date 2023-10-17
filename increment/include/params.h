@@ -357,11 +357,10 @@ struct ArrayPack {
 
 #ifdef ALIGN_GLOBAL_AFFINE
 
+#define MAX_QUERY_LENGTH 16
+#define MAX_REFERENCE_LENGTH 12
 
-#define MAX_QUERY_LENGTH 121
-#define MAX_REFERENCE_LENGTH 123
-
-#define PE_NUM 8
+#define PE_NUM 4
 
 #define numofreads 1
 
@@ -377,7 +376,7 @@ struct ArrayPack {
 
 //#define DEBUG
 
-#define N_BLOCKS 4
+#define N_BLOCKS 1
 
 #define TB_LINE_SIZE 64  // This defines the length of a line of TB pointers. Must be larger than PE_num
 
@@ -385,9 +384,9 @@ struct ArrayPack {
 
 #define chunk_width 16  // this must larger than PE_num
 
-typedef ap_uint<3> char_t;
+typedef ap_uint<2> char_t;
 typedef ap_fixed<MT, NT> type_t;  // alias type_t with ap_fixed<M,N>
-typedef ap_uint<8> idx_t;
+typedef int idx_t; //ap_uint<8> idx_t;
 typedef ap_uint<4> tbp_t;
 typedef ap_uint<2> tbr_t;  // traceback result
 

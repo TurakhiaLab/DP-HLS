@@ -186,6 +186,33 @@ namespace Utils
 		}
 
 	}
+	namespace Debug {
+		template <typename T1, typename T2, int LEN>
+		void translate(T1 (&hls_arr)[LEN], T2 (&std_arr)[LEN]){
+			for (int i = 0; i < LEN; i++){
+				std_arr[i] = (T2)(hls_arr[i]);
+			}
+		}
+
+		template <typename T1, typename T2, int M, int N>
+		void translate(T1 (&hls_mat)[M][N], T2 (&std_mat)[M][N]){
+			for (int i = 0; i < M; i++){
+				for (int j = 0; j < N; j++){
+					std_mat[i][j] = (T2)(hls_mat[i][j]);
+				}
+			}
+		}
+
+		template <typename T, int M, int N, int K>
+		void translate_multilayer(T (&hls_mat)[M][N], float (&std_mat)[K][M][N]){
+			for (int i = 0; i < M; i++){
+				for (int j = 0; j < N; j++){
+					for (int k = 0; k < K; k++)
+					std_mat[k][i][j] = (float)(hls_mat[i][j][k]);
+				}
+			}
+		}
+	}
 }
 
 #endif // UTILS_H

@@ -90,9 +90,11 @@ void PE::Affine::Compute(char_t local_query_val,
     const type_t delete_extend = up_prev[2] + extend_score;
 
     write_score[0] = insert_open > insert_extend ? insert_open : insert_extend;
-    write_score[1] = delete_open > delete_extend ? delete_open : delete_extend;
+    write_score[2] = delete_open > delete_extend ? delete_open : delete_extend;
 
     const type_t match = (local_query_val == local_reference_val) ? diag_prev[1] + match_score : diag_prev[1] + mismatch_score;
+
+    write_score[1] = match;
 
     type_t max_value = write_score[0] > write_score[2] ? write_score[0] : write_score[2];
     max_value = max_value > match ? max_value : match;

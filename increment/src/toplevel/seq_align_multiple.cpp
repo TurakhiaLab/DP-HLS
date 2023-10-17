@@ -33,7 +33,11 @@ extern "C"
 	idx_t (&query_lengths)[N_BLOCKS],
 	idx_t (&reference_lengths)[N_BLOCKS],
 	tbr_t (&tb_streams)[N_BLOCKS][MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH]){
+
+        Container& debugger = Container::containerInit(DEBUG_OUTPUT_PATH, DEBUG_FILENAME, query_lengths[0], reference_lengths[0]);
 		
+		tbp_t tb_matrices[N_BLOCKS][MAX_QUERY_LENGTH][MAX_REFERENCE_LENGTH];
+
 #pragma HLS array_partition variable=querys dim=1 type=complete
 #pragma HLS array_partition variable=references dim=1 type=complete
 #pragma HLS array_partition variable=query_lengths dim=1 type=complete
@@ -42,13 +46,17 @@ extern "C"
 
 		for (int i = 0; i < N_BLOCKS; i++){
 #pragma HLS unroll
-			Align::AlignStatic(
+			// Align::AlignStatic(
+			Align::Reordered::Align(
 				querys[i],
 				references[i],
 				query_lengths[i],
 				reference_lengths[i],
-				tb_streams[i]
+				tb_matrices[i]
+				// tb_streams[i]
 			);
 		}
+
+        debugger.print_scores();
 	}
 }

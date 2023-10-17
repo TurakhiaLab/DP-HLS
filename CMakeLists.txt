@@ -11,7 +11,9 @@ project ("DP-HLS")
 set(RAPTOR 1)
 set(CMAKE_C_COMPILER "/usr/bin/gcc")
 set(CMAKE_CXX_COMPILER "/usr/bin/c++")  # Use g++ compiler, but subject to change for v++ compiler.
+set(CMAKE_BUILD_TYPE Debug)
 
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O0 -g")
 
 set(EXECUTABLE_TARGETS
     # align_local_linear
@@ -46,12 +48,14 @@ add_executable(test_align "increment/testbench/test_align.cpp"
     "increment/include/seq_align.h"
     "increment/include/PE.h"
     "increment/include/utils.h"
+        "increment/include/pyapi.h"
     "increment/src/toplevel/seq_align_multiple.cpp"
     "increment/src/align/align.cpp"
     "increment/src/pe/pe.cpp"
-    "increment/src/traceback.cpp")
+    "increment/src/traceback.cpp"
+    "increment/src/pyapi.cpp")
 
-add_executable(test_pyapi_kernel_traceback "increment/testbench/test_pyapi.cpp"
+add_executable(test_pyapi "increment/testbench/test_align.cpp"
     "increment/include/params.h"
     "increment/include/seq_align_multiple.h"
     "increment/include/seq_align.h"
@@ -62,7 +66,8 @@ add_executable(test_pyapi_kernel_traceback "increment/testbench/test_pyapi.cpp"
     "increment/src/align/align.cpp"
     "increment/src/pe/pe.cpp"
     "increment/src/traceback.cpp"
-    "increment/src/pyapi.cpp")
+    "increment/src/pyapi.cpp"
+        increment/include/debug.h)
 
 
 
@@ -128,6 +133,9 @@ add_executable(test_pyapi_kernel_traceback "increment/testbench/test_pyapi.cpp"
 #     "src/traceback.cpp" 
 #     "src/utils.cpp" 
 #     "src/initial.cpp" "src/pe/pe.cpp")
+
+set_property(TARGET test_pyapi PROPERTY CXX_STANDARD 17)
+
 
 # Add include to Xilinx Library FIles
 if (RAPTOR)
