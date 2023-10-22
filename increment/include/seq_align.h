@@ -22,7 +22,12 @@
 #include "./PE.h"
 #include "./utils.h"
 #include "./initial.h"
+
+#ifdef DEBUG
 #include "./debug.h"
+#include "./pyapi.h"
+#endif // DBEUG
+
 
 using namespace hls;
 
@@ -125,13 +130,16 @@ namespace Align
 		input_char_block_t &query,
 		char_t (&reference)[MAX_REFERENCE_LENGTH],
 		score_block_t &init_col_scr,
-		hls::vector<type_t, N_LAYERS> (&init_row_scr)[MAX_REFERENCE_LENGTH],
+		hls::vector<type_t, N_LAYERS> (&init_row_scr)[MAX_REFERENCE_LENGTH+1],
 		int query_length, int reference_length,
 		hls::vector<type_t, N_LAYERS> (&preserved_row_scr)[MAX_REFERENCE_LENGTH],
 		ScorePack &max, // write out so must pass by reference
+#ifdef DEBUG
 		tbp_t (*chunk_tbp_out)[MAX_REFERENCE_LENGTH],
 		type_t (*chunk_score_out)[MAX_REFERENCE_LENGTH]);
-
+#else
+        tbp_t (*chunk_tbp_out)[MAX_REFERENCE_LENGTH]);
+#endif
 	namespace Reordered
 	{
 		void Align(char_t query[MAX_QUERY_LENGTH], char_t reference[MAX_REFERENCE_LENGTH],

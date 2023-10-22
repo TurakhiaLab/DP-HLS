@@ -3,9 +3,8 @@
 #include <hls_vector.h>
 
 #ifdef DEBUG
-#include <debug.h>
 #include <cstdio>
-#include "traceback.h"
+#include "../include/traceback.h"
 #endif // DEBUG
 
 void Traceback::Traceback(
@@ -26,10 +25,6 @@ traceback_loop:
         tbp_t tbptr = tbmat[row][col];  // Want to represented by the symbol rather than pointer
         traceback_out[i++] = state_to_path(state);
 
-#ifdef DEBUG
-        this->debugger->data.traceback.push_back(tbptr);
-#endif // DEBUG
-
         pointer_to_coordinate(tbptr, state, row, col);
         
     }
@@ -49,7 +44,13 @@ void Traceback::pointer_to_coordinate(tbp_t tbp, TB_STATE &state, int &row, int 
             state = TB_STATE::INS;
         } else {
             // Unknown Direction
+#ifdef DEBUG
+            // Such construct is not available for synthesizing kernel.
+            // However, it can be used to debug error in pure CSimulation.
+            // And also if in the near future a kernel debugging method is developed,
+            // this is used as a placeholder to check.
             throw std::runtime_error("Unknown traceback direction." + std::to_string(tbp.to_int()));
+#endif
         }
     } else if (state == TB_STATE::DEL) {
         if ( (bool) tbp[3] ){  // deletion extending
@@ -67,7 +68,9 @@ void Traceback::pointer_to_coordinate(tbp_t tbp, TB_STATE &state, int &row, int 
         col--;
     } else {
         // Unknown State
+#ifdef DEBUG
         throw std::runtime_error("Unknown traceback state.");
+#endif
     }
 }
 
@@ -86,7 +89,9 @@ void Traceback::state_initial(tbp_t tbp, TB_STATE &state){
         state = TB_STATE::INS;
     } else {
         // Unknown Direction
+#ifdef DEBUG
         throw std::runtime_error("Unknown traceback direction." + std::to_string(tbp.to_int()));
+#endif
     }
 }
 

@@ -5,7 +5,6 @@
 #include "../../include/params.h"
 
 #ifdef DEBUG
-#include "debug.h"
 #include <cstdio>
 #endif
 
@@ -85,16 +84,45 @@ void PE::Affine::Compute(char_t local_query_val,
      */
 
     const type_t insert_open = left_prev[1] + opening_score;  // Insert open
-    const type_t insert_extend = left_prev[0] + extend_score; // insert extend
+    const type_t insert_extend = left_prev[0] + opening_score + extend_score; // insert extend
     const type_t delete_open = up_prev[1] + opening_score;
-    const type_t delete_extend = up_prev[2] + extend_score;
+    const type_t delete_extend = up_prev[2] + opening_score + extend_score;
+
+#ifdef DEBUG
+
+    auto insert_open_s = insert_open.to_float();  // Insert open
+    auto insert_extend_s = insert_extend.to_float(); // insert extend
+    auto delete_open_s = delete_open.to_float();
+    auto delete_extend_s = delete_extend.to_float();
+
+    auto left_prev_0_s = left_prev[0].to_float();
+    auto left_prev_1_s = left_prev[1].to_float();
+    auto left_prev_2_s = left_prev[2].to_float();
+    auto up_prev_0_s = up_prev[0].to_float();
+    auto up_prev_1_s = up_prev[1].to_float();
+    auto up_prev_2_s = up_prev[2].to_float();
+
+
+#endif
 
     write_score[0] = insert_open > insert_extend ? insert_open : insert_extend;
     write_score[2] = delete_open > delete_extend ? delete_open : delete_extend;
 
+#ifdef DEBUG
+    
+        auto write_score_0_s = write_score[0].to_float();
+        auto write_score_2_s = write_score[2].to_float();
+#endif
+
     const type_t match = (local_query_val == local_reference_val) ? diag_prev[1] + match_score : diag_prev[1] + mismatch_score;
 
     write_score[1] = match;
+
+
+#ifdef DEBUG
+    auto match_s = match.to_float();
+    auto write_score_1_s = write_score[1].to_float();
+#endif
 
     type_t max_value = write_score[0] > write_score[2] ? write_score[0] : write_score[2];
     max_value = max_value > match ? max_value : match;

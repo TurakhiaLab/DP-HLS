@@ -45,7 +45,8 @@ namespace Utils
 
 		/**
 		 * @brief Copy length LEN of data from src to dst. If more than 
-		 * len, fill the rest with default_num.
+		 * len, fill the rest with default_num. We need to use fixed length
+		 * array rather than a pointer is because HLS is not pointer friendly. 
 		 * 
 		 * @tparam T: Type of the elements
 		 * @tparam M: Length of src
@@ -63,7 +64,7 @@ namespace Utils
 				dst[i] = i < len ? src[i] : default_num;
 			}
 		}
-
+		
 		template <typename T>
 		void Switch(T *arr1, T *arr2){
 			T *tmp = arr1;
@@ -98,15 +99,16 @@ namespace Utils
 		}
 
 		template <typename T, int LAY, int N>
-		void Linspace(hls::vector<T, LAY> (&arr)[N], idx_t layer, type_t start, type_t step)
+		void Linspace(hls::vector<T, LAY> (&arr)[N], idx_t starting_idx, idx_t layer, type_t start, type_t step)
 		{
 			type_t cnt = start;
-			for (int i = 0; i < N; i++)
+			for (int i = starting_idx.to_int(); i < N; i++)
 			{
 				cnt += step;
 				arr[i][layer] = cnt;
 			}
 		}
+
 
 	}
 
@@ -203,15 +205,19 @@ namespace Utils
 			}
 		}
 
-		template <typename T, int M, int N, int K>
-		void translate_multilayer(T (&hls_mat)[M][N], float (&std_mat)[K][M][N]){
+		template <typename T1, typename T2, int M, int N, int K>
+		void translate_multilayer(T1 (&hls_mat)[M][N], T2 (&std_mat)[K][M][N]){
 			for (int i = 0; i < M; i++){
 				for (int j = 0; j < N; j++){
-					for (int k = 0; k < K; k++)
-					std_mat[k][i][j] = (float)(hls_mat[i][j][k]);
+					for (int k = 0; k < K; k++) {
+                        std_mat[k][i][j] = (float) (hls_mat[i][j][k]);
+                    }
 				}
 			}
 		}
+
+		std::vector<float> translate_vec(hls::vector<type_t, N_LAYERS> (&arr));
+		std::vector<std::vector<float>> translate_scores(hls::vector<type_t, N_LAYERS> (&arr)[PE_NUM]);
 	}
 }
 

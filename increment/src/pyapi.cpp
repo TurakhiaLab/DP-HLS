@@ -1,8 +1,6 @@
 #include "../include/pyapi.h"
 #include "../include/seq_align_multiple.h"
-#include "../include/pyapi.h"
-#include "../include/pyapi.h"
-
+#include "../include/utils.h"
 using namespace std;
 
 
@@ -61,6 +59,7 @@ void AHRunner::run(string query_string, string reference_string)
     char_t query_buff[N_BLOCKS][MAX_QUERY_LENGTH];
 
     idx_t qry_lengths[N_BLOCKS], ref_lengths[N_BLOCKS];
+
 
 
     // Fill query buffer and references buffer for all blocks.
@@ -137,7 +136,10 @@ char_t AHRunner::base_to_num(char base)
     case 'T':
         return 3;
     default:
+        return 0;
+#ifdef DEBUG
         throw std::runtime_error("Unrecognized Nucleotide " + std::string(1, base) + " from A, C, G, and T.\n"); // or throw an exception
+#endif
     }
 
 }

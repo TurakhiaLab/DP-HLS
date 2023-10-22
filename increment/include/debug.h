@@ -9,11 +9,15 @@
 #include <string>
 #include <filesystem>
 #include <fstream>
+#include <unordered_map>
 #include <hls_vector.h>
+#include "utils.h"
+#include <cstdarg>
 
 namespace fs = std::filesystem;
 using namespace fs;
 using namespace std;
+
 
 class Container {
 public:

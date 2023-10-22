@@ -7,7 +7,7 @@
 #include <hls_streamofblocks.h> 
 
 #define ALIGN_GLOBAL_AFFINE
-#undef DEBUG
+#define DEBUG
 // >>> LOCAL_LINEAR params >>>
 #ifdef ALIGN_LOCAL_LINEAR
 
@@ -368,7 +368,7 @@ struct ArrayPack {
 #define query_chunks (MAX_QUERY_LENGTH/PE_NUM)
 #define extra_pe_num (MAX_QUERY_LENGTH%PE_NUM)
 
-#define MT 10
+#define MT 16
 #define NT 6
 
 // #define WT 4  // 2 bits direction pointer

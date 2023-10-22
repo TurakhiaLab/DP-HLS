@@ -48,12 +48,13 @@ add_executable(test_align "increment/testbench/test_align.cpp"
     "increment/include/seq_align.h"
     "increment/include/PE.h"
     "increment/include/utils.h"
-        "increment/include/pyapi.h"
+    "increment/include/pyapi.h"
     "increment/src/toplevel/seq_align_multiple.cpp"
     "increment/src/align/align.cpp"
     "increment/src/pe/pe.cpp"
     "increment/src/traceback.cpp"
-    "increment/src/pyapi.cpp")
+    "increment/src/pyapi.cpp"
+    "increment/src/utils.cpp")
 
 add_executable(test_pyapi "increment/testbench/test_align.cpp"
     "increment/include/params.h"
@@ -67,8 +68,13 @@ add_executable(test_pyapi "increment/testbench/test_align.cpp"
     "increment/src/pe/pe.cpp"
     "increment/src/traceback.cpp"
     "increment/src/pyapi.cpp"
-        increment/include/debug.h)
+    "increment/include/debug.h")
 
+add_executable(multidimcast
+    "increment/include/pyapi.h"
+    "increment/src/pyapi.cpp"
+    "increment/testbench/multidimcast_test.cpp"
+)
 
 
 # Add source to this project's executable.
@@ -135,7 +141,8 @@ add_executable(test_pyapi "increment/testbench/test_align.cpp"
 #     "src/initial.cpp" "src/pe/pe.cpp")
 
 set_property(TARGET test_pyapi PROPERTY CXX_STANDARD 17)
-
+set_property(TARGET test_align PROPERTY CXX_STANDARD 17)
+set_property(TARGET multidimcast PROPERTY CXX_STANDARD 17)
 
 # Add include to Xilinx Library FIles
 if (RAPTOR)
