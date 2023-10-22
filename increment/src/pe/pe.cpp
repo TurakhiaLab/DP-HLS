@@ -83,10 +83,10 @@ void PE::Affine::Compute(char_t local_query_val,
      * Layer 2: Delete matrix D, moves vertically
      */
 
-    const type_t insert_open = left_prev[1] + opening_score;  // Insert open
-    const type_t insert_extend = left_prev[0] + opening_score + extend_score; // insert extend
-    const type_t delete_open = up_prev[1] + opening_score;
-    const type_t delete_extend = up_prev[2] + opening_score + extend_score;
+    const type_t insert_open = left_prev[1] + opening_score + extend_score;  // Insert open
+    const type_t insert_extend = left_prev[0] + opening_score; // insert extend
+    const type_t delete_open = up_prev[1] + opening_score + extend_score;
+    const type_t delete_extend = up_prev[2] + opening_score;
 
 #ifdef DEBUG
 
@@ -116,16 +116,20 @@ void PE::Affine::Compute(char_t local_query_val,
 
     const type_t match = (local_query_val == local_reference_val) ? diag_prev[1] + match_score : diag_prev[1] + mismatch_score;
 
-    write_score[1] = match;
+#ifdef DEBUG
+    auto diag_prev_s = diag_prev[1].to_float();
+    auto local_query_val_s = local_query_val.to_int();
+    auto local_reference_val_s = local_reference_val.to_int();
+#endif
 
+    type_t max_value = write_score[0] > write_score[2] ? write_score[0] : write_score[2];  // compare between insertion and deletion
+    max_value = max_value > match ? max_value : match;  // compare with match/mismatch
+    write_score[1] = max_value;
 
 #ifdef DEBUG
     auto match_s = match.to_float();
     auto write_score_1_s = write_score[1].to_float();
 #endif
-
-    type_t max_value = write_score[0] > write_score[2] ? write_score[0] : write_score[2];
-    max_value = max_value > match ? max_value : match;
 
     // Set traceback pointer based on the direction of the maximum score. 
     if (max_value == write_score[0]){  // Insert Case
@@ -348,5 +352,19 @@ void PE::ExpandCompute(
             left_prevs[i],
             output_scores[i],
             output_tbt[i]);
+    }
+}
+
+void PE::PEUnroll(dp_mem_block_t &dp_mem, input_char_block_t qry, input_char_block_t ref, tbp_block_t &tbp){
+    for (int i = 1; i <= PE_NUM; i++){
+#pragma HLS unroll
+        PE::ALIGN_TYPE::Compute(
+            qry[i-1],
+            ref[i-1],
+            dp_mem[i-1][1],
+            dp_mem[i-1][2],
+            dp_mem[i][1],
+            dp_mem[i][0],
+            tbp[i-1]);
     }
 }

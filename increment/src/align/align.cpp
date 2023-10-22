@@ -1,4 +1,4 @@
-#include "../../include/seq_align.h"
+#include "../../include/align.h"
 
 using namespace hls;
 
@@ -296,10 +296,10 @@ void Align::DPMemUpdateArr(
 
 void Align::ChunkCompute(
 	idx_t chunk_row_offset,
-	input_char_block_t &query,
+	input_char_block_t &local_query,
 	char_t (&reference)[MAX_REFERENCE_LENGTH],
-	score_block_t &init_col_scr,
-	hls::vector<type_t, N_LAYERS> (&init_row_scr)[MAX_REFERENCE_LENGTH+1],
+	chunk_col_scores_inf_t &init_col_scr,
+	hls::vector<type_t, N_LAYERS> (&init_row_scr)[MAX_REFERENCE_LENGTH],
 	int query_length, int reference_length,
 	hls::vector<type_t, N_LAYERS> (&preserved_row_scr)[MAX_REFERENCE_LENGTH],
 	ScorePack &max,
@@ -320,15 +320,8 @@ void Align::ChunkCompute(
 	idx_t pe_col_offsets[PE_NUM];
 	Utils::Init::ArrSet<idx_t, PE_NUM>(pe_col_offsets, 0);
 
-	char_t local_query[PE_NUM];
 	char_t local_reference[PE_NUM]; // local reference
 
-	score_block_t up_scores;
-	score_block_t diag_scores;
-	score_block_t left_scores;
-
-	// score_block_t scores_out;
-	hls::vector<type_t, N_LAYERS> scores_out[PE_NUM];
 	tbp_block_t tbp_out;
 
 	ScorePack pe_max[PE_NUM];
@@ -338,10 +331,6 @@ void Align::ChunkCompute(
 	// stream_of_blocks<dp_mem_block_t> initialized;
 
 	dp_mem_block_t dp_mem;
-
-	score_vec_t last_chunk_scr[2];
-
-	Utils::Init::ArrSet(last_chunk_scr, {0, 0, -9999});
 
 #pragma HLS array_partition variable = predicate type = complete
 #pragma HLS array_partition variable = pe_col_offsets type = complete
@@ -359,10 +348,11 @@ void Align::ChunkCompute(
 #pragma HLS array_partition variable = tbp_out type = complete
 
 	// FIXME: We can compute scores, and set the TBP for the additional
-	// space in the chunk. Then, onlu start the traceback appropriately
+	// space in the chunk. Then, only start the traceback appropriately
 	// so we can make correct computation.
 	for (int i = 0; i < reference_length + PE_NUM - 1; i++)
 	{
+
 #pragma HLS pipeline II = 1
 		// LoopLogger::log(
 		// 	"align.cpp",
@@ -376,39 +366,32 @@ void Align::ChunkCompute(
 		Align::ShiftPredicate(predicate, i, query_length, reference_length);
 		Align::ShiftReferece(local_reference, reference, i, reference_length);
 
-		Utils::Array::ShiftRight(last_chunk_scr, init_row_scr[i]);
+		Align::UpdateDPMem(dp_mem, i, init_col_scr, init_row_scr);
 
-		// FIXME: Change it to prepare DP_MEM, rather than prepare inputs
-		Align::PrepareScoresArr(dp_mem, init_col_scr, i, last_chunk_scr, up_scores, diag_scores, left_scores);
 		// FIXME: Pass in DP_MEM and assign scores accodingly
-		PE::ExpandCompute(
-			query,
+		PE::PEUnroll(
+			dp_mem,
+			local_query,
 			local_reference,
-			up_scores,
-			diag_scores,
-			left_scores,
-			scores_out,
 			tbp_out);
-#ifdef DEBUG
-		debugger.record_score(scores_out, predicate); // @Debug
-		auto score_out_s = Utils::Debug::translate_scores(scores_out);
-#endif
-		Align::DPMemUpdateArr(dp_mem, scores_out);
 
 		// This should happen before Arrange TBP Arr
 		// Because it doesn't increment PE offsets
 		// while ArrangeTBPArr does
 		Align::PreserveRowScore(
 			preserved_row_scr,
-			scores_out,
-			predicate,
-			pe_col_offsets);
+			dp_mem[PE_NUM][0],
+			predicate[PE_NUM-1],
+			pe_col_offsets[PE_NUM-1]);
 
-		Align::FindMax::ExtractScoresLayer(scores_out, LAYER_MAXIMIUM, extracted_scores);
+		// Align::FindMax::ExtractScoresLayer(scores_out, LAYER_MAXIMIUM, extracted_scores);
 
 		Align::FindMax::UpdatePEMaximum(extracted_scores, pe_max, pe_col_offsets, chunk_row_offset, predicate);
 #ifdef DEBUG
-		Align::ArrangeScores(scores_out, predicate, pe_col_offsets, score_tbp);
+		// Align::ArrangeScores(scores_out, predicate, pe_col_offsets, score_tbp);
+		auto dp_mem_checkpoint = Utils::Debug::Translate::score_mat<
+			type_t, N_LAYERS, PE_NUM+1, 3
+		>(dp_mem);
 #endif
         Align::ArrangeTBPArr(tbp_out, predicate, pe_col_offsets, chunk_tbp_out);
 
@@ -455,13 +438,13 @@ void Align::UpdatePEOffset(
 
 void Align::PreserveRowScore(
 	hls::vector<type_t, N_LAYERS> (&preserved_row_scr)[MAX_REFERENCE_LENGTH],
-	score_block_t &scores,
-	bool (&predicate)[PE_NUM],
-	idx_t (&pe_offset)[PE_NUM])
+	const score_vec_t &score_vec,
+	const bool predicate_pe_last,
+	const idx_t idx)
 {
-	if (predicate[PE_NUM - 1])
+	if (predicate_pe_last)
 	{
-		preserved_row_scr[pe_offset[PE_NUM - 1]] = scores[PE_NUM - 1];
+		preserved_row_scr[idx] = score_vec;
 	}
 }
 
@@ -480,7 +463,7 @@ void Align::FindMax::GetChunkMax(ScorePack (&packs)[PE_NUM], ScorePack &chunk_ma
 
 void Align::InitializeScores(
 	score_vec_t (&init_col_scr)[MAX_QUERY_LENGTH],
-	score_vec_t (&init_row_scr)[MAX_REFERENCE_LENGTH+1])
+	score_vec_t (&init_row_scr)[MAX_REFERENCE_LENGTH])
 {
 #ifdef ALIGN_LOCAL_LINEAR
 	Utils::Init::ArrSet<score_vec_t, MAX_QUERY_LENGTH>(init_col_scr, {0});
@@ -492,17 +475,29 @@ void Align::InitializeScores(
 	Utils::Init::ArrSet<score_vec_t, MAX_QUERY_LENGTH>(init_col_scr, {0, 0, -9999});
 	Utils::Init::ArrSet<score_vec_t, MAX_REFERENCE_LENGTH>(init_row_scr, {-9999, 0, 0});
 #elif defined ALIGN_GLOBAL_AFFINE
-	Utils::Init::ArrSet<score_vec_t, MAX_QUERY_LENGTH>(init_col_scr, 0, score_vec_t{-512,-512,-512});			   // query layer 0
-	Utils::Init::Linspace<type_t, 3, MAX_QUERY_LENGTH>(init_col_scr, 1, 1, opening_score, extend_score);				   // query layer 1
-	Utils::Init::ArrSet<score_vec_t, MAX_QUERY_LENGTH>(init_col_scr, 2, score_vec_t{0,0,0}); // query layer 2
+	Utils::Init::ArrSet(init_col_scr, 0, score_vec_t{-64,-64,-64});			   // query layer 0
+	Utils::Init::Linspace(init_col_scr, 1, 1, opening_score, extend_score, MAX_QUERY_LENGTH + 1);	   // query layer 1
+	Utils::Init::ArrSet(init_col_scr, 2, score_vec_t{0,0,0}); // query layer 2
 
-	Utils::Init::ArrSet<score_vec_t, MAX_REFERENCE_LENGTH+1>(init_row_scr, 0, score_vec_t{0,0,0}); // reference layer 0
-	Utils::Init::Linspace<type_t, 3, MAX_REFERENCE_LENGTH+1>(init_row_scr, 1, 1, opening_score, extend_score);				   // reference layer 1
-	Utils::Init::ArrSet<score_vec_t, MAX_REFERENCE_LENGTH+1>(init_row_scr, 2, score_vec_t{-64, -64, -64});			   // reference layer 2
+	Utils::Init::ArrSet<score_vec_t, MAX_REFERENCE_LENGTH>(init_row_scr, 0, score_vec_t{0,0,0}); // reference layer 0
+	Utils::Init::Linspace<type_t, 3, MAX_REFERENCE_LENGTH>(init_row_scr, 0, 1, opening_score, extend_score);				   // reference layer 1
+	Utils::Init::ArrSet<score_vec_t, MAX_REFERENCE_LENGTH>(init_row_scr, 2, score_vec_t{-64, -64, -64});			   // reference layer 2
 #else
 	// Not initialized.
 	int i = 0;
 #endif
+}
+
+
+void Align::CopyColScore(chunk_col_scores_inf_t & init_col_scr_local, score_vec_t(& init_col_scr)[MAX_QUERY_LENGTH], idx_t idx)
+{
+	init_col_scr_local[0] = init_col_scr_local[PE_NUM];
+
+	for (int j = 0; j < PE_NUM; j++)
+	{
+#pragma HLS unroll
+		init_col_scr_local[j] = init_col_scr[idx + j];
+	}
 }
 
 void Align::PrepareLocalQuery(
@@ -543,12 +538,11 @@ void Align::AlignStatic(
 // or if the chunk compute is pipelined with the array fill, this might not be necessary
 #pragma HLS array_partition variable = query type = cyclic factor = PE_NUM dim = 1
 
-	score_vec_t init_col_scr[MAX_QUERY_LENGTH];
-	score_vec_t init_row_score[MAX_REFERENCE_LENGTH+1];
+	score_vec_t init_col_score[MAX_QUERY_LENGTH];
+	score_vec_t init_row_score[MAX_REFERENCE_LENGTH];
 
 
-	Align::InitializeScores(init_col_scr, init_row_score);
-	init_row_score[0] = score_vec_t(0);
+	Align::InitializeScores(init_col_score, init_row_score);
 
 	// The size of a static matrix must be known at the compile time.
 	tbp_t tbp_matrix[MAX_QUERY_LENGTH][MAX_REFERENCE_LENGTH];
@@ -564,7 +558,9 @@ void Align::AlignStatic(
 	ScorePack maximum = {0, 0, 0}; // global score track
 
 	char_t local_query[PE_NUM];
-	score_block_t local_init_col_score;
+	chunk_col_scores_inf_t local_init_col_score;
+	init_col_score[PE_NUM] = score_vec_t(0);
+
 	hls::vector<type_t, N_LAYERS> preserved_row_buffer[MAX_REFERENCE_LENGTH];
 
 #pragma HLS array_partition variable = local_query type = complete
@@ -576,9 +572,10 @@ void Align::AlignStatic(
 		idx_t local_query_length = ((idx_t)PE_NUM < query_length - i) ? (idx_t)PE_NUM : (idx_t)(query_length - i);
 
 		Align::PrepareLocalQuery(query, local_query, i, local_query_length); // FIXME: Why not coping rest of the query
-		Utils::Array::Copy<score_vec_t, MAX_QUERY_LENGTH, PE_NUM, PE_NUM>(init_col_scr, local_init_col_score, local_query_length, (score_vec_t)0);
+		Align::CopyColScore(local_init_col_score, init_col_score, i);
 
 		tbp_t(*chunk_tbp_out)[MAX_REFERENCE_LENGTH] = &tbp_matrix[i];
+
 #ifdef DEBUG
 		type_t(*chunk_score_out)[MAX_REFERENCE_LENGTH] = &score_matrix[i];
 
@@ -656,7 +653,7 @@ void Align::Reordered::Align(
 	score_vec_t init_col_score[MAX_QUERY_LENGTH];
 	score_vec_t init_row_score[MAX_REFERENCE_LENGTH];
 
-	Align::InitializeScores(init_col_score, init_row_score);
+	// Align::InitializeScores(init_col_score, init_row_score);  // FIXME: Uncomment me to get desired behavior
 	Align::Reordered::CopyInitialScores(init_row_score, init_col_score, scores);
 
 	for (int c = 1; c < MAX_QUERY_LENGTH; c += PE_NUM)
@@ -704,4 +701,49 @@ void Align::Reordered::CopyInitialScores(
 #pragma HLS unroll
 		scores[i][0] = init_col_scr[i];
 	}
+}
+
+void Align::DPMemInit(
+	dp_mem_block_t &dp_mem, 
+	chunk_col_scores_inf_t &init_col_scr, 
+	init_row_score_block_t &init_row_scr){
+
+	for (int i = 0; i < PE_NUM + 1; i++)
+	{
+#pragma HLS unroll
+		dp_mem[i][1] = init_col_scr[i];
+	}
+	dp_mem[0][0] = init_row_scr[0];
+}
+
+
+void Align::UpdateDPMem(dp_mem_block_t &dp_mem, idx_t i, chunk_col_scores_inf_t &init_col_scr, init_row_score_block_t &init_row_scr){
+	Align::UpdateDPMemShift(dp_mem);
+	Align::UpdateDPMemSet(dp_mem, i, init_col_scr, init_row_scr);
+}
+
+void Align::UpdateDPMemShift(dp_mem_block_t &dp_mem){
+	for (int i = 0; i < PE_NUM + 1; i++){
+#pragma HLS unroll
+		dp_mem[i][2] = dp_mem[i][1];
+		dp_mem[i][1] = dp_mem[i][0];
+	}
+}
+
+void Align::UpdateDPMemSet(dp_mem_block_t &dp_mem, idx_t i, chunk_col_scores_inf_t &init_col_scr, init_row_score_block_t &init_row_scr){
+
+	// FIXME: Can takeout this condition since even though the out of bound access, the 
+	// element won't be written to the memory
+
+	if (i < MAX_REFERENCE_LENGTH){  // FIXME: Actually this could also be actual_reference_length
+		dp_mem[0][1] = init_row_scr[i];
+	}
+	
+	// Set the computation for the 0th column
+	if (i < PE_NUM){
+		dp_mem[i+1][1] = init_col_scr[i+1];  // set initial left score
+		dp_mem[i][2] = init_col_scr[i];  // set initial diagonal score
+	}
+
+	// FIXME: Set i = 0 case in Chunk compute loop, doesn't requires an update
 }

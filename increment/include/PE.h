@@ -71,6 +71,9 @@ namespace PE {
                           tbp_t &write_traceback);
     }
 
+    
+	void PEUnroll(dp_mem_block_t &dp_mem, input_char_block_t qry, input_char_block_t ref, tbp_block_t &tbp);
+
     /**
      * @brief Unroll a PE Array. The data distribution uese Stream of Blocks. 
      * 

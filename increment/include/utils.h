@@ -64,6 +64,18 @@ namespace Utils
 				dst[i] = i < len ? src[i] : default_num;
 			}
 		}
+
+// 		template <typename T, int M, int N>
+// 		void Copy(T(&dst)[M], idx_t dst_idx, T (&src)[N], idx_t src_idx, idx_t len, T default_num)
+// 		{
+// 			for (int i = 0; i < len; i++)
+// 			{
+// #pragma HLS unroll
+// 				dst[i] = i < len ? src[i] : default_num;
+// 			}
+// 		}
+		
+
 		
 		template <typename T>
 		void Switch(T *arr1, T *arr2){
@@ -102,7 +114,18 @@ namespace Utils
 		void Linspace(hls::vector<T, LAY> (&arr)[N], idx_t starting_idx, idx_t layer, type_t start, type_t step)
 		{
 			type_t cnt = start;
-			for (int i = starting_idx.to_int(); i < N; i++)
+			for (int i = starting_idx; i < N; i++)
+			{
+				cnt += step;
+				arr[i][layer] = cnt;
+			}
+		}
+
+		template <typename T>
+		void Linspace(T &arr, idx_t starting_idx, idx_t layer, type_t start, type_t step, int len)
+		{
+			type_t cnt = start;
+			for (int i = starting_idx; i < len; i++)
 			{
 				cnt += step;
 				arr[i][layer] = cnt;
@@ -218,6 +241,31 @@ namespace Utils
 
 		std::vector<float> translate_vec(hls::vector<type_t, N_LAYERS> (&arr));
 		std::vector<std::vector<float>> translate_scores(hls::vector<type_t, N_LAYERS> (&arr)[PE_NUM]);
+
+		namespace Translate {
+			template <typename T, int NL, int M, int N>
+			std::vector<std::vector<std::vector<float>>> score_mat(
+				hls::vector<T, NL> scores[M][N]
+			){
+				std::vector<std::vector<std::vector<float>>> result;
+
+				for (int i = 0; i < M; i++){
+					std::vector<std::vector<float>> pe_row;
+					for (int j = 0; j < N; j++){
+						std::vector<float> pe_vec;
+						for (int k = 0; k < NL; k++){
+							pe_vec.push_back(scores[i][j][k].to_float());
+						}
+						pe_row.push_back(pe_vec);
+					}
+					result.push_back(pe_row);
+				}
+				return result;
+			}
+
+		}
+
+		
 	}
 }
 

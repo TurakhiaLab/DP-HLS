@@ -8,7 +8,7 @@
 
 #include <hls_stream.h>
 #include "../../include/PE.h"
-#include "../../include/seq_align.h"
+#include "../../include/align.h"
 #include "../../include/initial.h"
 
 #include <hls_np_channel.h>

@@ -129,8 +129,8 @@ namespace Align
 		idx_t chunk_row_offset,
 		input_char_block_t &query,
 		char_t (&reference)[MAX_REFERENCE_LENGTH],
-		score_block_t &init_col_scr,
-		hls::vector<type_t, N_LAYERS> (&init_row_scr)[MAX_REFERENCE_LENGTH+1],
+		chunk_col_scores_inf_t &init_col_scr,
+		hls::vector<type_t, N_LAYERS> (&init_row_scr)[MAX_REFERENCE_LENGTH],
 		int query_length, int reference_length,
 		hls::vector<type_t, N_LAYERS> (&preserved_row_scr)[MAX_REFERENCE_LENGTH],
 		ScorePack &max, // write out so must pass by reference
@@ -202,9 +202,30 @@ namespace Align
 
 	void PreserveRowScore(
 		hls::vector<type_t, N_LAYERS> (&preserved_row_scr)[MAX_REFERENCE_LENGTH],
-		score_block_t &scores,
-		bool (&predicate)[PE_NUM],
-		idx_t (&pe_offset)[PE_NUM]);
+		const score_vec_t &score_vec,
+		const bool predicate_pe_last,
+		const idx_t idx);
+
+	// Unnecessary
+	void DPMemInit(
+		dp_mem_block_t &dp_mem, 
+		chunk_col_scores_inf_t &init_col_scr, 
+		init_row_score_block_t &init_row_scr);
+
+
+
+
+	/**
+	 * @brief Prepare dp_mem at the beginning of a cycle of chunk compute.
+	 * 
+	 * @param dp_mem 
+	 * @param i 
+	 * @param init_col_scr 
+	 * @param init_row_scr 
+	 */
+	void UpdateDPMem(dp_mem_block_t &dp_mem, idx_t i, chunk_col_scores_inf_t &init_col_scr, init_row_score_block_t &init_row_scr);
+	void UpdateDPMemShift(dp_mem_block_t &dp_mem);
+	void UpdateDPMemSet(dp_mem_block_t &dp_mem, idx_t i, chunk_col_scores_inf_t &init_col_scr, init_row_score_block_t &init_row_scr);
 
 	/**
 	 * Namespace related to functions used to find the maximum elements in
@@ -285,6 +306,8 @@ namespace Align
 	void ChunkMax(ScorePack &max, ScorePack new_scr);
 
 	void UpdatePEOffset(idx_t (&pe_offset)[PE_NUM], bool (&predicate)[PE_NUM]);
+
+	void CopyColScore(chunk_col_scores_inf_t &init_col_scr_local, score_vec_t (&init_col_scr)[MAX_QUERY_LENGTH], idx_t i);
 
 }
 

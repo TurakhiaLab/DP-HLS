@@ -368,8 +368,8 @@ struct ArrayPack {
 #define query_chunks (MAX_QUERY_LENGTH/PE_NUM)
 #define extra_pe_num (MAX_QUERY_LENGTH%PE_NUM)
 
-#define MT 16
-#define NT 6
+#define WT 16
+#define IT 12   // IMPORTANT Integer Widths
 
 // #define WT 4  // 2 bits direction pointer
 // #define IT WT-2  // 2 bit represents layer
@@ -385,7 +385,7 @@ struct ArrayPack {
 #define chunk_width 16  // this must larger than PE_num
 
 typedef ap_uint<2> char_t;
-typedef ap_fixed<MT, NT> type_t;  // alias type_t with ap_fixed<M,N>
+typedef ap_fixed<WT, IT> type_t;  // alias type_t with ap_fixed<M,N>
 typedef int idx_t; //ap_uint<8> idx_t;
 typedef ap_uint<4> tbp_t;
 typedef ap_uint<2> tbr_t;  // traceback result
@@ -429,10 +429,11 @@ typedef char_t raw_reference_block_t[MAX_REFERENCE_LENGTH];
 typedef hls::vector<type_t, N_LAYERS> init_col_score_block_t[MAX_QUERY_LENGTH];
 typedef hls::vector<type_t, N_LAYERS> init_row_score_block_t[MAX_REFERENCE_LENGTH];
 typedef tbp_t traceback_block_t[MAX_QUERY_LENGTH + MAX_REFERENCE_LENGTH];
-typedef hls::vector<type_t, N_LAYERS> score_block_t[PE_NUM];
+typedef hls::vector<type_t, N_LAYERS> score_block_t[PE_NUM];  // TODO: Change name chunk scores
+typedef hls::vector<type_t, N_LAYERS> chunk_col_scores_inf_t[PE_NUM+1];  // chunk column scores inflated
 typedef tbp_t tbp_block_t[PE_NUM];
 typedef char_t input_char_block_t[PE_NUM];
-typedef hls::vector<type_t, N_LAYERS> dp_mem_block_t[2][PE_NUM];
+typedef hls::vector<type_t, N_LAYERS> dp_mem_block_t[PE_NUM+1][3];
 typedef tbp_t tbp_chunk_block_t[PE_NUM][MAX_REFERENCE_LENGTH];
 typedef hls::vector<type_t, N_LAYERS> score_vec_t;
 
