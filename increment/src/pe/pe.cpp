@@ -73,7 +73,12 @@ void PE::Affine::Compute(char_t local_query_val,
                          hls::vector<type_t, N_LAYERS> diag_prev,
                          hls::vector<type_t, N_LAYERS> left_prev,
                          hls::vector<type_t, N_LAYERS> &write_score,
+#ifdef DEBUG
+                         tbp_t &write_traceback,
+                         int idx) // mark the PE index)
+#else
                          tbp_t &write_traceback)
+#endif
 {
 #pragma HLS array_partition variable = local_query_val type = complete
 
@@ -83,14 +88,14 @@ void PE::Affine::Compute(char_t local_query_val,
      * Layer 2: Delete matrix D, moves vertically
      */
 
-    const type_t insert_open = left_prev[1] + opening_score + extend_score;  // Insert open
-    const type_t insert_extend = left_prev[0] + opening_score; // insert extend
+    const type_t insert_open = left_prev[1] + opening_score + extend_score; // Insert open
+    const type_t insert_extend = left_prev[0] + opening_score;              // insert extend
     const type_t delete_open = up_prev[1] + opening_score + extend_score;
     const type_t delete_extend = up_prev[2] + opening_score;
 
 #ifdef DEBUG
 
-    auto insert_open_s = insert_open.to_float();  // Insert open
+    auto insert_open_s = insert_open.to_float();     // Insert open
     auto insert_extend_s = insert_extend.to_float(); // insert extend
     auto delete_open_s = delete_open.to_float();
     auto delete_extend_s = delete_extend.to_float();
@@ -102,16 +107,15 @@ void PE::Affine::Compute(char_t local_query_val,
     auto up_prev_1_s = up_prev[1].to_float();
     auto up_prev_2_s = up_prev[2].to_float();
 
-
 #endif
 
     write_score[0] = insert_open > insert_extend ? insert_open : insert_extend;
     write_score[2] = delete_open > delete_extend ? delete_open : delete_extend;
 
 #ifdef DEBUG
-    
-        auto write_score_0_s = write_score[0].to_float();
-        auto write_score_2_s = write_score[2].to_float();
+
+    auto write_score_0_s = write_score[0].to_float();
+    auto write_score_2_s = write_score[2].to_float();
 #endif
 
     const type_t match = (local_query_val == local_reference_val) ? diag_prev[1] + match_score : diag_prev[1] + mismatch_score;
@@ -122,8 +126,8 @@ void PE::Affine::Compute(char_t local_query_val,
     auto local_reference_val_s = local_reference_val.to_int();
 #endif
 
-    type_t max_value = write_score[0] > write_score[2] ? write_score[0] : write_score[2];  // compare between insertion and deletion
-    max_value = max_value > match ? max_value : match;  // compare with match/mismatch
+    type_t max_value = write_score[0] > write_score[2] ? write_score[0] : write_score[2]; // compare between insertion and deletion
+    max_value = max_value > match ? max_value : match;                                    // compare with match/mismatch
     write_score[1] = max_value;
 
 #ifdef DEBUG
@@ -131,15 +135,22 @@ void PE::Affine::Compute(char_t local_query_val,
     auto write_score_1_s = write_score[1].to_float();
 #endif
 
-    // Set traceback pointer based on the direction of the maximum score. 
-    if (max_value == write_score[0]){  // Insert Case
-        write_traceback =  TB_LEFT + (max_value == insert_extend ? TB_IMAT : (tbp_t) 0);
-    } else if (max_value == write_score[1]) {
+    // Set traceback pointer based on the direction of the maximum score.
+    if (max_value == write_score[0])
+    { // Insert Case
+        write_traceback = TB_LEFT + (max_value == insert_extend ? TB_IMAT : (tbp_t)0);
+    }
+    else if (max_value == write_score[1])
+    {
         write_traceback = TB_DIAG;
-    } else if (max_value == write_score[2]){
-        write_traceback = TB_UP + (max_value == delete_extend ? TB_DMAT : (tbp_t) 0);
-    } else {
-        // Undefined behavior happens if the max score is non of the I, D, or M. 
+    }
+    else if (max_value == write_score[2])
+    {
+        write_traceback = TB_UP + (max_value == delete_extend ? TB_DMAT : (tbp_t)0);
+    }
+    else
+    {
+        // Undefined behavior happens if the max score is non of the I, D, or M.
     }
 }
 
@@ -351,20 +362,32 @@ void PE::ExpandCompute(
             diag_prevs[i],
             left_prevs[i],
             output_scores[i],
+#ifdef DEBUG
+            output_tbt[i],
+            i);
+#else
             output_tbt[i]);
+#endif
     }
 }
 
-void PE::PEUnroll(dp_mem_block_t &dp_mem, input_char_block_t qry, input_char_block_t ref, tbp_block_t &tbp){
-    for (int i = 1; i <= PE_NUM; i++){
+void PE::PEUnroll(dp_mem_block_t &dp_mem, input_char_block_t qry, input_char_block_t ref, tbp_block_t &tbp)
+{
+    for (int i = 1; i <= PE_NUM; i++)
+    {
 #pragma HLS unroll
         PE::ALIGN_TYPE::Compute(
-            qry[i-1],
-            ref[i-1],
-            dp_mem[i-1][1],
-            dp_mem[i-1][2],
+            qry[i - 1],
+            ref[i - 1],
+            dp_mem[i - 1][1],
+            dp_mem[i - 1][2],
             dp_mem[i][1],
             dp_mem[i][0],
-            tbp[i-1]);
+#ifdef DEBUG
+            tbp[i - 1],
+            i - 1);
+#else
+            tbp[i - 1]);
+#endif
     }
 }

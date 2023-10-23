@@ -68,7 +68,12 @@ namespace PE {
                           hls::vector<type_t, N_LAYERS> diag_prev,
                           hls::vector<type_t, N_LAYERS> left_prev,
                           hls::vector<type_t, N_LAYERS> &write_score,
+    #ifdef DEBUG    
+                            tbp_t &write_traceback,
+                            int idx);    // mark the PE index
+    #else
                           tbp_t &write_traceback);
+    #endif
     }
 
     

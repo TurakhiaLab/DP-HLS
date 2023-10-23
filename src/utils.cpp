@@ -99,3 +99,5 @@ void Utils::PackInputSimple(stream<BlockInputs> &copied, stream<BlockInputs> &co
 void Utils::CollectTracebackSimple(stream<BlockOutputs> &copied, stream<BlockOutputs> &copy){
     copy.write(copied.read());
 }
+
+

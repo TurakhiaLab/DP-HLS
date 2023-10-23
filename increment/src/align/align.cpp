@@ -1,4 +1,5 @@
 #include "../../include/align.h"
+#include "../../include/utils.h"
 
 using namespace hls;
 
@@ -7,16 +8,16 @@ list<hls::vector<type_t, N_LAYERS>> Container::scores[PE_NUM]; // @Debug
 #endif
 
 void Align::ArrangeScores(
-	score_block_t &tbp_in,
+	dp_mem_block_t &dpmem_in,
 	bool (&predicate)[PE_NUM], idx_t (&pe_offset)[PE_NUM],
-	type_t (*chunk_score_out)[MAX_REFERENCE_LENGTH])
+	hls::vector<type_t, N_LAYERS>  (*chunk_score_out)[MAX_REFERENCE_LENGTH])
 {
-	for (int i = 0; i < PE_NUM; i++)
+	for (int i = 1; i < PE_NUM+1; i++)
 	{
 #pragma HLS unroll
-		if (predicate[i])
+		if (predicate[i-1])
 		{
-			chunk_score_out[i][pe_offset[i]] = tbp_in[i][LAYER_MAXIMIUM];
+			chunk_score_out[i-1][pe_offset[i-1]] = dpmem_in[i][0];
 		}
 	}
 }
@@ -305,7 +306,7 @@ void Align::ChunkCompute(
 	ScorePack &max,
 #ifdef DEBUG
 	tbp_t (*chunk_tbp_out)[MAX_REFERENCE_LENGTH],
-	type_t (*score_tbp)[MAX_REFERENCE_LENGTH])
+	hls::vector<type_t, N_LAYERS> (*score_tbp)[MAX_REFERENCE_LENGTH])
 #else
     tbp_t (*chunk_tbp_out)[MAX_REFERENCE_LENGTH])
 #endif
@@ -388,8 +389,8 @@ void Align::ChunkCompute(
 
 		Align::FindMax::UpdatePEMaximum(extracted_scores, pe_max, pe_col_offsets, chunk_row_offset, predicate);
 #ifdef DEBUG
-		// Align::ArrangeScores(scores_out, predicate, pe_col_offsets, score_tbp);
-		auto dp_mem_checkpoint = Utils::Debug::Translate::score_mat<
+		Align::ArrangeScores(dp_mem, predicate, pe_col_offsets, score_tbp);
+		auto dp_mem_checkpoint = Utils::Debug::Translate::translate_3d<
 			type_t, N_LAYERS, PE_NUM+1, 3
 		>(dp_mem);
 #endif
@@ -397,6 +398,13 @@ void Align::ChunkCompute(
 
 		Align::UpdatePEOffset(pe_col_offsets, predicate);
 	}
+
+#ifdef DEBUG
+	auto final_score_std = Utils::Debug::Translate::translate_3d<type_t, N_LAYERS, PE_NUM, MAX_REFERENCE_LENGTH>(score_tbp);
+	Utils::Debug::Translate::print_3d("scores", final_score_std);
+	Utils::Debug::Translate::print_2d("preserved row scores",
+		Utils::Debug::Translate::translate_2d<type_t, N_LAYERS, MAX_REFERENCE_LENGTH>(preserved_row_scr));
+#endif
 
 	Align::FindMax::GetChunkMax(pe_max, max);
 }
@@ -476,12 +484,17 @@ void Align::InitializeScores(
 	Utils::Init::ArrSet<score_vec_t, MAX_REFERENCE_LENGTH>(init_row_scr, {-9999, 0, 0});
 #elif defined ALIGN_GLOBAL_AFFINE
 	Utils::Init::ArrSet(init_col_scr, 0, score_vec_t{-64,-64,-64});			   // query layer 0
-	Utils::Init::Linspace(init_col_scr, 1, 1, opening_score, extend_score, MAX_QUERY_LENGTH + 1);	   // query layer 1
+	Utils::Init::Linspace(init_col_scr, 0, 1, opening_score, extend_score, MAX_QUERY_LENGTH);	   // query layer 1
 	Utils::Init::ArrSet(init_col_scr, 2, score_vec_t{0,0,0}); // query layer 2
 
 	Utils::Init::ArrSet<score_vec_t, MAX_REFERENCE_LENGTH>(init_row_scr, 0, score_vec_t{0,0,0}); // reference layer 0
 	Utils::Init::Linspace<type_t, 3, MAX_REFERENCE_LENGTH>(init_row_scr, 0, 1, opening_score, extend_score);				   // reference layer 1
 	Utils::Init::ArrSet<score_vec_t, MAX_REFERENCE_LENGTH>(init_row_scr, 2, score_vec_t{-64, -64, -64});			   // reference layer 2
+#ifdef DEBUG
+	Utils::Debug::Translate::print_2d("Initial Column Scores", 
+	Utils::Debug::Translate::translate_2d<type_t, N_LAYERS, MAX_QUERY_LENGTH>(init_col_scr));
+#endif
+
 #else
 	// Not initialized.
 	int i = 0;
@@ -496,7 +509,7 @@ void Align::CopyColScore(chunk_col_scores_inf_t & init_col_scr_local, score_vec_
 	for (int j = 0; j < PE_NUM; j++)
 	{
 #pragma HLS unroll
-		init_col_scr_local[j] = init_col_scr[idx + j];
+		init_col_scr_local[j+1] = init_col_scr[idx + j];
 	}
 }
 
@@ -548,7 +561,7 @@ void Align::AlignStatic(
 	tbp_t tbp_matrix[MAX_QUERY_LENGTH][MAX_REFERENCE_LENGTH];
 
 #ifdef DEBUG
-	type_t score_matrix[MAX_QUERY_LENGTH][MAX_REFERENCE_LENGTH]; // DEBUG
+	hls::vector<type_t, N_LAYERS>  score_matrix[MAX_QUERY_LENGTH][MAX_REFERENCE_LENGTH]; // DEBUG
 	float score_matrix_std[MAX_QUERY_LENGTH][MAX_REFERENCE_LENGTH]; // DEBUG
 #endif
 
@@ -559,7 +572,7 @@ void Align::AlignStatic(
 
 	char_t local_query[PE_NUM];
 	chunk_col_scores_inf_t local_init_col_score;
-	init_col_score[PE_NUM] = score_vec_t(0);
+	local_init_col_score[PE_NUM] = score_vec_t(0);
 
 	hls::vector<type_t, N_LAYERS> preserved_row_buffer[MAX_REFERENCE_LENGTH];
 
@@ -577,7 +590,7 @@ void Align::AlignStatic(
 		tbp_t(*chunk_tbp_out)[MAX_REFERENCE_LENGTH] = &tbp_matrix[i];
 
 #ifdef DEBUG
-		type_t(*chunk_score_out)[MAX_REFERENCE_LENGTH] = &score_matrix[i];
+		hls::vector<type_t, N_LAYERS>  (*chunk_score_out)[MAX_REFERENCE_LENGTH] = &score_matrix[i];
 
 		// >>> DEBUG >>>
 		int std_arr_qry[PE_NUM];
@@ -606,10 +619,11 @@ void Align::AlignStatic(
 
 		Align::ChunkMax(maximum, local_max);
 
-		Utils::Array::Switch(init_row_score, preserved_row_buffer);
+		std::swap(init_row_score, preserved_row_buffer);
+		// Utils::Array::Switch(&(init_row_score[0]), &(preserved_row_buffer[0]));
 	}
 #ifdef DEBUG
-	Utils::Debug::translate(score_matrix, score_matrix_std);
+	//Utils::Debug::translate(score_matrix, score_matrix_std);
 #endif
 	// >>> Traceback >>>
 	Traceback::Traceback(tbp_matrix, tb_out, maximum.chunk_offset + maximum.pe, maximum.pe_offset);
@@ -672,7 +686,8 @@ void Align::Reordered::Align(
 						scores[c + p - 1][j - 1],
 						scores[c + p][j - 1],
 						scores[c + p][j],
-						tbp_matrix[c + p - 1][j - 1]);
+						tbp_matrix[c + p - 1][j - 1],
+						p);
 				}
 			}
 		}

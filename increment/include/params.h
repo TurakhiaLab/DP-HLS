@@ -357,10 +357,10 @@ struct ArrayPack {
 
 #ifdef ALIGN_GLOBAL_AFFINE
 
-#define MAX_QUERY_LENGTH 16
-#define MAX_REFERENCE_LENGTH 12
+#define MAX_QUERY_LENGTH 8
+#define MAX_REFERENCE_LENGTH 8
 
-#define PE_NUM 4
+#define PE_NUM 2
 
 #define numofreads 1
 
@@ -437,7 +437,7 @@ typedef hls::vector<type_t, N_LAYERS> dp_mem_block_t[PE_NUM+1][3];
 typedef tbp_t tbp_chunk_block_t[PE_NUM][MAX_REFERENCE_LENGTH];
 typedef hls::vector<type_t, N_LAYERS> score_vec_t;
 
-#define LAYER_MAXIMIUM 0
+#define LAYER_MAXIMIUM 1
 
 struct BlockInputs {
     raw_query_block_t query;

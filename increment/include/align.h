@@ -136,7 +136,7 @@ namespace Align
 		ScorePack &max, // write out so must pass by reference
 #ifdef DEBUG
 		tbp_t (*chunk_tbp_out)[MAX_REFERENCE_LENGTH],
-		type_t (*chunk_score_out)[MAX_REFERENCE_LENGTH]);
+		hls::vector<type_t, N_LAYERS>  (*chunk_score_out)[MAX_REFERENCE_LENGTH]);
 #else
         tbp_t (*chunk_tbp_out)[MAX_REFERENCE_LENGTH]);
 #endif
@@ -153,9 +153,9 @@ namespace Align
 	};
 
 	void ArrangeScores(
-		score_block_t &tbp_in,
+		dp_mem_block_t &tbp_in,
 		bool (&predicate)[PE_NUM], idx_t (&pe_offset)[PE_NUM],
-		type_t (*chunk_score_out)[MAX_REFERENCE_LENGTH]);
+		hls::vector<type_t, N_LAYERS>  (*chunk_score_out)[MAX_REFERENCE_LENGTH]);
 
 	void WriteInitialColScore(int i, score_vec_t (&init_scores)[PE_NUM],
 							  hls::stream_of_blocks<dp_mem_block_t> &dp_mem_in,

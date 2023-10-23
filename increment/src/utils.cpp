@@ -15,3 +15,45 @@ std::vector<std::vector<float>> Utils::Debug::translate_scores(hls::vector<type_
     }
     return vec;
 }
+
+void Utils::Debug::Translate::print_3d(const char * name, std::vector<std::vector<std::vector<float>>> scores)
+{
+    printf("%s\n", name);
+    for (int k = 0; k < scores[0][0].size(); k++)
+    {
+        printf("Layer %d\n", k);
+        for (int i = 0; i < scores.size(); i++)
+        {
+            for (int j = 0; j < scores[0].size(); j++)
+            {
+                printf("%f ", scores[i][j][k]);
+            }
+            printf("\n");
+        }
+        printf("\n");
+    }
+}
+
+void Utils::Debug::Translate::print_2d(const char * name, std::vector<std::vector<float>> scores)
+{
+    printf("%s\n", name);
+    for (int i = 0; i < scores.size(); i++)
+    {
+        for (int k = 0; k < scores[0].size(); k++)
+        {
+            printf("%f ", scores[i][k]);
+        }
+        printf("\n");
+    }
+    printf("\n");
+    
+}
+
+void Utils::Debug::Translate::print_1d(const char * name, std::vector<float> scores)
+{
+    printf("%s\n", name);
+    for (int i = 0; i < scores.size(); i++)
+    {
+        printf("%f ", scores[i]);
+    }
+}

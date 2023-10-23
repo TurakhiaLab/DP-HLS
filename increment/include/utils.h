@@ -2,6 +2,7 @@
 #define UTILS_H
 
 #include "params.h"
+#include <string>
 
 namespace Utils
 {
@@ -44,19 +45,19 @@ namespace Utils
 		}
 
 		/**
-		 * @brief Copy length LEN of data from src to dst. If more than 
+		 * @brief Copy length LEN of data from src to dst. If more than
 		 * len, fill the rest with default_num. We need to use fixed length
-		 * array rather than a pointer is because HLS is not pointer friendly. 
-		 * 
+		 * array rather than a pointer is because HLS is not pointer friendly.
+		 *
 		 * @tparam T: Type of the elements
 		 * @tparam M: Length of src
 		 * @tparam N: Length of dst
 		 * @tparam LEN: Length to copy
 		 * @param len: Length of actual copying
-		 * @param default_num: default number to fill. 
+		 * @param default_num: default number to fill.
 		 */
 		template <typename T, int M, int N, int LEN>
-		void Copy(T (&src)[M], T(&dst)[N], idx_t len, T default_num)
+		void Copy(T (&src)[M], T (&dst)[N], idx_t len, T default_num)
 		{
 			for (int i = 0; i < LEN; i++)
 			{
@@ -65,23 +66,22 @@ namespace Utils
 			}
 		}
 
-// 		template <typename T, int M, int N>
-// 		void Copy(T(&dst)[M], idx_t dst_idx, T (&src)[N], idx_t src_idx, idx_t len, T default_num)
-// 		{
-// 			for (int i = 0; i < len; i++)
-// 			{
-// #pragma HLS unroll
-// 				dst[i] = i < len ? src[i] : default_num;
-// 			}
-// 		}
-		
+		// 		template <typename T, int M, int N>
+		// 		void Copy(T(&dst)[M], idx_t dst_idx, T (&src)[N], idx_t src_idx, idx_t len, T default_num)
+		// 		{
+		// 			for (int i = 0; i < len; i++)
+		// 			{
+		// #pragma HLS unroll
+		// 				dst[i] = i < len ? src[i] : default_num;
+		// 			}
+		// 		}
 
-		
 		template <typename T>
-		void Switch(T *arr1, T *arr2){
-			T *tmp = arr1;
-			arr1 = arr2;
-			arr2 = tmp;
+		void Switch(T **arr1, T **arr2)
+		{
+			T *tmp = *arr1;
+			*arr1 = *arr2;
+			*arr2 = tmp;
 		}
 	}
 
@@ -132,7 +132,6 @@ namespace Utils
 			}
 		}
 
-
 	}
 
 	namespace Matrix
@@ -170,11 +169,10 @@ namespace Utils
 			}
 		}
 
-
 		/**
 		 * @brief This function is for alias typname for steram of blocks
-		 * 
-		 * @tparam T: For example, typedef int T[16] 
+		 *
+		 * @tparam T: For example, typedef int T[16]
 		 * @param arr: array form of redefined type
 		 * @param stream_block: stream of the block type
 		 */
@@ -211,49 +209,75 @@ namespace Utils
 		}
 
 	}
-	namespace Debug {
+
+	namespace Debug
+	{
 		template <typename T1, typename T2, int LEN>
-		void translate(T1 (&hls_arr)[LEN], T2 (&std_arr)[LEN]){
-			for (int i = 0; i < LEN; i++){
+		void translate(T1 (&hls_arr)[LEN], T2 (&std_arr)[LEN])
+		{
+			for (int i = 0; i < LEN; i++)
+			{
 				std_arr[i] = (T2)(hls_arr[i]);
 			}
 		}
 
 		template <typename T1, typename T2, int M, int N>
-		void translate(T1 (&hls_mat)[M][N], T2 (&std_mat)[M][N]){
-			for (int i = 0; i < M; i++){
-				for (int j = 0; j < N; j++){
+		void translate(T1 (&hls_mat)[M][N], T2 (&std_mat)[M][N])
+		{
+			for (int i = 0; i < M; i++)
+			{
+				for (int j = 0; j < N; j++)
+				{
 					std_mat[i][j] = (T2)(hls_mat[i][j]);
 				}
 			}
 		}
 
 		template <typename T1, typename T2, int M, int N, int K>
-		void translate_multilayer(T1 (&hls_mat)[M][N], T2 (&std_mat)[K][M][N]){
-			for (int i = 0; i < M; i++){
-				for (int j = 0; j < N; j++){
-					for (int k = 0; k < K; k++) {
-                        std_mat[k][i][j] = (float) (hls_mat[i][j][k]);
-                    }
+		void translate_multilayer(T1 (&hls_mat)[M][N], T2 (&std_mat)[K][M][N])
+		{
+			for (int i = 0; i < M; i++)
+			{
+				for (int j = 0; j < N; j++)
+				{
+					for (int k = 0; k < K; k++)
+					{
+						std_mat[k][i][j] = (float)(hls_mat[i][j][k]);
+					}
 				}
 			}
 		}
 
-		std::vector<float> translate_vec(hls::vector<type_t, N_LAYERS> (&arr));
+		std::vector<float> translate_vec(hls::vector<type_t, N_LAYERS>(&arr));
 		std::vector<std::vector<float>> translate_scores(hls::vector<type_t, N_LAYERS> (&arr)[PE_NUM]);
 
-		namespace Translate {
+		namespace Translate
+		{
+			/**
+			 * @brief Translate a data structure of the shape hls::vector<T, NL> scores[M][N]
+			 * to 3d nested float stl vector.
+			 *
+			 * @tparam T
+			 * @tparam NL
+			 * @tparam M
+			 * @tparam N
+			 * @param scores
+			 * @return std::vector<std::vector<std::vector<float>>>
+			 */
 			template <typename T, int NL, int M, int N>
-			std::vector<std::vector<std::vector<float>>> score_mat(
-				hls::vector<T, NL> scores[M][N]
-			){
+			std::vector<std::vector<std::vector<float>>> translate_3d(
+				hls::vector<T, NL> scores[M][N])
+			{
 				std::vector<std::vector<std::vector<float>>> result;
 
-				for (int i = 0; i < M; i++){
+				for (int i = 0; i < M; i++)
+				{
 					std::vector<std::vector<float>> pe_row;
-					for (int j = 0; j < N; j++){
+					for (int j = 0; j < N; j++)
+					{
 						std::vector<float> pe_vec;
-						for (int k = 0; k < NL; k++){
+						for (int k = 0; k < NL; k++)
+						{
 							pe_vec.push_back(scores[i][j][k].to_float());
 						}
 						pe_row.push_back(pe_vec);
@@ -263,9 +287,62 @@ namespace Utils
 				return result;
 			}
 
+			/**
+			 * @brief Translate a data structure of the shape hls::vector<T, NL> scores[N]
+			 * to 2d nested float stl vector.
+			 *
+			 * @tparam T
+			 * @tparam NL
+			 * @tparam N
+			 * @param scores
+			 * @return std::vector<std::vector<float>>
+			 */
+			template <typename T, int NL, int N>
+			std::vector<std::vector<float>> translate_2d(
+				hls::vector<T, NL> scores[N])
+			{
+				std::vector<std::vector<float>> result;
+
+				for (int i = 0; i < N; i++)
+				{
+					std::vector<float> pe_vec;
+					for (int k = 0; k < NL; k++)
+					{
+						pe_vec.push_back(scores[i][k].to_float());
+					}
+					result.push_back(pe_vec);
+				}
+				return result;
+			}
+
+			/**
+			 * @brief Translate a data structure of the shape hls::vector<T, NL> scores[N]
+			 * to 1d nested float stl vector.
+			 *
+			 * @tparam T
+			 * @tparam NL
+			 * @param scores
+			 * @return std::vector<float>
+			 */
+			template <typename T, int NL>
+			std::vector<float> translate_1d(
+				hls::vector<T, NL> scores)
+			{
+				std::vector<float> result;
+
+				for (int k = 0; k < NL; k++)
+				{
+					result.push_back(scores[k].to_float());
+				}
+				return result;
+			}
+
+			void print_3d(const char * name, std::vector<std::vector<std::vector<float>>> scores);
+			void print_2d(const char * name, std::vector<std::vector<float>> scores);
+			void print_1d(const char * name, std::vector<float> scores);
+
 		}
 
-		
 	}
 }
 
