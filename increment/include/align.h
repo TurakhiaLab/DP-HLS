@@ -133,7 +133,7 @@ namespace Align
 		hls::vector<type_t, N_LAYERS> (&init_row_scr)[MAX_REFERENCE_LENGTH],
 		int query_length, int reference_length,
 		hls::vector<type_t, N_LAYERS> (&preserved_row_scr)[MAX_REFERENCE_LENGTH],
-		ScorePack &max, // write out so must pass by reference
+		ScorePack (&max)[PE_NUM], // write out so must pass by reference
 #ifdef DEBUG
 		tbp_t (*chunk_tbp_out)[MAX_REFERENCE_LENGTH],
 		hls::vector<type_t, N_LAYERS>  (*chunk_score_out)[MAX_REFERENCE_LENGTH]);
@@ -251,7 +251,7 @@ namespace Align
 		 * @param chunk_offset The chunk index number.
 		 * @param predicate Predicate array.
 		 */
-		void UpdatePEMaximum(type_t (&new_scr)[PE_NUM], ScorePack (&max)[PE_NUM], idx_t (&pe_offsets)[PE_NUM], idx_t chunk_offset, bool (&predicate)[PE_NUM]);
+		void UpdatePEMaximum(dp_mem_block_t dp_mem, ScorePack (&max)[PE_NUM], idx_t (&pe_offsets)[PE_NUM], idx_t chunk_offset, bool (&predicate)[PE_NUM]);
 
 		/**
 		 * @brief Extract a layer of a score array.
@@ -265,11 +265,11 @@ namespace Align
 		void InitPE(ScorePack (&packs)[PE_NUM]);
 
 		/**
-		 * @brief Extract the maximum of the chunk from an array of PE's local maximum.
+		 * @brief Extract the maximum score from PE's local maximums
 		 * @param max Array of PE's local maximum.
 		 * @param chunk_max The maximum of the chunk.
 		 */
-		void GetChunkMax(ScorePack (&max)[PE_NUM], ScorePack &chunk_max);
+		void ReductionMaxScores(ScorePack (&max)[PE_NUM], ScorePack &chunk_max);
 
 		// void ChunkMaximium();
 
@@ -308,6 +308,8 @@ namespace Align
 	void UpdatePEOffset(idx_t (&pe_offset)[PE_NUM], bool (&predicate)[PE_NUM]);
 
 	void CopyColScore(chunk_col_scores_inf_t &init_col_scr_local, score_vec_t (&init_col_scr)[MAX_QUERY_LENGTH], idx_t i);
+
+	void InitializeMaxScores(ScorePack (&max)[PE_NUM]);
 
 }
 

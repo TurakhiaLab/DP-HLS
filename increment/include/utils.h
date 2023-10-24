@@ -315,6 +315,24 @@ namespace Utils
 				return result;
 			}
 
+			template <typename T, int M, int N>
+			std::vector<std::vector<float>> translate_2d(
+				T scores[M][N])
+			{
+				std::vector<std::vector<float>> result;
+
+				for (int i = 0; i < M; i++)
+				{
+					std::vector<float> pe_vec;
+					for (int k = 0; k < N; k++)
+					{
+						pe_vec.push_back(scores[i][k].to_float());
+					}
+					result.push_back(pe_vec);
+				}
+				return result;
+			}
+
 			/**
 			 * @brief Translate a data structure of the shape hls::vector<T, NL> scores[N]
 			 * to 1d nested float stl vector.
@@ -331,6 +349,19 @@ namespace Utils
 				std::vector<float> result;
 
 				for (int k = 0; k < NL; k++)
+				{
+					result.push_back(scores[k].to_float());
+				}
+				return result;
+			}
+
+			template <typename T, int N>
+			std::vector<float> translate_1d(
+				T scores[N])
+			{
+				std::vector<float> result;
+
+				for (int k = 0; k < N; k++)
 				{
 					result.push_back(scores[k].to_float());
 				}

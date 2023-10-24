@@ -303,7 +303,7 @@ void Align::ChunkCompute(
 	hls::vector<type_t, N_LAYERS> (&init_row_scr)[MAX_REFERENCE_LENGTH],
 	int query_length, int reference_length,
 	hls::vector<type_t, N_LAYERS> (&preserved_row_scr)[MAX_REFERENCE_LENGTH],
-	ScorePack &max,
+	ScorePack (&max)[PE_NUM],  // initialize rather in maximum
 #ifdef DEBUG
 	tbp_t (*chunk_tbp_out)[MAX_REFERENCE_LENGTH],
 	hls::vector<type_t, N_LAYERS> (*score_tbp)[MAX_REFERENCE_LENGTH])
@@ -324,8 +324,6 @@ void Align::ChunkCompute(
 	char_t local_reference[PE_NUM]; // local reference
 
 	tbp_block_t tbp_out;
-
-	ScorePack pe_max[PE_NUM];
 
 	type_t extracted_scores[PE_NUM]; // FIXME: What is it?
 
@@ -387,7 +385,7 @@ void Align::ChunkCompute(
 
 		// Align::FindMax::ExtractScoresLayer(scores_out, LAYER_MAXIMIUM, extracted_scores);
 
-		Align::FindMax::UpdatePEMaximum(extracted_scores, pe_max, pe_col_offsets, chunk_row_offset, predicate);
+		Align::FindMax::UpdatePEMaximum(dp_mem, max, pe_col_offsets, chunk_row_offset, predicate);
 #ifdef DEBUG
 		Align::ArrangeScores(dp_mem, predicate, pe_col_offsets, score_tbp);
 		auto dp_mem_checkpoint = Utils::Debug::Translate::translate_3d<
@@ -406,7 +404,6 @@ void Align::ChunkCompute(
 		Utils::Debug::Translate::translate_2d<type_t, N_LAYERS, MAX_REFERENCE_LENGTH>(preserved_row_scr));
 #endif
 
-	Align::FindMax::GetChunkMax(pe_max, max);
 }
 
 void Align::FindMax::ExtractScoresLayer(score_block_t &scores, idx_t layer, type_t (&extracted)[PE_NUM])
@@ -456,7 +453,7 @@ void Align::PreserveRowScore(
 	}
 }
 
-void Align::FindMax::GetChunkMax(ScorePack (&packs)[PE_NUM], ScorePack &chunk_max)
+void Align::FindMax::ReductionMaxScores(ScorePack (&packs)[PE_NUM], ScorePack &global_max)
 {
 	ScorePack max = packs[0];
 	for (int i = 0; i < PE_NUM; i++)
@@ -466,7 +463,10 @@ void Align::FindMax::GetChunkMax(ScorePack (&packs)[PE_NUM], ScorePack &chunk_ma
 			max = packs[i];
 		}
 	}
-	chunk_max = max;
+	global_max.chunk_offset = max.chunk_offset;
+	global_max.pe = max.pe;
+	global_max.pe_offset = max.pe_offset;
+	global_max.score = max.score;
 }
 
 void Align::InitializeScores(
@@ -513,11 +513,22 @@ void Align::CopyColScore(chunk_col_scores_inf_t & init_col_scr_local, score_vec_
 	}
 }
 
+void Align::InitializeMaxScores(ScorePack (&max)[PE_NUM])
+{
+	for (int i = 0; i < PE_NUM; i++){
+#pragma HLS unroll
+		max[i].score = -64;  // Need a custom struct for finding the negative infinity
+		max[i].chunk_offset	= 0;
+		max[i].pe = i;
+		max[i].pe_offset = 0;
+	}
+}
+
 void Align::PrepareLocalQuery(
-	char_t (&query)[MAX_QUERY_LENGTH],
-	char_t (&local_query)[PE_NUM],
-	idx_t offset,
-	idx_t len)
+    char_t (&query)[MAX_QUERY_LENGTH],
+    char_t (&local_query)[PE_NUM],
+    idx_t offset,
+    idx_t len)
 {
 	for (int i = 0; i < PE_NUM; i++)
 	{
@@ -533,7 +544,6 @@ void Align::ChunkMax(ScorePack &max, ScorePack new_scr)
 		max.score = new_scr.score;
 		max.chunk_offset = new_scr.chunk_offset;
 		max.pe_offset = new_scr.pe_offset;
-		max.layer = new_scr.layer;
 	}
 }
 
@@ -568,7 +578,11 @@ void Align::AlignStatic(
 #pragma HLS array_partition variable = tbp_matrix type = cyclic factor = PE_NUM dim = 1
 
 	// >>> Compute >>>
-	ScorePack maximum = {0, 0, 0}; // global score track
+	ScorePack maximum = {0,0,0,0}; // global score track
+	ScorePack local_max[PE_NUM];
+	Align::InitializeMaxScores(local_max);
+
+	// FIXME: Add reduction find max
 
 	char_t local_query[PE_NUM];
 	chunk_col_scores_inf_t local_init_col_score;
@@ -580,8 +594,6 @@ void Align::AlignStatic(
 
 	for (idx_t i = 0; i < query_length; i += PE_NUM)
 	{
-		ScorePack local_max;
-
 		idx_t local_query_length = ((idx_t)PE_NUM < query_length - i) ? (idx_t)PE_NUM : (idx_t)(query_length - i);
 
 		Align::PrepareLocalQuery(query, local_query, i, local_query_length); // FIXME: Why not coping rest of the query
@@ -616,29 +628,36 @@ void Align::AlignStatic(
 #else
             chunk_tbp_out);
 #endif
-
-		Align::ChunkMax(maximum, local_max);
-
-		std::swap(init_row_score, preserved_row_buffer);
+		std::swap(init_row_score, preserved_row_buffer);  // FIXME: Cannot present in Synthesis
 		// Utils::Array::Switch(&(init_row_score[0]), &(preserved_row_buffer[0]));
 	}
 #ifdef DEBUG
-	//Utils::Debug::translate(score_matrix, score_matrix_std);
+	Utils::Debug::Translate::print_2d("Traceback Pointers", 
+		Utils::Debug::Translate::translate_2d<tbp_t, MAX_QUERY_LENGTH, MAX_REFERENCE_LENGTH>(tbp_matrix)
+	);
 #endif
+	Align::FindMax::ReductionMaxScores(local_max, maximum);
+
 	// >>> Traceback >>>
 	Traceback::Traceback(tbp_matrix, tb_out, maximum.chunk_offset + maximum.pe, maximum.pe_offset);
+#ifdef DEBUG
+	Utils::Debug::Translate::print_1d("Traceback", 
+		Utils::Debug::Translate::translate_1d<tbr_t, MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH>(tb_out)
+	);
+#endif
 }
 
-void Align::FindMax::UpdatePEMaximum(type_t (&new_scr)[PE_NUM], ScorePack (&max)[PE_NUM], idx_t (&pe_offset)[PE_NUM], idx_t chunk_offset, bool (&predicate)[PE_NUM])
+void Align::FindMax::UpdatePEMaximum(dp_mem_block_t dp_mem, ScorePack (&max)[PE_NUM], idx_t (&pe_offset)[PE_NUM], idx_t chunk_offset, bool (&predicate)[PE_NUM])
 {
+	// CUSTOMIZE FIND MAX (GLOBAL/LOCAL)
 	for (int i = 0; i < PE_NUM; i++)
 	{
 #pragma HLS unroll
 		if (predicate[i])
 		{
-			if (new_scr[i] > max[i].score)
+			if (dp_mem[i+1][0] > max[i].score)
 			{
-				max[i].score = new_scr[i];
+				max[i].score = dp_mem[i+1][0][1];  // FIXME: which layer?
 				max[i].chunk_offset = chunk_offset;
 				max[i].pe_offset = pe_offset[i];
 			}

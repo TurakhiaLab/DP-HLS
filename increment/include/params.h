@@ -457,7 +457,6 @@ struct ScorePack{
     idx_t chunk_offset = 0;
     idx_t pe = 0;
     idx_t pe_offset = 0;
-    idx_t layer = 0;
 };
 
 template <typename T, int N>
