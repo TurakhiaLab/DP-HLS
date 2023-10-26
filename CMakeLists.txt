@@ -13,7 +13,9 @@ set(CMAKE_C_COMPILER "/usr/bin/gcc")
 set(CMAKE_CXX_COMPILER "/usr/bin/c++")  # Use g++ compiler, but subject to change for v++ compiler.
 set(CMAKE_BUILD_TYPE Debug)
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O0 -g")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O0 -g -fsanitize=address")
+# "-fsanitize=address" flag was used to check the stack smashing with Google Address Sanitizer. Use this flag with CLang and 
+# run the program to check. 
 
 set(EXECUTABLE_TARGETS
     # align_local_linear
@@ -26,119 +28,57 @@ set(EXECUTABLE_TARGETS
 )
 
 # Compile baseline kernel. 
-add_executable(baseline_local_linear "increment/legacy/local_linear.h"
-    "increment/legacy/local_linear.cpp"
-    "increment/legacy/shift_register.h"
-    "increment/legacy/local_linear_testbench.cpp" )
+add_executable(baseline_local_linear "legacy/local_linear.h"
+    "legacy/local_linear.cpp"
+    "legacy/shift_register.h"
+    "legacy/local_linear_testbench.cpp" )
 
 # Testbench for incremental components. 
-add_executable(tests "increment/testbench/test_align.cpp"
-    "increment/include/testbench.h"
-    "increment/include/PE.h"
-    "increment/include/align.h"
-    "increment/include/utils.h"
-    "increment/testbench/testbench.cpp"
-    "increment/src/pe/pe.cpp"
-    "increment/src/align/align.cpp")
+add_executable(tests "testbench/test_align.cpp"
+    "include/testbench.h"
+    "include/PE.h"
+    "include/align.h"
+    "include/utils.h"
+    "testbench/testbench.cpp"
+    "src/pe/pe.cpp"
+    "src/align/align.cpp")
 
 # Testbench for individual kernel. 
-add_executable(test_align "increment/testbench/test_align.cpp"
-    "increment/include/params.h"
-    "increment/include/seq_align_multiple.h"
-    "increment/include/align.h"
-    "increment/include/PE.h"
-    "increment/include/utils.h"
-    "increment/include/pyapi.h"
-    "increment/src/toplevel/seq_align_multiple.cpp"
-    "increment/src/align/align.cpp"
-    "increment/src/pe/pe.cpp"
-    "increment/src/traceback.cpp"
-    "increment/src/pyapi.cpp"
-    "increment/src/utils.cpp")
+add_executable(test_align "testbench/test_align.cpp"
+    "include/params.h"
+    "include/seq_align_multiple.h"
+    "include/align.h"
+    "include/PE.h"
+    "include/utils.h"
+    "include/pyapi.h"
+    "include/frontend.h"
+    "src/toplevel/seq_align_multiple.cpp"
+    "src/align/align.cpp"
+    "src/pe/pe.cpp"
+    "src/traceback.cpp"
+    "src/pyapi.cpp"
+    "src/utils.cpp"
+    "src/frontend.cpp")
 
-add_executable(test_pyapi "increment/testbench/test_align.cpp"
-    "increment/include/params.h"
-    "increment/include/seq_align_multiple.h"
-    "increment/include/align.h"
-    "increment/include/PE.h"
-    "increment/include/utils.h"
-    "increment/include/pyapi.h"
-    "increment/src/toplevel/seq_align_multiple.cpp"
-    "increment/src/align/align.cpp"
-    "increment/src/pe/pe.cpp"
-    "increment/src/traceback.cpp"
-    "increment/src/pyapi.cpp"
-    "increment/include/debug.h")
+add_executable(test_pyapi "testbench/test_align.cpp"
+    "include/params.h"
+    "include/seq_align_multiple.h"
+    "include/align.h"
+    "include/PE.h"
+    "include/utils.h"
+    "include/pyapi.h"
+    "src/toplevel/seq_align_multiple.cpp"
+    "src/align/align.cpp"
+    "src/pe/pe.cpp"
+    "src/traceback.cpp"
+    "src/pyapi.cpp"
+    "include/debug.h")
 
 add_executable(multidimcast
-    "increment/include/pyapi.h"
-    "increment/src/pyapi.cpp"
-    "increment/testbench/multidimcast_test.cpp"
+    "include/pyapi.h"
+    "src/pyapi.cpp"
+    "testbench/multidimcast_test.cpp"
 )
-
-
-# Add source to this project's executable.
-# add_executable(align_local_linear "testbench/test_local_linear.cpp" "include/params.h"
-#     "include/seq_align_multiple.h"
-#     "include/seq_align.h"
-#     "include/PE.h"
-#     "include/host.h"
-#     "include/loop_counter.h"
-#     "include/traceback.h"
-#     "include/initial.h"
-
-#     "src/toplevel/seq_align_multiple.cpp"
-#     "src/align/align.cpp"
-#     "src/traceback.cpp" 
-#     "src/utils.cpp"  
-#     "src/initial.cpp" 
-#     "src/pe/pe.cpp")
-
-# add_executable(align_global_linear "testbench/test_global_linear.cpp" "include/params.h"
-#     "include/seq_align_multiple.h"
-#     "include/seq_align.h"
-#     "include/PE.h"
-#     "include/host.h"
-#     "include/loop_counter.h"
-#     "include/traceback.h"
-#     "include/initial.h" 
-
-#     "src/toplevel/seq_align_multiple.cpp"
-#     "src/align/align.cpp"
-#     "src/pe/pe_global_linear.cpp"
-#     "src/traceback.cpp"
-#     "src/utils.cpp"
-#     "src/initial.cpp" "src/pe/pe.cpp")
-
-# add_executable(align_local_affine "testbench/test_local_affine.cpp" "include/params.h"
-#     "include/seq_align_multiple.h"
-#     "include/seq_align.h"
-#     "include/PE.h"
-#     "include/host.h"
-#     "include/loop_counter.h"
-#     "include/traceback.h"
-#     "include/initial.h"
-
-#     "src/toplevel/seq_align_multiple.cpp"
-#     "src/align/align.cpp"
-#     "src/traceback.cpp" 
-#     "src/utils.cpp"  
-#     "src/initial.cpp" "src/pe/pe.cpp")
-
-# add_executable(align_global_affine "testbench/test_global_affine.cpp" "include/params.h"
-#     "include/seq_align_multiple.h"
-#     "include/seq_align.h"
-#     "include/PE.h"
-#     "include/host.h"
-#     "include/loop_counter.h"
-#     "include/traceback.h"
-#     "include/initial.h"
-
-#     "src/toplevel/seq_align_multiple.cpp"
-#     "src/align/align.cpp"
-#     "src/traceback.cpp" 
-#     "src/utils.cpp" 
-#     "src/initial.cpp" "src/pe/pe.cpp")
 
 set_property(TARGET test_pyapi PROPERTY CXX_STANDARD 17)
 set_property(TARGET test_align PROPERTY CXX_STANDARD 17)

@@ -1,58 +1,39 @@
 #include "../include/traceback.h"
 #include "../include/loop_counter.h"
+#include "../include/frontend.h"
 #include <hls_vector.h>
 
+
 #ifdef DEBUG
-#include <debug.h>
 #include <cstdio>
+#include "../include/traceback.h"
 #endif // DEBUG
 
-int TraceBack::traceback(
-    hls::vector<tbp_t, N_LAYERS> tbmat[MAX_QUERY_LENGTH][MAX_REFERENCE_LENGTH],
-    tbp_t (&traceback_out)[MAX_REFERENCE_LENGTH+MAX_QUERY_LENGTH],
-    const int max_layer, const int max_row, const int max_col)  // starting index to traceback
-{ 
+void Traceback::Traceback(
+    tbp_t (&tbmat)[MAX_QUERY_LENGTH][MAX_REFERENCE_LENGTH],
+    tbr_t (&traceback_out)[MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH],
+    const int max_row, const int max_col) // starting index to traceback
+{
     int row = max_row;
     int col = max_col;
-    int level = max_layer;
     int i = 0;
+    bool end = 0;
+    
+    TB_STATE state;
+    ALIGN_TYPE::Traceback::StateInit(tbmat[row][col], state);    
 
-    traceback_loop:
-    while (row >= 0 && col >= 0) {
-        tbp_t tbptr = tbmat[row][col][level];
-        traceback_out[i++] = tbptr;
-
-#ifdef DEBUG
-        this->debugger->data.traceback.push_back(tbptr);
-#endif // DEBUG
-
-        int level_prev = level;
-        tbp_dir_t dir; dir(1,0) = tbptr(1, 0);
-        level = tbptr(WT - 1, 2).to_int(); // extract layer bit
+traceback_loop:
+    for (int i = 0; i < MAX_QUERY_LENGTH + MAX_REFERENCE_LENGTH; i++)
+    {
+        if (!end && row >= 0 && col >= 0){
+            tbp_t tbptr = tbmat[row][col];  // Want to represented by the symbol rather than pointer
+            traceback_out[i] = ALIGN_TYPE::Traceback::StateToPath(state);
+            ALIGN_TYPE::Traceback::StateMapping(tbptr, state, row, col);
+            if (state == TB_STATE::END)  end = 1;
+        } else {
+            traceback_out[i] = AL_END;
+        }
         
-        
-        if ((dir == TB_PH) && (level == level_prev)) {
-            // printf("ending at: %f\n", tbptr.to_float());
-            break;
-        }
-        else if (dir == TB_PH) {
-            continue;
-        }
-        else if (dir == TB_DIAG) {
-            row--; col--;
-        }
-        else if (dir == TB_UP) {
-            row--;
-        }
-        else if (dir == TB_LEFT) {
-            col--;
-        }
-        else {
-#ifdef DEBUG
-            printf("default meet: %f, dir: %f\n", tbptr.to_float(), dir.to_float());
-#endif // DEBUG
-            break;  //break the loop
-        }
     }
-    return 0; // retrun the length of the traceback
 }
+

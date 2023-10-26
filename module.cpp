@@ -16,11 +16,11 @@ PYBIND11_MODULE(alignhls, m) {
         .def("get_traceback_path", &AHRunner::get_traceback_path)
         .def("get_scores", &AHRunner::get_scores);
     
-    py::class_<LoggerData>(m, "LoggerData")
-        .def(py::init<>());
+    // py::class_<LoggerData>(m, "LoggerData")
+    //     .def(py::init<>());
 
-    py::class_<LoopLogger>(m, "LoopLogger")
-        .def(py::init<>())
-        .def("get_timelines", &LoopLogger::get_timelines);
+    // py::class_<LoopLogger>(m, "LoopLogger")
+    //     .def(py::init<>())
+    //     .def("get_timelines", &LoopLogger::get_timelines);
 
 }

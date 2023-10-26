@@ -4,12 +4,13 @@ import pybind11, glob, os
 cpp_args = ['-std=c++17']
 
 sources=[
-    "./increment/module.cpp",
-    "./increment/src/align/align.cpp",
-    "./increment/src/pe/pe.cpp",
-    "./increment/src/toplevel/seq_align_multiple.cpp",
-    "./increment/src/pyapi.cpp",
-    "./increment/src/traceback.cpp"
+    "./module.cpp",
+    "./src/align/align.cpp",
+    "./src/pe/pe.cpp",
+    "./src/toplevel/seq_align_multiple.cpp",
+    "./src/pyapi.cpp",
+    "./src/traceback.cpp",
+    "./src/utils.cpp"
          ]
 
 
@@ -24,7 +25,7 @@ sfc_module = Extension(
         "/home/AD.UCSD.EDU/swalia/Xilinx/Vitis_HLS/2023.1/include/lib"
     ],
     language='c++',
-    extra_compile_args=cpp_args,
+    extra_compile_args=cpp_args,  # ["-fsanitize=address"],
     )
 
 setup(

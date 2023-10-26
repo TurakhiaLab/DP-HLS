@@ -8,14 +8,11 @@
 
 #include <hls_stream.h>
 #include "../../include/PE.h"
-#include "../../include/seq_align.h"
+#include "../../include/align.h"
 #include "../../include/initial.h"
-#include "../../include/utils.h"
+
 #include <hls_np_channel.h>
 
-#ifdef DEBUG
-#include "debug.h"
-#endif // DEBUG
 
 // Link to vitis_hls/2022.2/include
 
@@ -27,49 +24,35 @@ using namespace hls;
  */
 extern "C"
 {
-void seq_align_multiple(
-        stream<BlockInputs> &inputs,
-        stream<BlockOutputs> &outputs)
-	{
+	void seq_align_multiple_static(
+	char_t (&querys)[N_BLOCKS][MAX_QUERY_LENGTH],
+	char_t (&references)[N_BLOCKS][MAX_REFERENCE_LENGTH],
+	idx_t (&query_lengths)[N_BLOCKS],
+	idx_t (&reference_lengths)[N_BLOCKS],
+	const Penalties penalties,
+	tbr_t (&tb_streams)[N_BLOCKS][MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH]){
 
-#pragma HLS dataflow
-#ifdef DEBUG
-		Debugger debug[N_BLOCKS];
-		for (int i = 0; i < N_BLOCKS; i++)
-		{
-			debug[i] = Debugger(DEBUG_OUTPUT_PATH, DEBUG_FILENAME, i, query_lengths[i], reference_lengths[i]);
-			align_group[i].debug = &debug[i];
-			align_group[i].tracer.debugger = &debug[i];
-		}
-#endif // DEBUG
+		// FIXME: specify the panelties
 
-        hls_thread_local hls::split::round_robin<BlockInputs, N_BLOCKS> inputs_split;
-        hls_thread_local hls::merge::round_robin<BlockOutputs, N_BLOCKS> outputs_merge;
-        // Utils::PackInput(query, reference, init_qry_scr, init_ref_scr, query_length, reference_length, inputs_split.in);
-        Utils::PackInputSimple(inputs, inputs_split.in);
-        hls_thread_local hls::task align_tasks[N_BLOCKS];
+#pragma HLS array_partition variable=querys dim=1 type=complete
+#pragma HLS array_partition variable=references dim=1 type=complete
+#pragma HLS array_partition variable=query_lengths dim=1 type=complete
+#pragma HLS array_partition variable=reference_lengths dim=1 type=complete
+#pragma HLS array_partition variable=tb_streams dim=1 type=complete
 
-	align_expand:
-		for (int block_i = 0; block_i < N_BLOCKS; block_i++)
-		{
+		for (int i = 0; i < N_BLOCKS; i++){
 #pragma HLS unroll
-
-			align_tasks[block_i](
-                    align_wp,
-                inputs_split.out[block_i],
-				outputs_merge.in[block_i]);
+			Align::AlignStatic(
+				querys[i],
+				references[i],
+				query_lengths[i],
+				reference_lengths[i],
+				penalties,
+				tb_streams[i]
+			);
+			Utils::Debug::Translate::print_1d(
+				"traceback", Utils::Debug::Translate::translate_1d<tbr_t, MAX_QUERY_LENGTH + MAX_REFERENCE_LENGTH>(tb_streams[i])
+			);
 		}
-
-        Utils::CollectTracebackSimple(outputs_merge.out, outputs);
-#ifdef DEBUG
-		for (int i = 0; i < N_BLOCKS; i++)
-		{
-			debug[i].print_block_score();
-			debug[i].print_query();
-			debug[i].print_reference();
-			// debug[i].print_msg();
-			debug[i].print_traceback_path_pointers();
-		}
-#endif // DEBUG
-	}
+    }
 }

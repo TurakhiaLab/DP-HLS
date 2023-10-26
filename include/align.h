@@ -22,6 +22,8 @@
 #include "./PE.h"
 #include "./utils.h"
 #include "./initial.h"
+#include "frontend.h"
+
 
 #ifdef DEBUG
 #include "./debug.h"
@@ -131,7 +133,8 @@ namespace Align
 		char_t (&reference)[MAX_REFERENCE_LENGTH],
 		chunk_col_scores_inf_t &init_col_scr,
 		hls::vector<type_t, N_LAYERS> (&init_row_scr)[MAX_REFERENCE_LENGTH],
-		int query_length, int reference_length,
+		int global_query_length, int query_length, int reference_length,
+		const Penalties penalties, 
 		hls::vector<type_t, N_LAYERS> (&preserved_row_scr)[MAX_REFERENCE_LENGTH],
 		ScorePack (&max)[PE_NUM], // write out so must pass by reference
 #ifdef DEBUG
@@ -241,17 +244,17 @@ namespace Align
 		// 	score_block_t &scores
 		// );
 
-		/**
-		 * @brief Update local maximum of each PE after comparing their exist local maximum and new scores. It takes
-		 * current pe_offsets, chunk_offset, and predicate.
-		 *
-		 * @param new_scr A wavefront of scores computed.
-		 * @param max Temporary local maximum of each PE.
-		 * @param pe_offsets Offset of each PE.
-		 * @param chunk_offset The chunk index number.
-		 * @param predicate Predicate array.
-		 */
-		void UpdatePEMaximum(dp_mem_block_t dp_mem, ScorePack (&max)[PE_NUM], idx_t (&pe_offsets)[PE_NUM], idx_t chunk_offset, bool (&predicate)[PE_NUM]);
+//		/**
+//		 * @brief Update local maximum of each PE after comparing their exist local maximum and new scores. It takes
+//		 * current pe_offsets, chunk_offset, and predicate.
+//		 * FIXME: CUSTOMIZABLE@@@!!!
+//		 * @param new_scr A wavefront of scores computed.
+//		 * @param max Temporary local maximum of each PE.
+//		 * @param pe_offsets Offset of each PE.
+//		 * @param chunk_offset The chunk index number.
+//		 * @param predicate Predicate array.
+//		 */
+//		void UpdatePEMaximum(dp_mem_block_t dp_mem, ScorePack (&max)[PE_NUM], idx_t (&pe_offsets)[PE_NUM], idx_t chunk_offset, bool (&predicate)[PE_NUM]);
 
 		/**
 		 * @brief Extract a layer of a score array.
@@ -271,7 +274,7 @@ namespace Align
 		 */
 		void ReductionMaxScores(ScorePack (&max)[PE_NUM], ScorePack &chunk_max);
 
-		// void ChunkMaximium();
+		void InitializeMaxScores(ScorePack (&max)[PE_NUM]);
 
 		// void Sender ()  // Used to send the scores out the compute logic by blocks to find the max. Implement in the future
 	};
@@ -290,6 +293,7 @@ namespace Align
 		char_t (&references)[MAX_REFERENCE_LENGTH],
 		idx_t query_length,
 		idx_t reference_length,
+		const Penalties penalties,
 		tbr_t (&tb_streams)[MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH]);
 
 	/**
@@ -301,7 +305,8 @@ namespace Align
 	 */
 	void InitializeScores(
 		score_vec_t (&init_col_scr)[MAX_QUERY_LENGTH],
-		score_vec_t (&init_row_scr)[MAX_REFERENCE_LENGTH]);
+		score_vec_t (&init_row_scr)[MAX_REFERENCE_LENGTH],
+		Penalties penalties);
 
 	void ChunkMax(ScorePack &max, ScorePack new_scr);
 
@@ -309,7 +314,7 @@ namespace Align
 
 	void CopyColScore(chunk_col_scores_inf_t &init_col_scr_local, score_vec_t (&init_col_scr)[MAX_QUERY_LENGTH], idx_t i);
 
-	void InitializeMaxScores(ScorePack (&max)[PE_NUM]);
+
 
 }
 

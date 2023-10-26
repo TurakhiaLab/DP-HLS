@@ -1,6 +1,7 @@
 #include "../include/pyapi.h"
 #include "../include/seq_align_multiple.h"
 #include "../include/utils.h"
+#include <unordered_map>
 using namespace std;
 
 
@@ -9,8 +10,15 @@ void AHRunner::run()
     std::vector<char> query(this->query.begin(), this->query.end());
     std::vector<char> reference(this->reference.begin(), this->reference.end());
  
-    assert((query.size() <= MAX_QUERY_LENGTH) && "Query length should less than MAX_QUERY_LENGTH");
-    assert((reference.size() <= MAX_REFERENCE_LENGTH) && "Reference length should less than MAX_REFERENCE_LENGTH");
+    try {
+        if (query.size() > MAX_QUERY_LENGTH) throw std::runtime_error("Query length should less than MAX_QUERY_LENGTH, "
+            "actual query len " + std::to_string(query.size()) + ", Allocated qry len: " + std::to_string(MAX_QUERY_LENGTH));
+        if (reference.size() > MAX_REFERENCE_LENGTH) throw std::runtime_error("Reference length should less than MAX_REFERENCE_LENGTH, "
+            "actual ref len " + std::to_string(reference.size()) + ", Allocated ref len: " + std::to_string(MAX_REFERENCE_LENGTH));
+    } catch (const std::exception &e) {
+        std::cerr << "Exception: " << e.what() << std::endl;
+        throw;
+    }
 
     char_t reference_buff[N_BLOCKS][MAX_REFERENCE_LENGTH];
     char_t query_buff[N_BLOCKS][MAX_QUERY_LENGTH];
@@ -38,22 +46,39 @@ void AHRunner::run()
         qry_lengths[b] = query.size();
         ref_lengths[b] = reference.size();
     }
+
+    Penalties penalties;  // FIXME: Add his to Python interafce
+    penalties.match = 2;
+    penalties.mismatch = -2;
+    penalties.open = -1;
+    penalties.extend = -1;
+    
 // Actual kernel calling
     seq_align_multiple_static(
         query_buff,
         reference_buff,
         qry_lengths,
         ref_lengths,
+        penalties,
         this->tb_streams); 
 }
 
 void AHRunner::run(string query_string, string reference_string)
 {
+
+    // , unordered_map<string, float> penalties
     std::vector<char> query(query_string.begin(), query_string.end());
     std::vector<char> reference(reference_string.begin(), reference_string.end());
  
-    assert((query.size() <= MAX_QUERY_LENGTH) && "Query length should less than MAX_QUERY_LENGTH");
-    assert((reference.size() <= MAX_REFERENCE_LENGTH) && "Reference length should less than MAX_REFERENCE_LENGTH");
+    try {
+        if (query.size() > MAX_QUERY_LENGTH) throw std::runtime_error("Query length should less than MAX_QUERY_LENGTH, "
+            "actual query len " + std::to_string(query.size()) + ", Allocated qry len: " + std::to_string(MAX_QUERY_LENGTH));
+        if (reference.size() > MAX_REFERENCE_LENGTH) throw std::runtime_error("Reference length should less than MAX_REFERENCE_LENGTH, "
+            "actual ref len " + std::to_string(reference.size()) + ", Allocated ref len: " + std::to_string(MAX_REFERENCE_LENGTH));
+    } catch (const std::exception &e) {
+        std::cerr << "Exception: " << e.what() << std::endl;
+        throw;
+    }
 
     char_t reference_buff[N_BLOCKS][MAX_REFERENCE_LENGTH];
     char_t query_buff[N_BLOCKS][MAX_QUERY_LENGTH];
@@ -83,11 +108,18 @@ void AHRunner::run(string query_string, string reference_string)
         ref_lengths[b] = reference.size();
     }
 
+    Penalties penalties;  // FIXME: Add his to Python interafce
+    penalties.match = 2;
+    penalties.mismatch = -2;
+    penalties.open = -1;
+    penalties.extend = -1;
+
     seq_align_multiple_static(
         query_buff,
         reference_buff,
         qry_lengths,
         ref_lengths,
+        penalties,
         this->tb_streams); 
 }
 
