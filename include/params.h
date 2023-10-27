@@ -6,13 +6,8 @@
 #include <hls_stream.h>
 #include <hls_streamofblocks.h> 
 
-<<<<<<< HEAD
 #define ALIGN_GLOBAL_AFFINE
 #undef DEBUG
-=======
-#define ALIGN_GLOBAL_AFFINE // ALIGN_LOCAL_AFFINE, ALIGN_GLOBAL_LINEAR
-//#define DEBUG
->>>>>>> 4667aadf265af7f481486d5580f7aeac153dcedb
 // >>> LOCAL_LINEAR params >>>
 #ifdef ALIGN_LOCAL_LINEAR
 
