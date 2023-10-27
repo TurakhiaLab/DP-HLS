@@ -6,8 +6,8 @@
 #include <hls_stream.h>
 #include <hls_streamofblocks.h> 
 
-#define ALIGN_GLOBAL_AFFINE
-#define DEBUG
+#define ALIGN_GLOBAL_AFFINE // ALIGN_LOCAL_AFFINE, ALIGN_GLOBAL_LINEAR
+//#define DEBUG
 // >>> LOCAL_LINEAR params >>>
 #ifdef ALIGN_LOCAL_LINEAR
 
@@ -325,13 +325,13 @@ struct ArrayPack {
 
 #define numofreads 1
 
-#define MAX_QUERY_LENGTH 12
-#define MAX_REFERENCE_LENGTH 12
+#define MAX_QUERY_LENGTH 256
+#define MAX_REFERENCE_LENGTH 256
 
 #define ALIGN_TYPE GlobalAffine
 #define N_BLOCKS 1
 #define N_LAYERS 3
-#define PE_NUM 4
+#define PE_NUM 32
 #define LAYER_MAXIMIUM 1  // We need to indicate from which layer (main matrix) is the maximum score stored.
 
 // Primitive Types

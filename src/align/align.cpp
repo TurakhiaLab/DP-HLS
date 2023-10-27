@@ -335,15 +335,10 @@ void Align::ChunkCompute(
 #pragma HLS array_partition variable = pe_col_offsets type = complete
 #pragma HLS array_partition variable = local_query type = complete
 #pragma HLS array_partition variable = local_reference type = complete
-#pragma HLS array_partition variable = up_scores type = complete
-#pragma HLS array_partition variable = diag_scores type = complete
-#pragma HLS array_partition variable = left_scores type = complete
 
 
 #pragma HLS array_partition variable = dp_mem type = complete
-#pragma HLS array_partition variable = last_chunk_scr type = complete
 
-#pragma HLS array_partition variable = scores_out type = complete
 #pragma HLS array_partition variable = tbp_out type = complete
 
 	// FIXME: We can compute scores, and set the TBP for the additional
@@ -673,7 +668,7 @@ void Align::Reordered::Align(
 	float score_matrix_std[N_LAYERS][MAX_QUERY_LENGTH+1][MAX_REFERENCE_LENGTH+1]; // DEBUG
 
 	// Perform Traceback Here
-	Utils::Debug::translate_multilayer(scores, score_matrix_std);
+	//Utils::Debug::translate_multilayer(scores, score_matrix_std);
 }
 
 void Align::Reordered::CopyInitialScores(

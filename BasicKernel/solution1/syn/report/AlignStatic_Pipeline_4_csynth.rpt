@@ -1,0 +1,167 @@
+
+
+================================================================
+== Vitis HLS Report for 'AlignStatic_Pipeline_4'
+================================================================
+* Date:           Thu Oct 26 16:51:32 2023
+
+* Version:        2023.1 (Build 3854077 on May  4 2023)
+* Project:        BasicKernel
+* Solution:       solution1 (Vitis Kernel Flow Target)
+* Product family: zynquplus
+* Target device:  xczu7ev-ffvc1156-2-i
+
+
+================================================================
+== Performance Estimates
+================================================================
++ Timing: 
+    * Summary: 
+    +--------+---------+----------+------------+
+    |  Clock |  Target | Estimated| Uncertainty|
+    +--------+---------+----------+------------+
+    |ap_clk  |  4.00 ns|  2.474 ns|     1.08 ns|
+    +--------+---------+----------+------------+
+
++ Latency: 
+    * Summary: 
+    +---------+---------+----------+----------+-----+-----+---------+
+    |  Latency (cycles) |  Latency (absolute) |  Interval | Pipeline|
+    |   min   |   max   |    min   |    max   | min | max |   Type  |
+    +---------+---------+----------+----------+-----+-----+---------+
+    |      258|      258|  1.032 us|  1.032 us|  258|  258|       no|
+    +---------+---------+----------+----------+-----+-----+---------+
+
+    + Detail: 
+        * Instance: 
+        N/A
+
+        * Loop: 
+        +----------+---------+---------+----------+-----------+-----------+------+----------+
+        |          |  Latency (cycles) | Iteration|  Initiation Interval  | Trip |          |
+        | Loop Name|   min   |   max   |  Latency |  achieved |   target  | Count| Pipelined|
+        +----------+---------+---------+----------+-----------+-----------+------+----------+
+        |- Loop 1  |      256|      256|         2|          1|          1|   256|       yes|
+        +----------+---------+---------+----------+-----------+-----------+------+----------+
+
+
+
+================================================================
+== Utilization Estimates
+================================================================
+* Summary: 
++-----------------+---------+------+--------+--------+-----+
+|       Name      | BRAM_18K|  DSP |   FF   |   LUT  | URAM|
++-----------------+---------+------+--------+--------+-----+
+|DSP              |        -|     -|       -|       -|    -|
+|Expression       |        -|     -|       0|      35|    -|
+|FIFO             |        -|     -|       -|       -|    -|
+|Instance         |        -|     -|       -|       -|    -|
+|Memory           |        -|     -|       -|       -|    -|
+|Multiplexer      |        -|     -|       -|      36|    -|
+|Register         |        -|     -|      44|       -|    -|
++-----------------+---------+------+--------+--------+-----+
+|Total            |        0|     0|      44|      71|    0|
++-----------------+---------+------+--------+--------+-----+
+|Available        |      624|  1728|  460800|  230400|   96|
++-----------------+---------+------+--------+--------+-----+
+|Utilization (%)  |        0|     0|      ~0|      ~0|    0|
++-----------------+---------+------+--------+--------+-----+
+
++ Detail: 
+    * Instance: 
+    N/A
+
+    * DSP: 
+    N/A
+
+    * Memory: 
+    N/A
+
+    * FIFO: 
+    N/A
+
+    * Expression: 
+    +----------------------+----------+----+---+----+------------+------------+
+    |     Variable Name    | Operation| DSP| FF| LUT| Bitwidth P0| Bitwidth P1|
+    +----------------------+----------+----+---+----+------------+------------+
+    |p_n_2_fu_128_p2       |         +|   0|  0|  16|           9|           1|
+    |icmp_ln212_fu_122_p2  |      icmp|   0|  0|  17|           9|          10|
+    |ap_enable_pp0         |       xor|   0|  0|   2|           1|           2|
+    +----------------------+----------+----+---+----+------------+------------+
+    |Total                 |          |   0|  0|  35|          19|          13|
+    +----------------------+----------+----+---+----+------------+------------+
+
+    * Multiplexer: 
+    +-------------------------+----+-----------+-----+-----------+
+    |           Name          | LUT| Input Size| Bits| Total Bits|
+    +-------------------------+----+-----------+-----+-----------+
+    |ap_done_int              |   9|          2|    1|          2|
+    |ap_enable_reg_pp0_iter1  |   9|          2|    1|          2|
+    |ap_sig_allocacmp_p_n_1   |   9|          2|    9|         18|
+    |p_n_fu_42                |   9|          2|    9|         18|
+    +-------------------------+----+-----------+-----+-----------+
+    |Total                    |  36|          8|   20|         40|
+    +-------------------------+----+-----------+-----+-----------+
+
+    * Register: 
+    +-------------------------------------+---+----+-----+-----------+
+    |                 Name                | FF| LUT| Bits| Const Bits|
+    +-------------------------------------+---+----+-----+-----------+
+    |ap_CS_fsm                            |  1|   0|    1|          0|
+    |ap_done_reg                          |  1|   0|    1|          0|
+    |ap_enable_reg_pp0_iter1              |  1|   0|    1|          0|
+    |init_row_score_addr_reg_195          |  8|   0|    8|          0|
+    |p_n_fu_42                            |  9|   0|    9|          0|
+    |preserved_row_buffer_3_addr_reg_207  |  8|   0|    8|          0|
+    |preserved_row_buffer_4_addr_reg_213  |  8|   0|    8|          0|
+    |preserved_row_buffer_addr_reg_201    |  8|   0|    8|          0|
+    +-------------------------------------+---+----+-----+-----------+
+    |Total                                | 44|   0|   44|          0|
+    +-------------------------------------+---+----+-----+-----------+
+
+
+
+================================================================
+== Interface
+================================================================
+* Summary: 
++---------------------------------+-----+-----+------------+------------------------+--------------+
+|            RTL Ports            | Dir | Bits|  Protocol  |      Source Object     |    C Type    |
++---------------------------------+-----+-----+------------+------------------------+--------------+
+|ap_clk                           |   in|    1|  ap_ctrl_hs|  AlignStatic_Pipeline_4|  return value|
+|ap_rst                           |   in|    1|  ap_ctrl_hs|  AlignStatic_Pipeline_4|  return value|
+|ap_start                         |   in|    1|  ap_ctrl_hs|  AlignStatic_Pipeline_4|  return value|
+|ap_done                          |  out|    1|  ap_ctrl_hs|  AlignStatic_Pipeline_4|  return value|
+|ap_idle                          |  out|    1|  ap_ctrl_hs|  AlignStatic_Pipeline_4|  return value|
+|ap_ready                         |  out|    1|  ap_ctrl_hs|  AlignStatic_Pipeline_4|  return value|
+|init_row_score_address0          |  out|    8|   ap_memory|          init_row_score|         array|
+|init_row_score_ce0               |  out|    1|   ap_memory|          init_row_score|         array|
+|init_row_score_we0               |  out|    1|   ap_memory|          init_row_score|         array|
+|init_row_score_d0                |  out|   48|   ap_memory|          init_row_score|         array|
+|init_row_score_address1          |  out|    8|   ap_memory|          init_row_score|         array|
+|init_row_score_ce1               |  out|    1|   ap_memory|          init_row_score|         array|
+|init_row_score_q1                |   in|   48|   ap_memory|          init_row_score|         array|
+|preserved_row_buffer_address0    |  out|    8|   ap_memory|    preserved_row_buffer|         array|
+|preserved_row_buffer_ce0         |  out|    1|   ap_memory|    preserved_row_buffer|         array|
+|preserved_row_buffer_we0         |  out|    1|   ap_memory|    preserved_row_buffer|         array|
+|preserved_row_buffer_d0          |  out|   16|   ap_memory|    preserved_row_buffer|         array|
+|preserved_row_buffer_address1    |  out|    8|   ap_memory|    preserved_row_buffer|         array|
+|preserved_row_buffer_ce1         |  out|    1|   ap_memory|    preserved_row_buffer|         array|
+|preserved_row_buffer_q1          |   in|   16|   ap_memory|    preserved_row_buffer|         array|
+|preserved_row_buffer_3_address0  |  out|    8|   ap_memory|  preserved_row_buffer_3|         array|
+|preserved_row_buffer_3_ce0       |  out|    1|   ap_memory|  preserved_row_buffer_3|         array|
+|preserved_row_buffer_3_we0       |  out|    1|   ap_memory|  preserved_row_buffer_3|         array|
+|preserved_row_buffer_3_d0        |  out|   16|   ap_memory|  preserved_row_buffer_3|         array|
+|preserved_row_buffer_3_address1  |  out|    8|   ap_memory|  preserved_row_buffer_3|         array|
+|preserved_row_buffer_3_ce1       |  out|    1|   ap_memory|  preserved_row_buffer_3|         array|
+|preserved_row_buffer_3_q1        |   in|   16|   ap_memory|  preserved_row_buffer_3|         array|
+|preserved_row_buffer_4_address0  |  out|    8|   ap_memory|  preserved_row_buffer_4|         array|
+|preserved_row_buffer_4_ce0       |  out|    1|   ap_memory|  preserved_row_buffer_4|         array|
+|preserved_row_buffer_4_we0       |  out|    1|   ap_memory|  preserved_row_buffer_4|         array|
+|preserved_row_buffer_4_d0        |  out|   16|   ap_memory|  preserved_row_buffer_4|         array|
+|preserved_row_buffer_4_address1  |  out|    8|   ap_memory|  preserved_row_buffer_4|         array|
+|preserved_row_buffer_4_ce1       |  out|    1|   ap_memory|  preserved_row_buffer_4|         array|
+|preserved_row_buffer_4_q1        |   in|   16|   ap_memory|  preserved_row_buffer_4|         array|
++---------------------------------+-----+-----+------------+------------------------+--------------+
+

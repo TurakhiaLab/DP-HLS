@@ -50,9 +50,9 @@ extern "C"
 				penalties,
 				tb_streams[i]
 			);
-			Utils::Debug::Translate::print_1d(
-				"traceback", Utils::Debug::Translate::translate_1d<tbr_t, MAX_QUERY_LENGTH + MAX_REFERENCE_LENGTH>(tb_streams[i])
-			);
+			// Utils::Debug::Translate::print_1d(
+			// 	"traceback", Utils::Debug::Translate::translate_1d<tbr_t, MAX_QUERY_LENGTH + MAX_REFERENCE_LENGTH>(tb_streams[i])
+			// );
 		}
     }
 }

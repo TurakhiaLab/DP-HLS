@@ -1,0 +1,35 @@
+<pragmas>
+<pragma file="seq_align_multiple.cpp" line="95" pragmaType="inline" parentfunction="PE" off="0" region="0" recursive="0"/>
+<pragma file="/home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/autopilot/ap_int_base.h" line="260" pragmaType="inline" parentfunction="ap_int_base<2, false>::ap_int_base(int)" off="0" region="0" recursive="0"/>
+<pragma file="/home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/autopilot/ap_common.h" line="0" pragmaType="inline" parentfunction="ssdm_int<2, false>::ssdm_int()" off="0" region="0" recursive="0"/>
+<pragma file="/home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/autopilot/ap_int.h" line="333" pragmaType="inline" parentfunction="ap_uint<2>::ap_uint(int)" off="0" region="0" recursive="0"/>
+<pragma file="/home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/autopilot/ap_common.h" line="567" pragmaType="inline" parentfunction="_ZN8ssdm_intILi2ELb0EEC2EDq2_j" off="0" region="0" recursive="0"/>
+<pragma file="seq_align_multiple.cpp" line="830" pragmaType="pipeline" parentfunction="seq_align_global" off="0" ii="1" rewind="0" style=""/>
+<pragma file="seq_align_multiple.cpp" line="816" pragmaType="pipeline" parentfunction="seq_align_global" off="0" ii="1" rewind="0" style=""/>
+<pragma file="seq_align_multiple.cpp" line="822" pragmaType="pipeline" parentfunction="seq_align_global" off="0" ii="1" rewind="0" style=""/>
+<pragma file="seq_align_multiple.cpp" line="839" pragmaType="pipeline" parentfunction="seq_align_global" off="0" ii="1" rewind="0" style=""/>
+<pragma file="seq_align_multiple.cpp" line="844" pragmaType="unroll" parentfunction="seq_align_global" factor="-1" skip_exit_check="0"/>
+<pragma file="seq_align_multiple.cpp" line="857" pragmaType="unroll" parentfunction="seq_align_global" factor="-1" skip_exit_check="0"/>
+<pragma file="seq_align_multiple.cpp" line="760" pragmaType="array_partition" parentfunction="seq_align_global" dim="0" factor="0" mode="complete" dynamic="0" variable=""/>
+<pragma file="seq_align_multiple.cpp" line="761" pragmaType="array_partition" parentfunction="seq_align_global" dim="1" factor="32" mode="cyclic" dynamic="0" variable=""/>
+<pragma file="seq_align_multiple.cpp" line="762" pragmaType="array_partition" parentfunction="seq_align_global" dim="1" factor="32" mode="cyclic" dynamic="0" variable=""/>
+<pragma file="/home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/autopilot/ap_int.h" line="230" pragmaType="inline" parentfunction="ap_uint<2>::ap_uint()" off="0" region="0" recursive="0"/>
+<pragma file="./shift_reg.h" line="7" pragmaType="array_partition" parentfunction="ShiftRegister<char, 32>::ShiftRegister()" dim="0" factor="0" mode="complete" dynamic="0" variable=""/>
+<pragma file="/home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/autopilot/hls_stream_39.h" line="154" pragmaType="inline" parentfunction="read" off="0" region="0" recursive="0"/>
+<pragma file="./shift_reg.h" line="16" pragmaType="unroll" parentfunction="shift" factor="-1" skip_exit_check="0"/>
+<pragma file="/home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/autopilot/ap_int_base.h" line="1834" pragmaType="inline" parentfunction="bool operator!=<2, false>(ap_int_base<2, false> const&, int)" off="0" region="0" recursive="0"/>
+<pragma file="/home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/autopilot/ap_int_base.h" line="260" pragmaType="inline" parentfunction="ap_int_base<32, true>::ap_int_base(int)" off="0" region="0" recursive="0"/>
+<pragma file="/home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/autopilot/ap_int_base.h" line="1068" pragmaType="inline" parentfunction="bool ap_int_base<2, false>::operator!=<32, true>(ap_int_base<32, true> const&) const" off="0" region="0" recursive="0"/>
+<pragma file="/home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/autopilot/ap_common.h" line="559" pragmaType="inline" parentfunction="ssdm_int<32, true>::ssdm_int(int)" off="0" region="0" recursive="0"/>
+<pragma file="/home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/autopilot/hls_stream_39.h" line="144" pragmaType="inline" parentfunction="read" off="0" region="0" recursive="0"/>
+<pragma file="/home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/autopilot/ap_int_base.h" line="221" pragmaType="inline" parentfunction="ap_int_base<2, false>::ap_int_base()" off="0" region="0" recursive="0"/>
+<pragma file="seq_align_multiple.cpp" line="2251" pragmaType="unroll" parentfunction="seq_align_multiple" factor="-1" skip_exit_check="0"/>
+<pragma file="seq_align_multiple.cpp" line="2218" pragmaType="unroll" parentfunction="seq_align_multiple" factor="-1" skip_exit_check="0"/>
+<pragma file="seq_align_multiple.cpp" line="2191" pragmaType="interface" parentfunction="seq_align_multiple" mode="axis" port="query_string_comp" register="0" register_mode="both" name="" depth="-1"/>
+<pragma file="seq_align_multiple.cpp" line="2192" pragmaType="interface" parentfunction="seq_align_multiple" mode="axis" port="reference_string_comp" register="0" register_mode="both" name="" depth="-1"/>
+<pragma file="seq_align_multiple.cpp" line="2193" pragmaType="array_partition" parentfunction="seq_align_multiple" dim="1" factor="8" mode="block" dynamic="0" variable="query_string_comp"/>
+<pragma file="seq_align_multiple.cpp" line="2194" pragmaType="array_partition" parentfunction="seq_align_multiple" dim="1" factor="8" mode="block" dynamic="0" variable="reference_string_comp"/>
+<pragma file="seq_align_multiple.cpp" line="2195" pragmaType="array_partition" parentfunction="seq_align_multiple" dim="1" factor="0" mode="complete" dynamic="0" variable="dummies"/>
+<pragma file="seq_align_multiple.cpp" line="2199" pragmaType="array_partition" parentfunction="seq_align_multiple" dim="1" factor="0" mode="complete" dynamic="0" variable=""/>
+<pragma file="/home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/autopilot/ap_int_base.h" line="0" pragmaType="inline" parentfunction="checkOverflowBaseC" off="0" region="0" recursive="0"/>
+</pragmas>

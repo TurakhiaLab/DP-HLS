@@ -1,0 +1,528 @@
+{
+  "0": {
+    "basicblocks": 4,
+    "calls": "16",
+    "file": "seq_align_multiple.cpp",
+    "fileloc": 27,
+    "instructions": 24,
+    "loads": {
+      "T": 2
+    },
+    "name": "seq_align_multiple_static",
+    "stores": {
+      "L": 4
+    },
+    "total_instructions": 41219
+  },
+  "1": {
+    "basicblocks": 7,
+    "calls": "",
+    "file": "align.cpp",
+    "fileloc": 460,
+    "instructions": 47,
+    "loads": {
+      "L": 9
+    },
+    "name": "ReductionMaxScores",
+    "stores": {
+      "L": 4
+    },
+    "total_instructions": 47
+  },
+  "10": {
+    "basicblocks": 6,
+    "calls": "31 31",
+    "file": "align.cpp",
+    "fileloc": 230,
+    "instructions": 10,
+    "name": "ShiftPredicate",
+    "total_instructions": 270
+  },
+  "11": {
+    "basicblocks": 4,
+    "calls": "",
+    "file": "utils.h",
+    "fileloc": 37,
+    "instructions": 131,
+    "loads": {
+      "L": 32
+    },
+    "name": "ShiftRight<ap_uint<2>, 32>",
+    "stores": {
+      "L": 32
+    },
+    "total_instructions": 131
+  },
+  "12": {
+    "basicblocks": 4,
+    "calls": "9",
+    "file": "move.h",
+    "fileloc": 205,
+    "instructions": 10,
+    "name": "swap<hls::vector<ap_fixed<16, 11, AP_TRN, AP_WRAP, 0>, 3>, 256>",
+    "total_instructions": 54
+  },
+  "13": {
+    "basicblocks": 12,
+    "calls": "24 7 30",
+    "file": "traceback.cpp",
+    "fileloc": 12,
+    "instructions": 59,
+    "loads": {
+      "L": 9
+    },
+    "name": "Traceback",
+    "stores": {
+      "L": 6
+    },
+    "total_instructions": 162
+  },
+  "14": {
+    "basicblocks": 68,
+    "calls": "",
+    "file": "frontend.cpp",
+    "fileloc": 131,
+    "instructions": 324,
+    "name": "InitializeMaxScores",
+    "stores": {
+      "L": 128
+    },
+    "total_instructions": 324
+  },
+  "15": {
+    "basicblocks": 4,
+    "calls": "",
+    "file": "utils.h",
+    "fileloc": 92,
+    "instructions": 68,
+    "name": "ArrSet<bool, 32>",
+    "stores": {
+      "L": 32
+    },
+    "total_instructions": 68
+  },
+  "16": {
+    "basicblocks": 28,
+    "calls": "23 29 14 32 8 35 12 1 13",
+    "file": "align.cpp",
+    "fileloc": 515,
+    "instructions": 182,
+    "loads": {
+      "L": 14
+    },
+    "name": "AlignStatic",
+    "stores": {
+      "L": 13
+    },
+    "total_instructions": 41195
+  },
+  "17": {
+    "basicblocks": 4,
+    "calls": "21 21 21 21 21 21 21 21 21 21 21 21 21 21 21 21 21 21 21 21 21 21 21 21 21 21 21 21 21 21 21 21",
+    "file": "pe.cpp",
+    "fileloc": 291,
+    "instructions": 1311,
+    "loads": {
+      "L": 356
+    },
+    "name": "PEUnroll",
+    "stores": {
+      "L": 480
+    },
+    "total_instructions": 18143
+  },
+  "18": {
+    "basicblocks": 4,
+    "calls": "",
+    "file": "align.cpp",
+    "fileloc": 712,
+    "instructions": 796,
+    "loads": {
+      "L": 198
+    },
+    "name": "UpdateDPMemShift",
+    "stores": {
+      "L": 198
+    },
+    "total_instructions": 796
+  },
+  "19": {
+    "basicblocks": 1,
+    "calls": "",
+    "file": "initializer_list",
+    "fileloc": 71,
+    "instructions": 2,
+    "loads": {
+      "L": 1
+    },
+    "name": "size",
+    "total_instructions": 2
+  },
+  "2": {
+    "basicblocks": 68,
+    "calls": "",
+    "file": "align.cpp",
+    "fileloc": 422,
+    "instructions": 356,
+    "loads": {
+      "L": 96
+    },
+    "name": "ArrangeTBPArr",
+    "stores": {
+      "L": 32
+    },
+    "total_instructions": 356
+  },
+  "20": {
+    "basicblocks": 1,
+    "calls": "18 38",
+    "file": "align.cpp",
+    "fileloc": 707,
+    "instructions": 3,
+    "name": "UpdateDPMem",
+    "total_instructions": 849
+  },
+  "21": {
+    "basicblocks": 142,
+    "calls": "34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34",
+    "file": "frontend.cpp",
+    "fileloc": 5,
+    "instructions": 446,
+    "loads": {
+      "L": 67
+    },
+    "name": "Compute",
+    "stores": {
+      "L": 23
+    },
+    "total_instructions": 526
+  },
+  "22": {
+    "basicblocks": 4,
+    "calls": "",
+    "file": "align.cpp",
+    "fileloc": 438,
+    "instructions": 228,
+    "loads": {
+      "L": 64
+    },
+    "name": "UpdatePEOffset",
+    "stores": {
+      "L": 32
+    },
+    "total_instructions": 228
+  },
+  "23": {
+    "basicblocks": 49,
+    "calls": "19 28 34 28 34 28 34 37 6 19 28 34 28 34 28 34 37 19 28 34 28 34 28 34 5 3 19 28 34 28 34 28 34 5",
+    "file": "frontend.cpp",
+    "fileloc": 90,
+    "instructions": 219,
+    "loads": {
+      "G": 6,
+      "L": 10
+    },
+    "name": "InitializeScores",
+    "stores": {
+      "L": 32
+    },
+    "total_instructions": 17837
+  },
+  "24": {
+    "basicblocks": 10,
+    "calls": "",
+    "file": "frontend.cpp",
+    "fileloc": 207,
+    "instructions": 22,
+    "loads": {
+      "L": 3
+    },
+    "name": "StateInit",
+    "stores": {
+      "L": 3
+    },
+    "total_instructions": 22
+  },
+  "25": {
+    "basicblocks": 1,
+    "calls": "",
+    "file": "move.h",
+    "fileloc": 99,
+    "instructions": 1,
+    "name": "move<hls::vector<ap_fixed<16, 11, AP_TRN, AP_WRAP, 0>, 3> &>",
+    "total_instructions": 1
+  },
+  "26": {
+    "basicblocks": 4,
+    "calls": "11 11",
+    "file": "align.cpp",
+    "fileloc": 242,
+    "instructions": 15,
+    "loads": {
+      "L": 1
+    },
+    "name": "ShiftReferece",
+    "stores": {
+      "L": 3
+    },
+    "total_instructions": 277
+  },
+  "27": {
+    "basicblocks": 1,
+    "calls": "",
+    "file": "array",
+    "fileloc": 55,
+    "instructions": 2,
+    "name": "_S_ref",
+    "total_instructions": 2
+  },
+  "28": {
+    "basicblocks": 1,
+    "calls": "",
+    "file": "initializer_list",
+    "fileloc": 75,
+    "instructions": 1,
+    "name": "begin",
+    "total_instructions": 1
+  },
+  "29": {
+    "basicblocks": 4,
+    "calls": "",
+    "file": "params.h",
+    "fileloc": 384,
+    "instructions": 9,
+    "name": "ScorePack",
+    "stores": {
+      "L": 5
+    },
+    "total_instructions": 9
+  },
+  "3": {
+    "basicblocks": 19,
+    "calls": "34",
+    "file": "utils.h",
+    "fileloc": 114,
+    "instructions": 48,
+    "loads": {
+      "L": 4
+    },
+    "name": "Linspace<ap_fixed<16, 11, AP_TRN, AP_WRAP, 0>, 3, 256>",
+    "stores": {
+      "L": 1
+    },
+    "total_instructions": 53
+  },
+  "30": {
+    "basicblocks": 25,
+    "calls": "",
+    "file": "frontend.cpp",
+    "fileloc": 144,
+    "instructions": 62,
+    "loads": {
+      "L": 12
+    },
+    "name": "StateMapping",
+    "stores": {
+      "L": 8
+    },
+    "total_instructions": 62
+  },
+  "31": {
+    "basicblocks": 4,
+    "calls": "",
+    "file": "utils.h",
+    "fileloc": 37,
+    "instructions": 130,
+    "loads": {
+      "L": 31
+    },
+    "name": "ShiftRight<bool, 32>",
+    "stores": {
+      "L": 32
+    },
+    "total_instructions": 130
+  },
+  "32": {
+    "basicblocks": 100,
+    "calls": "",
+    "file": "align.cpp",
+    "fileloc": 492,
+    "instructions": 355,
+    "loads": {
+      "L": 32
+    },
+    "name": "PrepareLocalQuery",
+    "stores": {
+      "L": 32
+    },
+    "total_instructions": 355
+  },
+  "33": {
+    "basicblocks": 3,
+    "calls": "",
+    "file": "align.cpp",
+    "fileloc": 448,
+    "instructions": 16,
+    "loads": {
+      "L": 3
+    },
+    "name": "PreserveRowScore",
+    "stores": {
+      "L": 3
+    },
+    "total_instructions": 16
+  },
+  "34": {
+    "basicblocks": 1,
+    "calls": "27",
+    "file": "array",
+    "fileloc": 185,
+    "instructions": 3,
+    "name": "operator[]",
+    "total_instructions": 5
+  },
+  "35": {
+    "basicblocks": 15,
+    "calls": "15 4 10 26 20 17 33 36 2 22",
+    "file": "align.cpp",
+    "fileloc": 297,
+    "instructions": 106,
+    "loads": {
+      "L": 6
+    },
+    "name": "ChunkCompute",
+    "stores": {
+      "L": 4
+    },
+    "total_instructions": 21762
+  },
+  "36": {
+    "basicblocks": 228,
+    "calls": "34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34",
+    "file": "frontend.cpp",
+    "fileloc": 105,
+    "instructions": 1061,
+    "loads": {
+      "L": 192
+    },
+    "name": "UpdatePEMaximum",
+    "stores": {
+      "L": 96
+    },
+    "total_instructions": 1381
+  },
+  "37": {
+    "basicblocks": 4,
+    "calls": "34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34",
+    "file": "utils.h",
+    "fileloc": 103,
+    "instructions": 1798,
+    "loads": {
+      "L": 256
+    },
+    "name": "ArrSet<hls::vector<ap_fixed<16, 11, AP_TRN, AP_WRAP, 0>, 3>, 256>",
+    "stores": {
+      "L": 256
+    },
+    "total_instructions": 4358
+  },
+  "38": {
+    "basicblocks": 5,
+    "calls": "",
+    "file": "align.cpp",
+    "fileloc": 720,
+    "instructions": 50,
+    "loads": {
+      "L": 9
+    },
+    "name": "UpdateDPMemSet",
+    "stores": {
+      "L": 9
+    },
+    "total_instructions": 50
+  },
+  "4": {
+    "basicblocks": 4,
+    "calls": "",
+    "file": "utils.h",
+    "fileloc": 92,
+    "instructions": 68,
+    "name": "ArrSet<int, 32>",
+    "stores": {
+      "L": 32
+    },
+    "total_instructions": 68
+  },
+  "5": {
+    "basicblocks": 4,
+    "calls": "34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34 34",
+    "file": "utils.h",
+    "fileloc": 103,
+    "instructions": 1798,
+    "loads": {
+      "L": 256
+    },
+    "name": "ArrSet<hls::vector<ap_fixed<16, 11, AP_TRN, AP_WRAP, 0>, 3>, 256>",
+    "stores": {
+      "L": 256
+    },
+    "total_instructions": 4358
+  },
+  "6": {
+    "basicblocks": 19,
+    "calls": "34",
+    "file": "utils.h",
+    "fileloc": 125,
+    "instructions": 48,
+    "loads": {
+      "L": 4
+    },
+    "name": "Linspace<hls::vector<ap_fixed<16, 11, AP_TRN, AP_WRAP, 0>, 3> [256]>",
+    "stores": {
+      "L": 1
+    },
+    "total_instructions": 53
+  },
+  "7": {
+    "basicblocks": 8,
+    "calls": "",
+    "file": "frontend.cpp",
+    "fileloc": 230,
+    "instructions": 19,
+    "name": "StateToPath",
+    "stores": {
+      "L": 8
+    },
+    "total_instructions": 19
+  },
+  "8": {
+    "basicblocks": 4,
+    "calls": "",
+    "file": "align.cpp",
+    "fileloc": 479,
+    "instructions": 463,
+    "loads": {
+      "L": 99
+    },
+    "name": "CopyColScore",
+    "stores": {
+      "L": 99
+    },
+    "total_instructions": 463
+  },
+  "9": {
+    "basicblocks": 1,
+    "calls": "25 25 25",
+    "file": "move.h",
+    "fileloc": 182,
+    "instructions": 41,
+    "loads": {
+      "L": 9
+    },
+    "name": "swap<hls::vector<ap_fixed<16, 11, AP_TRN, AP_WRAP, 0>, 3> >",
+    "stores": {
+      "L": 9
+    },
+    "total_instructions": 44
+  }
+}

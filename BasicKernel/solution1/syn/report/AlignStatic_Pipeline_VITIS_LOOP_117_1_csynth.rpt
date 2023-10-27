@@ -1,0 +1,148 @@
+
+
+================================================================
+== Vitis HLS Report for 'AlignStatic_Pipeline_VITIS_LOOP_117_1'
+================================================================
+* Date:           Thu Oct 26 16:51:15 2023
+
+* Version:        2023.1 (Build 3854077 on May  4 2023)
+* Project:        BasicKernel
+* Solution:       solution1 (Vitis Kernel Flow Target)
+* Product family: zynquplus
+* Target device:  xczu7ev-ffvc1156-2-i
+
+
+================================================================
+== Performance Estimates
+================================================================
++ Timing: 
+    * Summary: 
+    +--------+---------+----------+------------+
+    |  Clock |  Target | Estimated| Uncertainty|
+    +--------+---------+----------+------------+
+    |ap_clk  |  4.00 ns|  2.474 ns|     1.08 ns|
+    +--------+---------+----------+------------+
+
++ Latency: 
+    * Summary: 
+    +---------+---------+----------+----------+-----+-----+---------+
+    |  Latency (cycles) |  Latency (absolute) |  Interval | Pipeline|
+    |   min   |   max   |    min   |    max   | min | max |   Type  |
+    +---------+---------+----------+----------+-----+-----+---------+
+    |      258|      258|  1.032 us|  1.032 us|  258|  258|       no|
+    +---------+---------+----------+----------+-----+-----+---------+
+
+    + Detail: 
+        * Instance: 
+        N/A
+
+        * Loop: 
+        +--------------------+---------+---------+----------+-----------+-----------+------+----------+
+        |                    |  Latency (cycles) | Iteration|  Initiation Interval  | Trip |          |
+        |      Loop Name     |   min   |   max   |  Latency |  achieved |   target  | Count| Pipelined|
+        +--------------------+---------+---------+----------+-----------+-----------+------+----------+
+        |- VITIS_LOOP_117_1  |      256|      256|         2|          1|          1|   256|       yes|
+        +--------------------+---------+---------+----------+-----------+-----------+------+----------+
+
+
+
+================================================================
+== Utilization Estimates
+================================================================
+* Summary: 
++-----------------+---------+------+--------+--------+-----+
+|       Name      | BRAM_18K|  DSP |   FF   |   LUT  | URAM|
++-----------------+---------+------+--------+--------+-----+
+|DSP              |        -|     -|       -|       -|    -|
+|Expression       |        -|     -|       0|      58|    -|
+|FIFO             |        -|     -|       -|       -|    -|
+|Instance         |        -|     -|       -|       -|    -|
+|Memory           |        -|     -|       -|       -|    -|
+|Multiplexer      |        -|     -|       -|      45|    -|
+|Register         |        -|     -|      36|       -|    -|
++-----------------+---------+------+--------+--------+-----+
+|Total            |        0|     0|      36|     103|    0|
++-----------------+---------+------+--------+--------+-----+
+|Available        |      624|  1728|  460800|  230400|   96|
++-----------------+---------+------+--------+--------+-----+
+|Utilization (%)  |        0|     0|      ~0|      ~0|    0|
++-----------------+---------+------+--------+--------+-----+
+
++ Detail: 
+    * Instance: 
+    N/A
+
+    * DSP: 
+    N/A
+
+    * Memory: 
+    N/A
+
+    * FIFO: 
+    N/A
+
+    * Expression: 
+    +---------------------+----------+----+---+----+------------+------------+
+    |    Variable Name    | Operation| DSP| FF| LUT| Bitwidth P0| Bitwidth P1|
+    +---------------------+----------+----+---+----+------------+------------+
+    |add_ln117_fu_98_p2   |         +|   0|  0|  16|           9|           1|
+    |cnt_2_fu_117_p2      |         +|   0|  0|  23|          16|          16|
+    |icmp_ln117_fu_92_p2  |      icmp|   0|  0|  17|           9|          10|
+    |ap_enable_pp0        |       xor|   0|  0|   2|           1|           2|
+    +---------------------+----------+----+---+----+------------+------------+
+    |Total                |          |   0|  0|  58|          35|          29|
+    +---------------------+----------+----+---+----+------------+------------+
+
+    * Multiplexer: 
+    +-------------------------+----+-----------+-----+-----------+
+    |           Name          | LUT| Input Size| Bits| Total Bits|
+    +-------------------------+----+-----------+-----+-----------+
+    |ap_done_int              |   9|          2|    1|          2|
+    |ap_enable_reg_pp0_iter1  |   9|          2|    1|          2|
+    |ap_sig_allocacmp_i       |   9|          2|    9|         18|
+    |cnt_fu_42                |   9|          2|   16|         32|
+    |i_3_fu_46                |   9|          2|    9|         18|
+    +-------------------------+----+-----------+-----+-----------+
+    |Total                    |  45|         10|   36|         72|
+    +-------------------------+----+-----------+-----+-----------+
+
+    * Register: 
+    +-----------------------------+----+----+-----+-----------+
+    |             Name            | FF | LUT| Bits| Const Bits|
+    +-----------------------------+----+----+-----+-----------+
+    |ap_CS_fsm                    |   1|   0|    1|          0|
+    |ap_done_reg                  |   1|   0|    1|          0|
+    |ap_enable_reg_pp0_iter1      |   1|   0|    1|          0|
+    |cnt_fu_42                    |  16|   0|   16|          0|
+    |i_3_fu_46                    |   9|   0|    9|          0|
+    |init_row_score_addr_reg_174  |   8|   0|    8|          0|
+    +-----------------------------+----+----+-----+-----------+
+    |Total                        |  36|   0|   36|          0|
+    +-----------------------------+----+----+-----+-----------+
+
+
+
+================================================================
+== Interface
+================================================================
+* Summary: 
++-------------------------+-----+-----+------------+---------------------------------------+--------------+
+|        RTL Ports        | Dir | Bits|  Protocol  |             Source Object             |    C Type    |
++-------------------------+-----+-----+------------+---------------------------------------+--------------+
+|ap_clk                   |   in|    1|  ap_ctrl_hs|  AlignStatic_Pipeline_VITIS_LOOP_117_1|  return value|
+|ap_rst                   |   in|    1|  ap_ctrl_hs|  AlignStatic_Pipeline_VITIS_LOOP_117_1|  return value|
+|ap_start                 |   in|    1|  ap_ctrl_hs|  AlignStatic_Pipeline_VITIS_LOOP_117_1|  return value|
+|ap_done                  |  out|    1|  ap_ctrl_hs|  AlignStatic_Pipeline_VITIS_LOOP_117_1|  return value|
+|ap_idle                  |  out|    1|  ap_ctrl_hs|  AlignStatic_Pipeline_VITIS_LOOP_117_1|  return value|
+|ap_ready                 |  out|    1|  ap_ctrl_hs|  AlignStatic_Pipeline_VITIS_LOOP_117_1|  return value|
+|penalties_open_val       |   in|   16|     ap_none|                     penalties_open_val|        scalar|
+|penalties_extend_val     |   in|   16|     ap_none|                   penalties_extend_val|        scalar|
+|init_row_score_address0  |  out|    8|   ap_memory|                         init_row_score|         array|
+|init_row_score_ce0       |  out|    1|   ap_memory|                         init_row_score|         array|
+|init_row_score_we0       |  out|    1|   ap_memory|                         init_row_score|         array|
+|init_row_score_d0        |  out|   48|   ap_memory|                         init_row_score|         array|
+|init_row_score_address1  |  out|    8|   ap_memory|                         init_row_score|         array|
+|init_row_score_ce1       |  out|    1|   ap_memory|                         init_row_score|         array|
+|init_row_score_q1        |   in|   48|   ap_memory|                         init_row_score|         array|
++-------------------------+-----+-----+------------+---------------------------------------+--------------+
+
