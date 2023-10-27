@@ -25,6 +25,7 @@ set(EXECUTABLE_TARGETS
     tests
     baseline_local_linear
     test_align
+    test_csim
 )
 
 # Compile baseline kernel. 
@@ -59,6 +60,22 @@ add_executable(test_align "testbench/test_align.cpp"
     "src/pyapi.cpp"
     "src/utils.cpp"
     "src/frontend.cpp")
+
+add_executable(test_csim "testbench/test_csim.cpp"
+    "include/params.h"
+    "include/seq_align_multiple.h"
+    "include/align.h"
+    "include/PE.h"
+    "include/utils.h"
+    "include/frontend.h"
+    "include/debug.h"
+    "src/toplevel/seq_align_multiple.cpp"
+    "src/align/align.cpp"
+    "src/pe/pe.cpp"
+    "src/traceback.cpp"
+    "src/utils.cpp"
+    "src/frontend.cpp"
+    "src/debug.cpp")
 
 add_executable(test_pyapi "testbench/test_align.cpp"
     "include/params.h"

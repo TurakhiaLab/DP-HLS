@@ -288,6 +288,9 @@ void LocalAffine::PE::Compute(char_t local_query_val,
     auto up_prev_0_s = up_prev[0].to_float();
     auto up_prev_1_s = up_prev[1].to_float();
     auto up_prev_2_s = up_prev[2].to_float();
+    auto diag_prev_0_s = diag_prev[0].to_float();
+    auto diag_prev_1_s = diag_prev[1].to_float();
+    auto diag_prev_2_s = diag_prev[2].to_float();
 #endif
 
     write_score[0] = insert_open > insert_extend ? insert_open : insert_extend;
@@ -344,8 +347,8 @@ void LocalAffine::InitializeScores(
     score_vec_t (&init_row_scr)[MAX_REFERENCE_LENGTH],
     Penalties penalties)
 {
-    Utils::Init::ArrSet(init_col_scr, {NINF, 0, 0});  // qry
-    Utils::Init::ArrSet(init_row_scr, {0, 0, NINF}); // reference layer 0
+    Utils::Init::ArrSet(init_col_scr, {NINF, 0.0, 0.0});  // qry
+    Utils::Init::ArrSet(init_row_scr, {0.0, 0.0, NINF}); // reference layer 0
 }
 
 void LocalAffine::UpdatePEMaximum(

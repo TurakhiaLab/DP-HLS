@@ -10,9 +10,11 @@
 #include "../../include/PE.h"
 #include "../../include/align.h"
 #include "../../include/initial.h"
-
 #include <hls_np_channel.h>
 
+#ifdef DEBUG
+#include "../../include/debug.h"
+#endif
 
 // Link to vitis_hls/2022.2/include
 
@@ -32,7 +34,6 @@ extern "C"
 	const Penalties penalties,
 	tbr_t (&tb_streams)[N_BLOCKS][MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH]){
 
-		// FIXME: specify the panelties
 
 #pragma HLS array_partition variable=querys dim=1 type=complete
 #pragma HLS array_partition variable=references dim=1 type=complete
@@ -50,9 +51,20 @@ extern "C"
 				penalties,
 				tb_streams[i]
 			);
-			Utils::Debug::Translate::print_1d(
-				"traceback", Utils::Debug::Translate::translate_1d<tbr_t, MAX_QUERY_LENGTH + MAX_REFERENCE_LENGTH>(tb_streams[i])
+
+			// Print For Demo Use
+			printf("Traceback Block: %d\n", i);
+			for (int j = 0; j < query_lengths[i] + reference_lengths[i]; j++){
+				
+				printf("%d ", tb_streams[i][j].to_int());
+			}
+			printf("\n");  
+
+#ifdef DEBUG
+			Debug::Translate::print_1d(
+				"traceback", Debug::Translate::translate_1d<tbr_t, MAX_QUERY_LENGTH + MAX_REFERENCE_LENGTH>(tb_streams[i])
 			);
+#endif
 		}
     }
 }

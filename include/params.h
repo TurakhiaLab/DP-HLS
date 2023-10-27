@@ -7,7 +7,7 @@
 #include <hls_streamofblocks.h> 
 
 #define ALIGN_GLOBAL_AFFINE
-#define DEBUG
+#undef DEBUG
 // >>> LOCAL_LINEAR params >>>
 #ifdef ALIGN_LOCAL_LINEAR
 
@@ -124,7 +124,6 @@ struct ArrayPack {
 #endif 
 
 // >>> LOCAL_AFFINE params >>>
-
 #ifdef ALIGN_LOCAL_AFFINE
 #define numofreads 1
 
@@ -195,6 +194,7 @@ struct Penalties {
     type_t extend;
     type_t mismatch;
     type_t match;
+    type_t linear_gap;
 };
 
 enum TB_STATE {
@@ -325,19 +325,19 @@ struct ArrayPack {
 
 #define numofreads 1
 
-#define MAX_QUERY_LENGTH 12
-#define MAX_REFERENCE_LENGTH 12
+#define MAX_QUERY_LENGTH 256
+#define MAX_REFERENCE_LENGTH 256
 
 #define ALIGN_TYPE GlobalAffine
 #define N_BLOCKS 1
 #define N_LAYERS 3
-#define PE_NUM 4
+#define PE_NUM 32
 #define LAYER_MAXIMIUM 1  // We need to indicate from which layer (main matrix) is the maximum score stored.
 
 // Primitive Types
 typedef ap_uint<2> char_t;  // Sequence Alphabet
-typedef ap_fixed<16, 11> type_t;  // Scores Type <width, integer_width>
-typedef int idx_t;  // Indexing Type, could be much less than 32. ap_uint<8>
+typedef ap_fixed<16, 10> type_t;  // Scores Type <width, integer_width>
+typedef ap_uint<8> idx_t;  // Indexing Type, could be much less than 32. ap_uint<8>
 typedef ap_uint<4> tbp_t;  // Traceback Pointer Type
 typedef ap_uint<2> tbr_t;  // Traecback Result Type
 
@@ -393,6 +393,7 @@ struct Penalties {
     type_t extend;
     type_t mismatch;
     type_t match;
+    type_t linear_gap;
 };
 
 enum TB_STATE {

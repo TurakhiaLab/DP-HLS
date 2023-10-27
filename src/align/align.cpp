@@ -331,19 +331,18 @@ void Align::ChunkCompute(
 
 	dp_mem_block_t dp_mem;
 
+// #ifdef DEBUG
+// 			Debug::Translate::print_2d(
+// 			"Initial Column Scores",
+// 			Debug::Translate::translate_2d<type_t, N_LAYERS, PE_NUM>(init_col_scr)
+// 		);
+// #endif
+
 #pragma HLS array_partition variable = predicate type = complete
 #pragma HLS array_partition variable = pe_col_offsets type = complete
 #pragma HLS array_partition variable = local_query type = complete
 #pragma HLS array_partition variable = local_reference type = complete
-#pragma HLS array_partition variable = up_scores type = complete
-#pragma HLS array_partition variable = diag_scores type = complete
-#pragma HLS array_partition variable = left_scores type = complete
-
-
 #pragma HLS array_partition variable = dp_mem type = complete
-#pragma HLS array_partition variable = last_chunk_scr type = complete
-
-#pragma HLS array_partition variable = scores_out type = complete
 #pragma HLS array_partition variable = tbp_out type = complete
 
 	// FIXME: We can compute scores, and set the TBP for the additional
@@ -368,9 +367,9 @@ void Align::ChunkCompute(
 		Align::UpdateDPMem(dp_mem, i, init_col_scr, init_row_scr);
 
 #ifdef DEBUG
-		Utils::Debug::Translate::print_2d(
-			"Initial COlumn Scores",
-			Utils::Debug::Translate::translate_2d<type_t, N_LAYERS, PE_NUM>(init_col_scr)
+		Debug::Translate::print_2d(
+			"Initial Column Scores",
+			Debug::Translate::translate_2d<type_t, N_LAYERS, PE_NUM>(init_col_scr)
 		);
 #endif
 
@@ -396,12 +395,12 @@ void Align::ChunkCompute(
 		ALIGN_TYPE::UpdatePEMaximum(dp_mem, max, pe_col_offsets, chunk_row_offset, predicate, global_query_length, reference_length);
 #ifdef DEBUG
 		Align::ArrangeScores(dp_mem, predicate, pe_col_offsets, score_tbp);
-		auto dp_mem_checkpoint = Utils::Debug::Translate::translate_3d<
+		auto dp_mem_checkpoint = Debug::Translate::translate_3d<
 			type_t, N_LAYERS, PE_NUM+1, 3
 		>(dp_mem);
 
-		Utils::Debug::Translate::print_1d("pe_col_offsets",
-		Utils::Debug::Translate::translate_1d<idx_t, PE_NUM>(pe_col_offsets));
+		Debug::Translate::print_1d("pe_col_offsets",
+		Debug::Translate::translate_1d<idx_t, PE_NUM>(pe_col_offsets));
 #endif
         Align::ArrangeTBPArr(tbp_out, predicate, pe_col_offsets, chunk_tbp_out);
 
@@ -409,8 +408,8 @@ void Align::ChunkCompute(
 	}
 
 #ifdef DEBUG
-	Utils::Debug::Translate::print_2d("preserved row scores",
-		Utils::Debug::Translate::translate_2d<type_t, N_LAYERS, MAX_REFERENCE_LENGTH>(preserved_row_scr));
+	Debug::Translate::print_2d("preserved row scores",
+		Debug::Translate::translate_2d<type_t, N_LAYERS, MAX_REFERENCE_LENGTH>(preserved_row_scr));
 #endif
 
 }
@@ -595,23 +594,24 @@ void Align::AlignStatic(
 		std::swap(init_row_score, preserved_row_buffer);  // FIXME: Cannot present in Synthesis
 		// Utils::Array::Switch(&(init_row_score[0]), &(preserved_row_buffer[0]));
 	}
-#ifdef DEBUG
 
-	Utils::Debug::Translate::print_3d("scores", 
-		 Utils::Debug::Translate::translate_3d<type_t, N_LAYERS, MAX_QUERY_LENGTH, MAX_REFERENCE_LENGTH>(score_matrix)
+#ifdef DEBUG
+	Debug::Translate::print_3d("scores", 
+		 Debug::Translate::translate_3d<type_t, N_LAYERS, MAX_QUERY_LENGTH, MAX_REFERENCE_LENGTH>(score_matrix)
 	);
-	Utils::Debug::Translate::print_2d("Traceback Pointers", 
-		Utils::Debug::Translate::translate_2d<tbp_t, MAX_QUERY_LENGTH, MAX_REFERENCE_LENGTH>(tbp_matrix)
+	Debug::Translate::print_2d("Traceback Pointers", 
+		Debug::Translate::translate_2d<tbp_t, MAX_QUERY_LENGTH, MAX_REFERENCE_LENGTH>(tbp_matrix)
 	);
 #endif
+
 	Align::FindMax::ReductionMaxScores(local_max, maximum);
 
 	// >>> Traceback >>>
-	printf("Traceback Start Row: %d, Col: %d\n", maximum.chunk_offset + maximum.pe, maximum.pe_offset);
+	printf("(index from 0) Traceback Start Row: %d, Col: %d\n", maximum.chunk_offset + maximum.pe, maximum.pe_offset);
 	Traceback::Traceback(tbp_matrix, tb_out, maximum.chunk_offset + maximum.pe, maximum.pe_offset);
 #ifdef DEBUG
-	Utils::Debug::Translate::print_1d("Traceback", 
-		Utils::Debug::Translate::translate_1d<tbr_t, MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH>(tb_out)
+	Debug::Translate::print_1d("Traceback", 
+		Debug::Translate::translate_1d<tbr_t, MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH>(tb_out)
 	);
 #endif
 }
@@ -673,7 +673,9 @@ void Align::Reordered::Align(
 	float score_matrix_std[N_LAYERS][MAX_QUERY_LENGTH+1][MAX_REFERENCE_LENGTH+1]; // DEBUG
 
 	// Perform Traceback Here
-	Utils::Debug::translate_multilayer(scores, score_matrix_std);
+#ifdef DEBUG
+	Debug::translate_multilayer(scores, score_matrix_std);
+#endif
 }
 
 void Align::Reordered::CopyInitialScores(
