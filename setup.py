@@ -10,7 +10,9 @@ sources=[
     "./src/toplevel/seq_align_multiple.cpp",
     "./src/pyapi.cpp",
     "./src/traceback.cpp",
-    "./src/utils.cpp"
+    "./src/utils.cpp",
+    "./src/frontend.cpp",
+    "./src/debug.cpp"
          ]
 
 

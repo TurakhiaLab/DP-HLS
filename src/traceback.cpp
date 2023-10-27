@@ -16,9 +16,10 @@ void Traceback::Traceback(
 {
     int row = max_row;
     int col = max_col;
-    int i = 0;
+    int w_id = 0;
     bool end = 0;
-    
+    tbr_t curr_write;
+
     TB_STATE state;
     ALIGN_TYPE::Traceback::StateInit(tbmat[row][col], state);    
 
@@ -27,8 +28,16 @@ traceback_loop:
     {
         if (!end && row >= 0 && col >= 0){
             tbp_t tbptr = tbmat[row][col];  // Want to represented by the symbol rather than pointer
-            traceback_out[i] = ALIGN_TYPE::Traceback::StateToPath(state);
-            ALIGN_TYPE::Traceback::StateMapping(tbptr, state, row, col);
+
+#ifdef DEBUG
+            auto tbptr_s = tbptr.to_int();
+#endif
+
+            ALIGN_TYPE::Traceback::StateMapping(tbptr, state, row, col, curr_write);
+            if (curr_write != NULL){
+                traceback_out[w_id++] = curr_write;
+            }
+
             if (state == TB_STATE::END)  end = 1;
         } else {
             traceback_out[i] = AL_END;

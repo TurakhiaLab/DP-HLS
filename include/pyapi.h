@@ -92,7 +92,7 @@ public:
         this->logger = LoopLogger();
     };
 
-    void AHRunner::run(Penalties penalties);
+
 
     /**
      * @brief runs the kernel with the query and reference strings
@@ -100,8 +100,6 @@ public:
      *
      */
     void run(py::dict py_penalties);
-
-    void run(string query_string, string reference_string, Penalties penalties);
 
 
     /**

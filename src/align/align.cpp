@@ -482,7 +482,7 @@ void Align::FindMax::ReductionMaxScores(ScorePack (&packs)[PE_NUM], ScorePack &g
 
 void Align::CopyColScore(chunk_col_scores_inf_t & init_col_scr_local, score_vec_t(& init_col_scr)[MAX_QUERY_LENGTH], idx_t idx)
 {
-	init_col_scr_local[0] = init_col_scr_local[PE_NUM];
+	init_col_scr_local[0] = init_col_scr_local[PE_NUM];  // backup the last element from previous chunk
 
 	for (int j = 0; j < PE_NUM; j++)
 	{
@@ -554,6 +554,7 @@ void Align::AlignStatic(
 
 	char_t local_query[PE_NUM];
 	chunk_col_scores_inf_t local_init_col_score;
+	local_init_col_score[PE_NUM] = score_vec_t(0); // Always initialize the upper left cornor to 0
 
 	hls::vector<type_t, N_LAYERS> preserved_row_buffer[MAX_REFERENCE_LENGTH];
 	//Utils::Init::ArrSet(preserved_row_buffer, score_vec_t(0));
@@ -565,7 +566,7 @@ void Align::AlignStatic(
 		idx_t local_query_length = ((idx_t)PE_NUM < query_length - i) ? (idx_t)PE_NUM : (idx_t)(query_length - i);
 
 		Align::PrepareLocalQuery(query, local_query, i, local_query_length); // FIXME: Why not coping rest of the query
-		Align::CopyColScore(local_init_col_score, init_col_score, i);
+		Align::CopyColScore(local_init_col_score, init_col_score, i);  // Copy the scores
 
 		tbp_t(*chunk_tbp_out)[MAX_REFERENCE_LENGTH] = &tbp_matrix[i];
 

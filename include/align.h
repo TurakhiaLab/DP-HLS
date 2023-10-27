@@ -27,7 +27,7 @@
 
 #ifdef DEBUG
 #include "./debug.h"
-#include "./pyapi.h"
+//#include "./pyapi.h"
 #endif // DBEUG
 
 

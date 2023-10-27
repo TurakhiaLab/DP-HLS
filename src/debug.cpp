@@ -37,10 +37,17 @@ void Debug::Translate::print_3d(const char * name, std::vector<std::vector<std::
 void Debug::Translate::print_2d(const char * name, std::vector<std::vector<float>> scores)
 {
     printf("%s\n", name);
+    printf("%f ", 0.0);
     for (int i = 0; i < scores.size(); i++)
     {
+        printf("%f ", (float) i);
+    }
+    for (int i = 0; i < scores.size(); i++)
+    {
+        printf("%f ", float(i));
         for (int k = 0; k < scores[0].size(); k++)
         {
+
             printf("%f ", scores[i][k]);
         }
         printf("\n");

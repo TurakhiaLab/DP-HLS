@@ -71,15 +71,15 @@ void GlobalAffine::PE::Compute(char_t local_query_val,
     // Set traceback pointer based on the direction of the maximum score.
     if (max_value == write_score[0])
     { // Insert Case
-        write_traceback = TB_LEFT + (max_value == insert_extend ? (tbp_t)0 : TB_IMAT);
-    }
-    else if (max_value == write_score[1])
-    {
-        write_traceback = TB_DIAG;
+        write_traceback = TB_LEFT + (max_value == insert_extend ?  TB_IMAT : (tbp_t) 0 );
     }
     else if (max_value == write_score[2])
     {
-        write_traceback = TB_UP + (max_value == delete_extend ? (tbp_t)0 : TB_DMAT);
+        write_traceback = TB_UP + (max_value == delete_extend ? TB_DMAT :   (tbp_t) 0 );
+    }
+        else if (max_value == write_score[1])
+    {
+        write_traceback = TB_DIAG;
     }
     else
     {
@@ -98,7 +98,7 @@ void GlobalAffine::InitializeScores(
     Utils::Init::ArrSet(init_col_scr, 2, score_vec_t{0, 0, 0});                                    // query layer 2
 
     Utils::Init::ArrSet<score_vec_t, MAX_REFERENCE_LENGTH>(init_row_scr, 0, score_vec_t{0, 0, 0});                // reference layer 0
-    Utils::Init::Linspace<type_t, 3, MAX_REFERENCE_LENGTH>(init_row_scr, 0, 1, penalties.open, penalties.extend); // reference layer 1
+    Utils::Init::Linspace(init_row_scr, 0, 1, penalties.open, penalties.extend, MAX_REFERENCE_LENGTH); // reference layer 1
     Utils::Init::ArrSet<score_vec_t, MAX_REFERENCE_LENGTH>(init_row_scr, 2, score_vec_t{NINF, NINF, NINF});
 }
 
@@ -141,7 +141,7 @@ void GlobalAffine::InitializeMaxScores(ScorePack (&max)[PE_NUM], idx_t qry_len, 
     }
 }
 
-void GlobalAffine::Traceback::StateMapping(tbp_t tbp, TB_STATE &state, int &row, int &col)
+void GlobalAffine::Traceback::StateMapping(tbp_t tbp, TB_STATE &state, int &row, int &col, tbr_t &curr_write)
 {
 
     if (state == TB_STATE::MM)
@@ -150,14 +150,17 @@ void GlobalAffine::Traceback::StateMapping(tbp_t tbp, TB_STATE &state, int &row,
         {
             row--;
             col--;
+            curr_write = AL_MMI;
         }
         else if (tbp(1, 0) == TB_UP)
         {
             state = TB_STATE::DEL;
+            curr_write = NULL;
         }
         else if (tbp(1, 0) == TB_LEFT)
         {
             state = TB_STATE::INS;
+            curr_write = NULL;
         }
         else
         {
@@ -176,11 +179,14 @@ void GlobalAffine::Traceback::StateMapping(tbp_t tbp, TB_STATE &state, int &row,
         if ((bool)tbp[3])
         { // deletion extending
             // states remains the same.
+            // printf("delete extend");
         }
         else
         {                         // deletion closing
             state = TB_STATE::MM; // set the state back to MM
+            
         }
+        curr_write = AL_DEL;
         row--;
     }
     else if (state == TB_STATE::INS)
@@ -188,11 +194,13 @@ void GlobalAffine::Traceback::StateMapping(tbp_t tbp, TB_STATE &state, int &row,
         if ((bool)tbp[2])
         { // insertion extending
             // states remains the same.
+            // ("delete extend");
         }
         else
         {                         // insertion closing
             state = TB_STATE::MM; // set the state back to MM
         }
+        curr_write = AL_INS;
         col--;
     }
     else
@@ -322,7 +330,11 @@ void LocalAffine::PE::Compute(char_t local_query_val,
     // Set traceback pointer based on the direction of the maximum score.
     if (max_value == write_score[0])
     { // Insert Case
-        write_traceback = TB_LEFT + (max_value == insert_extend ? (tbp_t)0 : TB_IMAT);
+        write_traceback = TB_LEFT + (max_value == insert_extend ? (tbp_t) TB_IMAT : (tbp_t) 0 );
+    }
+    else if (max_value == write_score[2])
+    {
+        write_traceback = TB_UP + (max_value == delete_extend ? (tbp_t) TB_DMAT :(tbp_t) 0 );
     }
     else if (max_value == write_score[1])
     {
@@ -331,10 +343,6 @@ void LocalAffine::PE::Compute(char_t local_query_val,
         } else {
             write_traceback = TB_DIAG;
         }
-    }
-    else if (max_value == write_score[2])
-    {
-        write_traceback = TB_UP + (max_value == delete_extend ? (tbp_t)0 : TB_DMAT);
     }
     else
     {
@@ -390,7 +398,7 @@ void LocalAffine::InitializeMaxScores(ScorePack (&max)[PE_NUM], idx_t qry_len, i
     }
 }
 
-void LocalAffine::Traceback::StateMapping(tbp_t tbp, TB_STATE &state, int &row, int &col)
+void LocalAffine::Traceback::StateMapping(tbp_t tbp, TB_STATE &state, int &row, int &col, tbr_t &curr_write)
 {
     // If the tbp is TB_PH then set the state to end
     if (state == TB_STATE::MM)
@@ -399,24 +407,29 @@ void LocalAffine::Traceback::StateMapping(tbp_t tbp, TB_STATE &state, int &row, 
         {
             row--;
             col--;
+            curr_write = AL_MMI;
         }
         else if (tbp(1, 0) == TB_UP)
         {
             state = TB_STATE::DEL;
+            curr_write = NULL;
         }
         else if (tbp(1, 0) == TB_LEFT)
         {
             state = TB_STATE::INS;
+            curr_write = NULL;
         }
         else
         {
             // Unknown Direction
 #ifdef DEBUG
+            state = TB_STATE::END;
+            curr_write = AL_END;
             // Such construct is not available for synthesizing kernel.
             // However, it can be used to debug error in pure CSimulation.
             // And also if in the near future a kernel debugging method is developed,
             // this is used as a placeholder to check.
-            throw std::runtime_error("Unknown traceback direction." + std::to_string(tbp.to_int()));
+            // throw std::runtime_error("Unknown traceback direction." + std::to_string(tbp.to_int()));
 #endif
         }
     }
@@ -430,6 +443,7 @@ void LocalAffine::Traceback::StateMapping(tbp_t tbp, TB_STATE &state, int &row, 
         {                         // deletion closing
             state = TB_STATE::MM; // set the state back to MM
         }
+        curr_write = AL_DEL;
         row--;
     }
     else if (state == TB_STATE::INS)
@@ -442,6 +456,7 @@ void LocalAffine::Traceback::StateMapping(tbp_t tbp, TB_STATE &state, int &row, 
         {                         // insertion closing
             state = TB_STATE::MM; // set the state back to MM
         }
+        curr_write = AL_INS;
         col--;
     }
     else
@@ -455,7 +470,10 @@ void LocalAffine::Traceback::StateMapping(tbp_t tbp, TB_STATE &state, int &row, 
     // Override the next state to end if the current traceback poitner indicates end. 
     if (tbp == TB_PH){
         state = TB_STATE::END;
+        curr_write = AL_END;
     }
+
+
 }
 
 void LocalAffine::Traceback::StateInit(tbp_t tbp, TB_STATE &state)
@@ -498,8 +516,138 @@ tbr_t LocalAffine::Traceback::StateToPath(TB_STATE state)
 }
 // <<< Local Affine Implementation <<<
 
+
+
 // >>> Global Linear Implementation >>>
+void GlobalLinear::InitializeScores(
+    score_vec_t (&init_col_scr)[MAX_QUERY_LENGTH],
+    score_vec_t (&init_row_scr)[MAX_REFERENCE_LENGTH],
+    Penalties penalties)
+{
+#ifdef ALIGN_GLOBAL_LINEAR
+    Utils::Init::Linspace<type_t, 1>(init_col_scr, 0, 0, (type_t) 0, penalties.linear_gap);
+    Utils::Init::Linspace<type_t, 1>(init_row_scr, 0, 0, (type_t) 0, penalties.linear_gap);
+#endif
+}
+
+
+void GlobalLinear::PE::Compute(char_t local_query_val,
+                char_t local_reference_val,
+                hls::vector<type_t, N_LAYERS> up_prev,
+                hls::vector<type_t, N_LAYERS> diag_prev,
+                hls::vector<type_t, N_LAYERS> left_prev,
+                const Penalties penalties,
+                hls::vector<type_t, N_LAYERS> &write_score,
+#ifdef DEBUG
+                tbp_t &write_traceback,
+                int idx) // mark the PE index
+#else
+                tbp_t &write_traceback)
+#endif
+{
+		const type_t ins = left_prev[0] + penalties.linear_gap;
+		const type_t del = up_prev[0] + penalties.linear_gap;
+
+		const type_t match = (local_query_val == local_reference_val) ? diag_prev[0] + penalties.match : diag_prev[0] + penalties.mismatch;
+
+		type_t max_value = (del > ins) ? del : ins;
+        max_value = max_value > match ? max_value : match;
+
+		write_traceback = (max_value == match) ? TB_DIAG : ((max_value == del) ? TB_UP : TB_LEFT);
+
+		write_score = max_value;
+}
+
+void GlobalLinear::UpdatePEMaximum(
+    dp_mem_block_t dp_mem,
+    ScorePack (&max)[PE_NUM],
+    idx_t (&pe_offset)[PE_NUM],
+    idx_t chunk_offset,
+    bool (&predicate)[PE_NUM],
+    idx_t query_len, idx_t ref_len){
+            for (int i = 0; i < PE_NUM; i++)
+    {
+#pragma HLS unroll
+        if (predicate[i])
+        {
+#ifdef DEBUG
+            auto dp_mem_s = dp_mem[i + 1][0][LAYER_MAXIMIUM].to_float();
+            auto max_s = max[i].score.to_float();
+#endif
+            if (dp_mem[i + 1][0][LAYER_MAXIMIUM] > max[i].score)
+            {
+                // Notice this filtering condition compared to the Local Affine kernel. 
+                // if ((chunk_offset + i == query_len - 1) || (pe_offset[i] == ref_len - 1))  // last row or last column
+                if ( (chunk_offset + i == query_len - 1) && (pe_offset[i] == ref_len - 1) )
+                { // So we are at the last row or last column
+                    max[i].score = dp_mem[i + 1][0][LAYER_MAXIMIUM];
+                    max[i].chunk_offset = chunk_offset;
+                    max[i].pe_offset = pe_offset[i];
+                }
+            }
+        }
+    }
+}
+
+void GlobalLinear::InitializeMaxScores(ScorePack (&max)[PE_NUM], idx_t qry_len, idx_t ref_len){
+        for (int i = 0; i < PE_NUM; i++)
+    {
+#pragma HLS unroll
+        max[i].score = NINF; // Need a custom struct for finding the negative infinity
+        max[i].chunk_offset = 0;
+        max[i].pe = i;
+        max[i].pe_offset = ref_len;
+    }
+}
+
+void GlobalLinear::Traceback::StateInit(tbp_t tbp, TB_STATE &state){
+    if (tbp == TB_DIAG)
+    {
+        state = TB_STATE::MM;
+    }
+    else if (tbp == TB_UP)
+    {
+        state = TB_STATE::DEL;
+    }
+    else if (tbp == TB_LEFT)
+    {
+        state = TB_STATE::INS;
+    }
+    else
+    {
+        state = TB_STATE::END; // Unknown Direction
+        // Unknown Direction
+    }
+}
+
+void GlobalLinear::Traceback::StateMapping(tbp_t tbp, TB_STATE &state, int &row, int &col, tbr_t &curr_write){
+
+    if (tbp == TB_DIAG)
+    {
+        row--;
+        col--;
+        curr_write = AL_MMI;
+    }
+    else if (tbp == TB_UP)
+    {
+        row--;
+        curr_write = AL_DEL;
+    }
+    else if (tbp == TB_LEFT)
+    {
+        col--;
+        curr_write = AL_INS;
+    }
+    else
+    {
+        state = TB_STATE::END; // Unknown Direction
+        curr_write = AL_END;
+    }
+}
+
 // <<< Global Linear Implementation <<<
+
+
 
 // >>> Local Linear Implementation >>>
 // <<< Local Linear Implementation <<<
