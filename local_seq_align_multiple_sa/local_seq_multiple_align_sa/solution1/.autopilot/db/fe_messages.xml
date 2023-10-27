@@ -1,0 +1,204 @@
+<xilinx:hls_fe_msgs>
+    <msg msg_groups="" msg_id="207-4827" msg_severity="WARNING" msg_loc="/usr/include/x86_64-linux-gnu/gmp.h:2142:345" msg_body="equality comparison with extraneous parentheses">
+        <args ClangWarningOption="parentheses-equality"/>
+    </msg>
+    <msg msg_groups="" msg_id="207-4186" msg_severity="INFO" msg_loc="/usr/include/x86_64-linux-gnu/gmp.h:2142:345" msg_body="remove extraneous parentheses around the comparison to silence this warning">
+        <args/>
+    </msg>
+    <msg msg_groups="" msg_id="207-4187" msg_severity="INFO" msg_loc="/usr/include/x86_64-linux-gnu/gmp.h:2142:345" msg_body="use '=' to turn this equality comparison into an assignment">
+        <args/>
+    </msg>
+    <msg msg_groups="" msg_id="207-4827" msg_severity="WARNING" msg_loc="/usr/include/x86_64-linux-gnu/gmp.h:2142:383" msg_body="equality comparison with extraneous parentheses">
+        <args ClangWarningOption="parentheses-equality"/>
+    </msg>
+    <msg msg_groups="" msg_id="207-4186" msg_severity="INFO" msg_loc="/usr/include/x86_64-linux-gnu/gmp.h:2142:383" msg_body="remove extraneous parentheses around the comparison to silence this warning">
+        <args/>
+    </msg>
+    <msg msg_groups="" msg_id="207-4187" msg_severity="INFO" msg_loc="/usr/include/x86_64-linux-gnu/gmp.h:2142:383" msg_body="use '=' to turn this equality comparison into an assignment">
+        <args/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="/home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/autopilot/ap_int_ref.h:724:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="and_reduce" ARG_PragmaIsValid="1" ARG_PragmaType="unroll" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="/home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/autopilot/ap_int_ref.h:738:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="or_reduce" ARG_PragmaIsValid="1" ARG_PragmaType="unroll" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="/home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/autopilot/ap_int_ref.h:752:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="xor_reduce" ARG_PragmaIsValid="1" ARG_PragmaType="unroll" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="./shift_reg.h:7:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="ShiftRegister&lt;T, LEN&gt;" ARG_PragmaIsValid="1" ARG_PragmaOptions="variable=data dim=0 complete" ARG_PragmaType="array_partition" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="./shift_reg.h:16:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="shift" ARG_PragmaIsValid="1" ARG_PragmaType="unroll" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="seq_align_multiple.cpp:23:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="shift" ARG_PragmaIsValid="1" ARG_PragmaType="unroll" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="seq_align_multiple.cpp:95:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="PE" ARG_PragmaIsValid="1" ARG_PragmaType="inline" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="seq_align_multiple.cpp:760:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="seq_align_global" ARG_PragmaIsValid="1" ARG_PragmaOptions="variable = dp_mem dim = 0 complete" ARG_PragmaType="array_partition" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="seq_align_multiple.cpp:761:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="seq_align_global" ARG_PragmaIsValid="1" ARG_PragmaOptions="variable = traceback dim = 1 cyclic factor = 32" ARG_PragmaType="array_partition" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="seq_align_multiple.cpp:762:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="seq_align_global" ARG_PragmaIsValid="1" ARG_PragmaOptions="variable = local_reference cyclic dim = 1 factor = 32" ARG_PragmaType="array_partition" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="seq_align_multiple.cpp:816:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="seq_align_global" ARG_PragmaIsValid="1" ARG_PragmaOptions="II = 1" ARG_PragmaType="pipeline" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="seq_align_multiple.cpp:822:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="seq_align_global" ARG_PragmaIsValid="1" ARG_PragmaOptions="II = 1" ARG_PragmaType="pipeline" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="seq_align_multiple.cpp:830:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="seq_align_global" ARG_PragmaIsValid="1" ARG_PragmaOptions="II = 1" ARG_PragmaType="pipeline" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="seq_align_multiple.cpp:839:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="seq_align_global" ARG_PragmaIsValid="1" ARG_PragmaOptions="II = 1" ARG_PragmaType="pipeline" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="seq_align_multiple.cpp:844:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="seq_align_global" ARG_PragmaIsValid="1" ARG_PragmaType="unroll" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="seq_align_multiple.cpp:857:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="seq_align_global" ARG_PragmaIsValid="1" ARG_PragmaType="unroll" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="/home/AD.UCSD.EDU/jsliang/synth.tcl:6:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaContext="directive" ARG_PragmaFunction="seq_align_multiple" ARG_PragmaIsValid="1" ARG_PragmaOptions="name=seq_align_multiple" ARG_PragmaType="top" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="seq_align_multiple.cpp:2191:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="seq_align_multiple" ARG_PragmaIsValid="1" ARG_PragmaOptions="mode = axis port = query_string_comp" ARG_PragmaType="interface" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="seq_align_multiple.cpp:2192:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="seq_align_multiple" ARG_PragmaIsValid="1" ARG_PragmaOptions="mode = axis port = reference_string_comp" ARG_PragmaType="interface" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="seq_align_multiple.cpp:2193:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="seq_align_multiple" ARG_PragmaIsValid="1" ARG_PragmaOptions="variable = query_string_comp type = block dim = 1 factor = 8" ARG_PragmaType="array_partition" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="seq_align_multiple.cpp:2194:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="seq_align_multiple" ARG_PragmaIsValid="1" ARG_PragmaOptions="variable = reference_string_comp type = block dim = 1 factor = 8" ARG_PragmaType="array_partition" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="seq_align_multiple.cpp:2195:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="seq_align_multiple" ARG_PragmaIsValid="1" ARG_PragmaOptions="variable = dummies type = complete" ARG_PragmaType="array_partition" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="seq_align_multiple.cpp:2199:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="seq_align_multiple" ARG_PragmaIsValid="1" ARG_PragmaOptions="variable = dummies_inner type = complete" ARG_PragmaType="array_partition" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="seq_align_multiple.cpp:2218:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="seq_align_multiple" ARG_PragmaIsValid="1" ARG_PragmaType="unroll" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="PRAGMA_VERBOSE_DUMP" msg_id="207-5471" msg_severity="WARNING" msg_loc="seq_align_multiple.cpp:2251:9" msg_body="HLS pragma dump">
+        <args ARG_PragmaFunction="seq_align_multiple" ARG_PragmaIsValid="1" ARG_PragmaType="unroll" ClangWarningOption="dump-hls-pragmas"/>
+    </msg>
+    <msg msg_groups="CODE_UNSUPPORTED" msg_id="214-131" msg_severity="INFO" msg_loc="seq_align_multiple.cpp:877:29" msg_body="Inlining function 'PE(char, char, int, int, int, int*, ap_uint&lt;2&gt;*)' into 'seq_align_global(hls::stream&lt;char, 256&gt;&amp;, hls::stream&lt;char, 256&gt;&amp;, int*)'">
+        <args Callee="PE(char, char, int, int, int, int*, ap_uint&lt;2&gt;*)" Caller="seq_align_global(hls::stream&lt;char, 256&gt;&amp;, hls::stream&lt;char, 256&gt;&amp;, int*)"/>
+    </msg>
+    <msg msg_groups="CODE_UNSUPPORTED" msg_id="214-131" msg_severity="INFO" msg_loc="seq_align_multiple.cpp:872:29" msg_body="Inlining function 'PE(char, char, int, int, int, int*, ap_uint&lt;2&gt;*)' into 'seq_align_global(hls::stream&lt;char, 256&gt;&amp;, hls::stream&lt;char, 256&gt;&amp;, int*)'">
+        <args Callee="PE(char, char, int, int, int, int*, ap_uint&lt;2&gt;*)" Caller="seq_align_global(hls::stream&lt;char, 256&gt;&amp;, hls::stream&lt;char, 256&gt;&amp;, int*)"/>
+    </msg>
+    <msg msg_groups="CODE_UNSUPPORTED" msg_id="214-131" msg_severity="INFO" msg_loc="seq_align_multiple.cpp:863:25" msg_body="Inlining function 'PE(char, char, int, int, int, int*, ap_uint&lt;2&gt;*)' into 'seq_align_global(hls::stream&lt;char, 256&gt;&amp;, hls::stream&lt;char, 256&gt;&amp;, int*)'">
+        <args Callee="PE(char, char, int, int, int, int*, ap_uint&lt;2&gt;*)" Caller="seq_align_global(hls::stream&lt;char, 256&gt;&amp;, hls::stream&lt;char, 256&gt;&amp;, int*)"/>
+    </msg>
+    <msg msg_groups="PRAGMA_DISAGGREGATE" msg_id="214-210" msg_severity="INFO" msg_loc="seq_align_multiple.cpp:754:34" msg_body="Disaggregating variable 'query'">
+        <args Name="query"/>
+    </msg>
+    <msg msg_groups="PRAGMA_UNROLL" msg_id="214-291" msg_severity="INFO" msg_loc="seq_align_multiple.cpp:843:13" msg_body="Loop 'cbuff' is marked as complete unroll implied by the pipeline pragma">
+        <args LoopName="cbuff"/>
+    </msg>
+    <msg msg_groups="PRAGMA_UNROLL" msg_id="214-291" msg_severity="INFO" msg_loc="seq_align_multiple.cpp:855:13" msg_body="Loop 'peloop' is marked as complete unroll implied by the pipeline pragma">
+        <args LoopName="peloop"/>
+    </msg>
+    <msg msg_groups="PRAGMA_UNROLL" msg_id="214-291" msg_severity="INFO" msg_loc="./shift_reg.h:15:26" msg_body="Loop 'VITIS_LOOP_15_1' is marked as complete unroll implied by the pipeline pragma">
+        <args LoopName="VITIS_LOOP_15_1"/>
+    </msg>
+    <msg msg_groups="PRAGMA_UNROLL" msg_id="214-186" msg_severity="INFO" msg_loc="seq_align_multiple.cpp:2189:0" msg_body="Unrolling loop 'VITIS_LOOP_2249_2' (seq_align_multiple.cpp:2249:24) in function 'seq_align_multiple' completely with a factor of 1">
+        <args Factor="1" LoopLoc="seq_align_multiple.cpp:2249:24" LoopName="VITIS_LOOP_2249_2"/>
+    </msg>
+    <msg msg_groups="PRAGMA_UNROLL" msg_id="214-186" msg_severity="INFO" msg_loc="seq_align_multiple.cpp:2189:0" msg_body="Unrolling loop 'VITIS_LOOP_2216_1' (seq_align_multiple.cpp:2216:21) in function 'seq_align_multiple' completely with a factor of 1">
+        <args Factor="1" LoopLoc="seq_align_multiple.cpp:2216:21" LoopName="VITIS_LOOP_2216_1"/>
+    </msg>
+    <msg msg_groups="PRAGMA_UNROLL" msg_id="214-186" msg_severity="INFO" msg_loc="seq_align_multiple.cpp:744:0" msg_body="Unrolling loop 'cbuff' (seq_align_multiple.cpp:843:13) in function 'seq_align_global' completely with a factor of 32">
+        <args Factor="32" LoopLoc="seq_align_multiple.cpp:843:13" LoopName="cbuff"/>
+    </msg>
+    <msg msg_groups="PRAGMA_UNROLL" msg_id="214-186" msg_severity="INFO" msg_loc="seq_align_multiple.cpp:744:0" msg_body="Unrolling loop 'peloop' (seq_align_multiple.cpp:855:13) in function 'seq_align_global' completely with a factor of 32">
+        <args Factor="32" LoopLoc="seq_align_multiple.cpp:855:13" LoopName="peloop"/>
+    </msg>
+    <msg msg_groups="PRAGMA_UNROLL" msg_id="214-186" msg_severity="INFO" msg_loc="./shift_reg.h:14:0" msg_body="Unrolling loop 'VITIS_LOOP_15_1' (./shift_reg.h:15:26) in function 'ShiftRegister&lt;char, 32&gt;::shift' completely with a factor of 31">
+        <args Factor="31" LoopLoc="./shift_reg.h:15:26" LoopName="VITIS_LOOP_15_1"/>
+    </msg>
+    <msg msg_groups="PRAGMA_INLINE" msg_id="214-178" msg_severity="INFO" msg_loc="seq_align_multiple.cpp:744:0" msg_body="Inlining function 'ShiftRegister&lt;char, 32&gt;::shift(char)' into 'seq_align_global(hls::stream&lt;char, 256&gt;&amp;, hls::stream&lt;char, 256&gt;&amp;, int*)'">
+        <args Callee="ShiftRegister&lt;char, 32&gt;::shift(char)" Caller="seq_align_global(hls::stream&lt;char, 256&gt;&amp;, hls::stream&lt;char, 256&gt;&amp;, int*)"/>
+    </msg>
+    <msg msg_groups="PRAGMA_INLINE" msg_id="214-178" msg_severity="INFO" msg_loc="seq_align_multiple.cpp:744:0" msg_body="Inlining function 'ShiftRegister&lt;char, 32&gt;::operator[](int)' into 'seq_align_global(hls::stream&lt;char, 256&gt;&amp;, hls::stream&lt;char, 256&gt;&amp;, int*)'">
+        <args Callee="ShiftRegister&lt;char, 32&gt;::operator[](int)" Caller="seq_align_global(hls::stream&lt;char, 256&gt;&amp;, hls::stream&lt;char, 256&gt;&amp;, int*)"/>
+    </msg>
+    <msg msg_groups="PRAGMA_MISC" msg_id="214-253" msg_severity="WARNING" msg_loc="seq_align_multiple.cpp:2195:9" msg_body="Ignored unsupported array_partition pragma on variable 'dummies'. This can happen when applying a pragma on a function argument with mismatched array size w.r.t. its call site, or when providing a dim too deep on an array of insufficient dimension.">
+        <args Name="dummies" PragmaName="array_partition"/>
+    </msg>
+    <msg msg_groups="PRAGMA_MISC" msg_id="214-248" msg_severity="INFO" msg_loc="seq_align_multiple.cpp:745:16" msg_body="Applying array_partition to 'traceback': Cyclic partitioning with factor 32 on dimension 1.">
+        <args Dim="1" Factor="32" Mode="Cyclic" UOName="traceback"/>
+    </msg>
+    <msg msg_groups="PRAGMA_MISC" msg_id="214-248" msg_severity="INFO" msg_loc="seq_align_multiple.cpp:746:12" msg_body="Applying array_partition to 'dp_mem': Complete partitioning on dimension 1. Complete partitioning on dimension 2.">
+        <args Dim="islist 1 2" Mode="islist Complete Complete" UOName="dp_mem"/>
+    </msg>
+    <msg msg_groups="PRAGMA_MISC" msg_id="214-248" msg_severity="INFO" msg_loc="seq_align_multiple.cpp:754:34" msg_body="Applying array_partition to 'query': Complete partitioning on dimension 1.">
+        <args Dim="1" Mode="Complete" UOName="query"/>
+    </msg>
+    <msg msg_groups="PRAGMA_MISC" msg_id="214-248" msg_severity="INFO" msg_loc="seq_align_multiple.cpp:757:15" msg_body="Applying array_partition to 'local_reference': Cyclic partitioning with factor 32 on dimension 1.">
+        <args Dim="1" Factor="32" Mode="Cyclic" UOName="local_reference"/>
+    </msg>
+    <msg msg_groups="PRAGMA_MISC" msg_id="214-248" msg_severity="INFO" msg_loc="seq_align_multiple.cpp:2197:9" msg_body="Applying array_partition to 'dummies_inner': Complete partitioning on dimension 1.">
+        <args Dim="1" Mode="Complete" UOName="dummies_inner"/>
+    </msg>
+    <msg msg_groups="PRAGMA_MISC" msg_id="214-248" msg_severity="INFO" msg_loc="seq_align_multiple.cpp:2189:0" msg_body="Applying array_partition to 'query_string_comp': Cyclic partitioning with factor 8 on dimension 1.">
+        <args Dim="1" Factor="8" Mode="Cyclic" UOName="query_string_comp"/>
+    </msg>
+    <msg msg_groups="PRAGMA_MISC" msg_id="214-248" msg_severity="INFO" msg_loc="seq_align_multiple.cpp:2189:0" msg_body="Applying array_partition to 'reference_string_comp': Cyclic partitioning with factor 8 on dimension 1.">
+        <args Dim="1" Factor="8" Mode="Cyclic" UOName="reference_string_comp"/>
+    </msg>
+    <msg msg_groups="CODE_UNSUPPORTED" msg_id="214-142" msg_severity="WARNING" msg_loc="seq_align_multiple.cpp:2189:0" msg_body="Implementing stream: may cause mismatch if read and write accesses are not in sequential order on port 'query_string_comp_1'">
+        <args Name="query_string_comp_1"/>
+    </msg>
+    <msg msg_groups="CODE_UNSUPPORTED" msg_id="214-142" msg_severity="WARNING" msg_loc="seq_align_multiple.cpp:2189:0" msg_body="Implementing stream: may cause mismatch if read and write accesses are not in sequential order on port 'query_string_comp_2'">
+        <args Name="query_string_comp_2"/>
+    </msg>
+    <msg msg_groups="CODE_UNSUPPORTED" msg_id="214-142" msg_severity="WARNING" msg_loc="seq_align_multiple.cpp:2189:0" msg_body="Implementing stream: may cause mismatch if read and write accesses are not in sequential order on port 'query_string_comp_3'">
+        <args Name="query_string_comp_3"/>
+    </msg>
+    <msg msg_groups="CODE_UNSUPPORTED" msg_id="214-142" msg_severity="WARNING" msg_loc="seq_align_multiple.cpp:2189:0" msg_body="Implementing stream: may cause mismatch if read and write accesses are not in sequential order on port 'query_string_comp_4'">
+        <args Name="query_string_comp_4"/>
+    </msg>
+    <msg msg_groups="CODE_UNSUPPORTED" msg_id="214-142" msg_severity="WARNING" msg_loc="seq_align_multiple.cpp:2189:0" msg_body="Implementing stream: may cause mismatch if read and write accesses are not in sequential order on port 'query_string_comp_5'">
+        <args Name="query_string_comp_5"/>
+    </msg>
+    <msg msg_groups="CODE_UNSUPPORTED" msg_id="214-142" msg_severity="WARNING" msg_loc="seq_align_multiple.cpp:2189:0" msg_body="Implementing stream: may cause mismatch if read and write accesses are not in sequential order on port 'query_string_comp_6'">
+        <args Name="query_string_comp_6"/>
+    </msg>
+    <msg msg_groups="CODE_UNSUPPORTED" msg_id="214-142" msg_severity="WARNING" msg_loc="seq_align_multiple.cpp:2189:0" msg_body="Implementing stream: may cause mismatch if read and write accesses are not in sequential order on port 'query_string_comp_7'">
+        <args Name="query_string_comp_7"/>
+    </msg>
+    <msg msg_groups="CODE_UNSUPPORTED" msg_id="214-142" msg_severity="WARNING" msg_loc="seq_align_multiple.cpp:2189:0" msg_body="Implementing stream: may cause mismatch if read and write accesses are not in sequential order on port 'reference_string_comp_1'">
+        <args Name="reference_string_comp_1"/>
+    </msg>
+    <msg msg_groups="CODE_UNSUPPORTED" msg_id="214-142" msg_severity="WARNING" msg_loc="seq_align_multiple.cpp:2189:0" msg_body="Implementing stream: may cause mismatch if read and write accesses are not in sequential order on port 'reference_string_comp_2'">
+        <args Name="reference_string_comp_2"/>
+    </msg>
+    <msg msg_groups="CODE_UNSUPPORTED" msg_id="214-142" msg_severity="WARNING" msg_loc="seq_align_multiple.cpp:2189:0" msg_body="Implementing stream: may cause mismatch if read and write accesses are not in sequential order on port 'reference_string_comp_3'">
+        <args Name="reference_string_comp_3"/>
+    </msg>
+    <msg msg_groups="CODE_UNSUPPORTED" msg_id="214-142" msg_severity="WARNING" msg_loc="seq_align_multiple.cpp:2189:0" msg_body="Implementing stream: may cause mismatch if read and write accesses are not in sequential order on port 'reference_string_comp_4'">
+        <args Name="reference_string_comp_4"/>
+    </msg>
+    <msg msg_groups="CODE_UNSUPPORTED" msg_id="214-142" msg_severity="WARNING" msg_loc="seq_align_multiple.cpp:2189:0" msg_body="Implementing stream: may cause mismatch if read and write accesses are not in sequential order on port 'reference_string_comp_5'">
+        <args Name="reference_string_comp_5"/>
+    </msg>
+    <msg msg_groups="CODE_UNSUPPORTED" msg_id="214-142" msg_severity="WARNING" msg_loc="seq_align_multiple.cpp:2189:0" msg_body="Implementing stream: may cause mismatch if read and write accesses are not in sequential order on port 'reference_string_comp_6'">
+        <args Name="reference_string_comp_6"/>
+    </msg>
+    <msg msg_groups="CODE_UNSUPPORTED" msg_id="214-142" msg_severity="WARNING" msg_loc="seq_align_multiple.cpp:2189:0" msg_body="Implementing stream: may cause mismatch if read and write accesses are not in sequential order on port 'reference_string_comp_7'">
+        <args Name="reference_string_comp_7"/>
+    </msg>
+</xilinx:hls_fe_msgs>
+

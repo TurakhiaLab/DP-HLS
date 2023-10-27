@@ -1,0 +1,1119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cdfg:DBCdfg xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:cdfg="http://www.autoesl.com/DBCdfg" timeStamp="1687981411669">
+  <ports id="1" name="reference_string_comp_0" type="PortType" coreId="62" bitwidth="8">
+    <dataOutputObjs>read</dataOutputObjs>
+  </ports>
+  <ports id="2" name="local_reference" type="PortType" coreName="RAM_1WnR" coreId="3621216858" bitwidth="8" direction="DirOut" iftype="IfTypeRegister" arraysize="64">
+    <dataInputObjs>getelementptr</dataInputObjs>
+  </ports>
+  <ports id="3" name="local_reference_1" type="PortType" coreName="RAM_1WnR" coreId="1264062176" bitwidth="8" direction="DirOut" iftype="IfTypeRegister" arraysize="64">
+    <dataInputObjs>getelementptr</dataInputObjs>
+  </ports>
+  <ports id="4" name="local_reference_2" type="PortType" coreName="RAM_1WnR" coreId="0" bitwidth="8" direction="DirOut" iftype="IfTypeRegister" arraysize="64">
+    <dataInputObjs>getelementptr</dataInputObjs>
+  </ports>
+  <ports id="5" name="local_reference_3" type="PortType" coreName="RAM_1WnR" coreId="1264980080" bitwidth="8" direction="DirOut" iftype="IfTypeRegister" arraysize="64">
+    <dataInputObjs>getelementptr</dataInputObjs>
+  </ports>
+  <ports id="6" name="local_reference_4" type="PortType" coreName="RAM_1WnR" coreId="62" bitwidth="8" direction="DirOut" iftype="IfTypeRegister" arraysize="64">
+    <dataInputObjs>getelementptr</dataInputObjs>
+  </ports>
+  <ports id="7" name="local_reference_5" type="PortType" coreName="RAM_1WnR" coreId="1264890336" bitwidth="8" direction="DirOut" iftype="IfTypeRegister" arraysize="64">
+    <dataInputObjs>getelementptr</dataInputObjs>
+  </ports>
+  <ports id="8" name="local_reference_6" type="PortType" coreName="RAM_1WnR" coreId="1264819648" bitwidth="8" direction="DirOut" iftype="IfTypeRegister" arraysize="64">
+    <dataInputObjs>getelementptr</dataInputObjs>
+  </ports>
+  <ports id="9" name="local_reference_7" type="PortType" coreName="RAM_1WnR" coreId="1264888640" bitwidth="8" direction="DirOut" iftype="IfTypeRegister" arraysize="64">
+    <dataInputObjs>getelementptr</dataInputObjs>
+  </ports>
+  <ports id="10" name="local_reference_8" type="PortType" coreName="RAM_1WnR" coreId="1264548384" bitwidth="8" direction="DirOut" iftype="IfTypeRegister" arraysize="64">
+    <dataInputObjs>getelementptr</dataInputObjs>
+  </ports>
+  <ports id="11" name="local_reference_9" type="PortType" coreName="RAM_1WnR" coreId="1264864256" bitwidth="8" direction="DirOut" iftype="IfTypeRegister" arraysize="64">
+    <dataInputObjs>getelementptr</dataInputObjs>
+  </ports>
+  <ports id="12" name="local_reference_10" type="PortType" coreName="RAM_1WnR" coreId="1264819648" bitwidth="8" direction="DirOut" iftype="IfTypeRegister" arraysize="64">
+    <dataInputObjs>getelementptr</dataInputObjs>
+  </ports>
+  <ports id="13" name="local_reference_11" type="PortType" coreName="RAM_1WnR" coreId="1265338936" bitwidth="8" direction="DirOut" iftype="IfTypeRegister" arraysize="64">
+    <dataInputObjs>getelementptr</dataInputObjs>
+  </ports>
+  <ports id="14" name="local_reference_12" type="PortType" coreName="RAM_1WnR" coreId="1265342240" bitwidth="8" direction="DirOut" iftype="IfTypeRegister" arraysize="64">
+    <dataInputObjs>getelementptr</dataInputObjs>
+  </ports>
+  <ports id="15" name="local_reference_13" type="PortType" coreName="RAM_1WnR" coreId="1265244128" bitwidth="8" direction="DirOut" iftype="IfTypeRegister" arraysize="64">
+    <dataInputObjs>getelementptr</dataInputObjs>
+  </ports>
+  <ports id="16" name="local_reference_14" type="PortType" coreName="RAM_1WnR" coreId="1264443840" bitwidth="8" direction="DirOut" iftype="IfTypeRegister" arraysize="64">
+    <dataInputObjs>getelementptr</dataInputObjs>
+  </ports>
+  <ports id="17" name="local_reference_15" type="PortType" coreName="RAM_1WnR" coreId="1264865024" bitwidth="8" direction="DirOut" iftype="IfTypeRegister" arraysize="64">
+    <dataInputObjs>getelementptr</dataInputObjs>
+  </ports>
+  <edges id="110" source_obj="//@blocks.0/@node_objs.0" sink_obj="//@blocks.0/@node_objs.1"/>
+  <edges id="111" edge_type="CtrlEdge" source_obj="//@regions.0/@basic_blocks.0" sink_obj="//@blocks.0/@node_objs.2"/>
+  <edges id="112" source_obj="//@blocks.0/@node_objs.0" sink_obj="//@regions.0/@basic_blocks.0/@node_objs.0"/>
+  <edges id="113" source_obj="//@regions.0/@basic_blocks.0/@node_objs.0" sink_obj="//@regions.0/@basic_blocks.0/@node_objs.1"/>
+  <edges id="116" source_obj="//@regions.0/@basic_blocks.0/@node_objs.0" sink_obj="//@regions.0/@basic_blocks.0/@node_objs.2"/>
+  <edges id="119" source_obj="//@regions.0/@basic_blocks.0/@node_objs.1" sink_obj="//@regions.0/@basic_blocks.0/@node_objs.3"/>
+  <edges id="120" edge_type="CtrlEdge" source_obj="//@regions.0/@basic_blocks.1" sink_obj="//@regions.0/@basic_blocks.0/@node_objs.3"/>
+  <edges id="121" edge_type="CtrlEdge" source_obj="//@blocks.1" sink_obj="//@regions.0/@basic_blocks.0/@node_objs.3"/>
+  <edges id="122" source_obj="//@regions.0/@basic_blocks.0/@node_objs.2" sink_obj="//@regions.0/@basic_blocks.18/@node_objs.0"/>
+  <edges id="123" source_obj="//@blocks.0/@node_objs.0" sink_obj="//@regions.0/@basic_blocks.18/@node_objs.0"/>
+  <edges id="124" edge_type="CtrlEdge" source_obj="//@regions.0/@basic_blocks.0" sink_obj="//@regions.0/@basic_blocks.18/@node_objs.1"/>
+  <edges id="125" source_obj="//@regions.0/@basic_blocks.1/@node_objs.0" sink_obj="//@regions.0/@basic_blocks.16/@node_objs.0"/>
+  <edges id="126" source_obj="//@regions.0/@basic_blocks.1/@node_objs.3" sink_obj="//@regions.0/@basic_blocks.16/@node_objs.0"/>
+  <edges id="127" edge_type="CtrlEdge" source_obj="//@regions.0/@basic_blocks.18" sink_obj="//@regions.0/@basic_blocks.16/@node_objs.1"/>
+  <edges id="130" source_obj="//@ports.0" sink_obj="//@regions.0/@basic_blocks.1/@node_objs.0"/>
+  <edges id="133" source_obj="//@regions.0/@basic_blocks.0/@node_objs.0" sink_obj="//@regions.0/@basic_blocks.1/@node_objs.1"/>
+  <edges id="138" source_obj="//@regions.0/@basic_blocks.1/@node_objs.1" sink_obj="//@regions.0/@basic_blocks.1/@node_objs.2"/>
+  <edges id="139" source_obj="//@regions.0/@basic_blocks.1/@node_objs.3" sink_obj="//@ports.1"/>
+  <edges id="142" source_obj="//@regions.0/@basic_blocks.1/@node_objs.2" sink_obj="//@regions.0/@basic_blocks.1/@node_objs.3"/>
+  <edges id="143" source_obj="//@regions.0/@basic_blocks.1/@node_objs.4" sink_obj="//@ports.2"/>
+  <edges id="145" source_obj="//@regions.0/@basic_blocks.1/@node_objs.2" sink_obj="//@regions.0/@basic_blocks.1/@node_objs.4"/>
+  <edges id="146" source_obj="//@regions.0/@basic_blocks.1/@node_objs.5" sink_obj="//@ports.3"/>
+  <edges id="148" source_obj="//@regions.0/@basic_blocks.1/@node_objs.2" sink_obj="//@regions.0/@basic_blocks.1/@node_objs.5"/>
+  <edges id="149" source_obj="//@regions.0/@basic_blocks.1/@node_objs.6" sink_obj="//@ports.4"/>
+  <edges id="151" source_obj="//@regions.0/@basic_blocks.1/@node_objs.2" sink_obj="//@regions.0/@basic_blocks.1/@node_objs.6"/>
+  <edges id="152" source_obj="//@regions.0/@basic_blocks.1/@node_objs.7" sink_obj="//@ports.5"/>
+  <edges id="154" source_obj="//@regions.0/@basic_blocks.1/@node_objs.2" sink_obj="//@regions.0/@basic_blocks.1/@node_objs.7"/>
+  <edges id="155" source_obj="//@regions.0/@basic_blocks.1/@node_objs.8" sink_obj="//@ports.6"/>
+  <edges id="157" source_obj="//@regions.0/@basic_blocks.1/@node_objs.2" sink_obj="//@regions.0/@basic_blocks.1/@node_objs.8"/>
+  <edges id="158" source_obj="//@regions.0/@basic_blocks.1/@node_objs.9" sink_obj="//@ports.7"/>
+  <edges id="160" source_obj="//@regions.0/@basic_blocks.1/@node_objs.2" sink_obj="//@regions.0/@basic_blocks.1/@node_objs.9"/>
+  <edges id="161" source_obj="//@regions.0/@basic_blocks.1/@node_objs.10" sink_obj="//@ports.8"/>
+  <edges id="163" source_obj="//@regions.0/@basic_blocks.1/@node_objs.2" sink_obj="//@regions.0/@basic_blocks.1/@node_objs.10"/>
+  <edges id="164" source_obj="//@regions.0/@basic_blocks.1/@node_objs.11" sink_obj="//@ports.9"/>
+  <edges id="166" source_obj="//@regions.0/@basic_blocks.1/@node_objs.2" sink_obj="//@regions.0/@basic_blocks.1/@node_objs.11"/>
+  <edges id="167" source_obj="//@regions.0/@basic_blocks.1/@node_objs.12" sink_obj="//@ports.10"/>
+  <edges id="169" source_obj="//@regions.0/@basic_blocks.1/@node_objs.2" sink_obj="//@regions.0/@basic_blocks.1/@node_objs.12"/>
+  <edges id="170" source_obj="//@regions.0/@basic_blocks.1/@node_objs.13" sink_obj="//@ports.11"/>
+  <edges id="172" source_obj="//@regions.0/@basic_blocks.1/@node_objs.2" sink_obj="//@regions.0/@basic_blocks.1/@node_objs.13"/>
+  <edges id="173" source_obj="//@regions.0/@basic_blocks.1/@node_objs.14" sink_obj="//@ports.12"/>
+  <edges id="175" source_obj="//@regions.0/@basic_blocks.1/@node_objs.2" sink_obj="//@regions.0/@basic_blocks.1/@node_objs.14"/>
+  <edges id="176" source_obj="//@regions.0/@basic_blocks.1/@node_objs.15" sink_obj="//@ports.13"/>
+  <edges id="178" source_obj="//@regions.0/@basic_blocks.1/@node_objs.2" sink_obj="//@regions.0/@basic_blocks.1/@node_objs.15"/>
+  <edges id="179" source_obj="//@regions.0/@basic_blocks.1/@node_objs.16" sink_obj="//@ports.14"/>
+  <edges id="181" source_obj="//@regions.0/@basic_blocks.1/@node_objs.2" sink_obj="//@regions.0/@basic_blocks.1/@node_objs.16"/>
+  <edges id="182" source_obj="//@regions.0/@basic_blocks.1/@node_objs.17" sink_obj="//@ports.15"/>
+  <edges id="184" source_obj="//@regions.0/@basic_blocks.1/@node_objs.2" sink_obj="//@regions.0/@basic_blocks.1/@node_objs.17"/>
+  <edges id="185" source_obj="//@regions.0/@basic_blocks.1/@node_objs.18" sink_obj="//@ports.16"/>
+  <edges id="187" source_obj="//@regions.0/@basic_blocks.1/@node_objs.2" sink_obj="//@regions.0/@basic_blocks.1/@node_objs.18"/>
+  <edges id="188" source_obj="//@regions.0/@basic_blocks.0/@node_objs.0" sink_obj="//@regions.0/@basic_blocks.1/@node_objs.19"/>
+  <edges id="189" source_obj="//@regions.0/@basic_blocks.1/@node_objs.19" sink_obj="//@regions.0/@basic_blocks.1/@node_objs.20"/>
+  <edges id="190" edge_type="CtrlEdge" source_obj="//@regions.0/@basic_blocks.17" sink_obj="//@regions.0/@basic_blocks.1/@node_objs.20"/>
+  <edges id="193" edge_type="CtrlEdge" source_obj="//@regions.0/@basic_blocks.16" sink_obj="//@regions.0/@basic_blocks.1/@node_objs.20"/>
+  <edges id="196" edge_type="CtrlEdge" source_obj="//@regions.0/@basic_blocks.15" sink_obj="//@regions.0/@basic_blocks.1/@node_objs.20"/>
+  <edges id="199" edge_type="CtrlEdge" source_obj="//@regions.0/@basic_blocks.14" sink_obj="//@regions.0/@basic_blocks.1/@node_objs.20"/>
+  <edges id="202" edge_type="CtrlEdge" source_obj="//@regions.0/@basic_blocks.13" sink_obj="//@regions.0/@basic_blocks.1/@node_objs.20"/>
+  <edges id="205" edge_type="CtrlEdge" source_obj="//@regions.0/@basic_blocks.12" sink_obj="//@regions.0/@basic_blocks.1/@node_objs.20"/>
+  <edges id="208" edge_type="CtrlEdge" source_obj="//@regions.0/@basic_blocks.11" sink_obj="//@regions.0/@basic_blocks.1/@node_objs.20"/>
+  <edges id="211" edge_type="CtrlEdge" source_obj="//@regions.0/@basic_blocks.10" sink_obj="//@regions.0/@basic_blocks.1/@node_objs.20"/>
+  <edges id="214" edge_type="CtrlEdge" source_obj="//@regions.0/@basic_blocks.9" sink_obj="//@regions.0/@basic_blocks.1/@node_objs.20"/>
+  <edges id="217" edge_type="CtrlEdge" source_obj="//@regions.0/@basic_blocks.8" sink_obj="//@regions.0/@basic_blocks.1/@node_objs.20"/>
+  <edges id="220" edge_type="CtrlEdge" source_obj="//@regions.0/@basic_blocks.7" sink_obj="//@regions.0/@basic_blocks.1/@node_objs.20"/>
+  <edges id="223" edge_type="CtrlEdge" source_obj="//@regions.0/@basic_blocks.6" sink_obj="//@regions.0/@basic_blocks.1/@node_objs.20"/>
+  <edges id="226" edge_type="CtrlEdge" source_obj="//@regions.0/@basic_blocks.5" sink_obj="//@regions.0/@basic_blocks.1/@node_objs.20"/>
+  <edges id="229" edge_type="CtrlEdge" source_obj="//@regions.0/@basic_blocks.4" sink_obj="//@regions.0/@basic_blocks.1/@node_objs.20"/>
+  <edges id="232" edge_type="CtrlEdge" source_obj="//@regions.0/@basic_blocks.3" sink_obj="//@regions.0/@basic_blocks.1/@node_objs.20"/>
+  <edges id="235" edge_type="CtrlEdge" source_obj="//@regions.0/@basic_blocks.2" sink_obj="//@regions.0/@basic_blocks.1/@node_objs.20"/>
+  <edges id="236" source_obj="//@regions.0/@basic_blocks.1/@node_objs.0" sink_obj="//@regions.0/@basic_blocks.15/@node_objs.0"/>
+  <edges id="237" source_obj="//@regions.0/@basic_blocks.1/@node_objs.4" sink_obj="//@regions.0/@basic_blocks.15/@node_objs.0"/>
+  <edges id="238" edge_type="CtrlEdge" source_obj="//@regions.0/@basic_blocks.18" sink_obj="//@regions.0/@basic_blocks.15/@node_objs.1"/>
+  <edges id="239" source_obj="//@regions.0/@basic_blocks.1/@node_objs.0" sink_obj="//@regions.0/@basic_blocks.14/@node_objs.0"/>
+  <edges id="240" source_obj="//@regions.0/@basic_blocks.1/@node_objs.5" sink_obj="//@regions.0/@basic_blocks.14/@node_objs.0"/>
+  <edges id="241" edge_type="CtrlEdge" source_obj="//@regions.0/@basic_blocks.18" sink_obj="//@regions.0/@basic_blocks.14/@node_objs.1"/>
+  <edges id="242" source_obj="//@regions.0/@basic_blocks.1/@node_objs.0" sink_obj="//@regions.0/@basic_blocks.13/@node_objs.0"/>
+  <edges id="243" source_obj="//@regions.0/@basic_blocks.1/@node_objs.6" sink_obj="//@regions.0/@basic_blocks.13/@node_objs.0"/>
+  <edges id="244" edge_type="CtrlEdge" source_obj="//@regions.0/@basic_blocks.18" sink_obj="//@regions.0/@basic_blocks.13/@node_objs.1"/>
+  <edges id="245" source_obj="//@regions.0/@basic_blocks.1/@node_objs.0" sink_obj="//@regions.0/@basic_blocks.12/@node_objs.0"/>
+  <edges id="246" source_obj="//@regions.0/@basic_blocks.1/@node_objs.7" sink_obj="//@regions.0/@basic_blocks.12/@node_objs.0"/>
+  <edges id="247" edge_type="CtrlEdge" source_obj="//@regions.0/@basic_blocks.18" sink_obj="//@regions.0/@basic_blocks.12/@node_objs.1"/>
+  <edges id="248" source_obj="//@regions.0/@basic_blocks.1/@node_objs.0" sink_obj="//@regions.0/@basic_blocks.11/@node_objs.0"/>
+  <edges id="249" source_obj="//@regions.0/@basic_blocks.1/@node_objs.8" sink_obj="//@regions.0/@basic_blocks.11/@node_objs.0"/>
+  <edges id="250" edge_type="CtrlEdge" source_obj="//@regions.0/@basic_blocks.18" sink_obj="//@regions.0/@basic_blocks.11/@node_objs.1"/>
+  <edges id="251" source_obj="//@regions.0/@basic_blocks.1/@node_objs.0" sink_obj="//@regions.0/@basic_blocks.10/@node_objs.0"/>
+  <edges id="252" source_obj="//@regions.0/@basic_blocks.1/@node_objs.9" sink_obj="//@regions.0/@basic_blocks.10/@node_objs.0"/>
+  <edges id="253" edge_type="CtrlEdge" source_obj="//@regions.0/@basic_blocks.18" sink_obj="//@regions.0/@basic_blocks.10/@node_objs.1"/>
+  <edges id="254" source_obj="//@regions.0/@basic_blocks.1/@node_objs.0" sink_obj="//@regions.0/@basic_blocks.9/@node_objs.0"/>
+  <edges id="255" source_obj="//@regions.0/@basic_blocks.1/@node_objs.10" sink_obj="//@regions.0/@basic_blocks.9/@node_objs.0"/>
+  <edges id="256" edge_type="CtrlEdge" source_obj="//@regions.0/@basic_blocks.18" sink_obj="//@regions.0/@basic_blocks.9/@node_objs.1"/>
+  <edges id="257" source_obj="//@regions.0/@basic_blocks.1/@node_objs.0" sink_obj="//@regions.0/@basic_blocks.8/@node_objs.0"/>
+  <edges id="258" source_obj="//@regions.0/@basic_blocks.1/@node_objs.11" sink_obj="//@regions.0/@basic_blocks.8/@node_objs.0"/>
+  <edges id="259" edge_type="CtrlEdge" source_obj="//@regions.0/@basic_blocks.18" sink_obj="//@regions.0/@basic_blocks.8/@node_objs.1"/>
+  <edges id="260" source_obj="//@regions.0/@basic_blocks.1/@node_objs.0" sink_obj="//@regions.0/@basic_blocks.7/@node_objs.0"/>
+  <edges id="261" source_obj="//@regions.0/@basic_blocks.1/@node_objs.12" sink_obj="//@regions.0/@basic_blocks.7/@node_objs.0"/>
+  <edges id="262" edge_type="CtrlEdge" source_obj="//@regions.0/@basic_blocks.18" sink_obj="//@regions.0/@basic_blocks.7/@node_objs.1"/>
+  <edges id="263" source_obj="//@regions.0/@basic_blocks.1/@node_objs.0" sink_obj="//@regions.0/@basic_blocks.6/@node_objs.0"/>
+  <edges id="264" source_obj="//@regions.0/@basic_blocks.1/@node_objs.13" sink_obj="//@regions.0/@basic_blocks.6/@node_objs.0"/>
+  <edges id="265" edge_type="CtrlEdge" source_obj="//@regions.0/@basic_blocks.18" sink_obj="//@regions.0/@basic_blocks.6/@node_objs.1"/>
+  <edges id="266" source_obj="//@regions.0/@basic_blocks.1/@node_objs.0" sink_obj="//@regions.0/@basic_blocks.5/@node_objs.0"/>
+  <edges id="267" source_obj="//@regions.0/@basic_blocks.1/@node_objs.14" sink_obj="//@regions.0/@basic_blocks.5/@node_objs.0"/>
+  <edges id="268" edge_type="CtrlEdge" source_obj="//@regions.0/@basic_blocks.18" sink_obj="//@regions.0/@basic_blocks.5/@node_objs.1"/>
+  <edges id="269" source_obj="//@regions.0/@basic_blocks.1/@node_objs.0" sink_obj="//@regions.0/@basic_blocks.4/@node_objs.0"/>
+  <edges id="270" source_obj="//@regions.0/@basic_blocks.1/@node_objs.15" sink_obj="//@regions.0/@basic_blocks.4/@node_objs.0"/>
+  <edges id="271" edge_type="CtrlEdge" source_obj="//@regions.0/@basic_blocks.18" sink_obj="//@regions.0/@basic_blocks.4/@node_objs.1"/>
+  <edges id="272" source_obj="//@regions.0/@basic_blocks.1/@node_objs.0" sink_obj="//@regions.0/@basic_blocks.3/@node_objs.0"/>
+  <edges id="273" source_obj="//@regions.0/@basic_blocks.1/@node_objs.16" sink_obj="//@regions.0/@basic_blocks.3/@node_objs.0"/>
+  <edges id="274" edge_type="CtrlEdge" source_obj="//@regions.0/@basic_blocks.18" sink_obj="//@regions.0/@basic_blocks.3/@node_objs.1"/>
+  <edges id="275" source_obj="//@regions.0/@basic_blocks.1/@node_objs.0" sink_obj="//@regions.0/@basic_blocks.2/@node_objs.0"/>
+  <edges id="276" source_obj="//@regions.0/@basic_blocks.1/@node_objs.17" sink_obj="//@regions.0/@basic_blocks.2/@node_objs.0"/>
+  <edges id="277" edge_type="CtrlEdge" source_obj="//@regions.0/@basic_blocks.18" sink_obj="//@regions.0/@basic_blocks.2/@node_objs.1"/>
+  <edges id="278" source_obj="//@regions.0/@basic_blocks.1/@node_objs.0" sink_obj="//@regions.0/@basic_blocks.17/@node_objs.0"/>
+  <edges id="279" source_obj="//@regions.0/@basic_blocks.1/@node_objs.18" sink_obj="//@regions.0/@basic_blocks.17/@node_objs.0"/>
+  <edges id="280" edge_type="CtrlEdge" source_obj="//@regions.0/@basic_blocks.18" sink_obj="//@regions.0/@basic_blocks.17/@node_objs.1"/>
+  <edges id="324" edge_type="CtrlEdge" source_obj="//@blocks.0" sink_obj="//@regions.0/@basic_blocks.0"/>
+  <edges id="325" edge_type="CtrlEdge" source_obj="//@regions.0/@basic_blocks.0" sink_obj="//@blocks.1"/>
+  <edges id="326" edge_type="CtrlEdge" source_obj="//@regions.0/@basic_blocks.0" sink_obj="//@regions.0/@basic_blocks.1"/>
+  <edges id="327" edge_type="CtrlEdge" source_obj="//@regions.0/@basic_blocks.1" sink_obj="//@regions.0/@basic_blocks.17"/>
+  <edges id="328" edge_type="CtrlEdge" source_obj="//@regions.0/@basic_blocks.1" sink_obj="//@regions.0/@basic_blocks.16"/>
+  <edges id="329" edge_type="CtrlEdge" source_obj="//@regions.0/@basic_blocks.1" sink_obj="//@regions.0/@basic_blocks.15"/>
+  <edges id="330" edge_type="CtrlEdge" source_obj="//@regions.0/@basic_blocks.1" sink_obj="//@regions.0/@basic_blocks.14"/>
+  <edges id="331" edge_type="CtrlEdge" source_obj="//@regions.0/@basic_blocks.1" sink_obj="//@regions.0/@basic_blocks.13"/>
+  <edges id="332" edge_type="CtrlEdge" source_obj="//@regions.0/@basic_blocks.1" sink_obj="//@regions.0/@basic_blocks.12"/>
+  <edges id="333" edge_type="CtrlEdge" source_obj="//@regions.0/@basic_blocks.1" sink_obj="//@regions.0/@basic_blocks.11"/>
+  <edges id="334" edge_type="CtrlEdge" source_obj="//@regions.0/@basic_blocks.1" sink_obj="//@regions.0/@basic_blocks.10"/>
+  <edges id="335" edge_type="CtrlEdge" source_obj="//@regions.0/@basic_blocks.1" sink_obj="//@regions.0/@basic_blocks.9"/>
+  <edges id="336" edge_type="CtrlEdge" source_obj="//@regions.0/@basic_blocks.1" sink_obj="//@regions.0/@basic_blocks.8"/>
+  <edges id="337" edge_type="CtrlEdge" source_obj="//@regions.0/@basic_blocks.1" sink_obj="//@regions.0/@basic_blocks.7"/>
+  <edges id="338" edge_type="CtrlEdge" source_obj="//@regions.0/@basic_blocks.1" sink_obj="//@regions.0/@basic_blocks.6"/>
+  <edges id="339" edge_type="CtrlEdge" source_obj="//@regions.0/@basic_blocks.1" sink_obj="//@regions.0/@basic_blocks.5"/>
+  <edges id="340" edge_type="CtrlEdge" source_obj="//@regions.0/@basic_blocks.1" sink_obj="//@regions.0/@basic_blocks.4"/>
+  <edges id="341" edge_type="CtrlEdge" source_obj="//@regions.0/@basic_blocks.1" sink_obj="//@regions.0/@basic_blocks.3"/>
+  <edges id="342" edge_type="CtrlEdge" source_obj="//@regions.0/@basic_blocks.1" sink_obj="//@regions.0/@basic_blocks.2"/>
+  <edges id="343" edge_type="CtrlEdge" source_obj="//@regions.0/@basic_blocks.2" sink_obj="//@regions.0/@basic_blocks.18"/>
+  <edges id="344" edge_type="CtrlEdge" source_obj="//@regions.0/@basic_blocks.3" sink_obj="//@regions.0/@basic_blocks.18"/>
+  <edges id="345" edge_type="CtrlEdge" source_obj="//@regions.0/@basic_blocks.4" sink_obj="//@regions.0/@basic_blocks.18"/>
+  <edges id="346" edge_type="CtrlEdge" source_obj="//@regions.0/@basic_blocks.5" sink_obj="//@regions.0/@basic_blocks.18"/>
+  <edges id="347" edge_type="CtrlEdge" source_obj="//@regions.0/@basic_blocks.6" sink_obj="//@regions.0/@basic_blocks.18"/>
+  <edges id="348" edge_type="CtrlEdge" source_obj="//@regions.0/@basic_blocks.7" sink_obj="//@regions.0/@basic_blocks.18"/>
+  <edges id="349" edge_type="CtrlEdge" source_obj="//@regions.0/@basic_blocks.8" sink_obj="//@regions.0/@basic_blocks.18"/>
+  <edges id="350" edge_type="CtrlEdge" source_obj="//@regions.0/@basic_blocks.9" sink_obj="//@regions.0/@basic_blocks.18"/>
+  <edges id="351" edge_type="CtrlEdge" source_obj="//@regions.0/@basic_blocks.10" sink_obj="//@regions.0/@basic_blocks.18"/>
+  <edges id="352" edge_type="CtrlEdge" source_obj="//@regions.0/@basic_blocks.11" sink_obj="//@regions.0/@basic_blocks.18"/>
+  <edges id="353" edge_type="CtrlEdge" source_obj="//@regions.0/@basic_blocks.12" sink_obj="//@regions.0/@basic_blocks.18"/>
+  <edges id="354" edge_type="CtrlEdge" source_obj="//@regions.0/@basic_blocks.13" sink_obj="//@regions.0/@basic_blocks.18"/>
+  <edges id="355" edge_type="CtrlEdge" source_obj="//@regions.0/@basic_blocks.14" sink_obj="//@regions.0/@basic_blocks.18"/>
+  <edges id="356" edge_type="CtrlEdge" source_obj="//@regions.0/@basic_blocks.15" sink_obj="//@regions.0/@basic_blocks.18"/>
+  <edges id="357" edge_type="CtrlEdge" source_obj="//@regions.0/@basic_blocks.16" sink_obj="//@regions.0/@basic_blocks.18"/>
+  <edges id="358" edge_type="CtrlEdge" source_obj="//@regions.0/@basic_blocks.17" sink_obj="//@regions.0/@basic_blocks.18"/>
+  <edges id="359" edge_type="CtrlEdge" source_obj="//@regions.0/@basic_blocks.18" sink_obj="//@regions.0/@basic_blocks.0" is_back_edge="1"/>
+  <edges id="360" edge_type="VirtEdge" source_obj="//@blocks.0/@node_objs.1" sink_obj="//@regions.0/@basic_blocks.0/@node_objs.0"/>
+  <edges id="361" edge_type="VirtEdge" source_obj="//@blocks.0/@node_objs.1" sink_obj="//@regions.0/@basic_blocks.18/@node_objs.0"/>
+  <edges id="362" edge_type="VirtEdge" source_obj="//@regions.0/@basic_blocks.0/@node_objs.0" sink_obj="//@regions.0/@basic_blocks.18/@node_objs.0"/>
+  <blocks id="22" name="newFuncRoot" type="BlockType">
+    <controlOutputObjs>for.inc83</controlOutputObjs>
+    <node_objs xsi:type="cdfg:CdfgNode" id="18" name="i_1" originalName="i" coreId="1265001072" bitwidth="11" opcode="alloca" m_display="0" m_topoIndex="1" m_clusterGroupNumber="-1">
+      <dataOutputObjs>store</dataOutputObjs>
+      <dataOutputObjs>load</dataOutputObjs>
+      <dataOutputObjs>store</dataOutputObjs>
+      <constName>empty</constName>
+    </node_objs>
+    <node_objs xsi:type="cdfg:CdfgNode" id="20" name="i_1_write_ln0" coreId="1265158704" opcode="store" m_display="0" m_delay="0.42" m_topoIndex="2" m_clusterGroupNumber="-1">
+      <dataInputObjs>alloca</dataInputObjs>
+      <constName>empty</constName>
+    </node_objs>
+    <node_objs xsi:type="cdfg:CdfgNode" id="21" name="br_ln0" coreId="1264926816" opcode="br" m_display="0" m_topoIndex="3" m_clusterGroupNumber="-1">
+      <controlInputObjs>for.inc83</controlInputObjs>
+    </node_objs>
+  </blocks>
+  <blocks id="105" name="VITIS_LOOP_243_10.preheader.exitStub" type="BlockType">
+    <controlInputObjs>for.inc83</controlInputObjs>
+    <controlOutputObjs>br</controlOutputObjs>
+    <node_objs xsi:type="cdfg:CdfgNode" id="104" name="_ln0" coreId="0" opcode="ret" m_display="0" m_topoIndex="63" m_clusterGroupNumber="-1"/>
+  </blocks>
+  <regions anchor_node="-1" region_type="8" interval="1" typeName="Pipeline" iiViolation="" id="386" pipe_depth="1" RegionName="VITIS_LOOP_213_7">
+    <basic_blocks id="29" name="for.inc83" type="BlockType">
+      <controlInputObjs>newFuncRoot</controlInputObjs>
+      <controlInputObjs>arrayidx82.exit</controlInputObjs>
+      <controlOutputObjs>br</controlOutputObjs>
+      <controlOutputObjs>br</controlOutputObjs>
+      <controlOutputObjs>VITIS_LOOP_243_10.preheader.exitStub</controlOutputObjs>
+      <controlOutputObjs>for.inc83.split</controlOutputObjs>
+      <node_objs xsi:type="cdfg:CdfgNode" id="23" name="i" lineNumber="215" originalName="i" fileName="seq_align_multiple.cpp" fileDirectory=".." coreId="0" contextFuncName="seq_align" bitwidth="11" opcode="load" m_display="0" m_topoIndex="4" m_clusterGroupNumber="-1">
+        <inlineStackInfo fileName="seq_align_multiple.cpp" linenumber="215" fileDirectory="/home/AD.UCSD.EDU/jsliang/DP-HLS/local_seq_align_multiple_sa" functionName="seq_align"/>
+        <dataInputObjs>alloca</dataInputObjs>
+        <dataOutputObjs>icmp</dataOutputObjs>
+        <dataOutputObjs>add</dataOutputObjs>
+        <dataOutputObjs>partselect</dataOutputObjs>
+        <dataOutputObjs>trunc</dataOutputObjs>
+      </node_objs>
+      <node_objs xsi:type="cdfg:CdfgNode" id="25" name="icmp_ln213" lineNumber="213" fileName="seq_align_multiple.cpp" fileDirectory=".." rtlName="icmp_ln213_fu_348_p2" coreName="Cmp" implIndex="auto" control="no" opType="icmp" coreId="9" contextFuncName="seq_align" bitwidth="1" opcode="icmp" m_display="0" m_delay="0.94" m_topoIndex="5" m_clusterGroupNumber="-1">
+        <inlineStackInfo fileName="seq_align_multiple.cpp" linenumber="213" fileDirectory="/home/AD.UCSD.EDU/jsliang/DP-HLS/local_seq_align_multiple_sa" functionName="seq_align"/>
+        <dataInputObjs>load</dataInputObjs>
+        <dataOutputObjs>br</dataOutputObjs>
+        <constName>empty</constName>
+      </node_objs>
+      <node_objs xsi:type="cdfg:CdfgNode" id="27" name="add_ln213" lineNumber="213" fileName="seq_align_multiple.cpp" fileDirectory=".." rtlName="add_ln213_fu_354_p2" coreName="Adder" implIndex="fabric" control="no" opType="add" coreId="1" contextFuncName="seq_align" bitwidth="11" opcode="add" m_display="0" m_delay="0.79" m_topoIndex="6" m_clusterGroupNumber="-1">
+        <inlineStackInfo fileName="seq_align_multiple.cpp" linenumber="213" fileDirectory="/home/AD.UCSD.EDU/jsliang/DP-HLS/local_seq_align_multiple_sa" functionName="seq_align"/>
+        <dataInputObjs>load</dataInputObjs>
+        <dataOutputObjs>store</dataOutputObjs>
+        <constName>empty</constName>
+      </node_objs>
+      <node_objs xsi:type="cdfg:CdfgNode" id="28" name="br_ln213" lineNumber="213" fileName="seq_align_multiple.cpp" fileDirectory=".." coreId="0" contextFuncName="seq_align" opcode="br" m_display="0" m_topoIndex="7" m_clusterGroupNumber="-1">
+        <inlineStackInfo fileName="seq_align_multiple.cpp" linenumber="213" fileDirectory="/home/AD.UCSD.EDU/jsliang/DP-HLS/local_seq_align_multiple_sa" functionName="seq_align"/>
+        <dataInputObjs>icmp</dataInputObjs>
+        <controlInputObjs>for.inc83.split</controlInputObjs>
+        <controlInputObjs>VITIS_LOOP_243_10.preheader.exitStub</controlInputObjs>
+      </node_objs>
+      <fileValidLineNumbers fileName="seq_align_multiple.cpp">
+        <validLinenumbers>215</validLinenumbers>
+        <validLinenumbers>213</validLinenumbers>
+      </fileValidLineNumbers>
+    </basic_blocks>
+    <basic_blocks id="52" name="for.inc83.split" type="BlockType">
+      <controlInputObjs>for.inc83</controlInputObjs>
+      <controlOutputObjs>br</controlOutputObjs>
+      <controlOutputObjs>arrayidx82.case.15</controlOutputObjs>
+      <controlOutputObjs>arrayidx82.case.0</controlOutputObjs>
+      <controlOutputObjs>arrayidx82.case.1</controlOutputObjs>
+      <controlOutputObjs>arrayidx82.case.2</controlOutputObjs>
+      <controlOutputObjs>arrayidx82.case.3</controlOutputObjs>
+      <controlOutputObjs>arrayidx82.case.4</controlOutputObjs>
+      <controlOutputObjs>arrayidx82.case.5</controlOutputObjs>
+      <controlOutputObjs>arrayidx82.case.6</controlOutputObjs>
+      <controlOutputObjs>arrayidx82.case.7</controlOutputObjs>
+      <controlOutputObjs>arrayidx82.case.8</controlOutputObjs>
+      <controlOutputObjs>arrayidx82.case.9</controlOutputObjs>
+      <controlOutputObjs>arrayidx82.case.10</controlOutputObjs>
+      <controlOutputObjs>arrayidx82.case.11</controlOutputObjs>
+      <controlOutputObjs>arrayidx82.case.12</controlOutputObjs>
+      <controlOutputObjs>arrayidx82.case.13</controlOutputObjs>
+      <controlOutputObjs>arrayidx82.case.14</controlOutputObjs>
+      <node_objs xsi:type="cdfg:CdfgNode" id="31" name="tmp" lineNumber="145" originalName="tmp" fileName="/home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/autopilot/hls_stream_39.h" fileDirectory=".." coreName="axis" implIndex="axi4stream" control="no" opType="adapter" coreId="123" contextFuncName="read" bitwidth="8" opcode="read" m_display="0" m_topoIndex="8" m_clusterGroupNumber="-1">
+        <inlineStackInfo fileName="/home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/autopilot/hls_stream_39.h" linenumber="145" fileDirectory="/home/AD.UCSD.EDU/jsliang/DP-HLS/local_seq_align_multiple_sa" functionName="read"/>
+        <dataInputObjs>reference_string_comp_0</dataInputObjs>
+        <dataOutputObjs>store</dataOutputObjs>
+        <dataOutputObjs>store</dataOutputObjs>
+        <dataOutputObjs>store</dataOutputObjs>
+        <dataOutputObjs>store</dataOutputObjs>
+        <dataOutputObjs>store</dataOutputObjs>
+        <dataOutputObjs>store</dataOutputObjs>
+        <dataOutputObjs>store</dataOutputObjs>
+        <dataOutputObjs>store</dataOutputObjs>
+        <dataOutputObjs>store</dataOutputObjs>
+        <dataOutputObjs>store</dataOutputObjs>
+        <dataOutputObjs>store</dataOutputObjs>
+        <dataOutputObjs>store</dataOutputObjs>
+        <dataOutputObjs>store</dataOutputObjs>
+        <dataOutputObjs>store</dataOutputObjs>
+        <dataOutputObjs>store</dataOutputObjs>
+        <dataOutputObjs>store</dataOutputObjs>
+      </node_objs>
+      <node_objs xsi:type="cdfg:CdfgNode" id="32" name="lshr_ln" lineNumber="215" fileName="seq_align_multiple.cpp" fileDirectory=".." rtlName="lshr_ln_fu_360_p4" coreId="1265307232" contextFuncName="seq_align" bitwidth="6" opcode="partselect" m_display="0" m_topoIndex="9" m_clusterGroupNumber="-1">
+        <inlineStackInfo fileName="seq_align_multiple.cpp" linenumber="215" fileDirectory="/home/AD.UCSD.EDU/jsliang/DP-HLS/local_seq_align_multiple_sa" functionName="seq_align"/>
+        <dataInputObjs>load</dataInputObjs>
+        <dataOutputObjs>zext</dataOutputObjs>
+        <constName>empty</constName>
+      </node_objs>
+      <node_objs xsi:type="cdfg:CdfgNode" id="33" name="zext_ln215" lineNumber="215" fileName="seq_align_multiple.cpp" fileDirectory=".." rtlName="zext_ln215_fu_370_p1" coreId="1265310016" contextFuncName="seq_align" bitwidth="64" opcode="zext" m_display="0" m_topoIndex="10" m_clusterGroupNumber="-1">
+        <inlineStackInfo fileName="seq_align_multiple.cpp" linenumber="215" fileDirectory="/home/AD.UCSD.EDU/jsliang/DP-HLS/local_seq_align_multiple_sa" functionName="seq_align"/>
+        <dataInputObjs>partselect</dataInputObjs>
+        <dataOutputObjs>getelementptr</dataOutputObjs>
+        <dataOutputObjs>getelementptr</dataOutputObjs>
+        <dataOutputObjs>getelementptr</dataOutputObjs>
+        <dataOutputObjs>getelementptr</dataOutputObjs>
+        <dataOutputObjs>getelementptr</dataOutputObjs>
+        <dataOutputObjs>getelementptr</dataOutputObjs>
+        <dataOutputObjs>getelementptr</dataOutputObjs>
+        <dataOutputObjs>getelementptr</dataOutputObjs>
+        <dataOutputObjs>getelementptr</dataOutputObjs>
+        <dataOutputObjs>getelementptr</dataOutputObjs>
+        <dataOutputObjs>getelementptr</dataOutputObjs>
+        <dataOutputObjs>getelementptr</dataOutputObjs>
+        <dataOutputObjs>getelementptr</dataOutputObjs>
+        <dataOutputObjs>getelementptr</dataOutputObjs>
+        <dataOutputObjs>getelementptr</dataOutputObjs>
+        <dataOutputObjs>getelementptr</dataOutputObjs>
+      </node_objs>
+      <node_objs xsi:type="cdfg:CdfgNode" id="34" name="local_reference_addr" lineNumber="215" fileName="seq_align_multiple.cpp" fileDirectory=".." coreId="0" contextFuncName="seq_align" bitwidth="6" opcode="getelementptr" m_display="0" m_topoIndex="11" m_clusterGroupNumber="-1">
+        <inlineStackInfo fileName="seq_align_multiple.cpp" linenumber="215" fileDirectory="/home/AD.UCSD.EDU/jsliang/DP-HLS/local_seq_align_multiple_sa" functionName="seq_align"/>
+        <dataInputObjs>zext</dataInputObjs>
+        <dataOutputObjs>store</dataOutputObjs>
+        <dataOutputObjs>local_reference</dataOutputObjs>
+        <constName>empty</constName>
+      </node_objs>
+      <node_objs xsi:type="cdfg:CdfgNode" id="35" name="local_reference_1_addr" lineNumber="215" fileName="seq_align_multiple.cpp" fileDirectory=".." coreId="1265004480" contextFuncName="seq_align" bitwidth="6" opcode="getelementptr" m_display="0" m_topoIndex="12" m_clusterGroupNumber="-1">
+        <inlineStackInfo fileName="seq_align_multiple.cpp" linenumber="215" fileDirectory="/home/AD.UCSD.EDU/jsliang/DP-HLS/local_seq_align_multiple_sa" functionName="seq_align"/>
+        <dataInputObjs>zext</dataInputObjs>
+        <dataOutputObjs>local_reference_1</dataOutputObjs>
+        <dataOutputObjs>store</dataOutputObjs>
+        <constName>empty</constName>
+      </node_objs>
+      <node_objs xsi:type="cdfg:CdfgNode" id="36" name="local_reference_2_addr" lineNumber="215" fileName="seq_align_multiple.cpp" fileDirectory=".." coreId="1397508187" contextFuncName="seq_align" bitwidth="6" opcode="getelementptr" m_display="0" m_topoIndex="13" m_clusterGroupNumber="-1">
+        <inlineStackInfo fileName="seq_align_multiple.cpp" linenumber="215" fileDirectory="/home/AD.UCSD.EDU/jsliang/DP-HLS/local_seq_align_multiple_sa" functionName="seq_align"/>
+        <dataInputObjs>zext</dataInputObjs>
+        <dataOutputObjs>local_reference_2</dataOutputObjs>
+        <dataOutputObjs>store</dataOutputObjs>
+        <constName>empty</constName>
+      </node_objs>
+      <node_objs xsi:type="cdfg:CdfgNode" id="37" name="local_reference_3_addr" lineNumber="215" fileName="seq_align_multiple.cpp" fileDirectory=".." coreId="1265308224" contextFuncName="seq_align" bitwidth="6" opcode="getelementptr" m_display="0" m_topoIndex="14" m_clusterGroupNumber="-1">
+        <inlineStackInfo fileName="seq_align_multiple.cpp" linenumber="215" fileDirectory="/home/AD.UCSD.EDU/jsliang/DP-HLS/local_seq_align_multiple_sa" functionName="seq_align"/>
+        <dataInputObjs>zext</dataInputObjs>
+        <dataOutputObjs>local_reference_3</dataOutputObjs>
+        <dataOutputObjs>store</dataOutputObjs>
+        <constName>empty</constName>
+      </node_objs>
+      <node_objs xsi:type="cdfg:CdfgNode" id="38" name="local_reference_4_addr" lineNumber="215" fileName="seq_align_multiple.cpp" fileDirectory=".." coreId="1265004480" contextFuncName="seq_align" bitwidth="6" opcode="getelementptr" m_display="0" m_topoIndex="15" m_clusterGroupNumber="-1">
+        <inlineStackInfo fileName="seq_align_multiple.cpp" linenumber="215" fileDirectory="/home/AD.UCSD.EDU/jsliang/DP-HLS/local_seq_align_multiple_sa" functionName="seq_align"/>
+        <dataInputObjs>zext</dataInputObjs>
+        <dataOutputObjs>local_reference_4</dataOutputObjs>
+        <dataOutputObjs>store</dataOutputObjs>
+        <constName>empty</constName>
+      </node_objs>
+      <node_objs xsi:type="cdfg:CdfgNode" id="39" name="local_reference_5_addr" lineNumber="215" fileName="seq_align_multiple.cpp" fileDirectory=".." coreId="0" contextFuncName="seq_align" bitwidth="6" opcode="getelementptr" m_display="0" m_topoIndex="16" m_clusterGroupNumber="-1">
+        <inlineStackInfo fileName="seq_align_multiple.cpp" linenumber="215" fileDirectory="/home/AD.UCSD.EDU/jsliang/DP-HLS/local_seq_align_multiple_sa" functionName="seq_align"/>
+        <dataInputObjs>zext</dataInputObjs>
+        <dataOutputObjs>local_reference_5</dataOutputObjs>
+        <dataOutputObjs>store</dataOutputObjs>
+        <constName>empty</constName>
+      </node_objs>
+      <node_objs xsi:type="cdfg:CdfgNode" id="40" name="local_reference_6_addr" lineNumber="215" fileName="seq_align_multiple.cpp" fileDirectory=".." coreId="1265305984" contextFuncName="seq_align" bitwidth="6" opcode="getelementptr" m_display="0" m_topoIndex="17" m_clusterGroupNumber="-1">
+        <inlineStackInfo fileName="seq_align_multiple.cpp" linenumber="215" fileDirectory="/home/AD.UCSD.EDU/jsliang/DP-HLS/local_seq_align_multiple_sa" functionName="seq_align"/>
+        <dataInputObjs>zext</dataInputObjs>
+        <dataOutputObjs>local_reference_6</dataOutputObjs>
+        <dataOutputObjs>store</dataOutputObjs>
+        <constName>empty</constName>
+      </node_objs>
+      <node_objs xsi:type="cdfg:CdfgNode" id="41" name="local_reference_7_addr" lineNumber="215" fileName="seq_align_multiple.cpp" fileDirectory=".." coreId="1265004480" contextFuncName="seq_align" bitwidth="6" opcode="getelementptr" m_display="0" m_topoIndex="18" m_clusterGroupNumber="-1">
+        <inlineStackInfo fileName="seq_align_multiple.cpp" linenumber="215" fileDirectory="/home/AD.UCSD.EDU/jsliang/DP-HLS/local_seq_align_multiple_sa" functionName="seq_align"/>
+        <dataInputObjs>zext</dataInputObjs>
+        <dataOutputObjs>local_reference_7</dataOutputObjs>
+        <dataOutputObjs>store</dataOutputObjs>
+        <constName>empty</constName>
+      </node_objs>
+      <node_objs xsi:type="cdfg:CdfgNode" id="42" name="local_reference_8_addr" lineNumber="215" fileName="seq_align_multiple.cpp" fileDirectory=".." coreId="0" contextFuncName="seq_align" bitwidth="6" opcode="getelementptr" m_display="0" m_topoIndex="19" m_clusterGroupNumber="-1">
+        <inlineStackInfo fileName="seq_align_multiple.cpp" linenumber="215" fileDirectory="/home/AD.UCSD.EDU/jsliang/DP-HLS/local_seq_align_multiple_sa" functionName="seq_align"/>
+        <dataInputObjs>zext</dataInputObjs>
+        <dataOutputObjs>local_reference_8</dataOutputObjs>
+        <dataOutputObjs>store</dataOutputObjs>
+        <constName>empty</constName>
+      </node_objs>
+      <node_objs xsi:type="cdfg:CdfgNode" id="43" name="local_reference_9_addr" lineNumber="215" fileName="seq_align_multiple.cpp" fileDirectory=".." coreId="1265004480" contextFuncName="seq_align" bitwidth="6" opcode="getelementptr" m_display="0" m_topoIndex="20" m_clusterGroupNumber="-1">
+        <inlineStackInfo fileName="seq_align_multiple.cpp" linenumber="215" fileDirectory="/home/AD.UCSD.EDU/jsliang/DP-HLS/local_seq_align_multiple_sa" functionName="seq_align"/>
+        <dataInputObjs>zext</dataInputObjs>
+        <dataOutputObjs>local_reference_9</dataOutputObjs>
+        <dataOutputObjs>store</dataOutputObjs>
+        <constName>empty</constName>
+      </node_objs>
+      <node_objs xsi:type="cdfg:CdfgNode" id="44" name="local_reference_10_addr" lineNumber="215" fileName="seq_align_multiple.cpp" fileDirectory=".." coreId="0" contextFuncName="seq_align" bitwidth="6" opcode="getelementptr" m_display="0" m_topoIndex="21" m_clusterGroupNumber="-1">
+        <inlineStackInfo fileName="seq_align_multiple.cpp" linenumber="215" fileDirectory="/home/AD.UCSD.EDU/jsliang/DP-HLS/local_seq_align_multiple_sa" functionName="seq_align"/>
+        <dataInputObjs>zext</dataInputObjs>
+        <dataOutputObjs>local_reference_10</dataOutputObjs>
+        <dataOutputObjs>store</dataOutputObjs>
+        <constName>empty</constName>
+      </node_objs>
+      <node_objs xsi:type="cdfg:CdfgNode" id="45" name="local_reference_11_addr" lineNumber="215" fileName="seq_align_multiple.cpp" fileDirectory=".." coreId="1265004480" contextFuncName="seq_align" bitwidth="6" opcode="getelementptr" m_display="0" m_topoIndex="22" m_clusterGroupNumber="-1">
+        <inlineStackInfo fileName="seq_align_multiple.cpp" linenumber="215" fileDirectory="/home/AD.UCSD.EDU/jsliang/DP-HLS/local_seq_align_multiple_sa" functionName="seq_align"/>
+        <dataInputObjs>zext</dataInputObjs>
+        <dataOutputObjs>local_reference_11</dataOutputObjs>
+        <dataOutputObjs>store</dataOutputObjs>
+        <constName>empty</constName>
+      </node_objs>
+      <node_objs xsi:type="cdfg:CdfgNode" id="46" name="local_reference_12_addr" lineNumber="215" fileName="seq_align_multiple.cpp" fileDirectory=".." coreId="0" contextFuncName="seq_align" bitwidth="6" opcode="getelementptr" m_display="0" m_topoIndex="23" m_clusterGroupNumber="-1">
+        <inlineStackInfo fileName="seq_align_multiple.cpp" linenumber="215" fileDirectory="/home/AD.UCSD.EDU/jsliang/DP-HLS/local_seq_align_multiple_sa" functionName="seq_align"/>
+        <dataInputObjs>zext</dataInputObjs>
+        <dataOutputObjs>local_reference_12</dataOutputObjs>
+        <dataOutputObjs>store</dataOutputObjs>
+        <constName>empty</constName>
+      </node_objs>
+      <node_objs xsi:type="cdfg:CdfgNode" id="47" name="local_reference_13_addr" lineNumber="215" fileName="seq_align_multiple.cpp" fileDirectory=".." coreId="1265004480" contextFuncName="seq_align" bitwidth="6" opcode="getelementptr" m_display="0" m_topoIndex="24" m_clusterGroupNumber="-1">
+        <inlineStackInfo fileName="seq_align_multiple.cpp" linenumber="215" fileDirectory="/home/AD.UCSD.EDU/jsliang/DP-HLS/local_seq_align_multiple_sa" functionName="seq_align"/>
+        <dataInputObjs>zext</dataInputObjs>
+        <dataOutputObjs>local_reference_13</dataOutputObjs>
+        <dataOutputObjs>store</dataOutputObjs>
+        <constName>empty</constName>
+      </node_objs>
+      <node_objs xsi:type="cdfg:CdfgNode" id="48" name="local_reference_14_addr" lineNumber="215" fileName="seq_align_multiple.cpp" fileDirectory=".." coreId="0" contextFuncName="seq_align" bitwidth="6" opcode="getelementptr" m_display="0" m_topoIndex="25" m_clusterGroupNumber="-1">
+        <inlineStackInfo fileName="seq_align_multiple.cpp" linenumber="215" fileDirectory="/home/AD.UCSD.EDU/jsliang/DP-HLS/local_seq_align_multiple_sa" functionName="seq_align"/>
+        <dataInputObjs>zext</dataInputObjs>
+        <dataOutputObjs>local_reference_14</dataOutputObjs>
+        <dataOutputObjs>store</dataOutputObjs>
+        <constName>empty</constName>
+      </node_objs>
+      <node_objs xsi:type="cdfg:CdfgNode" id="49" name="local_reference_15_addr" lineNumber="215" fileName="seq_align_multiple.cpp" fileDirectory=".." coreId="1265004480" contextFuncName="seq_align" bitwidth="6" opcode="getelementptr" m_display="0" m_topoIndex="26" m_clusterGroupNumber="-1">
+        <inlineStackInfo fileName="seq_align_multiple.cpp" linenumber="215" fileDirectory="/home/AD.UCSD.EDU/jsliang/DP-HLS/local_seq_align_multiple_sa" functionName="seq_align"/>
+        <dataInputObjs>zext</dataInputObjs>
+        <dataOutputObjs>local_reference_15</dataOutputObjs>
+        <dataOutputObjs>store</dataOutputObjs>
+        <constName>empty</constName>
+      </node_objs>
+      <node_objs xsi:type="cdfg:CdfgNode" id="50" name="trunc_ln215" lineNumber="215" fileName="seq_align_multiple.cpp" fileDirectory=".." rtlName="trunc_ln215_fu_390_p1" coreId="0" contextFuncName="seq_align" bitwidth="4" opcode="trunc" m_display="0" m_topoIndex="27" m_clusterGroupNumber="-1">
+        <inlineStackInfo fileName="seq_align_multiple.cpp" linenumber="215" fileDirectory="/home/AD.UCSD.EDU/jsliang/DP-HLS/local_seq_align_multiple_sa" functionName="seq_align"/>
+        <dataInputObjs>load</dataInputObjs>
+        <dataOutputObjs>switch</dataOutputObjs>
+      </node_objs>
+      <node_objs xsi:type="cdfg:CdfgNode" id="51" name="_ln215" lineNumber="215" fileName="seq_align_multiple.cpp" fileDirectory=".." coreId="1265287440" contextFuncName="seq_align" opcode="switch" m_display="0" m_delay="0.44" m_topoIndex="28" m_clusterGroupNumber="-1">
+        <inlineStackInfo fileName="seq_align_multiple.cpp" linenumber="215" fileDirectory="/home/AD.UCSD.EDU/jsliang/DP-HLS/local_seq_align_multiple_sa" functionName="seq_align"/>
+        <dataInputObjs>trunc</dataInputObjs>
+        <controlInputObjs>arrayidx82.case.15</controlInputObjs>
+        <controlInputObjs>arrayidx82.case.0</controlInputObjs>
+        <controlInputObjs>arrayidx82.case.1</controlInputObjs>
+        <controlInputObjs>arrayidx82.case.2</controlInputObjs>
+        <controlInputObjs>arrayidx82.case.3</controlInputObjs>
+        <controlInputObjs>arrayidx82.case.4</controlInputObjs>
+        <controlInputObjs>arrayidx82.case.5</controlInputObjs>
+        <controlInputObjs>arrayidx82.case.6</controlInputObjs>
+        <controlInputObjs>arrayidx82.case.7</controlInputObjs>
+        <controlInputObjs>arrayidx82.case.8</controlInputObjs>
+        <controlInputObjs>arrayidx82.case.9</controlInputObjs>
+        <controlInputObjs>arrayidx82.case.10</controlInputObjs>
+        <controlInputObjs>arrayidx82.case.11</controlInputObjs>
+        <controlInputObjs>arrayidx82.case.12</controlInputObjs>
+        <controlInputObjs>arrayidx82.case.13</controlInputObjs>
+        <controlInputObjs>arrayidx82.case.14</controlInputObjs>
+        <constName>empty</constName>
+      </node_objs>
+      <fileValidLineNumbers fileName="seq_align_multiple.cpp">
+        <validLinenumbers>215</validLinenumbers>
+      </fileValidLineNumbers>
+      <fileValidLineNumbers fileName="/home/AD.UCSD.EDU/swalia/xilinx/vitis/Vitis_HLS/2022.1/common/technology/autopilot/hls_stream_39.h">
+        <validLinenumbers>145</validLinenumbers>
+      </fileValidLineNumbers>
+    </basic_blocks>
+    <basic_blocks id="55" name="arrayidx82.case.14" type="BlockType">
+      <controlInputObjs>for.inc83.split</controlInputObjs>
+      <controlOutputObjs>switch</controlOutputObjs>
+      <controlOutputObjs>arrayidx82.exit</controlOutputObjs>
+      <node_objs xsi:type="cdfg:CdfgNode" id="53" name="local_reference_14_addr_write_ln215" lineNumber="215" fileName="seq_align_multiple.cpp" fileDirectory=".." coreName="RAM_1WnR" implIndex="auto" control="no" opType="ram_1wnr" coreId="84" contextFuncName="seq_align" opcode="store" m_display="0" m_delay="0.67" m_topoIndex="29" m_clusterGroupNumber="-1">
+        <inlineStackInfo fileName="seq_align_multiple.cpp" linenumber="215" fileDirectory="/home/AD.UCSD.EDU/jsliang/DP-HLS/local_seq_align_multiple_sa" functionName="seq_align"/>
+        <dataInputObjs>read</dataInputObjs>
+        <dataInputObjs>getelementptr</dataInputObjs>
+      </node_objs>
+      <node_objs xsi:type="cdfg:CdfgNode" id="54" name="br_ln215" lineNumber="215" fileName="seq_align_multiple.cpp" fileDirectory=".." coreId="1264844400" contextFuncName="seq_align" opcode="br" m_display="0" m_topoIndex="30" m_clusterGroupNumber="-1">
+        <inlineStackInfo fileName="seq_align_multiple.cpp" linenumber="215" fileDirectory="/home/AD.UCSD.EDU/jsliang/DP-HLS/local_seq_align_multiple_sa" functionName="seq_align"/>
+        <controlInputObjs>arrayidx82.exit</controlInputObjs>
+      </node_objs>
+      <fileValidLineNumbers fileName="seq_align_multiple.cpp">
+        <validLinenumbers>215</validLinenumbers>
+      </fileValidLineNumbers>
+    </basic_blocks>
+    <basic_blocks id="58" name="arrayidx82.case.13" type="BlockType">
+      <controlInputObjs>for.inc83.split</controlInputObjs>
+      <controlOutputObjs>switch</controlOutputObjs>
+      <controlOutputObjs>arrayidx82.exit</controlOutputObjs>
+      <node_objs xsi:type="cdfg:CdfgNode" id="56" name="local_reference_13_addr_write_ln215" lineNumber="215" fileName="seq_align_multiple.cpp" fileDirectory=".." coreName="RAM_1WnR" implIndex="auto" control="no" opType="ram_1wnr" coreId="84" contextFuncName="seq_align" opcode="store" m_display="0" m_delay="0.67" m_topoIndex="31" m_clusterGroupNumber="-1">
+        <inlineStackInfo fileName="seq_align_multiple.cpp" linenumber="215" fileDirectory="/home/AD.UCSD.EDU/jsliang/DP-HLS/local_seq_align_multiple_sa" functionName="seq_align"/>
+        <dataInputObjs>read</dataInputObjs>
+        <dataInputObjs>getelementptr</dataInputObjs>
+      </node_objs>
+      <node_objs xsi:type="cdfg:CdfgNode" id="57" name="br_ln215" lineNumber="215" fileName="seq_align_multiple.cpp" fileDirectory=".." coreId="0" contextFuncName="seq_align" opcode="br" m_display="0" m_topoIndex="32" m_clusterGroupNumber="-1">
+        <inlineStackInfo fileName="seq_align_multiple.cpp" linenumber="215" fileDirectory="/home/AD.UCSD.EDU/jsliang/DP-HLS/local_seq_align_multiple_sa" functionName="seq_align"/>
+        <controlInputObjs>arrayidx82.exit</controlInputObjs>
+      </node_objs>
+      <fileValidLineNumbers fileName="seq_align_multiple.cpp">
+        <validLinenumbers>215</validLinenumbers>
+      </fileValidLineNumbers>
+    </basic_blocks>
+    <basic_blocks id="61" name="arrayidx82.case.12" type="BlockType">
+      <controlInputObjs>for.inc83.split</controlInputObjs>
+      <controlOutputObjs>switch</controlOutputObjs>
+      <controlOutputObjs>arrayidx82.exit</controlOutputObjs>
+      <node_objs xsi:type="cdfg:CdfgNode" id="59" name="local_reference_12_addr_write_ln215" lineNumber="215" fileName="seq_align_multiple.cpp" fileDirectory=".." coreName="RAM_1WnR" implIndex="auto" control="no" opType="ram_1wnr" coreId="84" contextFuncName="seq_align" opcode="store" m_display="0" m_delay="0.67" m_topoIndex="33" m_clusterGroupNumber="-1">
+        <inlineStackInfo fileName="seq_align_multiple.cpp" linenumber="215" fileDirectory="/home/AD.UCSD.EDU/jsliang/DP-HLS/local_seq_align_multiple_sa" functionName="seq_align"/>
+        <dataInputObjs>read</dataInputObjs>
+        <dataInputObjs>getelementptr</dataInputObjs>
+      </node_objs>
+      <node_objs xsi:type="cdfg:CdfgNode" id="60" name="br_ln215" lineNumber="215" fileName="seq_align_multiple.cpp" fileDirectory=".." coreId="304" contextFuncName="seq_align" opcode="br" m_display="0" m_topoIndex="34" m_clusterGroupNumber="-1">
+        <inlineStackInfo fileName="seq_align_multiple.cpp" linenumber="215" fileDirectory="/home/AD.UCSD.EDU/jsliang/DP-HLS/local_seq_align_multiple_sa" functionName="seq_align"/>
+        <controlInputObjs>arrayidx82.exit</controlInputObjs>
+      </node_objs>
+      <fileValidLineNumbers fileName="seq_align_multiple.cpp">
+        <validLinenumbers>215</validLinenumbers>
+      </fileValidLineNumbers>
+    </basic_blocks>
+    <basic_blocks id="64" name="arrayidx82.case.11" type="BlockType">
+      <controlInputObjs>for.inc83.split</controlInputObjs>
+      <controlOutputObjs>switch</controlOutputObjs>
+      <controlOutputObjs>arrayidx82.exit</controlOutputObjs>
+      <node_objs xsi:type="cdfg:CdfgNode" id="62" name="local_reference_11_addr_write_ln215" lineNumber="215" fileName="seq_align_multiple.cpp" fileDirectory=".." coreName="RAM_1WnR" implIndex="auto" control="no" opType="ram_1wnr" coreId="84" contextFuncName="seq_align" opcode="store" m_display="0" m_delay="0.67" m_topoIndex="35" m_clusterGroupNumber="-1">
+        <inlineStackInfo fileName="seq_align_multiple.cpp" linenumber="215" fileDirectory="/home/AD.UCSD.EDU/jsliang/DP-HLS/local_seq_align_multiple_sa" functionName="seq_align"/>
+        <dataInputObjs>read</dataInputObjs>
+        <dataInputObjs>getelementptr</dataInputObjs>
+      </node_objs>
+      <node_objs xsi:type="cdfg:CdfgNode" id="63" name="br_ln215" lineNumber="215" fileName="seq_align_multiple.cpp" fileDirectory=".." coreId="0" contextFuncName="seq_align" opcode="br" m_display="0" m_topoIndex="36" m_clusterGroupNumber="-1">
+        <inlineStackInfo fileName="seq_align_multiple.cpp" linenumber="215" fileDirectory="/home/AD.UCSD.EDU/jsliang/DP-HLS/local_seq_align_multiple_sa" functionName="seq_align"/>
+        <controlInputObjs>arrayidx82.exit</controlInputObjs>
+      </node_objs>
+      <fileValidLineNumbers fileName="seq_align_multiple.cpp">
+        <validLinenumbers>215</validLinenumbers>
+      </fileValidLineNumbers>
+    </basic_blocks>
+    <basic_blocks id="67" name="arrayidx82.case.10" type="BlockType">
+      <controlInputObjs>for.inc83.split</controlInputObjs>
+      <controlOutputObjs>switch</controlOutputObjs>
+      <controlOutputObjs>arrayidx82.exit</controlOutputObjs>
+      <node_objs xsi:type="cdfg:CdfgNode" id="65" name="local_reference_10_addr_write_ln215" lineNumber="215" fileName="seq_align_multiple.cpp" fileDirectory=".." coreName="RAM_1WnR" implIndex="auto" control="no" opType="ram_1wnr" coreId="84" contextFuncName="seq_align" opcode="store" m_display="0" m_delay="0.67" m_topoIndex="37" m_clusterGroupNumber="-1">
+        <inlineStackInfo fileName="seq_align_multiple.cpp" linenumber="215" fileDirectory="/home/AD.UCSD.EDU/jsliang/DP-HLS/local_seq_align_multiple_sa" functionName="seq_align"/>
+        <dataInputObjs>read</dataInputObjs>
+        <dataInputObjs>getelementptr</dataInputObjs>
+      </node_objs>
+      <node_objs xsi:type="cdfg:CdfgNode" id="66" name="br_ln215" lineNumber="215" fileName="seq_align_multiple.cpp" fileDirectory=".." coreId="0" contextFuncName="seq_align" opcode="br" m_display="0" m_topoIndex="38" m_clusterGroupNumber="-1">
+        <inlineStackInfo fileName="seq_align_multiple.cpp" linenumber="215" fileDirectory="/home/AD.UCSD.EDU/jsliang/DP-HLS/local_seq_align_multiple_sa" functionName="seq_align"/>
+        <controlInputObjs>arrayidx82.exit</controlInputObjs>
+      </node_objs>
+      <fileValidLineNumbers fileName="seq_align_multiple.cpp">
+        <validLinenumbers>215</validLinenumbers>
+      </fileValidLineNumbers>
+    </basic_blocks>
+    <basic_blocks id="70" name="arrayidx82.case.9" type="BlockType">
+      <controlInputObjs>for.inc83.split</controlInputObjs>
+      <controlOutputObjs>switch</controlOutputObjs>
+      <controlOutputObjs>arrayidx82.exit</controlOutputObjs>
+      <node_objs xsi:type="cdfg:CdfgNode" id="68" name="local_reference_9_addr_write_ln215" lineNumber="215" fileName="seq_align_multiple.cpp" fileDirectory=".." coreName="RAM_1WnR" implIndex="auto" control="no" opType="ram_1wnr" coreId="84" contextFuncName="seq_align" opcode="store" m_display="0" m_delay="0.67" m_topoIndex="39" m_clusterGroupNumber="-1">
+        <inlineStackInfo fileName="seq_align_multiple.cpp" linenumber="215" fileDirectory="/home/AD.UCSD.EDU/jsliang/DP-HLS/local_seq_align_multiple_sa" functionName="seq_align"/>
+        <dataInputObjs>read</dataInputObjs>
+        <dataInputObjs>getelementptr</dataInputObjs>
+      </node_objs>
+      <node_objs xsi:type="cdfg:CdfgNode" id="69" name="br_ln215" lineNumber="215" fileName="seq_align_multiple.cpp" fileDirectory=".." coreId="1265313352" contextFuncName="seq_align" opcode="br" m_display="0" m_topoIndex="40" m_clusterGroupNumber="-1">
+        <inlineStackInfo fileName="seq_align_multiple.cpp" linenumber="215" fileDirectory="/home/AD.UCSD.EDU/jsliang/DP-HLS/local_seq_align_multiple_sa" functionName="seq_align"/>
+        <controlInputObjs>arrayidx82.exit</controlInputObjs>
+      </node_objs>
+      <fileValidLineNumbers fileName="seq_align_multiple.cpp">
+        <validLinenumbers>215</validLinenumbers>
+      </fileValidLineNumbers>
+    </basic_blocks>
+    <basic_blocks id="73" name="arrayidx82.case.8" type="BlockType">
+      <controlInputObjs>for.inc83.split</controlInputObjs>
+      <controlOutputObjs>switch</controlOutputObjs>
+      <controlOutputObjs>arrayidx82.exit</controlOutputObjs>
+      <node_objs xsi:type="cdfg:CdfgNode" id="71" name="local_reference_8_addr_write_ln215" lineNumber="215" fileName="seq_align_multiple.cpp" fileDirectory=".." coreName="RAM_1WnR" implIndex="auto" control="no" opType="ram_1wnr" coreId="84" contextFuncName="seq_align" opcode="store" m_display="0" m_delay="0.67" m_topoIndex="41" m_clusterGroupNumber="-1">
+        <inlineStackInfo fileName="seq_align_multiple.cpp" linenumber="215" fileDirectory="/home/AD.UCSD.EDU/jsliang/DP-HLS/local_seq_align_multiple_sa" functionName="seq_align"/>
+        <dataInputObjs>read</dataInputObjs>
+        <dataInputObjs>getelementptr</dataInputObjs>
+      </node_objs>
+      <node_objs xsi:type="cdfg:CdfgNode" id="72" name="br_ln215" lineNumber="215" fileName="seq_align_multiple.cpp" fileDirectory=".." coreId="1265293104" contextFuncName="seq_align" opcode="br" m_display="0" m_topoIndex="42" m_clusterGroupNumber="-1">
+        <inlineStackInfo fileName="seq_align_multiple.cpp" linenumber="215" fileDirectory="/home/AD.UCSD.EDU/jsliang/DP-HLS/local_seq_align_multiple_sa" functionName="seq_align"/>
+        <controlInputObjs>arrayidx82.exit</controlInputObjs>
+      </node_objs>
+      <fileValidLineNumbers fileName="seq_align_multiple.cpp">
+        <validLinenumbers>215</validLinenumbers>
+      </fileValidLineNumbers>
+    </basic_blocks>
+    <basic_blocks id="76" name="arrayidx82.case.7" type="BlockType">
+      <controlInputObjs>for.inc83.split</controlInputObjs>
+      <controlOutputObjs>switch</controlOutputObjs>
+      <controlOutputObjs>arrayidx82.exit</controlOutputObjs>
+      <node_objs xsi:type="cdfg:CdfgNode" id="74" name="local_reference_7_addr_write_ln215" lineNumber="215" fileName="seq_align_multiple.cpp" fileDirectory=".." coreName="RAM_1WnR" implIndex="auto" control="no" opType="ram_1wnr" coreId="84" contextFuncName="seq_align" opcode="store" m_display="0" m_delay="0.67" m_topoIndex="43" m_clusterGroupNumber="-1">
+        <inlineStackInfo fileName="seq_align_multiple.cpp" linenumber="215" fileDirectory="/home/AD.UCSD.EDU/jsliang/DP-HLS/local_seq_align_multiple_sa" functionName="seq_align"/>
+        <dataInputObjs>read</dataInputObjs>
+        <dataInputObjs>getelementptr</dataInputObjs>
+      </node_objs>
+      <node_objs xsi:type="cdfg:CdfgNode" id="75" name="br_ln215" lineNumber="215" fileName="seq_align_multiple.cpp" fileDirectory=".." coreId="1265303152" contextFuncName="seq_align" opcode="br" m_display="0" m_topoIndex="44" m_clusterGroupNumber="-1">
+        <inlineStackInfo fileName="seq_align_multiple.cpp" linenumber="215" fileDirectory="/home/AD.UCSD.EDU/jsliang/DP-HLS/local_seq_align_multiple_sa" functionName="seq_align"/>
+        <controlInputObjs>arrayidx82.exit</controlInputObjs>
+      </node_objs>
+      <fileValidLineNumbers fileName="seq_align_multiple.cpp">
+        <validLinenumbers>215</validLinenumbers>
+      </fileValidLineNumbers>
+    </basic_blocks>
+    <basic_blocks id="79" name="arrayidx82.case.6" type="BlockType">
+      <controlInputObjs>for.inc83.split</controlInputObjs>
+      <controlOutputObjs>switch</controlOutputObjs>
+      <controlOutputObjs>arrayidx82.exit</controlOutputObjs>
+      <node_objs xsi:type="cdfg:CdfgNode" id="77" name="local_reference_6_addr_write_ln215" lineNumber="215" fileName="seq_align_multiple.cpp" fileDirectory=".." coreName="RAM_1WnR" implIndex="auto" control="no" opType="ram_1wnr" coreId="84" contextFuncName="seq_align" opcode="store" m_display="0" m_delay="0.67" m_topoIndex="45" m_clusterGroupNumber="-1">
+        <inlineStackInfo fileName="seq_align_multiple.cpp" linenumber="215" fileDirectory="/home/AD.UCSD.EDU/jsliang/DP-HLS/local_seq_align_multiple_sa" functionName="seq_align"/>
+        <dataInputObjs>read</dataInputObjs>
+        <dataInputObjs>getelementptr</dataInputObjs>
+      </node_objs>
+      <node_objs xsi:type="cdfg:CdfgNode" id="78" name="br_ln215" lineNumber="215" fileName="seq_align_multiple.cpp" fileDirectory=".." coreId="1264861744" contextFuncName="seq_align" opcode="br" m_display="0" m_topoIndex="46" m_clusterGroupNumber="-1">
+        <inlineStackInfo fileName="seq_align_multiple.cpp" linenumber="215" fileDirectory="/home/AD.UCSD.EDU/jsliang/DP-HLS/local_seq_align_multiple_sa" functionName="seq_align"/>
+        <controlInputObjs>arrayidx82.exit</controlInputObjs>
+      </node_objs>
+      <fileValidLineNumbers fileName="seq_align_multiple.cpp">
+        <validLinenumbers>215</validLinenumbers>
+      </fileValidLineNumbers>
+    </basic_blocks>
+    <basic_blocks id="82" name="arrayidx82.case.5" type="BlockType">
+      <controlInputObjs>for.inc83.split</controlInputObjs>
+      <controlOutputObjs>switch</controlOutputObjs>
+      <controlOutputObjs>arrayidx82.exit</controlOutputObjs>
+      <node_objs xsi:type="cdfg:CdfgNode" id="80" name="local_reference_5_addr_write_ln215" lineNumber="215" fileName="seq_align_multiple.cpp" fileDirectory=".." coreName="RAM_1WnR" implIndex="auto" control="no" opType="ram_1wnr" coreId="84" contextFuncName="seq_align" opcode="store" m_display="0" m_delay="0.67" m_topoIndex="47" m_clusterGroupNumber="-1">
+        <inlineStackInfo fileName="seq_align_multiple.cpp" linenumber="215" fileDirectory="/home/AD.UCSD.EDU/jsliang/DP-HLS/local_seq_align_multiple_sa" functionName="seq_align"/>
+        <dataInputObjs>read</dataInputObjs>
+        <dataInputObjs>getelementptr</dataInputObjs>
+      </node_objs>
+      <node_objs xsi:type="cdfg:CdfgNode" id="81" name="br_ln215" lineNumber="215" fileName="seq_align_multiple.cpp" fileDirectory=".." coreId="1264862272" contextFuncName="seq_align" opcode="br" m_display="0" m_topoIndex="48" m_clusterGroupNumber="-1">
+        <inlineStackInfo fileName="seq_align_multiple.cpp" linenumber="215" fileDirectory="/home/AD.UCSD.EDU/jsliang/DP-HLS/local_seq_align_multiple_sa" functionName="seq_align"/>
+        <controlInputObjs>arrayidx82.exit</controlInputObjs>
+      </node_objs>
+      <fileValidLineNumbers fileName="seq_align_multiple.cpp">
+        <validLinenumbers>215</validLinenumbers>
+      </fileValidLineNumbers>
+    </basic_blocks>
+    <basic_blocks id="85" name="arrayidx82.case.4" type="BlockType">
+      <controlInputObjs>for.inc83.split</controlInputObjs>
+      <controlOutputObjs>switch</controlOutputObjs>
+      <controlOutputObjs>arrayidx82.exit</controlOutputObjs>
+      <node_objs xsi:type="cdfg:CdfgNode" id="83" name="local_reference_4_addr_write_ln215" lineNumber="215" fileName="seq_align_multiple.cpp" fileDirectory=".." coreName="RAM_1WnR" implIndex="auto" control="no" opType="ram_1wnr" coreId="84" contextFuncName="seq_align" opcode="store" m_display="0" m_delay="0.67" m_topoIndex="49" m_clusterGroupNumber="-1">
+        <inlineStackInfo fileName="seq_align_multiple.cpp" linenumber="215" fileDirectory="/home/AD.UCSD.EDU/jsliang/DP-HLS/local_seq_align_multiple_sa" functionName="seq_align"/>
+        <dataInputObjs>read</dataInputObjs>
+        <dataInputObjs>getelementptr</dataInputObjs>
+      </node_objs>
+      <node_objs xsi:type="cdfg:CdfgNode" id="84" name="br_ln215" lineNumber="215" fileName="seq_align_multiple.cpp" fileDirectory=".." coreId="320" contextFuncName="seq_align" opcode="br" m_display="0" m_topoIndex="50" m_clusterGroupNumber="-1">
+        <inlineStackInfo fileName="seq_align_multiple.cpp" linenumber="215" fileDirectory="/home/AD.UCSD.EDU/jsliang/DP-HLS/local_seq_align_multiple_sa" functionName="seq_align"/>
+        <controlInputObjs>arrayidx82.exit</controlInputObjs>
+      </node_objs>
+      <fileValidLineNumbers fileName="seq_align_multiple.cpp">
+        <validLinenumbers>215</validLinenumbers>
+      </fileValidLineNumbers>
+    </basic_blocks>
+    <basic_blocks id="88" name="arrayidx82.case.3" type="BlockType">
+      <controlInputObjs>for.inc83.split</controlInputObjs>
+      <controlOutputObjs>switch</controlOutputObjs>
+      <controlOutputObjs>arrayidx82.exit</controlOutputObjs>
+      <node_objs xsi:type="cdfg:CdfgNode" id="86" name="local_reference_3_addr_write_ln215" lineNumber="215" fileName="seq_align_multiple.cpp" fileDirectory=".." coreName="RAM_1WnR" implIndex="auto" control="no" opType="ram_1wnr" coreId="84" contextFuncName="seq_align" opcode="store" m_display="0" m_delay="0.67" m_topoIndex="51" m_clusterGroupNumber="-1">
+        <inlineStackInfo fileName="seq_align_multiple.cpp" linenumber="215" fileDirectory="/home/AD.UCSD.EDU/jsliang/DP-HLS/local_seq_align_multiple_sa" functionName="seq_align"/>
+        <dataInputObjs>read</dataInputObjs>
+        <dataInputObjs>getelementptr</dataInputObjs>
+      </node_objs>
+      <node_objs xsi:type="cdfg:CdfgNode" id="87" name="br_ln215" lineNumber="215" fileName="seq_align_multiple.cpp" fileDirectory=".." coreId="1852140901" contextFuncName="seq_align" opcode="br" m_display="0" m_topoIndex="52" m_clusterGroupNumber="-1">
+        <inlineStackInfo fileName="seq_align_multiple.cpp" linenumber="215" fileDirectory="/home/AD.UCSD.EDU/jsliang/DP-HLS/local_seq_align_multiple_sa" functionName="seq_align"/>
+        <controlInputObjs>arrayidx82.exit</controlInputObjs>
+      </node_objs>
+      <fileValidLineNumbers fileName="seq_align_multiple.cpp">
+        <validLinenumbers>215</validLinenumbers>
+      </fileValidLineNumbers>
+    </basic_blocks>
+    <basic_blocks id="91" name="arrayidx82.case.2" type="BlockType">
+      <controlInputObjs>for.inc83.split</controlInputObjs>
+      <controlOutputObjs>switch</controlOutputObjs>
+      <controlOutputObjs>arrayidx82.exit</controlOutputObjs>
+      <node_objs xsi:type="cdfg:CdfgNode" id="89" name="local_reference_2_addr_write_ln215" lineNumber="215" fileName="seq_align_multiple.cpp" fileDirectory=".." coreName="RAM_1WnR" implIndex="auto" control="no" opType="ram_1wnr" coreId="84" contextFuncName="seq_align" opcode="store" m_display="0" m_delay="0.67" m_topoIndex="53" m_clusterGroupNumber="-1">
+        <inlineStackInfo fileName="seq_align_multiple.cpp" linenumber="215" fileDirectory="/home/AD.UCSD.EDU/jsliang/DP-HLS/local_seq_align_multiple_sa" functionName="seq_align"/>
+        <dataInputObjs>read</dataInputObjs>
+        <dataInputObjs>getelementptr</dataInputObjs>
+      </node_objs>
+      <node_objs xsi:type="cdfg:CdfgNode" id="90" name="br_ln215" lineNumber="215" fileName="seq_align_multiple.cpp" fileDirectory=".." coreId="1264907792" contextFuncName="seq_align" opcode="br" m_display="0" m_topoIndex="54" m_clusterGroupNumber="-1">
+        <inlineStackInfo fileName="seq_align_multiple.cpp" linenumber="215" fileDirectory="/home/AD.UCSD.EDU/jsliang/DP-HLS/local_seq_align_multiple_sa" functionName="seq_align"/>
+        <controlInputObjs>arrayidx82.exit</controlInputObjs>
+      </node_objs>
+      <fileValidLineNumbers fileName="seq_align_multiple.cpp">
+        <validLinenumbers>215</validLinenumbers>
+      </fileValidLineNumbers>
+    </basic_blocks>
+    <basic_blocks id="94" name="arrayidx82.case.1" type="BlockType">
+      <controlInputObjs>for.inc83.split</controlInputObjs>
+      <controlOutputObjs>switch</controlOutputObjs>
+      <controlOutputObjs>arrayidx82.exit</controlOutputObjs>
+      <node_objs xsi:type="cdfg:CdfgNode" id="92" name="local_reference_1_addr_write_ln215" lineNumber="215" fileName="seq_align_multiple.cpp" fileDirectory=".." coreName="RAM_1WnR" implIndex="auto" control="no" opType="ram_1wnr" coreId="84" contextFuncName="seq_align" opcode="store" m_display="0" m_delay="0.67" m_topoIndex="55" m_clusterGroupNumber="-1">
+        <inlineStackInfo fileName="seq_align_multiple.cpp" linenumber="215" fileDirectory="/home/AD.UCSD.EDU/jsliang/DP-HLS/local_seq_align_multiple_sa" functionName="seq_align"/>
+        <dataInputObjs>read</dataInputObjs>
+        <dataInputObjs>getelementptr</dataInputObjs>
+      </node_objs>
+      <node_objs xsi:type="cdfg:CdfgNode" id="93" name="br_ln215" lineNumber="215" fileName="seq_align_multiple.cpp" fileDirectory=".." coreId="1265059840" contextFuncName="seq_align" opcode="br" m_display="0" m_topoIndex="56" m_clusterGroupNumber="-1">
+        <inlineStackInfo fileName="seq_align_multiple.cpp" linenumber="215" fileDirectory="/home/AD.UCSD.EDU/jsliang/DP-HLS/local_seq_align_multiple_sa" functionName="seq_align"/>
+        <controlInputObjs>arrayidx82.exit</controlInputObjs>
+      </node_objs>
+      <fileValidLineNumbers fileName="seq_align_multiple.cpp">
+        <validLinenumbers>215</validLinenumbers>
+      </fileValidLineNumbers>
+    </basic_blocks>
+    <basic_blocks id="97" name="arrayidx82.case.0" type="BlockType">
+      <controlInputObjs>for.inc83.split</controlInputObjs>
+      <controlOutputObjs>switch</controlOutputObjs>
+      <controlOutputObjs>arrayidx82.exit</controlOutputObjs>
+      <node_objs xsi:type="cdfg:CdfgNode" id="95" name="local_reference_addr_write_ln215" lineNumber="215" fileName="seq_align_multiple.cpp" fileDirectory=".." coreName="RAM_1WnR" implIndex="auto" control="no" opType="ram_1wnr" coreId="84" contextFuncName="seq_align" opcode="store" m_display="0" m_delay="0.67" m_topoIndex="57" m_clusterGroupNumber="-1">
+        <inlineStackInfo fileName="seq_align_multiple.cpp" linenumber="215" fileDirectory="/home/AD.UCSD.EDU/jsliang/DP-HLS/local_seq_align_multiple_sa" functionName="seq_align"/>
+        <dataInputObjs>read</dataInputObjs>
+        <dataInputObjs>getelementptr</dataInputObjs>
+      </node_objs>
+      <node_objs xsi:type="cdfg:CdfgNode" id="96" name="br_ln215" lineNumber="215" fileName="seq_align_multiple.cpp" fileDirectory=".." coreId="176" contextFuncName="seq_align" opcode="br" m_display="0" m_topoIndex="58" m_clusterGroupNumber="-1">
+        <inlineStackInfo fileName="seq_align_multiple.cpp" linenumber="215" fileDirectory="/home/AD.UCSD.EDU/jsliang/DP-HLS/local_seq_align_multiple_sa" functionName="seq_align"/>
+        <controlInputObjs>arrayidx82.exit</controlInputObjs>
+      </node_objs>
+      <fileValidLineNumbers fileName="seq_align_multiple.cpp">
+        <validLinenumbers>215</validLinenumbers>
+      </fileValidLineNumbers>
+    </basic_blocks>
+    <basic_blocks id="100" name="arrayidx82.case.15" type="BlockType">
+      <controlInputObjs>for.inc83.split</controlInputObjs>
+      <controlOutputObjs>switch</controlOutputObjs>
+      <controlOutputObjs>arrayidx82.exit</controlOutputObjs>
+      <node_objs xsi:type="cdfg:CdfgNode" id="98" name="local_reference_15_addr_write_ln215" lineNumber="215" fileName="seq_align_multiple.cpp" fileDirectory=".." coreName="RAM_1WnR" implIndex="auto" control="no" opType="ram_1wnr" coreId="84" contextFuncName="seq_align" opcode="store" m_display="0" m_delay="0.67" m_topoIndex="59" m_clusterGroupNumber="-1">
+        <inlineStackInfo fileName="seq_align_multiple.cpp" linenumber="215" fileDirectory="/home/AD.UCSD.EDU/jsliang/DP-HLS/local_seq_align_multiple_sa" functionName="seq_align"/>
+        <dataInputObjs>read</dataInputObjs>
+        <dataInputObjs>getelementptr</dataInputObjs>
+      </node_objs>
+      <node_objs xsi:type="cdfg:CdfgNode" id="99" name="br_ln215" lineNumber="215" fileName="seq_align_multiple.cpp" fileDirectory=".." coreId="1265261128" contextFuncName="seq_align" opcode="br" m_display="0" m_topoIndex="60" m_clusterGroupNumber="-1">
+        <inlineStackInfo fileName="seq_align_multiple.cpp" linenumber="215" fileDirectory="/home/AD.UCSD.EDU/jsliang/DP-HLS/local_seq_align_multiple_sa" functionName="seq_align"/>
+        <controlInputObjs>arrayidx82.exit</controlInputObjs>
+      </node_objs>
+      <fileValidLineNumbers fileName="seq_align_multiple.cpp">
+        <validLinenumbers>215</validLinenumbers>
+      </fileValidLineNumbers>
+    </basic_blocks>
+    <basic_blocks id="103" name="arrayidx82.exit" type="BlockType">
+      <controlInputObjs>arrayidx82.case.14</controlInputObjs>
+      <controlInputObjs>arrayidx82.case.13</controlInputObjs>
+      <controlInputObjs>arrayidx82.case.12</controlInputObjs>
+      <controlInputObjs>arrayidx82.case.11</controlInputObjs>
+      <controlInputObjs>arrayidx82.case.10</controlInputObjs>
+      <controlInputObjs>arrayidx82.case.9</controlInputObjs>
+      <controlInputObjs>arrayidx82.case.8</controlInputObjs>
+      <controlInputObjs>arrayidx82.case.7</controlInputObjs>
+      <controlInputObjs>arrayidx82.case.6</controlInputObjs>
+      <controlInputObjs>arrayidx82.case.5</controlInputObjs>
+      <controlInputObjs>arrayidx82.case.4</controlInputObjs>
+      <controlInputObjs>arrayidx82.case.3</controlInputObjs>
+      <controlInputObjs>arrayidx82.case.2</controlInputObjs>
+      <controlInputObjs>arrayidx82.case.1</controlInputObjs>
+      <controlInputObjs>arrayidx82.case.0</controlInputObjs>
+      <controlInputObjs>arrayidx82.case.15</controlInputObjs>
+      <controlOutputObjs>br</controlOutputObjs>
+      <controlOutputObjs>br</controlOutputObjs>
+      <controlOutputObjs>br</controlOutputObjs>
+      <controlOutputObjs>br</controlOutputObjs>
+      <controlOutputObjs>br</controlOutputObjs>
+      <controlOutputObjs>br</controlOutputObjs>
+      <controlOutputObjs>br</controlOutputObjs>
+      <controlOutputObjs>br</controlOutputObjs>
+      <controlOutputObjs>br</controlOutputObjs>
+      <controlOutputObjs>br</controlOutputObjs>
+      <controlOutputObjs>br</controlOutputObjs>
+      <controlOutputObjs>br</controlOutputObjs>
+      <controlOutputObjs>br</controlOutputObjs>
+      <controlOutputObjs>br</controlOutputObjs>
+      <controlOutputObjs>br</controlOutputObjs>
+      <controlOutputObjs>br</controlOutputObjs>
+      <controlOutputObjs>for.inc83</controlOutputObjs>
+      <node_objs xsi:type="cdfg:CdfgNode" id="101" name="i_1_write_ln213" lineNumber="213" fileName="seq_align_multiple.cpp" fileDirectory=".." coreId="1265161248" contextFuncName="seq_align" opcode="store" m_display="0" m_delay="0.42" m_topoIndex="61" m_clusterGroupNumber="-1">
+        <inlineStackInfo fileName="seq_align_multiple.cpp" linenumber="213" fileDirectory="/home/AD.UCSD.EDU/jsliang/DP-HLS/local_seq_align_multiple_sa" functionName="seq_align"/>
+        <dataInputObjs>add</dataInputObjs>
+        <dataInputObjs>alloca</dataInputObjs>
+      </node_objs>
+      <node_objs xsi:type="cdfg:CdfgNode" id="102" name="br_ln213" lineNumber="213" fileName="seq_align_multiple.cpp" fileDirectory=".." coreId="1265317816" contextFuncName="seq_align" opcode="br" m_display="0" m_topoIndex="62" m_clusterGroupNumber="-1">
+        <inlineStackInfo fileName="seq_align_multiple.cpp" linenumber="213" fileDirectory="/home/AD.UCSD.EDU/jsliang/DP-HLS/local_seq_align_multiple_sa" functionName="seq_align"/>
+        <controlInputObjs>for.inc83</controlInputObjs>
+      </node_objs>
+      <fileValidLineNumbers fileName="seq_align_multiple.cpp">
+        <validLinenumbers>213</validLinenumbers>
+      </fileValidLineNumbers>
+    </basic_blocks>
+  </regions>
+  <ScheduleInfo time="0"/>
+  <regnodes realName="i_1_reg_399">
+    <nodeIds>18</nodeIds>
+  </regnodes>
+  <expressionNodes realName="local_reference_6_addr_gep_fu_158">
+    <nodeIds>40</nodeIds>
+  </expressionNodes>
+  <expressionNodes realName="local_reference_15_addr_gep_fu_221">
+    <nodeIds>49</nodeIds>
+  </expressionNodes>
+  <expressionNodes realName="local_reference_2_addr_gep_fu_130">
+    <nodeIds>36</nodeIds>
+  </expressionNodes>
+  <expressionNodes realName="local_reference_5_addr_gep_fu_151">
+    <nodeIds>39</nodeIds>
+  </expressionNodes>
+  <expressionNodes realName="zext_ln215_fu_370">
+    <nodeIds>33</nodeIds>
+  </expressionNodes>
+  <expressionNodes realName="lshr_ln_fu_360">
+    <nodeIds>32</nodeIds>
+  </expressionNodes>
+  <expressionNodes realName="local_reference_8_addr_gep_fu_172">
+    <nodeIds>42</nodeIds>
+  </expressionNodes>
+  <expressionNodes realName="local_reference_12_addr_gep_fu_200">
+    <nodeIds>46</nodeIds>
+  </expressionNodes>
+  <expressionNodes realName="trunc_ln215_fu_390">
+    <nodeIds>50</nodeIds>
+  </expressionNodes>
+  <expressionNodes realName="icmp_ln213_fu_348">
+    <nodeIds>25</nodeIds>
+  </expressionNodes>
+  <expressionNodes realName="i_1_fu_106">
+    <nodeIds>18</nodeIds>
+  </expressionNodes>
+  <expressionNodes realName="local_reference_14_addr_gep_fu_214">
+    <nodeIds>48</nodeIds>
+  </expressionNodes>
+  <expressionNodes realName="local_reference_4_addr_gep_fu_144">
+    <nodeIds>38</nodeIds>
+  </expressionNodes>
+  <expressionNodes realName="local_reference_7_addr_gep_fu_165">
+    <nodeIds>41</nodeIds>
+  </expressionNodes>
+  <expressionNodes realName="local_reference_10_addr_gep_fu_186">
+    <nodeIds>44</nodeIds>
+  </expressionNodes>
+  <expressionNodes realName="add_ln213_fu_354">
+    <nodeIds>27</nodeIds>
+  </expressionNodes>
+  <expressionNodes realName="local_reference_addr_gep_fu_116">
+    <nodeIds>34</nodeIds>
+  </expressionNodes>
+  <expressionNodes realName="local_reference_13_addr_gep_fu_207">
+    <nodeIds>47</nodeIds>
+  </expressionNodes>
+  <expressionNodes realName="local_reference_1_addr_gep_fu_123">
+    <nodeIds>35</nodeIds>
+  </expressionNodes>
+  <expressionNodes realName="local_reference_9_addr_gep_fu_179">
+    <nodeIds>43</nodeIds>
+  </expressionNodes>
+  <expressionNodes realName="local_reference_3_addr_gep_fu_137">
+    <nodeIds>37</nodeIds>
+  </expressionNodes>
+  <expressionNodes realName="local_reference_11_addr_gep_fu_193">
+    <nodeIds>45</nodeIds>
+  </expressionNodes>
+  <ioNodes realName="store_ln0_store_fu_340">
+    <nodeIds>20</nodeIds>
+  </ioNodes>
+  <ioNodes realName="store_ln213_store_fu_394">
+    <nodeIds>101</nodeIds>
+  </ioNodes>
+  <ioNodes realName="tmp_read_fu_110">
+    <nodeIds>31</nodeIds>
+  </ioNodes>
+  <ioNodes realName="i_load_fu_345">
+    <nodeIds>23</nodeIds>
+  </ioNodes>
+  <memoryPorts dataString="local_reference">
+    <nodeIds>95</nodeIds>
+  </memoryPorts>
+  <memoryPorts dataString="local_reference_1">
+    <nodeIds>92</nodeIds>
+  </memoryPorts>
+  <memoryPorts dataString="local_reference_10">
+    <nodeIds>65</nodeIds>
+  </memoryPorts>
+  <memoryPorts dataString="local_reference_11">
+    <nodeIds>62</nodeIds>
+  </memoryPorts>
+  <memoryPorts dataString="local_reference_12">
+    <nodeIds>59</nodeIds>
+  </memoryPorts>
+  <memoryPorts dataString="local_reference_13">
+    <nodeIds>56</nodeIds>
+  </memoryPorts>
+  <memoryPorts dataString="local_reference_14">
+    <nodeIds>53</nodeIds>
+  </memoryPorts>
+  <memoryPorts dataString="local_reference_15">
+    <nodeIds>98</nodeIds>
+  </memoryPorts>
+  <memoryPorts dataString="local_reference_2">
+    <nodeIds>89</nodeIds>
+  </memoryPorts>
+  <memoryPorts dataString="local_reference_3">
+    <nodeIds>86</nodeIds>
+  </memoryPorts>
+  <memoryPorts dataString="local_reference_4">
+    <nodeIds>83</nodeIds>
+  </memoryPorts>
+  <memoryPorts dataString="local_reference_5">
+    <nodeIds>80</nodeIds>
+  </memoryPorts>
+  <memoryPorts dataString="local_reference_6">
+    <nodeIds>77</nodeIds>
+  </memoryPorts>
+  <memoryPorts dataString="local_reference_7">
+    <nodeIds>74</nodeIds>
+  </memoryPorts>
+  <memoryPorts dataString="local_reference_8">
+    <nodeIds>71</nodeIds>
+  </memoryPorts>
+  <memoryPorts dataString="local_reference_9">
+    <nodeIds>68</nodeIds>
+  </memoryPorts>
+  <ioPorts name="local_reference(p0)">
+    <contents name="store">
+      <nodeIds>95</nodeIds>
+    </contents>
+  </ioPorts>
+  <ioPorts name="local_reference_1(p0)">
+    <contents name="store">
+      <nodeIds>92</nodeIds>
+    </contents>
+  </ioPorts>
+  <ioPorts name="local_reference_10(p0)">
+    <contents name="store">
+      <nodeIds>65</nodeIds>
+    </contents>
+  </ioPorts>
+  <ioPorts name="local_reference_11(p0)">
+    <contents name="store">
+      <nodeIds>62</nodeIds>
+    </contents>
+  </ioPorts>
+  <ioPorts name="local_reference_12(p0)">
+    <contents name="store">
+      <nodeIds>59</nodeIds>
+    </contents>
+  </ioPorts>
+  <ioPorts name="local_reference_13(p0)">
+    <contents name="store">
+      <nodeIds>56</nodeIds>
+    </contents>
+  </ioPorts>
+  <ioPorts name="local_reference_14(p0)">
+    <contents name="store">
+      <nodeIds>53</nodeIds>
+    </contents>
+  </ioPorts>
+  <ioPorts name="local_reference_15(p0)">
+    <contents name="store">
+      <nodeIds>98</nodeIds>
+    </contents>
+  </ioPorts>
+  <ioPorts name="local_reference_2(p0)">
+    <contents name="store">
+      <nodeIds>89</nodeIds>
+    </contents>
+  </ioPorts>
+  <ioPorts name="local_reference_3(p0)">
+    <contents name="store">
+      <nodeIds>86</nodeIds>
+    </contents>
+  </ioPorts>
+  <ioPorts name="local_reference_4(p0)">
+    <contents name="store">
+      <nodeIds>83</nodeIds>
+    </contents>
+  </ioPorts>
+  <ioPorts name="local_reference_5(p0)">
+    <contents name="store">
+      <nodeIds>80</nodeIds>
+    </contents>
+  </ioPorts>
+  <ioPorts name="local_reference_6(p0)">
+    <contents name="store">
+      <nodeIds>77</nodeIds>
+    </contents>
+  </ioPorts>
+  <ioPorts name="local_reference_7(p0)">
+    <contents name="store">
+      <nodeIds>74</nodeIds>
+    </contents>
+  </ioPorts>
+  <ioPorts name="local_reference_8(p0)">
+    <contents name="store">
+      <nodeIds>71</nodeIds>
+    </contents>
+  </ioPorts>
+  <ioPorts name="local_reference_9(p0)">
+    <contents name="store">
+      <nodeIds>68</nodeIds>
+    </contents>
+  </ioPorts>
+  <ioPorts name="reference_string_comp_0">
+    <contents name="read">
+      <nodeIds>31</nodeIds>
+    </contents>
+  </ioPorts>
+  <fsm>
+    <states id="1">
+      <operations id="18" stage="1" latency="1"/>
+      <operations id="19" stage="1" latency="1"/>
+      <operations id="20" stage="1" latency="1"/>
+      <operations id="21" stage="1" latency="1"/>
+      <operations id="23" stage="1" latency="1"/>
+      <operations id="24" stage="1" latency="1"/>
+      <operations id="25" stage="1" latency="1"/>
+      <operations id="26" stage="1" latency="1"/>
+      <operations id="27" stage="1" latency="1"/>
+      <operations id="28" stage="1" latency="1"/>
+      <operations id="30" stage="1" latency="1"/>
+      <operations id="31" stage="1" latency="1"/>
+      <operations id="32" stage="1" latency="1"/>
+      <operations id="33" stage="1" latency="1"/>
+      <operations id="34" stage="1" latency="1"/>
+      <operations id="35" stage="1" latency="1"/>
+      <operations id="36" stage="1" latency="1"/>
+      <operations id="37" stage="1" latency="1"/>
+      <operations id="38" stage="1" latency="1"/>
+      <operations id="39" stage="1" latency="1"/>
+      <operations id="40" stage="1" latency="1"/>
+      <operations id="41" stage="1" latency="1"/>
+      <operations id="42" stage="1" latency="1"/>
+      <operations id="43" stage="1" latency="1"/>
+      <operations id="44" stage="1" latency="1"/>
+      <operations id="45" stage="1" latency="1"/>
+      <operations id="46" stage="1" latency="1"/>
+      <operations id="47" stage="1" latency="1"/>
+      <operations id="48" stage="1" latency="1"/>
+      <operations id="49" stage="1" latency="1"/>
+      <operations id="50" stage="1" latency="1"/>
+      <operations id="51" stage="1" latency="1"/>
+      <operations id="53" stage="1" latency="1"/>
+      <operations id="54" stage="1" latency="1"/>
+      <operations id="56" stage="1" latency="1"/>
+      <operations id="57" stage="1" latency="1"/>
+      <operations id="59" stage="1" latency="1"/>
+      <operations id="60" stage="1" latency="1"/>
+      <operations id="62" stage="1" latency="1"/>
+      <operations id="63" stage="1" latency="1"/>
+      <operations id="65" stage="1" latency="1"/>
+      <operations id="66" stage="1" latency="1"/>
+      <operations id="68" stage="1" latency="1"/>
+      <operations id="69" stage="1" latency="1"/>
+      <operations id="71" stage="1" latency="1"/>
+      <operations id="72" stage="1" latency="1"/>
+      <operations id="74" stage="1" latency="1"/>
+      <operations id="75" stage="1" latency="1"/>
+      <operations id="77" stage="1" latency="1"/>
+      <operations id="78" stage="1" latency="1"/>
+      <operations id="80" stage="1" latency="1"/>
+      <operations id="81" stage="1" latency="1"/>
+      <operations id="83" stage="1" latency="1"/>
+      <operations id="84" stage="1" latency="1"/>
+      <operations id="86" stage="1" latency="1"/>
+      <operations id="87" stage="1" latency="1"/>
+      <operations id="89" stage="1" latency="1"/>
+      <operations id="90" stage="1" latency="1"/>
+      <operations id="92" stage="1" latency="1"/>
+      <operations id="93" stage="1" latency="1"/>
+      <operations id="95" stage="1" latency="1"/>
+      <operations id="96" stage="1" latency="1"/>
+      <operations id="98" stage="1" latency="1"/>
+      <operations id="99" stage="1" latency="1"/>
+      <operations id="101" stage="1" latency="1"/>
+      <operations id="102" stage="1" latency="1"/>
+      <operations id="104" stage="1" latency="1"/>
+    </states>
+  </fsm>
+  <CFGRegionsRoot>
+    <cfgRegions mId="1" mTag="seq_align_Pipeline_VITIS_LOOP_213_7" mII="-1" mDepth="-1" mMinTripCount="-1" mMaxTripCount="-1" mMinLatency="1026" mMaxLatency="1026">
+      <subRegions>2</subRegions>
+      <subRegions>3</subRegions>
+      <subRegions>4</subRegions>
+      <mDfPipe/>
+    </cfgRegions>
+    <cfgRegions mId="2" mTag="Entry" mII="-1" mDepth="-1" mMinTripCount="-1" mMaxTripCount="-1">
+      <basicBlocks>22</basicBlocks>
+      <mDfPipe/>
+    </cfgRegions>
+    <cfgRegions mId="3" mTag="VITIS_LOOP_213_7" mII="1" mDepth="1" mMinTripCount="1024" mMaxTripCount="1024" mMinLatency="1024" mMaxLatency="1024" mType="1">
+      <basicBlocks>29</basicBlocks>
+      <basicBlocks>52</basicBlocks>
+      <basicBlocks>55</basicBlocks>
+      <basicBlocks>58</basicBlocks>
+      <basicBlocks>61</basicBlocks>
+      <basicBlocks>64</basicBlocks>
+      <basicBlocks>67</basicBlocks>
+      <basicBlocks>70</basicBlocks>
+      <basicBlocks>73</basicBlocks>
+      <basicBlocks>76</basicBlocks>
+      <basicBlocks>79</basicBlocks>
+      <basicBlocks>82</basicBlocks>
+      <basicBlocks>85</basicBlocks>
+      <basicBlocks>88</basicBlocks>
+      <basicBlocks>91</basicBlocks>
+      <basicBlocks>94</basicBlocks>
+      <basicBlocks>97</basicBlocks>
+      <basicBlocks>100</basicBlocks>
+      <basicBlocks>103</basicBlocks>
+      <mDfPipe/>
+    </cfgRegions>
+    <cfgRegions mId="4" mTag="Return" mII="-1" mDepth="-1" mMinTripCount="-1" mMaxTripCount="-1">
+      <basicBlocks>105</basicBlocks>
+      <mDfPipe/>
+    </cfgRegions>
+  </CFGRegionsRoot>
+</cdfg:DBCdfg>

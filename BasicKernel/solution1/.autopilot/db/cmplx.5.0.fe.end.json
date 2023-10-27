@@ -1,0 +1,225 @@
+{
+    "1": {
+        "name": "Traceback_Pipeline_traceback_loop",
+        "file": "align.cpp",
+        "fileloc": "0",
+        "instructions": "176",
+        "total_instructions": "176",
+        "calls": "",
+        "basicblocks": "7",
+        "loads": {
+            "L": "37"
+        },
+        "stores": {
+            "L": "10"
+        },
+        "loops": {
+            "L": "1"
+        }
+    },
+    "2": {
+        "name": "CopyColScore",
+        "file": "align.cpp",
+        "fileloc": "479",
+        "instructions": "426",
+        "total_instructions": "426",
+        "calls": "",
+        "basicblocks": "1",
+        "loads": {
+            "L": "35"
+        },
+        "stores": {
+            "L": "99"
+        }
+    },
+    "0": {
+        "name": "seq_align_multiple_static",
+        "file": "seq_align_multiple.cpp",
+        "fileloc": "27",
+        "instructions": "166",
+        "total_instructions": "14270",
+        "calls": "3",
+        "basicblocks": "1"
+    },
+    "3": {
+        "name": "AlignStatic",
+        "file": "align.cpp",
+        "fileloc": "515",
+        "instructions": "696",
+        "total_instructions": "14104",
+        "calls": "11 12 11 9 8 9 10 6 14 2 4 5",
+        "basicblocks": "4",
+        "loads": {
+            "L": "196"
+        },
+        "stores": {
+            "L": "194"
+        },
+        "loops": {
+            "L": "1"
+        }
+    },
+    "4": {
+        "name": "ChunkCompute",
+        "file": "align.cpp",
+        "fileloc": "0",
+        "instructions": "431",
+        "total_instructions": "6902",
+        "calls": "13",
+        "basicblocks": "1",
+        "loads": {
+            "L": "96"
+        }
+    },
+    "5": {
+        "name": "AlignStatic_Pipeline_4",
+        "file": "align.cpp",
+        "fileloc": "0",
+        "instructions": "29",
+        "total_instructions": "29",
+        "calls": "",
+        "basicblocks": "4",
+        "loads": {
+            "L": "5"
+        },
+        "stores": {
+            "L": "6"
+        },
+        "loops": {
+            "L": "1"
+        }
+    },
+    "6": {
+        "name": "Traceback",
+        "file": "align.cpp",
+        "fileloc": "0",
+        "instructions": "115",
+        "total_instructions": "291",
+        "calls": "1",
+        "basicblocks": "1",
+        "loads": {
+            "L": "32"
+        }
+    },
+    "7": {
+        "name": "UpdatePEMaximum",
+        "file": "align.cpp",
+        "fileloc": "0",
+        "instructions": "679",
+        "total_instructions": "679",
+        "calls": "",
+        "basicblocks": "1"
+    },
+    "8": {
+        "name": "AlignStatic_Pipeline_VITIS_LOOP_117_1",
+        "file": "align.cpp",
+        "fileloc": "0",
+        "instructions": "27",
+        "total_instructions": "27",
+        "calls": "",
+        "basicblocks": "4",
+        "loads": {
+            "L": "3"
+        },
+        "stores": {
+            "L": "5"
+        },
+        "loops": {
+            "L": "1"
+        }
+    },
+    "9": {
+        "name": "ArrSet<hls::vector<ap_fixed<16, 11, AP_TRN, AP_WRAP, 0>, 3>, 256>",
+        "file": "utils.h",
+        "fileloc": "103",
+        "instructions": "1292",
+        "total_instructions": "1292",
+        "calls": "",
+        "basicblocks": "1",
+        "loads": {
+            "L": "256"
+        },
+        "stores": {
+            "L": "256"
+        }
+    },
+    "10": {
+        "name": "AlignStatic_Pipeline_VITIS_LOOP_463_1",
+        "file": "align.cpp",
+        "fileloc": "0",
+        "instructions": "144",
+        "total_instructions": "144",
+        "calls": "",
+        "basicblocks": "4",
+        "loads": {
+            "G": "1",
+            "L": "8"
+        },
+        "stores": {
+            "L": "10"
+        },
+        "loops": {
+            "L": "1"
+        }
+    },
+    "11": {
+        "name": "ArrSet<hls::vector<ap_fixed<16, 11, AP_TRN, AP_WRAP, 0>, 3>, 256>",
+        "file": "utils.h",
+        "fileloc": "103",
+        "instructions": "1292",
+        "total_instructions": "1292",
+        "calls": "",
+        "basicblocks": "1",
+        "loads": {
+            "L": "256"
+        },
+        "stores": {
+            "L": "256"
+        }
+    },
+    "12": {
+        "name": "AlignStatic_Pipeline_VITIS_LOOP_128_1",
+        "file": "align.cpp",
+        "fileloc": "0",
+        "instructions": "27",
+        "total_instructions": "27",
+        "calls": "",
+        "basicblocks": "4",
+        "loads": {
+            "L": "3"
+        },
+        "stores": {
+            "L": "5"
+        },
+        "loops": {
+            "L": "1"
+        }
+    },
+    "13": {
+        "name": "ChunkCompute_Pipeline_VITIS_LOOP_347_1",
+        "file": "align.cpp",
+        "fileloc": "0",
+        "instructions": "5792",
+        "total_instructions": "6471",
+        "calls": "7",
+        "basicblocks": "1163",
+        "loads": {
+            "L": "405"
+        },
+        "stores": {
+            "L": "1380"
+        },
+        "loops": {
+            "L": "1"
+        }
+    },
+    "14": {
+        "name": "PrepareLocalQuery",
+        "file": "align.cpp",
+        "fileloc": "0",
+        "instructions": "394",
+        "total_instructions": "394",
+        "calls": "",
+        "basicblocks": "65"
+    }
+}

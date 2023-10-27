@@ -1,0 +1,163 @@
+<profile>
+
+<section name = "Vitis HLS Report for 'seq_align_Pipeline_VITIS_LOOP_310_11'" level="0">
+<item name = "Date">Mon Aug  7 23:39:23 2023
+</item>
+<item name = "Version">2022.1 (Build 3526262 on Mon Apr 18 15:47:01 MDT 2022)</item>
+<item name = "Project">local_seq_multiple_align_sa</item>
+<item name = "Solution">solution1 (Vitis Kernel Flow Target)</item>
+<item name = "Product family">zynquplus</item>
+<item name = "Target device">xczu7ev-ffvc1156-2-i</item>
+</section>
+
+<section name = "Performance Estimates" level="0">
+<item name = "Timing">
+<section name = "" level="1">
+<item name = "Summary"><table name="" hasTotal="0">
+<keys size="4">Clock, Target, Estimated, Uncertainty</keys>
+<column name="ap_clk">4.00 ns, 2.656 ns, 1.08 ns</column>
+</table>
+</item>
+</section>
+</item>
+<item name = "Latency">
+<section name = "" level="1">
+<item name = "Summary"><table name="" hasTotal="0">
+<keys size="8">, min, max, min, max, min, max, Type</keys>
+<column name="">34, 34, 0.136 us, 0.136 us, 34, 34, no</column>
+</table>
+</item>
+<item name = "Detail">
+<section name = "" level="1">
+<item name = "Instance"><table name="" hasTotal="0">
+<keys size="9">Instance, Module, min, max, min, max, min, max, Type</keys>
+</table>
+</item>
+<item name = "Loop"><table name="" hasTotal="0">
+<keys size="8">Loop Name, min, max, Latency, achieved, target, Count, Pipelined</keys>
+<column name="- VITIS_LOOP_310_11">32, 32, 1, 1, 1, 32, yes</column>
+</table>
+</item>
+</section>
+</item>
+</section>
+</item>
+</section>
+
+<section name = "Utilization Estimates" level="0">
+<item name = "Summary"><table name="" hasTotal="1">
+<keys size="6">Name, BRAM_18K, DSP, FF, LUT, URAM</keys>
+<column name="DSP">-, -, -, -, -</column>
+<column name="Expression">-, -, 0, 109, -</column>
+<column name="FIFO">-, -, -, -, -</column>
+<column name="Instance">-, -, 0, 148, -</column>
+<column name="Memory">-, -, -, -, -</column>
+<column name="Multiplexer">-, -, -, 45, -</column>
+<column name="Register">-, -, 73, -, -</column>
+<specialColumn name="Available">624, 1728, 460800, 230400, 96</specialColumn>
+<specialColumn name="Utilization (%)">0, 0, ~0, ~0, 0</specialColumn>
+</table>
+</item>
+<item name = "Detail">
+<section name = "" level="1">
+<item name = "Instance"><table name="" hasTotal="1">
+<keys size="7">Instance, Module, BRAM_18K, DSP, FF, LUT, URAM</keys>
+<column name="mux_326_32_1_1_U741">mux_326_32_1_1, 0, 0, 0, 148, 0</column>
+</table>
+</item>
+<item name = "DSP"><table name="" hasTotal="0">
+<keys size="3">Instance, Module, Expression</keys>
+</table>
+</item>
+<item name = "Memory"><table name="" hasTotal="1">
+<keys size="10">Memory, Module, BRAM_18K, FF, LUT, URAM, Words, Bits, Banks, W*Bits*Banks</keys>
+</table>
+</item>
+<item name = "FIFO"><table name="" hasTotal="1">
+<keys size="8">Name, BRAM_18K, FF, LUT, URAM, Depth, Bits, Size:D*B</keys>
+</table>
+</item>
+<item name = "Expression"><table name="" hasTotal="1">
+<keys size="7">Variable Name, Operation, DSP, FF, LUT, Bitwidth P0, Bitwidth P1</keys>
+<column name="add_ln310_fu_354_p2">+, 0, 0, 13, 6, 1</column>
+<column name="icmp_ln310_fu_348_p2">icmp, 0, 0, 10, 6, 7</column>
+<column name="icmp_ln313_fu_404_p2">icmp, 0, 0, 20, 32, 32</column>
+<column name="select_ln313_1_fu_426_p3">select, 0, 0, 32, 1, 32</column>
+<column name="select_ln313_fu_418_p3">select, 0, 0, 32, 1, 32</column>
+<column name="ap_enable_pp0">xor, 0, 0, 2, 1, 2</column>
+</table>
+</item>
+<item name = "Multiplexer"><table name="" hasTotal="1">
+<keys size="5">Name, LUT, Input Size, Bits, Total Bits</keys>
+<column name="ap_done_int">9, 2, 1, 2</column>
+<column name="ap_enable_reg_pp0_iter1">9, 2, 1, 2</column>
+<column name="index_1_fu_100">9, 2, 32, 64</column>
+<column name="max_1_fu_104">9, 2, 32, 64</column>
+<column name="r_fu_108">9, 2, 6, 12</column>
+</table>
+</item>
+<item name = "Register"><table name="" hasTotal="1">
+<keys size="5">Name, FF, LUT, Bits, Const Bits</keys>
+<column name="ap_CS_fsm">1, 0, 1, 0</column>
+<column name="ap_done_reg">1, 0, 1, 0</column>
+<column name="ap_enable_reg_pp0_iter1">1, 0, 1, 0</column>
+<column name="index_1_fu_100">32, 0, 32, 0</column>
+<column name="max_1_fu_104">32, 0, 32, 0</column>
+<column name="r_fu_108">6, 0, 6, 0</column>
+</table>
+</item>
+</section>
+</item>
+</section>
+
+<section name = "Interface" level="0">
+<item name = "Summary"><table name="" hasTotal="0">
+<keys size="6">RTL Ports, Dir, Bits, Protocol, Source Object, C Type</keys>
+<column name="ap_clk">in, 1, ap_ctrl_hs, seq_align_Pipeline_VITIS_LOOP_310_11, return value</column>
+<column name="ap_rst">in, 1, ap_ctrl_hs, seq_align_Pipeline_VITIS_LOOP_310_11, return value</column>
+<column name="ap_start">in, 1, ap_ctrl_hs, seq_align_Pipeline_VITIS_LOOP_310_11, return value</column>
+<column name="ap_done">out, 1, ap_ctrl_hs, seq_align_Pipeline_VITIS_LOOP_310_11, return value</column>
+<column name="ap_idle">out, 1, ap_ctrl_hs, seq_align_Pipeline_VITIS_LOOP_310_11, return value</column>
+<column name="ap_ready">out, 1, ap_ctrl_hs, seq_align_Pipeline_VITIS_LOOP_310_11, return value</column>
+<column name="max">in, 32, ap_none, max, scalar</column>
+<column name="index">in, 32, ap_none, index, scalar</column>
+<column name="max_score_64_reload">in, 32, ap_none, max_score_64_reload, scalar</column>
+<column name="max_score_65_reload">in, 32, ap_none, max_score_65_reload, scalar</column>
+<column name="max_score_66_reload">in, 32, ap_none, max_score_66_reload, scalar</column>
+<column name="max_score_67_reload">in, 32, ap_none, max_score_67_reload, scalar</column>
+<column name="max_score_68_reload">in, 32, ap_none, max_score_68_reload, scalar</column>
+<column name="max_score_69_reload">in, 32, ap_none, max_score_69_reload, scalar</column>
+<column name="max_score_70_reload">in, 32, ap_none, max_score_70_reload, scalar</column>
+<column name="max_score_71_reload">in, 32, ap_none, max_score_71_reload, scalar</column>
+<column name="max_score_72_reload">in, 32, ap_none, max_score_72_reload, scalar</column>
+<column name="max_score_73_reload">in, 32, ap_none, max_score_73_reload, scalar</column>
+<column name="max_score_74_reload">in, 32, ap_none, max_score_74_reload, scalar</column>
+<column name="max_score_75_reload">in, 32, ap_none, max_score_75_reload, scalar</column>
+<column name="max_score_76_reload">in, 32, ap_none, max_score_76_reload, scalar</column>
+<column name="max_score_77_reload">in, 32, ap_none, max_score_77_reload, scalar</column>
+<column name="max_score_78_reload">in, 32, ap_none, max_score_78_reload, scalar</column>
+<column name="max_score_79_reload">in, 32, ap_none, max_score_79_reload, scalar</column>
+<column name="max_score_80_reload">in, 32, ap_none, max_score_80_reload, scalar</column>
+<column name="max_score_81_reload">in, 32, ap_none, max_score_81_reload, scalar</column>
+<column name="max_score_82_reload">in, 32, ap_none, max_score_82_reload, scalar</column>
+<column name="max_score_83_reload">in, 32, ap_none, max_score_83_reload, scalar</column>
+<column name="max_score_84_reload">in, 32, ap_none, max_score_84_reload, scalar</column>
+<column name="max_score_85_reload">in, 32, ap_none, max_score_85_reload, scalar</column>
+<column name="max_score_86_reload">in, 32, ap_none, max_score_86_reload, scalar</column>
+<column name="max_score_87_reload">in, 32, ap_none, max_score_87_reload, scalar</column>
+<column name="max_score_88_reload">in, 32, ap_none, max_score_88_reload, scalar</column>
+<column name="max_score_89_reload">in, 32, ap_none, max_score_89_reload, scalar</column>
+<column name="max_score_90_reload">in, 32, ap_none, max_score_90_reload, scalar</column>
+<column name="max_score_91_reload">in, 32, ap_none, max_score_91_reload, scalar</column>
+<column name="max_score_92_reload">in, 32, ap_none, max_score_92_reload, scalar</column>
+<column name="max_score_93_reload">in, 32, ap_none, max_score_93_reload, scalar</column>
+<column name="max_score_94_reload">in, 32, ap_none, max_score_94_reload, scalar</column>
+<column name="max_score_95_reload">in, 32, ap_none, max_score_95_reload, scalar</column>
+<column name="max_1_out">out, 32, ap_vld, max_1_out, pointer</column>
+<column name="max_1_out_ap_vld">out, 1, ap_vld, max_1_out, pointer</column>
+<column name="index_1_out">out, 32, ap_vld, index_1_out, pointer</column>
+<column name="index_1_out_ap_vld">out, 1, ap_vld, index_1_out, pointer</column>
+</table>
+</item>
+</section>
+</profile>

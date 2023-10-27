@@ -1,0 +1,23 @@
+[
+  {
+    "functionLabel": "",
+    "functionName": "seq_align_multiple_static",
+    "id": 0,
+    "ifcond": "",
+    "insert_position": "",
+    "label": "",
+    "pragma": {
+      "name": "TOP",
+      "option": [
+        {
+          "name": "name",
+          "value": "seq_align_multiple_static"
+        }
+      ]
+    },
+    "slx": false,
+    "sourceFile": "/home/AD.UCSD.EDU/jsliang/DP-HLS/test_wrapper.tcl",
+    "sourceLine": 54,
+    "success": true
+  }
+]

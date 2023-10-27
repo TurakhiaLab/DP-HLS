@@ -1,0 +1,5 @@
+<VitisHLS:BurstInfo>
+    <burst group="BURST_VERBOSE_MISSED" fe_name="AccessInCondBranchMissed" src_info="src/traceback.cpp:26:5" msg_id="214-232" msg_severity="INFO" msg_body="Access store is in the conditional branch" resolution="214-232" BundleName="gmem" VarName="traceback_out" LoopLoc="src/traceback.cpp:26:5" LoopName="traceback_loop" ParentFunc="Traceback::Traceback(ap_uint&lt;4&gt; (&amp;) [256][256], ap_uint&lt;2&gt; (&amp;) [512], int, int)" OrigID="if.else.store.3" OrigAccess-DebugLoc="src/traceback.cpp:34:30" OrigDirection="write"/>
+    <burst group="BURST_VERBOSE_MISSED" fe_name="AccessInCondBranchMissed" src_info="src/traceback.cpp:26:5" msg_id="214-232" msg_severity="INFO" msg_body="Access store is in the conditional branch" resolution="214-232" BundleName="gmem" VarName="traceback_out" LoopLoc="src/traceback.cpp:26:5" LoopName="traceback_loop" ParentFunc="Traceback::Traceback(ap_uint&lt;4&gt; (&amp;) [256][256], ap_uint&lt;2&gt; (&amp;) [512], int, int)" OrigID="_ZN12GlobalAffine9Traceback11StateToPathE8TB_STATE.exit.store.4" OrigAccess-DebugLoc="src/traceback.cpp:30:30" OrigDirection="write"/>
+</VitisHLS:BurstInfo>
+

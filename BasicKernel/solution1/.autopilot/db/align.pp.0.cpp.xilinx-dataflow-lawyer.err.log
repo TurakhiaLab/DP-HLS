@@ -1,0 +1,29 @@
+As the loop bound is not a constant or function argument, the compiler may not successfully process the dataflow loop
+Either use an argument of the function or declare the variable inside the dataflow loop body
+Either use an argument of the function or declare the variable inside the dataflow loop body
+Either use an argument of the function or declare the variable inside the dataflow loop body
+Either use an argument of the function or declare the variable inside the dataflow loop body
+Either use an argument of the function or declare the variable inside the dataflow loop body
+Either use an argument of the function or declare the variable inside the dataflow loop body
+Either use an argument of the function or declare the variable inside the dataflow loop body
+Either use an argument of the function or declare the variable inside the dataflow loop body
+Either use an argument of the function or declare the variable inside the dataflow loop body
+Either use an argument of the function or declare the variable inside the dataflow loop body
+Either use an argument of the function or declare the variable inside the dataflow loop body
+Either use an argument of the function or declare the variable inside the dataflow loop body
+Either use an argument of the function or declare the variable inside the dataflow loop body
+Either use an argument of the function or declare the variable inside the dataflow loop body
+Either use an argument of the function or declare the variable inside the dataflow loop body
+Either use an argument of the function or declare the variable inside the dataflow loop body
+Either use an argument of the function or declare the variable inside the dataflow loop body
+Either use an argument of the function or declare the variable inside the dataflow loop body
+Either use an argument of the function or declare the variable inside the dataflow loop body
+Either use an argument of the function or declare the variable inside the dataflow loop body
+Either use an argument of the function or declare the variable inside the dataflow loop body
+Either use an argument of the function or declare the variable inside the dataflow loop body
+Either use an argument of the function or declare the variable inside the dataflow loop body
+Either use an argument of the function or declare the variable inside the dataflow loop body
+Either use an argument of the function or declare the variable inside the dataflow loop body
+Either use an argument of the function or declare the variable inside the dataflow loop body
+Since the only kind of statements allowed in a canonical dataflow region are variable declarations and function calls, the compiler may not be able to correctly handle the region
+28 warnings generated.

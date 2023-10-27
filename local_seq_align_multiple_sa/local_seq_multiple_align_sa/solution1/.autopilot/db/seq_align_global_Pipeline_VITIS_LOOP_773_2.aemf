@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cdfg:DBCdfg xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:cdfg="http://www.autoesl.com/DBCdfg" timeStamp="1691479011118">
+  <ports id="1" name="last_pe_score" type="PortType" coreName="RAM" coreId="0" bitwidth="32" direction="DirOut" iftype="IfTypeRegister" arraysize="256">
+    <dataInputObjs>getelementptr</dataInputObjs>
+  </ports>
+  <edges id="33" source_obj="//@blocks.0/@node_objs.0" sink_obj="//@blocks.0/@node_objs.1"/>
+  <edges id="34" edge_type="CtrlEdge" source_obj="//@regions.0/@basic_blocks.0" sink_obj="//@blocks.0/@node_objs.2"/>
+  <edges id="35" source_obj="//@blocks.0/@node_objs.0" sink_obj="//@regions.0/@basic_blocks.0/@node_objs.0"/>
+  <edges id="36" source_obj="//@regions.0/@basic_blocks.0/@node_objs.0" sink_obj="//@regions.0/@basic_blocks.0/@node_objs.1"/>
+  <edges id="39" source_obj="//@regions.0/@basic_blocks.0/@node_objs.0" sink_obj="//@regions.0/@basic_blocks.0/@node_objs.2"/>
+  <edges id="42" source_obj="//@regions.0/@basic_blocks.0/@node_objs.1" sink_obj="//@regions.0/@basic_blocks.0/@node_objs.3"/>
+  <edges id="43" edge_type="CtrlEdge" source_obj="//@regions.0/@basic_blocks.1" sink_obj="//@regions.0/@basic_blocks.0/@node_objs.3"/>
+  <edges id="44" edge_type="CtrlEdge" source_obj="//@blocks.1" sink_obj="//@regions.0/@basic_blocks.0/@node_objs.3"/>
+  <edges id="45" source_obj="//@regions.0/@basic_blocks.0/@node_objs.0" sink_obj="//@regions.0/@basic_blocks.1/@node_objs.0"/>
+  <edges id="46" source_obj="//@regions.0/@basic_blocks.0/@node_objs.0" sink_obj="//@regions.0/@basic_blocks.1/@node_objs.1"/>
+  <edges id="47" source_obj="//@regions.0/@basic_blocks.1/@node_objs.1" sink_obj="//@regions.0/@basic_blocks.1/@node_objs.2"/>
+  <edges id="48" source_obj="//@regions.0/@basic_blocks.1/@node_objs.3" sink_obj="//@ports.0"/>
+  <edges id="51" source_obj="//@regions.0/@basic_blocks.1/@node_objs.0" sink_obj="//@regions.0/@basic_blocks.1/@node_objs.3"/>
+  <edges id="54" source_obj="//@regions.0/@basic_blocks.1/@node_objs.1" sink_obj="//@regions.0/@basic_blocks.1/@node_objs.4"/>
+  <edges id="57" source_obj="//@regions.0/@basic_blocks.1/@node_objs.4" sink_obj="//@regions.0/@basic_blocks.1/@node_objs.5"/>
+  <edges id="58" source_obj="//@regions.0/@basic_blocks.1/@node_objs.2" sink_obj="//@regions.0/@basic_blocks.1/@node_objs.6"/>
+  <edges id="59" source_obj="//@regions.0/@basic_blocks.1/@node_objs.5" sink_obj="//@regions.0/@basic_blocks.1/@node_objs.6"/>
+  <edges id="60" source_obj="//@regions.0/@basic_blocks.1/@node_objs.6" sink_obj="//@regions.0/@basic_blocks.1/@node_objs.7"/>
+  <edges id="63" source_obj="//@regions.0/@basic_blocks.1/@node_objs.7" sink_obj="//@regions.0/@basic_blocks.1/@node_objs.8"/>
+  <edges id="64" source_obj="//@regions.0/@basic_blocks.1/@node_objs.8" sink_obj="//@regions.0/@basic_blocks.1/@node_objs.9"/>
+  <edges id="65" source_obj="//@regions.0/@basic_blocks.1/@node_objs.3" sink_obj="//@regions.0/@basic_blocks.1/@node_objs.9"/>
+  <edges id="66" source_obj="//@regions.0/@basic_blocks.0/@node_objs.2" sink_obj="//@regions.0/@basic_blocks.1/@node_objs.10"/>
+  <edges id="67" source_obj="//@blocks.0/@node_objs.0" sink_obj="//@regions.0/@basic_blocks.1/@node_objs.10"/>
+  <edges id="68" edge_type="CtrlEdge" source_obj="//@regions.0/@basic_blocks.0" sink_obj="//@regions.0/@basic_blocks.1/@node_objs.11"/>
+  <edges id="89" edge_type="CtrlEdge" source_obj="//@blocks.0" sink_obj="//@regions.0/@basic_blocks.0"/>
+  <edges id="90" edge_type="CtrlEdge" source_obj="//@regions.0/@basic_blocks.0" sink_obj="//@blocks.1"/>
+  <edges id="91" edge_type="CtrlEdge" source_obj="//@regions.0/@basic_blocks.0" sink_obj="//@regions.0/@basic_blocks.1"/>
+  <edges id="92" edge_type="CtrlEdge" source_obj="//@regions.0/@basic_blocks.1" sink_obj="//@regions.0/@basic_blocks.0" is_back_edge="1"/>
+  <edges id="93" edge_type="VirtEdge" source_obj="//@blocks.0/@node_objs.1" sink_obj="//@regions.0/@basic_blocks.0/@node_objs.0"/>
+  <edges id="94" edge_type="VirtEdge" source_obj="//@blocks.0/@node_objs.1" sink_obj="//@regions.0/@basic_blocks.1/@node_objs.10"/>
+  <edges id="95" edge_type="VirtEdge" source_obj="//@regions.0/@basic_blocks.0/@node_objs.0" sink_obj="//@regions.0/@basic_blocks.1/@node_objs.10"/>
+  <blocks id="5" name="newFuncRoot" type="BlockType">
+    <controlOutputObjs>for.inc31</controlOutputObjs>
+    <node_objs xsi:type="cdfg:CdfgNode" id="2" name="ip" originalName="ip" coreId="4261280944" bitwidth="9" opcode="alloca" m_display="0" m_topoIndex="1" m_clusterGroupNumber="-1">
+      <dataOutputObjs>store</dataOutputObjs>
+      <dataOutputObjs>load</dataOutputObjs>
+      <dataOutputObjs>store</dataOutputObjs>
+      <constName>empty</constName>
+    </node_objs>
+    <node_objs xsi:type="cdfg:CdfgNode" id="3" name="ip_write_ln0" coreId="1748857915" opcode="store" m_display="0" m_delay="0.42" m_topoIndex="2" m_clusterGroupNumber="-1">
+      <dataInputObjs>alloca</dataInputObjs>
+      <constName>empty</constName>
+    </node_objs>
+    <node_objs xsi:type="cdfg:CdfgNode" id="4" name="br_ln0" coreId="1818320753" opcode="br" m_display="0" m_topoIndex="3" m_clusterGroupNumber="-1">
+      <controlInputObjs>for.inc31</controlInputObjs>
+    </node_objs>
+  </blocks>
+  <blocks id="28" name="for.inc56.preheader.exitStub" type="BlockType">
+    <controlInputObjs>for.inc31</controlInputObjs>
+    <controlOutputObjs>br</controlOutputObjs>
+    <node_objs xsi:type="cdfg:CdfgNode" id="27" name="_ln0" coreId="4263814688" opcode="ret" m_display="0" m_topoIndex="20" m_clusterGroupNumber="-1"/>
+  </blocks>
+  <regions anchor_node="-1" region_type="8" interval="1" typeName="Pipeline" iiViolation="" id="101" pipe_depth="1" RegionName="VITIS_LOOP_773_2">
+    <basic_blocks id="12" name="for.inc31" type="BlockType">
+      <controlInputObjs>newFuncRoot</controlInputObjs>
+      <controlInputObjs>for.inc31.split</controlInputObjs>
+      <controlOutputObjs>br</controlOutputObjs>
+      <controlOutputObjs>br</controlOutputObjs>
+      <controlOutputObjs>for.inc56.preheader.exitStub</controlOutputObjs>
+      <controlOutputObjs>for.inc31.split</controlOutputObjs>
+      <node_objs xsi:type="cdfg:CdfgNode" id="6" name="ip_1" lineNumber="776" originalName="ip" fileName="seq_align_multiple.cpp" fileDirectory=".." coreId="4263170544" contextFuncName="seq_align_global" bitwidth="9" opcode="load" m_display="0" m_topoIndex="4" m_clusterGroupNumber="-1">
+        <inlineStackInfo fileName="seq_align_multiple.cpp" linenumber="776" fileDirectory="/home/AD.UCSD.EDU/jsliang/DP-HLS/local_seq_align_multiple_sa" functionName="seq_align_global"/>
+        <dataInputObjs>alloca</dataInputObjs>
+        <dataOutputObjs>icmp</dataOutputObjs>
+        <dataOutputObjs>add</dataOutputObjs>
+        <dataOutputObjs>zext</dataOutputObjs>
+        <dataOutputObjs>trunc</dataOutputObjs>
+      </node_objs>
+      <node_objs xsi:type="cdfg:CdfgNode" id="8" name="icmp_ln773" lineNumber="773" fileName="seq_align_multiple.cpp" fileDirectory=".." rtlName="icmp_ln773_fu_59_p2" coreName="Cmp" implIndex="auto" control="no" opType="icmp" coreId="9" contextFuncName="seq_align_global" bitwidth="1" opcode="icmp" m_display="0" m_delay="0.88" m_topoIndex="5" m_clusterGroupNumber="-1">
+        <inlineStackInfo fileName="seq_align_multiple.cpp" linenumber="773" fileDirectory="/home/AD.UCSD.EDU/jsliang/DP-HLS/local_seq_align_multiple_sa" functionName="seq_align_global"/>
+        <dataInputObjs>load</dataInputObjs>
+        <dataOutputObjs>br</dataOutputObjs>
+        <constName>empty</constName>
+      </node_objs>
+      <node_objs xsi:type="cdfg:CdfgNode" id="10" name="add_ln776" lineNumber="776" fileName="seq_align_multiple.cpp" fileDirectory=".." rtlName="add_ln776_fu_65_p2" coreName="Adder" implIndex="fabric" control="no" opType="add" coreId="1" contextFuncName="seq_align_global" bitwidth="9" opcode="add" m_display="0" m_delay="0.77" m_topoIndex="6" m_clusterGroupNumber="-1">
+        <inlineStackInfo fileName="seq_align_multiple.cpp" linenumber="776" fileDirectory="/home/AD.UCSD.EDU/jsliang/DP-HLS/local_seq_align_multiple_sa" functionName="seq_align_global"/>
+        <dataInputObjs>load</dataInputObjs>
+        <dataOutputObjs>store</dataOutputObjs>
+        <constName>empty</constName>
+      </node_objs>
+      <node_objs xsi:type="cdfg:CdfgNode" id="11" name="br_ln773" lineNumber="773" fileName="seq_align_multiple.cpp" fileDirectory=".." coreId="4261282000" contextFuncName="seq_align_global" opcode="br" m_display="0" m_topoIndex="7" m_clusterGroupNumber="-1">
+        <inlineStackInfo fileName="seq_align_multiple.cpp" linenumber="773" fileDirectory="/home/AD.UCSD.EDU/jsliang/DP-HLS/local_seq_align_multiple_sa" functionName="seq_align_global"/>
+        <dataInputObjs>icmp</dataInputObjs>
+        <controlInputObjs>for.inc31.split</controlInputObjs>
+        <controlInputObjs>for.inc56.preheader.exitStub</controlInputObjs>
+      </node_objs>
+      <fileValidLineNumbers fileName="seq_align_multiple.cpp">
+        <validLinenumbers>776</validLinenumbers>
+        <validLinenumbers>773</validLinenumbers>
+      </fileValidLineNumbers>
+    </basic_blocks>
+    <basic_blocks id="26" name="for.inc31.split" type="BlockType">
+      <controlInputObjs>for.inc31</controlInputObjs>
+      <controlOutputObjs>br</controlOutputObjs>
+      <controlOutputObjs>for.inc31</controlOutputObjs>
+      <node_objs xsi:type="cdfg:CdfgNode" id="13" name="ip_cast" lineNumber="776" fileName="seq_align_multiple.cpp" fileDirectory=".." rtlName="ip_cast_fu_71_p1" coreId="4261718624" contextFuncName="seq_align_global" bitwidth="64" opcode="zext" m_display="0" m_topoIndex="8" m_clusterGroupNumber="-1">
+        <inlineStackInfo fileName="seq_align_multiple.cpp" linenumber="776" fileDirectory="/home/AD.UCSD.EDU/jsliang/DP-HLS/local_seq_align_multiple_sa" functionName="seq_align_global"/>
+        <dataInputObjs>load</dataInputObjs>
+        <dataOutputObjs>getelementptr</dataOutputObjs>
+      </node_objs>
+      <node_objs xsi:type="cdfg:CdfgNode" id="15" name="trunc_ln776" lineNumber="776" fileName="seq_align_multiple.cpp" fileDirectory=".." rtlName="trunc_ln776_fu_76_p1" coreId="304" contextFuncName="seq_align_global" bitwidth="8" opcode="trunc" m_display="0" m_topoIndex="9" m_clusterGroupNumber="-1">
+        <inlineStackInfo fileName="seq_align_multiple.cpp" linenumber="776" fileDirectory="/home/AD.UCSD.EDU/jsliang/DP-HLS/local_seq_align_multiple_sa" functionName="seq_align_global"/>
+        <dataInputObjs>load</dataInputObjs>
+        <dataOutputObjs>zext</dataOutputObjs>
+        <dataOutputObjs>bitconcatenate</dataOutputObjs>
+      </node_objs>
+      <node_objs xsi:type="cdfg:CdfgNode" id="16" name="zext_ln776" lineNumber="776" fileName="seq_align_multiple.cpp" fileDirectory=".." rtlName="zext_ln776_fu_80_p1" coreId="543973749" contextFuncName="seq_align_global" bitwidth="11" opcode="zext" m_display="0" m_topoIndex="10" m_clusterGroupNumber="-1">
+        <inlineStackInfo fileName="seq_align_multiple.cpp" linenumber="776" fileDirectory="/home/AD.UCSD.EDU/jsliang/DP-HLS/local_seq_align_multiple_sa" functionName="seq_align_global"/>
+        <dataInputObjs>trunc</dataInputObjs>
+        <dataOutputObjs>sub</dataOutputObjs>
+      </node_objs>
+      <node_objs xsi:type="cdfg:CdfgNode" id="17" name="last_pe_score_addr" lineNumber="776" fileName="seq_align_multiple.cpp" fileDirectory=".." coreId="4263814688" contextFuncName="seq_align_global" bitwidth="8" opcode="getelementptr" m_display="0" m_topoIndex="11" m_clusterGroupNumber="-1">
+        <inlineStackInfo fileName="seq_align_multiple.cpp" linenumber="776" fileDirectory="/home/AD.UCSD.EDU/jsliang/DP-HLS/local_seq_align_multiple_sa" functionName="seq_align_global"/>
+        <dataInputObjs>zext</dataInputObjs>
+        <dataOutputObjs>last_pe_score</dataOutputObjs>
+        <dataOutputObjs>store</dataOutputObjs>
+        <constName>empty</constName>
+      </node_objs>
+      <node_objs xsi:type="cdfg:CdfgNode" id="18" name="tmp_2" lineNumber="776" fileName="seq_align_multiple.cpp" fileDirectory=".." rtlName="tmp_2_fu_84_p3" coreId="4263867408" contextFuncName="seq_align_global" bitwidth="10" opcode="bitconcatenate" m_display="0" m_topoIndex="12" m_clusterGroupNumber="-1">
+        <inlineStackInfo fileName="seq_align_multiple.cpp" linenumber="776" fileDirectory="/home/AD.UCSD.EDU/jsliang/DP-HLS/local_seq_align_multiple_sa" functionName="seq_align_global"/>
+        <dataInputObjs>trunc</dataInputObjs>
+        <dataOutputObjs>zext</dataOutputObjs>
+        <constName>empty</constName>
+      </node_objs>
+      <node_objs xsi:type="cdfg:CdfgNode" id="19" name="zext_ln776_1" lineNumber="776" fileName="seq_align_multiple.cpp" fileDirectory=".." rtlName="zext_ln776_1_fu_92_p1" coreId="0" contextFuncName="seq_align_global" bitwidth="11" opcode="zext" m_display="0" m_topoIndex="13" m_clusterGroupNumber="-1">
+        <inlineStackInfo fileName="seq_align_multiple.cpp" linenumber="776" fileDirectory="/home/AD.UCSD.EDU/jsliang/DP-HLS/local_seq_align_multiple_sa" functionName="seq_align_global"/>
+        <dataInputObjs>bitconcatenate</dataInputObjs>
+        <dataOutputObjs>sub</dataOutputObjs>
+      </node_objs>
+      <node_objs xsi:type="cdfg:CdfgNode" id="20" name="sub_ln776" lineNumber="776" fileName="seq_align_multiple.cpp" fileDirectory=".." rtlName="sub_ln776_fu_96_p2" coreName="TAddSub" implIndex="tadder" control="no" opType="all" coreId="10" contextFuncName="seq_align_global" bitwidth="11" opcode="sub" m_display="0" m_topoIndex="14" m_clusterGroupNumber="-1">
+        <inlineStackInfo fileName="seq_align_multiple.cpp" linenumber="776" fileDirectory="/home/AD.UCSD.EDU/jsliang/DP-HLS/local_seq_align_multiple_sa" functionName="seq_align_global"/>
+        <dataInputObjs>zext</dataInputObjs>
+        <dataInputObjs>zext</dataInputObjs>
+        <dataOutputObjs>add</dataOutputObjs>
+      </node_objs>
+      <node_objs xsi:type="cdfg:CdfgNode" id="21" name="add_ln776_1" lineNumber="776" fileName="seq_align_multiple.cpp" fileDirectory=".." rtlName="add_ln776_1_fu_102_p2" coreName="TAddSub" implIndex="tadder" control="no" opType="all" coreId="10" contextFuncName="seq_align_global" bitwidth="11" opcode="add" m_display="0" m_delay="0.91" m_topoIndex="15" m_clusterGroupNumber="-1">
+        <inlineStackInfo fileName="seq_align_multiple.cpp" linenumber="776" fileDirectory="/home/AD.UCSD.EDU/jsliang/DP-HLS/local_seq_align_multiple_sa" functionName="seq_align_global"/>
+        <dataInputObjs>sub</dataInputObjs>
+        <dataOutputObjs>sext</dataOutputObjs>
+        <constName>empty</constName>
+      </node_objs>
+      <node_objs xsi:type="cdfg:CdfgNode" id="22" name="sext_ln776" lineNumber="776" fileName="seq_align_multiple.cpp" fileDirectory=".." rtlName="last_pe_score_d0" coreId="4263910704" contextFuncName="seq_align_global" bitwidth="32" opcode="sext" m_display="0" m_topoIndex="16" m_clusterGroupNumber="-1">
+        <inlineStackInfo fileName="seq_align_multiple.cpp" linenumber="776" fileDirectory="/home/AD.UCSD.EDU/jsliang/DP-HLS/local_seq_align_multiple_sa" functionName="seq_align_global"/>
+        <dataInputObjs>add</dataInputObjs>
+        <dataOutputObjs>store</dataOutputObjs>
+      </node_objs>
+      <node_objs xsi:type="cdfg:CdfgNode" id="23" name="last_pe_score_addr_write_ln776" lineNumber="776" fileName="seq_align_multiple.cpp" fileDirectory=".." coreName="RAM" implIndex="auto" control="no" opType="ram" coreId="83" contextFuncName="seq_align_global" opcode="store" m_display="0" m_delay="1.23" m_topoIndex="17" m_clusterGroupNumber="-1">
+        <inlineStackInfo fileName="seq_align_multiple.cpp" linenumber="776" fileDirectory="/home/AD.UCSD.EDU/jsliang/DP-HLS/local_seq_align_multiple_sa" functionName="seq_align_global"/>
+        <dataInputObjs>sext</dataInputObjs>
+        <dataInputObjs>getelementptr</dataInputObjs>
+      </node_objs>
+      <node_objs xsi:type="cdfg:CdfgNode" id="24" name="ip_write_ln773" lineNumber="773" fileName="seq_align_multiple.cpp" fileDirectory=".." coreId="4263814688" contextFuncName="seq_align_global" opcode="store" m_display="0" m_delay="0.42" m_topoIndex="18" m_clusterGroupNumber="-1">
+        <inlineStackInfo fileName="seq_align_multiple.cpp" linenumber="773" fileDirectory="/home/AD.UCSD.EDU/jsliang/DP-HLS/local_seq_align_multiple_sa" functionName="seq_align_global"/>
+        <dataInputObjs>add</dataInputObjs>
+        <dataInputObjs>alloca</dataInputObjs>
+      </node_objs>
+      <node_objs xsi:type="cdfg:CdfgNode" id="25" name="br_ln773" lineNumber="773" fileName="seq_align_multiple.cpp" fileDirectory=".." coreId="0" contextFuncName="seq_align_global" opcode="br" m_display="0" m_topoIndex="19" m_clusterGroupNumber="-1">
+        <inlineStackInfo fileName="seq_align_multiple.cpp" linenumber="773" fileDirectory="/home/AD.UCSD.EDU/jsliang/DP-HLS/local_seq_align_multiple_sa" functionName="seq_align_global"/>
+        <controlInputObjs>for.inc31</controlInputObjs>
+      </node_objs>
+      <fileValidLineNumbers fileName="seq_align_multiple.cpp">
+        <validLinenumbers>776</validLinenumbers>
+        <validLinenumbers>773</validLinenumbers>
+      </fileValidLineNumbers>
+    </basic_blocks>
+  </regions>
+  <ScheduleInfo time="0"/>
+  <regnodes realName="ip_reg_118">
+    <nodeIds>2</nodeIds>
+  </regnodes>
+  <expressionNodes realName="add_ln776_1_fu_102">
+    <nodeIds>21</nodeIds>
+  </expressionNodes>
+  <expressionNodes realName="zext_ln776_fu_80">
+    <nodeIds>16</nodeIds>
+  </expressionNodes>
+  <expressionNodes realName="ip_cast_fu_71">
+    <nodeIds>13</nodeIds>
+  </expressionNodes>
+  <expressionNodes realName="sub_ln776_fu_96">
+    <nodeIds>20</nodeIds>
+  </expressionNodes>
+  <expressionNodes realName="zext_ln776_1_fu_92">
+    <nodeIds>19</nodeIds>
+  </expressionNodes>
+  <expressionNodes realName="last_pe_score_addr_gep_fu_38">
+    <nodeIds>17</nodeIds>
+  </expressionNodes>
+  <expressionNodes realName="sext_ln776_fu_108">
+    <nodeIds>22</nodeIds>
+  </expressionNodes>
+  <expressionNodes realName="add_ln776_fu_65">
+    <nodeIds>10</nodeIds>
+  </expressionNodes>
+  <expressionNodes realName="tmp_2_fu_84">
+    <nodeIds>18</nodeIds>
+  </expressionNodes>
+  <expressionNodes realName="trunc_ln776_fu_76">
+    <nodeIds>15</nodeIds>
+  </expressionNodes>
+  <expressionNodes realName="icmp_ln773_fu_59">
+    <nodeIds>8</nodeIds>
+  </expressionNodes>
+  <expressionNodes realName="ip_fu_34">
+    <nodeIds>2</nodeIds>
+  </expressionNodes>
+  <ioNodes realName="ip_1_load_fu_56">
+    <nodeIds>6</nodeIds>
+  </ioNodes>
+  <ioNodes realName="store_ln773_store_fu_113">
+    <nodeIds>24</nodeIds>
+  </ioNodes>
+  <ioNodes realName="store_ln0_store_fu_51">
+    <nodeIds>3</nodeIds>
+  </ioNodes>
+  <memoryPorts dataString="last_pe_score">
+    <nodeIds>23</nodeIds>
+  </memoryPorts>
+  <ioPorts name="last_pe_score(p0)">
+    <contents name="store">
+      <nodeIds>23</nodeIds>
+    </contents>
+  </ioPorts>
+  <fsm>
+    <states id="1">
+      <operations id="2" stage="1" latency="1"/>
+      <operations id="3" stage="1" latency="1"/>
+      <operations id="4" stage="1" latency="1"/>
+      <operations id="6" stage="1" latency="1"/>
+      <operations id="7" stage="1" latency="1"/>
+      <operations id="8" stage="1" latency="1"/>
+      <operations id="9" stage="1" latency="1"/>
+      <operations id="10" stage="1" latency="1"/>
+      <operations id="11" stage="1" latency="1"/>
+      <operations id="13" stage="1" latency="1"/>
+      <operations id="14" stage="1" latency="1"/>
+      <operations id="15" stage="1" latency="1"/>
+      <operations id="16" stage="1" latency="1"/>
+      <operations id="17" stage="1" latency="1"/>
+      <operations id="18" stage="1" latency="1"/>
+      <operations id="19" stage="1" latency="1"/>
+      <operations id="20" stage="1" latency="1"/>
+      <operations id="21" stage="1" latency="1"/>
+      <operations id="22" stage="1" latency="1"/>
+      <operations id="23" stage="1" latency="1"/>
+      <operations id="24" stage="1" latency="1"/>
+      <operations id="25" stage="1" latency="1"/>
+      <operations id="27" stage="1" latency="1"/>
+    </states>
+  </fsm>
+  <CFGRegionsRoot>
+    <cfgRegions mId="1" mTag="seq_align_global_Pipeline_VITIS_LOOP_773_2" mII="-1" mDepth="-1" mMinTripCount="-1" mMaxTripCount="-1" mMinLatency="258" mMaxLatency="258">
+      <subRegions>2</subRegions>
+      <subRegions>3</subRegions>
+      <subRegions>4</subRegions>
+      <mDfPipe/>
+    </cfgRegions>
+    <cfgRegions mId="2" mTag="Entry" mII="-1" mDepth="-1" mMinTripCount="-1" mMaxTripCount="-1">
+      <basicBlocks>5</basicBlocks>
+      <mDfPipe/>
+    </cfgRegions>
+    <cfgRegions mId="3" mTag="VITIS_LOOP_773_2" mII="1" mDepth="1" mMinTripCount="256" mMaxTripCount="256" mMinLatency="256" mMaxLatency="256" mType="1">
+      <basicBlocks>12</basicBlocks>
+      <basicBlocks>26</basicBlocks>
+      <mDfPipe/>
+    </cfgRegions>
+    <cfgRegions mId="4" mTag="Return" mII="-1" mDepth="-1" mMinTripCount="-1" mMaxTripCount="-1">
+      <basicBlocks>28</basicBlocks>
+      <mDfPipe/>
+    </cfgRegions>
+  </CFGRegionsRoot>
+</cdfg:DBCdfg>

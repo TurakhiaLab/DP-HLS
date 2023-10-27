@@ -1,0 +1,334 @@
+<profile>
+
+<section name = "Vitis HLS Report for 'Traceback'" level="0">
+<item name = "Date">Thu Oct 26 16:51:34 2023
+</item>
+<item name = "Version">2023.1 (Build 3854077 on May  4 2023)</item>
+<item name = "Project">BasicKernel</item>
+<item name = "Solution">solution1 (Vitis Kernel Flow Target)</item>
+<item name = "Product family">zynquplus</item>
+<item name = "Target device">xczu7ev-ffvc1156-2-i</item>
+</section>
+
+<section name = "Performance Estimates" level="0">
+<item name = "Timing">
+<section name = "" level="1">
+<item name = "Summary"><table name="" hasTotal="0">
+<keys size="4">Clock, Target, Estimated, Uncertainty</keys>
+<column name="ap_clk">4.00 ns, 2.920 ns, 1.08 ns</column>
+</table>
+</item>
+</section>
+</item>
+<item name = "Latency">
+<section name = "" level="1">
+<item name = "Summary"><table name="" hasTotal="0">
+<keys size="8">, min, max, min, max, min, max, Type</keys>
+<column name="">1097, 1097, 4.388 us, 4.388 us, 1097, 1097, no</column>
+</table>
+</item>
+<item name = "Detail">
+<section name = "" level="1">
+<item name = "Instance"><table name="" hasTotal="0">
+<keys size="9">Instance, Module, min, max, min, max, min, max, Type</keys>
+<column name="grp_Traceback_Pipeline_traceback_loop_fu_552">Traceback_Pipeline_traceback_loop, 1094, 1094, 4.376 us, 4.376 us, 1094, 1094, no</column>
+</table>
+</item>
+<item name = "Loop"><table name="" hasTotal="0">
+<keys size="8">Loop Name, min, max, Latency, achieved, target, Count, Pipelined</keys>
+</table>
+</item>
+</section>
+</item>
+</section>
+</item>
+</section>
+
+<section name = "Utilization Estimates" level="0">
+<item name = "Summary"><table name="" hasTotal="1">
+<keys size="6">Name, BRAM_18K, DSP, FF, LUT, URAM</keys>
+<column name="DSP">-, -, -, -, -</column>
+<column name="Expression">-, -, 0, 44, -</column>
+<column name="FIFO">-, -, -, -, -</column>
+<column name="Instance">-, -, 582, 1363, -</column>
+<column name="Memory">-, -, -, -, -</column>
+<column name="Multiplexer">-, -, -, 949, -</column>
+<column name="Register">-, -, 16, -, -</column>
+<specialColumn name="Available">624, 1728, 460800, 230400, 96</specialColumn>
+<specialColumn name="Utilization (%)">0, 0, ~0, 1, 0</specialColumn>
+</table>
+</item>
+<item name = "Detail">
+<section name = "" level="1">
+<item name = "Instance"><table name="" hasTotal="1">
+<keys size="7">Instance, Module, BRAM_18K, DSP, FF, LUT, URAM</keys>
+<column name="grp_Traceback_Pipeline_traceback_loop_fu_552">Traceback_Pipeline_traceback_loop, 0, 0, 582, 1215, 0</column>
+<column name="mux_32_5_2_1_1_U819">mux_32_5_2_1_1, 0, 0, 0, 148, 0</column>
+</table>
+</item>
+<item name = "DSP"><table name="" hasTotal="0">
+<keys size="3">Instance, Module, Expression</keys>
+</table>
+</item>
+<item name = "Memory"><table name="" hasTotal="1">
+<keys size="10">Memory, Module, BRAM_18K, FF, LUT, URAM, Words, Bits, Banks, W*Bits*Banks</keys>
+</table>
+</item>
+<item name = "FIFO"><table name="" hasTotal="1">
+<keys size="8">Name, BRAM_18K, FF, LUT, URAM, Depth, Bits, Size:D*B</keys>
+</table>
+</item>
+<item name = "Expression"><table name="" hasTotal="1">
+<keys size="7">Variable Name, Operation, DSP, FF, LUT, Bitwidth P0, Bitwidth P1</keys>
+<column name="add_ln23_fu_654_p2">+, 0, 0, 18, 11, 11</column>
+<column name="icmp_ln209_1_fu_898_p2">icmp, 0, 0, 10, 2, 3</column>
+<column name="icmp_ln209_fu_893_p2">icmp, 0, 0, 9, 2, 2</column>
+<column name="or_ln209_fu_911_p2">or, 0, 0, 2, 1, 1</column>
+<column name="select_ln209_1_fu_917_p3">select, 0, 0, 2, 1, 2</column>
+<column name="select_ln209_fu_903_p3">select, 0, 0, 3, 1, 1</column>
+</table>
+</item>
+<item name = "Multiplexer"><table name="" hasTotal="1">
+<keys size="5">Name, LUT, Input Size, Bits, Total Bits</keys>
+<column name="ap_NS_fsm">26, 5, 1, 5</column>
+<column name="m_axi_gmem_AWVALID">9, 2, 1, 2</column>
+<column name="m_axi_gmem_BREADY">9, 2, 1, 2</column>
+<column name="m_axi_gmem_WVALID">9, 2, 1, 2</column>
+<column name="tbmat_0_address0">14, 3, 11, 33</column>
+<column name="tbmat_0_ce0">14, 3, 1, 3</column>
+<column name="tbmat_10_address0">14, 3, 11, 33</column>
+<column name="tbmat_10_ce0">14, 3, 1, 3</column>
+<column name="tbmat_11_address0">14, 3, 11, 33</column>
+<column name="tbmat_11_ce0">14, 3, 1, 3</column>
+<column name="tbmat_12_address0">14, 3, 11, 33</column>
+<column name="tbmat_12_ce0">14, 3, 1, 3</column>
+<column name="tbmat_13_address0">14, 3, 11, 33</column>
+<column name="tbmat_13_ce0">14, 3, 1, 3</column>
+<column name="tbmat_14_address0">14, 3, 11, 33</column>
+<column name="tbmat_14_ce0">14, 3, 1, 3</column>
+<column name="tbmat_15_address0">14, 3, 11, 33</column>
+<column name="tbmat_15_ce0">14, 3, 1, 3</column>
+<column name="tbmat_16_address0">14, 3, 11, 33</column>
+<column name="tbmat_16_ce0">14, 3, 1, 3</column>
+<column name="tbmat_17_address0">14, 3, 11, 33</column>
+<column name="tbmat_17_ce0">14, 3, 1, 3</column>
+<column name="tbmat_18_address0">14, 3, 11, 33</column>
+<column name="tbmat_18_ce0">14, 3, 1, 3</column>
+<column name="tbmat_19_address0">14, 3, 11, 33</column>
+<column name="tbmat_19_ce0">14, 3, 1, 3</column>
+<column name="tbmat_1_address0">14, 3, 11, 33</column>
+<column name="tbmat_1_ce0">14, 3, 1, 3</column>
+<column name="tbmat_20_address0">14, 3, 11, 33</column>
+<column name="tbmat_20_ce0">14, 3, 1, 3</column>
+<column name="tbmat_21_address0">14, 3, 11, 33</column>
+<column name="tbmat_21_ce0">14, 3, 1, 3</column>
+<column name="tbmat_22_address0">14, 3, 11, 33</column>
+<column name="tbmat_22_ce0">14, 3, 1, 3</column>
+<column name="tbmat_23_address0">14, 3, 11, 33</column>
+<column name="tbmat_23_ce0">14, 3, 1, 3</column>
+<column name="tbmat_24_address0">14, 3, 11, 33</column>
+<column name="tbmat_24_ce0">14, 3, 1, 3</column>
+<column name="tbmat_25_address0">14, 3, 11, 33</column>
+<column name="tbmat_25_ce0">14, 3, 1, 3</column>
+<column name="tbmat_26_address0">14, 3, 11, 33</column>
+<column name="tbmat_26_ce0">14, 3, 1, 3</column>
+<column name="tbmat_27_address0">14, 3, 11, 33</column>
+<column name="tbmat_27_ce0">14, 3, 1, 3</column>
+<column name="tbmat_28_address0">14, 3, 11, 33</column>
+<column name="tbmat_28_ce0">14, 3, 1, 3</column>
+<column name="tbmat_29_address0">14, 3, 11, 33</column>
+<column name="tbmat_29_ce0">14, 3, 1, 3</column>
+<column name="tbmat_2_address0">14, 3, 11, 33</column>
+<column name="tbmat_2_ce0">14, 3, 1, 3</column>
+<column name="tbmat_30_address0">14, 3, 11, 33</column>
+<column name="tbmat_30_ce0">14, 3, 1, 3</column>
+<column name="tbmat_31_address0">14, 3, 11, 33</column>
+<column name="tbmat_31_ce0">14, 3, 1, 3</column>
+<column name="tbmat_3_address0">14, 3, 11, 33</column>
+<column name="tbmat_3_ce0">14, 3, 1, 3</column>
+<column name="tbmat_4_address0">14, 3, 11, 33</column>
+<column name="tbmat_4_ce0">14, 3, 1, 3</column>
+<column name="tbmat_5_address0">14, 3, 11, 33</column>
+<column name="tbmat_5_ce0">14, 3, 1, 3</column>
+<column name="tbmat_6_address0">14, 3, 11, 33</column>
+<column name="tbmat_6_ce0">14, 3, 1, 3</column>
+<column name="tbmat_7_address0">14, 3, 11, 33</column>
+<column name="tbmat_7_ce0">14, 3, 1, 3</column>
+<column name="tbmat_8_address0">14, 3, 11, 33</column>
+<column name="tbmat_8_ce0">14, 3, 1, 3</column>
+<column name="tbmat_9_address0">14, 3, 11, 33</column>
+<column name="tbmat_9_ce0">14, 3, 1, 3</column>
+</table>
+</item>
+<item name = "Register"><table name="" hasTotal="1">
+<keys size="5">Name, FF, LUT, Bits, Const Bits</keys>
+<column name="ap_CS_fsm">4, 0, 4, 0</column>
+<column name="empty_reg_941">5, 0, 5, 0</column>
+<column name="grp_Traceback_Pipeline_traceback_loop_fu_552_ap_start_reg">1, 0, 1, 0</column>
+<column name="select_ln209_1_reg_1117">2, 0, 2, 0</column>
+<column name="tbp_reg_1106">2, 0, 2, 0</column>
+<column name="trunc_ln30_reg_1122">2, 0, 2, 0</column>
+</table>
+</item>
+</section>
+</item>
+</section>
+
+<section name = "Interface" level="0">
+<item name = "Summary"><table name="" hasTotal="0">
+<keys size="6">RTL Ports, Dir, Bits, Protocol, Source Object, C Type</keys>
+<column name="ap_clk">in, 1, ap_ctrl_hs, Traceback, return value</column>
+<column name="ap_rst">in, 1, ap_ctrl_hs, Traceback, return value</column>
+<column name="ap_start">in, 1, ap_ctrl_hs, Traceback, return value</column>
+<column name="ap_done">out, 1, ap_ctrl_hs, Traceback, return value</column>
+<column name="ap_idle">out, 1, ap_ctrl_hs, Traceback, return value</column>
+<column name="ap_ready">out, 1, ap_ctrl_hs, Traceback, return value</column>
+<column name="tbmat_0_address0">out, 11, ap_memory, tbmat_0, array</column>
+<column name="tbmat_0_ce0">out, 1, ap_memory, tbmat_0, array</column>
+<column name="tbmat_0_q0">in, 3, ap_memory, tbmat_0, array</column>
+<column name="tbmat_1_address0">out, 11, ap_memory, tbmat_1, array</column>
+<column name="tbmat_1_ce0">out, 1, ap_memory, tbmat_1, array</column>
+<column name="tbmat_1_q0">in, 3, ap_memory, tbmat_1, array</column>
+<column name="tbmat_2_address0">out, 11, ap_memory, tbmat_2, array</column>
+<column name="tbmat_2_ce0">out, 1, ap_memory, tbmat_2, array</column>
+<column name="tbmat_2_q0">in, 3, ap_memory, tbmat_2, array</column>
+<column name="tbmat_3_address0">out, 11, ap_memory, tbmat_3, array</column>
+<column name="tbmat_3_ce0">out, 1, ap_memory, tbmat_3, array</column>
+<column name="tbmat_3_q0">in, 3, ap_memory, tbmat_3, array</column>
+<column name="tbmat_4_address0">out, 11, ap_memory, tbmat_4, array</column>
+<column name="tbmat_4_ce0">out, 1, ap_memory, tbmat_4, array</column>
+<column name="tbmat_4_q0">in, 3, ap_memory, tbmat_4, array</column>
+<column name="tbmat_5_address0">out, 11, ap_memory, tbmat_5, array</column>
+<column name="tbmat_5_ce0">out, 1, ap_memory, tbmat_5, array</column>
+<column name="tbmat_5_q0">in, 3, ap_memory, tbmat_5, array</column>
+<column name="tbmat_6_address0">out, 11, ap_memory, tbmat_6, array</column>
+<column name="tbmat_6_ce0">out, 1, ap_memory, tbmat_6, array</column>
+<column name="tbmat_6_q0">in, 3, ap_memory, tbmat_6, array</column>
+<column name="tbmat_7_address0">out, 11, ap_memory, tbmat_7, array</column>
+<column name="tbmat_7_ce0">out, 1, ap_memory, tbmat_7, array</column>
+<column name="tbmat_7_q0">in, 3, ap_memory, tbmat_7, array</column>
+<column name="tbmat_8_address0">out, 11, ap_memory, tbmat_8, array</column>
+<column name="tbmat_8_ce0">out, 1, ap_memory, tbmat_8, array</column>
+<column name="tbmat_8_q0">in, 3, ap_memory, tbmat_8, array</column>
+<column name="tbmat_9_address0">out, 11, ap_memory, tbmat_9, array</column>
+<column name="tbmat_9_ce0">out, 1, ap_memory, tbmat_9, array</column>
+<column name="tbmat_9_q0">in, 3, ap_memory, tbmat_9, array</column>
+<column name="tbmat_10_address0">out, 11, ap_memory, tbmat_10, array</column>
+<column name="tbmat_10_ce0">out, 1, ap_memory, tbmat_10, array</column>
+<column name="tbmat_10_q0">in, 3, ap_memory, tbmat_10, array</column>
+<column name="tbmat_11_address0">out, 11, ap_memory, tbmat_11, array</column>
+<column name="tbmat_11_ce0">out, 1, ap_memory, tbmat_11, array</column>
+<column name="tbmat_11_q0">in, 3, ap_memory, tbmat_11, array</column>
+<column name="tbmat_12_address0">out, 11, ap_memory, tbmat_12, array</column>
+<column name="tbmat_12_ce0">out, 1, ap_memory, tbmat_12, array</column>
+<column name="tbmat_12_q0">in, 3, ap_memory, tbmat_12, array</column>
+<column name="tbmat_13_address0">out, 11, ap_memory, tbmat_13, array</column>
+<column name="tbmat_13_ce0">out, 1, ap_memory, tbmat_13, array</column>
+<column name="tbmat_13_q0">in, 3, ap_memory, tbmat_13, array</column>
+<column name="tbmat_14_address0">out, 11, ap_memory, tbmat_14, array</column>
+<column name="tbmat_14_ce0">out, 1, ap_memory, tbmat_14, array</column>
+<column name="tbmat_14_q0">in, 3, ap_memory, tbmat_14, array</column>
+<column name="tbmat_15_address0">out, 11, ap_memory, tbmat_15, array</column>
+<column name="tbmat_15_ce0">out, 1, ap_memory, tbmat_15, array</column>
+<column name="tbmat_15_q0">in, 3, ap_memory, tbmat_15, array</column>
+<column name="tbmat_16_address0">out, 11, ap_memory, tbmat_16, array</column>
+<column name="tbmat_16_ce0">out, 1, ap_memory, tbmat_16, array</column>
+<column name="tbmat_16_q0">in, 3, ap_memory, tbmat_16, array</column>
+<column name="tbmat_17_address0">out, 11, ap_memory, tbmat_17, array</column>
+<column name="tbmat_17_ce0">out, 1, ap_memory, tbmat_17, array</column>
+<column name="tbmat_17_q0">in, 3, ap_memory, tbmat_17, array</column>
+<column name="tbmat_18_address0">out, 11, ap_memory, tbmat_18, array</column>
+<column name="tbmat_18_ce0">out, 1, ap_memory, tbmat_18, array</column>
+<column name="tbmat_18_q0">in, 3, ap_memory, tbmat_18, array</column>
+<column name="tbmat_19_address0">out, 11, ap_memory, tbmat_19, array</column>
+<column name="tbmat_19_ce0">out, 1, ap_memory, tbmat_19, array</column>
+<column name="tbmat_19_q0">in, 3, ap_memory, tbmat_19, array</column>
+<column name="tbmat_20_address0">out, 11, ap_memory, tbmat_20, array</column>
+<column name="tbmat_20_ce0">out, 1, ap_memory, tbmat_20, array</column>
+<column name="tbmat_20_q0">in, 3, ap_memory, tbmat_20, array</column>
+<column name="tbmat_21_address0">out, 11, ap_memory, tbmat_21, array</column>
+<column name="tbmat_21_ce0">out, 1, ap_memory, tbmat_21, array</column>
+<column name="tbmat_21_q0">in, 3, ap_memory, tbmat_21, array</column>
+<column name="tbmat_22_address0">out, 11, ap_memory, tbmat_22, array</column>
+<column name="tbmat_22_ce0">out, 1, ap_memory, tbmat_22, array</column>
+<column name="tbmat_22_q0">in, 3, ap_memory, tbmat_22, array</column>
+<column name="tbmat_23_address0">out, 11, ap_memory, tbmat_23, array</column>
+<column name="tbmat_23_ce0">out, 1, ap_memory, tbmat_23, array</column>
+<column name="tbmat_23_q0">in, 3, ap_memory, tbmat_23, array</column>
+<column name="tbmat_24_address0">out, 11, ap_memory, tbmat_24, array</column>
+<column name="tbmat_24_ce0">out, 1, ap_memory, tbmat_24, array</column>
+<column name="tbmat_24_q0">in, 3, ap_memory, tbmat_24, array</column>
+<column name="tbmat_25_address0">out, 11, ap_memory, tbmat_25, array</column>
+<column name="tbmat_25_ce0">out, 1, ap_memory, tbmat_25, array</column>
+<column name="tbmat_25_q0">in, 3, ap_memory, tbmat_25, array</column>
+<column name="tbmat_26_address0">out, 11, ap_memory, tbmat_26, array</column>
+<column name="tbmat_26_ce0">out, 1, ap_memory, tbmat_26, array</column>
+<column name="tbmat_26_q0">in, 3, ap_memory, tbmat_26, array</column>
+<column name="tbmat_27_address0">out, 11, ap_memory, tbmat_27, array</column>
+<column name="tbmat_27_ce0">out, 1, ap_memory, tbmat_27, array</column>
+<column name="tbmat_27_q0">in, 3, ap_memory, tbmat_27, array</column>
+<column name="tbmat_28_address0">out, 11, ap_memory, tbmat_28, array</column>
+<column name="tbmat_28_ce0">out, 1, ap_memory, tbmat_28, array</column>
+<column name="tbmat_28_q0">in, 3, ap_memory, tbmat_28, array</column>
+<column name="tbmat_29_address0">out, 11, ap_memory, tbmat_29, array</column>
+<column name="tbmat_29_ce0">out, 1, ap_memory, tbmat_29, array</column>
+<column name="tbmat_29_q0">in, 3, ap_memory, tbmat_29, array</column>
+<column name="tbmat_30_address0">out, 11, ap_memory, tbmat_30, array</column>
+<column name="tbmat_30_ce0">out, 1, ap_memory, tbmat_30, array</column>
+<column name="tbmat_30_q0">in, 3, ap_memory, tbmat_30, array</column>
+<column name="tbmat_31_address0">out, 11, ap_memory, tbmat_31, array</column>
+<column name="tbmat_31_ce0">out, 1, ap_memory, tbmat_31, array</column>
+<column name="tbmat_31_q0">in, 3, ap_memory, tbmat_31, array</column>
+<column name="m_axi_gmem_AWVALID">out, 1, m_axi, gmem, pointer</column>
+<column name="m_axi_gmem_AWREADY">in, 1, m_axi, gmem, pointer</column>
+<column name="m_axi_gmem_AWADDR">out, 64, m_axi, gmem, pointer</column>
+<column name="m_axi_gmem_AWID">out, 1, m_axi, gmem, pointer</column>
+<column name="m_axi_gmem_AWLEN">out, 32, m_axi, gmem, pointer</column>
+<column name="m_axi_gmem_AWSIZE">out, 3, m_axi, gmem, pointer</column>
+<column name="m_axi_gmem_AWBURST">out, 2, m_axi, gmem, pointer</column>
+<column name="m_axi_gmem_AWLOCK">out, 2, m_axi, gmem, pointer</column>
+<column name="m_axi_gmem_AWCACHE">out, 4, m_axi, gmem, pointer</column>
+<column name="m_axi_gmem_AWPROT">out, 3, m_axi, gmem, pointer</column>
+<column name="m_axi_gmem_AWQOS">out, 4, m_axi, gmem, pointer</column>
+<column name="m_axi_gmem_AWREGION">out, 4, m_axi, gmem, pointer</column>
+<column name="m_axi_gmem_AWUSER">out, 1, m_axi, gmem, pointer</column>
+<column name="m_axi_gmem_WVALID">out, 1, m_axi, gmem, pointer</column>
+<column name="m_axi_gmem_WREADY">in, 1, m_axi, gmem, pointer</column>
+<column name="m_axi_gmem_WDATA">out, 32, m_axi, gmem, pointer</column>
+<column name="m_axi_gmem_WSTRB">out, 4, m_axi, gmem, pointer</column>
+<column name="m_axi_gmem_WLAST">out, 1, m_axi, gmem, pointer</column>
+<column name="m_axi_gmem_WID">out, 1, m_axi, gmem, pointer</column>
+<column name="m_axi_gmem_WUSER">out, 1, m_axi, gmem, pointer</column>
+<column name="m_axi_gmem_ARVALID">out, 1, m_axi, gmem, pointer</column>
+<column name="m_axi_gmem_ARREADY">in, 1, m_axi, gmem, pointer</column>
+<column name="m_axi_gmem_ARADDR">out, 64, m_axi, gmem, pointer</column>
+<column name="m_axi_gmem_ARID">out, 1, m_axi, gmem, pointer</column>
+<column name="m_axi_gmem_ARLEN">out, 32, m_axi, gmem, pointer</column>
+<column name="m_axi_gmem_ARSIZE">out, 3, m_axi, gmem, pointer</column>
+<column name="m_axi_gmem_ARBURST">out, 2, m_axi, gmem, pointer</column>
+<column name="m_axi_gmem_ARLOCK">out, 2, m_axi, gmem, pointer</column>
+<column name="m_axi_gmem_ARCACHE">out, 4, m_axi, gmem, pointer</column>
+<column name="m_axi_gmem_ARPROT">out, 3, m_axi, gmem, pointer</column>
+<column name="m_axi_gmem_ARQOS">out, 4, m_axi, gmem, pointer</column>
+<column name="m_axi_gmem_ARREGION">out, 4, m_axi, gmem, pointer</column>
+<column name="m_axi_gmem_ARUSER">out, 1, m_axi, gmem, pointer</column>
+<column name="m_axi_gmem_RVALID">in, 1, m_axi, gmem, pointer</column>
+<column name="m_axi_gmem_RREADY">out, 1, m_axi, gmem, pointer</column>
+<column name="m_axi_gmem_RDATA">in, 32, m_axi, gmem, pointer</column>
+<column name="m_axi_gmem_RLAST">in, 1, m_axi, gmem, pointer</column>
+<column name="m_axi_gmem_RID">in, 1, m_axi, gmem, pointer</column>
+<column name="m_axi_gmem_RFIFONUM">in, 9, m_axi, gmem, pointer</column>
+<column name="m_axi_gmem_RUSER">in, 1, m_axi, gmem, pointer</column>
+<column name="m_axi_gmem_RRESP">in, 2, m_axi, gmem, pointer</column>
+<column name="m_axi_gmem_BVALID">in, 1, m_axi, gmem, pointer</column>
+<column name="m_axi_gmem_BREADY">out, 1, m_axi, gmem, pointer</column>
+<column name="m_axi_gmem_BRESP">in, 2, m_axi, gmem, pointer</column>
+<column name="m_axi_gmem_BID">in, 1, m_axi, gmem, pointer</column>
+<column name="m_axi_gmem_BUSER">in, 1, m_axi, gmem, pointer</column>
+<column name="traceback_out">in, 64, ap_none, traceback_out, scalar</column>
+<column name="max_row">in, 32, ap_none, max_row, scalar</column>
+<column name="max_col">in, 32, ap_none, max_col, scalar</column>
+</table>
+</item>
+</section>
+</profile>

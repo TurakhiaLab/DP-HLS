@@ -1,0 +1,526 @@
+---
+MainSourceFile:  /home/AD.UCSD.EDU/jsliang/DP-HLS/BasicKernel/solution1/.autopilot/db/seq_align_multiple.pp.0.cpp
+Diagnostics:     
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_1213_1:  '
+    FileOffset:      1213
+    FilePath:        /home/AD.UCSD.EDU/swalia/Xilinx/Vitis_HLS/2023.1/common/technology/autopilot/etc/ap_int_base.h
+    Replacements:    
+      - FilePath:        /home/AD.UCSD.EDU/jsliang/DP-HLS/BasicKernel/solution1/.autopilot/db/seq_align_multiple.pp.0.cpp
+        Offset:          238459
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_1213_1: '
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_676_1:  '
+    FileOffset:      676
+    FilePath:        /home/AD.UCSD.EDU/swalia/Xilinx/Vitis_HLS/2023.1/common/technology/autopilot/etc/ap_int_ref.h
+    Replacements:    
+      - FilePath:        /home/AD.UCSD.EDU/jsliang/DP-HLS/BasicKernel/solution1/.autopilot/db/seq_align_multiple.pp.0.cpp
+        Offset:          466371
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_676_1: '
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_690_1:  '
+    FileOffset:      690
+    FilePath:        /home/AD.UCSD.EDU/swalia/Xilinx/Vitis_HLS/2023.1/common/technology/autopilot/etc/ap_int_ref.h
+    Replacements:    
+      - FilePath:        /home/AD.UCSD.EDU/jsliang/DP-HLS/BasicKernel/solution1/.autopilot/db/seq_align_multiple.pp.0.cpp
+        Offset:          466835
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_690_1: '
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_704_1:  '
+    FileOffset:      704
+    FilePath:        /home/AD.UCSD.EDU/swalia/Xilinx/Vitis_HLS/2023.1/common/technology/autopilot/etc/ap_int_ref.h
+    Replacements:    
+      - FilePath:        /home/AD.UCSD.EDU/jsliang/DP-HLS/BasicKernel/solution1/.autopilot/db/seq_align_multiple.pp.0.cpp
+        Offset:          467300
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_704_1: '
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_1247_1:  '
+    FileOffset:      1247
+    FilePath:        /home/AD.UCSD.EDU/swalia/Xilinx/Vitis_HLS/2023.1/common/technology/autopilot/etc/ap_fixed_base.h
+    Replacements:    
+      - FilePath:        /home/AD.UCSD.EDU/jsliang/DP-HLS/BasicKernel/solution1/.autopilot/db/seq_align_multiple.pp.0.cpp
+        Offset:          750211
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_1247_1: '
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_124_1:  '
+    FileOffset:      124
+    FilePath:        /home/AD.UCSD.EDU/swalia/Xilinx/Vitis_HLS/2023.1/common/technology/autopilot/hls_vector.h
+    Replacements:    
+      - FilePath:        /home/AD.UCSD.EDU/jsliang/DP-HLS/BasicKernel/solution1/.autopilot/db/seq_align_multiple.pp.0.cpp
+        Offset:          1601643
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_124_1: '
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_140_1:  '
+    FileOffset:      140
+    FilePath:        /home/AD.UCSD.EDU/swalia/Xilinx/Vitis_HLS/2023.1/common/technology/autopilot/hls_vector.h
+    Replacements:    
+      - FilePath:        /home/AD.UCSD.EDU/jsliang/DP-HLS/BasicKernel/solution1/.autopilot/db/seq_align_multiple.pp.0.cpp
+        Offset:          1602090
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_140_1: '
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_166_1:  '
+    FileOffset:      166
+    FilePath:        /home/AD.UCSD.EDU/swalia/Xilinx/Vitis_HLS/2023.1/common/technology/autopilot/hls_vector.h
+    Replacements:    
+      - FilePath:        /home/AD.UCSD.EDU/jsliang/DP-HLS/BasicKernel/solution1/.autopilot/db/seq_align_multiple.pp.0.cpp
+        Offset:          1602629
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_166_1: '
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_167_1:  '
+    FileOffset:      167
+    FilePath:        /home/AD.UCSD.EDU/swalia/Xilinx/Vitis_HLS/2023.1/common/technology/autopilot/hls_vector.h
+    Replacements:    
+      - FilePath:        /home/AD.UCSD.EDU/jsliang/DP-HLS/BasicKernel/solution1/.autopilot/db/seq_align_multiple.pp.0.cpp
+        Offset:          1602982
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_167_1: '
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_195_1:  '
+    FileOffset:      195
+    FilePath:        /home/AD.UCSD.EDU/swalia/Xilinx/Vitis_HLS/2023.1/common/technology/autopilot/hls_vector.h
+    Replacements:    
+      - FilePath:        /home/AD.UCSD.EDU/jsliang/DP-HLS/BasicKernel/solution1/.autopilot/db/seq_align_multiple.pp.0.cpp
+        Offset:          1603856
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_195_1: '
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_196_1:  '
+    FileOffset:      196
+    FilePath:        /home/AD.UCSD.EDU/swalia/Xilinx/Vitis_HLS/2023.1/common/technology/autopilot/hls_vector.h
+    Replacements:    
+      - FilePath:        /home/AD.UCSD.EDU/jsliang/DP-HLS/BasicKernel/solution1/.autopilot/db/seq_align_multiple.pp.0.cpp
+        Offset:          1604247
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_196_1: '
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_197_1:  '
+    FileOffset:      197
+    FilePath:        /home/AD.UCSD.EDU/swalia/Xilinx/Vitis_HLS/2023.1/common/technology/autopilot/hls_vector.h
+    Replacements:    
+      - FilePath:        /home/AD.UCSD.EDU/jsliang/DP-HLS/BasicKernel/solution1/.autopilot/db/seq_align_multiple.pp.0.cpp
+        Offset:          1604638
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_197_1: '
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_198_1:  '
+    FileOffset:      198
+    FilePath:        /home/AD.UCSD.EDU/swalia/Xilinx/Vitis_HLS/2023.1/common/technology/autopilot/hls_vector.h
+    Replacements:    
+      - FilePath:        /home/AD.UCSD.EDU/jsliang/DP-HLS/BasicKernel/solution1/.autopilot/db/seq_align_multiple.pp.0.cpp
+        Offset:          1605029
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_198_1: '
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_199_1:  '
+    FileOffset:      199
+    FilePath:        /home/AD.UCSD.EDU/swalia/Xilinx/Vitis_HLS/2023.1/common/technology/autopilot/hls_vector.h
+    Replacements:    
+      - FilePath:        /home/AD.UCSD.EDU/jsliang/DP-HLS/BasicKernel/solution1/.autopilot/db/seq_align_multiple.pp.0.cpp
+        Offset:          1605420
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_199_1: '
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_200_1:  '
+    FileOffset:      200
+    FilePath:        /home/AD.UCSD.EDU/swalia/Xilinx/Vitis_HLS/2023.1/common/technology/autopilot/hls_vector.h
+    Replacements:    
+      - FilePath:        /home/AD.UCSD.EDU/jsliang/DP-HLS/BasicKernel/solution1/.autopilot/db/seq_align_multiple.pp.0.cpp
+        Offset:          1605811
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_200_1: '
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_201_1:  '
+    FileOffset:      201
+    FilePath:        /home/AD.UCSD.EDU/swalia/Xilinx/Vitis_HLS/2023.1/common/technology/autopilot/hls_vector.h
+    Replacements:    
+      - FilePath:        /home/AD.UCSD.EDU/jsliang/DP-HLS/BasicKernel/solution1/.autopilot/db/seq_align_multiple.pp.0.cpp
+        Offset:          1606202
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_201_1: '
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_202_1:  '
+    FileOffset:      202
+    FilePath:        /home/AD.UCSD.EDU/swalia/Xilinx/Vitis_HLS/2023.1/common/technology/autopilot/hls_vector.h
+    Replacements:    
+      - FilePath:        /home/AD.UCSD.EDU/jsliang/DP-HLS/BasicKernel/solution1/.autopilot/db/seq_align_multiple.pp.0.cpp
+        Offset:          1606593
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_202_1: '
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_203_1:  '
+    FileOffset:      203
+    FilePath:        /home/AD.UCSD.EDU/swalia/Xilinx/Vitis_HLS/2023.1/common/technology/autopilot/hls_vector.h
+    Replacements:    
+      - FilePath:        /home/AD.UCSD.EDU/jsliang/DP-HLS/BasicKernel/solution1/.autopilot/db/seq_align_multiple.pp.0.cpp
+        Offset:          1606985
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_203_1: '
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_204_1:  '
+    FileOffset:      204
+    FilePath:        /home/AD.UCSD.EDU/swalia/Xilinx/Vitis_HLS/2023.1/common/technology/autopilot/hls_vector.h
+    Replacements:    
+      - FilePath:        /home/AD.UCSD.EDU/jsliang/DP-HLS/BasicKernel/solution1/.autopilot/db/seq_align_multiple.pp.0.cpp
+        Offset:          1607378
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_204_1: '
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_219_1:  '
+    FileOffset:      219
+    FilePath:        /home/AD.UCSD.EDU/swalia/Xilinx/Vitis_HLS/2023.1/common/technology/autopilot/hls_vector.h
+    Replacements:    
+      - FilePath:        /home/AD.UCSD.EDU/jsliang/DP-HLS/BasicKernel/solution1/.autopilot/db/seq_align_multiple.pp.0.cpp
+        Offset:          1607853
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_219_1: '
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_220_1:  '
+    FileOffset:      220
+    FilePath:        /home/AD.UCSD.EDU/swalia/Xilinx/Vitis_HLS/2023.1/common/technology/autopilot/hls_vector.h
+    Replacements:    
+      - FilePath:        /home/AD.UCSD.EDU/jsliang/DP-HLS/BasicKernel/solution1/.autopilot/db/seq_align_multiple.pp.0.cpp
+        Offset:          1608225
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_220_1: '
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_221_1:  '
+    FileOffset:      221
+    FilePath:        /home/AD.UCSD.EDU/swalia/Xilinx/Vitis_HLS/2023.1/common/technology/autopilot/hls_vector.h
+    Replacements:    
+      - FilePath:        /home/AD.UCSD.EDU/jsliang/DP-HLS/BasicKernel/solution1/.autopilot/db/seq_align_multiple.pp.0.cpp
+        Offset:          1608596
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_221_1: '
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_222_1:  '
+    FileOffset:      222
+    FilePath:        /home/AD.UCSD.EDU/swalia/Xilinx/Vitis_HLS/2023.1/common/technology/autopilot/hls_vector.h
+    Replacements:    
+      - FilePath:        /home/AD.UCSD.EDU/jsliang/DP-HLS/BasicKernel/solution1/.autopilot/db/seq_align_multiple.pp.0.cpp
+        Offset:          1608966
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_222_1: '
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_223_1:  '
+    FileOffset:      223
+    FilePath:        /home/AD.UCSD.EDU/swalia/Xilinx/Vitis_HLS/2023.1/common/technology/autopilot/hls_vector.h
+    Replacements:    
+      - FilePath:        /home/AD.UCSD.EDU/jsliang/DP-HLS/BasicKernel/solution1/.autopilot/db/seq_align_multiple.pp.0.cpp
+        Offset:          1609337
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_223_1: '
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_253_1:  '
+    FileOffset:      253
+    FilePath:        /home/AD.UCSD.EDU/swalia/Xilinx/Vitis_HLS/2023.1/common/technology/autopilot/hls_vector.h
+    Replacements:    
+      - FilePath:        /home/AD.UCSD.EDU/jsliang/DP-HLS/BasicKernel/solution1/.autopilot/db/seq_align_multiple.pp.0.cpp
+        Offset:          1609847
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_253_1: '
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_254_1:  '
+    FileOffset:      254
+    FilePath:        /home/AD.UCSD.EDU/swalia/Xilinx/Vitis_HLS/2023.1/common/technology/autopilot/hls_vector.h
+    Replacements:    
+      - FilePath:        /home/AD.UCSD.EDU/jsliang/DP-HLS/BasicKernel/solution1/.autopilot/db/seq_align_multiple.pp.0.cpp
+        Offset:          1610306
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_254_1: '
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_255_1:  '
+    FileOffset:      255
+    FilePath:        /home/AD.UCSD.EDU/swalia/Xilinx/Vitis_HLS/2023.1/common/technology/autopilot/hls_vector.h
+    Replacements:    
+      - FilePath:        /home/AD.UCSD.EDU/jsliang/DP-HLS/BasicKernel/solution1/.autopilot/db/seq_align_multiple.pp.0.cpp
+        Offset:          1610767
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_255_1: '
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_256_1:  '
+    FileOffset:      256
+    FilePath:        /home/AD.UCSD.EDU/swalia/Xilinx/Vitis_HLS/2023.1/common/technology/autopilot/hls_vector.h
+    Replacements:    
+      - FilePath:        /home/AD.UCSD.EDU/jsliang/DP-HLS/BasicKernel/solution1/.autopilot/db/seq_align_multiple.pp.0.cpp
+        Offset:          1611228
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_256_1: '
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_257_1:  '
+    FileOffset:      257
+    FilePath:        /home/AD.UCSD.EDU/swalia/Xilinx/Vitis_HLS/2023.1/common/technology/autopilot/hls_vector.h
+    Replacements:    
+      - FilePath:        /home/AD.UCSD.EDU/jsliang/DP-HLS/BasicKernel/solution1/.autopilot/db/seq_align_multiple.pp.0.cpp
+        Offset:          1611689
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_257_1: '
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_258_1:  '
+    FileOffset:      258
+    FilePath:        /home/AD.UCSD.EDU/swalia/Xilinx/Vitis_HLS/2023.1/common/technology/autopilot/hls_vector.h
+    Replacements:    
+      - FilePath:        /home/AD.UCSD.EDU/jsliang/DP-HLS/BasicKernel/solution1/.autopilot/db/seq_align_multiple.pp.0.cpp
+        Offset:          1612149
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_258_1: '
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_13_1:  '
+    FileOffset:      13
+    FilePath:        /home/AD.UCSD.EDU/jsliang/DP-HLS/include/shift_reg.h
+    Replacements:    
+      - FilePath:        /home/AD.UCSD.EDU/jsliang/DP-HLS/BasicKernel/solution1/.autopilot/db/seq_align_multiple.pp.0.cpp
+        Offset:          1984582
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_13_1: '
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_25_1:  '
+    FileOffset:      25
+    FilePath:        /home/AD.UCSD.EDU/jsliang/DP-HLS/include/shift_reg.h
+    Replacements:    
+      - FilePath:        /home/AD.UCSD.EDU/jsliang/DP-HLS/BasicKernel/solution1/.autopilot/db/seq_align_multiple.pp.0.cpp
+        Offset:          1984751
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_25_1: '
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_39_1:  '
+    FileOffset:      39
+    FilePath:        /home/AD.UCSD.EDU/jsliang/DP-HLS/include/shift_reg.h
+    Replacements:    
+      - FilePath:        /home/AD.UCSD.EDU/jsliang/DP-HLS/BasicKernel/solution1/.autopilot/db/seq_align_multiple.pp.0.cpp
+        Offset:          1984889
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_39_1: '
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_52_1:  '
+    FileOffset:      52
+    FilePath:        /home/AD.UCSD.EDU/jsliang/DP-HLS/include/shift_reg.h
+    Replacements:    
+      - FilePath:        /home/AD.UCSD.EDU/jsliang/DP-HLS/BasicKernel/solution1/.autopilot/db/seq_align_multiple.pp.0.cpp
+        Offset:          1985038
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_52_1: '
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_65_1:  '
+    FileOffset:      65
+    FilePath:        /home/AD.UCSD.EDU/jsliang/DP-HLS/include/shift_reg.h
+    Replacements:    
+      - FilePath:        /home/AD.UCSD.EDU/jsliang/DP-HLS/BasicKernel/solution1/.autopilot/db/seq_align_multiple.pp.0.cpp
+        Offset:          1985180
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_65_1: '
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_78_1:  '
+    FileOffset:      78
+    FilePath:        /home/AD.UCSD.EDU/jsliang/DP-HLS/include/shift_reg.h
+    Replacements:    
+      - FilePath:        /home/AD.UCSD.EDU/jsliang/DP-HLS/BasicKernel/solution1/.autopilot/db/seq_align_multiple.pp.0.cpp
+        Offset:          1985323
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_78_1: '
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_95_1:  '
+    FileOffset:      95
+    FilePath:        /home/AD.UCSD.EDU/jsliang/DP-HLS/include/shift_reg.h
+    Replacements:    
+      - FilePath:        /home/AD.UCSD.EDU/jsliang/DP-HLS/BasicKernel/solution1/.autopilot/db/seq_align_multiple.pp.0.cpp
+        Offset:          1985646
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_95_1: '
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_102_1:  '
+    FileOffset:      102
+    FilePath:        /home/AD.UCSD.EDU/jsliang/DP-HLS/include/shift_reg.h
+    Replacements:    
+      - FilePath:        /home/AD.UCSD.EDU/jsliang/DP-HLS/BasicKernel/solution1/.autopilot/db/seq_align_multiple.pp.0.cpp
+        Offset:          1985772
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_102_1: '
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_109_1:  '
+    FileOffset:      109
+    FilePath:        /home/AD.UCSD.EDU/jsliang/DP-HLS/include/shift_reg.h
+    Replacements:    
+      - FilePath:        /home/AD.UCSD.EDU/jsliang/DP-HLS/BasicKernel/solution1/.autopilot/db/seq_align_multiple.pp.0.cpp
+        Offset:          1985886
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_109_1: '
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_117_1:  '
+    FileOffset:      117
+    FilePath:        /home/AD.UCSD.EDU/jsliang/DP-HLS/include/shift_reg.h
+    Replacements:    
+      - FilePath:        /home/AD.UCSD.EDU/jsliang/DP-HLS/BasicKernel/solution1/.autopilot/db/seq_align_multiple.pp.0.cpp
+        Offset:          1985993
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_117_1: '
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_124_1:  '
+    FileOffset:      124
+    FilePath:        /home/AD.UCSD.EDU/jsliang/DP-HLS/include/shift_reg.h
+    Replacements:    
+      - FilePath:        /home/AD.UCSD.EDU/jsliang/DP-HLS/BasicKernel/solution1/.autopilot/db/seq_align_multiple.pp.0.cpp
+        Offset:          1986093
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_124_1: '
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_20_1:  '
+    FileOffset:      20
+    FilePath:        /home/AD.UCSD.EDU/jsliang/DP-HLS/include/utils.h
+    Replacements:    
+      - FilePath:        /home/AD.UCSD.EDU/jsliang/DP-HLS/BasicKernel/solution1/.autopilot/db/seq_align_multiple.pp.0.cpp
+        Offset:          1991476
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_20_1: '
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_29_1:  '
+    FileOffset:      29
+    FilePath:        /home/AD.UCSD.EDU/jsliang/DP-HLS/include/utils.h
+    Replacements:    
+      - FilePath:        /home/AD.UCSD.EDU/jsliang/DP-HLS/BasicKernel/solution1/.autopilot/db/seq_align_multiple.pp.0.cpp
+        Offset:          1991634
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_29_1: '
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_39_1:  '
+    FileOffset:      39
+    FilePath:        /home/AD.UCSD.EDU/jsliang/DP-HLS/include/utils.h
+    Replacements:    
+      - FilePath:        /home/AD.UCSD.EDU/jsliang/DP-HLS/BasicKernel/solution1/.autopilot/db/seq_align_multiple.pp.0.cpp
+        Offset:          1991824
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_39_1: '
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_62_1:  '
+    FileOffset:      62
+    FilePath:        /home/AD.UCSD.EDU/jsliang/DP-HLS/include/utils.h
+    Replacements:    
+      - FilePath:        /home/AD.UCSD.EDU/jsliang/DP-HLS/BasicKernel/solution1/.autopilot/db/seq_align_multiple.pp.0.cpp
+        Offset:          1992095
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_62_1: '
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_95_1:  '
+    FileOffset:      95
+    FilePath:        /home/AD.UCSD.EDU/jsliang/DP-HLS/include/utils.h
+    Replacements:    
+      - FilePath:        /home/AD.UCSD.EDU/jsliang/DP-HLS/BasicKernel/solution1/.autopilot/db/seq_align_multiple.pp.0.cpp
+        Offset:          1992460
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_95_1: '
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_106_1:  '
+    FileOffset:      106
+    FilePath:        /home/AD.UCSD.EDU/jsliang/DP-HLS/include/utils.h
+    Replacements:    
+      - FilePath:        /home/AD.UCSD.EDU/jsliang/DP-HLS/BasicKernel/solution1/.autopilot/db/seq_align_multiple.pp.0.cpp
+        Offset:          1992623
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_106_1: '
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_117_1:  '
+    FileOffset:      117
+    FilePath:        /home/AD.UCSD.EDU/jsliang/DP-HLS/include/utils.h
+    Replacements:    
+      - FilePath:        /home/AD.UCSD.EDU/jsliang/DP-HLS/BasicKernel/solution1/.autopilot/db/seq_align_multiple.pp.0.cpp
+        Offset:          1992891
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_117_1: '
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_128_1:  '
+    FileOffset:      128
+    FilePath:        /home/AD.UCSD.EDU/jsliang/DP-HLS/include/utils.h
+    Replacements:    
+      - FilePath:        /home/AD.UCSD.EDU/jsliang/DP-HLS/BasicKernel/solution1/.autopilot/db/seq_align_multiple.pp.0.cpp
+        Offset:          1993134
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_128_1: '
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_145_1:  '
+    FileOffset:      145
+    FilePath:        /home/AD.UCSD.EDU/jsliang/DP-HLS/include/utils.h
+    Replacements:    
+      - FilePath:        /home/AD.UCSD.EDU/jsliang/DP-HLS/BasicKernel/solution1/.autopilot/db/seq_align_multiple.pp.0.cpp
+        Offset:          1993433
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_145_1: '
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_148_2:  '
+    FileOffset:      148
+    FilePath:        /home/AD.UCSD.EDU/jsliang/DP-HLS/include/utils.h
+    Replacements:    
+      - FilePath:        /home/AD.UCSD.EDU/jsliang/DP-HLS/BasicKernel/solution1/.autopilot/db/seq_align_multiple.pp.0.cpp
+        Offset:          1993486
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_148_2: '
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_161_1:  '
+    FileOffset:      161
+    FilePath:        /home/AD.UCSD.EDU/jsliang/DP-HLS/include/utils.h
+    Replacements:    
+      - FilePath:        /home/AD.UCSD.EDU/jsliang/DP-HLS/BasicKernel/solution1/.autopilot/db/seq_align_multiple.pp.0.cpp
+        Offset:          1993754
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_161_1: '
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_164_2:  '
+    FileOffset:      164
+    FilePath:        /home/AD.UCSD.EDU/jsliang/DP-HLS/include/utils.h
+    Replacements:    
+      - FilePath:        /home/AD.UCSD.EDU/jsliang/DP-HLS/BasicKernel/solution1/.autopilot/db/seq_align_multiple.pp.0.cpp
+        Offset:          1993807
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_164_2: '
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_184_1:  '
+    FileOffset:      184
+    FilePath:        /home/AD.UCSD.EDU/jsliang/DP-HLS/include/utils.h
+    Replacements:    
+      - FilePath:        /home/AD.UCSD.EDU/jsliang/DP-HLS/BasicKernel/solution1/.autopilot/db/seq_align_multiple.pp.0.cpp
+        Offset:          1994100
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_184_1: '
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_187_2:  '
+    FileOffset:      187
+    FilePath:        /home/AD.UCSD.EDU/jsliang/DP-HLS/include/utils.h
+    Replacements:    
+      - FilePath:        /home/AD.UCSD.EDU/jsliang/DP-HLS/BasicKernel/solution1/.autopilot/db/seq_align_multiple.pp.0.cpp
+        Offset:          1994153
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_187_2: '
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_200_1:  '
+    FileOffset:      200
+    FilePath:        /home/AD.UCSD.EDU/jsliang/DP-HLS/include/utils.h
+    Replacements:    
+      - FilePath:        /home/AD.UCSD.EDU/jsliang/DP-HLS/BasicKernel/solution1/.autopilot/db/seq_align_multiple.pp.0.cpp
+        Offset:          1994401
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_200_1: '
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_203_2:  '
+    FileOffset:      203
+    FilePath:        /home/AD.UCSD.EDU/jsliang/DP-HLS/include/utils.h
+    Replacements:    
+      - FilePath:        /home/AD.UCSD.EDU/jsliang/DP-HLS/BasicKernel/solution1/.autopilot/db/seq_align_multiple.pp.0.cpp
+        Offset:          1994454
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_203_2: '
+  - DiagnosticName:  xilinx-label-all-loops
+    Message:         'Added loop label VITIS_LOOP_43_1:  '
+    FileOffset:      43
+    FilePath:        /home/AD.UCSD.EDU/jsliang/DP-HLS/src/toplevel/seq_align_multiple.cpp
+    Replacements:    
+      - FilePath:        /home/AD.UCSD.EDU/jsliang/DP-HLS/BasicKernel/solution1/.autopilot/db/seq_align_multiple.pp.0.cpp
+        Offset:          2005372
+        Length:          0
+        ReplacementText: 'VITIS_LOOP_43_1: '
+...
