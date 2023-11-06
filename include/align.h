@@ -132,10 +132,12 @@ namespace Align
 		input_char_block_t &query,
 		char_t (&reference)[MAX_REFERENCE_LENGTH],
 		chunk_col_scores_inf_t &init_col_scr,
-		hls::vector<type_t, N_LAYERS> (&init_row_scr)[MAX_REFERENCE_LENGTH],
+		score_vec_t *init_row_scr,
+		// hls::vector<type_t, N_LAYERS> (&init_row_scr)[MAX_REFERENCE_LENGTH],
 		int global_query_length, int query_length, int reference_length,
 		const Penalties penalties, 
-		hls::vector<type_t, N_LAYERS> (&preserved_row_scr)[MAX_REFERENCE_LENGTH],
+		score_vec_t *preserved_row_scr,
+		// hls::vector<type_t, N_LAYERS> (&preserved_row_scr)[MAX_REFERENCE_LENGTH],
 		ScorePack (&max)[PE_NUM], // write out so must pass by reference
 #ifdef DEBUG
 		tbp_t (*chunk_tbp_out)[MAX_REFERENCE_LENGTH],

@@ -1,19 +1,33 @@
+/**
+ * @file host.h
+ * @author Yingqi Cao (yic033@ucsd.edu)
+ * @brief Contains helper functions to write the host side code of the kernel. 
+ * @version 0.1
+ * @date 2023-11-03
+ * 
+ * @copyright Copyright (c) 2023
+ * 
+ */
+
 #ifndef HOST_H
 #define HOST_H
 
-/*
-* This file contains the host helper code for the sequence alignment accelerator.
-*/
+#include "params.h"
+#include <string>
 
-#include <hls_streamofblocks>
+using namespace std;
 
-template <typename T>
-void fill_buffers(T sequence, int length, T default) {
-
-}
-
-template <typename T>
-void extrace_buffers(T sequence, int length) {
+namespace Random {
+    // Generate a random sequence of length `length` with alphabet size `alphabet_size`.
+    // The alphabet is [0, alphabet_size).
+    template <int N>
+    string Sequence(char alphabet[N], int length) {
+        string seq = "";
+        for (int i = 0; i < length; i++) {
+            seq += alphabet[rand() % N];
+        }
+        return seq;
+    }
 }
 
 #endif // !HOST_H

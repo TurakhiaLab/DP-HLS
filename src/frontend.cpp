@@ -87,19 +87,37 @@ void GlobalAffine::PE::Compute(char_t local_query_val,
     }
 }
 
+void GlobalAffine::Helper::InitCol(score_vec_t (&init_col_scr)[MAX_QUERY_LENGTH], Penalties penalties){
+    type_t gap = penalties.open;
+    for (int i = 0; i < MAX_QUERY_LENGTH; i++){
+        gap += penalties.extend;
+        init_col_scr[i] = score_vec_t({NINF, gap, 0});
+    }
+}
+
+void GlobalAffine::Helper::InitRow(score_vec_t (&init_row_scr)[MAX_REFERENCE_LENGTH], Penalties penalties){
+    type_t gap = penalties.open;
+    for (int i = 0; i < MAX_REFERENCE_LENGTH; i++){
+        gap += penalties.extend;
+        init_row_scr[i] = score_vec_t({0, gap, NINF});
+    }
+}   
+
 void GlobalAffine::InitializeScores(
     score_vec_t (&init_col_scr)[MAX_QUERY_LENGTH],
     score_vec_t (&init_row_scr)[MAX_REFERENCE_LENGTH],
     Penalties penalties)
 {
-
-    Utils::Init::ArrSet(init_col_scr, 0, score_vec_t{NINF, NINF, NINF});                           // query layer 0
-    Utils::Init::Linspace(init_col_scr, 0, 1, penalties.open, penalties.extend, MAX_QUERY_LENGTH); // query layer 1
-    Utils::Init::ArrSet(init_col_scr, 2, score_vec_t{0, 0, 0});                                    // query layer 2
-
-    Utils::Init::ArrSet<score_vec_t, MAX_REFERENCE_LENGTH>(init_row_scr, 0, score_vec_t{0, 0, 0});                // reference layer 0
-    Utils::Init::Linspace(init_row_scr, 0, 1, penalties.open, penalties.extend, MAX_REFERENCE_LENGTH); // reference layer 1
-    Utils::Init::ArrSet<score_vec_t, MAX_REFERENCE_LENGTH>(init_row_scr, 2, score_vec_t{NINF, NINF, NINF});
+#pragma HLS dataflow
+    Helper::InitCol(init_col_scr, penalties);
+    Helper::InitRow(init_row_scr, penalties);
+//    Utils::Init::ArrSet(init_col_scr, 0, score_vec_t{NINF, NINF, NINF});                           // query layer 0
+//    Utils::Init::Linspace(init_col_scr, 0, 1, penalties.open, penalties.extend, MAX_QUERY_LENGTH); // query layer 1
+//    Utils::Init::ArrSet(init_col_scr, 2, score_vec_t{0, 0, 0});                                    // query layer 2
+//
+//    Utils::Init::ArrSet<score_vec_t, MAX_REFERENCE_LENGTH>(init_row_scr, 0, score_vec_t{0, 0, 0});                // reference layer 0
+//    Utils::Init::Linspace(init_row_scr, 0, 1, penalties.open, penalties.extend, MAX_REFERENCE_LENGTH); // reference layer 1
+//    Utils::Init::ArrSet<score_vec_t, MAX_REFERENCE_LENGTH>(init_row_scr, 2, score_vec_t{NINF, NINF, NINF});
 }
 
 void GlobalAffine::UpdatePEMaximum(dp_mem_block_t dp_mem, ScorePack (&max)[PE_NUM], idx_t (&pe_offset)[PE_NUM], idx_t chunk_offset, bool (&predicate)[PE_NUM], idx_t query_len, idx_t ref_len)
@@ -328,21 +346,20 @@ void LocalAffine::PE::Compute(char_t local_query_val,
 #endif
 
     // Set traceback pointer based on the direction of the maximum score.
-    if (max_value == write_score[0])
+    if (max_value == zero_fp){
+        write_traceback = TB_PH;
+    }
+    else if (max_value == write_score[0])
     { // Insert Case
-        write_traceback = TB_LEFT + (max_value == insert_extend ? (tbp_t) TB_IMAT : (tbp_t) 0 );
+        write_traceback = TB_LEFT + (max_value == insert_extend ? (tbp_t) 0 : (tbp_t) TB_IMAT);
+    }
+        else if (max_value == write_score[1])
+    {
+        write_traceback = TB_DIAG;
     }
     else if (max_value == write_score[2])
     {
-        write_traceback = TB_UP + (max_value == delete_extend ? (tbp_t) TB_DMAT :(tbp_t) 0 );
-    }
-    else if (max_value == write_score[1])
-    {
-        if (max_value == zero_fp){
-            write_traceback = TB_PH;
-        } else {
-            write_traceback = TB_DIAG;
-        }
+        write_traceback = TB_UP + (max_value == delete_extend ? (tbp_t) 0 : (tbp_t) TB_DMAT );
     }
     else
     {
@@ -468,7 +485,7 @@ void LocalAffine::Traceback::StateMapping(tbp_t tbp, TB_STATE &state, int &row, 
     }
 
     // Override the next state to end if the current traceback poitner indicates end. 
-    if (tbp == TB_PH){
+    if (tbp(1,0) == TB_PH){
         state = TB_STATE::END;
         curr_write = AL_END;
     }

@@ -51,6 +51,11 @@ namespace GlobalAffine
         tbr_t StateToPath(TB_STATE state);
     }
 
+    namespace Helper {
+        void InitCol(score_vec_t (&init_col_scr)[MAX_QUERY_LENGTH], Penalties penalties);
+        void InitRow(score_vec_t (&init_row_scr)[MAX_REFERENCE_LENGTH], Penalties penalties);
+    }
+
 }
 
 namespace LocalAffine

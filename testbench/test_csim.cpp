@@ -2,6 +2,7 @@
 #include <vector>
 #include "../include/params.h"
 #include "../include/seq_align_multiple.h"
+#include "../include/host.h"
 
 char_t base_to_num(char base)
 {
@@ -25,8 +26,12 @@ char_t base_to_num(char base)
 }
 
 int main(){
-    std::string query_string = "AGTCTG";     // CCGTAGACCCGAACTTCGCGGTACACCTTCTGAAACCGTCCCTAATCCGACGAGCGCCTTGAGAACG";
-    std::string reference_string = "TGCCGAT";       // TGAGAACGTAGTCTAGGCGAATCGGCCCTTGTATATCGGGGCCGTAGACCCGAACTTCGCGGTACAC";
+    // std::string query_string = "AGTCTG";     // CCGTAGACCCGAACTTCGCGGTACACCTTCTGAAACCGTCCCTAATCCGACGAGCGCCTTGAGAACG";
+    // std::string reference_string = "TGCCGAT";       // TGAGAACGTAGTCTAGGCGAATCGGCCCTTGTATATCGGGGCCGTAGACCCGAACTTCGCGGTACAC";
+    char alphabet[4] = {'A', 'T', 'G', 'C'};
+    std::string query_string = Random::Sequence<4>(alphabet, 45);
+    std::string reference_string = Random::Sequence<4>(alphabet, 240);
+
 
 #ifdef ALIGN_GLOBAL_LINEAR
     Penalties penalties;

@@ -41,6 +41,7 @@ traceback_loop:
             if (state == TB_STATE::END)  end = 1;
         } else {
             traceback_out[i] = AL_END;
+            break;
         }
         
     }

@@ -299,10 +299,12 @@ void Align::ChunkCompute(
 	input_char_block_t &local_query,
 	char_t (&reference)[MAX_REFERENCE_LENGTH],
 	chunk_col_scores_inf_t &init_col_scr,
-	hls::vector<type_t, N_LAYERS> (&init_row_scr)[MAX_REFERENCE_LENGTH],
+	score_vec_t *init_row_scr,
+	// hls::vector<type_t, N_LAYERS> (&init_row_scr)[MAX_REFERENCE_LENGTH],
 	int global_query_length, int query_length, int reference_length,
 	const Penalties penalties, 
-	hls::vector<type_t, N_LAYERS> (&preserved_row_scr)[MAX_REFERENCE_LENGTH],
+	score_vec_t *preserved_row_scr,
+	// hls::vector<type_t, N_LAYERS> (&preserved_row_scr)[MAX_REFERENCE_LENGTH],
 	ScorePack (&max)[PE_NUM],  // initialize rather in maximum
 #ifdef DEBUG
 	tbp_t (*chunk_tbp_out)[MAX_REFERENCE_LENGTH],
@@ -533,7 +535,10 @@ void Align::AlignStatic(
 
 	score_vec_t init_col_score[MAX_QUERY_LENGTH];
 	score_vec_t init_row_score[MAX_REFERENCE_LENGTH];
+	score_vec_t preserved_row_buffer[MAX_REFERENCE_LENGTH];
 
+	score_vec_t *init_row_scr_ptr = init_row_score;
+	score_vec_t *preserved_row_scr_ptr = preserved_row_buffer;
 
 	ALIGN_TYPE::InitializeScores(init_col_score, init_row_score, penalties);
 
@@ -556,8 +561,7 @@ void Align::AlignStatic(
 	chunk_col_scores_inf_t local_init_col_score;
 	local_init_col_score[PE_NUM] = score_vec_t(0); // Always initialize the upper left cornor to 0
 
-	hls::vector<type_t, N_LAYERS> preserved_row_buffer[MAX_REFERENCE_LENGTH];
-	//Utils::Init::ArrSet(preserved_row_buffer, score_vec_t(0));
+
 
 #pragma HLS array_partition variable = local_query type = complete
 
@@ -579,7 +583,7 @@ void Align::AlignStatic(
 			local_query,
 			reference,
 			local_init_col_score,
-			init_row_score,
+			init_row_scr_ptr,
             query_length,
 			local_query_length,
 			reference_length,
