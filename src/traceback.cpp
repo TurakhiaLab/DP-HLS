@@ -24,26 +24,25 @@ void Traceback::Traceback(
     ALIGN_TYPE::Traceback::StateInit(tbmat[row][col], state);    
 
 traceback_loop:
-    for (int i = 0; i < MAX_QUERY_LENGTH + MAX_REFERENCE_LENGTH; i++)
-    {
-        if (!end && row >= 0 && col >= 0){
-            tbp_t tbptr = tbmat[row][col];  // Want to represented by the symbol rather than pointer
 
+        while (!end && row >= 0 && col >= 0){
+#pragma HLS dataflow
+#pragma HLS expression_balance on
+#pragma HLS PIPELINE II=1
+#pragma HLS LOOP_TRIPCOUNT min=1 max=MAX_REFERENCE_LENGTH+MAX_QUERY_LENGTH
+
+            tbp_t tbptr = tbmat[row][col];  // Want to represented by the symbol rather than pointer
 #ifdef DEBUG
             auto tbptr_s = tbptr.to_int();
 #endif
-
             ALIGN_TYPE::Traceback::StateMapping(tbptr, state, row, col, curr_write);
             if (curr_write != NULL){
                 traceback_out[w_id++] = curr_write;
             }
 
             if (state == TB_STATE::END)  end = 1;
-        } else {
-            traceback_out[i] = AL_END;
-            break;
-        }
+        } 
+        traceback_out[w_id] = AL_END;
         
-    }
 }
 

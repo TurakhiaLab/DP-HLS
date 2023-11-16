@@ -290,22 +290,22 @@ void PE::ExpandCompute(
 
 void PE::PEUnroll(dp_mem_block_t &dp_mem, input_char_block_t qry, input_char_block_t ref, const Penalties penalties, tbp_block_t &tbp)
 {
-    for (int i = 1; i <= PE_NUM; i++)
+    for (int i = 0; i < PE_NUM; i++)
     {
 #pragma HLS unroll
         ALIGN_TYPE::PE::Compute(
-            qry[i - 1],
-            ref[i - 1],
-            dp_mem[i - 1][1],
-            dp_mem[i - 1][2],
+            qry[i],
+            ref[i],
             dp_mem[i][1],
+            dp_mem[i][2],
+            dp_mem[i+1][1],
             penalties,
-            dp_mem[i][0],
+            dp_mem[i+1][0],
 #ifdef DEBUG
-            tbp[i - 1],
-            i - 1);
+            tbp[i],
+            i);
 #else
-            tbp[i - 1]);
+            tbp[i]);
 #endif
     }
 }

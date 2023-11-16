@@ -29,8 +29,8 @@ int main(){
     // std::string query_string = "AGTCTG";     // CCGTAGACCCGAACTTCGCGGTACACCTTCTGAAACCGTCCCTAATCCGACGAGCGCCTTGAGAACG";
     // std::string reference_string = "TGCCGAT";       // TGAGAACGTAGTCTAGGCGAATCGGCCCTTGTATATCGGGGCCGTAGACCCGAACTTCGCGGTACAC";
     char alphabet[4] = {'A', 'T', 'G', 'C'};
-    std::string query_string = Random::Sequence<4>(alphabet, 45);
-    std::string reference_string = Random::Sequence<4>(alphabet, 240);
+    std::string query_string = Random::Sequence<4>(alphabet, 50);
+    std::string reference_string = Random::Sequence<4>(alphabet, 250);
 
 
 #ifdef ALIGN_GLOBAL_LINEAR

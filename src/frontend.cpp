@@ -111,13 +111,6 @@ void GlobalAffine::InitializeScores(
 #pragma HLS dataflow
     Helper::InitCol(init_col_scr, penalties);
     Helper::InitRow(init_row_scr, penalties);
-//    Utils::Init::ArrSet(init_col_scr, 0, score_vec_t{NINF, NINF, NINF});                           // query layer 0
-//    Utils::Init::Linspace(init_col_scr, 0, 1, penalties.open, penalties.extend, MAX_QUERY_LENGTH); // query layer 1
-//    Utils::Init::ArrSet(init_col_scr, 2, score_vec_t{0, 0, 0});                                    // query layer 2
-//
-//    Utils::Init::ArrSet<score_vec_t, MAX_REFERENCE_LENGTH>(init_row_scr, 0, score_vec_t{0, 0, 0});                // reference layer 0
-//    Utils::Init::Linspace(init_row_scr, 0, 1, penalties.open, penalties.extend, MAX_REFERENCE_LENGTH); // reference layer 1
-//    Utils::Init::ArrSet<score_vec_t, MAX_REFERENCE_LENGTH>(init_row_scr, 2, score_vec_t{NINF, NINF, NINF});
 }
 
 void GlobalAffine::UpdatePEMaximum(dp_mem_block_t dp_mem, ScorePack (&max)[PE_NUM], idx_t (&pe_offset)[PE_NUM], idx_t chunk_offset, bool (&predicate)[PE_NUM], idx_t query_len, idx_t ref_len)

@@ -299,12 +299,10 @@ void Align::ChunkCompute(
 	input_char_block_t &local_query,
 	char_t (&reference)[MAX_REFERENCE_LENGTH],
 	chunk_col_scores_inf_t &init_col_scr,
-	score_vec_t *init_row_scr,
-	// hls::vector<type_t, N_LAYERS> (&init_row_scr)[MAX_REFERENCE_LENGTH],
+	score_vec_t (&init_row_scr)[MAX_REFERENCE_LENGTH],
 	int global_query_length, int query_length, int reference_length,
 	const Penalties penalties, 
-	score_vec_t *preserved_row_scr,
-	// hls::vector<type_t, N_LAYERS> (&preserved_row_scr)[MAX_REFERENCE_LENGTH],
+	score_vec_t (&preserved_row_scr)[MAX_REFERENCE_LENGTH],
 	ScorePack (&max)[PE_NUM],  // initialize rather in maximum
 #ifdef DEBUG
 	tbp_t (*chunk_tbp_out)[MAX_REFERENCE_LENGTH],
@@ -366,7 +364,12 @@ void Align::ChunkCompute(
 		Align::ShiftPredicate(predicate, i, query_length, reference_length);
 		Align::ShiftReferece(local_reference, reference, i, reference_length);
 
+
+
 		Align::UpdateDPMem(dp_mem, i, init_col_scr, init_row_scr);
+
+		// Align::UpdateDPMemShift(dp_mem);
+		// Align::UpdateDPMemSet(dp_mem, i, init_col_scr, init_row_scr);
 
 #ifdef DEBUG
 		Debug::Translate::print_2d(
@@ -534,13 +537,12 @@ void Align::AlignStatic(
 #pragma HLS array_partition variable = query type = cyclic factor = PE_NUM dim = 1
 
 	score_vec_t init_col_score[MAX_QUERY_LENGTH];
-	score_vec_t init_row_score[MAX_REFERENCE_LENGTH];
-	score_vec_t preserved_row_buffer[MAX_REFERENCE_LENGTH];
 
-	score_vec_t *init_row_scr_ptr = init_row_score;
-	score_vec_t *preserved_row_scr_ptr = preserved_row_buffer;
+	score_vec_t init_row_score[2][MAX_REFERENCE_LENGTH];
+//	score_vec_t preserved_row_buffer[MAX_REFERENCE_LENGTH];
+#pragma HLS array_partition variable=init_row_score type=complete dim=1
 
-	ALIGN_TYPE::InitializeScores(init_col_score, init_row_score, penalties);
+	ALIGN_TYPE::InitializeScores(init_col_score, init_row_score[0], penalties);
 
 	// The size of a static matrix must be known at the compile time.
 	tbp_t tbp_matrix[MAX_QUERY_LENGTH][MAX_REFERENCE_LENGTH];
@@ -561,7 +563,7 @@ void Align::AlignStatic(
 	chunk_col_scores_inf_t local_init_col_score;
 	local_init_col_score[PE_NUM] = score_vec_t(0); // Always initialize the upper left cornor to 0
 
-
+	idx_t row_buf_cnt = 0;
 
 #pragma HLS array_partition variable = local_query type = complete
 
@@ -583,12 +585,12 @@ void Align::AlignStatic(
 			local_query,
 			reference,
 			local_init_col_score,
-			init_row_scr_ptr,
+			init_row_score[row_buf_cnt % 2],
             query_length,
 			local_query_length,
 			reference_length,
 			penalties,
-			preserved_row_buffer,
+			init_row_score[row_buf_cnt % 2 + 1],
 			local_max,
 #ifdef DEBUG
 			chunk_tbp_out,
@@ -596,8 +598,7 @@ void Align::AlignStatic(
 #else
             chunk_tbp_out);
 #endif
-		std::swap(init_row_score, preserved_row_buffer);  // FIXME: Cannot present in Synthesis
-		// Utils::Array::Switch(&(init_row_score[0]), &(preserved_row_buffer[0]));
+
 	}
 
 #ifdef DEBUG
@@ -620,6 +621,13 @@ void Align::AlignStatic(
 	);
 #endif
 }
+
+void SwapBuffer(score_vec_t *&a, score_vec_t *&b){
+	score_vec_t *temp = a;
+	a = b;
+	b = temp;
+}
+
 
 void Align::FindMax::InitPE(ScorePack (&pack)[PE_NUM])
 {
@@ -716,9 +724,22 @@ void Align::DPMemInit(
 }
 
 
-void Align::UpdateDPMem(dp_mem_block_t &dp_mem, idx_t i, chunk_col_scores_inf_t &init_col_scr, init_row_score_block_t &init_row_scr){
+void Align::UpdateDPMem(dp_mem_block_t &dp_mem, idx_t i, chunk_col_scores_inf_t &init_col_scr, score_vec_t (&init_row_scr)[MAX_REFERENCE_LENGTH] ){
 	Align::UpdateDPMemShift(dp_mem);
 	Align::UpdateDPMemSet(dp_mem, i, init_col_scr, init_row_scr);
+// 	// i is wavefront index here.
+// 	for (int j = 0; j < PE_NUM + 1; j++){
+// #pragma HLS unroll
+// 		dp_mem[j][2] = dp_mem[j][1];
+// 		dp_mem[j][1] = dp_mem[j][0];
+// 	}
+// 	if (i < MAX_REFERENCE_LENGTH){  // FIXME: Actually this could also be actual_reference_length
+// 		dp_mem[0][1] = init_row_scr[i];
+// 	}
+// 	if (i < PE_NUM){
+// 		dp_mem[i][2] = init_col_scr[i];  // set initial diagonal score
+// 		dp_mem[i+1][1] = init_col_scr[i+1];  // set initial left score
+// 	}
 }
 
 void Align::UpdateDPMemShift(dp_mem_block_t &dp_mem){
@@ -729,7 +750,7 @@ void Align::UpdateDPMemShift(dp_mem_block_t &dp_mem){
 	}
 }
 
-void Align::UpdateDPMemSet(dp_mem_block_t &dp_mem, idx_t i, chunk_col_scores_inf_t &init_col_scr, init_row_score_block_t &init_row_scr){
+void Align::UpdateDPMemSet(dp_mem_block_t &dp_mem, idx_t i, chunk_col_scores_inf_t &init_col_scr, score_vec_t (&init_row_scr)[MAX_REFERENCE_LENGTH] ){
 
 	// FIXME: Can takeout this condition since even though the out of bound access, the 
 	// element won't be written to the memory
@@ -740,8 +761,8 @@ void Align::UpdateDPMemSet(dp_mem_block_t &dp_mem, idx_t i, chunk_col_scores_inf
 	
 	// Set the computation for the 0th column
 	if (i < PE_NUM){
-		dp_mem[i+1][1] = init_col_scr[i+1];  // set initial left score
 		dp_mem[i][2] = init_col_scr[i];  // set initial diagonal score
+		dp_mem[i+1][1] = init_col_scr[i+1];  // set initial left score
 	}
 
 	// FIXME: Set i = 0 case in Chunk compute loop, doesn't requires an update
