@@ -14,6 +14,8 @@
 
 #include "params.h"
 #include <string>
+#include <vector>
+#include <complex>
 
 using namespace std;
 
@@ -28,6 +30,16 @@ namespace Random {
         }
         return seq;
     }
+
+    template <typename T>
+    std::vector<T> SequenceComplex(int length) {
+        std::vector<T> seq;
+        for (int i = 0; i < length; i++) {
+            seq.push_back(T(rand(), rand()));
+        }
+        return seq;
+    }
+
 }
 
 #endif // !HOST_H
