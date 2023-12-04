@@ -250,7 +250,7 @@ void Align::ShiftReferece(
 	}
 	else
 	{
-		Utils::Array::ShiftRight<char_t, PE_NUM>(local_reference, 0);
+		Utils::Array::ShiftRight<char_t, PE_NUM>(local_reference, ZERO_CHAR);
 	}
 }
 

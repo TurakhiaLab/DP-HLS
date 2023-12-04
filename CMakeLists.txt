@@ -77,6 +77,22 @@ add_executable(test_csim "testbench/test_csim.cpp"
     "src/frontend.cpp"
     "src/debug.cpp")
 
+add_executable(test_csim_dtw "testbench/test_csim_dtw.cpp"
+    "include/params.h"
+    "include/seq_align_multiple.h"
+    "include/align.h"
+    "include/PE.h"
+    "include/utils.h"
+    "include/frontend.h"
+    "include/debug.h"
+    "src/toplevel/seq_align_multiple.cpp"
+    "src/align/align.cpp"
+    "src/pe/pe.cpp"
+    "src/traceback.cpp"
+    "src/utils.cpp"
+    "src/frontend.cpp"
+    "src/debug.cpp")
+
 add_executable(test_pyapi "testbench/test_align.cpp"
     "include/params.h"
     "include/seq_align_multiple.h"
