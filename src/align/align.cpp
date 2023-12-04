@@ -507,7 +507,7 @@ void Align::PrepareLocalQuery(
 	for (int i = 0; i < PE_NUM; i++)
 	{
 #pragma HLS unroll
-		local_query[i] = i < len ? query[offset + i] : (char_t)0;
+		local_query[i] = query[offset + i];
 	}
 }
 
