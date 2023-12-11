@@ -4,10 +4,9 @@
 #include <ap_fixed.h>
 #include <hls_vector.h>
 #include <hls_stream.h>
-#include <hls_streamofblocks.h> 
 #include <complex.h>
 
-#define ALIGN_GLOBAL_LINEAR
+#define ALIGN_GLOBAL_AFFINE
 #undef DEBUG
 // >>> LOCAL_LINEAR params >>>
 #ifdef ALIGN_LOCAL_LINEAR

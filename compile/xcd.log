@@ -1,0 +1,40 @@
+Mon Dec 11 08:28:19 2023: Running xcd server. This server was built by gradle.
+Mon Dec 11 08:28:19 2023: Server was asked to start on port: '43698'
+Mon Dec 11 08:28:19 2023: Server is using token UUID: 'f3a73332-be43-43db-afce-6a2124cc4d75'
+Mon Dec 11 08:28:19 2023: SESSION_MGR: creating session with session uuid: '6d04a3e9-ade5-4ab9-8d63-1f78fcd2ec76' and name 'default'
+Mon Dec 11 08:28:19 2023: Attempting to start server on port '43698'
+Mon Dec 11 08:28:19 2023: XCD main fifo: created main fifo '/tmp/xcdmainf3a73332-be43-43db-afce-6a2124cc4d75', fd read = 13
+Mon Dec 11 08:28:19 2023: Running Dispatch Server
+Mon Dec 11 08:28:19 2023: Version 2.2.0
+Mon Dec 11 08:28:28 2023: Dispatch Server: Accepted socket connection from client
+Mon Dec 11 08:28:28 2023: Starting Socket connection
+Mon Dec 11 08:28:28 2023: EXCHANGE_TOKEN received, server token: f3a73332-be43-43db-afce-6a2124cc4d75, passed token: f3a73332-be43-43db-afce-6a2124cc4d75
+Mon Dec 11 08:28:29 2023: DISPATCH_HANDLER: Adding handler from function makeHandler in library libxv_system_diagram
+Mon Dec 11 08:28:29 2023: SESSION_MGR: creating session with session uuid: '554224d0-8560-4d9d-9417-b08c45118516' and name 'v++_compile_global_affine_k'
+Mon Dec 11 08:28:29 2023: KERNEL_SVC: creating session with uuid: '554224d0-8560-4d9d-9417-b08c45118516' and name 'v++_compile_global_affine_k'
+Mon Dec 11 08:28:29 2023: GUIDANCE_SMGR: creating guidance session with uuid: '554224d0-8560-4d9d-9417-b08c45118516' and name 'v++_compile_global_affine_k'
+Mon Dec 11 08:28:29 2023: SYSTEM_DIAGRAM: creating session with uuid: '554224d0-8560-4d9d-9417-b08c45118516' and name 'v++_compile_global_affine_k'
+Mon Dec 11 08:28:38 2023: SESSION_MGR: closing session for UUID '554224d0-8560-4d9d-9417-b08c45118516' with name 'v++_compile_global_affine_k'
+Mon Dec 11 08:28:38 2023: KERNEL_SVC: closing session for UUID '554224d0-8560-4d9d-9417-b08c45118516' with name 'v++_compile_global_affine_k'
+Mon Dec 11 08:28:38 2023: GUIDANCE_SMGR: closing session for UUID '554224d0-8560-4d9d-9417-b08c45118516' with name 'v++_compile_global_affine_k'
+Mon Dec 11 08:28:38 2023: SYSTEM_DIAGRAM: closing session for UUID '554224d0-8560-4d9d-9417-b08c45118516' with name 'v++_compile_global_affine_k'
+Mon Dec 11 08:29:08 2023: Running xcd server. This server was built by gradle.
+Mon Dec 11 08:29:08 2023: Server was asked to start on port: '40782'
+Mon Dec 11 08:29:08 2023: Server is using token UUID: 'c5591250-31b8-48cd-bc17-c471c8ab76b5'
+Mon Dec 11 08:29:08 2023: SESSION_MGR: creating session with session uuid: '6d04a3e9-ade5-4ab9-8d63-1f78fcd2ec76' and name 'default'
+Mon Dec 11 08:29:09 2023: Attempting to start server on port '40782'
+Mon Dec 11 08:29:09 2023: XCD main fifo: created main fifo '/tmp/xcdmainc5591250-31b8-48cd-bc17-c471c8ab76b5', fd read = 13
+Mon Dec 11 08:29:09 2023: Running Dispatch Server
+Mon Dec 11 08:29:09 2023: Version 2.2.0
+Mon Dec 11 08:29:18 2023: Dispatch Server: Accepted socket connection from client
+Mon Dec 11 08:29:18 2023: Starting Socket connection
+Mon Dec 11 08:29:18 2023: EXCHANGE_TOKEN received, server token: c5591250-31b8-48cd-bc17-c471c8ab76b5, passed token: c5591250-31b8-48cd-bc17-c471c8ab76b5
+Mon Dec 11 08:29:19 2023: DISPATCH_HANDLER: Adding handler from function makeHandler in library libxv_system_diagram
+Mon Dec 11 08:29:19 2023: SESSION_MGR: creating session with session uuid: 'b36dfc8b-d3e2-4317-8e7b-db4b8fc0f1e8' and name 'v++_compile_global_affine_k'
+Mon Dec 11 08:29:19 2023: KERNEL_SVC: creating session with uuid: 'b36dfc8b-d3e2-4317-8e7b-db4b8fc0f1e8' and name 'v++_compile_global_affine_k'
+Mon Dec 11 08:29:19 2023: GUIDANCE_SMGR: creating guidance session with uuid: 'b36dfc8b-d3e2-4317-8e7b-db4b8fc0f1e8' and name 'v++_compile_global_affine_k'
+Mon Dec 11 08:29:19 2023: SYSTEM_DIAGRAM: creating session with uuid: 'b36dfc8b-d3e2-4317-8e7b-db4b8fc0f1e8' and name 'v++_compile_global_affine_k'
+Mon Dec 11 08:29:27 2023: SESSION_MGR: closing session for UUID 'b36dfc8b-d3e2-4317-8e7b-db4b8fc0f1e8' with name 'v++_compile_global_affine_k'
+Mon Dec 11 08:29:27 2023: KERNEL_SVC: closing session for UUID 'b36dfc8b-d3e2-4317-8e7b-db4b8fc0f1e8' with name 'v++_compile_global_affine_k'
+Mon Dec 11 08:29:27 2023: GUIDANCE_SMGR: closing session for UUID 'b36dfc8b-d3e2-4317-8e7b-db4b8fc0f1e8' with name 'v++_compile_global_affine_k'
+Mon Dec 11 08:29:27 2023: SYSTEM_DIAGRAM: closing session for UUID 'b36dfc8b-d3e2-4317-8e7b-db4b8fc0f1e8' with name 'v++_compile_global_affine_k'

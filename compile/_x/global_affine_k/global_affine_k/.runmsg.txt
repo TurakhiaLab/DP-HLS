@@ -1,0 +1,2 @@
+performing high-level synthesis for kernel: global_affine_k
+Log file: /home/centos/Desktop/DP-HLS/compile/_x/global_affine_k/global_affine_k/vitis_hls.log

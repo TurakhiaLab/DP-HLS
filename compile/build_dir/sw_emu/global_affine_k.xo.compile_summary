@@ -1,0 +1,167 @@
+<ENTRY>
+{
+ "thisFile": "/home/centos/Desktop/DP-HLS/compile/build_dir/sw_emu/global_affine_k.xo.compile_summary",
+ "connectId": "",
+ "serverToken": "",
+ "timestamp": "0"
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_CmdStep",
+ "dateTimestamp": "Mon Dec 11 08:29:18 2023",
+ "timestampMillis": "1702283358070",
+ "buildStep": {
+  "cmdId": "cc41d200-be9c-479e-8c65-2355a65d6c2a",
+  "name": "v++",
+  "logFile": "/home/centos/Desktop/DP-HLS/compile/_x/global_affine_k/global_affine_k.steps.log",
+  "commandLine": "/opt/Xilinx/Vitis/2021.2/bin/unwrapped/lnx64.o/v++  --vivado.prop \"run.__KERNEL__.{STEPS.SYNTH_DESIGN.ARGS.MORE OPTIONS}={-directive sdx_optimization_effort_high}\" --advanced.misc \"report=type report_timing_summary name impl_report_timing_summary_route_design_summary steps {route_design} runs {impl_1} options {-max_paths 10}\" --advanced.misc \"report=type report_timing_summary name impl_report_timing_summary_post_route_phys_opt_design_summary steps {post_route_phys_opt_design} runs {impl_1} options {-max_paths 10}\" -t sw_emu --platform /home/centos/Desktop/aws-fpga-exp/Vitis/aws_platform/xilinx_aws-vu9p-f1_shell-v04261818_201920_3/xilinx_aws-vu9p-f1_shell-v04261818_201920_3.xpfm --save-temps -I../includes -c -k global_affine_k -I../src -o./build_dir/sw_emu/global_affine_k.xo ../src/frontend.cpp ",
+  "args": [
+   "-t",
+   "sw_emu",
+   "--platform",
+   "/home/centos/Desktop/aws-fpga-exp/Vitis/aws_platform/xilinx_aws-vu9p-f1_shell-v04261818_201920_3/xilinx_aws-vu9p-f1_shell-v04261818_201920_3.xpfm",
+   "--save-temps",
+   "-I../includes",
+   "-c",
+   "-k",
+   "global_affine_k",
+   "-I../src",
+   "-o./build_dir/sw_emu/global_affine_k.xo",
+   "../src/frontend.cpp"
+  ],
+  "iniFiles": [],
+  "cwd": "/home/centos/Desktop/DP-HLS/compile"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Mon Dec 11 08:29:18 2023",
+ "timestampMillis": "1702283358070",
+ "status": {
+  "cmdId": "cc41d200-be9c-479e-8c65-2355a65d6c2a",
+  "state": "CS_RUNNING"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_FlowMetaData",
+ "dateTimestamp": "Mon Dec 11 08:29:23 2023",
+ "timestampMillis": "1702283363107",
+ "buildSummary": {
+  "hardwarePlatform": "xilinx_aws-vu9p-f1_shell-v04261818_201920_3.xpfm",
+  "hardwareDsa": "xilinx_aws-vu9p-f1_shell-v04261818_201920_3.xsa",
+  "platformDirectory": "/home/centos/Desktop/aws-fpga-exp/Vitis/aws_platform/xilinx_aws-vu9p-f1_shell-v04261818_201920_3",
+  "runtime": "OpenCL",
+  "systemConfig": "Linux",
+  "flow": "BF_COMPILE",
+  "target": "TT_SW_EMU",
+  "kernels": [
+   {
+    "base": {
+     "type": "KERNEL",
+     "name": "global_affine_k",
+     "file": "/home/centos/Desktop/DP-HLS/compile/build_dir/sw_emu/global_affine_k.xo",
+     "reports": [],
+     "uuid": ""
+    },
+    "sources": [
+     "/home/centos/Desktop/DP-HLS/src/frontend.cpp"
+    ],
+    "psSources": [],
+    "cuNames": [],
+    "type": "HLS",
+    "frequency": 0,
+    "freqUnits": ""
+   }
+  ],
+  "toolVersion": "Vitis V++ Compiler Release 2021.2. SW Build 3363252 on 2021-10-14-04:41:01"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_SubCmdStep",
+ "dateTimestamp": "Mon Dec 11 08:29:23 2023",
+ "timestampMillis": "1702283363111",
+ "buildStep": {
+  "cmdId": "fe02a431-d163-48ba-97a8-564c19287e08",
+  "name": "vitis_hls",
+  "logFile": "/home/centos/Desktop/DP-HLS/compile/_x/global_affine_k/global_affine_k/vitis_hls.log",
+  "commandLine": "vitis_hls -f /home/centos/Desktop/DP-HLS/compile/_x/global_affine_k/global_affine_k/global_affine_k.tcl -messageDb vitis_hls.pb",
+  "args": [
+   "vitis_hls",
+   "-f",
+   "/home/centos/Desktop/DP-HLS/compile/_x/global_affine_k/global_affine_k/global_affine_k.tcl",
+   "-messageDb",
+   "vitis_hls.pb"
+  ],
+  "iniFiles": [],
+  "cwd": "/home/centos/Desktop/DP-HLS/compile"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Mon Dec 11 08:29:23 2023",
+ "timestampMillis": "1702283363111",
+ "status": {
+  "cmdId": "fe02a431-d163-48ba-97a8-564c19287e08",
+  "state": "CS_RUNNING"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Mon Dec 11 08:29:27 2023",
+ "timestampMillis": "1702283367376",
+ "status": {
+  "cmdId": "fe02a431-d163-48ba-97a8-564c19287e08",
+  "state": "CS_FAILED"
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Mon Dec 11 08:29:27 2023",
+ "timestampMillis": "1702283367441",
+ "report": {
+  "path": "/home/centos/Desktop/DP-HLS/compile/_x/reports/global_affine_k/v++_compile_global_affine_k_guidance.html",
+  "name": "",
+  "fileType": "HTML",
+  "reportType": "GLOBAL_RULECHECK_GUIDANCE",
+  "cmdId": ""
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Report",
+ "dateTimestamp": "Mon Dec 11 08:29:27 2023",
+ "timestampMillis": "1702283367442",
+ "report": {
+  "path": "/home/centos/Desktop/DP-HLS/compile/_x/v++_compile_global_affine_k_guidance.pb",
+  "name": "",
+  "fileType": "BINARY_PROTOBUF",
+  "reportType": "GLOBAL_RULECHECK_GUIDANCE",
+  "cmdId": ""
+ }
+}
+</ENTRY>
+<ENTRY>
+{
+ "type": "ET_Status",
+ "dateTimestamp": "Mon Dec 11 08:29:27 2023",
+ "timestampMillis": "1702283367442",
+ "status": {
+  "cmdId": "cc41d200-be9c-479e-8c65-2355a65d6c2a",
+  "state": "CS_FAILED"
+ }
+}
+</ENTRY>

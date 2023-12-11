@@ -1,0 +1,25 @@
+<AutoPilot:solution xmlns:AutoPilot="com.autoesl.autopilot.solution">
+    <name>
+        <value string="solution"/>
+    </name>
+    <project>
+        <value string="global_affine_k"/>
+    </project>
+    <flowTarget value="vitis"/>
+    <config>
+        <config_interface m_axi_latency="64" m_axi_alignment_byte_size="64" m_axi_max_widen_bitwidth="512" default_interface="kernel" m_axi_conservative_mode="1" m_axi_addr64="1" m_axi_auto_max_ports="0"/>
+        <config_rtl register_reset_num="3"/>
+        <config_dataflow strict_mode="warning"/>
+        <config_export deadlock_detection="none" format="xo" ipname="global_affine_k"/>
+    </config>
+    <targetInfo>
+        <TargetInfo value="xcvu9p:-flgb2104:-2-i"/>
+    </targetInfo>
+    <libraryList>
+        <library value="xilinx/virtexuplus/virtexuplus" name="DefaultPlatform"/>
+    </libraryList>
+    <clockList>
+        <clock name="default" period="250.000000MHz" default="false"/>
+    </clockList>
+</AutoPilot:solution>
+

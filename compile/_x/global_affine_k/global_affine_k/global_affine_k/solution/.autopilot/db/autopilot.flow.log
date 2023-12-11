@@ -1,0 +1,128 @@
+INFO-FLOW: Workspace /home/centos/Desktop/DP-HLS/compile/_x/global_affine_k/global_affine_k/global_affine_k/solution opened at Mon Dec 11 08:29:25 UTC 2023
+Execute       send_msg_by_id INFO @200-1505@%s%s  vitis 
+INFO: [HLS 200-1505] Using flow_target 'vitis'
+Execute       get_config_interface -m_axi_latency 
+Execute       send_msg_by_id INFO @200-435@%s%s 'open_solution -flow_target vitis' config_interface -m_axi_latency=64 
+INFO: [HLS 200-435] Setting 'open_solution -flow_target vitis' configuration: config_interface -m_axi_latency=64
+Execute       config_interface -m_axi_latency=64 
+Execute       get_config_interface -m_axi_alignment_byte_size 
+Execute       send_msg_by_id INFO @200-435@%s%s 'open_solution -flow_target vitis' config_interface -m_axi_alignment_byte_size=64 
+INFO: [HLS 200-435] Setting 'open_solution -flow_target vitis' configuration: config_interface -m_axi_alignment_byte_size=64
+Execute       config_interface -m_axi_alignment_byte_size=64 
+Execute       get_config_interface -m_axi_max_widen_bitwidth 
+Execute       send_msg_by_id INFO @200-435@%s%s 'open_solution -flow_target vitis' config_interface -m_axi_max_widen_bitwidth=512 
+INFO: [HLS 200-435] Setting 'open_solution -flow_target vitis' configuration: config_interface -m_axi_max_widen_bitwidth=512
+Execute       config_interface -m_axi_max_widen_bitwidth=512 
+Execute       get_config_interface -default_interface 
+INFO-FLOW: Setting macro_cmd open_solution -flow_target vitis configuration: config_interface -default_interface=kernel
+Execute       config_interface -default_interface=kernel 
+Execute       get_config_rtl -register_reset_num 
+Execute       send_msg_by_id INFO @200-435@%s%s 'open_solution -flow_target vitis' config_rtl -register_reset_num=3 
+INFO: [HLS 200-435] Setting 'open_solution -flow_target vitis' configuration: config_rtl -register_reset_num=3
+Execute       config_rtl -register_reset_num=3 
+Execute     set_part xcvu9p-flgb2104-2-i 
+INFO: [HLS 200-1510] Running: set_part xcvu9p-flgb2104-2-i 
+Execute       create_platform xcvu9p-flgb2104-2-i -board  
+DBG:HLSDevice: Trying to load device library: /opt/Xilinx/Vitis_HLS/2021.2/lib/lnx64.o/librdi_hlsvwrap.so
+DBG:HLSDevice: first parts/arch.xml in RDI_DATADIR: /opt/Xilinx/Vivado/2021.2/data/parts/arch.xml
+DBG:HLSDevice: init success
+Execute         source /opt/Xilinx/Vitis_HLS/2021.2/common/technology/xilinx/DSP48/dsp48.hlp 
+Execute         source /opt/Xilinx/Vitis_HLS/2021.2/common/technology/xilinx/DSP48/virtexuplus_dsp48e2.hlp 
+INFO: [HLS 200-1611] Setting target device to 'xcvu9p-flgb2104-2-i'
+Command       create_platform done; 0.58 sec.
+Execute       source /opt/Xilinx/Vitis_HLS/2021.2/common/technology/xilinx/common/xilinx.gen 
+Execute         source /opt/Xilinx/Vitis_HLS/2021.2/common/technology/xilinx/interface/plb46.gen 
+Execute         source /opt/Xilinx/Vitis_HLS/2021.2/common/technology/xilinx/interface/axi4.gen 
+Execute         source /opt/Xilinx/Vitis_HLS/2021.2/common/technology/xilinx/interface/nativeAXI4.gen 
+Execute           source /opt/Xilinx/Vitis_HLS/2021.2/common/technology/xilinx/interface/saxilite.gen 
+Execute           source /opt/Xilinx/Vitis_HLS/2021.2/common/technology/xilinx/interface/maxi.gen 
+Execute         source /opt/Xilinx/Vitis_HLS/2021.2/common/technology/xilinx/scripts/xilinxcoregen.gen 
+Execute         source /opt/Xilinx/Vitis_HLS/2021.2/common/technology/xilinx/interface/XilEDKCoreGen.gen 
+Execute         source /opt/Xilinx/Vitis_HLS/2021.2/common/technology/xilinx/ip/dds_compiler.gen 
+Execute         source /opt/Xilinx/Vitis_HLS/2021.2/common/technology/xilinx/ip/util.gen 
+Execute         source /opt/Xilinx/Vitis_HLS/2021.2/common/technology/xilinx/ip/xfft.gen 
+Execute         source /opt/Xilinx/Vitis_HLS/2021.2/common/technology/xilinx/ip/xfir.gen 
+Execute         source /opt/Xilinx/Vitis_HLS/2021.2/common/technology/xilinx/DSP48/dsp48.gen 
+Command       ap_source done; 0.11 sec.
+Execute       ap_part_info -name xcvu9p-flgb2104-2-i -data info 
+Execute       config_compile -quiet -complex-mul-dsp=0 
+Command     set_part done; 0.69 sec.
+Execute     create_clock -period 250.000000MHz -name default 
+INFO: [HLS 200-1510] Running: create_clock -period 250.000000MHz -name default 
+Execute       ap_set_clock -name default -period 4 -unit ns -default=false 
+INFO: [SYN 201-201] Setting up clock 'default' with a period of 4ns.
+Execute     config_dataflow -strict_mode warning 
+INFO: [HLS 200-1510] Running: config_dataflow -strict_mode warning 
+Execute     config_export -deadlock_detection none 
+INFO: [HLS 200-1510] Running: config_export -deadlock_detection none 
+Execute     config_interface -m_axi_conservative_mode=1 
+INFO: [HLS 200-1510] Running: config_interface -m_axi_conservative_mode=1 
+Execute     config_interface -m_axi_addr64 
+INFO: [HLS 200-1510] Running: config_interface -m_axi_addr64 
+Execute     config_interface -m_axi_auto_max_ports=0 
+INFO: [HLS 200-1510] Running: config_interface -m_axi_auto_max_ports=0 
+Execute     config_export -format xo -ipname global_affine_k 
+INFO: [HLS 200-1510] Running: config_export -format xo -ipname global_affine_k 
+Execute     csynth_design -synthesis_check 
+INFO: [HLS 200-1510] Running: csynth_design -synthesis_check 
+Execute       get_config_compile -effort 
+Execute       get_config_compile -enable_clang39 
+Execute       get_config_compile -g 
+Execute       get_config_compile -hw_syn 
+Execute       get_config_compile -ng 
+Execute       get_config_compile -opt_fp 
+Execute       get_config_compile -skip_cdt 
+Execute       get_config_compile -skip_syncheck 
+Execute       get_config_compile -skip_transform 
+Execute       get_config_compile -pre_tcl 
+Execute       get_config_compile -keep_printf 
+Execute       elaborate -effort=medium -skip_syncheck=0 -keep_printf=0 -skip_cdt=0 -skip_transform=2 -ng=0 -g=0 -opt_fp=0 -from_csynth_design=1 
+INFO: [HLS 200-111] Finished File checks and directory preparation: CPU user time: 0.01 seconds. CPU system time: 0 seconds. Elapsed time: 0 seconds; current allocated memory: 1009.277 MB.
+INFO: [HLS 200-10] Analyzing design file '/home/centos/Desktop/DP-HLS/src/frontend.cpp' ... 
+INFO-FLOW: Compiling one TU...
+Execute         get_config_compile -pragma_strict_mode 
+INFO-FLOW: Handling /home/centos/Desktop/DP-HLS/src/frontend.cpp as C++
+Execute         ap_part_info -name xcvu9p-flgb2104-2-i -data info 
+INFO-FLOW: Running: GCC PP 39
+INFO-FLOW: Source preprocessing
+Execute         ap_eval exec -ignorestderr /opt/Xilinx/Vitis_HLS/2021.2/lnx64/tools/clang-3.9-csynth/bin/clang /home/centos/Desktop/DP-HLS/src/frontend.cpp -foptimization-record-file=/home/centos/Desktop/DP-HLS/compile/_x/global_affine_k/global_affine_k/global_affine_k/solution/.autopilot/db/frontend.cpp.clang.diag.yml -mllvm -pass-remarks-missed=reflow|pasta|unroll -mllvm -pass-remarks=reflow|pasta|unroll|inline -fno-limit-debug-info -gcc-toolchain /opt/Xilinx/Vitis_HLS/2021.2/tps/lnx64/gcc-6.2.0 -fhls -fno-exceptions -E -I/home/centos/Desktop/DP-HLS/includes -I/home/centos/Desktop/DP-HLS/src -fno-math-errno -c -emit-llvm -mllvm -disable-llvm-optzns -Werror=implicit-function-declaration -Werror=implicit-hls-streams -Werror=return-type -Wpragmas -Wunused-parameter -Wdump-hls-pragmas -fno-threadsafe-statics -fno-use-cxa-atexit -std=gnu++14 -target fpga64-xilinx-linux-gnu -fno-threadsafe-statics -fno-use-cxa-atexit -D__VITIS_HLS__ -DAESL_SYN -D__SYNTHESIS__ -D__HLS_SYN__ -I /opt/Xilinx/Vitis_HLS/2021.2/common/technology/autopilot -I /opt/Xilinx/Vitis_HLS/2021.2/common/technology/autopilot/ap_sysc -include etc/autopilot_ssdm_op.h -D__DSP48E2__ -I /usr/include/x86_64-linux-gnu -o /home/centos/Desktop/DP-HLS/compile/_x/global_affine_k/global_affine_k/global_affine_k/solution/.autopilot/db/frontend.pp.0.cpp -hls-platform-db-name=/opt/Xilinx/Vitis_HLS/2021.2/common/technology/xilinx/common/platform.db -hls-platform-name=virtexuplus_medium > /home/centos/Desktop/DP-HLS/compile/_x/global_affine_k/global_affine_k/global_affine_k/solution/.autopilot/db/frontend.cpp.clang.out.log 2> /home/centos/Desktop/DP-HLS/compile/_x/global_affine_k/global_affine_k/global_affine_k/solution/.autopilot/db/frontend.cpp.clang.err.log 
+Command         ap_eval done; 0.13 sec.
+INFO-FLOW: Done: GCC PP 39 time: 0.1 seconds per iteration
+Execute         set_directive_top global_affine_k -name=global_affine_k 
+Execute         source /opt/Xilinx/Vitis_HLS/2021.2/tps/tcl/tcllib1.11.1/yaml/huddle.tcl 
+Execute         source /opt/Xilinx/Vitis_HLS/2021.2/tps/tcl/tcllib1.11.1/yaml/json2huddle.tcl 
+Execute           source /opt/Xilinx/Vitis_HLS/2021.2/tps/tcl/tcllib1.11.1/try/try.tcl 
+Execute         list_core -type functional_unit 
+INFO-FLOW: Source syntax check for synthesis
+Execute         ap_eval exec -ignorestderr /opt/Xilinx/Vitis_HLS/2021.2/lnx64/tools/clang-3.9-csynth/bin/clang -foptimization-record-file=/home/centos/Desktop/DP-HLS/compile/_x/global_affine_k/global_affine_k/global_affine_k/solution/.autopilot/db/clang.diag.yml -mllvm -pass-remarks-missed=reflow|pasta|unroll -mllvm -pass-remarks=reflow|pasta|unroll|inline -fsyntax-only -fhls -target fpga64-xilinx-linux-gnu /home/centos/Desktop/DP-HLS/compile/_x/global_affine_k/global_affine_k/global_affine_k/solution/.autopilot/db/frontend.pp.0.cpp -hls-platform-db-name=/opt/Xilinx/Vitis_HLS/2021.2/common/technology/xilinx/common/platform.db -hls-platform-name=virtexuplus_medium > /home/centos/Desktop/DP-HLS/compile/_x/global_affine_k/global_affine_k/global_affine_k/solution/.autopilot/db/clang.out.log 2> /home/centos/Desktop/DP-HLS/compile/_x/global_affine_k/global_affine_k/global_affine_k/solution/.autopilot/db/clang.err.log 
+Command         ap_eval done; error code: 1; 0.76 sec.
+ERROR: [HLS 207-2970] no template named 'stream_of_blocks' in namespace 'hls' (/home/centos/Desktop/DP-HLS/src/../include/utils.h:13:40)
+ERROR: [HLS 207-2967] no member named 'write_lock' in namespace 'hls' (/home/centos/Desktop/DP-HLS/src/../include/utils.h:15:9)
+ERROR: [HLS 207-3439] 'T' does not refer to a value (/home/centos/Desktop/DP-HLS/src/../include/utils.h:15:20)
+INFO: [HLS 207-62] declared here (/home/centos/Desktop/DP-HLS/src/../include/utils.h:12:22)
+ERROR: [HLS 207-3771] use of undeclared identifier 'wr' (/home/centos/Desktop/DP-HLS/src/../include/utils.h:18:40)
+WARNING: [HLS 207-5540] invalid variable expr  (/home/centos/Desktop/DP-HLS/src/../include/utils.h:18:40)
+ERROR: [HLS 207-3771] use of undeclared identifier 'wr' (/home/centos/Desktop/DP-HLS/src/../include/utils.h:23:2)
+ERROR: [HLS 207-2970] no template named 'stream_of_blocks' in namespace 'hls' (/home/centos/Desktop/DP-HLS/src/../include/utils.h:139:43)
+ERROR: [HLS 207-2967] no member named 'write_lock' in namespace 'hls' (/home/centos/Desktop/DP-HLS/src/../include/utils.h:141:9)
+ERROR: [HLS 207-3439] 'T' does not refer to a value (/home/centos/Desktop/DP-HLS/src/../include/utils.h:141:20)
+INFO: [HLS 207-62] declared here (/home/centos/Desktop/DP-HLS/src/../include/utils.h:138:22)
+ERROR: [HLS 207-3771] use of undeclared identifier 'wr' (/home/centos/Desktop/DP-HLS/src/../include/utils.h:149:2)
+ERROR: [HLS 207-3696] variable has incomplete type 'void' (/home/centos/Desktop/DP-HLS/src/../include/utils.h:155:8)
+ERROR: [HLS 207-2967] no member named 'stream_of_blocks' in namespace 'hls' (/home/centos/Desktop/DP-HLS/src/../include/utils.h:155:45)
+ERROR: [HLS 207-3439] 'T' does not refer to a value (/home/centos/Desktop/DP-HLS/src/../include/utils.h:155:62)
+INFO: [HLS 207-62] declared here (/home/centos/Desktop/DP-HLS/src/../include/utils.h:154:22)
+ERROR: [HLS 207-3771] use of undeclared identifier 'stream_block' (/home/centos/Desktop/DP-HLS/src/../include/utils.h:155:72)
+ERROR: [HLS 207-3771] use of undeclared identifier 'arr' (/home/centos/Desktop/DP-HLS/src/../include/utils.h:155:28)
+ERROR: [HLS 207-1219] expected ';' at end of declaration (/home/centos/Desktop/DP-HLS/src/../include/utils.h:155:85)
+ERROR: [HLS 207-1228] expected unqualified-id (/home/centos/Desktop/DP-HLS/src/../include/utils.h:156:3)
+ERROR: [HLS 207-1228] expected unqualified-id (/home/centos/Desktop/DP-HLS/src/../include/utils.h:161:9)
+ERROR: [HLS 207-1228] expected unqualified-id (/home/centos/Desktop/DP-HLS/src/../include/utils.h:164:9)
+ERROR: [HLS 207-1237] extraneous closing brace ('}') (/home/centos/Desktop/DP-HLS/src/../include/utils.h:168:3)
+ERROR: [HLS 207-59] too many errors emitted, stopping now
+INFO-FLOW: Error in clang_39_open_source : 
+Command       elaborate done; error code: 2; 0.95 sec.
+Command     csynth_design done; error code: 2; 0.95 sec.
+INFO: [HLS 200-111] Finished Command csynth_design CPU user time: 1.71 seconds. CPU system time: 0.2 seconds. Elapsed time: 0.95 seconds; current allocated memory: 0.000 MB.
+Command   ap_source done; error code: 1; 1.67 sec.
+Execute   cleanup_all 

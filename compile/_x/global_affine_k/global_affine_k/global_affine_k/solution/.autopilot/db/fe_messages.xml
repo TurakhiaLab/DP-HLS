@@ -1,0 +1,72 @@
+<xilinx:hls_fe_msgs>
+    <msg msg_groups="" msg_id="207-2970" msg_severity="ERROR" msg_loc="/home/centos/Desktop/DP-HLS/src/../include/utils.h:13:40" msg_body="no template named 'stream_of_blocks' in namespace 'hls'">
+        <args/>
+    </msg>
+    <msg msg_groups="" msg_id="207-2967" msg_severity="ERROR" msg_loc="/home/centos/Desktop/DP-HLS/src/../include/utils.h:15:9" msg_body="no member named 'write_lock' in namespace 'hls'">
+        <args/>
+    </msg>
+    <msg msg_groups="" msg_id="207-3439" msg_severity="ERROR" msg_loc="/home/centos/Desktop/DP-HLS/src/../include/utils.h:15:20" msg_body="'T' does not refer to a value">
+        <args/>
+    </msg>
+    <msg msg_groups="" msg_id="207-62" msg_severity="INFO" msg_loc="/home/centos/Desktop/DP-HLS/src/../include/utils.h:12:22" msg_body="declared here">
+        <args/>
+    </msg>
+    <msg msg_groups="" msg_id="207-3771" msg_severity="ERROR" msg_loc="/home/centos/Desktop/DP-HLS/src/../include/utils.h:18:40" msg_body="use of undeclared identifier 'wr'">
+        <args/>
+    </msg>
+    <msg msg_groups="" msg_id="207-3771" msg_severity="ERROR" msg_loc="/home/centos/Desktop/DP-HLS/src/../include/utils.h:23:2" msg_body="use of undeclared identifier 'wr'">
+        <args/>
+    </msg>
+    <msg msg_groups="" msg_id="207-2970" msg_severity="ERROR" msg_loc="/home/centos/Desktop/DP-HLS/src/../include/utils.h:139:43" msg_body="no template named 'stream_of_blocks' in namespace 'hls'">
+        <args/>
+    </msg>
+    <msg msg_groups="" msg_id="207-2967" msg_severity="ERROR" msg_loc="/home/centos/Desktop/DP-HLS/src/../include/utils.h:141:9" msg_body="no member named 'write_lock' in namespace 'hls'">
+        <args/>
+    </msg>
+    <msg msg_groups="" msg_id="207-3439" msg_severity="ERROR" msg_loc="/home/centos/Desktop/DP-HLS/src/../include/utils.h:141:20" msg_body="'T' does not refer to a value">
+        <args/>
+    </msg>
+    <msg msg_groups="" msg_id="207-62" msg_severity="INFO" msg_loc="/home/centos/Desktop/DP-HLS/src/../include/utils.h:138:22" msg_body="declared here">
+        <args/>
+    </msg>
+    <msg msg_groups="" msg_id="207-3771" msg_severity="ERROR" msg_loc="/home/centos/Desktop/DP-HLS/src/../include/utils.h:149:2" msg_body="use of undeclared identifier 'wr'">
+        <args/>
+    </msg>
+    <msg msg_groups="" msg_id="207-3696" msg_severity="ERROR" msg_loc="/home/centos/Desktop/DP-HLS/src/../include/utils.h:155:8" msg_body="variable has incomplete type 'void'">
+        <args/>
+    </msg>
+    <msg msg_groups="" msg_id="207-2967" msg_severity="ERROR" msg_loc="/home/centos/Desktop/DP-HLS/src/../include/utils.h:155:45" msg_body="no member named 'stream_of_blocks' in namespace 'hls'">
+        <args/>
+    </msg>
+    <msg msg_groups="" msg_id="207-3439" msg_severity="ERROR" msg_loc="/home/centos/Desktop/DP-HLS/src/../include/utils.h:155:62" msg_body="'T' does not refer to a value">
+        <args/>
+    </msg>
+    <msg msg_groups="" msg_id="207-62" msg_severity="INFO" msg_loc="/home/centos/Desktop/DP-HLS/src/../include/utils.h:154:22" msg_body="declared here">
+        <args/>
+    </msg>
+    <msg msg_groups="" msg_id="207-3771" msg_severity="ERROR" msg_loc="/home/centos/Desktop/DP-HLS/src/../include/utils.h:155:72" msg_body="use of undeclared identifier 'stream_block'">
+        <args/>
+    </msg>
+    <msg msg_groups="" msg_id="207-3771" msg_severity="ERROR" msg_loc="/home/centos/Desktop/DP-HLS/src/../include/utils.h:155:28" msg_body="use of undeclared identifier 'arr'">
+        <args/>
+    </msg>
+    <msg msg_groups="" msg_id="207-1219" msg_severity="ERROR" msg_loc="/home/centos/Desktop/DP-HLS/src/../include/utils.h:155:85" msg_body="expected ';' at end of declaration">
+        <args/>
+    </msg>
+    <msg msg_groups="" msg_id="207-1228" msg_severity="ERROR" msg_loc="/home/centos/Desktop/DP-HLS/src/../include/utils.h:156:3" msg_body="expected unqualified-id">
+        <args/>
+    </msg>
+    <msg msg_groups="" msg_id="207-1228" msg_severity="ERROR" msg_loc="/home/centos/Desktop/DP-HLS/src/../include/utils.h:161:9" msg_body="expected unqualified-id">
+        <args/>
+    </msg>
+    <msg msg_groups="" msg_id="207-1228" msg_severity="ERROR" msg_loc="/home/centos/Desktop/DP-HLS/src/../include/utils.h:164:9" msg_body="expected unqualified-id">
+        <args/>
+    </msg>
+    <msg msg_groups="" msg_id="207-1237" msg_severity="ERROR" msg_loc="/home/centos/Desktop/DP-HLS/src/../include/utils.h:168:3" msg_body="extraneous closing brace ('}')">
+        <args/>
+    </msg>
+    <msg msg_groups="PRAGMA_INVALID" msg_id="207-5540" msg_severity="WARNING" msg_loc="/home/centos/Desktop/DP-HLS/src/../include/utils.h:18:40" msg_body="invalid variable expr">
+        <args ClangWarningOption="invalid-hls-pragmas"/>
+    </msg>
+</xilinx:hls_fe_msgs>
+

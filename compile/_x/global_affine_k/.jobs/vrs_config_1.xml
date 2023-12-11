@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<Runs Version="1" Minor="0">
+	<Run Id="global_affine_k" LaunchDir="/home/centos/Desktop/DP-HLS/compile/_x/global_affine_k/global_affine_k" FlowId="Build_IP" FromStepId="vitis_hls" ToStepId="vitis_hls"/>
+</Runs>
+

@@ -1,0 +1,77 @@
+
+*** Running vitis_hls
+    with args -f global_affine_k.tcl -messageDb vitis_hls.pb
+
+
+****** Vitis HLS - High-Level Synthesis from C, C++ and OpenCL v2021.2 (64-bit)
+  **** SW Build 3367213 on Tue Oct 19 02:47:39 MDT 2021
+  **** IP Build 3369179 on Thu Oct 21 08:25:16 MDT 2021
+    ** Copyright 1986-2021 Xilinx, Inc. All Rights Reserved.
+
+source /opt/Xilinx/Vitis_HLS/2021.2/scripts/vitis_hls/hls.tcl -notrace
+INFO: Applying HLS Y2K22 patch v1.2 for IP revision
+INFO: [HLS 200-10] Running '/opt/Xilinx/Vitis_HLS/2021.2/bin/unwrapped/lnx64.o/vitis_hls'
+INFO: [HLS 200-10] For user 'centos' on host 'ip-172-31-29-19.ec2.internal' (Linux_x86_64 version 3.10.0-1160.81.1.el7.x86_64) on Mon Dec 11 08:29:25 UTC 2023
+INFO: [HLS 200-10] On os "CentOS Linux release 7.9.2009 (Core)"
+INFO: [HLS 200-10] In directory '/home/centos/Desktop/DP-HLS/compile/_x/global_affine_k/global_affine_k'
+Sourcing Tcl script 'global_affine_k.tcl'
+INFO: [HLS 200-1510] Running: open_project global_affine_k 
+INFO: [HLS 200-10] Creating and opening project '/home/centos/Desktop/DP-HLS/compile/_x/global_affine_k/global_affine_k/global_affine_k'.
+INFO: [HLS 200-1510] Running: set_top global_affine_k 
+INFO: [HLS 200-1510] Running: add_files /home/centos/Desktop/DP-HLS/src/frontend.cpp -cflags  -I /home/centos/Desktop/DP-HLS/includes -I /home/centos/Desktop/DP-HLS/src  
+INFO: [HLS 200-10] Adding design file '/home/centos/Desktop/DP-HLS/src/frontend.cpp' to the project
+INFO: [HLS 200-1510] Running: open_solution -flow_target vitis solution 
+INFO: [HLS 200-10] Creating and opening solution '/home/centos/Desktop/DP-HLS/compile/_x/global_affine_k/global_affine_k/global_affine_k/solution'.
+INFO: [HLS 200-1505] Using flow_target 'vitis'
+Resolution: For help on HLS 200-1505 see www.xilinx.com/cgi-bin/docs/rdoc?v=2021.2;t=hls+guidance;d=200-1505.html
+INFO: [HLS 200-435] Setting 'open_solution -flow_target vitis' configuration: config_interface -m_axi_latency=64
+INFO: [HLS 200-435] Setting 'open_solution -flow_target vitis' configuration: config_interface -m_axi_alignment_byte_size=64
+INFO: [HLS 200-435] Setting 'open_solution -flow_target vitis' configuration: config_interface -m_axi_max_widen_bitwidth=512
+INFO: [HLS 200-435] Setting 'open_solution -flow_target vitis' configuration: config_rtl -register_reset_num=3
+INFO: [HLS 200-1510] Running: set_part xcvu9p-flgb2104-2-i 
+INFO: [HLS 200-1611] Setting target device to 'xcvu9p-flgb2104-2-i'
+INFO: [HLS 200-1510] Running: create_clock -period 250.000000MHz -name default 
+INFO: [SYN 201-201] Setting up clock 'default' with a period of 4ns.
+INFO: [HLS 200-1510] Running: config_dataflow -strict_mode warning 
+INFO: [HLS 200-1510] Running: config_export -deadlock_detection none 
+INFO: [HLS 200-1510] Running: config_interface -m_axi_conservative_mode=1 
+INFO: [HLS 200-1510] Running: config_interface -m_axi_addr64 
+INFO: [HLS 200-1510] Running: config_interface -m_axi_auto_max_ports=0 
+INFO: [HLS 200-1510] Running: config_export -format xo -ipname global_affine_k 
+INFO: [HLS 200-1510] Running: csynth_design -synthesis_check 
+INFO: [HLS 200-111] Finished File checks and directory preparation: CPU user time: 0.01 seconds. CPU system time: 0 seconds. Elapsed time: 0 seconds; current allocated memory: 1009.277 MB.
+INFO: [HLS 200-10] Analyzing design file '/home/centos/Desktop/DP-HLS/src/frontend.cpp' ... 
+ERROR: [HLS 207-2970] no template named 'stream_of_blocks' in namespace 'hls' (/home/centos/Desktop/DP-HLS/src/../include/utils.h:13:40)
+ERROR: [HLS 207-2967] no member named 'write_lock' in namespace 'hls' (/home/centos/Desktop/DP-HLS/src/../include/utils.h:15:9)
+ERROR: [HLS 207-3439] 'T' does not refer to a value (/home/centos/Desktop/DP-HLS/src/../include/utils.h:15:20)
+INFO: [HLS 207-62] declared here (/home/centos/Desktop/DP-HLS/src/../include/utils.h:12:22)
+ERROR: [HLS 207-3771] use of undeclared identifier 'wr' (/home/centos/Desktop/DP-HLS/src/../include/utils.h:18:40)
+WARNING: [HLS 207-5540] invalid variable expr  (/home/centos/Desktop/DP-HLS/src/../include/utils.h:18:40)
+ERROR: [HLS 207-3771] use of undeclared identifier 'wr' (/home/centos/Desktop/DP-HLS/src/../include/utils.h:23:2)
+ERROR: [HLS 207-2970] no template named 'stream_of_blocks' in namespace 'hls' (/home/centos/Desktop/DP-HLS/src/../include/utils.h:139:43)
+ERROR: [HLS 207-2967] no member named 'write_lock' in namespace 'hls' (/home/centos/Desktop/DP-HLS/src/../include/utils.h:141:9)
+ERROR: [HLS 207-3439] 'T' does not refer to a value (/home/centos/Desktop/DP-HLS/src/../include/utils.h:141:20)
+INFO: [HLS 207-62] declared here (/home/centos/Desktop/DP-HLS/src/../include/utils.h:138:22)
+ERROR: [HLS 207-3771] use of undeclared identifier 'wr' (/home/centos/Desktop/DP-HLS/src/../include/utils.h:149:2)
+ERROR: [HLS 207-3696] variable has incomplete type 'void' (/home/centos/Desktop/DP-HLS/src/../include/utils.h:155:8)
+ERROR: [HLS 207-2967] no member named 'stream_of_blocks' in namespace 'hls' (/home/centos/Desktop/DP-HLS/src/../include/utils.h:155:45)
+ERROR: [HLS 207-3439] 'T' does not refer to a value (/home/centos/Desktop/DP-HLS/src/../include/utils.h:155:62)
+INFO: [HLS 207-62] declared here (/home/centos/Desktop/DP-HLS/src/../include/utils.h:154:22)
+ERROR: [HLS 207-3771] use of undeclared identifier 'stream_block' (/home/centos/Desktop/DP-HLS/src/../include/utils.h:155:72)
+ERROR: [HLS 207-3771] use of undeclared identifier 'arr' (/home/centos/Desktop/DP-HLS/src/../include/utils.h:155:28)
+ERROR: [HLS 207-1219] expected ';' at end of declaration (/home/centos/Desktop/DP-HLS/src/../include/utils.h:155:85)
+ERROR: [HLS 207-1228] expected unqualified-id (/home/centos/Desktop/DP-HLS/src/../include/utils.h:156:3)
+ERROR: [HLS 207-1228] expected unqualified-id (/home/centos/Desktop/DP-HLS/src/../include/utils.h:161:9)
+ERROR: [HLS 207-1228] expected unqualified-id (/home/centos/Desktop/DP-HLS/src/../include/utils.h:164:9)
+ERROR: [HLS 207-1237] extraneous closing brace ('}') (/home/centos/Desktop/DP-HLS/src/../include/utils.h:168:3)
+ERROR: [HLS 207-59] too many errors emitted, stopping now
+INFO: [HLS 200-111] Finished Command csynth_design CPU user time: 1.71 seconds. CPU system time: 0.2 seconds. Elapsed time: 0.95 seconds; current allocated memory: 0.000 MB.
+ 
+    while executing
+"source global_affine_k.tcl"
+    ("uplevel" body line 1)
+    invoked from within
+"uplevel \#0 [list source $arg] "
+
+INFO: [HLS 200-112] Total CPU user time: 2.57 seconds. Total CPU system time: 0.5 seconds. Total elapsed time: 1.88 seconds; peak allocated memory: 1009.277 MB.
+INFO: [Common 17-206] Exiting vitis_hls at Mon Dec 11 08:29:27 2023...
