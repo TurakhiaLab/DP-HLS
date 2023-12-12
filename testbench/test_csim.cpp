@@ -2,7 +2,7 @@
 #include <vector>
 #include "../include/params.h"
 #include "../include/seq_align_multiple.h"
-#include "../include/host.h"
+#include "../include/host_utils.h"
 
 char_t base_to_num(char base)
 {

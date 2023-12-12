@@ -1,0 +1,13 @@
+#-----------------------------------------------------------
+# Vitis Analyzer v2021.2 (64-bit)
+# SW Build 3367213 on Tue Oct 19 02:47:39 MDT 2021
+# 
+# Start of session at: Mon Dec 11 09:41:22 2023
+# Process ID: 21522
+# Current directory: /home/centos/Desktop/DP-HLS/compile
+# Command line: vitis_analyzer /home/centos/Desktop/DP-HLS/compile/build_dir/hw_emu/seq_align_multiple_static.xclbin.link_summary
+# Log file: /home/centos/Desktop/DP-HLS/compile/vitis_analyzer.log
+# Journal file: /home/centos/Desktop/DP-HLS/compile/vitis_analyzer.jou
+# Running On: ip-172-31-29-19.ec2.internal, OS: Linux, CPU Frequency: 3399.996 MHz, CPU Physical cores: 4, Host memory: 66548 MB
+#-----------------------------------------------------------
+start_gui

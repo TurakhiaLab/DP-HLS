@@ -373,6 +373,8 @@ enum TB_STATE {
     DEL = 2,  // Deletion
     END = 3   // End
 };
+
+#define ZERO_CHAR (char_t(0))
 #endif
 
 // >>> DWP >>>

@@ -1,10 +1,13 @@
-Mon Dec 11 08:29:20 2023: Server was asked to start on port: '34480'
-Mon Dec 11 08:29:20 2023: Server is using token UUID: 'b6bdc027-f496-4355-8a6d-ff7c6c607aab'
-Mon Dec 11 08:29:20 2023: Attempting to start server on port '34480'
-Mon Dec 11 08:29:20 2023: XRC main fifo: created main fifo '/tmp/xrcmainb6bdc027-f496-4355-8a6d-ff7c6c607aab', fd read = 13
-Mon Dec 11 08:29:20 2023: Running Rule Check Server
-Mon Dec 11 08:29:20 2023: Version 1.6.1
-Mon Dec 11 08:29:20 2023: Rule Check Server: Accepted socket connection from client
-Mon Dec 11 08:29:20 2023: EXCHANGE_TOKEN received, server token: b6bdc027-f496-4355-8a6d-ff7c6c607aab, passed token: b6bdc027-f496-4355-8a6d-ff7c6c607aab
-Mon Dec 11 08:29:20 2023: SESSION_MGR: creating session with session uuid: '465c752f-7130-4f45-ac7d-3e71503153ef' and name 'v++_compile_global_affine_k'
-Mon Dec 11 08:29:27 2023: SESSION_MGR: closing session for UUID '465c752f-7130-4f45-ac7d-3e71503153ef' with name 'v++_compile_global_affine_k'
+Mon Dec 11 09:44:09 2023: Server was asked to start on port: '46851'
+Mon Dec 11 09:44:09 2023: Server is using token UUID: '698e4243-fb4f-451a-a7be-4ed059aedd77'
+Mon Dec 11 09:44:09 2023: Attempting to start server on port '46851'
+Mon Dec 11 09:44:09 2023: XRC main fifo: created main fifo '/tmp/xrcmain698e4243-fb4f-451a-a7be-4ed059aedd77', fd read = 13
+Mon Dec 11 09:44:09 2023: Running Rule Check Server
+Mon Dec 11 09:44:09 2023: Version 1.6.1
+Mon Dec 11 09:44:09 2023: Rule Check Server: Accepted socket connection from client
+Mon Dec 11 09:44:09 2023: EXCHANGE_TOKEN received, server token: 698e4243-fb4f-451a-a7be-4ed059aedd77, passed token: 698e4243-fb4f-451a-a7be-4ed059aedd77
+Mon Dec 11 09:44:09 2023: SESSION_MGR: creating session with session uuid: '452a4947-87b2-468a-a3c8-573ffb7640cc' and name 'v++_link_seq_align_multiple_static'
+Mon Dec 11 09:44:16 2023: Rule Check Server: Accepted socket connection from client
+Mon Dec 11 09:44:55 2023: Rule Check Server: Accepted socket connection from client
+Mon Dec 11 10:09:08 2023: Rule Check Server: Accepted socket connection from client
+Mon Dec 11 12:25:19 2023: SESSION_MGR: closing session for UUID '452a4947-87b2-468a-a3c8-573ffb7640cc' with name 'v++_link_seq_align_multiple_static'

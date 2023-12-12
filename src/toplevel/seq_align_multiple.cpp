@@ -10,7 +10,7 @@
 #include "../../include/PE.h"
 #include "../../include/align.h"
 #include "../../include/initial.h"
-#include <hls_np_channel.h>
+// #include <hls_np_channel.h>
 
 #ifdef DEBUG
 #include "../../include/debug.h"
@@ -24,8 +24,8 @@ using namespace hls;
 /*
  IMPORTANT: the indexing of the shift register is shift from smaller index to larger index.
  */
-extern "C"
-{
+// extern "C"
+// {
 	void seq_align_multiple_static(
 	char_t (&querys)[N_BLOCKS][MAX_QUERY_LENGTH],
 	char_t (&references)[N_BLOCKS][MAX_REFERENCE_LENGTH],
@@ -67,4 +67,4 @@ extern "C"
 #endif
 		}
     }
-}
+// }

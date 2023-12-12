@@ -1,4 +1,4 @@
-#include <hls_task.h>
+// #include <hls_task.h>
 #include "../../include/PE.h"
 #include <hls_vector.h>
 #include <hls_np_channel.h>
@@ -70,62 +70,62 @@ void PE::Linear::Compute(char_t local_query_val,
 
 // FIXME: Currently just the functionality of expand the PE is used, rather than the full functioning
 //        kernel, since last_pe_score is not set yet.
-void PE::ExpandComputeTC(
-    char_t local_query[PE_NUM],
-    char_t local_reference[PE_NUM],
-    hls::vector<type_t, N_LAYERS> wavefronts[2][PE_NUM],
-    hls::vector<type_t, N_LAYERS> write_score_arr[PE_NUM],
-    hls::vector<tbp_t, N_LAYERS> write_traceback_arr[PE_NUM])
-{
-#pragma HLS array_partition variable = local_query type = complete
-#pragma HLS array_partition variable = local_reference type = complete
-#pragma HLS array_partition variable = wavefronts type = complete
-#pragma HLS array_partition variable = write_score_arr type = complete
-#pragma HLS array_partition variable = write_traceback_arr type = complete
+// void PE::ExpandComputeTC(
+//     char_t local_query[PE_NUM],
+//     char_t local_reference[PE_NUM],
+//     hls::vector<type_t, N_LAYERS> wavefronts[2][PE_NUM],
+//     hls::vector<type_t, N_LAYERS> write_score_arr[PE_NUM],
+//     hls::vector<tbp_t, N_LAYERS> write_traceback_arr[PE_NUM])
+// {
+// #pragma HLS array_partition variable = local_query type = complete
+// #pragma HLS array_partition variable = local_reference type = complete
+// #pragma HLS array_partition variable = wavefronts type = complete
+// #pragma HLS array_partition variable = write_score_arr type = complete
+// #pragma HLS array_partition variable = write_traceback_arr type = complete
 
-    hls_thread_local hls::split::round_robin<char_t, PE_NUM> local_query_split;
-    hls_thread_local hls::split::round_robin<char_t, PE_NUM> local_reference_split;
-    hls_thread_local hls::split::round_robin<hls::vector<type_t, N_LAYERS>, PE_NUM> up_prev_split;
-    hls_thread_local hls::split::round_robin<hls::vector<type_t, N_LAYERS>, PE_NUM> diag_prev_split;
-    hls_thread_local hls::split::round_robin<hls::vector<type_t, N_LAYERS>, PE_NUM> left_prev_split;
+//     hls_thread_local hls::split::round_robin<char_t, PE_NUM> local_query_split;
+//     hls_thread_local hls::split::round_robin<char_t, PE_NUM> local_reference_split;
+//     hls_thread_local hls::split::round_robin<hls::vector<type_t, N_LAYERS>, PE_NUM> up_prev_split;
+//     hls_thread_local hls::split::round_robin<hls::vector<type_t, N_LAYERS>, PE_NUM> diag_prev_split;
+//     hls_thread_local hls::split::round_robin<hls::vector<type_t, N_LAYERS>, PE_NUM> left_prev_split;
 
-    hls_thread_local hls::merge::round_robin<hls::vector<type_t, N_LAYERS>, PE_NUM> score_write_merge;
-    hls_thread_local hls::merge::round_robin<hls::vector<tbp_t, N_LAYERS>, PE_NUM> tbp_write_merge;
-#pragma HLS dataflow
-    // prepare the input loop
-    // could write in a function called distribute
+//     hls_thread_local hls::merge::round_robin<hls::vector<type_t, N_LAYERS>, PE_NUM> score_write_merge;
+//     hls_thread_local hls::merge::round_robin<hls::vector<tbp_t, N_LAYERS>, PE_NUM> tbp_write_merge;
+// #pragma HLS dataflow
+//     // prepare the input loop
+//     // could write in a function called distribute
 
-    PE::ReadIn(
-        local_query,
-        local_reference,
-        wavefronts,
-        local_query_split.in,
-        local_reference_split.in,
-        left_prev_split.in,
-        diag_prev_split.in,
-        up_prev_split.in);
+//     PE::ReadIn(
+//         local_query,
+//         local_reference,
+//         wavefronts,
+//         local_query_split.in,
+//         local_reference_split.in,
+//         left_prev_split.in,
+//         diag_prev_split.in,
+//         up_prev_split.in);
 
-    hls_thread_local hls::task t[PE_NUM];
-    for (int i = 0; i < PE_NUM; i++)
-    {
-#pragma HLS unroll
-        t[i](
-            PE::Linear::ComputeStream,
-            local_query_split.out[i],
-            local_reference_split.out[i],
-            up_prev_split.out[i],
-            diag_prev_split.out[i],
-            left_prev_split.out[i],
-            score_write_merge.in[i],
-            tbp_write_merge.in[i]);
-    }
-#pragma HLS dataflow
-    PE::WriteOut(
-        score_write_merge.out,
-        tbp_write_merge.out,
-        write_score_arr,
-        write_traceback_arr);
-}
+//     hls_thread_local hls::task t[PE_NUM];
+//     for (int i = 0; i < PE_NUM; i++)
+//     {
+// #pragma HLS unroll
+//         t[i](
+//             PE::Linear::ComputeStream,
+//             local_query_split.out[i],
+//             local_reference_split.out[i],
+//             up_prev_split.out[i],
+//             diag_prev_split.out[i],
+//             left_prev_split.out[i],
+//             score_write_merge.in[i],
+//             tbp_write_merge.in[i]);
+//     }
+// #pragma HLS dataflow
+//     PE::WriteOut(
+//         score_write_merge.out,
+//         tbp_write_merge.out,
+//         write_score_arr,
+//         write_traceback_arr);
+// }
 
 void PE::ReadIn(
     char_t local_qry_arr[PE_NUM],

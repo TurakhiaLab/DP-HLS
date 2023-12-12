@@ -22,3 +22,10 @@ local_seq_align_multiple_sa/vitis_hls.log
 # ingore vitis project folder
 vitis/
 c_cpp_properties.json
+
+# ignore compilation bitstreams
+/compile/_x
+/compile/.ipcache
+/compile/.Xil
+/compile/build_dir
+/compile/*.log

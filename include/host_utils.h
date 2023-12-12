@@ -1,5 +1,5 @@
 /**
- * @file host.h
+ * @file host_utils.h
  * @author Yingqi Cao (yic033@ucsd.edu)
  * @brief Contains helper functions to write the host side code of the kernel. 
  * @version 0.1
@@ -12,7 +12,7 @@
 #ifndef HOST_H
 #define HOST_H
 
-#include "params.h"
+
 #include <string>
 #include <vector>
 #include <complex>
