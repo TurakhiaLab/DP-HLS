@@ -10,7 +10,6 @@ cmake_install.cmake
 .idea/
 seq_align_test
 out/
-Makefile
 
 # ignore build file at the top level
 /build/
