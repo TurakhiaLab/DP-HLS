@@ -6,6 +6,8 @@ using namespace hls;
 list<hls::vector<type_t, N_LAYERS>> Container::scores[PE_NUM]; // @Debug
 #endif
 
+#define MAX(x, y) (((x) > (y)) ? (x) : (y))
+
 void Align::ArrangeScores(
 	dp_mem_block_t &dpmem_in,
 	bool (&predicate)[PE_NUM], idx_t (&pe_offset)[PE_NUM],
@@ -360,49 +362,70 @@ void Align::ChunkCompute(
 		Align::ShiftPredicate(predicate, i, query_length, reference_length);
 		Align::ShiftReferece(local_reference, reference, i, reference_length);
 
-		Align::UpdateDPMem(dp_mem, i, init_col_scr, init_row_scr);
+		// int band_start, band_end;
+
+        // if (i < FIXED_BANDWIDTH)
+        // {
+        //     band_start = 0;
+        //     band_end = i + 1;
+        // }
+        // else if (i < (reference_length - PE_NUM + 1))
+        // {
+        //     band_start = i - FIXED_BANDWIDTH + 1;
+        //     band_end = i + 1;
+        // }
+        // else
+        // {
+        //     band_start = i - FIXED_BANDWIDTH + 1;
+        //     band_end = reference_length;
+        // }
+
+        // if (band_start <= i && i < band_end)
+        // {
+
+			Align::UpdateDPMem(dp_mem, i, init_col_scr, init_row_scr);
 
 #ifdef DEBUG
-		Utils::Debug::Translate::print_2d(
-			"Initial COlumn Scores",
-			Utils::Debug::Translate::translate_2d<type_t, N_LAYERS, PE_NUM>(init_col_scr)
-		);
+			Utils::Debug::Translate::print_2d(
+				"Initial COlumn Scores",
+				Utils::Debug::Translate::translate_2d<type_t, N_LAYERS, PE_NUM>(init_col_scr)
+			);
 #endif
 
-		// FIXME: Pass in DP_MEM and assign scores accodingly
-		PE::PEUnroll(
-			dp_mem,
-			local_query,
-			local_reference,
-			penalties,
-			tbp_out);
+			// FIXME: Pass in DP_MEM and assign scores accodingly
+			PE::PEUnroll(
+				dp_mem,
+				local_query,
+				local_reference,
+				penalties,
+				tbp_out);
 
-		// This should happen before Arrange TBP Arr
-		// Because it doesn't increment PE offsets
-		// while ArrangeTBPArr does
-		Align::PreserveRowScore(
-			preserved_row_scr,
-			dp_mem[PE_NUM][0],
-			predicate[PE_NUM-1],
-			pe_col_offsets[PE_NUM-1]);
+			// This should happen before Arrange TBP Arr
+			// Because it doesn't increment PE offsets
+			// while ArrangeTBPArr does
+			Align::PreserveRowScore(
+				preserved_row_scr,
+				dp_mem[PE_NUM][0],
+				predicate[PE_NUM-1],
+				pe_col_offsets[PE_NUM-1]);
 
-		// Align::FindMax::ExtractScoresLayer(scores_out, LAYER_MAXIMIUM, extracted_scores);
+			// Align::FindMax::ExtractScoresLayer(scores_out, LAYER_MAXIMIUM, extracted_scores);
 
-		ALIGN_TYPE::UpdatePEMaximum(dp_mem, max, pe_col_offsets, chunk_row_offset, predicate, global_query_length, reference_length);
+			ALIGN_TYPE::UpdatePEMaximum(dp_mem, max, pe_col_offsets, chunk_row_offset, predicate, global_query_length, reference_length);
 #ifdef DEBUG
-		Align::ArrangeScores(dp_mem, predicate, pe_col_offsets, score_tbp);
-		auto dp_mem_checkpoint = Utils::Debug::Translate::translate_3d<
-			type_t, N_LAYERS, PE_NUM+1, 3
-		>(dp_mem);
+			Align::ArrangeScores(dp_mem, predicate, pe_col_offsets, score_tbp);
+			auto dp_mem_checkpoint = Utils::Debug::Translate::translate_3d<
+				type_t, N_LAYERS, PE_NUM+1, 3
+			>(dp_mem);
 
-		Utils::Debug::Translate::print_1d("pe_col_offsets",
-		Utils::Debug::Translate::translate_1d<idx_t, PE_NUM>(pe_col_offsets));
+			Utils::Debug::Translate::print_1d("pe_col_offsets",
+			Utils::Debug::Translate::translate_1d<idx_t, PE_NUM>(pe_col_offsets));
 #endif
-        Align::ArrangeTBPArr(tbp_out, predicate, pe_col_offsets, chunk_tbp_out);
+			Align::ArrangeTBPArr(tbp_out, predicate, pe_col_offsets, chunk_tbp_out);
 
-		Align::UpdatePEOffset(pe_col_offsets, predicate);
+			Align::UpdatePEOffset(pe_col_offsets, predicate);
+		//}
 	}
-
 #ifdef DEBUG
 	Utils::Debug::Translate::print_2d("preserved row scores",
 		Utils::Debug::Translate::translate_2d<type_t, N_LAYERS, MAX_REFERENCE_LENGTH>(preserved_row_scr));
@@ -639,7 +662,7 @@ void Align::Reordered::Align(
 
 	for (int c = 1; c < MAX_QUERY_LENGTH; c += PE_NUM)
 	{
-		for (int j = 1; j < MAX_REFERENCE_LENGTH; j++)
+		for (int j = MAX(1, c-FIXED_BANDWIDTH); j < MAX_QUERY_LENGTH+1 && j < c+FIXED_BANDWIDTH+1/*MAX_REFERENCE_LENGTH*/; j++)
 		{
 #pragma HLS pipeline II = 1
 			for (int p = 0; p < PE_NUM; p++)
