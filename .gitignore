@@ -22,6 +22,10 @@ local_seq_align_multiple_sa/vitis_hls.log
 vitis/
 c_cpp_properties.json
 
+
+# ignore project folder
+BasicKernel/
+
 # ignore compilation bitstreams
 /compile/_x
 /compile/.ipcache
