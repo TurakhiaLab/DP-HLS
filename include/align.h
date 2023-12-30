@@ -13,10 +13,10 @@
 #define SEQ_ALIGN_H
 
 #include <ap_int.h>
-#include <hls_task.h>
+// #include <hls_task.h>
 #include <hls_vector.h>
 #include <hls_stream.h>
-#include <hls_streamofblocks.h>
+// #include <hls_streamofblocks.h>
 
 #include "./params.h"
 #include "./PE.h"
@@ -27,7 +27,7 @@
 
 #ifdef DEBUG
 #include "./debug.h"
-#include "./pyapi.h"
+//#include "./pyapi.h"
 #endif // DBEUG
 
 
@@ -226,9 +226,10 @@ namespace Align
 	 * @param init_col_scr 
 	 * @param init_row_scr 
 	 */
-	void UpdateDPMem(dp_mem_block_t &dp_mem, idx_t i, chunk_col_scores_inf_t &init_col_scr, init_row_score_block_t &init_row_scr);
+	void UpdateDPMem(dp_mem_block_t &dp_mem, idx_t i, chunk_col_scores_inf_t &init_col_scr, score_vec_t (&init_row_scr)[MAX_REFERENCE_LENGTH] );
 	void UpdateDPMemShift(dp_mem_block_t &dp_mem);
-	void UpdateDPMemSet(dp_mem_block_t &dp_mem, idx_t i, chunk_col_scores_inf_t &init_col_scr, init_row_score_block_t &init_row_scr);
+	void UpdateDPMemSet(dp_mem_block_t &dp_mem, idx_t i, chunk_col_scores_inf_t &init_col_scr, score_vec_t (&init_row_scr)[MAX_REFERENCE_LENGTH]);
+
 
 	/**
 	 * Namespace related to functions used to find the maximum elements in

@@ -1,6 +1,8 @@
 README.md
 setup.py
 ./module.cpp
+./src/debug.cpp
+./src/frontend.cpp
 ./src/pyapi.cpp
 ./src/traceback.cpp
 ./src/utils.cpp

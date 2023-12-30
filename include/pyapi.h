@@ -10,9 +10,10 @@
 #include "utils.h"
 #include <ap_int.h>
 #include <ap_fixed.h>
-
+#include <pybind11/pybind11.h>
+#include <pybind11/stl.h>
 using namespace std;
-
+namespace py = pybind11;
 
 class LoggerData
 {
@@ -91,12 +92,15 @@ public:
         this->logger = LoopLogger();
     };
 
+
+
     /**
      * @brief runs the kernel with the query and reference strings
      * set already.
      *
      */
-    void run();
+    void run(py::dict py_penalties);
+
 
     /**
      * @brief runs the kernel with provided query and strings.
@@ -104,7 +108,8 @@ public:
      * @param query_string
      * @param reference_string
      */
-    void run(string query_string, string reference_string);
+    void run(string query_string, string reference_string, py::dict py_penalties);
+
 
     /**
      * @brief returns the traceback path. Address the traceback path of the zeroth

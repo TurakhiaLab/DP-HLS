@@ -26,7 +26,15 @@ int main()
 
     AHRunner runner(query_string, reference_string);
 
-    runner.run();
+    Penalties penalties;
+
+    penalties.extend = -1;
+    penalties.open = -1;
+    penalties.linear_gap = -1;
+    penalties.match = 3;
+    penalties.mismatch = -1;
+
+    runner.run(penalties);
 
     auto result = runner.get_traceback_path();
 
