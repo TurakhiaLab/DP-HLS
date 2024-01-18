@@ -1,13 +1,10 @@
-Mon Dec 11 09:44:09 2023: Server was asked to start on port: '46851'
-Mon Dec 11 09:44:09 2023: Server is using token UUID: '698e4243-fb4f-451a-a7be-4ed059aedd77'
-Mon Dec 11 09:44:09 2023: Attempting to start server on port '46851'
-Mon Dec 11 09:44:09 2023: XRC main fifo: created main fifo '/tmp/xrcmain698e4243-fb4f-451a-a7be-4ed059aedd77', fd read = 13
-Mon Dec 11 09:44:09 2023: Running Rule Check Server
-Mon Dec 11 09:44:09 2023: Version 1.6.1
-Mon Dec 11 09:44:09 2023: Rule Check Server: Accepted socket connection from client
-Mon Dec 11 09:44:09 2023: EXCHANGE_TOKEN received, server token: 698e4243-fb4f-451a-a7be-4ed059aedd77, passed token: 698e4243-fb4f-451a-a7be-4ed059aedd77
-Mon Dec 11 09:44:09 2023: SESSION_MGR: creating session with session uuid: '452a4947-87b2-468a-a3c8-573ffb7640cc' and name 'v++_link_seq_align_multiple_static'
-Mon Dec 11 09:44:16 2023: Rule Check Server: Accepted socket connection from client
-Mon Dec 11 09:44:55 2023: Rule Check Server: Accepted socket connection from client
-Mon Dec 11 10:09:08 2023: Rule Check Server: Accepted socket connection from client
-Mon Dec 11 12:25:19 2023: SESSION_MGR: closing session for UUID '452a4947-87b2-468a-a3c8-573ffb7640cc' with name 'v++_link_seq_align_multiple_static'
+Tue Jan 16 21:59:19 2024: Server was asked to start on port: '46355'
+Tue Jan 16 21:59:19 2024: Server is using token UUID: '4fa1abe1-6bd0-43ef-8fed-0db768bdfa6e'
+Tue Jan 16 21:59:19 2024: Attempting to start server on port '46355'
+Tue Jan 16 21:59:19 2024: XRC main fifo: created main fifo '/tmp/xrcmain4fa1abe1-6bd0-43ef-8fed-0db768bdfa6e', fd read = 13
+Tue Jan 16 21:59:19 2024: Running Rule Check Server
+Tue Jan 16 21:59:19 2024: Version 1.6.1
+Tue Jan 16 21:59:19 2024: Rule Check Server: Accepted socket connection from client
+Tue Jan 16 21:59:19 2024: EXCHANGE_TOKEN received, server token: 4fa1abe1-6bd0-43ef-8fed-0db768bdfa6e, passed token: 4fa1abe1-6bd0-43ef-8fed-0db768bdfa6e
+Tue Jan 16 21:59:19 2024: SESSION_MGR: creating session with session uuid: '7d6e8bc3-0ff1-4b15-9051-ba71325bcc1d' and name 'v++_package_seq_align_kernel'
+Tue Jan 16 21:59:26 2024: SESSION_MGR: closing session for UUID '7d6e8bc3-0ff1-4b15-9051-ba71325bcc1d' with name 'v++_package_seq_align_kernel'

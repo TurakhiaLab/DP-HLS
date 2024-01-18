@@ -1,4 +1,5 @@
-#include "../../include/align.h"
+#include "align.h"
+#include "params.h"
 
 using namespace hls;
 
@@ -215,7 +216,7 @@ void Align::ArrangeTBPBlock(hls::stream_of_blocks<tbp_block_t> &tbp_in, bool (&p
 	write_lock<tbp_chunk_block_t> tbp_chunk_wr(tbp_chunk_out);
 
 #pragma HLS array_partition variable = tbp_rd type = complete
-#pragma HLS array_partition variable = tbp_chunk_wr type = cyclic factor = PE_NUM dim = 1
+#pragma HLS array_partition variable = tbp_chunk_wr type = cyclic factor = 32 dim = 1
 
 	for (int i = 0; i < PE_NUM; i++)
 	{
@@ -301,7 +302,7 @@ void Align::ChunkCompute(
 	chunk_col_scores_inf_t &init_col_scr,
 	score_vec_t (&init_row_scr)[MAX_REFERENCE_LENGTH],
 	int global_query_length, int query_length, int reference_length,
-	const Penalties penalties, 
+	const Penalties &penalties, 
 	score_vec_t (&preserved_row_scr)[MAX_REFERENCE_LENGTH],
 	ScorePack (&max)[PE_NUM],  // initialize rather in maximum
 #ifdef DEBUG
@@ -526,7 +527,7 @@ void Align::AlignStatic(
 	char_t (&reference)[MAX_REFERENCE_LENGTH],
 	idx_t query_length,
 	idx_t reference_length,
-	const Penalties penalties,
+	const Penalties &penalties,
 	tbr_t (&tb_out)[MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH])
 {
 
@@ -534,7 +535,7 @@ void Align::AlignStatic(
 
 // could partition query so load takes only 1 cycle
 // or if the chunk compute is pipelined with the array fill, this might not be necessary
-#pragma HLS array_partition variable = query type = cyclic factor = PE_NUM dim = 1
+#pragma HLS array_partition variable = query type = cyclic factor = 32 dim = 1
 
 	score_vec_t init_col_score[MAX_QUERY_LENGTH];
 
@@ -542,7 +543,7 @@ void Align::AlignStatic(
 //	score_vec_t preserved_row_buffer[MAX_REFERENCE_LENGTH];
 #pragma HLS array_partition variable=init_row_score type=complete dim=1
 
-	ALIGN_TYPE::InitializeScores(init_col_score, init_row_score[0], penalties);
+	// ALIGN_TYPE::InitializeScores(init_col_score, init_row_score[0], penalties);
 
 	// The size of a static matrix must be known at the compile time.
 	tbp_t tbp_matrix[MAX_QUERY_LENGTH][MAX_REFERENCE_LENGTH];
@@ -551,10 +552,15 @@ void Align::AlignStatic(
 	hls::vector<type_t, N_LAYERS>  score_matrix[MAX_QUERY_LENGTH][MAX_REFERENCE_LENGTH]; // DEBUG
 #endif
 
-#pragma HLS array_partition variable = tbp_matrix type = cyclic factor = PE_NUM dim = 1
+#pragma HLS array_partition variable = tbp_matrix type = cyclic factor = 32 dim = 1
 
 	// >>> Compute >>>
-	ScorePack maximum = {0,0,0,0}; // global score track
+	ScorePack maximum;
+	maximum.score = type_t(0);
+	maximum.chunk_offset = idx_t(0);
+	maximum.pe = idx_t(0);
+	maximum.pe_offset = idx_t(0);
+
 	ScorePack local_max[PE_NUM];
 	ALIGN_TYPE::InitializeMaxScores(local_max, query_length, reference_length);
 
@@ -580,24 +586,24 @@ void Align::AlignStatic(
 		hls::vector<type_t, N_LAYERS>  (*chunk_score_out)[MAX_REFERENCE_LENGTH] = &score_matrix[i];
 #endif
 
-		Align::ChunkCompute(
-			i,
-			local_query,
-			reference,
-			local_init_col_score,
-			init_row_score[row_buf_cnt % 2],
-            query_length,
-			local_query_length,
-			reference_length,
-			penalties,
-			init_row_score[row_buf_cnt % 2 + 1],
-			local_max,
-#ifdef DEBUG
-			chunk_tbp_out,
-			chunk_score_out);
-#else
-            chunk_tbp_out);
-#endif
+// 		Align::ChunkCompute(
+// 			i,
+// 			local_query,
+// 			reference,
+// 			local_init_col_score,
+// 			init_row_score[row_buf_cnt % 2],
+//             query_length,
+// 			local_query_length,
+// 			reference_length,
+// 			penalties,
+// 			init_row_score[row_buf_cnt % 2 + 1],
+// 			local_max,
+// #ifdef DEBUG
+// 			chunk_tbp_out,
+// 			chunk_score_out);
+// #else
+//             chunk_tbp_out);
+// #endif
 
 	}
 
@@ -613,8 +619,8 @@ void Align::AlignStatic(
 	Align::FindMax::ReductionMaxScores(local_max, maximum);
 
 	// >>> Traceback >>>
-	printf("(index from 0) Traceback Start Row: %d, Col: %d\n", maximum.chunk_offset + maximum.pe, maximum.pe_offset);
-	Traceback::Traceback(tbp_matrix, tb_out, maximum.chunk_offset + maximum.pe, maximum.pe_offset);
+	printf("(index from 0) Traceback Start Row: %d, Col: %d\n", (maximum.chunk_offset + maximum.pe).to_int(), maximum.pe_offset.to_int());
+	// Traceback::Traceback(tbp_matrix, tb_out, maximum.chunk_offset + maximum.pe, maximum.pe_offset);
 #ifdef DEBUG
 	Debug::Translate::print_1d("Traceback", 
 		Debug::Translate::translate_1d<tbr_t, MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH>(tb_out)

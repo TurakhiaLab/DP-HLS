@@ -359,13 +359,13 @@ struct ScorePack{
     idx_t pe_offset = 0;
 };
 
-struct Penalties {
+typedef struct {
     type_t open;
     type_t extend;
     type_t mismatch;
     type_t match;
     type_t linear_gap;
-};
+} Penalties;
 
 enum TB_STATE {
     MM = 0,   // Match/Mismatch

@@ -29,7 +29,7 @@ traceback_loop:
 #pragma HLS dataflow
 #pragma HLS expression_balance on
 #pragma HLS PIPELINE II=1
-#pragma HLS LOOP_TRIPCOUNT min=1 max=MAX_REFERENCE_LENGTH+MAX_QUERY_LENGTH
+#pragma HLS LOOP_TRIPCOUNT min=1 max=512  // Need manual tunning
 
             tbp_t tbptr = tbmat[row][col];  // Want to represented by the symbol rather than pointer
 #ifdef DEBUG

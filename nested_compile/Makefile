@@ -51,8 +51,8 @@ help::
 MK_PATH := $(abspath $(lastword $(MAKEFILE_LIST)))
 COMMON_REPO ?= $(shell bash -c 'export MK_PATH=$(MK_PATH); echo $${MK_PATH%hello_world/*}')
 PWD = $(shell readlink -f .)
-# XF_PROJ_ROOT = $(shell readlink -f $(COMMON_REPO))
-XF_PROJ_ROOT = /home/centos/workspace/DP-HLS
+XF_PROJ_ROOT = $(shell readlink -f $(COMMON_REPO))
+
 TARGET := hw
 HOST_ARCH := x86
 SYSROOT := 
@@ -75,7 +75,7 @@ RESULT_STRING = TEST PASSED
 
 VPP := v++
 VPP_PFLAGS := 
-CMD_ARGS = $(BUILD_DIR)/seq_align_kernel.xclbin
+CMD_ARGS = $(BUILD_DIR)/vadd.xclbin
 SDCARD := sd_card
 
 include $(XF_PROJ_ROOT)/common/includes/opencl/opencl.mk
@@ -88,7 +88,7 @@ PLATFORM_BLOCKLIST += nodma
 ############################## Setting up Host Variables ##############################
 #Include Required Host Source Files
 CXXFLAGS += -I$(XF_PROJ_ROOT)/common/includes/xcl2
-HOST_SRCS += $(XF_PROJ_ROOT)/common/includes/xcl2/xcl2.cpp ./src/hosts/host_ocl.cpp 
+HOST_SRCS += $(XF_PROJ_ROOT)/common/includes/xcl2/xcl2.cpp ./src/host.cpp 
 # Host compiler global settings
 CXXFLAGS += -fmessage-length=0
 LDFLAGS += -lrt -lstdc++ 
@@ -106,13 +106,13 @@ endif
 
 
 
-EXECUTABLE = ./dp-hls-host
+EXECUTABLE = ./hello_world
 EMCONFIG_DIR = $(TEMP_DIR)
 EMU_DIR = $(SDCARD)/data/emulation
 
 ############################## Declaring Binary Containers ##############################
-BINARY_CONTAINERS += $(BUILD_DIR)/seq_align_kernel.xclbin
-BINARY_CONTAINER_kernel_OBJS += $(TEMP_DIR)/seq_align_kernel.xo
+BINARY_CONTAINERS += $(BUILD_DIR)/vadd.xclbin
+BINARY_CONTAINER_vadd_OBJS += $(TEMP_DIR)/vadd.xo
 
 ############################## Setting Targets ##############################
 CP = cp -rf
@@ -130,23 +130,21 @@ build: check-vitis check-device $(BINARY_CONTAINERS)
 xclbin: build
 
 ############################## Setting Rules for Binary Containers (Building Kernels) ##############################
-$(TEMP_DIR)/seq_align_kernel.xo: src/toplevel/seq_align_multiple.cpp src/align/align.cpp src/utils.cpp src/frontend.cpp src/traceback.cpp
+$(TEMP_DIR)/vadd.xo: src/vadd.cpp
 	mkdir -p $(TEMP_DIR)
-	$(VPP) $(VPP_FLAGS) -c -k seq_align_multiple_static --temp_dir $(TEMP_DIR)  -I'$(<D)' -I'./include' -o'$@' $^
-
-$(BUILD_DIR)/seq_align_kernel.xclbin: $(TEMP_DIR)/seq_align_kernel.xo
+	$(VPP) $(VPP_FLAGS) -c -k vadd --temp_dir $(TEMP_DIR)  -I'$(<D)' -o'$@' '$<'
+$(BUILD_DIR)/vadd.xclbin: $(BINARY_CONTAINER_vadd_OBJS)
 	mkdir -p $(BUILD_DIR)
 ifeq ($(HOST_ARCH), x86)
-	$(VPP) $(VPP_FLAGS) -l $(VPP_LDFLAGS) --temp_dir $(TEMP_DIR) -o'$(BUILD_DIR)/seq_align_kernel.link.xclbin' $(+)
-	$(VPP) -p $(BUILD_DIR)/seq_align_kernel.link.xclbin -t $(TARGET) --platform $(PLATFORM) --package.out_dir $(PACKAGE_OUT) -o $(BUILD_DIR)/seq_align_kernel.xclbin
+	$(VPP) $(VPP_FLAGS) -l $(VPP_LDFLAGS) --temp_dir $(TEMP_DIR) -o'$(BUILD_DIR)/vadd.link.xclbin' $(+)
+	$(VPP) -p $(BUILD_DIR)/vadd.link.xclbin -t $(TARGET) --platform $(PLATFORM) --package.out_dir $(PACKAGE_OUT) -o $(BUILD_DIR)/vadd.xclbin
 else
-	$(VPP) $(VPP_FLAGS) -l $(VPP_LDFLAGS) --temp_dir $(TEMP_DIR) -o'$(BUILD_DIR)/seq_align_kernel.xclbin' $(+)
+	$(VPP) $(VPP_FLAGS) -l $(VPP_LDFLAGS) --temp_dir $(TEMP_DIR) -o'$(BUILD_DIR)/vadd.xclbin' $(+)
 endif
 
 ############################## Setting Rules for Host (Building Host Executable) ##############################
 $(EXECUTABLE): $(HOST_SRCS) | check-xrt
-# I added this
-		$(CXX) -o $@ $^ $(CXXFLAGS) $(LDFLAGS) -I/opt/Xilinx/Vitis_HLS/2021.2/include -I"./include"
+		$(CXX) -o $@ $^ $(CXXFLAGS) $(LDFLAGS)
 
 emconfig:$(EMCONFIG_DIR)/emconfig.json
 $(EMCONFIG_DIR)/emconfig.json:
@@ -188,7 +186,7 @@ endif
 ############################## Preparing sdcard ##############################
 sd_card: $(BINARY_CONTAINERS) $(EXECUTABLE) gen_run_app
 ifneq ($(HOST_ARCH), x86)
-	$(VPP) $(VPP_PFLAGS) -p $(BUILD_DIR)/seq_align_kernel.xclbin -t $(TARGET) --platform $(PLATFORM) --package.out_dir $(PACKAGE_OUT) --package.rootfs $(EDGE_COMMON_SW)/rootfs.ext4 --package.sd_file $(SD_IMAGE_FILE) --package.sd_file xrt.ini --package.sd_file $(RUN_APP_SCRIPT) --package.sd_file $(EXECUTABLE) -o seq_align_kernel.xclbin
+	$(VPP) $(VPP_PFLAGS) -p $(BUILD_DIR)/vadd.xclbin -t $(TARGET) --platform $(PLATFORM) --package.out_dir $(PACKAGE_OUT) --package.rootfs $(EDGE_COMMON_SW)/rootfs.ext4 --package.sd_file $(SD_IMAGE_FILE) --package.sd_file xrt.ini --package.sd_file $(RUN_APP_SCRIPT) --package.sd_file $(EXECUTABLE) -o vadd.xclbin
 endif
 
 ############################## Cleaning Rules ##############################

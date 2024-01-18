@@ -21,7 +21,6 @@
 #include "./params.h"
 #include "./PE.h"
 #include "./utils.h"
-#include "./initial.h"
 #include "frontend.h"
 
 
@@ -134,7 +133,7 @@ namespace Align
 		chunk_col_scores_inf_t &init_col_scr,
 		hls::vector<type_t, N_LAYERS> (&init_row_scr)[MAX_REFERENCE_LENGTH],
 		int global_query_length, int query_length, int reference_length,
-		const Penalties penalties, 
+		const Penalties &penalties, 
 		hls::vector<type_t, N_LAYERS> (&preserved_row_scr)[MAX_REFERENCE_LENGTH],
 		ScorePack (&max)[PE_NUM], // write out so must pass by reference
 #ifdef DEBUG
@@ -294,7 +293,7 @@ namespace Align
 		char_t (&references)[MAX_REFERENCE_LENGTH],
 		idx_t query_length,
 		idx_t reference_length,
-		const Penalties penalties,
+		const Penalties &penalties,
 		tbr_t (&tb_streams)[MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH]);
 
 	/**
@@ -307,7 +306,7 @@ namespace Align
 	void InitializeScores(
 		score_vec_t (&init_col_scr)[MAX_QUERY_LENGTH],
 		score_vec_t (&init_row_scr)[MAX_REFERENCE_LENGTH],
-		Penalties penalties);
+		const Penalties &penalties);
 
 	void ChunkMax(ScorePack &max, ScorePack new_scr);
 

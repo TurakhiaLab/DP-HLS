@@ -1,284 +1,268 @@
-Mon Dec 11 09:22:22 2023: Running xcd server. This server was built by gradle.
-Mon Dec 11 09:22:22 2023: Server was asked to start on port: '41271'
-Mon Dec 11 09:22:22 2023: Server is using token UUID: 'c737346c-4742-442b-8b40-e48cb5e09c9e'
-Mon Dec 11 09:22:22 2023: SESSION_MGR: creating session with session uuid: '6d04a3e9-ade5-4ab9-8d63-1f78fcd2ec76' and name 'default'
-Mon Dec 11 09:22:22 2023: Attempting to start server on port '41271'
-Mon Dec 11 09:22:22 2023: XCD main fifo: created main fifo '/tmp/xcdmainc737346c-4742-442b-8b40-e48cb5e09c9e', fd read = 13
-Mon Dec 11 09:22:22 2023: Running Dispatch Server
-Mon Dec 11 09:22:22 2023: Version 2.2.0
-Mon Dec 11 09:22:31 2023: Dispatch Server: Accepted socket connection from client
-Mon Dec 11 09:22:31 2023: Starting Socket connection
-Mon Dec 11 09:22:31 2023: EXCHANGE_TOKEN received, server token: c737346c-4742-442b-8b40-e48cb5e09c9e, passed token: c737346c-4742-442b-8b40-e48cb5e09c9e
-Mon Dec 11 09:22:32 2023: DISPATCH_HANDLER: Adding handler from function makeHandler in library libxv_system_diagram
-Mon Dec 11 09:22:32 2023: SESSION_MGR: creating session with session uuid: '2f3efee4-5f02-4782-b256-a1e45b659d48' and name 'v++_compile_seq_align_multiple_static'
-Mon Dec 11 09:22:32 2023: KERNEL_SVC: creating session with uuid: '2f3efee4-5f02-4782-b256-a1e45b659d48' and name 'v++_compile_seq_align_multiple_static'
-Mon Dec 11 09:22:32 2023: GUIDANCE_SMGR: creating guidance session with uuid: '2f3efee4-5f02-4782-b256-a1e45b659d48' and name 'v++_compile_seq_align_multiple_static'
-Mon Dec 11 09:22:32 2023: SYSTEM_DIAGRAM: creating session with uuid: '2f3efee4-5f02-4782-b256-a1e45b659d48' and name 'v++_compile_seq_align_multiple_static'
-Mon Dec 11 09:22:49 2023: SESSION_MGR: closing session for UUID '2f3efee4-5f02-4782-b256-a1e45b659d48' with name 'v++_compile_seq_align_multiple_static'
-Mon Dec 11 09:22:49 2023: KERNEL_SVC: closing session for UUID '2f3efee4-5f02-4782-b256-a1e45b659d48' with name 'v++_compile_seq_align_multiple_static'
-Mon Dec 11 09:22:49 2023: GUIDANCE_SMGR: closing session for UUID '2f3efee4-5f02-4782-b256-a1e45b659d48' with name 'v++_compile_seq_align_multiple_static'
-Mon Dec 11 09:22:49 2023: SYSTEM_DIAGRAM: closing session for UUID '2f3efee4-5f02-4782-b256-a1e45b659d48' with name 'v++_compile_seq_align_multiple_static'
-Mon Dec 11 09:23:29 2023: Running xcd server. This server was built by gradle.
-Mon Dec 11 09:23:29 2023: Server was asked to start on port: '46067'
-Mon Dec 11 09:23:29 2023: Server is using token UUID: '55a99ad2-643e-4093-8d3c-bcd615dda9c1'
-Mon Dec 11 09:23:29 2023: SESSION_MGR: creating session with session uuid: '6d04a3e9-ade5-4ab9-8d63-1f78fcd2ec76' and name 'default'
-Mon Dec 11 09:23:29 2023: Attempting to start server on port '46067'
-Mon Dec 11 09:23:29 2023: XCD main fifo: created main fifo '/tmp/xcdmain55a99ad2-643e-4093-8d3c-bcd615dda9c1', fd read = 13
-Mon Dec 11 09:23:29 2023: Running Dispatch Server
-Mon Dec 11 09:23:29 2023: Version 2.2.0
-Mon Dec 11 09:23:39 2023: Dispatch Server: Accepted socket connection from client
-Mon Dec 11 09:23:39 2023: Starting Socket connection
-Mon Dec 11 09:23:39 2023: EXCHANGE_TOKEN received, server token: 55a99ad2-643e-4093-8d3c-bcd615dda9c1, passed token: 55a99ad2-643e-4093-8d3c-bcd615dda9c1
-Mon Dec 11 09:23:40 2023: DISPATCH_HANDLER: Adding handler from function makeHandler in library libxv_system_diagram
-Mon Dec 11 09:23:40 2023: SESSION_MGR: creating session with session uuid: '5a012373-cc18-4b99-b0be-4a22ec4fa784' and name 'v++_compile_seq_align_multiple_static'
-Mon Dec 11 09:23:40 2023: KERNEL_SVC: creating session with uuid: '5a012373-cc18-4b99-b0be-4a22ec4fa784' and name 'v++_compile_seq_align_multiple_static'
-Mon Dec 11 09:23:40 2023: GUIDANCE_SMGR: creating guidance session with uuid: '5a012373-cc18-4b99-b0be-4a22ec4fa784' and name 'v++_compile_seq_align_multiple_static'
-Mon Dec 11 09:23:40 2023: SYSTEM_DIAGRAM: creating session with uuid: '5a012373-cc18-4b99-b0be-4a22ec4fa784' and name 'v++_compile_seq_align_multiple_static'
-Mon Dec 11 09:23:41 2023: SESSION_MGR: closing session for UUID '5a012373-cc18-4b99-b0be-4a22ec4fa784' with name 'v++_compile_seq_align_multiple_static'
-Mon Dec 11 09:23:41 2023: KERNEL_SVC: closing session for UUID '5a012373-cc18-4b99-b0be-4a22ec4fa784' with name 'v++_compile_seq_align_multiple_static'
-Mon Dec 11 09:23:41 2023: GUIDANCE_SMGR: closing session for UUID '5a012373-cc18-4b99-b0be-4a22ec4fa784' with name 'v++_compile_seq_align_multiple_static'
-Mon Dec 11 09:23:41 2023: SYSTEM_DIAGRAM: closing session for UUID '5a012373-cc18-4b99-b0be-4a22ec4fa784' with name 'v++_compile_seq_align_multiple_static'
-Mon Dec 11 09:24:25 2023: Running xcd server. This server was built by gradle.
-Mon Dec 11 09:24:25 2023: Server was asked to start on port: '39740'
-Mon Dec 11 09:24:25 2023: Server is using token UUID: '7420c8ad-8dab-408d-8920-0b9839b134fb'
-Mon Dec 11 09:24:25 2023: SESSION_MGR: creating session with session uuid: '6d04a3e9-ade5-4ab9-8d63-1f78fcd2ec76' and name 'default'
-Mon Dec 11 09:24:25 2023: Attempting to start server on port '39740'
-Mon Dec 11 09:24:25 2023: XCD main fifo: created main fifo '/tmp/xcdmain7420c8ad-8dab-408d-8920-0b9839b134fb', fd read = 13
-Mon Dec 11 09:24:25 2023: Running Dispatch Server
-Mon Dec 11 09:24:25 2023: Version 2.2.0
-Mon Dec 11 09:24:34 2023: Dispatch Server: Accepted socket connection from client
-Mon Dec 11 09:24:34 2023: Starting Socket connection
-Mon Dec 11 09:24:34 2023: EXCHANGE_TOKEN received, server token: 7420c8ad-8dab-408d-8920-0b9839b134fb, passed token: 7420c8ad-8dab-408d-8920-0b9839b134fb
-Mon Dec 11 09:24:35 2023: DISPATCH_HANDLER: Adding handler from function makeHandler in library libxv_system_diagram
-Mon Dec 11 09:24:35 2023: SESSION_MGR: creating session with session uuid: '081c7f57-1965-4bc5-bb62-6bb8caaec62f' and name 'v++_compile_seq_align_multiple_static'
-Mon Dec 11 09:24:35 2023: KERNEL_SVC: creating session with uuid: '081c7f57-1965-4bc5-bb62-6bb8caaec62f' and name 'v++_compile_seq_align_multiple_static'
-Mon Dec 11 09:24:35 2023: GUIDANCE_SMGR: creating guidance session with uuid: '081c7f57-1965-4bc5-bb62-6bb8caaec62f' and name 'v++_compile_seq_align_multiple_static'
-Mon Dec 11 09:24:35 2023: SYSTEM_DIAGRAM: creating session with uuid: '081c7f57-1965-4bc5-bb62-6bb8caaec62f' and name 'v++_compile_seq_align_multiple_static'
-Mon Dec 11 09:24:49 2023: SESSION_MGR: closing session for UUID '081c7f57-1965-4bc5-bb62-6bb8caaec62f' with name 'v++_compile_seq_align_multiple_static'
-Mon Dec 11 09:24:49 2023: KERNEL_SVC: closing session for UUID '081c7f57-1965-4bc5-bb62-6bb8caaec62f' with name 'v++_compile_seq_align_multiple_static'
-Mon Dec 11 09:24:49 2023: GUIDANCE_SMGR: closing session for UUID '081c7f57-1965-4bc5-bb62-6bb8caaec62f' with name 'v++_compile_seq_align_multiple_static'
-Mon Dec 11 09:24:49 2023: SYSTEM_DIAGRAM: closing session for UUID '081c7f57-1965-4bc5-bb62-6bb8caaec62f' with name 'v++_compile_seq_align_multiple_static'
-Mon Dec 11 09:24:52 2023: Running xcd server. This server was built by gradle.
-Mon Dec 11 09:24:52 2023: Server was asked to start on port: '42297'
-Mon Dec 11 09:24:52 2023: Server is using token UUID: 'bbceea48-fe7f-451c-9a8b-a183a2dd15d5'
-Mon Dec 11 09:24:52 2023: SESSION_MGR: creating session with session uuid: '6d04a3e9-ade5-4ab9-8d63-1f78fcd2ec76' and name 'default'
-Mon Dec 11 09:24:52 2023: Attempting to start server on port '42297'
-Mon Dec 11 09:24:52 2023: XCD main fifo: created main fifo '/tmp/xcdmainbbceea48-fe7f-451c-9a8b-a183a2dd15d5', fd read = 13
-Mon Dec 11 09:24:52 2023: Running Dispatch Server
-Mon Dec 11 09:24:52 2023: Version 2.2.0
-Mon Dec 11 09:25:01 2023: Dispatch Server: Accepted socket connection from client
-Mon Dec 11 09:25:01 2023: Starting Socket connection
-Mon Dec 11 09:25:01 2023: EXCHANGE_TOKEN received, server token: bbceea48-fe7f-451c-9a8b-a183a2dd15d5, passed token: bbceea48-fe7f-451c-9a8b-a183a2dd15d5
-Mon Dec 11 09:25:02 2023: DISPATCH_HANDLER: Adding handler from function makeHandler in library libxv_system_diagram
-Mon Dec 11 09:25:02 2023: SESSION_MGR: creating session with session uuid: '5a244e3f-01e5-4c61-98d0-c2f0e03e6925' and name 'v++_link_seq_align_multiple_static'
-Mon Dec 11 09:25:02 2023: KERNEL_SVC: creating session with uuid: '5a244e3f-01e5-4c61-98d0-c2f0e03e6925' and name 'v++_link_seq_align_multiple_static'
-Mon Dec 11 09:25:02 2023: GUIDANCE_SMGR: creating guidance session with uuid: '5a244e3f-01e5-4c61-98d0-c2f0e03e6925' and name 'v++_link_seq_align_multiple_static'
-Mon Dec 11 09:25:02 2023: SYSTEM_DIAGRAM: creating session with uuid: '5a244e3f-01e5-4c61-98d0-c2f0e03e6925' and name 'v++_link_seq_align_multiple_static'
-Mon Dec 11 09:25:10 2023: SESSION_MGR: closing session for UUID '5a244e3f-01e5-4c61-98d0-c2f0e03e6925' with name 'v++_link_seq_align_multiple_static'
-Mon Dec 11 09:25:10 2023: KERNEL_SVC: closing session for UUID '5a244e3f-01e5-4c61-98d0-c2f0e03e6925' with name 'v++_link_seq_align_multiple_static'
-Mon Dec 11 09:25:10 2023: GUIDANCE_SMGR: closing session for UUID '5a244e3f-01e5-4c61-98d0-c2f0e03e6925' with name 'v++_link_seq_align_multiple_static'
-Mon Dec 11 09:25:10 2023: SYSTEM_DIAGRAM: closing session for UUID '5a244e3f-01e5-4c61-98d0-c2f0e03e6925' with name 'v++_link_seq_align_multiple_static'
-Mon Dec 11 09:25:20 2023: Running xcd server. This server was built by gradle.
-Mon Dec 11 09:25:20 2023: Server was asked to start on port: '37872'
-Mon Dec 11 09:25:20 2023: Server is using token UUID: 'd8345327-db01-402c-86bb-298b86bae7ae'
-Mon Dec 11 09:25:20 2023: SESSION_MGR: creating session with session uuid: '6d04a3e9-ade5-4ab9-8d63-1f78fcd2ec76' and name 'default'
-Mon Dec 11 09:25:20 2023: Attempting to start server on port '37872'
-Mon Dec 11 09:25:20 2023: XCD main fifo: created main fifo '/tmp/xcdmaind8345327-db01-402c-86bb-298b86bae7ae', fd read = 13
-Mon Dec 11 09:25:20 2023: Running Dispatch Server
-Mon Dec 11 09:25:20 2023: Version 2.2.0
-Mon Dec 11 09:25:29 2023: Dispatch Server: Accepted socket connection from client
-Mon Dec 11 09:25:29 2023: Starting Socket connection
-Mon Dec 11 09:25:29 2023: EXCHANGE_TOKEN received, server token: d8345327-db01-402c-86bb-298b86bae7ae, passed token: d8345327-db01-402c-86bb-298b86bae7ae
-Mon Dec 11 09:25:30 2023: DISPATCH_HANDLER: Adding handler from function makeHandler in library libxv_system_diagram
-Mon Dec 11 09:25:30 2023: SESSION_MGR: creating session with session uuid: '8f64e0c8-8805-48a5-b2ca-3ee048bf4665' and name 'v++_compile_seq_align_multiple_static'
-Mon Dec 11 09:25:30 2023: KERNEL_SVC: creating session with uuid: '8f64e0c8-8805-48a5-b2ca-3ee048bf4665' and name 'v++_compile_seq_align_multiple_static'
-Mon Dec 11 09:25:30 2023: GUIDANCE_SMGR: creating guidance session with uuid: '8f64e0c8-8805-48a5-b2ca-3ee048bf4665' and name 'v++_compile_seq_align_multiple_static'
-Mon Dec 11 09:25:30 2023: SYSTEM_DIAGRAM: creating session with uuid: '8f64e0c8-8805-48a5-b2ca-3ee048bf4665' and name 'v++_compile_seq_align_multiple_static'
-Mon Dec 11 09:25:46 2023: SESSION_MGR: closing session for UUID '8f64e0c8-8805-48a5-b2ca-3ee048bf4665' with name 'v++_compile_seq_align_multiple_static'
-Mon Dec 11 09:25:46 2023: KERNEL_SVC: closing session for UUID '8f64e0c8-8805-48a5-b2ca-3ee048bf4665' with name 'v++_compile_seq_align_multiple_static'
-Mon Dec 11 09:25:46 2023: GUIDANCE_SMGR: closing session for UUID '8f64e0c8-8805-48a5-b2ca-3ee048bf4665' with name 'v++_compile_seq_align_multiple_static'
-Mon Dec 11 09:25:46 2023: SYSTEM_DIAGRAM: closing session for UUID '8f64e0c8-8805-48a5-b2ca-3ee048bf4665' with name 'v++_compile_seq_align_multiple_static'
-Mon Dec 11 09:27:20 2023: Running xcd server. This server was built by gradle.
-Mon Dec 11 09:27:20 2023: Server was asked to start on port: '38948'
-Mon Dec 11 09:27:20 2023: Server is using token UUID: '96c02d6f-b7cd-4590-8f8f-2c6cae45e120'
-Mon Dec 11 09:27:20 2023: SESSION_MGR: creating session with session uuid: '6d04a3e9-ade5-4ab9-8d63-1f78fcd2ec76' and name 'default'
-Mon Dec 11 09:27:20 2023: Attempting to start server on port '38948'
-Mon Dec 11 09:27:20 2023: XCD main fifo: created main fifo '/tmp/xcdmain96c02d6f-b7cd-4590-8f8f-2c6cae45e120', fd read = 13
-Mon Dec 11 09:27:20 2023: Running Dispatch Server
-Mon Dec 11 09:27:20 2023: Version 2.2.0
-Mon Dec 11 09:27:29 2023: Dispatch Server: Accepted socket connection from client
-Mon Dec 11 09:27:29 2023: Starting Socket connection
-Mon Dec 11 09:27:29 2023: EXCHANGE_TOKEN received, server token: 96c02d6f-b7cd-4590-8f8f-2c6cae45e120, passed token: 96c02d6f-b7cd-4590-8f8f-2c6cae45e120
-Mon Dec 11 09:27:30 2023: DISPATCH_HANDLER: Adding handler from function makeHandler in library libxv_system_diagram
-Mon Dec 11 09:27:30 2023: SESSION_MGR: creating session with session uuid: 'befc60db-d0f5-4352-8833-963764694ea6' and name 'v++_compile_seq_align_multiple_static'
-Mon Dec 11 09:27:30 2023: KERNEL_SVC: creating session with uuid: 'befc60db-d0f5-4352-8833-963764694ea6' and name 'v++_compile_seq_align_multiple_static'
-Mon Dec 11 09:27:30 2023: GUIDANCE_SMGR: creating guidance session with uuid: 'befc60db-d0f5-4352-8833-963764694ea6' and name 'v++_compile_seq_align_multiple_static'
-Mon Dec 11 09:27:30 2023: SYSTEM_DIAGRAM: creating session with uuid: 'befc60db-d0f5-4352-8833-963764694ea6' and name 'v++_compile_seq_align_multiple_static'
-Mon Dec 11 09:27:52 2023: SESSION_MGR: closing session for UUID 'befc60db-d0f5-4352-8833-963764694ea6' with name 'v++_compile_seq_align_multiple_static'
-Mon Dec 11 09:27:52 2023: KERNEL_SVC: closing session for UUID 'befc60db-d0f5-4352-8833-963764694ea6' with name 'v++_compile_seq_align_multiple_static'
-Mon Dec 11 09:27:52 2023: GUIDANCE_SMGR: closing session for UUID 'befc60db-d0f5-4352-8833-963764694ea6' with name 'v++_compile_seq_align_multiple_static'
-Mon Dec 11 09:27:52 2023: SYSTEM_DIAGRAM: closing session for UUID 'befc60db-d0f5-4352-8833-963764694ea6' with name 'v++_compile_seq_align_multiple_static'
-Mon Dec 11 09:34:41 2023: Running xcd server. This server was built by gradle.
-Mon Dec 11 09:34:41 2023: Server was asked to start on port: '38098'
-Mon Dec 11 09:34:41 2023: Server is using token UUID: 'cd6ac1ac-21c5-404e-94d5-2e3fc5c5fe7a'
-Mon Dec 11 09:34:41 2023: SESSION_MGR: creating session with session uuid: '6d04a3e9-ade5-4ab9-8d63-1f78fcd2ec76' and name 'default'
-Mon Dec 11 09:34:41 2023: Attempting to start server on port '38098'
-Mon Dec 11 09:34:41 2023: XCD main fifo: created main fifo '/tmp/xcdmaincd6ac1ac-21c5-404e-94d5-2e3fc5c5fe7a', fd read = 13
-Mon Dec 11 09:34:41 2023: Running Dispatch Server
-Mon Dec 11 09:34:41 2023: Version 2.2.0
-Mon Dec 11 09:34:51 2023: Dispatch Server: Accepted socket connection from client
-Mon Dec 11 09:34:51 2023: Starting Socket connection
-Mon Dec 11 09:34:51 2023: EXCHANGE_TOKEN received, server token: cd6ac1ac-21c5-404e-94d5-2e3fc5c5fe7a, passed token: cd6ac1ac-21c5-404e-94d5-2e3fc5c5fe7a
-Mon Dec 11 09:34:52 2023: DISPATCH_HANDLER: Adding handler from function makeHandler in library libxv_system_diagram
-Mon Dec 11 09:34:52 2023: SESSION_MGR: creating session with session uuid: '18a0c27c-8671-4172-8abc-2b0a18837b03' and name 'v++_link_seq_align_multiple_static'
-Mon Dec 11 09:34:52 2023: KERNEL_SVC: creating session with uuid: '18a0c27c-8671-4172-8abc-2b0a18837b03' and name 'v++_link_seq_align_multiple_static'
-Mon Dec 11 09:34:52 2023: GUIDANCE_SMGR: creating guidance session with uuid: '18a0c27c-8671-4172-8abc-2b0a18837b03' and name 'v++_link_seq_align_multiple_static'
-Mon Dec 11 09:34:52 2023: SYSTEM_DIAGRAM: creating session with uuid: '18a0c27c-8671-4172-8abc-2b0a18837b03' and name 'v++_link_seq_align_multiple_static'
-Mon Dec 11 09:35:17 2023: Dispatch Server: Accepted socket connection from client
-Mon Dec 11 09:35:17 2023: Starting Socket connection
-Mon Dec 11 09:35:34 2023: Dispatch Server: Accepted socket connection from client
-Mon Dec 11 09:35:34 2023: Starting Socket connection
-Mon Dec 11 09:38:11 2023: SESSION_MGR: closing session for UUID '18a0c27c-8671-4172-8abc-2b0a18837b03' with name 'v++_link_seq_align_multiple_static'
-Mon Dec 11 09:38:11 2023: KERNEL_SVC: closing session for UUID '18a0c27c-8671-4172-8abc-2b0a18837b03' with name 'v++_link_seq_align_multiple_static'
-Mon Dec 11 09:38:11 2023: GUIDANCE_SMGR: closing session for UUID '18a0c27c-8671-4172-8abc-2b0a18837b03' with name 'v++_link_seq_align_multiple_static'
-Mon Dec 11 09:38:11 2023: SYSTEM_DIAGRAM: closing session for UUID '18a0c27c-8671-4172-8abc-2b0a18837b03' with name 'v++_link_seq_align_multiple_static'
-Mon Dec 11 09:43:56 2023: Running xcd server. This server was built by gradle.
-Mon Dec 11 09:43:56 2023: Server was asked to start on port: '43993'
-Mon Dec 11 09:43:56 2023: Server is using token UUID: 'ac6a5392-ba38-4330-9144-d0391a2e8d41'
-Mon Dec 11 09:43:56 2023: SESSION_MGR: creating session with session uuid: '6d04a3e9-ade5-4ab9-8d63-1f78fcd2ec76' and name 'default'
-Mon Dec 11 09:43:56 2023: Attempting to start server on port '43993'
-Mon Dec 11 09:43:56 2023: XCD main fifo: created main fifo '/tmp/xcdmainac6a5392-ba38-4330-9144-d0391a2e8d41', fd read = 13
-Mon Dec 11 09:43:56 2023: Running Dispatch Server
-Mon Dec 11 09:43:56 2023: Version 2.2.0
-Mon Dec 11 09:44:05 2023: Dispatch Server: Accepted socket connection from client
-Mon Dec 11 09:44:05 2023: Starting Socket connection
-Mon Dec 11 09:44:05 2023: EXCHANGE_TOKEN received, server token: ac6a5392-ba38-4330-9144-d0391a2e8d41, passed token: ac6a5392-ba38-4330-9144-d0391a2e8d41
-Mon Dec 11 09:44:07 2023: DISPATCH_HANDLER: Adding handler from function makeHandler in library libxv_system_diagram
-Mon Dec 11 09:44:07 2023: SESSION_MGR: creating session with session uuid: '48443710-1a3a-4e09-b776-e1bbb128d9f1' and name 'v++_link_seq_align_multiple_static'
-Mon Dec 11 09:44:07 2023: KERNEL_SVC: creating session with uuid: '48443710-1a3a-4e09-b776-e1bbb128d9f1' and name 'v++_link_seq_align_multiple_static'
-Mon Dec 11 09:44:07 2023: GUIDANCE_SMGR: creating guidance session with uuid: '48443710-1a3a-4e09-b776-e1bbb128d9f1' and name 'v++_link_seq_align_multiple_static'
-Mon Dec 11 09:44:07 2023: SYSTEM_DIAGRAM: creating session with uuid: '48443710-1a3a-4e09-b776-e1bbb128d9f1' and name 'v++_link_seq_align_multiple_static'
-Mon Dec 11 09:44:38 2023: Dispatch Server: Accepted socket connection from client
-Mon Dec 11 09:44:38 2023: Starting Socket connection
-Mon Dec 11 09:44:55 2023: Dispatch Server: Accepted socket connection from client
-Mon Dec 11 09:44:55 2023: Starting Socket connection
-Mon Dec 11 09:47:29 2023: Dispatch Server: Accepted socket connection from client
-Mon Dec 11 09:47:29 2023: Starting Socket connection
-Mon Dec 11 09:47:30 2023: Dispatch Server: Accepted socket connection from client
-Mon Dec 11 09:47:30 2023: Starting Socket connection
-Mon Dec 11 09:47:30 2023: Dispatch Server: Accepted socket connection from client
-Mon Dec 11 09:47:30 2023: Starting Socket connection
-Mon Dec 11 09:47:30 2023: Dispatch Server: Accepted socket connection from client
-Mon Dec 11 09:47:30 2023: Starting Socket connection
-Mon Dec 11 09:48:30 2023: Dispatch Server: Accepted socket connection from client
-Mon Dec 11 09:48:30 2023: Starting Socket connection
-Mon Dec 11 09:48:34 2023: Dispatch Server: Accepted socket connection from client
-Mon Dec 11 09:48:34 2023: Starting Socket connection
-Mon Dec 11 09:48:43 2023: Dispatch Server: Accepted socket connection from client
-Mon Dec 11 09:48:43 2023: Starting Socket connection
-Mon Dec 11 09:48:50 2023: Dispatch Server: Accepted socket connection from client
-Mon Dec 11 09:48:50 2023: Starting Socket connection
-Mon Dec 11 09:49:27 2023: Dispatch Server: Accepted socket connection from client
-Mon Dec 11 09:49:27 2023: Starting Socket connection
-Mon Dec 11 09:49:41 2023: Dispatch Server: Accepted socket connection from client
-Mon Dec 11 09:49:41 2023: Starting Socket connection
-Mon Dec 11 09:49:49 2023: Dispatch Server: Accepted socket connection from client
-Mon Dec 11 09:49:49 2023: Starting Socket connection
-Mon Dec 11 09:49:51 2023: Dispatch Server: Accepted socket connection from client
-Mon Dec 11 09:49:51 2023: Starting Socket connection
-Mon Dec 11 09:50:27 2023: Dispatch Server: Accepted socket connection from client
-Mon Dec 11 09:50:27 2023: Starting Socket connection
-Mon Dec 11 09:50:39 2023: Dispatch Server: Accepted socket connection from client
-Mon Dec 11 09:50:39 2023: Starting Socket connection
-Mon Dec 11 09:50:48 2023: Dispatch Server: Accepted socket connection from client
-Mon Dec 11 09:50:48 2023: Starting Socket connection
-Mon Dec 11 09:50:53 2023: Dispatch Server: Accepted socket connection from client
-Mon Dec 11 09:50:53 2023: Starting Socket connection
-Mon Dec 11 09:51:40 2023: Dispatch Server: Accepted socket connection from client
-Mon Dec 11 09:51:40 2023: Starting Socket connection
-Mon Dec 11 09:51:47 2023: Dispatch Server: Accepted socket connection from client
-Mon Dec 11 09:51:47 2023: Starting Socket connection
-Mon Dec 11 09:51:48 2023: Dispatch Server: Accepted socket connection from client
-Mon Dec 11 09:51:48 2023: Starting Socket connection
-Mon Dec 11 09:52:55 2023: Dispatch Server: Accepted socket connection from client
-Mon Dec 11 09:52:55 2023: Starting Socket connection
-Mon Dec 11 09:53:05 2023: Dispatch Server: Accepted socket connection from client
-Mon Dec 11 09:53:05 2023: Starting Socket connection
-Mon Dec 11 09:53:14 2023: Dispatch Server: Accepted socket connection from client
-Mon Dec 11 09:53:14 2023: Starting Socket connection
-Mon Dec 11 09:54:20 2023: Dispatch Server: Accepted socket connection from client
-Mon Dec 11 09:54:20 2023: Starting Socket connection
-Mon Dec 11 09:54:22 2023: Dispatch Server: Accepted socket connection from client
-Mon Dec 11 09:54:22 2023: Starting Socket connection
-Mon Dec 11 09:54:43 2023: Dispatch Server: Accepted socket connection from client
-Mon Dec 11 09:54:43 2023: Starting Socket connection
-Mon Dec 11 09:55:21 2023: Dispatch Server: Accepted socket connection from client
-Mon Dec 11 09:55:21 2023: Starting Socket connection
-Mon Dec 11 09:55:25 2023: Dispatch Server: Accepted socket connection from client
-Mon Dec 11 09:55:25 2023: Starting Socket connection
-Mon Dec 11 09:55:37 2023: Dispatch Server: Accepted socket connection from client
-Mon Dec 11 09:55:37 2023: Starting Socket connection
-Mon Dec 11 09:55:41 2023: Dispatch Server: Accepted socket connection from client
-Mon Dec 11 09:55:41 2023: Starting Socket connection
-Mon Dec 11 09:55:45 2023: Dispatch Server: Accepted socket connection from client
-Mon Dec 11 09:55:45 2023: Starting Socket connection
-Mon Dec 11 09:55:53 2023: Dispatch Server: Accepted socket connection from client
-Mon Dec 11 09:55:53 2023: Starting Socket connection
-Mon Dec 11 09:55:56 2023: Dispatch Server: Accepted socket connection from client
-Mon Dec 11 09:55:56 2023: Starting Socket connection
-Mon Dec 11 09:56:01 2023: Dispatch Server: Accepted socket connection from client
-Mon Dec 11 09:56:01 2023: Starting Socket connection
-Mon Dec 11 09:57:49 2023: Dispatch Server: Accepted socket connection from client
-Mon Dec 11 09:57:49 2023: Starting Socket connection
-Mon Dec 11 09:57:59 2023: Dispatch Server: Accepted socket connection from client
-Mon Dec 11 09:57:59 2023: Starting Socket connection
-Mon Dec 11 09:59:45 2023: Dispatch Server: Accepted socket connection from client
-Mon Dec 11 09:59:45 2023: Starting Socket connection
-Mon Dec 11 09:59:53 2023: Dispatch Server: Accepted socket connection from client
-Mon Dec 11 09:59:53 2023: Starting Socket connection
-Mon Dec 11 10:00:58 2023: Dispatch Server: Accepted socket connection from client
-Mon Dec 11 10:00:58 2023: Starting Socket connection
-Mon Dec 11 10:01:38 2023: Dispatch Server: Accepted socket connection from client
-Mon Dec 11 10:01:38 2023: Starting Socket connection
-Mon Dec 11 10:01:53 2023: Dispatch Server: Accepted socket connection from client
-Mon Dec 11 10:01:53 2023: Starting Socket connection
-Mon Dec 11 10:02:33 2023: Dispatch Server: Accepted socket connection from client
-Mon Dec 11 10:02:33 2023: Starting Socket connection
-Mon Dec 11 10:03:38 2023: Dispatch Server: Accepted socket connection from client
-Mon Dec 11 10:03:38 2023: Starting Socket connection
-Mon Dec 11 10:03:50 2023: Dispatch Server: Accepted socket connection from client
-Mon Dec 11 10:03:50 2023: Starting Socket connection
-Mon Dec 11 10:04:17 2023: Dispatch Server: Accepted socket connection from client
-Mon Dec 11 10:04:17 2023: Starting Socket connection
-Mon Dec 11 10:04:26 2023: Dispatch Server: Accepted socket connection from client
-Mon Dec 11 10:04:26 2023: Starting Socket connection
-Mon Dec 11 10:04:35 2023: Dispatch Server: Accepted socket connection from client
-Mon Dec 11 10:04:35 2023: Starting Socket connection
-Mon Dec 11 10:04:49 2023: Dispatch Server: Accepted socket connection from client
-Mon Dec 11 10:04:49 2023: Starting Socket connection
-Mon Dec 11 10:05:04 2023: Dispatch Server: Accepted socket connection from client
-Mon Dec 11 10:05:04 2023: Starting Socket connection
-Mon Dec 11 10:05:13 2023: Dispatch Server: Accepted socket connection from client
-Mon Dec 11 10:05:13 2023: Starting Socket connection
-Mon Dec 11 10:05:29 2023: Dispatch Server: Accepted socket connection from client
-Mon Dec 11 10:05:29 2023: Starting Socket connection
-Mon Dec 11 10:05:49 2023: Dispatch Server: Accepted socket connection from client
-Mon Dec 11 10:05:49 2023: Starting Socket connection
-Mon Dec 11 10:05:59 2023: Dispatch Server: Accepted socket connection from client
-Mon Dec 11 10:05:59 2023: Starting Socket connection
-Mon Dec 11 10:06:15 2023: Dispatch Server: Accepted socket connection from client
-Mon Dec 11 10:06:15 2023: Starting Socket connection
-Mon Dec 11 10:06:39 2023: Dispatch Server: Accepted socket connection from client
-Mon Dec 11 10:06:39 2023: Starting Socket connection
-Mon Dec 11 10:07:00 2023: Dispatch Server: Accepted socket connection from client
-Mon Dec 11 10:07:00 2023: Starting Socket connection
-Mon Dec 11 10:07:58 2023: Dispatch Server: Accepted socket connection from client
-Mon Dec 11 10:07:58 2023: Starting Socket connection
-Mon Dec 11 10:09:08 2023: Dispatch Server: Accepted socket connection from client
-Mon Dec 11 10:09:08 2023: Starting Socket connection
-Mon Dec 11 10:27:17 2023: Dispatch Server: Accepted socket connection from client
-Mon Dec 11 10:27:17 2023: Starting Socket connection
-Mon Dec 11 12:25:19 2023: SESSION_MGR: closing session for UUID '48443710-1a3a-4e09-b776-e1bbb128d9f1' with name 'v++_link_seq_align_multiple_static'
-Mon Dec 11 12:25:19 2023: KERNEL_SVC: closing session for UUID '48443710-1a3a-4e09-b776-e1bbb128d9f1' with name 'v++_link_seq_align_multiple_static'
-Mon Dec 11 12:25:19 2023: GUIDANCE_SMGR: closing session for UUID '48443710-1a3a-4e09-b776-e1bbb128d9f1' with name 'v++_link_seq_align_multiple_static'
-Mon Dec 11 12:25:19 2023: SYSTEM_DIAGRAM: closing session for UUID '48443710-1a3a-4e09-b776-e1bbb128d9f1' with name 'v++_link_seq_align_multiple_static'
+Tue Jan 16 01:35:44 2024: Running xcd server. This server was built by gradle.
+Tue Jan 16 01:35:44 2024: Server was asked to start on port: '45394'
+Tue Jan 16 01:35:44 2024: Server is using token UUID: '23deabdc-c33c-4280-92bc-9ad0d3b96bcf'
+Tue Jan 16 01:35:44 2024: SESSION_MGR: creating session with session uuid: '6d04a3e9-ade5-4ab9-8d63-1f78fcd2ec76' and name 'default'
+Tue Jan 16 01:35:44 2024: Attempting to start server on port '45394'
+Tue Jan 16 01:35:44 2024: XCD main fifo: created main fifo '/tmp/xcdmain23deabdc-c33c-4280-92bc-9ad0d3b96bcf', fd read = 13
+Tue Jan 16 01:35:44 2024: Running Dispatch Server
+Tue Jan 16 01:35:44 2024: Version 2.2.0
+Tue Jan 16 01:35:53 2024: Dispatch Server: Accepted socket connection from client
+Tue Jan 16 01:35:53 2024: Starting Socket connection
+Tue Jan 16 01:35:53 2024: EXCHANGE_TOKEN received, server token: 23deabdc-c33c-4280-92bc-9ad0d3b96bcf, passed token: 23deabdc-c33c-4280-92bc-9ad0d3b96bcf
+Tue Jan 16 01:35:54 2024: DISPATCH_HANDLER: Adding handler from function makeHandler in library libxv_system_diagram
+Tue Jan 16 01:35:54 2024: SESSION_MGR: creating session with session uuid: 'dae66db1-55e2-4c33-abf3-28cbd39d2d09' and name 'v++_compile_seq_align_kernel'
+Tue Jan 16 01:35:54 2024: KERNEL_SVC: creating session with uuid: 'dae66db1-55e2-4c33-abf3-28cbd39d2d09' and name 'v++_compile_seq_align_kernel'
+Tue Jan 16 01:35:54 2024: GUIDANCE_SMGR: creating guidance session with uuid: 'dae66db1-55e2-4c33-abf3-28cbd39d2d09' and name 'v++_compile_seq_align_kernel'
+Tue Jan 16 01:35:54 2024: SYSTEM_DIAGRAM: creating session with uuid: 'dae66db1-55e2-4c33-abf3-28cbd39d2d09' and name 'v++_compile_seq_align_kernel'
+Tue Jan 16 01:36:30 2024: SESSION_MGR: closing session for UUID 'dae66db1-55e2-4c33-abf3-28cbd39d2d09' with name 'v++_compile_seq_align_kernel'
+Tue Jan 16 01:36:30 2024: KERNEL_SVC: closing session for UUID 'dae66db1-55e2-4c33-abf3-28cbd39d2d09' with name 'v++_compile_seq_align_kernel'
+Tue Jan 16 01:36:30 2024: GUIDANCE_SMGR: closing session for UUID 'dae66db1-55e2-4c33-abf3-28cbd39d2d09' with name 'v++_compile_seq_align_kernel'
+Tue Jan 16 01:36:30 2024: SYSTEM_DIAGRAM: closing session for UUID 'dae66db1-55e2-4c33-abf3-28cbd39d2d09' with name 'v++_compile_seq_align_kernel'
+Tue Jan 16 01:36:33 2024: Running xcd server. This server was built by gradle.
+Tue Jan 16 01:36:33 2024: Server was asked to start on port: '39769'
+Tue Jan 16 01:36:33 2024: Server is using token UUID: 'b1aa1a49-f9d6-4c37-8e6f-c1f58eb2d3aa'
+Tue Jan 16 01:36:33 2024: SESSION_MGR: creating session with session uuid: '6d04a3e9-ade5-4ab9-8d63-1f78fcd2ec76' and name 'default'
+Tue Jan 16 01:36:33 2024: Attempting to start server on port '39769'
+Tue Jan 16 01:36:33 2024: XCD main fifo: created main fifo '/tmp/xcdmainb1aa1a49-f9d6-4c37-8e6f-c1f58eb2d3aa', fd read = 13
+Tue Jan 16 01:36:33 2024: Running Dispatch Server
+Tue Jan 16 01:36:33 2024: Version 2.2.0
+Tue Jan 16 01:36:42 2024: Dispatch Server: Accepted socket connection from client
+Tue Jan 16 01:36:42 2024: Starting Socket connection
+Tue Jan 16 01:36:42 2024: EXCHANGE_TOKEN received, server token: b1aa1a49-f9d6-4c37-8e6f-c1f58eb2d3aa, passed token: b1aa1a49-f9d6-4c37-8e6f-c1f58eb2d3aa
+Tue Jan 16 01:36:43 2024: DISPATCH_HANDLER: Adding handler from function makeHandler in library libxv_system_diagram
+Tue Jan 16 01:36:43 2024: SESSION_MGR: creating session with session uuid: '67a85c99-4fcd-4883-8ef1-984d96236138' and name 'v++_link_seq_align_kernel.link'
+Tue Jan 16 01:36:43 2024: KERNEL_SVC: creating session with uuid: '67a85c99-4fcd-4883-8ef1-984d96236138' and name 'v++_link_seq_align_kernel.link'
+Tue Jan 16 01:36:43 2024: GUIDANCE_SMGR: creating guidance session with uuid: '67a85c99-4fcd-4883-8ef1-984d96236138' and name 'v++_link_seq_align_kernel.link'
+Tue Jan 16 01:36:43 2024: SYSTEM_DIAGRAM: creating session with uuid: '67a85c99-4fcd-4883-8ef1-984d96236138' and name 'v++_link_seq_align_kernel.link'
+Tue Jan 16 01:36:58 2024: SESSION_MGR: closing session for UUID '67a85c99-4fcd-4883-8ef1-984d96236138' with name 'v++_link_seq_align_kernel.link'
+Tue Jan 16 01:36:58 2024: KERNEL_SVC: closing session for UUID '67a85c99-4fcd-4883-8ef1-984d96236138' with name 'v++_link_seq_align_kernel.link'
+Tue Jan 16 01:36:58 2024: GUIDANCE_SMGR: closing session for UUID '67a85c99-4fcd-4883-8ef1-984d96236138' with name 'v++_link_seq_align_kernel.link'
+Tue Jan 16 01:36:58 2024: SYSTEM_DIAGRAM: closing session for UUID '67a85c99-4fcd-4883-8ef1-984d96236138' with name 'v++_link_seq_align_kernel.link'
+Tue Jan 16 01:37:01 2024: Running xcd server. This server was built by gradle.
+Tue Jan 16 01:37:01 2024: Server was asked to start on port: '44987'
+Tue Jan 16 01:37:01 2024: Server is using token UUID: 'ee38a8d9-5516-46f7-8ad4-6c9517aaf44b'
+Tue Jan 16 01:37:01 2024: SESSION_MGR: creating session with session uuid: '6d04a3e9-ade5-4ab9-8d63-1f78fcd2ec76' and name 'default'
+Tue Jan 16 01:37:01 2024: Attempting to start server on port '44987'
+Tue Jan 16 01:37:01 2024: XCD main fifo: created main fifo '/tmp/xcdmainee38a8d9-5516-46f7-8ad4-6c9517aaf44b', fd read = 13
+Tue Jan 16 01:37:01 2024: Running Dispatch Server
+Tue Jan 16 01:37:01 2024: Version 2.2.0
+Tue Jan 16 01:37:10 2024: Dispatch Server: Accepted socket connection from client
+Tue Jan 16 01:37:10 2024: Starting Socket connection
+Tue Jan 16 01:37:10 2024: EXCHANGE_TOKEN received, server token: ee38a8d9-5516-46f7-8ad4-6c9517aaf44b, passed token: ee38a8d9-5516-46f7-8ad4-6c9517aaf44b
+Tue Jan 16 01:37:11 2024: DISPATCH_HANDLER: Adding handler from function makeHandler in library libxv_system_diagram
+Tue Jan 16 01:37:11 2024: SESSION_MGR: creating session with session uuid: '4580f274-683e-4c33-a259-41fb82b58e22' and name 'v++_package_seq_align_kernel'
+Tue Jan 16 01:37:11 2024: KERNEL_SVC: creating session with uuid: '4580f274-683e-4c33-a259-41fb82b58e22' and name 'v++_package_seq_align_kernel'
+Tue Jan 16 01:37:11 2024: GUIDANCE_SMGR: creating guidance session with uuid: '4580f274-683e-4c33-a259-41fb82b58e22' and name 'v++_package_seq_align_kernel'
+Tue Jan 16 01:37:11 2024: SYSTEM_DIAGRAM: creating session with uuid: '4580f274-683e-4c33-a259-41fb82b58e22' and name 'v++_package_seq_align_kernel'
+Tue Jan 16 01:37:16 2024: SESSION_MGR: closing session for UUID '4580f274-683e-4c33-a259-41fb82b58e22' with name 'v++_package_seq_align_kernel'
+Tue Jan 16 01:37:16 2024: KERNEL_SVC: closing session for UUID '4580f274-683e-4c33-a259-41fb82b58e22' with name 'v++_package_seq_align_kernel'
+Tue Jan 16 01:37:16 2024: GUIDANCE_SMGR: closing session for UUID '4580f274-683e-4c33-a259-41fb82b58e22' with name 'v++_package_seq_align_kernel'
+Tue Jan 16 01:37:16 2024: SYSTEM_DIAGRAM: closing session for UUID '4580f274-683e-4c33-a259-41fb82b58e22' with name 'v++_package_seq_align_kernel'
+Tue Jan 16 01:38:09 2024: Running xcd server. This server was built by gradle.
+Tue Jan 16 01:38:09 2024: Server was asked to start on port: '45450'
+Tue Jan 16 01:38:09 2024: Server is using token UUID: '6af2d743-b4af-4082-bd05-770ac44ad37f'
+Tue Jan 16 01:38:09 2024: SESSION_MGR: creating session with session uuid: '6d04a3e9-ade5-4ab9-8d63-1f78fcd2ec76' and name 'default'
+Tue Jan 16 01:38:09 2024: Attempting to start server on port '45450'
+Tue Jan 16 01:38:09 2024: XCD main fifo: created main fifo '/tmp/xcdmain6af2d743-b4af-4082-bd05-770ac44ad37f', fd read = 13
+Tue Jan 16 01:38:09 2024: Running Dispatch Server
+Tue Jan 16 01:38:09 2024: Version 2.2.0
+Tue Jan 16 01:38:18 2024: Dispatch Server: Accepted socket connection from client
+Tue Jan 16 01:38:18 2024: Starting Socket connection
+Tue Jan 16 01:38:18 2024: EXCHANGE_TOKEN received, server token: 6af2d743-b4af-4082-bd05-770ac44ad37f, passed token: 6af2d743-b4af-4082-bd05-770ac44ad37f
+Tue Jan 16 01:38:19 2024: DISPATCH_HANDLER: Adding handler from function makeHandler in library libxv_system_diagram
+Tue Jan 16 01:38:19 2024: SESSION_MGR: creating session with session uuid: 'b70f644b-f213-411b-a361-7b3a4890e6ed' and name 'v++_compile_seq_align_kernel'
+Tue Jan 16 01:38:19 2024: KERNEL_SVC: creating session with uuid: 'b70f644b-f213-411b-a361-7b3a4890e6ed' and name 'v++_compile_seq_align_kernel'
+Tue Jan 16 01:38:19 2024: GUIDANCE_SMGR: creating guidance session with uuid: 'b70f644b-f213-411b-a361-7b3a4890e6ed' and name 'v++_compile_seq_align_kernel'
+Tue Jan 16 01:38:19 2024: SYSTEM_DIAGRAM: creating session with uuid: 'b70f644b-f213-411b-a361-7b3a4890e6ed' and name 'v++_compile_seq_align_kernel'
+Tue Jan 16 01:38:54 2024: SESSION_MGR: closing session for UUID 'b70f644b-f213-411b-a361-7b3a4890e6ed' with name 'v++_compile_seq_align_kernel'
+Tue Jan 16 01:38:54 2024: KERNEL_SVC: closing session for UUID 'b70f644b-f213-411b-a361-7b3a4890e6ed' with name 'v++_compile_seq_align_kernel'
+Tue Jan 16 01:38:54 2024: GUIDANCE_SMGR: closing session for UUID 'b70f644b-f213-411b-a361-7b3a4890e6ed' with name 'v++_compile_seq_align_kernel'
+Tue Jan 16 01:38:54 2024: SYSTEM_DIAGRAM: closing session for UUID 'b70f644b-f213-411b-a361-7b3a4890e6ed' with name 'v++_compile_seq_align_kernel'
+Tue Jan 16 01:38:57 2024: Running xcd server. This server was built by gradle.
+Tue Jan 16 01:38:57 2024: Server was asked to start on port: '43354'
+Tue Jan 16 01:38:57 2024: Server is using token UUID: 'a1371202-118f-417e-94db-4663cce3ae09'
+Tue Jan 16 01:38:57 2024: SESSION_MGR: creating session with session uuid: '6d04a3e9-ade5-4ab9-8d63-1f78fcd2ec76' and name 'default'
+Tue Jan 16 01:38:57 2024: Attempting to start server on port '43354'
+Tue Jan 16 01:38:57 2024: XCD main fifo: created main fifo '/tmp/xcdmaina1371202-118f-417e-94db-4663cce3ae09', fd read = 13
+Tue Jan 16 01:38:57 2024: Running Dispatch Server
+Tue Jan 16 01:38:57 2024: Version 2.2.0
+Tue Jan 16 01:39:06 2024: Dispatch Server: Accepted socket connection from client
+Tue Jan 16 01:39:06 2024: Starting Socket connection
+Tue Jan 16 01:39:06 2024: EXCHANGE_TOKEN received, server token: a1371202-118f-417e-94db-4663cce3ae09, passed token: a1371202-118f-417e-94db-4663cce3ae09
+Tue Jan 16 01:39:07 2024: DISPATCH_HANDLER: Adding handler from function makeHandler in library libxv_system_diagram
+Tue Jan 16 01:39:07 2024: SESSION_MGR: creating session with session uuid: '5a6e2948-a096-4b64-b7ee-ff8457b896e5' and name 'v++_link_seq_align_kernel.link'
+Tue Jan 16 01:39:07 2024: KERNEL_SVC: creating session with uuid: '5a6e2948-a096-4b64-b7ee-ff8457b896e5' and name 'v++_link_seq_align_kernel.link'
+Tue Jan 16 01:39:07 2024: GUIDANCE_SMGR: creating guidance session with uuid: '5a6e2948-a096-4b64-b7ee-ff8457b896e5' and name 'v++_link_seq_align_kernel.link'
+Tue Jan 16 01:39:07 2024: SYSTEM_DIAGRAM: creating session with uuid: '5a6e2948-a096-4b64-b7ee-ff8457b896e5' and name 'v++_link_seq_align_kernel.link'
+Tue Jan 16 01:39:22 2024: SESSION_MGR: closing session for UUID '5a6e2948-a096-4b64-b7ee-ff8457b896e5' with name 'v++_link_seq_align_kernel.link'
+Tue Jan 16 01:39:22 2024: KERNEL_SVC: closing session for UUID '5a6e2948-a096-4b64-b7ee-ff8457b896e5' with name 'v++_link_seq_align_kernel.link'
+Tue Jan 16 01:39:22 2024: GUIDANCE_SMGR: closing session for UUID '5a6e2948-a096-4b64-b7ee-ff8457b896e5' with name 'v++_link_seq_align_kernel.link'
+Tue Jan 16 01:39:22 2024: SYSTEM_DIAGRAM: closing session for UUID '5a6e2948-a096-4b64-b7ee-ff8457b896e5' with name 'v++_link_seq_align_kernel.link'
+Tue Jan 16 01:39:24 2024: Running xcd server. This server was built by gradle.
+Tue Jan 16 01:39:24 2024: Server was asked to start on port: '36648'
+Tue Jan 16 01:39:24 2024: Server is using token UUID: '28df8f3e-1471-42fd-89d6-42d736481e8c'
+Tue Jan 16 01:39:24 2024: SESSION_MGR: creating session with session uuid: '6d04a3e9-ade5-4ab9-8d63-1f78fcd2ec76' and name 'default'
+Tue Jan 16 01:39:24 2024: Attempting to start server on port '36648'
+Tue Jan 16 01:39:24 2024: XCD main fifo: created main fifo '/tmp/xcdmain28df8f3e-1471-42fd-89d6-42d736481e8c', fd read = 13
+Tue Jan 16 01:39:24 2024: Running Dispatch Server
+Tue Jan 16 01:39:24 2024: Version 2.2.0
+Tue Jan 16 01:39:33 2024: Dispatch Server: Accepted socket connection from client
+Tue Jan 16 01:39:33 2024: Starting Socket connection
+Tue Jan 16 01:39:33 2024: EXCHANGE_TOKEN received, server token: 28df8f3e-1471-42fd-89d6-42d736481e8c, passed token: 28df8f3e-1471-42fd-89d6-42d736481e8c
+Tue Jan 16 01:39:34 2024: DISPATCH_HANDLER: Adding handler from function makeHandler in library libxv_system_diagram
+Tue Jan 16 01:39:34 2024: SESSION_MGR: creating session with session uuid: 'c0cf87a8-7b95-4609-9c5a-8af79fd3181d' and name 'v++_package_seq_align_kernel'
+Tue Jan 16 01:39:34 2024: KERNEL_SVC: creating session with uuid: 'c0cf87a8-7b95-4609-9c5a-8af79fd3181d' and name 'v++_package_seq_align_kernel'
+Tue Jan 16 01:39:34 2024: GUIDANCE_SMGR: creating guidance session with uuid: 'c0cf87a8-7b95-4609-9c5a-8af79fd3181d' and name 'v++_package_seq_align_kernel'
+Tue Jan 16 01:39:34 2024: SYSTEM_DIAGRAM: creating session with uuid: 'c0cf87a8-7b95-4609-9c5a-8af79fd3181d' and name 'v++_package_seq_align_kernel'
+Tue Jan 16 01:39:39 2024: SESSION_MGR: closing session for UUID 'c0cf87a8-7b95-4609-9c5a-8af79fd3181d' with name 'v++_package_seq_align_kernel'
+Tue Jan 16 01:39:39 2024: KERNEL_SVC: closing session for UUID 'c0cf87a8-7b95-4609-9c5a-8af79fd3181d' with name 'v++_package_seq_align_kernel'
+Tue Jan 16 01:39:39 2024: GUIDANCE_SMGR: closing session for UUID 'c0cf87a8-7b95-4609-9c5a-8af79fd3181d' with name 'v++_package_seq_align_kernel'
+Tue Jan 16 01:39:39 2024: SYSTEM_DIAGRAM: closing session for UUID 'c0cf87a8-7b95-4609-9c5a-8af79fd3181d' with name 'v++_package_seq_align_kernel'
+Tue Jan 16 20:29:56 2024: Running xcd server. This server was built by gradle.
+Tue Jan 16 20:29:56 2024: Server was asked to start on port: '46714'
+Tue Jan 16 20:29:56 2024: Server is using token UUID: '4d8a020d-519b-4b5a-bc54-27df034d6703'
+Tue Jan 16 20:29:56 2024: SESSION_MGR: creating session with session uuid: '6d04a3e9-ade5-4ab9-8d63-1f78fcd2ec76' and name 'default'
+Tue Jan 16 20:29:56 2024: Attempting to start server on port '46714'
+Tue Jan 16 20:29:56 2024: XCD main fifo: created main fifo '/tmp/xcdmain4d8a020d-519b-4b5a-bc54-27df034d6703', fd read = 13
+Tue Jan 16 20:29:56 2024: Running Dispatch Server
+Tue Jan 16 20:29:56 2024: Version 2.2.0
+Tue Jan 16 20:30:05 2024: Dispatch Server: Accepted socket connection from client
+Tue Jan 16 20:30:05 2024: Starting Socket connection
+Tue Jan 16 20:30:05 2024: EXCHANGE_TOKEN received, server token: 4d8a020d-519b-4b5a-bc54-27df034d6703, passed token: 4d8a020d-519b-4b5a-bc54-27df034d6703
+Tue Jan 16 20:30:07 2024: DISPATCH_HANDLER: Adding handler from function makeHandler in library libxv_system_diagram
+Tue Jan 16 20:30:07 2024: SESSION_MGR: creating session with session uuid: '8fe3b1e5-2050-4688-b0fd-2814ea901f64' and name 'v++_compile_seq_align_kernel'
+Tue Jan 16 20:30:07 2024: KERNEL_SVC: creating session with uuid: '8fe3b1e5-2050-4688-b0fd-2814ea901f64' and name 'v++_compile_seq_align_kernel'
+Tue Jan 16 20:30:07 2024: GUIDANCE_SMGR: creating guidance session with uuid: '8fe3b1e5-2050-4688-b0fd-2814ea901f64' and name 'v++_compile_seq_align_kernel'
+Tue Jan 16 20:30:07 2024: SYSTEM_DIAGRAM: creating session with uuid: '8fe3b1e5-2050-4688-b0fd-2814ea901f64' and name 'v++_compile_seq_align_kernel'
+Tue Jan 16 20:31:40 2024: SESSION_MGR: closing session for UUID '8fe3b1e5-2050-4688-b0fd-2814ea901f64' with name 'v++_compile_seq_align_kernel'
+Tue Jan 16 20:31:40 2024: KERNEL_SVC: closing session for UUID '8fe3b1e5-2050-4688-b0fd-2814ea901f64' with name 'v++_compile_seq_align_kernel'
+Tue Jan 16 20:31:40 2024: GUIDANCE_SMGR: closing session for UUID '8fe3b1e5-2050-4688-b0fd-2814ea901f64' with name 'v++_compile_seq_align_kernel'
+Tue Jan 16 20:31:40 2024: SYSTEM_DIAGRAM: closing session for UUID '8fe3b1e5-2050-4688-b0fd-2814ea901f64' with name 'v++_compile_seq_align_kernel'
+Tue Jan 16 20:31:43 2024: Running xcd server. This server was built by gradle.
+Tue Jan 16 20:31:43 2024: Server was asked to start on port: '37131'
+Tue Jan 16 20:31:43 2024: Server is using token UUID: '81df6f4e-e69e-40b6-ab14-ab5f0ab401d0'
+Tue Jan 16 20:31:43 2024: SESSION_MGR: creating session with session uuid: '6d04a3e9-ade5-4ab9-8d63-1f78fcd2ec76' and name 'default'
+Tue Jan 16 20:31:43 2024: Attempting to start server on port '37131'
+Tue Jan 16 20:31:43 2024: XCD main fifo: created main fifo '/tmp/xcdmain81df6f4e-e69e-40b6-ab14-ab5f0ab401d0', fd read = 13
+Tue Jan 16 20:31:43 2024: Running Dispatch Server
+Tue Jan 16 20:31:43 2024: Version 2.2.0
+Tue Jan 16 20:31:52 2024: Dispatch Server: Accepted socket connection from client
+Tue Jan 16 20:31:52 2024: Starting Socket connection
+Tue Jan 16 20:31:52 2024: EXCHANGE_TOKEN received, server token: 81df6f4e-e69e-40b6-ab14-ab5f0ab401d0, passed token: 81df6f4e-e69e-40b6-ab14-ab5f0ab401d0
+Tue Jan 16 20:31:53 2024: DISPATCH_HANDLER: Adding handler from function makeHandler in library libxv_system_diagram
+Tue Jan 16 20:31:53 2024: SESSION_MGR: creating session with session uuid: '8dcd94e4-d46d-440e-92c0-234fabca1023' and name 'v++_link_seq_align_kernel.link'
+Tue Jan 16 20:31:53 2024: KERNEL_SVC: creating session with uuid: '8dcd94e4-d46d-440e-92c0-234fabca1023' and name 'v++_link_seq_align_kernel.link'
+Tue Jan 16 20:31:53 2024: GUIDANCE_SMGR: creating guidance session with uuid: '8dcd94e4-d46d-440e-92c0-234fabca1023' and name 'v++_link_seq_align_kernel.link'
+Tue Jan 16 20:31:53 2024: SYSTEM_DIAGRAM: creating session with uuid: '8dcd94e4-d46d-440e-92c0-234fabca1023' and name 'v++_link_seq_align_kernel.link'
+Tue Jan 16 20:32:22 2024: Dispatch Server: Accepted socket connection from client
+Tue Jan 16 20:32:22 2024: Starting Socket connection
+Tue Jan 16 20:33:57 2024: Dispatch Server: Accepted socket connection from client
+Tue Jan 16 20:33:57 2024: Starting Socket connection
+Tue Jan 16 20:39:55 2024: Dispatch Server: Accepted socket connection from client
+Tue Jan 16 20:39:55 2024: Starting Socket connection
+Tue Jan 16 20:39:55 2024: Dispatch Server: Accepted socket connection from client
+Tue Jan 16 20:39:55 2024: Starting Socket connection
+Tue Jan 16 20:39:56 2024: Dispatch Server: Accepted socket connection from client
+Tue Jan 16 20:39:56 2024: Starting Socket connection
+Tue Jan 16 20:39:56 2024: Dispatch Server: Accepted socket connection from client
+Tue Jan 16 20:39:56 2024: Starting Socket connection
+Tue Jan 16 20:40:52 2024: Dispatch Server: Accepted socket connection from client
+Tue Jan 16 20:40:52 2024: Starting Socket connection
+Tue Jan 16 20:40:59 2024: Dispatch Server: Accepted socket connection from client
+Tue Jan 16 20:40:59 2024: Starting Socket connection
+Tue Jan 16 20:41:01 2024: Dispatch Server: Accepted socket connection from client
+Tue Jan 16 20:41:01 2024: Starting Socket connection
+Tue Jan 16 20:41:13 2024: Dispatch Server: Accepted socket connection from client
+Tue Jan 16 20:41:13 2024: Starting Socket connection
+Tue Jan 16 20:41:59 2024: Dispatch Server: Accepted socket connection from client
+Tue Jan 16 20:41:59 2024: Starting Socket connection
+Tue Jan 16 20:42:01 2024: Dispatch Server: Accepted socket connection from client
+Tue Jan 16 20:42:01 2024: Starting Socket connection
+Tue Jan 16 20:42:17 2024: Dispatch Server: Accepted socket connection from client
+Tue Jan 16 20:42:17 2024: Starting Socket connection
+Tue Jan 16 20:42:24 2024: Dispatch Server: Accepted socket connection from client
+Tue Jan 16 20:42:24 2024: Starting Socket connection
+Tue Jan 16 20:43:05 2024: Dispatch Server: Accepted socket connection from client
+Tue Jan 16 20:43:05 2024: Starting Socket connection
+Tue Jan 16 20:43:06 2024: Dispatch Server: Accepted socket connection from client
+Tue Jan 16 20:43:06 2024: Starting Socket connection
+Tue Jan 16 20:43:18 2024: Dispatch Server: Accepted socket connection from client
+Tue Jan 16 20:43:18 2024: Starting Socket connection
+Tue Jan 16 20:43:30 2024: Dispatch Server: Accepted socket connection from client
+Tue Jan 16 20:43:30 2024: Starting Socket connection
+Tue Jan 16 20:44:07 2024: Dispatch Server: Accepted socket connection from client
+Tue Jan 16 20:44:07 2024: Starting Socket connection
+Tue Jan 16 20:44:29 2024: Dispatch Server: Accepted socket connection from client
+Tue Jan 16 20:44:29 2024: Starting Socket connection
+Tue Jan 16 20:44:30 2024: Dispatch Server: Accepted socket connection from client
+Tue Jan 16 20:44:30 2024: Starting Socket connection
+Tue Jan 16 20:44:46 2024: Dispatch Server: Accepted socket connection from client
+Tue Jan 16 20:44:46 2024: Starting Socket connection
+Tue Jan 16 20:45:09 2024: Dispatch Server: Accepted socket connection from client
+Tue Jan 16 20:45:09 2024: Starting Socket connection
+Tue Jan 16 20:45:31 2024: Dispatch Server: Accepted socket connection from client
+Tue Jan 16 20:45:31 2024: Starting Socket connection
+Tue Jan 16 20:45:45 2024: Dispatch Server: Accepted socket connection from client
+Tue Jan 16 20:45:45 2024: Starting Socket connection
+Tue Jan 16 20:46:28 2024: Dispatch Server: Accepted socket connection from client
+Tue Jan 16 20:46:28 2024: Starting Socket connection
+Tue Jan 16 20:46:29 2024: Dispatch Server: Accepted socket connection from client
+Tue Jan 16 20:46:29 2024: Starting Socket connection
+Tue Jan 16 20:46:47 2024: Dispatch Server: Accepted socket connection from client
+Tue Jan 16 20:46:47 2024: Starting Socket connection
+Tue Jan 16 20:47:29 2024: Dispatch Server: Accepted socket connection from client
+Tue Jan 16 20:47:29 2024: Starting Socket connection
+Tue Jan 16 20:47:30 2024: Dispatch Server: Accepted socket connection from client
+Tue Jan 16 20:47:30 2024: Starting Socket connection
+Tue Jan 16 20:47:39 2024: Dispatch Server: Accepted socket connection from client
+Tue Jan 16 20:47:39 2024: Starting Socket connection
+Tue Jan 16 20:47:45 2024: Dispatch Server: Accepted socket connection from client
+Tue Jan 16 20:47:45 2024: Starting Socket connection
+Tue Jan 16 20:47:48 2024: Dispatch Server: Accepted socket connection from client
+Tue Jan 16 20:47:48 2024: Starting Socket connection
+Tue Jan 16 20:48:27 2024: Dispatch Server: Accepted socket connection from client
+Tue Jan 16 20:48:27 2024: Starting Socket connection
+Tue Jan 16 20:48:43 2024: Dispatch Server: Accepted socket connection from client
+Tue Jan 16 20:48:43 2024: Starting Socket connection
+Tue Jan 16 20:48:50 2024: Dispatch Server: Accepted socket connection from client
+Tue Jan 16 20:48:50 2024: Starting Socket connection
+Tue Jan 16 20:48:56 2024: Dispatch Server: Accepted socket connection from client
+Tue Jan 16 20:48:56 2024: Starting Socket connection
+Tue Jan 16 20:49:45 2024: Dispatch Server: Accepted socket connection from client
+Tue Jan 16 20:49:45 2024: Starting Socket connection
+Tue Jan 16 20:49:50 2024: Dispatch Server: Accepted socket connection from client
+Tue Jan 16 20:49:50 2024: Starting Socket connection
+Tue Jan 16 20:49:58 2024: Dispatch Server: Accepted socket connection from client
+Tue Jan 16 20:49:58 2024: Starting Socket connection
+Tue Jan 16 20:50:00 2024: Dispatch Server: Accepted socket connection from client
+Tue Jan 16 20:50:00 2024: Starting Socket connection
+Tue Jan 16 20:50:55 2024: Dispatch Server: Accepted socket connection from client
+Tue Jan 16 20:50:55 2024: Starting Socket connection
+Tue Jan 16 20:52:28 2024: Dispatch Server: Accepted socket connection from client
+Tue Jan 16 20:52:28 2024: Starting Socket connection
+Tue Jan 16 20:53:47 2024: Dispatch Server: Accepted socket connection from client
+Tue Jan 16 20:53:47 2024: Starting Socket connection
+Tue Jan 16 21:59:06 2024: SESSION_MGR: closing session for UUID '8dcd94e4-d46d-440e-92c0-234fabca1023' with name 'v++_link_seq_align_kernel.link'
+Tue Jan 16 21:59:06 2024: KERNEL_SVC: closing session for UUID '8dcd94e4-d46d-440e-92c0-234fabca1023' with name 'v++_link_seq_align_kernel.link'
+Tue Jan 16 21:59:06 2024: GUIDANCE_SMGR: closing session for UUID '8dcd94e4-d46d-440e-92c0-234fabca1023' with name 'v++_link_seq_align_kernel.link'
+Tue Jan 16 21:59:06 2024: SYSTEM_DIAGRAM: closing session for UUID '8dcd94e4-d46d-440e-92c0-234fabca1023' with name 'v++_link_seq_align_kernel.link'
+Tue Jan 16 21:59:08 2024: Running xcd server. This server was built by gradle.
+Tue Jan 16 21:59:08 2024: Server was asked to start on port: '40256'
+Tue Jan 16 21:59:08 2024: Server is using token UUID: 'ae61c3dc-3a8c-476b-a756-54857d7c051a'
+Tue Jan 16 21:59:08 2024: SESSION_MGR: creating session with session uuid: '6d04a3e9-ade5-4ab9-8d63-1f78fcd2ec76' and name 'default'
+Tue Jan 16 21:59:08 2024: Attempting to start server on port '40256'
+Tue Jan 16 21:59:08 2024: XCD main fifo: created main fifo '/tmp/xcdmainae61c3dc-3a8c-476b-a756-54857d7c051a', fd read = 13
+Tue Jan 16 21:59:08 2024: Running Dispatch Server
+Tue Jan 16 21:59:08 2024: Version 2.2.0
+Tue Jan 16 21:59:17 2024: Dispatch Server: Accepted socket connection from client
+Tue Jan 16 21:59:17 2024: Starting Socket connection
+Tue Jan 16 21:59:17 2024: EXCHANGE_TOKEN received, server token: ae61c3dc-3a8c-476b-a756-54857d7c051a, passed token: ae61c3dc-3a8c-476b-a756-54857d7c051a
+Tue Jan 16 21:59:19 2024: DISPATCH_HANDLER: Adding handler from function makeHandler in library libxv_system_diagram
+Tue Jan 16 21:59:19 2024: SESSION_MGR: creating session with session uuid: 'edb51336-d285-477b-98b4-187e0faa70c1' and name 'v++_package_seq_align_kernel'
+Tue Jan 16 21:59:19 2024: KERNEL_SVC: creating session with uuid: 'edb51336-d285-477b-98b4-187e0faa70c1' and name 'v++_package_seq_align_kernel'
+Tue Jan 16 21:59:19 2024: GUIDANCE_SMGR: creating guidance session with uuid: 'edb51336-d285-477b-98b4-187e0faa70c1' and name 'v++_package_seq_align_kernel'
+Tue Jan 16 21:59:19 2024: SYSTEM_DIAGRAM: creating session with uuid: 'edb51336-d285-477b-98b4-187e0faa70c1' and name 'v++_package_seq_align_kernel'
+Tue Jan 16 21:59:26 2024: SESSION_MGR: closing session for UUID 'edb51336-d285-477b-98b4-187e0faa70c1' with name 'v++_package_seq_align_kernel'
+Tue Jan 16 21:59:26 2024: KERNEL_SVC: closing session for UUID 'edb51336-d285-477b-98b4-187e0faa70c1' with name 'v++_package_seq_align_kernel'
+Tue Jan 16 21:59:26 2024: GUIDANCE_SMGR: closing session for UUID 'edb51336-d285-477b-98b4-187e0faa70c1' with name 'v++_package_seq_align_kernel'
+Tue Jan 16 21:59:26 2024: SYSTEM_DIAGRAM: closing session for UUID 'edb51336-d285-477b-98b4-187e0faa70c1' with name 'v++_package_seq_align_kernel'
