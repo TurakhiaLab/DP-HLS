@@ -53,6 +53,8 @@ proc main {} {
     # csim_design
     csynth_design
     
+    export_design -flow impl
+    
     # close $file_handle
 }
 

@@ -183,4 +183,7 @@ void Testbench::test_compute_chunk_arr(){
         max,
         tbp_out
     );
+    for (int i = 0; i < MAX_QUERY_LENGTH; i++) {
+        
+    }
 }
