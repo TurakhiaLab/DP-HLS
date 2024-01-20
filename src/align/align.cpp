@@ -343,7 +343,6 @@ void Align::ChunkCompute(
 
 #pragma HLS array_partition variable = predicate type = complete
 #pragma HLS array_partition variable = pe_col_offsets type = complete
-#pragma HLS array_partition variable = local_query type = complete
 #pragma HLS array_partition variable = local_reference type = complete
 #pragma HLS array_partition variable = dp_mem type = complete
 #pragma HLS array_partition variable = tbp_out type = complete
@@ -594,7 +593,6 @@ void Align::AlignStatic(
 
 	idx_t row_buf_cnt = 0;
 
-#pragma HLS array_partition variable = local_query type = complete
 
 	for (idx_t i = 0; i < query_length; i += PE_NUM)
 	{
@@ -603,30 +601,31 @@ void Align::AlignStatic(
 		Align::PrepareLocalQuery(query, local_query, i, local_query_length); // FIXME: Why not coping rest of the query
 		Align::CopyColScore(local_init_col_score, init_col_score, i);  // Copy the scores
 
-		tbp_t(*chunk_tbp_out)[MAX_REFERENCE_LENGTH] = &tbp_matrix[i];
+		// tbp_t(*chunk_tbp_out)[MAX_REFERENCE_LENGTH] = &tbp_matrix[i];
+		tbp_t chunk_tbp_out[PE_NUM][MAX_REFERENCE_LENGTH];  // FIXME: Make it dummy first
+
 
 #ifdef DEBUG
 		hls::vector<type_t, N_LAYERS>  (*chunk_score_out)[MAX_REFERENCE_LENGTH] = &score_matrix[i];
 #endif
-
-// 		Align::ChunkCompute(
-// 			i,
-// 			local_query,
-// 			reference,
-// 			local_init_col_score,
-// 			init_row_score[row_buf_cnt % 2],
-//             query_length,
-// 			local_query_length,
-// 			reference_length,
-// 			penalties,
-// 			init_row_score[row_buf_cnt % 2 + 1],
-// 			local_max,
-// #ifdef DEBUG
-// 			chunk_tbp_out,
-// 			chunk_score_out);
-// #else
-//             chunk_tbp_out);
-// #endif
+		Align::ChunkCompute(
+			i,
+			local_query,
+			reference,
+			local_init_col_score,
+			init_row_score[row_buf_cnt % 2],
+            query_length,
+			local_query_length,
+			reference_length,
+			penalties,
+			init_row_score[row_buf_cnt % 2 + 1],
+			local_max,
+#ifdef DEBUG
+			chunk_tbp_out,
+			chunk_score_out);
+#else
+            chunk_tbp_out);
+#endif
 
 	}
 
@@ -680,6 +679,8 @@ void Align::Reordered::Align(
 	score_vec_t init_row_score[MAX_REFERENCE_LENGTH];
 
 	Penalties penalties;  // FIXME!!!
+
+#define FIXED_BANDWIDTH 0
 
 	// Align::InitializeScores(init_col_score, init_row_score);  // FIXME: Uncomment me to get desired behavior
 	Align::Reordered::CopyInitialScores(init_row_score, init_col_score, scores);

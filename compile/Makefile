@@ -130,7 +130,7 @@ build: check-vitis check-device $(BINARY_CONTAINERS)
 xclbin: build
 
 ############################## Setting Rules for Binary Containers (Building Kernels) ##############################
-$(TEMP_DIR)/seq_align_kernel.xo: src/toplevel/seq_align_multiple.cpp src/align/align.cpp src/utils.cpp src/frontend.cpp src/traceback.cpp
+$(TEMP_DIR)/seq_align_kernel.xo: src/toplevel/seq_align_multiple.cpp src/align/align.cpp src/utils.cpp src/frontend.cpp src/traceback.cpp src/pe/pe.cpp
 	mkdir -p $(TEMP_DIR)
 	$(VPP) $(VPP_FLAGS) -c -k seq_align_multiple_static --temp_dir $(TEMP_DIR)  -I'$(<D)' -I'./include' -o'$@' $^
 
