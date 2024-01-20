@@ -8,15 +8,17 @@
 #include <list>
 #include <array>
 #include <string>
-#include <experimental/filesystem>
+// #include <experimental/filesystem>
 #include <fstream>
 #include <unordered_map>
 #include <hls_vector.h>
 #include "utils.h"
 #include <cstdarg>
 
-namespace fs = std::experimental::filesystem;
-using namespace fs;
+// NOTE: This file system thing doesn't seems to present on F1 AWS FPGA AMI. 
+// It uses higher standard, which older HLS's host compiler doesn't support. 
+// namespace fs = std::experimental::filesystem;
+// using namespace fs;
 using namespace std;
 
 
@@ -48,19 +50,19 @@ private:
     int query_length;
     int reference_length;
 
-    Container(const string debugpath, const string filename, const int query_length, const int reference_length) {
-        this->query_length = query_length;
-        this->reference_length = reference_length;
+    // Container(const string debugpath, const string filename, const int query_length, const int reference_length) {
+    //     this->query_length = query_length;
+    //     this->reference_length = reference_length;
 
-        this->debugpath = debugpath;  // set the path to the debug folder
-        fs::path path(debugpath);  // get the path to the debug folder
-        fs::remove_all(path);
-        fs::create_directories(path);
-        this->filepath =  debugpath + "/" + filename;
-        std::ofstream createFile(this->filepath);
-        assert(createFile.is_open() && "Unable to Create File");  // create file to write =
-        createFile.close();
-    };
+    //     this->debugpath = debugpath;  // set the path to the debug folder
+    //     fs::path path(debugpath);  // get the path to the debug folder
+    //     fs::remove_all(path);
+    //     fs::create_directories(path);
+    //     this->filepath =  debugpath + "/" + filename;
+    //     std::ofstream createFile(this->filepath);
+    //     assert(createFile.is_open() && "Unable to Create File");  // create file to write =
+    //     createFile.close();
+    // };
 
 };
 

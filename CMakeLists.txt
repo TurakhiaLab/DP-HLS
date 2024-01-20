@@ -8,10 +8,12 @@ endif()
 
 project ("DP-HLS")
 
-set(RAPTOR 1)
+# set(RAPTOR 1)
+set(F1 1)
+
 set(CMAKE_C_COMPILER "/usr/bin/gcc")
 set(CMAKE_CXX_COMPILER "/usr/bin/c++")  # Use g++ compiler, but subject to change for v++ compiler.
-set(CMAKE_BUILD_TYPE Debug)
+# set(CMAKE_BUILD_TYPE Debug)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O0 -g -fsanitize=address")
 # "-fsanitize=address" flag was used to check the stack smashing with Google Address Sanitizer. Use this flag with CLang and 
@@ -122,6 +124,17 @@ set_property(TARGET multidimcast PROPERTY CXX_STANDARD 17)
 if (RAPTOR)
     set(HLS_HOME "/home/AD.UCSD.EDU/swalia/Xilinx/Vitis_HLS/2023.1")
     set(DP-HLS_HOME "/home/yic033@AD.UCSD.EDU/DP-HLS")
+
+    include_directories(${EXECUTABLE_TARGETS} PUBLIC "${HLS_HOME}/include")
+    include_directories(${EXECUTABLE_TARGETS} PUBLIC "${DP-HLS_HOME}/include")
+
+    link_directories(${EXECUTABLE_TARGETS} PUBLIC "${HLS_HOME}/lib")
+    link_directories(${EXECUTABLE_TARGETS} PUBLIC "/usr/lib/x86_64-linux-gnu" "/usr/lib32" "/usr/libx32")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread")
+
+elseif(F1)
+    set(HLS_HOME "/opt/Xilinx/Vitis_HLS/2021.2/")    
+    set(DP-HLS_HOME "/home/centos/workspace/DP-HLS")
 
     include_directories(${EXECUTABLE_TARGETS} PUBLIC "${HLS_HOME}/include")
     include_directories(${EXECUTABLE_TARGETS} PUBLIC "${DP-HLS_HOME}/include")

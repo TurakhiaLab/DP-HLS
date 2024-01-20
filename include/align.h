@@ -18,9 +18,9 @@
 #include <hls_stream.h>
 // #include <hls_streamofblocks.h>
 
-#include "./params.h"
-#include "./PE.h"
-#include "./utils.h"
+#include "params.h"
+#include "PE.h"
+#include "utils.h"
 #include "frontend.h"
 
 
