@@ -7,16 +7,10 @@
 #include <complex.h>
 
 
-// #define TWO_PIECE_AFFINE // ALIGN_LOCAL_AFFINE, ALIGN_GLOBAL_LINEAR, TWO_PIECE_AFFINE
-// #define DEBUG
+// // #define TWO_PIECE_AFFINE // ALIGN_LOCAL_AFFINE, ALIGN_GLOBAL_LINEAR, TWO_PIECE_AFFINE
+// // #define DEBUG
 
-struct Debug {
-    int debug;
-    int debug2;
-};
-
-
-#define ALIGN_GLOBAL_LINEAR
+#define ALIGN_GLOBAL_AFFINE
 #undef DEBUG
 
 // >>> LOCAL_LINEAR params >>>
