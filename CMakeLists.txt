@@ -1,4 +1,4 @@
-cmake_minimum_required (VERSION 2.8)
+cmake_minimum_required (VERSION 3.8)  # On AWS FPGA AMI, This should be 2.8, but on Raptor we can use 3.8
 
 # Enable Hot Reload for MSVC compilers if supported.
 if (POLICY CMP0141)
@@ -62,20 +62,21 @@ add_executable(test_align "testbench/test_align.cpp"
     "src/frontend.cpp")
 
 add_executable(test_csim "testbench/test_csim.cpp"
-    "include/params.h"
-    "include/seq_align_multiple.h"
-    "include/align.h"
-    "include/PE.h"
-    "include/utils.h"
-    "include/frontend.h"
-    "include/debug.h"
+    # "include/params.h"
+    # "include/seq_align_multiple.h"
+    # "include/align.h"
+    # "include/PE.h"
+    # "include/utils.h"
+    # "include/frontend.h"
+    # "include/debug.h"
     "src/toplevel/seq_align_multiple.cpp"
     "src/align/align.cpp"
     "src/pe/pe.cpp"
     "src/traceback.cpp"
     "src/utils.cpp"
     "src/frontend.cpp"
-    "src/debug.cpp")
+    "src/debug.cpp"
+    "testbench/solutions.cpp")
 
 add_executable(test_csim_dtw "testbench/test_csim_dtw.cpp"
     "include/params.h"
@@ -120,8 +121,10 @@ set_property(TARGET multidimcast PROPERTY CXX_STANDARD 17)
 # Add include to Xilinx Library FIles
 if (RAPTOR)
     set(HLS_HOME "/home/AD.UCSD.EDU/swalia/Xilinx/Vitis_HLS/2023.1")
+    set(DP-HLS_HOME "/home/yic033@AD.UCSD.EDU/DP-HLS")
 
     include_directories(${EXECUTABLE_TARGETS} PUBLIC "${HLS_HOME}/include")
+    include_directories(${EXECUTABLE_TARGETS} PUBLIC "${DP-HLS_HOME}/include")
 
     link_directories(${EXECUTABLE_TARGETS} PUBLIC "${HLS_HOME}/lib")
     link_directories(${EXECUTABLE_TARGETS} PUBLIC "/usr/lib/x86_64-linux-gnu" "/usr/lib32" "/usr/libx32")

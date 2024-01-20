@@ -7,11 +7,17 @@
 #include <complex.h>
 
 
-#define TWO_PIECE_AFFINE // ALIGN_LOCAL_AFFINE, ALIGN_GLOBAL_LINEAR, TWO_PIECE_AFFINE
-#define DEBUG
+// #define TWO_PIECE_AFFINE // ALIGN_LOCAL_AFFINE, ALIGN_GLOBAL_LINEAR, TWO_PIECE_AFFINE
+// #define DEBUG
 
-// #define ALIGN_GLOBAL_AFFINE
-// #undef DEBUG
+struct Debug {
+    int debug;
+    int debug2;
+};
+
+
+#define ALIGN_GLOBAL_LINEAR
+#undef DEBUG
 
 // >>> LOCAL_LINEAR params >>>
 #ifdef ALIGN_LOCAL_LINEAR
@@ -280,6 +286,14 @@ struct ScorePack{
     idx_t chunk_offset = 0;
     idx_t pe = 0;
     idx_t pe_offset = 0;
+
+	// Default Constructor
+    ScorePack() {
+        score = 0;
+        chunk_offset = 0;
+        pe = 0;
+        pe_offset = 0;
+    }
 };
 
 struct Penalties {
@@ -366,13 +380,13 @@ struct ScorePack{
     idx_t pe_offset = 0;
 };
 
-typedef struct {
+struct Penalties {
     type_t open;
     type_t extend;
     type_t mismatch;
     type_t match;
     type_t linear_gap;
-} Penalties;
+};
 
 enum TB_STATE {
     MM = 0,   // Match/Mismatch

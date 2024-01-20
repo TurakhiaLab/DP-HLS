@@ -309,15 +309,11 @@ void Align::ChunkCompute(
 	ScorePack (&max)[PE_NUM],  // initialize rather in maximum
 #ifdef DEBUG
 	tbp_t (*chunk_tbp_out)[MAX_REFERENCE_LENGTH],
-	hls::vector<type_t, N_LAYERS> (*score_tbp)[MAX_REFERENCE_LENGTH])
+	Container &debugger)
 #else
     tbp_t (*chunk_tbp_out)[MAX_REFERENCE_LENGTH])
 #endif
 {
-#ifdef DEBUG
-	Container &debugger = Container::getInstance(); // @Debug
-#endif // DEBUG
-
 	bool predicate[PE_NUM];
 	Utils::Init::ArrSet<bool, PE_NUM>(predicate, false);
 
@@ -507,8 +503,6 @@ void Align::FindMax::ReductionMaxScores(ScorePack (&packs)[PE_NUM], ScorePack &g
 }
 
 
-
-
 void Align::CopyColScore(chunk_col_scores_inf_t & init_col_scr_local, score_vec_t(& init_col_scr)[MAX_QUERY_LENGTH], idx_t idx)
 {
 	init_col_scr_local[0] = init_col_scr_local[PE_NUM];  // backup the last element from previous chunk
@@ -522,18 +516,18 @@ void Align::CopyColScore(chunk_col_scores_inf_t & init_col_scr_local, score_vec_
 
 
 
-void Align::PrepareLocalQuery(
-    char_t (&query)[MAX_QUERY_LENGTH],
-    char_t (&local_query)[PE_NUM],
-    idx_t offset,
-    idx_t len)
-{
-	for (int i = 0; i < PE_NUM; i++)
-	{
-#pragma HLS unroll
-		local_query[i] = query[offset + i];
-	}
-}
+// void Align::PrepareLocalQuery(
+//     char_t (&query)[MAX_QUERY_LENGTH],
+//     char_t (&local_query)[PE_NUM],
+//     idx_t offset,
+//     idx_t len)
+// {
+// 	for (int i = 0; i < PE_NUM; i++)
+// 	{
+// #pragma HLS unroll
+// 		local_query[i] = query[offset + i];
+// 	}
+// }
 
 void Align::ChunkMax(ScorePack &max, ScorePack new_scr)
 {
@@ -551,58 +545,47 @@ void Align::AlignStatic(
 	idx_t query_length,
 	idx_t reference_length,
 	const Penalties &penalties,
+#ifdef DEBUG
+	tbr_t (&tb_out)[MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH],
+	Container &debugger)
+#else
 	tbr_t (&tb_out)[MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH])
+#endif
 {
-
-// >>> Initialization >>>
 
 // could partition query so load takes only 1 cycle
 // or if the chunk compute is pipelined with the array fill, this might not be necessary
 #pragma HLS array_partition variable = query type = cyclic factor = 32 dim = 1
+#pragma HLS array_partition variable = reference type = cyclic factor = 32 dim = 1
 
 	score_vec_t init_col_score[MAX_QUERY_LENGTH];
-
 	score_vec_t init_row_score[2][MAX_REFERENCE_LENGTH];
-//	score_vec_t preserved_row_buffer[MAX_REFERENCE_LENGTH];
-#pragma HLS array_partition variable=init_row_score type=complete dim=1
-
-	// ALIGN_TYPE::InitializeScores(init_col_score, init_row_score[0], penalties);
-
-	// The size of a static matrix must be known at the compile time.
 	tbp_t tbp_matrix[MAX_QUERY_LENGTH][MAX_REFERENCE_LENGTH];
 
-#ifdef DEBUG
-	hls::vector<type_t, N_LAYERS>  score_matrix[MAX_QUERY_LENGTH][MAX_REFERENCE_LENGTH]; // DEBUG
-#endif
-
-#pragma HLS array_partition variable = tbp_matrix type = cyclic factor = 32 dim = 1
-
-	// >>> Compute >>>
+	// Declare maximum data packs, one for global, one for the array of PEs.
 	ScorePack maximum;
-	maximum.score = type_t(0);
-	maximum.chunk_offset = idx_t(0);
-	maximum.pe = idx_t(0);
-	maximum.pe_offset = idx_t(0);
-
 	ScorePack local_max[PE_NUM];
-	ALIGN_TYPE::InitializeMaxScores(local_max, query_length, reference_length);
-
 
 	char_t local_query[PE_NUM];
 	chunk_col_scores_inf_t local_init_col_score;
 	local_init_col_score[PE_NUM] = score_vec_t(0); // Always initialize the upper left cornor to 0
+	idx_t row_buf_cnt = 0;  // oscillating between 0 and 1, indexing init_row_score
 
-	idx_t row_buf_cnt = 0;
-
+#pragma HLS array_partition variable=init_row_score type=complete dim=1
+#pragma HLS array_partition variable = tbp_matrix type = cyclic factor = 32 dim = 1
 #pragma HLS array_partition variable = local_query type = complete
+
+	// initialize max scores tracker of each PE
+	ALIGN_TYPE::InitializeMaxScores(local_max, query_length, reference_length);
 
 	for (idx_t i = 0; i < query_length; i += PE_NUM)
 	{
-		idx_t local_query_length = ((idx_t)PE_NUM < query_length - i) ? (idx_t)PE_NUM : (idx_t)(query_length - i);
-
-		Align::PrepareLocalQuery(query, local_query, i, local_query_length); // FIXME: Why not coping rest of the query
+		// QUESTION: What does this do? 
+		// idx_t local_query_length = ((idx_t)PE_NUM < query_length - i) ? (idx_t)PE_NUM : (idx_t)(query_length - i);
+		// Align::PrepareLocalQuery(query, local_query, i, local_query_length); // FIXME: Why not coping rest of the query
+		
 		Align::CopyColScore(local_init_col_score, init_col_score, i);  // Copy the scores
-
+		// FIXME: Why this is still there? I think this won't be synthesizable
 		tbp_t(*chunk_tbp_out)[MAX_REFERENCE_LENGTH] = &tbp_matrix[i];
 
 #ifdef DEBUG
@@ -674,6 +657,7 @@ void Align::Reordered::Align(
 	int query_length, int reference_length,
 	tbp_t tbp_matrix[MAX_QUERY_LENGTH][MAX_REFERENCE_LENGTH])
 {
+#define FIXED_BANDWIDTH 0
 	// Notices that the uninitialized places of the kernel contains garbage values. 
 	hls::vector<type_t, N_LAYERS> scores[MAX_QUERY_LENGTH + 1][MAX_REFERENCE_LENGTH + 1];
 	score_vec_t init_col_score[MAX_QUERY_LENGTH];

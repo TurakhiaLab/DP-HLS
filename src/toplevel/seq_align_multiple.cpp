@@ -32,8 +32,13 @@ extern "C"
 	idx_t (&query_lengths)[N_BLOCKS],
 	idx_t (&reference_lengths)[N_BLOCKS],
 	Penalties (&penalties)[N_BLOCKS],
-	tbr_t (&tb_streams)[N_BLOCKS][MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH]){
-
+#ifdef DEBUG
+	tbr_t (&tb_streams)[N_BLOCKS][MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH],
+	Container &debugger)
+#else
+	tbr_t (&tb_streams)[N_BLOCKS][MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH])
+#endif
+	{
 
 #pragma HLS array_partition variable=querys dim=1 type=complete
 #pragma HLS array_partition variable=references dim=1 type=complete
@@ -50,6 +55,9 @@ extern "C"
 				reference_lengths[i],
 				penalties[i],
 				tb_streams[i]
+#ifdef DEBUG
+				, debugger
+#endif
 			);
 
 			// Print For Demo Use

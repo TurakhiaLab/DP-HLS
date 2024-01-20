@@ -1,8 +1,14 @@
 #include <string>
 #include <vector>
-#include "../include/params.h"
-#include "../include/seq_align_multiple.h"
-#include "../include/host_utils.h"
+#include <array>
+#include <map>
+#include "params.h"
+#include "seq_align_multiple.h"
+#include "host_utils.h"
+#include "solutions.h"
+#include "debug.h"
+
+using namespace std;
 
 char_t base_to_num(char base)
 {
@@ -34,24 +40,45 @@ int main(){
 
 
 #ifdef ALIGN_GLOBAL_LINEAR
-    Penalties penalties;
-    penalties.extend = -1;
-    penalties.open = -1;
-    penalties.linear_gap = -1;
-    penalties.match = 3;
-    penalties.mismatch = -2;
+    Penalties penalties[N_BLOCKS];
+    for (int i = 0; i < N_BLOCKS; i++){
+        penalties[i].extend = -1;
+        penalties[i].open = -1;
+        penalties[i].linear_gap = -1;
+        penalties[i].match = 3;
+        penalties[i].mismatch = -1;
+    }
+
+
+    Penalties_sol penalties_sol[N_BLOCKS];
+    for (Penalties_sol &penalty : penalties_sol) {
+        penalty.extend = -1;
+        penalty.open = -1;
+        penalty.linear_gap = -1;
+        penalty.match = 3;
+        penalty.mismatch = -1;
+    }
+
 #else
-    Penalties penalties;
-    penalties.extend = -1;
-    penalties.open = -1;
-    penalties.linear_gap = -1;
-    penalties.match = 3;
-    penalties.mismatch = -1;
+    Penalties penalties[N_BLOCKS];
+    for (int i = 0; i < N_BLOCKS; i++){
+        penalties[i].extend = -1;
+        penalties[i].open = -1;
+        penalties[i].linear_gap = -1;
+        penalties[i].match = 3;
+        penalties[i].mismatch = -1;
+    }
+
 #endif
 
     std::vector<char> query(query_string.begin(), query_string.end());
     std::vector<char> reference(reference_string.begin(), reference_string.end());
  
+    Container debuggers[N_BLOCKS];
+    for (int i = 0; i < N_BLOCKS; i++){
+        debuggers[i] = Container();
+    }
+
     try {
         if (query.size() > MAX_QUERY_LENGTH) throw std::runtime_error("Query length should less than MAX_QUERY_LENGTH, "
             "actual query len " + std::to_string(query.size()) + ", Allocated qry len: " + std::to_string(MAX_QUERY_LENGTH));
@@ -96,6 +123,21 @@ int main(){
         qry_lengths,
         ref_lengths,
         penalties,
-        tb_streams); 
+        tb_streams
+#ifdef DEBUG
+        , debuggers
+#endif
+        );
+
+
+    // retrive the solution
     
+    array<array<int, MAX_REFERENCE_LENGTH>, MAX_QUERY_LENGTH> sol_score_mat;
+    array<array<char, MAX_REFERENCE_LENGTH>, MAX_QUERY_LENGTH> sol_tb_mat;
+    map<string, string> alignments;
+    global_linear_solution(query_string, reference_string, penalties_sol[0], sol_score_mat, sol_tb_mat, alignments);
+    // print_matrix<int, MAX_QUERY_LENGTH, MAX_REFERENCE_LENGTH>(sol_score_mat, "Solution Score Matrix");
+    // print_matrix<char, MAX_QUERY_LENGTH, MAX_REFERENCE_LENGTH>(sol_tb_mat, "Solution Traceback Matrix");
+    cout << "Aligned Query: " << alignments["query"] << endl;
+    cout << "Aligned Reference: " << alignments["reference"] << endl;
 }

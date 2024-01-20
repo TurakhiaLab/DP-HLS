@@ -138,10 +138,11 @@ namespace Align
 		ScorePack (&max)[PE_NUM], // write out so must pass by reference
 #ifdef DEBUG
 		tbp_t (*chunk_tbp_out)[MAX_REFERENCE_LENGTH],
-		hls::vector<type_t, N_LAYERS>  (*chunk_score_out)[MAX_REFERENCE_LENGTH]);
+		Container &debugger);
 #else
         tbp_t (*chunk_tbp_out)[MAX_REFERENCE_LENGTH]);
 #endif
+
 	namespace Reordered
 	{
 		void Align(char_t query[MAX_QUERY_LENGTH], char_t reference[MAX_REFERENCE_LENGTH],
@@ -294,7 +295,12 @@ namespace Align
 		idx_t query_length,
 		idx_t reference_length,
 		const Penalties &penalties,
-		tbr_t (&tb_streams)[MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH]);
+#ifdef DEBUG
+	tbr_t (&tb_out)[MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH],
+	Container &debugger);
+#else
+	tbr_t (&tb_out)[MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH]);
+#endif
 
 	/**
 	 * @brief Initialize initial scores for the first column and

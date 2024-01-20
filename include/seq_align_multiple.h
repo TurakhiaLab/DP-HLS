@@ -27,7 +27,11 @@ extern "C" {
 		idx_t (&query_lengths)[N_BLOCKS],
 		idx_t (&reference_lengths)[N_BLOCKS],
 		Penalties (&penalties)[N_BLOCKS],
-		tbr_t (&tb_streams)[N_BLOCKS][MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH]);
+		tbr_t (&tb_streams)[N_BLOCKS][MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH]
+#ifdef DEBUG
+		, Container &debugger
+#endif
+		);
 
 	// Have maximum input length of 2048 for 2 bit inputs. 
 	// void seq_align_multiple_dynamic(

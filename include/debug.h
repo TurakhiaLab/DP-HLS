@@ -6,6 +6,7 @@
  */
 #include "params.h"
 #include <list>
+#include <array>
 #include <string>
 #include <experimental/filesystem>
 #include <fstream>
@@ -20,68 +21,32 @@ using namespace std;
 
 
 class Container {
+    // A data container to store the debug info (score matrix content, traceback content) of each block.
 public:
+    array<array<score_vec_t, MAX_REFERENCE_LENGTH>, MAX_QUERY_LENGTH> scores_kernel;
+    array<array<array<float, MAX_REFERENCE_LENGTH>, MAX_QUERY_LENGTH>, N_LAYERS> scores_cpp;
+    
+    array<array<tbp_t, MAX_REFERENCE_LENGTH>, MAX_QUERY_LENGTH> tbp_mat_kernel;
+    array<array<unsigned int, MAX_REFERENCE_LENGTH>, MAX_QUERY_LENGTH> tbp_mat_cpp;  // this need to be translated
 
-    static list<hls::vector<type_t, N_LAYERS>> scores[PE_NUM];
+    array<array<tbr_t, MAX_REFERENCE_LENGTH>, MAX_QUERY_LENGTH> tb_mat_kernel;
+    array<array<char, MAX_REFERENCE_LENGTH>, MAX_QUERY_LENGTH> tb_mat_cpp;  // this need to be translated
 
-    // Static member function to access the single instance
-    static Container& containerInit(string debugpath, string filename, const int query_length, const int reference_length) {
-        static Container instance(debugpath, filename, query_length, reference_length);
-        return instance;
-    };
+    Container() {};
 
-    static Container& getInstance() {
-        // This ensures that the instance is created only once
-        static Container instance;
-        return instance;
-    }
+    void cast_scores();
+    void cast_tbp();
+    void cast_tb();
+    void cast_all();
 
-    /**
-     * @brief Record scores of a wavefront. Place it immediately after the scores are computed.
-     *
-     * @param pe_scores PE Scores Array.
-     * @param predicate Predicate
-     */
-    void record_score(hls::vector<type_t, N_LAYERS> pe_scores[PE_NUM], bool predicate[PE_NUM]) {
-        for (int i = 0; i < PE_NUM; i++){
-            if (predicate[i]){
-                (Container::scores)[i].push_back(pe_scores[i]);
-            }
-        }
-    };
-
-    void print_scores() {
-        FILE *outputFile = std::fopen(this->filepath.c_str(), "a");
-
-        for (int l = 0; l < N_LAYERS; l++) {
-            fprintf(outputFile, "\nRaw Score Matrix %d\n", l);
-
-            list<hls::vector<type_t, N_LAYERS>>::iterator it[PE_NUM];
-            for (int i = 0; i < PE_NUM; i++) {
-                it[i] = Container::scores[i].begin();
-            }
-
-            for (int i = 0; i < this->query_length; i++) {
-                for (int j = 0; j < this->reference_length; j++) {
-                    if (it[i % PE_NUM] != Container::scores[i % PE_NUM].end()) {
-                        fprintf(outputFile, "%d ", int((*(it[i % PE_NUM]++))[l]));
-                    }
-                }
-
-                fprintf(outputFile, "\n");
-            }
-        }
-    };
-
+    void set_score(int chunk_row_offset, int chunk_col_offset, int pe_num, int wavefront, score_vec_t vals, bool pred);
+    void set_scores_wf(int chunk_row_offset, int chunk_col_offset, int wavefront, score_vec_t vals[PE_NUM], bool predicates[PE_NUM]);
+  
 private:
     string debugpath;
     string filepath;
     int query_length;
     int reference_length;
-
-
-    // Private constructor to prevent external instantiation
-    Container() {};
 
     Container(const string debugpath, const string filename, const int query_length, const int reference_length) {
         this->query_length = query_length;
@@ -97,14 +62,10 @@ private:
         createFile.close();
     };
 
-    // Private destructor to prevent external destruction
-    ~Container() {};
-
-
 };
 
 
-namespace Debug
+namespace DebugUtils
 {
     template <typename T1, typename T2, int LEN>
     void translate(T1 (&hls_arr)[LEN], T2 (&std_arr)[LEN])
