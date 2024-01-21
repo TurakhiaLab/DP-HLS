@@ -222,7 +222,7 @@ char_t AHRunner::base_to_num(char base)
         return 3;
     default:
         return 0;
-#ifdef DEBUG
+#ifdef CMAKEDEBUG
         throw std::runtime_error("Unrecognized Nucleotide " + std::string(1, base) + " from A, C, G, and T.\n"); // or throw an exception
 #endif
     }

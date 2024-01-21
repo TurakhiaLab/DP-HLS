@@ -8,10 +8,9 @@
 
 
 // // #define TWO_PIECE_AFFINE // ALIGN_LOCAL_AFFINE, ALIGN_GLOBAL_LINEAR, TWO_PIECE_AFFINE
-// // #define DEBUG
 
 #define ALIGN_GLOBAL_LINEAR
-#define DEBUG
+// #define CMAKEDEBUG
 
 // >>> LOCAL_LINEAR params >>>
 #ifdef ALIGN_LOCAL_LINEAR
@@ -216,13 +215,13 @@ enum TB_STATE {
 #ifdef ALIGN_GLOBAL_LINEAR
 #define numofreads 1
 
-#define MAX_QUERY_LENGTH 32
-#define MAX_REFERENCE_LENGTH 32
+#define MAX_QUERY_LENGTH 256
+#define MAX_REFERENCE_LENGTH 256
 
 #define ALIGN_TYPE GlobalLinear
 #define N_BLOCKS 1
 #define N_LAYERS 1
-#define PE_NUM 16
+#define PE_NUM 32
 #define LAYER_MAXIMIUM 0  // We need to indicate from which layer (main matrix) is the maximum score stored.
 
 // Primitive Types

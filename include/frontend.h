@@ -20,7 +20,7 @@ namespace GlobalAffine
                      hls::vector<type_t, N_LAYERS> left_prev,
                      const Penalties penalties,
                      hls::vector<type_t, N_LAYERS> &write_score,
-#ifdef DEBUG
+#ifdef CMAKEDEBUG
                      tbp_t &write_traceback,
                      int idx); // mark the PE index
 #else
@@ -70,7 +70,7 @@ namespace LocalAffine
                      hls::vector<type_t, N_LAYERS> left_prev,
                      const Penalties penalties,
                      hls::vector<type_t, N_LAYERS> &write_score,
-#ifdef DEBUG
+#ifdef CMAKEDEBUG
                      tbp_t &write_traceback,
                      int idx); // mark the PE index
 #else
@@ -116,7 +116,7 @@ namespace GlobalLinear
                      hls::vector<type_t, N_LAYERS> left_prev,
                      const Penalties penalties,
                      hls::vector<type_t, N_LAYERS> &write_score,
-#ifdef DEBUG
+#ifdef CMAKEDEBUG
                      tbp_t &write_traceback,
                      int idx); // mark the PE index
 #else
@@ -187,7 +187,7 @@ namespace GlobalDTW
                      hls::vector<type_t, N_LAYERS> left_prev,
                      const Penalties penalties,
                      hls::vector<type_t, N_LAYERS> &write_score,
-#ifdef DEBUG
+#ifdef CMAKEDEBUG
                      tbp_t &write_traceback,
                      int idx); // mark the PE index
 #else

@@ -24,7 +24,7 @@
 #include "frontend.h"
 
 
-#ifdef DEBUG
+#ifdef CMAKEDEBUG
 #include "./debug.h"
 //#include "./pyapi.h"
 #endif // DBEUG
@@ -137,7 +137,7 @@ namespace Align
 		hls::vector<type_t, N_LAYERS> (&preserved_row_scr)[MAX_REFERENCE_LENGTH],
 		ScorePack (&max)[PE_NUM], // write out so must pass by reference
 		tbp_t (&chunk_tbp_out)[MAX_QUERY_LENGTH][MAX_REFERENCE_LENGTH]
-#ifdef DEBUG
+#ifdef CMAKEDEBUG
 		, Container &debugger
 #endif
         );
@@ -295,7 +295,7 @@ namespace Align
 		idx_t reference_length,
 		const Penalties &penalties,
 	tbr_t (&tb_out)[MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH]
-#ifdef DEBUG
+#ifdef CMAKEDEBUG
 	, Container &debugger
 #endif
 	);

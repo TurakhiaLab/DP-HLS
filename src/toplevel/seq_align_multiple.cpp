@@ -12,7 +12,7 @@
 #include "../../include/initial.h"
 // #include <hls_np_channel.h>
 
-#ifdef DEBUG
+#ifdef CMAKEDEBUG
 #include "../../include/debug.h"
 #endif
 
@@ -32,7 +32,7 @@ extern "C"
 	idx_t (&query_lengths)[N_BLOCKS],
 	idx_t (&reference_lengths)[N_BLOCKS],
 	Penalties (&penalties)[N_BLOCKS],
-#ifdef DEBUG
+#ifdef CMAKEDEBUG
 	tbr_t (&tb_streams)[N_BLOCKS][MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH],
 	Container (&debugger)[N_BLOCKS])
 #else
@@ -54,7 +54,7 @@ extern "C"
 				reference_lengths[i],
 				penalties[i],
 				tb_streams[i]
-#ifdef DEBUG
+#ifdef CMAKEDEBUG
 				, debugger[i]
 #endif
 			);

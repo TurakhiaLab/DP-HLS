@@ -304,7 +304,7 @@ void Align::ChunkCompute(
 	score_vec_t (&preserved_row_scr)[MAX_REFERENCE_LENGTH],
 	ScorePack (&max)[PE_NUM],
 	tbp_t (&chunk_tbp_out)[MAX_QUERY_LENGTH][MAX_REFERENCE_LENGTH]
-#ifdef DEBUG
+#ifdef CMAKEDEBUG
 	, Container &debugger
 #endif
 	){
@@ -367,7 +367,7 @@ void Align::ChunkCompute(
 			penalties,
 			tbp_out);
 
-#ifdef DEBUG
+#ifdef CMAKEDEBUG
 		for (int j = 0; j < PE_NUM; j++)
 		{
 			debugger.set_score(chunk_row_offset, 0, j, i, dp_mem[j+1][0], predicate[j]);
@@ -499,7 +499,7 @@ void Align::AlignStatic(
 	idx_t reference_length,
 	const Penalties &penalties,
 	tbr_t (&tb_out)[MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH]
-#ifdef DEBUG
+#ifdef CMAKEDEBUG
 	, Container &debugger
 #endif
 	){
@@ -545,7 +545,7 @@ void Align::AlignStatic(
 			init_row_score[row_buf_cnt % 2 + 1],
 			local_max,
 			tbp_matrix
-#ifdef DEBUG
+#ifdef CMAKEDEBUG
 			, debugger
 #endif
 		);
@@ -611,7 +611,7 @@ void Align::Reordered::Align(
 						scores[c + p][j - 1],
 						penalties,
 						scores[c + p][j],
-#ifdef DEBUG
+#ifdef CMAKEDEBUG
 						tbp_matrix[c + p - 1][j - 1],
 						p);
 #else

@@ -5,7 +5,7 @@
 #include <hls_stream.h>
 #include <hls_vector.h>
 
-#ifdef DEBUG
+#ifdef CMAKEDEBUG
 #include "debug.h"
 #endif // DEBUG
 

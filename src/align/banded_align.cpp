@@ -2,7 +2,7 @@
 
 using namespace hls;
 
-#ifdef DEBUG
+#ifdef CMAKEDEBUG
 list<hls::vector<type_t, N_LAYERS>> Container::scores[PE_NUM]; // @Debug
 #endif
 
@@ -306,14 +306,14 @@ void Align::ChunkCompute(
 	const Penalties penalties, 
 	hls::vector<type_t, N_LAYERS> (&preserved_row_scr)[MAX_REFERENCE_LENGTH],
 	ScorePack (&max)[PE_NUM],  // initialize rather in maximum
-#ifdef DEBUG
+#ifdef CMAKEDEBUG
 	tbp_t (*chunk_tbp_out)[MAX_REFERENCE_LENGTH],
 	hls::vector<type_t, N_LAYERS> (*score_tbp)[MAX_REFERENCE_LENGTH])
 #else
     tbp_t (*chunk_tbp_out)[MAX_REFERENCE_LENGTH])
 #endif
 {
-#ifdef DEBUG
+#ifdef CMAKEDEBUG
 	Container &debugger = Container::getInstance(); // @Debug
 #endif // DEBUG
 
@@ -364,7 +364,7 @@ void Align::ChunkCompute(
 
 		Align::UpdateDPMem(dp_mem, i, init_col_scr, init_row_scr);
 
-#ifdef DEBUG
+#ifdef CMAKEDEBUG
 		Utils::Debug::Translate::print_2d(
 			"Initial COlumn Scores",
 			Utils::Debug::Translate::translate_2d<type_t, N_LAYERS, PE_NUM>(init_col_scr)
@@ -391,7 +391,7 @@ void Align::ChunkCompute(
 		// Align::FindMax::ExtractScoresLayer(scores_out, LAYER_MAXIMIUM, extracted_scores);
 
 		ALIGN_TYPE::UpdatePEMaximum(dp_mem, max, pe_col_offsets, chunk_row_offset, predicate, global_query_length, reference_length);
-#ifdef DEBUG
+#ifdef CMAKEDEBUG
 		Align::ArrangeScores(dp_mem, predicate, pe_col_offsets, score_tbp);
 		auto dp_mem_checkpoint = Utils::Debug::Translate::translate_3d<
 			type_t, N_LAYERS, PE_NUM+1, 3
@@ -404,7 +404,7 @@ void Align::ChunkCompute(
 
 		Align::UpdatePEOffset(pe_col_offsets, predicate);
 	}
-#ifdef DEBUG
+#ifdef CMAKEDEBUG
 	Utils::Debug::Translate::print_2d("preserved row scores",
 		Utils::Debug::Translate::translate_2d<type_t, N_LAYERS, MAX_REFERENCE_LENGTH>(preserved_row_scr));
 #endif
@@ -537,7 +537,7 @@ void Align::AlignStatic(
 	// The size of a static matrix must be known at the compile time.
 	tbp_t tbp_matrix[MAX_QUERY_LENGTH][MAX_REFERENCE_LENGTH];
 
-#ifdef DEBUG
+#ifdef CMAKEDEBUG
 	hls::vector<type_t, N_LAYERS>  score_matrix[MAX_QUERY_LENGTH][MAX_REFERENCE_LENGTH]; // DEBUG
 #endif
 
@@ -566,7 +566,7 @@ void Align::AlignStatic(
 
 		tbp_t(*chunk_tbp_out)[MAX_REFERENCE_LENGTH] = &tbp_matrix[i];
 
-#ifdef DEBUG
+#ifdef CMAKEDEBUG
 		hls::vector<type_t, N_LAYERS>  (*chunk_score_out)[MAX_REFERENCE_LENGTH] = &score_matrix[i];
 #endif
 
@@ -582,7 +582,7 @@ void Align::AlignStatic(
 			penalties,
 			preserved_row_buffer,
 			local_max,
-#ifdef DEBUG
+#ifdef CMAKEDEBUG
 			chunk_tbp_out,
 			chunk_score_out);
 #else
@@ -591,7 +591,7 @@ void Align::AlignStatic(
 		std::swap(init_row_score, preserved_row_buffer);  // FIXME: Cannot present in Synthesis
 		// Utils::Array::Switch(&(init_row_score[0]), &(preserved_row_buffer[0]));
 	}
-#ifdef DEBUG
+#ifdef CMAKEDEBUG
 
 	Utils::Debug::Translate::print_3d("scores", 
 		 Utils::Debug::Translate::translate_3d<type_t, N_LAYERS, MAX_QUERY_LENGTH, MAX_REFERENCE_LENGTH>(score_matrix)
@@ -605,7 +605,7 @@ void Align::AlignStatic(
 	// >>> Traceback >>>
 	printf("Traceback Start Row: %d, Col: %d\n", maximum.chunk_offset + maximum.pe, maximum.pe_offset);
 	Traceback::Traceback(tbp_matrix, tb_out, maximum.chunk_offset + maximum.pe, maximum.pe_offset);
-#ifdef DEBUG
+#ifdef CMAKEDEBUG
 	Utils::Debug::Translate::print_1d("Traceback", 
 		Utils::Debug::Translate::translate_1d<tbr_t, MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH>(tb_out)
 	);
@@ -655,7 +655,7 @@ void Align::Reordered::Align(
 						scores[c + p][j - 1],
 						penalties,
 						scores[c + p][j],
-#ifdef DEBUG
+#ifdef CMAKEDEBUG
 						tbp_matrix[c + p - 1][j - 1],
 						p);
 #else

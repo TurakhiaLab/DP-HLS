@@ -9,7 +9,7 @@ void GlobalAffine::PE::Compute(char_t local_query_val,
                                hls::vector<type_t, N_LAYERS> left_prev,
                                const Penalties penalties,
                                hls::vector<type_t, N_LAYERS> &write_score,
-#ifdef DEBUG
+#ifdef CMAKEDEBUG
                                tbp_t &write_traceback,
                                int idx) // mark the PE index)
 #else
@@ -29,7 +29,7 @@ void GlobalAffine::PE::Compute(char_t local_query_val,
     const type_t delete_open = up_prev[1] + penalties.open + penalties.extend;   // delete open
     const type_t delete_extend = up_prev[2] + penalties.open;                    // delete extend
 
-#ifdef DEBUG
+#ifdef CMAKEDEBUG
     auto insert_open_s = insert_open.to_float();     // Insert open
     auto insert_extend_s = insert_extend.to_float(); // insert extend
     auto delete_open_s = delete_open.to_float();
@@ -50,14 +50,14 @@ void GlobalAffine::PE::Compute(char_t local_query_val,
     tbp_t insert_tb = insert_open_b ? (tbp_t) 0 : TB_IMAT;
     tbp_t delete_tb = delete_open_b ? (tbp_t) 0 : TB_DMAT;
 
-#ifdef DEBUG
+#ifdef CMAKEDEBUG
     auto write_score_0_s = write_score[0].to_float();
     auto write_score_2_s = write_score[2].to_float();
 #endif
 
     const type_t match = (local_query_val == local_reference_val) ? diag_prev[1] + penalties.match : diag_prev[1] + penalties.mismatch;
 
-#ifdef DEBUG
+#ifdef CMAKEDEBUG
     auto diag_prev_s = diag_prev[1].to_float();
     auto local_query_val_s = local_query_val.to_int();
     auto local_reference_val_s = local_reference_val.to_int();
@@ -70,7 +70,7 @@ void GlobalAffine::PE::Compute(char_t local_query_val,
 
     tbp_t dir_tb;
 
-#ifdef DEBUG
+#ifdef CMAKEDEBUG
     auto match_s = match.to_float();
     auto write_score_1_s = write_score[1].to_float();
 #endif
@@ -129,7 +129,7 @@ void GlobalAffine::UpdatePEMaximum(dp_mem_block_t dp_mem, ScorePack (&max)[PE_NU
 #pragma HLS unroll
         if (predicate[i])
         {
-#ifdef DEBUG
+#ifdef CMAKEDEBUG
             auto dp_mem_s = dp_mem[i + 1][0][LAYER_MAXIMIUM].to_float();
             auto max_s = max[i].score.to_float();
 #endif
@@ -185,13 +185,13 @@ void GlobalAffine::Traceback::StateMapping(tbp_t tbp, TB_STATE &state, int &row,
         else
         {
             // Unknown Direction
-#ifdef DEBUG
-            // Such construct is not available for synthesizing kernel.
-            // However, it can be used to debug error in pure CSimulation.
-            // And also if in the near future a kernel debugging method is developed,
-            // this is used as a placeholder to check.
-            throw std::runtime_error("Unknown traceback direction." + std::to_string(tbp.to_int()));
-#endif
+// #ifdef CMAKEDEBUG
+//             // Such construct is not available for synthesizing kernel.
+//             // However, it can be used to debug error in pure CSimulation.
+//             // And also if in the near future a kernel debugging method is developed,
+//             // this is used as a placeholder to check.
+//             throw std::runtime_error("Unknown traceback direction." + std::to_string(tbp.to_int()));
+// #endif
         }
     }
     else if (state == TB_STATE::DEL)
@@ -226,9 +226,9 @@ void GlobalAffine::Traceback::StateMapping(tbp_t tbp, TB_STATE &state, int &row,
     else
     {
         // Unknown State
-#ifdef DEBUG
-        throw std::runtime_error("Unknown traceback state.");
-#endif
+// #ifdef CMAKEDEBUG
+//         throw std::runtime_error("Unknown traceback state.");
+// #endif
     }
 }
 
@@ -249,9 +249,9 @@ void GlobalAffine::Traceback::StateInit(tbp_t tbp, TB_STATE &state)
     else
     {
         // Unknown Direction
-#ifdef DEBUG
-        throw std::runtime_error("Unknown traceback direction." + std::to_string(tbp.to_int()));
-#endif
+// #ifdef CMAKEDEBUG
+//         throw std::runtime_error("Unknown traceback direction." + std::to_string(tbp.to_int()));
+// #endif
     }
 }
 
@@ -284,7 +284,7 @@ void LocalAffine::PE::Compute(char_t local_query_val,
                                hls::vector<type_t, N_LAYERS> left_prev,
                                const Penalties penalties,
                                hls::vector<type_t, N_LAYERS> &write_score,
-#ifdef DEBUG
+#ifdef CMAKEDEBUG
                                tbp_t &write_traceback,
                                int idx) // mark the PE index)
 #else
@@ -304,7 +304,7 @@ void LocalAffine::PE::Compute(char_t local_query_val,
     const type_t delete_open = up_prev[1] + penalties.open + penalties.extend;   // delete open
     const type_t delete_extend = up_prev[2] + penalties.open;                    // delete extend
 
-#ifdef DEBUG
+#ifdef CMAKEDEBUG
     auto insert_open_s = insert_open.to_float();     // Insert open
     auto insert_extend_s = insert_extend.to_float(); // insert extend
     auto delete_open_s = delete_open.to_float();
@@ -324,14 +324,14 @@ void LocalAffine::PE::Compute(char_t local_query_val,
     write_score[0] = insert_open > insert_extend ? insert_open : insert_extend;
     write_score[2] = delete_open > delete_extend ? delete_open : delete_extend;
 
-#ifdef DEBUG
+#ifdef CMAKEDEBUG
     auto write_score_0_s = write_score[0].to_float();
     auto write_score_2_s = write_score[2].to_float();
 #endif
 
     const type_t match = (local_query_val == local_reference_val) ? diag_prev[1] + penalties.match : diag_prev[1] + penalties.mismatch;
 
-#ifdef DEBUG
+#ifdef CMAKEDEBUG
     auto diag_prev_s = diag_prev[1].to_float();
     auto local_query_val_s = local_query_val.to_int();
     auto local_reference_val_s = local_reference_val.to_int();
@@ -342,7 +342,7 @@ void LocalAffine::PE::Compute(char_t local_query_val,
     max_value = max_value > zero_fp ? max_value : zero_fp;
     write_score[1] = max_value;  // set to 0 if less than 0
 
-#ifdef DEBUG
+#ifdef CMAKEDEBUG
     auto match_s = match.to_float();
     auto write_score_1_s = write_score[1].to_float();
 #endif
@@ -391,7 +391,7 @@ void LocalAffine::UpdatePEMaximum(
 #pragma HLS unroll
         if (predicate[i])
         {
-#ifdef DEBUG
+#ifdef CMAKEDEBUG
             auto dp_mem_s = dp_mem[i + 1][0][LAYER_MAXIMIUM].to_float();
             auto max_s = max[i].score.to_float();
 #endif
@@ -441,7 +441,7 @@ void LocalAffine::Traceback::StateMapping(tbp_t tbp, TB_STATE &state, int &row, 
         else
         {
             // Unknown Direction
-#ifdef DEBUG
+#ifdef CMAKEDEBUG
             state = TB_STATE::END;
             curr_write = AL_END;
             // Such construct is not available for synthesizing kernel.
@@ -481,9 +481,9 @@ void LocalAffine::Traceback::StateMapping(tbp_t tbp, TB_STATE &state, int &row, 
     else
     {
         // Unknown State
-#ifdef DEBUG
-        throw std::runtime_error("Unknown traceback state.");
-#endif
+// #ifdef CMAKEDEBUG
+//         throw std::runtime_error("Unknown traceback state.");
+// #endif
     }
 
     // Override the next state to end if the current traceback poitner indicates end. 
@@ -511,10 +511,9 @@ void LocalAffine::Traceback::StateInit(tbp_t tbp, TB_STATE &state)
     }
     else
     {
-        // Unknown Direction
-#ifdef DEBUG
-        throw std::runtime_error("Unknown traceback direction." + std::to_string(tbp.to_int()));
-#endif
+// #ifdef CMAKEDEBUG
+//         throw std::runtime_error("Unknown traceback direction." + std::to_string(tbp.to_int()));
+// #endif
     }
 }
 
@@ -557,7 +556,7 @@ void GlobalLinear::PE::Compute(char_t local_query_val,
                 hls::vector<type_t, N_LAYERS> left_prev,
                 const Penalties penalties,
                 hls::vector<type_t, N_LAYERS> &write_score,
-#ifdef DEBUG
+#ifdef CMAKEDEBUG
                 tbp_t &write_traceback,
                 int idx) // mark the PE index
 #else
@@ -589,7 +588,7 @@ void GlobalLinear::UpdatePEMaximum(
 #pragma HLS unroll
         if (predicate[i])
         {
-#ifdef DEBUG
+#ifdef CMAKEDEBUG
             auto dp_mem_s = dp_mem[i + 1][0][LAYER_MAXIMIUM].to_float();
             auto max_s = max[i].score.to_float();
 #endif
@@ -691,7 +690,7 @@ void GlobalDTW::PE::Compute(char_t local_query_val,
                 hls::vector<type_t, N_LAYERS> left_prev,
                 const Penalties penalties,
                 hls::vector<type_t, N_LAYERS> &write_score,
-#ifdef DEBUG
+#ifdef CMAKEDEBUG
                 tbp_t &write_traceback,
                 int idx) // mark the PE index
 #else
@@ -728,7 +727,7 @@ void GlobalDTW::UpdatePEMaximum(
 #pragma HLS unroll
         if (predicate[i])
         {
-#ifdef DEBUG
+#ifdef CMAKEDEBUG
             auto dp_mem_s = dp_mem[i + 1][0][LAYER_MAXIMIUM].to_float();
             auto max_s = max[i].score.to_float();
 #endif

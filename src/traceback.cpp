@@ -4,7 +4,7 @@
 #include <hls_vector.h>
 
 
-#ifdef DEBUG
+#ifdef CMAKEDEBUG
 #include <cstdio>
 #include "../include/traceback.h"
 #endif // DEBUG
@@ -32,7 +32,7 @@ traceback_loop:
 #pragma HLS LOOP_TRIPCOUNT min=1 max=512  // Need manual tunning
 
             tbp_t tbptr = tbmat[row][col];  // Want to represented by the symbol rather than pointer
-#ifdef DEBUG
+#ifdef CMAKEDEBUG
             auto tbptr_s = tbptr.to_int();
 #endif
             ALIGN_TYPE::Traceback::StateMapping(tbptr, state, row, col, curr_write);

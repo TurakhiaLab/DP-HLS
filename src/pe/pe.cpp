@@ -5,7 +5,7 @@
 #include "../../include/params.h"
 #include "../../include/frontend.h"
 
-#ifdef DEBUG
+#ifdef CMAKEDEBUG
 #include <cstdio>
 #endif
 
@@ -279,7 +279,7 @@ void PE::ExpandCompute(
             left_prevs[i],
             penalties,
             output_scores[i],
-#ifdef DEBUG
+#ifdef CMAKEDEBUG
             output_tbt[i],
             i);
 #else
@@ -301,7 +301,7 @@ void PE::PEUnroll(dp_mem_block_t &dp_mem, input_char_block_t qry, input_char_blo
             dp_mem[i+1][1],
             penalties,
             dp_mem[i+1][0],
-#ifdef DEBUG
+#ifdef CMAKEDEBUG
             tbp[i],
             i);
 #else

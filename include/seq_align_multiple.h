@@ -8,7 +8,7 @@
 #include <hls_stream.h>
 #include "params.h"
 
-#ifdef DEBUG
+#ifdef CMAKEDEBUG
 #include "debug.h"
 #endif
 
@@ -28,7 +28,7 @@ extern "C" {
 		idx_t (&reference_lengths)[N_BLOCKS],
 		Penalties (&penalties)[N_BLOCKS],
 		tbr_t (&tb_streams)[N_BLOCKS][MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH]
-#ifdef DEBUG
+#ifdef CMAKEDEBUG
 		, Container (&debugger)[N_BLOCKS]
 #endif
 		);

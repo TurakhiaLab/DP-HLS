@@ -13,6 +13,7 @@
 #include <unordered_map>
 #include <hls_vector.h>
 #include "utils.h"
+#include <vector>
 #include <cstdarg>
 
 // NOTE: This file system thing doesn't seems to present on F1 AWS FPGA AMI. 

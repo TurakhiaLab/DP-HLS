@@ -98,7 +98,7 @@ void Compute(char_t local_query_val,
                                hls::vector<type_t, N_LAYERS> left_prev,
                                const Penalties penalties,
                                hls::vector<type_t, N_LAYERS> &write_score,
-#ifdef DEBUG
+#ifdef CMAKEDEBUG
                                tbp_t &write_traceback,
                                int idx) // mark the PE index)
 #else
@@ -118,7 +118,7 @@ void Compute(char_t local_query_val,
     const type_t delete_open = up_prev[1] + penalties.open + penalties.extend;   // delete open
     const type_t delete_extend = up_prev[2] + penalties.open;                    // delete extend
 
-#ifdef DEBUG
+#ifdef CMAKEDEBUG
     auto insert_open_s = insert_open.to_float();     // Insert open
     auto insert_extend_s = insert_extend.to_float(); // insert extend
     auto delete_open_s = delete_open.to_float();
@@ -139,14 +139,14 @@ void Compute(char_t local_query_val,
     tbp_t insert_tb = insert_open_b ? (tbp_t) 0 : TB_IMAT;
     tbp_t delete_tb = delete_open_b ? (tbp_t) 0 : TB_DMAT;
 
-#ifdef DEBUG
+#ifdef CMAKEDEBUG
     auto write_score_0_s = write_score[0].to_float();
     auto write_score_2_s = write_score[2].to_float();
 #endif
 
     const type_t match = (local_query_val == local_reference_val) ? diag_prev[1] + penalties.match : diag_prev[1] + penalties.mismatch;
 
-#ifdef DEBUG
+#ifdef CMAKEDEBUG
     auto diag_prev_s = diag_prev[1].to_float();
     auto local_query_val_s = local_query_val.to_int();
     auto local_reference_val_s = local_reference_val.to_int();
@@ -159,7 +159,7 @@ void Compute(char_t local_query_val,
 
     tbp_t dir_tb;
 
-#ifdef DEBUG
+#ifdef CMAKEDEBUG
     auto match_s = match.to_float();
     auto write_score_1_s = write_score[1].to_float();
 #endif
@@ -219,7 +219,7 @@ void UpdatePEMaximum(dp_mem_block_t dp_mem, ScorePack (&max)[PE_NUM], idx_t (&pe
 #pragma HLS unroll
         if (predicate[i])
         {
-#ifdef DEBUG
+#ifdef CMAKEDEBUG
             auto dp_mem_s = dp_mem[i + 1][0][LAYER_MAXIMIUM].to_float();
             auto max_s = max[i].score.to_float();
 #endif
@@ -275,7 +275,7 @@ void StateMapping(tbp_t tbp, TB_STATE &state, int &row, int &col, tbr_t &curr_wr
         else
         {
             // Unknown Direction
-#ifdef DEBUG
+#ifdef CMAKEDEBUG
             // Such construct is not available for synthesizing kernel.
             // However, it can be used to debug error in pure CSimulation.
             // And also if in the near future a kernel debugging method is developed,
@@ -316,7 +316,7 @@ void StateMapping(tbp_t tbp, TB_STATE &state, int &row, int &col, tbr_t &curr_wr
     else
     {
         // Unknown State
-#ifdef DEBUG
+#ifdef CMAKEDEBUG
         throw std::runtime_error("Unknown traceback state.");
 #endif
     }
@@ -339,7 +339,7 @@ void StateInit(tbp_t tbp, TB_STATE &state)
     else
     {
         // Unknown Direction
-#ifdef DEBUG
+#ifdef CMAKEDEBUG
         throw std::runtime_error("Unknown traceback direction." + std::to_string(tbp.to_int()));
 #endif
     }
@@ -378,7 +378,7 @@ void PEUnroll(dp_mem_block_t &dp_mem, input_char_block_t qry, input_char_block_t
             dp_mem[i+1][1],
             penalties,
             dp_mem[i+1][0],
-#ifdef DEBUG
+#ifdef CMAKEDEBUG
             tbp[i],
             i);
 #else
@@ -456,7 +456,7 @@ traceback_loop:
 #pragma HLS LOOP_TRIPCOUNT min=1 max=MAX_REFERENCE_LENGTH+MAX_QUERY_LENGTH
 
             tbp_t tbptr = tbmat[row][col];  // Want to represented by the symbol rather than pointer
-#ifdef DEBUG
+#ifdef CMAKEDEBUG
             auto tbptr_s = tbptr.to_int();
 #endif
             StateMapping(tbptr, state, row, col, curr_write);
@@ -621,14 +621,14 @@ void ChunkCompute(
 	const Penalties penalties, 
 	score_vec_t (&preserved_row_scr)[MAX_REFERENCE_LENGTH],
 	ScorePack (&max)[PE_NUM],  // initialize rather in maximum
-#ifdef DEBUG
+#ifdef CMAKEDEBUG
 	tbp_t (*chunk_tbp_out)[MAX_REFERENCE_LENGTH],
 	hls::vector<type_t, N_LAYERS> (*score_tbp)[MAX_REFERENCE_LENGTH])
 #else
     tbp_t (*chunk_tbp_out)[MAX_REFERENCE_LENGTH])
 #endif
 {
-#ifdef DEBUG
+#ifdef CMAKEDEBUG
 	Container &debugger = Container::getInstance(); // @Debug
 #endif // DEBUG
 
@@ -648,7 +648,7 @@ void ChunkCompute(
 
 	dp_mem_block_t dp_mem;
 
-// #ifdef DEBUG
+// #ifdef CMAKEDEBUG
 // 			Debug::Translate::print_2d(
 // 			"Initial Column Scores",
 // 			Debug::Translate::translate_2d<type_t, N_LAYERS, PE_NUM>(init_col_scr)
@@ -686,7 +686,7 @@ void ChunkCompute(
 		// Align::UpdateDPMemShift(dp_mem);
 		// Align::UpdateDPMemSet(dp_mem, i, init_col_scr, init_row_scr);
 
-#ifdef DEBUG
+#ifdef CMAKEDEBUG
 		Debug::Translate::print_2d(
 			"Initial Column Scores",
 			Debug::Translate::translate_2d<type_t, N_LAYERS, PE_NUM>(init_col_scr)
@@ -713,7 +713,7 @@ void ChunkCompute(
 		// Align::FindMax::ExtractScoresLayer(scores_out, LAYER_MAXIMIUM, extracted_scores);
 
 		UpdatePEMaximum(dp_mem, max, pe_col_offsets, chunk_row_offset, predicate, global_query_length, reference_length);
-#ifdef DEBUG
+#ifdef CMAKEDEBUG
 		Align::ArrangeScores(dp_mem, predicate, pe_col_offsets, score_tbp);
 		auto dp_mem_checkpoint = Debug::Translate::translate_3d<
 			type_t, N_LAYERS, PE_NUM+1, 3
@@ -727,7 +727,7 @@ void ChunkCompute(
 		UpdatePEOffset(pe_col_offsets, predicate);
 	}
 
-#ifdef DEBUG
+#ifdef CMAKEDEBUG
 	Debug::Translate::print_2d("preserved row scores",
 		Debug::Translate::translate_2d<type_t, N_LAYERS, MAX_REFERENCE_LENGTH>(preserved_row_scr));
 #endif
@@ -778,7 +778,7 @@ void AlignStatic(
 	// The size of a static matrix must be known at the compile time.
 	tbp_t tbp_matrix[MAX_QUERY_LENGTH][MAX_REFERENCE_LENGTH];
 
-#ifdef DEBUG
+#ifdef CMAKEDEBUG
 	hls::vector<type_t, N_LAYERS>  score_matrix[MAX_QUERY_LENGTH][MAX_REFERENCE_LENGTH]; // DEBUG
 #endif
 
@@ -807,7 +807,7 @@ void AlignStatic(
 
 		tbp_t(*chunk_tbp_out)[MAX_REFERENCE_LENGTH] = &tbp_matrix[i];
 
-#ifdef DEBUG
+#ifdef CMAKEDEBUG
 		hls::vector<type_t, N_LAYERS>  (*chunk_score_out)[MAX_REFERENCE_LENGTH] = &score_matrix[i];
 #endif
 
@@ -823,7 +823,7 @@ void AlignStatic(
 			penalties,
 			init_row_score[row_buf_cnt % 2 + 1],
 			local_max,
-#ifdef DEBUG
+#ifdef CMAKEDEBUG
 			chunk_tbp_out,
 			chunk_score_out);
 #else
@@ -832,7 +832,7 @@ void AlignStatic(
 
 	}
 
-#ifdef DEBUG
+#ifdef CMAKEDEBUG
 	Debug::Translate::print_3d("scores", 
 		 Debug::Translate::translate_3d<type_t, N_LAYERS, MAX_QUERY_LENGTH, MAX_REFERENCE_LENGTH>(score_matrix)
 	);
@@ -846,7 +846,7 @@ void AlignStatic(
 	// >>> Traceback >>>
 	printf("(index from 0) Traceback Start Row: %d, Col: %d\n", maximum.chunk_offset + maximum.pe, maximum.pe_offset);
 	Traceback(tbp_matrix, tb_out, maximum.chunk_offset + maximum.pe, maximum.pe_offset);
-#ifdef DEBUG
+#ifdef CMAKEDEBUG
 	Debug::Translate::print_1d("Traceback", 
 		Debug::Translate::translate_1d<tbr_t, MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH>(tb_out)
 	);
@@ -891,7 +891,7 @@ extern "C"
 			}
 			printf("\n");  
 
-#ifdef DEBUG
+#ifdef CMAKEDEBUG
 			Debug::Translate::print_1d(
 				"traceback", Debug::Translate::translate_1d<tbr_t, MAX_QUERY_LENGTH + MAX_REFERENCE_LENGTH>(tb_streams[i])
 			);

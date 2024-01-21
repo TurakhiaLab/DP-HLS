@@ -10,7 +10,7 @@
 #include <hls_vector.h>
 #include "./params.h"
 
-#ifdef DEBUG
+#ifdef CMAKEDEBUG
 #include <list>
 #endif // DEBUG
 
