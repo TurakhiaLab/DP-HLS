@@ -6,13 +6,13 @@
 #include "ap_int.h"
 #include "ap_fixed.h"
 #include <hls_stream.h>
-#include "initial.h"
-#include <hls_streamofblocks.h>
+#include "params.h"
+
+#ifdef DEBUG
+#include "debug.h"
+#endif
 
 using namespace hls;
-
-//typedef int type_t;
-//typedef ap_int<16> type_t;
 
 extern "C" {
 	/**
@@ -29,7 +29,7 @@ extern "C" {
 		Penalties (&penalties)[N_BLOCKS],
 		tbr_t (&tb_streams)[N_BLOCKS][MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH]
 #ifdef DEBUG
-		, Container &debugger
+		, Container (&debugger)[N_BLOCKS]
 #endif
 		);
 

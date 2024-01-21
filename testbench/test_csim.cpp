@@ -10,6 +10,9 @@
 
 using namespace std;
 
+#define INPUT_QUERY_LENGTH 20
+#define INPUT_REFERENCE_LENGTH 30
+
 char_t base_to_num(char base)
 {
     switch (base)
@@ -35,8 +38,8 @@ int main(){
     // std::string query_string = "AGTCTG";     // CCGTAGACCCGAACTTCGCGGTACACCTTCTGAAACCGTCCCTAATCCGACGAGCGCCTTGAGAACG";
     // std::string reference_string = "TGCCGAT";       // TGAGAACGTAGTCTAGGCGAATCGGCCCTTGTATATCGGGGCCGTAGACCCGAACTTCGCGGTACAC";
     char alphabet[4] = {'A', 'T', 'G', 'C'};
-    std::string query_string = Random::Sequence<4>(alphabet, 50);
-    std::string reference_string = Random::Sequence<4>(alphabet, 250);
+    std::string query_string = Random::Sequence<4>(alphabet, INPUT_QUERY_LENGTH);
+    std::string reference_string = Random::Sequence<4>(alphabet, INPUT_REFERENCE_LENGTH);
 
 
 #ifdef ALIGN_GLOBAL_LINEAR
@@ -48,7 +51,6 @@ int main(){
         penalties[i].match = 3;
         penalties[i].mismatch = -1;
     }
-
 
     Penalties_sol penalties_sol[N_BLOCKS];
     for (Penalties_sol &penalty : penalties_sol) {
@@ -131,12 +133,17 @@ int main(){
 
 
     // retrive the solution
-    array<array<int, MAX_REFERENCE_LENGTH>, MAX_QUERY_LENGTH> sol_score_mat;
+    array<array<array<float, MAX_REFERENCE_LENGTH>, MAX_QUERY_LENGTH>, N_LAYERS> sol_score_mat;
     array<array<char, MAX_REFERENCE_LENGTH>, MAX_QUERY_LENGTH> sol_tb_mat;
     map<string, string> alignments;
-    global_linear_solution(query_string, reference_string, penalties_sol[0], sol_score_mat, sol_tb_mat, alignments);
-    // print_matrix<int, MAX_QUERY_LENGTH, MAX_REFERENCE_LENGTH>(sol_score_mat, "Solution Score Matrix");
+    global_linear_solution(query_string, reference_string, penalties_sol[0], sol_score_mat[0], sol_tb_mat, alignments);
+    // print_matrix<float, MAX_QUERY_LENGTH, MAX_REFERENCE_LENGTH>(sol_score_mat, "Solution Score Matrix");
     // print_matrix<char, MAX_QUERY_LENGTH, MAX_REFERENCE_LENGTH>(sol_tb_mat, "Solution Traceback Matrix");
     cout << "Aligned Query: " << alignments["query"] << endl;
     cout << "Aligned Reference: " << alignments["reference"] << endl;
+
+    // Print kernel 0 scores
+    debuggers[0].cast_scores();
+    // print_matrix<float, MAX_QUERY_LENGTH, MAX_REFERENCE_LENGTH>(debuggers[0].scores_cpp[0], "Kernel 0 Scores");
+    debuggers[0].compare_scores(sol_score_mat, query.size(), reference.size());
 }

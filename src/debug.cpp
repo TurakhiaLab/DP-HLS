@@ -1,4 +1,5 @@
 #include "../include/debug.h"
+#include "solutions.h"
 
 void Container::cast_scores(){
     this->scores_cpp[0][0][0] = 1;
@@ -52,6 +53,26 @@ void Container::set_score(int chunk_row_offset, int chunk_col_offset, int pe_num
     if (0 <= row < MAX_QUERY_LENGTH && 0 <= col < MAX_REFERENCE_LENGTH && pred){
         this->scores_kernel[row][col] = vals;
     }
+}
+
+void Container::compare_scores(
+    array<array<array<float, MAX_REFERENCE_LENGTH>, MAX_QUERY_LENGTH>, N_LAYERS> scores_sol,
+    int query_len, int ref_len){
+    this->cast_scores();
+    for (int k = 0; k < N_LAYERS; k++){
+        for (int i = 0; i < query_length; i++){
+            for (int j = 0; j < reference_length; j++){
+                if (this->scores_cpp[k][i][j] != scores_sol[k][i][j]){
+                    printf("Mismatch at (%d, %d, %d): %f != %f\n", k, i, j, this->scores_cpp[k][i][j], scores_sol[k][i][j]);
+                    // print solution and kernel scores
+                    print_matrix<float, MAX_QUERY_LENGTH, MAX_REFERENCE_LENGTH>(scores_sol[k], "Solution Score Matrix");
+                    print_matrix<float, MAX_QUERY_LENGTH, MAX_REFERENCE_LENGTH>(this->scores_cpp[k], "Kernel Score Matrix");
+                    return;
+                }
+            }
+        }
+    }
+    printf("All scores match!\n");
 }
 
 void Container::set_scores_wf(int chunk_row_offset, int chunk_col_offset, int wavefront, score_vec_t vals[PE_NUM], bool predicates[PE_NUM]){

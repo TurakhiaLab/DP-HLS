@@ -9,7 +9,7 @@ using namespace std;
 
 
 void global_linear_solution(string query, string reference, Penalties_sol &penalties, 
-    array<array<int, MAX_REFERENCE_LENGTH>, MAX_QUERY_LENGTH> &score_mat, 
+    array<array<float, MAX_REFERENCE_LENGTH>, MAX_QUERY_LENGTH> &score_mat, 
     array<array<char, MAX_REFERENCE_LENGTH>, MAX_QUERY_LENGTH> &tb_mat,
     map<string, string> &alignments){
 
@@ -24,14 +24,14 @@ void global_linear_solution(string query, string reference, Penalties_sol &penal
     // initialize the initial column
     float upper_left_value = 0;
     for (int i = 0; i < MAX_QUERY_LENGTH; i++) {
-        upper_left_value -= penalties.open;  // since it was declared with type_t then convert back to int. 
+        upper_left_value += penalties.open;  // since it was declared with type_t then convert back to int. 
         initial_col[i] = upper_left_value;
     }
 
     // initialize the initial row
     upper_left_value = 0;  // FIXME: This might to be initialized as 0
     for (int j = 0; j < MAX_REFERENCE_LENGTH; j++) {
-        upper_left_value -= penalties.open;  // since it was declared with type_t then convert back to int. 
+        upper_left_value += penalties.open;  // since it was declared with type_t then convert back to int. 
         initial_row[j] = upper_left_value;
     }
     
@@ -79,7 +79,7 @@ void global_linear_solution(string query, string reference, Penalties_sol &penal
             float i_score = scr_left + penalties.linear_gap;
 
             float max_score = max(m_score, max(d_score, i_score));
-            score_mat[i][j] = m_score;
+            score_mat[i][j] = max_score;
 
             // Choose the maximum score and update the traceback matrix
             if (max_score == m_score) {

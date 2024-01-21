@@ -136,12 +136,11 @@ namespace Align
 		const Penalties &penalties, 
 		hls::vector<type_t, N_LAYERS> (&preserved_row_scr)[MAX_REFERENCE_LENGTH],
 		ScorePack (&max)[PE_NUM], // write out so must pass by reference
+		tbp_t (&chunk_tbp_out)[MAX_QUERY_LENGTH][MAX_REFERENCE_LENGTH]
 #ifdef DEBUG
-		tbp_t (*chunk_tbp_out)[MAX_REFERENCE_LENGTH],
-		Container &debugger);
-#else
-        tbp_t (*chunk_tbp_out)[MAX_REFERENCE_LENGTH]);
+		, Container &debugger
 #endif
+        );
 
 	namespace Reordered
 	{
@@ -295,12 +294,11 @@ namespace Align
 		idx_t query_length,
 		idx_t reference_length,
 		const Penalties &penalties,
+	tbr_t (&tb_out)[MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH]
 #ifdef DEBUG
-	tbr_t (&tb_out)[MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH],
-	Container &debugger);
-#else
-	tbr_t (&tb_out)[MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH]);
+	, Container &debugger
 #endif
+	);
 
 	/**
 	 * @brief Initialize initial scores for the first column and

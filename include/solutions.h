@@ -16,8 +16,8 @@ struct Penalties_sol {
     float mismatch;
 };
 
-void global_linear_solution(string query, string reference, Penalties_sol &penalties, 
-    array<array<int, MAX_REFERENCE_LENGTH>, MAX_QUERY_LENGTH> &score_mat, 
+void global_linear_solution(std::string query, std::string reference, Penalties_sol &penalties, 
+    array<array<float, MAX_REFERENCE_LENGTH>, MAX_QUERY_LENGTH> &score_mat, 
     array<array<char, MAX_REFERENCE_LENGTH>, MAX_QUERY_LENGTH> &tb_mat,
     map<string, string> &alignments);
 

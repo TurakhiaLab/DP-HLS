@@ -44,9 +44,12 @@ public:
     void set_score(int chunk_row_offset, int chunk_col_offset, int pe_num, int wavefront, score_vec_t vals, bool pred);
     void set_scores_wf(int chunk_row_offset, int chunk_col_offset, int wavefront, score_vec_t vals[PE_NUM], bool predicates[PE_NUM]);
   
+    void compare_scores(array<array<array<float, MAX_REFERENCE_LENGTH>, MAX_QUERY_LENGTH>, N_LAYERS> scores_sol,
+    int query_len, int ref_len);
+
 private:
-    string debugpath;
-    string filepath;
+    std::string debugpath;
+    std::string filepath;
     int query_length;
     int reference_length;
 

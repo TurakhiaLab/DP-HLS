@@ -34,12 +34,11 @@ extern "C"
 	Penalties (&penalties)[N_BLOCKS],
 #ifdef DEBUG
 	tbr_t (&tb_streams)[N_BLOCKS][MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH],
-	Container &debugger)
+	Container (&debugger)[N_BLOCKS])
 #else
 	tbr_t (&tb_streams)[N_BLOCKS][MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH])
 #endif
 	{
-
 #pragma HLS array_partition variable=querys dim=1 type=complete
 #pragma HLS array_partition variable=references dim=1 type=complete
 #pragma HLS array_partition variable=query_lengths dim=1 type=complete
@@ -56,7 +55,7 @@ extern "C"
 				penalties[i],
 				tb_streams[i]
 #ifdef DEBUG
-				, debugger
+				, debugger[i]
 #endif
 			);
 
@@ -67,12 +66,6 @@ extern "C"
 				printf("%d ", tb_streams[i][j].to_int());
 			}
 			printf("\n");  
-
-#ifdef DEBUG
-			Debug::Translate::print_1d(
-				"traceback", Debug::Translate::translate_1d<tbr_t, MAX_QUERY_LENGTH + MAX_REFERENCE_LENGTH>(tb_streams[i])
-			);
-#endif
 		}
     }
 }
