@@ -131,7 +131,6 @@ int main(){
 
 
     // retrive the solution
-    
     array<array<int, MAX_REFERENCE_LENGTH>, MAX_QUERY_LENGTH> sol_score_mat;
     array<array<char, MAX_REFERENCE_LENGTH>, MAX_QUERY_LENGTH> sol_tb_mat;
     map<string, string> alignments;

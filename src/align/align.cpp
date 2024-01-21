@@ -570,9 +570,6 @@ void Align::AlignStatic(
 	// The size of a static matrix must be known at the compile time.
 	tbp_t tbp_matrix[MAX_QUERY_LENGTH][MAX_REFERENCE_LENGTH];
 
-#ifdef DEBUG
-	hls::vector<type_t, N_LAYERS>  score_matrix[MAX_QUERY_LENGTH][MAX_REFERENCE_LENGTH]; // DEBUG
-#endif
 
 #pragma HLS array_partition variable = tbp_matrix type = cyclic factor = 32 dim = 1
 

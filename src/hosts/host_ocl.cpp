@@ -9,24 +9,6 @@
 #include "../../include/host_utils.h"
 #include "params.h"
 
-// #define MAX_QUERY_LENGTH 256
-// #define MAX_REFERENCE_LENGTH 256
-// #define N_BLOCKS 1
-
-// // Primitive Types
-// typedef ap_uint<2> char_t;  // Sequence Alphabet
-// typedef ap_fixed<16, 10> type_t;  // Scores Type <width, integer_width>
-// typedef ap_uint<8> idx_t;  // Indexing Type, could be much less than 32. ap_uint<8>
-// typedef ap_uint<4> tbp_t;  // Traceback Pointer Type
-// typedef ap_uint<2> tbr_t;  // Traecback Result Type
-
-// struct Penalties {
-//     type_t open;
-//     type_t extend;
-//     type_t mismatch;
-//     type_t match;
-//     type_t linear_gap;
-// };
 
 int base_to_num(char base){
     switch (base)
