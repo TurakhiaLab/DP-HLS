@@ -140,8 +140,9 @@ void GlobalAffine::UpdatePEMaximum(dp_mem_block_t dp_mem, ScorePack (&max)[PE_NU
                 if ( (chunk_offset + i == query_len - 1) && (pe_offset[i] == ref_len - 1) )
                 { // So we are at the last row or last column
                     max[i].score = dp_mem[i + 1][0][LAYER_MAXIMIUM];
-                    max[i].chunk_offset = chunk_offset;
-                    max[i].pe_offset = pe_offset[i];
+                    // FIXME: Set the correct coordinates.
+                    // max[i].chunk_offset = chunk_offset;
+                    // max[i].pe_offset = pe_offset[i];
                 }
             }
         }
@@ -155,9 +156,8 @@ void GlobalAffine::InitializeMaxScores(ScorePack (&max)[PE_NUM], idx_t qry_len, 
     {
 #pragma HLS unroll
         max[i].score = NINF; // Need a custom struct for finding the negative infinity
-        max[i].chunk_offset = 0;
-        max[i].pe = i;
-        max[i].pe_offset = ref_len;
+        max[i].row = 0;
+        max[i].col = 0;
     }
 }
 
@@ -398,8 +398,9 @@ void LocalAffine::UpdatePEMaximum(
             if (dp_mem[i + 1][0][LAYER_MAXIMIUM] > max[i].score)
             {
                 max[i].score = dp_mem[i + 1][0][LAYER_MAXIMIUM];
-                max[i].chunk_offset = chunk_offset;
-                max[i].pe_offset = pe_offset[i];
+                // FIXME: Set the correct coordinates.
+                // max[i].chunk_offset = chunk_offset;
+                // max[i].pe_offset = pe_offset[i];
             }
         }
     }
@@ -411,9 +412,8 @@ void LocalAffine::InitializeMaxScores(ScorePack (&max)[PE_NUM], idx_t qry_len, i
     {
 #pragma HLS unroll
         max[i].score = NINF;
-        max[i].chunk_offset = 0;
-        max[i].pe = i;
-        max[i].pe_offset = 0;  // Notice the difference we initialize the local alignment. 
+        max[i].row = 0;
+        max[i].col = 0;    
     }
 }
 
@@ -579,11 +579,12 @@ void GlobalLinear::PE::Compute(char_t local_query_val,
 void GlobalLinear::UpdatePEMaximum(
     dp_mem_block_t dp_mem,
     ScorePack (&max)[PE_NUM],
-    idx_t (&pe_offset)[PE_NUM],
-    idx_t chunk_offset,
+    const hls::vector<idx_t, PE_NUM> ics,
+    const hls::vector<idx_t, PE_NUM> jcs,
     bool (&predicate)[PE_NUM],
     idx_t query_len, idx_t ref_len){
-            for (int i = 0; i < PE_NUM; i++)
+
+    for (int i = 0; i < PE_NUM; i++)
     {
 #pragma HLS unroll
         if (predicate[i])
@@ -596,11 +597,11 @@ void GlobalLinear::UpdatePEMaximum(
             {
                 // Notice this filtering condition compared to the Local Affine kernel. 
                 // if ((chunk_offset + i == query_len - 1) || (pe_offset[i] == ref_len - 1))  // last row or last column
-                if ( (chunk_offset + i == query_len - 1) && (pe_offset[i] == ref_len - 1) )
+                if ( (ics[i] == query_len - 1) && (jcs[i] == ref_len - 1) )
                 { // So we are at the last row or last column
                     max[i].score = dp_mem[i + 1][0][LAYER_MAXIMIUM];
-                    max[i].chunk_offset = chunk_offset;
-                    max[i].pe_offset = pe_offset[i];
+                    max[i].row = ics[i];
+                    max[i].col = jcs[i];
                 }
             }
         }
@@ -612,9 +613,8 @@ void GlobalLinear::InitializeMaxScores(ScorePack (&max)[PE_NUM], idx_t qry_len, 
     {
 #pragma HLS unroll
         max[i].score = NINF; // Need a custom struct for finding the negative infinity
-        max[i].chunk_offset = 0;
-        max[i].pe = i;
-        max[i].pe_offset = ref_len;
+        max[i].row = 0;
+        max[i].col = 0;
     }
 }
 
@@ -738,8 +738,9 @@ void GlobalDTW::UpdatePEMaximum(
                 if ( (chunk_offset + i == query_len - 1) && (pe_offset[i] == ref_len - 1) )
                 { // So we are at the last row or last column
                     max[i].score = dp_mem[i + 1][0][LAYER_MAXIMIUM];
-                    max[i].chunk_offset = chunk_offset;
-                    max[i].pe_offset = pe_offset[i];
+                    // FIXME: Set the correct row and col
+                    // max[i].chunk_offset = chunk_offset;
+                    // max[i].pe_offset = pe_offset[i];
                 }
             }
         }
@@ -751,9 +752,8 @@ void GlobalDTW::InitializeMaxScores(ScorePack (&max)[PE_NUM], idx_t qry_len, idx
     {
 #pragma HLS unroll
         max[i].score = NINF; // Need a custom struct for finding the negative infinity
-        max[i].chunk_offset = 0;
-        max[i].pe = i;
-        max[i].pe_offset = ref_len;
+        max[i].row = 0;
+        max[i].col = 0;
     }
 }
 

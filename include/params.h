@@ -10,7 +10,7 @@
 // // #define TWO_PIECE_AFFINE // ALIGN_LOCAL_AFFINE, ALIGN_GLOBAL_LINEAR, TWO_PIECE_AFFINE
 
 #define ALIGN_GLOBAL_LINEAR
-// #define CMAKEDEBUG
+#define CMAKEDEBUG  // This is used to turn on the verification on CMake. 
 
 // >>> LOCAL_LINEAR params >>>
 #ifdef ALIGN_LOCAL_LINEAR
@@ -275,17 +275,15 @@ typedef tbp_t tbp_chunk_block_t[PE_NUM][MAX_REFERENCE_LENGTH];
 typedef hls::vector<type_t, N_LAYERS> score_vec_t;
 
 struct ScorePack{  
-    type_t score  = 0;
-    idx_t chunk_offset = 0;
-    idx_t pe = 0;
-    idx_t pe_offset = 0;
+    type_t score;
+    idx_t row;
+    idx_t col;
 
 	// Default Constructor
     ScorePack() {
         score = 0;
-        chunk_offset = 0;
-        pe = 0;
-        pe_offset = 0;
+        row = 0;
+        col = 0;
     }
 };
 

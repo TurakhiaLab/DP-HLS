@@ -132,6 +132,7 @@ namespace Align
 		char_t (&reference)[MAX_REFERENCE_LENGTH],
 		chunk_col_scores_inf_t &init_col_scr,
 		hls::vector<type_t, N_LAYERS> (&init_row_scr)[MAX_REFERENCE_LENGTH],
+		hls::vector<idx_t, PE_NUM> &ics, hls::vector<idx_t, PE_NUM> &jcs,
 		int global_query_length, int query_length, int reference_length,
 		const Penalties &penalties, 
 		hls::vector<type_t, N_LAYERS> (&preserved_row_scr)[MAX_REFERENCE_LENGTH],
@@ -141,6 +142,32 @@ namespace Align
 		, Container &debugger
 #endif
         );
+
+	/**
+	 * @brief Initialize two lists of coordinates, x coordinate and y coordinate, for each chunk. 
+	 * 		Theis function is called within the chunk compute function. 
+	 * 		This is especially useful if the chunk doesn't start at the beginning, i.e. after chunk
+	 * 		column offset is developed. 
+	 * @param chunk_row_offset Initial Row of a Chunk
+	 * @param chunk_col_offset Initial Column of a Chunk. 
+	 * @param ic Actual Global Coordinates for i. 
+	 * @param jc Actual Global Coordinates for j. 
+	 */
+	void InitializeChunkCoordinates(idx_t chunk_row_offset, idx_t chunk_col_offset, hls::vector<idx_t, PE_NUM> &ic, hls::vector<idx_t, PE_NUM> &jc);
+
+	/**
+	 * @brief This function is used to setup the standard column initial coordinates
+	 * 
+	 * @param jc 
+	 */
+	void InitializeColumnCoordinates(hls::vector<idx_t, PE_NUM> &jc);
+	
+	/**
+	 * @brief This function is used to initialize the initial row coordinates
+	 * 
+	 * @param ic 
+	 */
+	void InitializeRowCoordinates(hls::vector<idx_t, PE_NUM> &ic);
 
 	namespace Reordered
 	{
@@ -178,8 +205,10 @@ namespace Align
 	 */
 	void ArrangeTBPArr(
 		tbp_block_t &tbp_in,
-		bool (&predicate)[PE_NUM], idx_t (&pe_offset)[PE_NUM],
-		tbp_t (*chunk_tbp_out)[MAX_REFERENCE_LENGTH]);
+		const hls::vector<idx_t, PE_NUM> &ics, 
+		const hls::vector<idx_t, PE_NUM> &jcs,
+		const bool (&predicate)[PE_NUM],
+		tbp_t (&chunk_tbp_out)[MAX_QUERY_LENGTH][MAX_REFERENCE_LENGTH]);
 
 	/**
 	 * @brief Determine the shift of predicate sccording to the desired query legnth, reference length, and the current
@@ -190,6 +219,20 @@ namespace Align
 	 * @param reference_len
 	 */
 	void ShiftPredicate(bool (&predicate)[PE_NUM], int idx, int query_len, int reference_len);
+
+	/**
+	 * @brief Logics to map the global coordinates of a wavefront of PE to their prediate values. 
+	 * 
+	 * @param ics Global Row Coordinates of a Wavefront of PE.
+	 * @param jcs Global Column Coordinates of a Wavefront of PE.
+	 * @param ref_len Actual Reference Length. 
+	 * @param predicate Predicate Array. 
+	 */
+	void MapPredicateSquare(
+		const hls::vector<idx_t, PE_NUM> &ics,
+		const hls::vector<idx_t, PE_NUM> &jcs,
+		const idx_t ref_len,
+		bool (&predicate)[PE_NUM]);
 
 	/**
 	 * @brief Shift into the local reference a new reference element, given current wavefront index and reference length.
@@ -264,8 +307,6 @@ namespace Align
 		 * @param extracted Container for extracted scores.
 		 */
 		void ExtractScoresLayer(score_block_t &scores, idx_t layer, type_t (&extracted)[PE_NUM]);
-
-		void InitPE(ScorePack (&packs)[PE_NUM]);
 
 		/**
 		 * @brief Extract the maximum score from PE's local maximums
