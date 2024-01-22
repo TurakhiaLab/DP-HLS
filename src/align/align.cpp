@@ -550,11 +550,11 @@ void Align::AlignStatic(
 	ScorePack maximum;
 	ScorePack local_max[PE_NUM];
 
-#pragma HLS array_partition variable = query type = cyclic factor = 32 dim = 1
-#pragma HLS array_partition variable = tbp_matrix type = cyclic factor = 32 dim = 1
-#pragma HLS array_partition variable=init_row_score type=complete dim=1
-#pragma HLS array_partition variable = ics type = complete
-#pragma HLS array_partition variable = jcs type = complete
+// #pragma HLS array_partition variable = query type = cyclic factor = 32 dim = 1
+// #pragma HLS array_partition variable = tbp_matrix type = cyclic factor = 32 dim = 1
+// #pragma HLS array_partition variable=init_row_score type=complete dim=1
+// #pragma HLS array_partition variable = ics type = complete
+// #pragma HLS array_partition variable = jcs type = complete
 #pragma HLS array_partition variable = jcs_standard type = complete
 
 	Align::InitializeColumnCoordinates(jcs_standard); jcs = jcs_standard;
