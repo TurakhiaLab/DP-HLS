@@ -1,5 +1,5 @@
-#include "align.h"
-#include "params.h"
+#include "../../include/align.h"
+#include "../../include/params.h"
 
 using namespace hls;
 
@@ -356,7 +356,6 @@ void Align::ChunkCompute(
 	dp_mem_block_t dp_mem;
 
 #pragma HLS array_partition variable = predicate type = complete
-#pragma HLS array_partition variable = pe_col_offsets type = complete
 #pragma HLS array_partition variable = local_reference type = complete
 #pragma HLS array_partition variable = dp_mem type = complete
 #pragma HLS array_partition variable = tbp_out type = complete
