@@ -132,8 +132,9 @@ namespace GlobalLinear
     void UpdatePEMaximum(
         dp_mem_block_t dp_mem,
         ScorePack (&max)[PE_NUM],
-        const hls::vector<idx_t, PE_NUM> ics,
-        const hls::vector<idx_t, PE_NUM> jcs,
+        // const hls::vector<idx_t, PE_NUM> ics,
+        // const hls::vector<idx_t, PE_NUM> jcs,
+        idx_t (&ics)[PE_NUM], idx_t (&jcs)[PE_NUM],
         bool (&predicate)[PE_NUM],
         idx_t query_len, idx_t ref_len);
 

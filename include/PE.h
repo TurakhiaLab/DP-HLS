@@ -62,6 +62,11 @@ namespace PE {
     }
     
 	void PEUnroll(dp_mem_block_t &dp_mem, input_char_block_t qry, input_char_block_t ref, const Penalties penalties, tbp_block_t &tbp);
+    void PEUnroll(dp_mem_block_t &dp_mem, 
+    input_char_block_t qry, input_char_block_t ref, 
+    const Penalties penalties, 
+    const idx_t (&ics)[PE_NUM], const idx_t (&jcs)[PE_NUM], 
+    tbp_t (&tbp)[MAX_QUERY_LENGTH][MAX_REFERENCE_LENGTH]);
 
     /**
      * @brief Unroll a PE Array. The data distribution uese Stream of Blocks. 

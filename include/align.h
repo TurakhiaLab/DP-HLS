@@ -132,7 +132,8 @@ namespace Align
 		char_t (&reference)[MAX_REFERENCE_LENGTH],
 		chunk_col_scores_inf_t &init_col_scr,
 		hls::vector<type_t, N_LAYERS> (&init_row_scr)[MAX_REFERENCE_LENGTH],
-		hls::vector<idx_t, PE_NUM> &ics, hls::vector<idx_t, PE_NUM> &jcs,
+		// hls::vector<idx_t, PE_NUM> &ics, hls::vector<idx_t, PE_NUM> &jcs,
+		idx_t (&ics)[PE_NUM], idx_t (&jcs)[PE_NUM],
 		int global_query_length, int query_length, int reference_length,
 		const Penalties &penalties, 
 		hls::vector<type_t, N_LAYERS> (&preserved_row_scr)[MAX_REFERENCE_LENGTH],
@@ -160,14 +161,14 @@ namespace Align
 	 * 
 	 * @param jc 
 	 */
-	void InitializeColumnCoordinates(hls::vector<idx_t, PE_NUM> &jc);
+	void InitializeColumnCoordinates(idx_t (&jc)[PE_NUM]);
 	
 	/**
 	 * @brief This function is used to initialize the initial row coordinates
 	 * 
 	 * @param ic 
 	 */
-	void InitializeRowCoordinates(hls::vector<idx_t, PE_NUM> &ic);
+	void InitializeRowCoordinates(idx_t (&ic)[PE_NUM]);
 
 	namespace Reordered
 	{
@@ -204,9 +205,10 @@ namespace Align
 	 * @param chunk_tbp_out
 	 */
 	void ArrangeTBPArr(
-		tbp_block_t &tbp_in,
-		const hls::vector<idx_t, PE_NUM> &ics, 
-		const hls::vector<idx_t, PE_NUM> &jcs,
+		const tbp_block_t &tbp_in,
+		// const hls::vector<idx_t, PE_NUM> &ics, 
+		// const hls::vector<idx_t, PE_NUM> &jcs,
+		const idx_t (&ics)[PE_NUM], const idx_t (&jcs)[PE_NUM],
 		const bool (&predicate)[PE_NUM],
 		tbp_t (&chunk_tbp_out)[MAX_QUERY_LENGTH][MAX_REFERENCE_LENGTH]);
 
@@ -229,8 +231,9 @@ namespace Align
 	 * @param predicate Predicate Array. 
 	 */
 	void MapPredicateSquare(
-		const hls::vector<idx_t, PE_NUM> &ics,
-		const hls::vector<idx_t, PE_NUM> &jcs,
+		// hls::vector<idx_t, PE_NUM> &ics,
+		// hls::vector<idx_t, PE_NUM> &jcs,
+		idx_t (&ics)[PE_NUM], idx_t (&jcs)[PE_NUM],
 		const idx_t ref_len,
 		bool (&predicate)[PE_NUM]);
 
@@ -257,8 +260,25 @@ namespace Align
 		chunk_col_scores_inf_t &init_col_scr, 
 		init_row_score_block_t &init_row_scr);
 
+	template <typename T, int LEN>
+	void CoordinateArrayCopy(T (&src)[LEN], T (&dst)[LEN]){
+		for (int i = 0; i < LEN; i++){
+#pragma HLS unroll
+			dst[i] = src[i];
+		}
+	}
 
+	template <int LEN, int NUM>
+	void CoodrinateArrayOffset(idx_t (&arr)[LEN]){
+		for (int i = 0; i < LEN; i++){
+#pragma HLS unroll
+			arr[i] += NUM;
+		}
+	}
 
+	void ArrangeSingleTBP(
+		const idx_t i, const idx_t j, const bool pred, const tbp_t tbp_in,
+		tbp_t (&chunk_tbp_out)[MAX_QUERY_LENGTH][MAX_REFERENCE_LENGTH]);
 
 	/**
 	 * @brief Prepare dp_mem at the beginning of a cycle of chunk compute.

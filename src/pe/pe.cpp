@@ -309,3 +309,36 @@ void PE::PEUnroll(dp_mem_block_t &dp_mem, input_char_block_t qry, input_char_blo
 #endif
     }
 }
+
+void PE::PEUnroll(dp_mem_block_t &dp_mem, 
+input_char_block_t qry, input_char_block_t ref, 
+const Penalties penalties, 
+const idx_t (&ics)[PE_NUM], const idx_t (&jcs)[PE_NUM], 
+tbp_t (&tbp)[MAX_QUERY_LENGTH][MAX_REFERENCE_LENGTH])
+{
+#pragma HLS array_partition variable = tbp type = cyclic factor = 32 dim = 1
+#pragma HLS array_partition variable = qry type = complete
+#pragma HLS array_partition variable = ref type = complete
+#pragma HLS array_partition variable = ics type = complete
+#pragma HLS array_partition variable = jcs type = complete
+#pragma HLS array_partition variable = dp_mem type = complete
+
+    for (int i = 0; i < PE_NUM; i++)
+    {
+#pragma HLS unroll
+        ALIGN_TYPE::PE::Compute(
+            qry[i],
+            ref[i],
+            dp_mem[i][1],
+            dp_mem[i][2],
+            dp_mem[i+1][1],
+            penalties,
+            dp_mem[i+1][0],
+#ifdef CMAKEDEBUG
+            tbp[i],
+            i);
+#else
+            tbp[ics[i]][jcs[i]]);
+#endif
+    }
+}
