@@ -42,7 +42,6 @@ int main(){
     std::string reference_string = Random::Sequence<4>(alphabet, INPUT_REFERENCE_LENGTH);
 
 
-#ifdef ALIGN_GLOBAL_LINEAR
     Penalties penalties[N_BLOCKS];
     for (int i = 0; i < N_BLOCKS; i++){
         penalties[i].extend = -1;
@@ -61,17 +60,6 @@ int main(){
         penalty.mismatch = -1;
     }
 
-#else
-    Penalties penalties[N_BLOCKS];
-    for (int i = 0; i < N_BLOCKS; i++){
-        penalties[i].extend = -1;
-        penalties[i].open = -1;
-        penalties[i].linear_gap = -1;
-        penalties[i].match = 3;
-        penalties[i].mismatch = -1;
-    }
-
-#endif
 
     std::vector<char> query(query_string.begin(), query_string.end());
     std::vector<char> reference(reference_string.begin(), reference_string.end());
@@ -137,13 +125,13 @@ int main(){
     array<array<char, MAX_REFERENCE_LENGTH>, MAX_QUERY_LENGTH> sol_tb_mat;
     map<string, string> alignments;
     global_linear_solution(query_string, reference_string, penalties_sol[0], sol_score_mat[0], sol_tb_mat, alignments);
-    // print_matrix<float, MAX_QUERY_LENGTH, MAX_REFERENCE_LENGTH>(sol_score_mat, "Solution Score Matrix");
+    print_matrix<float, MAX_QUERY_LENGTH, MAX_REFERENCE_LENGTH>(sol_score_mat[0], "Solution Score Matrix");
     // print_matrix<char, MAX_QUERY_LENGTH, MAX_REFERENCE_LENGTH>(sol_tb_mat, "Solution Traceback Matrix");
     cout << "Aligned Query: " << alignments["query"] << endl;
     cout << "Aligned Reference: " << alignments["reference"] << endl;
 
     // Print kernel 0 scores
     debuggers[0].cast_scores();
-    // print_matrix<float, MAX_QUERY_LENGTH, MAX_REFERENCE_LENGTH>(debuggers[0].scores_cpp[0], "Kernel 0 Scores");
+    print_matrix<float, MAX_QUERY_LENGTH, MAX_REFERENCE_LENGTH>(debuggers[0].scores_cpp[0], "Kernel 0 Scores");
     debuggers[0].compare_scores(sol_score_mat, query.size(), reference.size());
 }

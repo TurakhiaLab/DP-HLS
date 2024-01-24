@@ -128,17 +128,19 @@ namespace Align
 	 */
 	void ChunkCompute(
 		idx_t chunk_row_offset,
+		idx_t chunk_start_col,
 		input_char_block_t &query,
 		char_t (&reference)[MAX_REFERENCE_LENGTH],
 		chunk_col_scores_inf_t &init_col_scr,
 		hls::vector<type_t, N_LAYERS> (&init_row_scr)[MAX_REFERENCE_LENGTH],
 		// hls::vector<idx_t, PE_NUM> &ics, hls::vector<idx_t, PE_NUM> &jcs,
 		idx_t (&ics)[PE_NUM], idx_t (&jcs)[PE_NUM],
+		idx_t (&p_cols)[PE_NUM],
 		int global_query_length, int query_length, int reference_length,
 		const Penalties &penalties, 
 		hls::vector<type_t, N_LAYERS> (&preserved_row_scr)[MAX_REFERENCE_LENGTH],
 		ScorePack (&max)[PE_NUM], // write out so must pass by reference
-		tbp_t (&chunk_tbp_out)[MAX_QUERY_LENGTH][MAX_REFERENCE_LENGTH]
+		tbp_t (&chunk_tbp_out)[PE_NUM][MAX_QUERY_LENGTH / PE_NUM * MAX_REFERENCE_LENGTH]
 #ifdef CMAKEDEBUG
 		, Container &debugger
 #endif
@@ -204,13 +206,11 @@ namespace Align
 	 * @param pe_offset
 	 * @param chunk_tbp_out
 	 */
-	void ArrangeTBPArr(
+	void ArrangeTBP(
 		const tbp_block_t &tbp_in,
-		// const hls::vector<idx_t, PE_NUM> &ics, 
-		// const hls::vector<idx_t, PE_NUM> &jcs,
-		const idx_t (&ics)[PE_NUM], const idx_t (&jcs)[PE_NUM],
+		const idx_t (&p_cols)[PE_NUM],
 		const bool (&predicate)[PE_NUM],
-		tbp_t (&chunk_tbp_out)[MAX_QUERY_LENGTH][MAX_REFERENCE_LENGTH]);
+		tbp_t (&chunk_tbp_out)[PE_NUM][MAX_QUERY_LENGTH / PE_NUM * MAX_REFERENCE_LENGTH]);
 
 	/**
 	 * @brief Determine the shift of predicate sccording to the desired query legnth, reference length, and the current
@@ -250,7 +250,7 @@ namespace Align
 
 	void PreserveRowScore(
 		hls::vector<type_t, N_LAYERS> (&preserved_row_scr)[MAX_REFERENCE_LENGTH],
-		const score_vec_t &score_vec,
+		const score_vec_t score_vec,
 		const bool predicate_pe_last,
 		const idx_t idx);
 
@@ -265,6 +265,34 @@ namespace Align
 		for (int i = 0; i < LEN; i++){
 #pragma HLS unroll
 			dst[i] = src[i];
+		}
+	}
+
+	template <int LEN>
+	void CoordinateInitializeUniformReverse(idx_t (&jcs)[LEN], idx_t starting){
+		for (size_t i = 0; i < LEN; i++)
+		{
+#pragma HLS unroll
+			jcs[i] = starting - i;
+		}
+		
+	}
+
+	template <int LEN>
+	void CoordinateInitializeUniform(idx_t (&jcs)[LEN], idx_t starting){
+		for (size_t i = 0; i < LEN; i++)
+		{
+#pragma HLS unroll
+			jcs[i] = starting + i;
+		}
+	}
+
+	template <int LEN>
+	void CoordinateInitializeEquals(idx_t (&ics)[LEN], idx_t index){
+		for (size_t i = 0; i < LEN; i++)
+		{
+#pragma HLS unroll
+			ics[i] = index;
 		}
 	}
 

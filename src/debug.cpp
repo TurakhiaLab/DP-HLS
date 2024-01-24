@@ -60,8 +60,8 @@ void Container::compare_scores(
     int query_len, int ref_len){
     this->cast_scores();
     for (int k = 0; k < N_LAYERS; k++){
-        for (int i = 0; i < query_length; i++){
-            for (int j = 0; j < reference_length; j++){
+        for (int i = 0; i < query_len; i++){
+            for (int j = 0; j < ref_len; j++){
                 if (this->scores_cpp[k][i][j] != scores_sol[k][i][j]){
                     printf("Mismatch at (%d, %d, %d): %f != %f\n", k, i, j, this->scores_cpp[k][i][j], scores_sol[k][i][j]);
                     // print solution and kernel scores

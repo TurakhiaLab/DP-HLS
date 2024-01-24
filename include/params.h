@@ -131,8 +131,8 @@ struct ArrayPack {
 #ifdef ALIGN_LOCAL_AFFINE
 #define numofreads 1
 
-#define MAX_QUERY_LENGTH 256
-#define MAX_REFERENCE_LENGTH 256
+#define MAX_QUERY_LENGTH 64
+#define MAX_REFERENCE_LENGTH 64
 
 #define ALIGN_TYPE LocalAffine
 #define N_BLOCKS 1
@@ -227,7 +227,7 @@ enum TB_STATE {
 // Primitive Types
 typedef ap_uint<2> char_t;  // Sequence Alphabet
 typedef ap_fixed<16, 10> type_t;  // Scores Type <width, integer_width>
-typedef ap_uint<8> idx_t;  // Indexing Type, could be much less than 32. ap_uint<8>
+typedef short idx_t;  // Indexing Type, could be much less than 32. ap_uint<8>
 typedef ap_uint<2> tbp_t;  // Traceback Pointer Type
 typedef ap_uint<2> tbr_t;  // Traecback Result Type
 
@@ -320,7 +320,7 @@ enum TB_STATE {
 // Primitive Types
 typedef ap_uint<2> char_t;  // Sequence Alphabet
 typedef ap_fixed<16, 10> type_t;  // Scores Type <width, integer_width>
-typedef ap_uint<8> idx_t;  // Indexing Type, could be much less than 32. ap_uint<8>
+typedef short idx_t;  // Indexing Type, could be much less than 32. ap_uint<8>
 typedef ap_uint<4> tbp_t;  // Traceback Pointer Type
 typedef ap_uint<2> tbr_t;  // Traecback Result Type
 
@@ -365,12 +365,17 @@ typedef tbp_t tbp_chunk_block_t[PE_NUM][MAX_REFERENCE_LENGTH];
 typedef hls::vector<type_t, N_LAYERS> score_vec_t;
 
 struct ScorePack{  
-    type_t score  = 0;
-    idx_t chunk_offset = 0;
-    idx_t pe = 0;
-    idx_t pe_offset = 0;
-};
+    type_t score;
+    idx_t row;
+    idx_t col;
 
+	// Default Constructor
+    ScorePack() {
+        score = 0;
+        row = 0;
+        col = 0;
+    }
+};
 struct Penalties {
     type_t open;
     type_t extend;

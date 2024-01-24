@@ -11,10 +11,6 @@ project ("DP-HLS")
 # set(RAPTOR 1)
 set(F1 1)
 
-set(CMAKE_C_COMPILER "/usr/bin/gcc")
-set(CMAKE_CXX_COMPILER "/usr/bin/c++")  # Use g++ compiler, but subject to change for v++ compiler.
-# set(CMAKE_BUILD_TYPE Debug)
-
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O0 -g -fsanitize=address")
 # "-fsanitize=address" flag was used to check the stack smashing with Google Address Sanitizer. Use this flag with CLang and 
 # run the program to check. 

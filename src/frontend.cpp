@@ -122,8 +122,10 @@ void GlobalAffine::InitializeScores(
     Helper::InitRow(init_row_scr, penalties);
 }
 
-void GlobalAffine::UpdatePEMaximum(dp_mem_block_t dp_mem, ScorePack (&max)[PE_NUM], idx_t (&pe_offset)[PE_NUM], idx_t chunk_offset, bool (&predicate)[PE_NUM], idx_t query_len, idx_t ref_len)
-{
+void GlobalAffine::UpdatePEMaximum(dp_mem_block_t dp_mem, ScorePack (&max)[PE_NUM],
+        idx_t (&ics)[PE_NUM], idx_t (&jcs)[PE_NUM],
+        bool (&predicate)[PE_NUM],
+        idx_t query_len, idx_t ref_len){
     for (int i = 0; i < PE_NUM; i++)
     {
 #pragma HLS unroll
@@ -137,12 +139,11 @@ void GlobalAffine::UpdatePEMaximum(dp_mem_block_t dp_mem, ScorePack (&max)[PE_NU
             {
                 // Notice this filtering condition compared to the Local Affine kernel. 
                 // if ((chunk_offset + i == query_len - 1) || (pe_offset[i] == ref_len - 1))  // last row or last column
-                if ( (chunk_offset + i == query_len - 1) && (pe_offset[i] == ref_len - 1) )
+                if ( (ics[i] == query_len - 1) && (jcs[i] == ref_len - 1) )
                 { // So we are at the last row or last column
                     max[i].score = dp_mem[i + 1][0][LAYER_MAXIMIUM];
-                    // FIXME: Set the correct coordinates.
-                    // max[i].chunk_offset = chunk_offset;
-                    // max[i].pe_offset = pe_offset[i];
+                    max[i].row = ics[i];
+                    max[i].col = jcs[i];
                 }
             }
         }

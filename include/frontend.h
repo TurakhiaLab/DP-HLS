@@ -36,8 +36,7 @@ namespace GlobalAffine
     void UpdatePEMaximum(
         dp_mem_block_t dp_mem,
         ScorePack (&max)[PE_NUM],
-        idx_t (&pe_offset)[PE_NUM],
-        idx_t chunk_offset,
+        idx_t (&ics)[PE_NUM], idx_t (&jcs)[PE_NUM],
         bool (&predicate)[PE_NUM],
         idx_t query_len, idx_t ref_len);
 
