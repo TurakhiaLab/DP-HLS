@@ -407,7 +407,15 @@ namespace Align
 
 	void CopyColScore(chunk_col_scores_inf_t &init_col_scr_local, score_vec_t (&init_col_scr)[MAX_QUERY_LENGTH], idx_t i);
 
+	void UpdateDPMemSep(
+		score_vec_t (&dp_mem)[PE_NUM+1][2],
+		score_vec_t (&score_in)[PE_NUM + 1]);
 
+	void PrepareScoreBuffer(
+		score_vec_t (&score_buff)[PE_NUM + 1],
+		int i, 
+		chunk_col_scores_inf_t (&init_col_scr),
+		score_vec_t (&init_row_scr)[MAX_REFERENCE_LENGTH]);
 
 }
 

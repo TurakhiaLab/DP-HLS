@@ -51,8 +51,6 @@ public:
 private:
     std::string debugpath;
     std::string filepath;
-    int query_length;
-    int reference_length;
 
     // Container(const string debugpath, const string filename, const int query_length, const int reference_length) {
     //     this->query_length = query_length;

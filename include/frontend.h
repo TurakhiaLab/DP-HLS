@@ -15,17 +15,12 @@ namespace GlobalAffine
     {
         void Compute(char_t local_query_val,
                      char_t local_reference_val,
-                     hls::vector<type_t, N_LAYERS> up_prev,
-                     hls::vector<type_t, N_LAYERS> diag_prev,
-                     hls::vector<type_t, N_LAYERS> left_prev,
+                     score_vec_t up_prev,
+                     score_vec_t diag_prev,
+                     score_vec_t left_prev,
                      const Penalties penalties,
-                     hls::vector<type_t, N_LAYERS> &write_score,
-#ifdef CMAKEDEBUG
-                     tbp_t &write_traceback,
-                     int idx); // mark the PE index
-#else
+                     score_vec_t &write_score,
                      tbp_t &write_traceback);
-#endif
     };
 
     void InitializeScores(
@@ -64,11 +59,11 @@ namespace LocalAffine
     {
         void Compute(char_t local_query_val,
                      char_t local_reference_val,
-                     hls::vector<type_t, N_LAYERS> up_prev,
-                     hls::vector<type_t, N_LAYERS> diag_prev,
-                     hls::vector<type_t, N_LAYERS> left_prev,
+                     score_vec_t up_prev,
+                     score_vec_t diag_prev,
+                     score_vec_t left_prev,
                      const Penalties penalties,
-                     hls::vector<type_t, N_LAYERS> &write_score,
+                     score_vec_t &write_score,
 #ifdef CMAKEDEBUG
                      tbp_t &write_traceback,
                      int idx); // mark the PE index
@@ -110,11 +105,11 @@ namespace GlobalLinear
     {
         void Compute(char_t local_query_val,
                      char_t local_reference_val,
-                     hls::vector<type_t, N_LAYERS> up_prev,
-                     hls::vector<type_t, N_LAYERS> diag_prev,
-                     hls::vector<type_t, N_LAYERS> left_prev,
+                     score_vec_t up_prev,
+                     score_vec_t diag_prev,
+                     score_vec_t left_prev,
                      const Penalties penalties,
-                     hls::vector<type_t, N_LAYERS> &write_score,
+                     score_vec_t &write_score,
 #ifdef CMAKEDEBUG
                      tbp_t &write_traceback,
                      int idx); // mark the PE index
@@ -182,11 +177,11 @@ namespace GlobalDTW
     {
         void Compute(char_t local_query_val,
                      char_t local_reference_val,
-                     hls::vector<type_t, N_LAYERS> up_prev,
-                     hls::vector<type_t, N_LAYERS> diag_prev,
-                     hls::vector<type_t, N_LAYERS> left_prev,
+                     score_vec_t up_prev,
+                     score_vec_t diag_prev,
+                     score_vec_t left_prev,
                      const Penalties penalties,
-                     hls::vector<type_t, N_LAYERS> &write_score,
+                     score_vec_t &write_score,
 #ifdef CMAKEDEBUG
                      tbp_t &write_traceback,
                      int idx); // mark the PE index

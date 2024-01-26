@@ -39,6 +39,14 @@ extern "C"
 	tbr_t (&tb_streams)[N_BLOCKS][MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH])
 #endif
 	{
+// #pragma HLS interface mode = axis port = querys
+// #pragma HLS interface mode = axis port = references
+// #pragma HLS interface mode = axis port = query_lengths
+// #pragma HLS interface mode = axis port = reference_lengths
+// #pragma HLS interface mode = axis port = penalties
+// #pragma HLS interface mode = axis port = tb_streams
+
+
 #pragma HLS array_partition variable=querys dim=1 type=complete
 #pragma HLS array_partition variable=references dim=1 type=complete
 #pragma HLS array_partition variable=query_lengths dim=1 type=complete

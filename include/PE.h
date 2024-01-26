@@ -61,7 +61,25 @@ namespace PE {
                           tbp_t &write_traceback);
     }
     
-	void PEUnroll(dp_mem_block_t &dp_mem, input_char_block_t qry, input_char_block_t ref, const Penalties penalties, tbp_block_t &tbp);
+	void PEUnroll(dp_mem_block_t &dp_mem,
+        const input_char_block_t qry,
+        const input_char_block_t ref, 
+        const Penalties penalties, 
+        tbp_block_t &tbp);
+
+    /**
+     * @brief PEUnroll function but saparating the
+     * buffer writing to and reading from.
+     * 
+     * @param penalties 
+     */
+    void PEUnrollSep(
+        score_vec_t (&dp_mem)[PE_NUM + 1][2],
+        const char_t (&qry)[PE_NUM],
+        const char_t (&ref)[PE_NUM], 
+        const Penalties penalties, 
+        hls::vector<type_t, N_LAYERS> (&score)[PE_NUM + 1],
+        tbp_t (&tbp)[PE_NUM]);
 
     /** 
      * @brief Unroll a PE Array. The data distribution uese Stream of Blocks. 
@@ -93,15 +111,15 @@ namespace PE {
      * @param output_scores 
      * @param output_tbt 
      */
-    void ExpandCompute(
-        input_char_block_t &local_querys,
-        input_char_block_t &local_references,
-        score_block_t &up_prevs,
-        score_block_t &diag_prevs,
-        score_block_t &left_prevs,
-        score_block_t &output_scores,
-        tbp_block_t &output_tbt
-    );
+    // void ExpandCompute(
+    //     input_char_block_t &local_querys,
+    //     input_char_block_t &local_references,
+    //     score_block_t &up_prevs,
+    //     score_block_t &diag_prevs,
+    //     score_block_t &left_prevs,
+    //     score_block_t &output_scores,
+    //     tbp_block_t &output_tbt
+    // );
 
     /**
      * @brief Expand a PE Array with the Task-Channel implementation. 

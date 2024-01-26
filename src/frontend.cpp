@@ -4,17 +4,12 @@
 // >>> Global Affine Implementation >>>
 void GlobalAffine::PE::Compute(char_t local_query_val,
                                char_t local_reference_val,
-                               hls::vector<type_t, N_LAYERS> up_prev,
-                               hls::vector<type_t, N_LAYERS> diag_prev,
-                               hls::vector<type_t, N_LAYERS> left_prev,
+                               score_vec_t up_prev,
+                               score_vec_t diag_prev,
+                               score_vec_t left_prev,
                                const Penalties penalties,
-                               hls::vector<type_t, N_LAYERS> &write_score,
-#ifdef CMAKEDEBUG
-                               tbp_t &write_traceback,
-                               int idx) // mark the PE index)
-#else
+                               score_vec_t &write_score,
                                tbp_t &write_traceback)
-#endif
 {
 #pragma HLS array_partition variable = local_query_val type = complete
 
@@ -183,17 +178,6 @@ void GlobalAffine::Traceback::StateMapping(tbp_t tbp, TB_STATE &state, int &row,
             state = TB_STATE::INS;
             curr_write = NULL;
         }
-        else
-        {
-            // Unknown Direction
-// #ifdef CMAKEDEBUG
-//             // Such construct is not available for synthesizing kernel.
-//             // However, it can be used to debug error in pure CSimulation.
-//             // And also if in the near future a kernel debugging method is developed,
-//             // this is used as a placeholder to check.
-//             throw std::runtime_error("Unknown traceback direction." + std::to_string(tbp.to_int()));
-// #endif
-        }
     }
     else if (state == TB_STATE::DEL)
     {
@@ -205,7 +189,6 @@ void GlobalAffine::Traceback::StateMapping(tbp_t tbp, TB_STATE &state, int &row,
         else
         {                         // deletion closing
             state = TB_STATE::MM; // set the state back to MM
-            
         }
         curr_write = AL_DEL;
         row--;
@@ -280,11 +263,11 @@ tbr_t GlobalAffine::Traceback::StateToPath(TB_STATE state)
 // >>> Local Affine Implementation >>>
 void LocalAffine::PE::Compute(char_t local_query_val,
                                char_t local_reference_val,
-                               hls::vector<type_t, N_LAYERS> up_prev,
-                               hls::vector<type_t, N_LAYERS> diag_prev,
-                               hls::vector<type_t, N_LAYERS> left_prev,
+                               score_vec_t up_prev,
+                               score_vec_t diag_prev,
+                               score_vec_t left_prev,
                                const Penalties penalties,
-                               hls::vector<type_t, N_LAYERS> &write_score,
+                               score_vec_t &write_score,
 #ifdef CMAKEDEBUG
                                tbp_t &write_traceback,
                                int idx) // mark the PE index)
@@ -552,11 +535,11 @@ void GlobalLinear::InitializeScores(
 
 void GlobalLinear::PE::Compute(char_t local_query_val,
                 char_t local_reference_val,
-                hls::vector<type_t, N_LAYERS> up_prev,
-                hls::vector<type_t, N_LAYERS> diag_prev,
-                hls::vector<type_t, N_LAYERS> left_prev,
+                score_vec_t up_prev,
+                score_vec_t diag_prev,
+                score_vec_t left_prev,
                 const Penalties penalties,
-                hls::vector<type_t, N_LAYERS> &write_score,
+                score_vec_t &write_score,
 #ifdef CMAKEDEBUG
                 tbp_t &write_traceback,
                 int idx) // mark the PE index
@@ -687,11 +670,11 @@ void GlobalDTW::InitializeScores(
 
 void GlobalDTW::PE::Compute(char_t local_query_val,
                 char_t local_reference_val,
-                hls::vector<type_t, N_LAYERS> up_prev,
-                hls::vector<type_t, N_LAYERS> diag_prev,
-                hls::vector<type_t, N_LAYERS> left_prev,
+                score_vec_t up_prev,
+                score_vec_t diag_prev,
+                score_vec_t left_prev,
                 const Penalties penalties,
-                hls::vector<type_t, N_LAYERS> &write_score,
+                score_vec_t &write_score,
 #ifdef CMAKEDEBUG
                 tbp_t &write_traceback,
                 int idx) // mark the PE index

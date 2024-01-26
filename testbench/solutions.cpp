@@ -4,6 +4,7 @@
 #include <array>
 #include <string>
 #include <map>
+#include <limits>
 
 using namespace std;
 
@@ -122,67 +123,120 @@ void global_linear_solution(string query, string reference, Penalties_sol &penal
     alignments["reference"] = aligned_reference;
 }
 
-// void global_affine_solution(string query, string reference) {
-//     int m = query.length();
-//     int n = reference.length();
-    
-//     vector<vector<int>> F(m + 1, vector<int>(n + 1)); // F matrix for match/mismatch
-//     vector<vector<int>> H(m + 1, vector<int>(n + 1)); // H matrix for gap in sequence 1
-//     vector<vector<int>> V(m + 1, vector<int>(n + 1)); // V matrix for gap in sequence 2
 
-//     // Initialize the matrices
-//     for (int i = 0; i <= m; i++) {
-//         F[i][0] = GAP_OPEN + i * GAP_EXTENSION;
-//         H[i][0] = GAP_OPEN + i * GAP_EXTENSION;
-//         V[i][0] = GAP_OPEN + i * GAP_EXTENSION;
-//     }
-//     for (int j = 0; j <= n; j++) {
-//         F[0][j] = GAP_OPEN + j * GAP_EXTENSION;
-//         H[0][j] = GAP_OPEN + j * GAP_EXTENSION;
-//         V[0][j] = GAP_OPEN + j * GAP_EXTENSION;
-//     }
+void global_affine_solution(std::string query, std::string reference, Penalties_sol &penalties, 
+    array<array<array<float, MAX_REFERENCE_LENGTH>, MAX_QUERY_LENGTH>, N_LAYERS> &score_mat, 
+    array<array<char, MAX_REFERENCE_LENGTH>, MAX_QUERY_LENGTH> &tb_mat,
+    map<string, string> &alignments){
+        const int N_LAYERS_GA = 3;  // N_Layers for global affiner kernel
 
-//     // Fill in the matrices
-//     for (int i = 1; i <= m; i++) {
-//         for (int j = 1; j <= n; j++) {
-//             // Calculate scores for match/mismatch
-//             int matchScore = F[i-1][j-1] + (query[i-1] == reference[j-1] ? MATCH_SCORE : MISMATCH_SCORE);
-//             // Calculate scores for gaps in sequence 1 and sequence 2
-//             int gapH = H[i][j-1] + GAP_EXTENSION;
-//             int gapV = V[i-1][j] + GAP_EXTENSION;
-//             // Update the matrices with the maximum score
-//             F[i][j] = max(matchScore, gapH, gapV);
-//             H[i][j] = max(F[i][j-1] + GAP_OPEN, H[i][j-1] + GAP_EXTENSION);
-//             V[i][j] = max(F[i-1][j] + GAP_OPEN, V[i-1][j] + GAP_EXTENSION);
-//         }
-//     }
+        // Layer 0: Insertion Matrix
+        // Layer 1: Match Mismatch Matrix
+        // Layer 2: Deletion Matrix
 
-//     // Traceback to find the alignment
-//     int i = m, j = n;
-//     string aligned_query = "";
-//     string aligned_reference = "";
+        // Declare initial column and row scores    
+        array<array<float, N_LAYERS_GA>, MAX_QUERY_LENGTH> initial_col;
+        array<array<float, N_LAYERS_GA>, MAX_REFERENCE_LENGTH> initial_row;
 
-//     while (i > 0 || j > 0) {
-//         if (i > 0 && F[i][j] == F[i-1][j] + GAP_OPEN) {
-//             aligned_query = query[i-1] + aligned_query;
-//             aligned_reference = "-" + aligned_reference;
-//             i--;
-//         } else if (j > 0 && F[i][j] == F[i][j-1] + GAP_OPEN) {
-//             aligned_query = "-" + aligned_query;
-//             aligned_reference = reference[j-1] + aligned_reference;
-//             j--;
-//         } else {
-//             aligned_query = query[i-1] + aligned_query;
-//             aligned_reference = reference[j-1] + aligned_reference;
-//             i--;
-//             j--;
-//         }
-//     }
+        // Initialize intial column and row values
+        for (int i = 0; i < MAX_QUERY_LENGTH; i++) {
+            initial_col[i][0] = -INFINITY;
+            initial_col[i][1] = penalties.open + penalties.extend * (i + 1);
+            initial_col[i][2] = 0;  // This can be whatever, since won't be accessed
+        }
 
-//     // Print the aligned sequences and the alignment score
-//     cout << "Aligned Sequence 1: " << aligned_query << endl;
-//     cout << "Aligned Sequence 2: " << aligned_reference << endl;
-//     cout << "Alignment Score: " << F[m][n] << endl;
-// }
+        for (int j = 0; j < MAX_REFERENCE_LENGTH; j++) {
+            initial_row[j][0] = 0;  // This can be whatever, since won't be accessed    
+            initial_row[j][1] = penalties.open + penalties.extend * (j + 1);
+            initial_row[j][2] = -INFINITY;
+        }
+
+        // Initialize the score matrix
+        for (int i = 0; i < MAX_QUERY_LENGTH; i++) {
+            for (int j = 0; j < MAX_REFERENCE_LENGTH; j++) {
+                for (int k = 0; k < N_LAYERS_GA; k++) {
+                    score_mat[k][i][j] = 0;
+                }
+            }
+        }
+
+        // Initialize the traceback matrix
+        for (int i = 0; i < MAX_QUERY_LENGTH; i++) {
+            for (int j = 0; j < MAX_REFERENCE_LENGTH; j++) {
+                tb_mat[i][j] = '*';
+            }
+        }
+
+        // Fill in the DP matrix and traceback matrix
+        for (int i = 0; i < query.length(); i++) {
+            float del_scr, ins_scr;
+            float scr_diag, scr_up, scr_left;
+            for (int j = 0; j < reference.length(); j++) {
+                if (i == 0 && j == 0) {
+                    scr_diag = 0;
+                    scr_up = initial_row[j][1];
+                    scr_left = initial_col[i][1];
+
+                    ins_scr = initial_col[i][0];
+                    del_scr = initial_row[j][2];
+                } else if (i == 0 && j > 0)
+                {
+                    scr_diag = initial_row[j - 1][1];
+                    scr_up = initial_row[j][1];
+                    scr_left = score_mat[1][i][j - 1];
+
+                    ins_scr = score_mat[0][i][j-1];
+                    del_scr = initial_row[j][2];
+                } else if (i > 0 && j == 0)
+                {
+                    scr_diag = initial_col[i - 1][1];
+                    scr_up = score_mat[1][i - 1][j];
+                    scr_left = initial_col[i][1];
+
+                    ins_scr = initial_col[i][0];
+                    del_scr = score_mat[2][i-1][j];
+                } else
+                {
+                    scr_diag = score_mat[1][i - 1][j - 1];
+                    scr_up = score_mat[1][i - 1][j];
+                    scr_left = score_mat[1][i][j - 1];
+
+                    ins_scr = score_mat[0][i][j-1];
+                    del_scr = score_mat[2][i-1][j];
+                }
+                
+                float insertion_open_score = scr_left + penalties.open + penalties.extend;
+                float insertion_extend_score = ins_scr + penalties.extend;
+
+                float deletion_open_score = scr_up + penalties.open + penalties.extend;
+                float deletion_extend_score = del_scr + penalties.extend;
+
+                float mm_score = scr_diag + (query[i] == reference[j] ? penalties.match : penalties.mismatch);
+
+                float insertion_score = max(insertion_open_score, insertion_extend_score);
+                float deletion_score = max(deletion_open_score, deletion_extend_score);
+
+                float final_score = max(mm_score, max(insertion_score, deletion_score));
+
+                score_mat[0][i][j] = insertion_score;
+                score_mat[1][i][j] = final_score;
+                score_mat[2][i][j] = deletion_score;
+
+                // Choose the maximum score and update the traceback matrix
+                if (final_score == mm_score) {
+                    tb_mat[i][j] = 'D'; // 'D' indicates a diagonal direction (match or mismatch)
+                } else if (final_score == deletion_score) {
+                    tb_mat[i][j] = 'U'; // 'U' indicates an up direction (deletion)
+                } else if (final_score == insertion_score) {
+                    tb_mat[i][j] = 'L'; // 'L' indicates a left direction (insertion)
+                } else {
+                    cout << "ERROR: Invalid traceback matrix value" << endl;
+                    break;
+                }
 
 
+            }
+        }
+
+
+}

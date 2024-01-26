@@ -10,8 +10,8 @@
 
 using namespace std;
 
-#define INPUT_QUERY_LENGTH 20
-#define INPUT_REFERENCE_LENGTH 30
+#define INPUT_QUERY_LENGTH 50
+#define INPUT_REFERENCE_LENGTH 60
 
 char_t base_to_num(char base)
 {
@@ -124,14 +124,18 @@ int main(){
     array<array<array<float, MAX_REFERENCE_LENGTH>, MAX_QUERY_LENGTH>, N_LAYERS> sol_score_mat;
     array<array<char, MAX_REFERENCE_LENGTH>, MAX_QUERY_LENGTH> sol_tb_mat;
     map<string, string> alignments;
-    global_linear_solution(query_string, reference_string, penalties_sol[0], sol_score_mat[0], sol_tb_mat, alignments);
-    print_matrix<float, MAX_QUERY_LENGTH, MAX_REFERENCE_LENGTH>(sol_score_mat[0], "Solution Score Matrix");
+    global_affine_solution(query_string, reference_string, penalties_sol[0], sol_score_mat, sol_tb_mat, alignments);
+    // print_matrix<float, MAX_QUERY_LENGTH, MAX_REFERENCE_LENGTH>(sol_score_mat[0], "Solution Score Matrix Layer 0");
+    // print_matrix<float, MAX_QUERY_LENGTH, MAX_REFERENCE_LENGTH>(sol_score_mat[1], "Solution Score Matrix Layer 1");
+    // print_matrix<float, MAX_QUERY_LENGTH, MAX_REFERENCE_LENGTH>(sol_score_mat[2], "Solution Score Matrix Layer 2");
     // print_matrix<char, MAX_QUERY_LENGTH, MAX_REFERENCE_LENGTH>(sol_tb_mat, "Solution Traceback Matrix");
     cout << "Aligned Query: " << alignments["query"] << endl;
     cout << "Aligned Reference: " << alignments["reference"] << endl;
 
     // Print kernel 0 scores
     debuggers[0].cast_scores();
-    print_matrix<float, MAX_QUERY_LENGTH, MAX_REFERENCE_LENGTH>(debuggers[0].scores_cpp[0], "Kernel 0 Scores");
+    // print_matrix<float, MAX_QUERY_LENGTH, MAX_REFERENCE_LENGTH>(debuggers[0].scores_cpp[0], "Kernel 0 Scores Layer 0");
+    // print_matrix<float, MAX_QUERY_LENGTH, MAX_REFERENCE_LENGTH>(debuggers[0].scores_cpp[1], "Kernel 0 Scores Layer 1");
+    // print_matrix<float, MAX_QUERY_LENGTH, MAX_REFERENCE_LENGTH>(debuggers[0].scores_cpp[2], "Kernel 0 Scores Layer 2");
     debuggers[0].compare_scores(sol_score_mat, query.size(), reference.size());
 }

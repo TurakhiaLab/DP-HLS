@@ -256,62 +256,93 @@ void PE::ExpandComputeSoB(input_char_block_t &local_querys,
     }
 }
 
-void PE::ExpandCompute(
-    input_char_block_t &local_querys,
-    input_char_block_t &local_references,
-    score_block_t &up_prevs,
-    score_block_t &diag_prevs,
-    score_block_t &left_prevs,
-    score_block_t &output_scores,
-    tbp_block_t &output_tbt)
-{
-    // FIXME: Temporary Penalty, not initialized
-    Penalties penalties;
+// void PE::ExpandCompute(
+//     input_char_block_t &local_querys,
+//     input_char_block_t &local_references,
+//     score_block_t &up_prevs,
+//     score_block_t &diag_prevs,
+//     score_block_t &left_prevs,
+//     score_block_t &output_scores,
+//     tbp_block_t &output_tbt)
+// {
+//     // FIXME: Temporary Penalty, not initialized
+//     Penalties penalties;
 
-    for (int i = 0; i < PE_NUM; i++)
-    {
-#pragma HLS unroll
-        ALIGN_TYPE::PE::Compute(
-            local_querys[i],
-            local_references[i],
-            up_prevs[i],
-            diag_prevs[i],
-            left_prevs[i],
-            penalties,
-            output_scores[i],
-#ifdef CMAKEDEBUG
-            output_tbt[i],
-            i);
-#else
-            output_tbt[i]);
-#endif
-    }
-}
+//     for (int i = 0; i < PE_NUM; i++)
+//     {
+// #pragma HLS unroll
+//         ALIGN_TYPE::PE::Compute(
+//             local_querys[i],
+//             local_references[i],
+//             up_prevs[i],
+//             diag_prevs[i],
+//             left_prevs[i],
+//             penalties,
+//             output_scores[i],
+// #ifdef CMAKEDEBUG
+//             output_tbt[i],
+//             i);
+// #else
+//             output_tbt[i]);
+// #endif
+//     }
+// }
 
-void PE::PEUnroll(
-    dp_mem_block_t &dp_mem, 
-    input_char_block_t qry, 
-    input_char_block_t ref, 
+// void PE::PEUnroll(
+//     dp_mem_block_t &dp_mem, 
+//     const input_char_block_t qry, 
+//     const input_char_block_t ref, 
+//     const Penalties penalties, 
+//     tbp_block_t &tbp)
+// {
+// #pragma HLS array_partition variable = dp_mem dim = 0 type = complete
+// #pragma HLS array_partition variable = tbp type = complete
+
+//     for (int i = 0; i < PE_NUM; i++)
+//     {
+// #pragma HLS unroll
+//         ALIGN_TYPE::PE::Compute(
+//             qry[i],
+//             ref[i],
+//             dp_mem[i][1],
+//             dp_mem[i][2],
+//             dp_mem[i+1][1],
+//             penalties,
+//             dp_mem[i+1][0],
+// #ifdef CMAKEDEBUG
+//             tbp[i],
+//             i);
+// #else
+//             tbp[i]);
+// #endif
+//     }
+// }
+
+void PE::PEUnrollSep(
+    score_vec_t (&dp_mem)[PE_NUM+1][2],
+    const char_t (&qry)[PE_NUM],
+    const char_t (&ref)[PE_NUM], 
     const Penalties penalties, 
-    tbp_block_t &tbp)
+    score_vec_t (&score)[PE_NUM+1],
+    tbp_t (&tbp)[PE_NUM])
 {
+#pragma HLS inline off
+
+#pragma HLS array_partition variable = dp_mem dim = 0 type = complete
+#pragma HLS array_partition variable = tbp type = complete
+#pragma HLS array_partition variable = score type = complete
+
     for (int i = 0; i < PE_NUM; i++)
     {
 #pragma HLS unroll
         ALIGN_TYPE::PE::Compute(
             qry[i],
             ref[i],
+            dp_mem[i][0],
             dp_mem[i][1],
-            dp_mem[i][2],
-            dp_mem[i+1][1],
-            penalties,
             dp_mem[i+1][0],
-#ifdef CMAKEDEBUG
-            tbp[i],
-            i);
-#else
+            penalties,
+            score[i+1],
             tbp[i]);
-#endif
     }
 }
-

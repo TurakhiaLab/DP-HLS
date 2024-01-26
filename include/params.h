@@ -5,11 +5,11 @@
 #include <hls_vector.h>
 #include <hls_stream.h>
 #include <complex.h>
-
+#include <array>
 
 // // #define TWO_PIECE_AFFINE // ALIGN_LOCAL_AFFINE, ALIGN_GLOBAL_LINEAR, TWO_PIECE_AFFINE
 
-#define ALIGN_GLOBAL_LINEAR
+#define ALIGN_GLOBAL_AFFINE
 #undef CMAKEDEBUG  // This is used to turn on the verification on CMake. 
 
 // >>> LOCAL_LINEAR params >>>
@@ -131,8 +131,8 @@ struct ArrayPack {
 #ifdef ALIGN_LOCAL_AFFINE
 #define numofreads 1
 
-#define MAX_QUERY_LENGTH 64
-#define MAX_REFERENCE_LENGTH 64
+#define MAX_QUERY_LENGTH 256
+#define MAX_REFERENCE_LENGTH 256
 
 #define ALIGN_TYPE LocalAffine
 #define N_BLOCKS 1
@@ -308,13 +308,13 @@ enum TB_STATE {
 
 #define numofreads 1
 
-#define MAX_QUERY_LENGTH 256
-#define MAX_REFERENCE_LENGTH 256
+#define MAX_QUERY_LENGTH 64
+#define MAX_REFERENCE_LENGTH 64
 
 #define ALIGN_TYPE GlobalAffine
 #define N_BLOCKS 1
 #define N_LAYERS 3
-#define PE_NUM 32
+#define PE_NUM 16
 #define LAYER_MAXIMIUM 1  // We need to indicate from which layer (main matrix) is the maximum score stored.
 
 // Primitive Types
@@ -360,7 +360,7 @@ typedef hls::vector<type_t, N_LAYERS> score_block_t[PE_NUM];  // TODO: Change na
 typedef hls::vector<type_t, N_LAYERS> chunk_col_scores_inf_t[PE_NUM+1];  // chunk column scores inflated
 typedef tbp_t tbp_block_t[PE_NUM];
 typedef char_t input_char_block_t[PE_NUM];
-typedef hls::vector<type_t, N_LAYERS> dp_mem_block_t[PE_NUM+1][3];
+typedef hls::vector<type_t, N_LAYERS> dp_mem_block_t[PE_NUM+1][2];
 typedef tbp_t tbp_chunk_block_t[PE_NUM][MAX_REFERENCE_LENGTH];
 typedef hls::vector<type_t, N_LAYERS> score_vec_t;
 
