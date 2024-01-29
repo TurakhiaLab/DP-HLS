@@ -331,6 +331,7 @@ void Align::MapPredicateSquare(
 	}
 }
 
+
 void Align::ChunkCompute(
 	idx_t chunk_row_offset,
 	idx_t chunk_start_col,
@@ -383,6 +384,7 @@ void Align::ChunkCompute(
 		// printf("iteration %d\n", i);
 
 		Align::MapPredicateSquare(v_rows, v_cols, reference_length, predicate);
+		
 		Align::ShiftReferece(local_reference, reference, i, reference_length);
 
 		// int band_start, band_end;

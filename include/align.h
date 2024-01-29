@@ -224,7 +224,8 @@ namespace Align
 
 	/**
 	 * @brief Logics to map the global coordinates of a wavefront of PE to their prediate values. 
-	 * 
+	 * MapPredicateSquare is a function F: (pe_row: int, pe_col: int) -> (predicate_balue: boolean)
+	 * It's unrolled for PE_NUM applying to each PE. 
 	 * @param ics Global Row Coordinates of a Wavefront of PE.
 	 * @param jcs Global Column Coordinates of a Wavefront of PE.
 	 * @param ref_len Actual Reference Length. 
@@ -236,6 +237,28 @@ namespace Align
 		idx_t (&ics)[PE_NUM], idx_t (&jcs)[PE_NUM],
 		const idx_t ref_len,
 		bool (&predicate)[PE_NUM]);
+
+	/**
+	 * @brief Predicate mapping function for banded alignment.
+	 * FIXME: Add necessary parameter to determine whether a PE with 
+	 * index i and j is computing in the band.
+	 * @param ref_len 
+	 */
+	void MapPredicateBanded(
+		idx_t (&ics)[PE_NUM], idx_t (&jcs)[PE_NUM],
+		idx_t (&col_lim_left)[PE_NUM], idx_t (&col_lim_right)[PE_NUM], 
+		const idx_t ref_len,
+		bool (&predicate)[PE_NUM])
+// 	{
+// 		for (int i = 0; i < PE_NUM; i++){
+// #pragma HLS unroll
+// 			predicate[i] = (jcs[i] >= col_lim_left[i]) && 
+// 							(jcs[i] <= col_lim_right[i]
+// 							&& (jcs[i] < ref_len) && jcs[i] >= 0);
+
+// 		}
+// 	}
+	
 
 	/**
 	 * @brief Shift into the local reference a new reference element, given current wavefront index and reference length.
