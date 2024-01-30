@@ -17,10 +17,9 @@ struct Penalties_sol {
 };
 
 void global_linear_solution(std::string query, std::string reference, Penalties_sol &penalties, 
-    array<array<float, MAX_REFERENCE_LENGTH>, MAX_QUERY_LENGTH> &score_mat, 
+    array<array<array<float, MAX_REFERENCE_LENGTH>, MAX_QUERY_LENGTH>, N_LAYERS> &score_mat, 
     array<array<char, MAX_REFERENCE_LENGTH>, MAX_QUERY_LENGTH> &tb_mat,
     map<string, string> &alignments);
-
 
 
 void global_affine_solution(std::string query, std::string reference, Penalties_sol &penalties, 

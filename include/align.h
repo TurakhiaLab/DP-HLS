@@ -248,7 +248,7 @@ namespace Align
 		idx_t (&ics)[PE_NUM], idx_t (&jcs)[PE_NUM],
 		idx_t (&col_lim_left)[PE_NUM], idx_t (&col_lim_right)[PE_NUM], 
 		const idx_t ref_len,
-		bool (&predicate)[PE_NUM])
+		bool (&predicate)[PE_NUM]);
 // 	{
 // 		for (int i = 0; i < PE_NUM; i++){
 // #pragma HLS unroll

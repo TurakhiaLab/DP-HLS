@@ -110,12 +110,8 @@ namespace GlobalLinear
                      score_vec_t left_prev,
                      const Penalties penalties,
                      score_vec_t &write_score,
-#ifdef CMAKEDEBUG
-                     tbp_t &write_traceback,
-                     int idx); // mark the PE index
-#else
                      tbp_t &write_traceback);
-#endif
+
     };
 
     void InitializeScores(
@@ -136,7 +132,7 @@ namespace GlobalLinear
 
     namespace Traceback
     {
-        void StateMapping(tbp_t tbp, TB_STATE &state, int &row, int &col, tbr_t &curr_write);
+        void StateMapping(tbp_t tbp, TB_STATE &state, tbr_t &navigation);
 
         void StateInit(tbp_t tbp, TB_STATE &state);
     }

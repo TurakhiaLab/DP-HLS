@@ -9,8 +9,8 @@
 
 // // #define TWO_PIECE_AFFINE // ALIGN_LOCAL_AFFINE, ALIGN_GLOBAL_LINEAR, TWO_PIECE_AFFINE
 
-#define ALIGN_GLOBAL_AFFINE
-#undef CMAKEDEBUG  // This is used to turn on the verification on CMake. 
+#define ALIGN_GLOBAL_LINEAR
+#define CMAKEDEBUG  // This is used to turn on the verification on CMake. 
 
 // >>> LOCAL_LINEAR params >>>
 #ifdef ALIGN_LOCAL_LINEAR
@@ -215,8 +215,8 @@ enum TB_STATE {
 #ifdef ALIGN_GLOBAL_LINEAR
 #define numofreads 1
 
-#define MAX_QUERY_LENGTH 256
-#define MAX_REFERENCE_LENGTH 256
+#define MAX_QUERY_LENGTH 64
+#define MAX_REFERENCE_LENGTH 64
 
 #define ALIGN_TYPE GlobalLinear
 #define N_BLOCKS 1
@@ -229,7 +229,6 @@ typedef ap_uint<2> char_t;  // Sequence Alphabet
 typedef ap_fixed<16, 10> type_t;  // Scores Type <width, integer_width>
 typedef short idx_t;  // Indexing Type, could be much less than 32. ap_uint<8>
 typedef ap_uint<2> tbp_t;  // Traceback Pointer Type
-typedef ap_uint<2> tbr_t;  // Traecback Result Type
 
 // Define Traceback Pointer Navigation Direction
 #define TB_PH (tbp_t) 0b00
@@ -247,13 +246,6 @@ typedef ap_uint<2> tbr_t;  // Traecback Result Type
 
 #define ZERO_CHAR (char_t(0))
 
-// Define Traceback Result Representation
-#define AL_END (tbr_t) 0b00  // 0 stopping condition
-#define AL_INS (tbr_t) 0b01  // 1 Align Insertion
-#define AL_MMI (tbr_t) 0b10  // 2 Align Match/Mismatch
-#define AL_DEL (tbr_t) 0b11  // 3 Align Deletion
-
-
 // Defien upper and lower bound for score type, aka type_t
 #define INF 256
 #define NINF -256
@@ -270,7 +262,7 @@ typedef hls::vector<type_t, N_LAYERS> score_block_t[PE_NUM];  // TODO: Change na
 typedef hls::vector<type_t, N_LAYERS> chunk_col_scores_inf_t[PE_NUM+1];  // chunk column scores inflated
 typedef tbp_t tbp_block_t[PE_NUM];
 typedef char_t input_char_block_t[PE_NUM];
-typedef hls::vector<type_t, N_LAYERS> dp_mem_block_t[PE_NUM+1][3];
+typedef hls::vector<type_t, N_LAYERS> dp_mem_block_t[PE_NUM+1][2];
 typedef tbp_t tbp_chunk_block_t[PE_NUM][MAX_REFERENCE_LENGTH];
 typedef hls::vector<type_t, N_LAYERS> score_vec_t;
 
@@ -308,13 +300,13 @@ enum TB_STATE {
 
 #define numofreads 1
 
-#define MAX_QUERY_LENGTH 64
-#define MAX_REFERENCE_LENGTH 64
+#define MAX_QUERY_LENGTH 256
+#define MAX_REFERENCE_LENGTH 256
 
 #define ALIGN_TYPE GlobalAffine
 #define N_BLOCKS 1
 #define N_LAYERS 3
-#define PE_NUM 16
+#define PE_NUM 32
 #define LAYER_MAXIMIUM 1  // We need to indicate from which layer (main matrix) is the maximum score stored.
 
 // Primitive Types
@@ -376,6 +368,7 @@ struct ScorePack{
         col = 0;
     }
 };
+
 struct Penalties {
     type_t open;
     type_t extend;
@@ -490,7 +483,6 @@ enum TB_STATE {
 #define mismatch_score (type_t) (-1)
 #define match_score (type_t) 3
 
-
 #endif
 
 #ifdef TWO_PIECE_AFFINE
@@ -573,4 +565,17 @@ enum TB_STATE {
     DEL = 2,  // Deletion
     END = 3   // End
 };
+
 #endif
+
+
+// >>> Automatically Determined Macros and Configs >>>
+// DO NOT MODIFY
+#define CK_NUM (MAX_QUERY_LENGTH / PE_NUM)
+
+// Define Traceback Navigation Values
+typedef ap_uint<2> tbr_t;  // Traecback Result Type
+#define AL_END (tbr_t) 0b00  // 0 stopping condition
+#define AL_INS (tbr_t) 0b01  // 1 Align Insertion
+#define AL_MMI (tbr_t) 0b10  // 2 Align Match/Mismatch
+#define AL_DEL (tbr_t) 0b11  // 3 Align Deletion

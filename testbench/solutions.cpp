@@ -9,8 +9,9 @@
 using namespace std;
 
 
-void global_linear_solution(string query, string reference, Penalties_sol &penalties, 
-    array<array<float, MAX_REFERENCE_LENGTH>, MAX_QUERY_LENGTH> &score_mat, 
+void global_linear_solution(string query, string reference, 
+    Penalties_sol &penalties, 
+    array<array<array<float, MAX_REFERENCE_LENGTH>, MAX_QUERY_LENGTH>, N_LAYERS> &score_mat, 
     array<array<char, MAX_REFERENCE_LENGTH>, MAX_QUERY_LENGTH> &tb_mat,
     map<string, string> &alignments){
 
@@ -39,7 +40,7 @@ void global_linear_solution(string query, string reference, Penalties_sol &penal
     // initialize the score_matrix
     for (int i = 0; i < MAX_QUERY_LENGTH; i++) {
         for (int j = 0; j < MAX_REFERENCE_LENGTH; j++) {
-            score_mat[i][j] = 0;
+            score_mat[0][i][j] = 0;
         }
     }
 
@@ -62,17 +63,17 @@ void global_linear_solution(string query, string reference, Penalties_sol &penal
             {
                 scr_diag = initial_row[j - 1];
                 scr_up = initial_row[j];
-                scr_left = score_mat[i][j - 1];
+                scr_left = score_mat[0][i][j - 1];
             } else if (i > 0 && j == 0)
             {
                 scr_diag = initial_col[i - 1];
-                scr_up = score_mat[i - 1][j];
+                scr_up = score_mat[0][i - 1][j];
                 scr_left = initial_col[i];
             } else
             {
-                scr_diag = score_mat[i - 1][j - 1];
-                scr_up = score_mat[i - 1][j];
-                scr_left = score_mat[i][j - 1];
+                scr_diag = score_mat[0][i - 1][j - 1];
+                scr_up = score_mat[0][i - 1][j];
+                scr_left = score_mat[0][i][j - 1];
             }
             
             float m_score = scr_diag + (query[i] == reference[j] ? penalties.match : penalties.mismatch);
@@ -80,7 +81,7 @@ void global_linear_solution(string query, string reference, Penalties_sol &penal
             float i_score = scr_left + penalties.linear_gap;
 
             float max_score = max(m_score, max(d_score, i_score));
-            score_mat[i][j] = max_score;
+            score_mat[0][i][j] = max_score;
 
             // Choose the maximum score and update the traceback matrix
             if (max_score == m_score) {
@@ -99,7 +100,7 @@ void global_linear_solution(string query, string reference, Penalties_sol &penal
     string aligned_query = "";
     string aligned_reference = "";
 
-    while (i > 0 && j > 0) {
+    while (i >= 0 && j >= 0) {
         if (tb_mat[i][j] == 'D') {
             aligned_query = query[i] + aligned_query;
             aligned_reference = reference[j] + aligned_reference;
@@ -107,10 +108,10 @@ void global_linear_solution(string query, string reference, Penalties_sol &penal
             j--;
         } else if (tb_mat[i][j] == 'U') {
             aligned_query = query[i] + aligned_query;
-            aligned_reference = "-" + aligned_reference;
+            aligned_reference = "_" + aligned_reference;
             i--;
         } else if (tb_mat[i][j] == 'L') {
-            aligned_query = "-" + aligned_query;
+            aligned_query = "_" + aligned_query;
             aligned_reference = reference[j] + aligned_reference;
             j--;
         } else {

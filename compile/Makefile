@@ -131,13 +131,14 @@ xclbin: build
 
 ############################## Setting Rules for Binary Containers (Building Kernels) ##############################
 $(TEMP_DIR)/seq_align_kernel.xo: src/toplevel/seq_align_multiple.cpp src/align/align.cpp src/utils.cpp src/frontend.cpp src/traceback.cpp src/pe/pe.cpp
+	@echo "INFO: Host Arch $(HOST_ARCH)"
 	mkdir -p $(TEMP_DIR)
 	$(VPP) $(VPP_FLAGS) -c -k seq_align_multiple_static --temp_dir $(TEMP_DIR)  -I'$(<D)' -I'./include' -o'$@' $^
 
 $(BUILD_DIR)/seq_align_kernel.xclbin: $(TEMP_DIR)/seq_align_kernel.xo
 	mkdir -p $(BUILD_DIR)
-ifeq ($(HOST_ARCH), x86)
-	$(VPP) $(VPP_FLAGS) -l $(VPP_LDFLAGS) --temp_dir $(TEMP_DIR) -o'$(BUILD_DIR)/seq_align_kernel.link.xclbin' $(+)
+ifeq ($(HOST_ARCH), x86)  # Added --config flag to create multiple kernels in the binary
+	$(VPP) $(VPP_FLAGS) -l $(VPP_LDFLAGS) --temp_dir $(TEMP_DIR) -o'$(BUILD_DIR)/seq_align_kernel.link.xclbin' --config bitstream_config.cfg $(+)
 	$(VPP) -p $(BUILD_DIR)/seq_align_kernel.link.xclbin -t $(TARGET) --platform $(PLATFORM) --package.out_dir $(PACKAGE_OUT) -o $(BUILD_DIR)/seq_align_kernel.xclbin
 else
 	$(VPP) $(VPP_FLAGS) -l $(VPP_LDFLAGS) --temp_dir $(TEMP_DIR) -o'$(BUILD_DIR)/seq_align_kernel.xclbin' $(+)

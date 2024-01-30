@@ -11,7 +11,7 @@ project ("DP-HLS")
 # set(RAPTOR 1)
 set(F1 1)
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O0 -g -fsanitize=address")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O0 -g -fsanitize=address -fno-inline -DCMAKE_BUILD_TYPE=Debug")
 # "-fsanitize=address" flag was used to check the stack smashing with Google Address Sanitizer. Use this flag with CLang and 
 # run the program to check. 
 
@@ -63,7 +63,8 @@ add_executable(test_csim "testbench/test_csim.cpp"
     # "include/params.h"
     # "include/seq_align_multiple.h"
     # "include/align.h"
-    # "include/PE.h"
+    "include/PE.h"
+    "include/host_utils.h"
     # "include/utils.h"
     # "include/frontend.h"
     # "include/debug.h"
@@ -74,7 +75,8 @@ add_executable(test_csim "testbench/test_csim.cpp"
     "src/utils.cpp"
     "src/frontend.cpp"
     "src/debug.cpp"
-    "testbench/solutions.cpp")
+    "testbench/solutions.cpp"
+    "src/host_utils.cpp")
 
 add_executable(test_csim_dtw "testbench/test_csim_dtw.cpp"
     "include/params.h"

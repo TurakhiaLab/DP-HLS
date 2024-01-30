@@ -10,8 +10,8 @@
 
 using namespace std;
 
-#define INPUT_QUERY_LENGTH 50
-#define INPUT_REFERENCE_LENGTH 60
+#define INPUT_QUERY_LENGTH 5
+#define INPUT_REFERENCE_LENGTH 8
 
 char_t base_to_num(char base)
 {
@@ -124,12 +124,12 @@ int main(){
     array<array<array<float, MAX_REFERENCE_LENGTH>, MAX_QUERY_LENGTH>, N_LAYERS> sol_score_mat;
     array<array<char, MAX_REFERENCE_LENGTH>, MAX_QUERY_LENGTH> sol_tb_mat;
     map<string, string> alignments;
-    global_affine_solution(query_string, reference_string, penalties_sol[0], sol_score_mat, sol_tb_mat, alignments);
+    global_linear_solution(query_string, reference_string, penalties_sol[0], sol_score_mat, sol_tb_mat, alignments);
     // print_matrix<float, MAX_QUERY_LENGTH, MAX_REFERENCE_LENGTH>(sol_score_mat[0], "Solution Score Matrix Layer 0");
     // print_matrix<float, MAX_QUERY_LENGTH, MAX_REFERENCE_LENGTH>(sol_score_mat[1], "Solution Score Matrix Layer 1");
     // print_matrix<float, MAX_QUERY_LENGTH, MAX_REFERENCE_LENGTH>(sol_score_mat[2], "Solution Score Matrix Layer 2");
     // print_matrix<char, MAX_QUERY_LENGTH, MAX_REFERENCE_LENGTH>(sol_tb_mat, "Solution Traceback Matrix");
-    cout << "Aligned Query: " << alignments["query"] << endl;
+    cout << "Aligned Query    : " << alignments["query"] << endl;
     cout << "Aligned Reference: " << alignments["reference"] << endl;
 
     // Print kernel 0 scores
@@ -138,4 +138,28 @@ int main(){
     // print_matrix<float, MAX_QUERY_LENGTH, MAX_REFERENCE_LENGTH>(debuggers[0].scores_cpp[1], "Kernel 0 Scores Layer 1");
     // print_matrix<float, MAX_QUERY_LENGTH, MAX_REFERENCE_LENGTH>(debuggers[0].scores_cpp[2], "Kernel 0 Scores Layer 2");
     debuggers[0].compare_scores(sol_score_mat, query.size(), reference.size());
+
+
+    // reconstruct kernel alignments
+    array<map<string, string>, N_BLOCKS> kernel_alignments;
+    int tb_query_lengths[N_BLOCKS];
+    int tb_reference_lengths[N_BLOCKS];
+    string query_string_blocks[N_BLOCKS];
+    string reference_string_blocks[N_BLOCKS];
+    // for global alignments, adjust the lengths to be the lengths - 1
+    for (int i = 0; i < N_BLOCKS; i++) {
+        tb_query_lengths[i] = qry_lengths[i] - 1;
+        tb_reference_lengths[i] = ref_lengths[i] - 1;
+        query_string_blocks[i] = query_string;
+        reference_string_blocks[i] = reference_string;
+    }
+    kernel_alignments = ReconstructTracebackBlocks<N_BLOCKS>(
+        query_string_blocks, reference_string_blocks,
+        tb_query_lengths, tb_reference_lengths, 
+        tb_streams);
+    // Print kernel 0 traceback
+    cout << "Kernel 0 Traceback" << endl;
+    cout << "Aligned Query    : " << kernel_alignments[0]["query"] << endl;
+    cout << "Aligned Reference: " << kernel_alignments[0]["reference"] << endl;
+
 }

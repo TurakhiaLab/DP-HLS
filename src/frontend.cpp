@@ -540,12 +540,7 @@ void GlobalLinear::PE::Compute(char_t local_query_val,
                 score_vec_t left_prev,
                 const Penalties penalties,
                 score_vec_t &write_score,
-#ifdef CMAKEDEBUG
-                tbp_t &write_traceback,
-                int idx) // mark the PE index
-#else
                 tbp_t &write_traceback)
-#endif
 {
 		const type_t ins = left_prev[0] + penalties.linear_gap;
 		const type_t del = up_prev[0] + penalties.linear_gap;
@@ -623,28 +618,24 @@ void GlobalLinear::Traceback::StateInit(tbp_t tbp, TB_STATE &state){
     }
 }
 
-void GlobalLinear::Traceback::StateMapping(tbp_t tbp, TB_STATE &state, int &row, int &col, tbr_t &curr_write){
+void GlobalLinear::Traceback::StateMapping(tbp_t tbp, TB_STATE &state, tbr_t &navigation){
 
     if (tbp == TB_DIAG)
     {
-        row--;
-        col--;
-        curr_write = AL_MMI;
+        navigation = AL_MMI;
     }
     else if (tbp == TB_UP)
     {
-        row--;
-        curr_write = AL_DEL;
+        navigation = AL_DEL;
     }
     else if (tbp == TB_LEFT)
     {
-        col--;
-        curr_write = AL_INS;
+        navigation = AL_INS;
     }
     else
     {
         state = TB_STATE::END; // Unknown Direction
-        curr_write = AL_END;
+        navigation = AL_END;
     }
 }
 

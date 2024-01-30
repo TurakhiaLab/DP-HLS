@@ -695,9 +695,13 @@ void Align::AlignStatic(
 	}
 	Align::FindMax::ReductionMaxScores(local_max, maximum);
 
+	int ck_idx = maximum.row / PE_NUM;  // One time integer division operation
+	int pe_idx = maximum.row % PE_NUM;  // One time modulo operation
+	int col = maximum.col - ck_start_col[ck_idx] + p_col_offsets[ck_idx];  // Get the column to start traceback in the physical memory
+
 	// >>> Traceback >>>
 	// printf("(index from 0) Traceback Start Row: %d, Col: %d\n", maximum.row, maximum.col);
-	// Traceback::Traceback(tbp_matrix, tb_out, maximum.row, maximum.col);
+	Traceback::TracebackOptimized(tbp_matrix, tb_out, ck_start_col, ck_end_col, ck_idx, pe_idx, col);
 }
 
 void SwapBuffer(score_vec_t *&a, score_vec_t *&b){
