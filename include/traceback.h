@@ -32,7 +32,7 @@ namespace Traceback
 	 */
 	void TracebackOptimized(
 		tbp_t (&tbmat)[PE_NUM][MAX_QUERY_LENGTH / PE_NUM * MAX_REFERENCE_LENGTH],
-		tbr_t (&traceback_out)[MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH],
+		traceback_buf_t (&traceback_out),
 		idx_t (&ck_start_col)[MAX_QUERY_LENGTH / PE_NUM], // chunk start index
 		idx_t (&ck_end_col)[MAX_QUERY_LENGTH / PE_NUM],	  // chunk end index
 		int ck_idx, int pe_idx, int col_idx);			  // starting index to traceback

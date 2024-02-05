@@ -339,9 +339,8 @@ void Align::ChunkCompute(
 	char_t (&reference)[MAX_REFERENCE_LENGTH],
 	chunk_col_scores_inf_t &init_col_scr,
 	score_vec_t (&init_row_scr)[MAX_REFERENCE_LENGTH],
-	// hls::vector<idx_t, PE_NUM> &ics, hls::vector<idx_t, PE_NUM> &jcs,
 	idx_t (&v_rows)[PE_NUM], idx_t (&v_cols)[PE_NUM],
-	idx_t (&p_cols)[PE_NUM],
+	idx_t (&p_cols)[PE_NUM], idx_t ck_idx,
 	int global_query_length, int query_length, int reference_length,
 	const Penalties &penalties, 
 	score_vec_t (&preserved_row_scr)[MAX_REFERENCE_LENGTH],
@@ -352,10 +351,6 @@ void Align::ChunkCompute(
 #endif
 	){
 #pragma HLS inline off
-
-#ifdef CMAKEDEBUG
-	printf("Computing Chunk\n");
-#endif
 
 	bool predicate[PE_NUM];
 
@@ -448,7 +443,8 @@ void Align::ChunkCompute(
 			predicate[PE_NUM-1],
 			v_cols[PE_NUM-1]);
 
-		ALIGN_TYPE::UpdatePEMaximum(dp_mem, max, v_rows, v_cols, predicate, global_query_length, reference_length);
+		ALIGN_TYPE::UpdatePEMaximum(dp_mem, max, v_rows, v_cols, p_cols, ck_idx,
+		predicate, global_query_length, reference_length);
 		Align::CoodrinateArrayOffset<PE_NUM, 1>(v_cols);
 		Align::CoodrinateArrayOffset<PE_NUM, 1>(p_cols);
 	}
@@ -517,7 +513,9 @@ void Align::ArrangeTBP(
 	{
 // UNBELIEVEBLE: Specifying any false depencency result in infinite loop in Vitis HLS!#pragma HLS unroll
 		// Align::ArrangeSingleTBP(ics[i], jcs[i], predicate[i], tbp_in[i], chunk_tbp_out);
-		chunk_tbp_out[i][p_cols[i]] = tbp_in[i];
+		if (predicate[i]) { 
+			chunk_tbp_out[i][p_cols[i]] = tbp_in[i];
+		}
 	}
 }
 
@@ -545,17 +543,15 @@ void Align::PreserveRowScore(
 
 void Align::FindMax::ReductionMaxScores(ScorePack (&packs)[PE_NUM], ScorePack &global_max)
 {
-	ScorePack max = packs[0];
+	idx_t max = 0;
 	for (int i = 0; i < PE_NUM; i++)
 	{
-		if (packs[i].score > max.score)
+		if (packs[i].score > packs[max].score)
 		{
-			max = packs[i];
+			max = i;
 		}
 	}
-	global_max.score = max.score;
-	global_max.row = max.row;
-	global_max.col = max.col;
+	global_max = packs[max];
 }
 
 
@@ -673,7 +669,7 @@ void Align::AlignStatic(
 			local_init_col_score,
 			init_row_score,
 			v_rows, v_cols,
-			p_cols,
+			p_cols, ic,
             query_length,
 			local_query_length,
 			reference_length,
@@ -695,13 +691,8 @@ void Align::AlignStatic(
 	}
 	Align::FindMax::ReductionMaxScores(local_max, maximum);
 
-	int ck_idx = maximum.row / PE_NUM;  // One time integer division operation
-	int pe_idx = maximum.row % PE_NUM;  // One time modulo operation
-	int col = maximum.col - ck_start_col[ck_idx] + p_col_offsets[ck_idx];  // Get the column to start traceback in the physical memory
-
 	// >>> Traceback >>>
-	// printf("(index from 0) Traceback Start Row: %d, Col: %d\n", maximum.row, maximum.col);
-	Traceback::TracebackOptimized(tbp_matrix, tb_out, ck_start_col, ck_end_col, ck_idx, pe_idx, col);
+	Traceback::TracebackOptimized(tbp_matrix, tb_out, ck_start_col, ck_end_col, maximum.ck, maximum.pe, maximum.p_col);
 }
 
 void SwapBuffer(score_vec_t *&a, score_vec_t *&b){

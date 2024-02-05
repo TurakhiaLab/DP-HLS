@@ -135,7 +135,7 @@ namespace Align
 		hls::vector<type_t, N_LAYERS> (&init_row_scr)[MAX_REFERENCE_LENGTH],
 		// hls::vector<idx_t, PE_NUM> &ics, hls::vector<idx_t, PE_NUM> &jcs,
 		idx_t (&ics)[PE_NUM], idx_t (&jcs)[PE_NUM],
-		idx_t (&p_cols)[PE_NUM],
+		idx_t (&p_cols)[PE_NUM], idx_t ck_idx, 
 		int global_query_length, int query_length, int reference_length,
 		const Penalties &penalties, 
 		hls::vector<type_t, N_LAYERS> (&preserved_row_scr)[MAX_REFERENCE_LENGTH],
