@@ -49,23 +49,25 @@
 
 void Traceback::TracebackOptimized(
     tbp_t (&tbmat)[PE_NUM][MAX_QUERY_LENGTH / PE_NUM * MAX_REFERENCE_LENGTH],
-    tbr_t (&traceback_out)[MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH],
+    traceback_buf_t &traceback_out,
     idx_t (&ck_start_col)[MAX_QUERY_LENGTH / PE_NUM], // chunk start index
     idx_t (&ck_end_col)[MAX_QUERY_LENGTH / PE_NUM],   // chunk end index
     int ck_idx, int pe_idx, int col_idx)
 {
 
 #ifdef CMAKEDEBUG
+#ifdef CMAKEDEBUG_PRINT_TRACEBACK
     // print the contents of tbmat
-    // printf("Traceback Matrix:\n");
-    // for (int i = 0; i < PE_NUM; i++)
-    // {
-    //     for (int j = 0; j < MAX_QUERY_LENGTH / PE_NUM * MAX_REFERENCE_LENGTH; j++)
-    //     {
-    //         printf("%d ", tbmat[i][j].to_int());
-    //     }
-    //     printf("\n");
-    // }
+    printf("Traceback Matrix:\n");
+    for (int i = 0; i < PE_NUM; i++)
+    {
+        for (int j = 0; j < MAX_QUERY_LENGTH / PE_NUM * MAX_REFERENCE_LENGTH; j++)
+        {
+            printf("%d ", tbmat[i][j].to_int());
+        }
+        printf("\n");
+    }
+#endif
 #endif
 
     int pe = pe_idx; // row index, but in tbmat
@@ -113,6 +115,10 @@ void Traceback::NextAddress(tbr_t &nav,
     idx_t (&ck_end_idx)[CK_NUM], 
     int &chunk, int &pe, int &col)
 {
+#ifdef CMAKEDEBUG
+    int nav_int = nav.to_int();
+#endif
+
     if (nav == AL_INS){  // Moving left
         if (col == 0){
             nav = AL_END;
@@ -128,7 +134,7 @@ void Traceback::NextAddress(tbr_t &nav,
                 col -= ck_end_idx[chunk-1] - ck_start_idx[chunk] + 1;
                 chunk--;
             }
-        } {
+        } else {
             pe--;
         }
     } else if (nav == AL_MMI){  // Moving Diagonal
@@ -145,10 +151,10 @@ void Traceback::NextAddress(tbr_t &nav,
                 nav = AL_END;
             } else {
                 pe = PE_NUM - 1;
-                col -= ck_end_idx[chunk-1] - ck_start_idx[chunk] + 1;
+                col -= (ck_end_idx[chunk-1] - ck_start_idx[chunk] + 1);
                 chunk--;
             }
-        } {
+        } else {
             pe--;
         }
     } else {  

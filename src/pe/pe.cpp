@@ -9,64 +9,71 @@
 #include <cstdio>
 #endif
 
-void PE::Linear::ComputeStream(
-    hls::stream<char_t> &local_query_val,
-    hls::stream<char_t> &local_reference_val,
-    hls::stream<hls::vector<type_t, N_LAYERS>> &up_prev_stm,
-    hls::stream<hls::vector<type_t, N_LAYERS>> &diag_prev_stm,
-    hls::stream<hls::vector<type_t, N_LAYERS>> &left_prev_stm,
-    hls::stream<hls::vector<type_t, N_LAYERS>> &write_score_stm,
-    hls::stream<hls::vector<tbp_t, N_LAYERS>> &write_tbp_stm)
-{
-    type_t up = up_prev_stm.read()[0] + linear_gap_penalty;
-    type_t left = left_prev_stm.read()[0] + linear_gap_penalty;
-    type_t diag_prev = diag_prev_stm.read()[0];
+// void PE::Linear::ComputeStream(
+//     hls::stream<char_t> &local_query_val,
+//     hls::stream<char_t> &local_reference_val,
+//     hls::stream<hls::vector<type_t, N_LAYERS>> &up_prev_stm,
+//     hls::stream<hls::vector<type_t, N_LAYERS>> &diag_prev_stm,
+//     hls::stream<hls::vector<type_t, N_LAYERS>> &left_prev_stm,
+//     hls::stream<hls::vector<type_t, N_LAYERS>> &write_score_stm,
+//     hls::stream<hls::vector<tbp_t, N_LAYERS>> &write_tbp_stm)
+// {
+//     type_t up = up_prev_stm.read()[0] + linear_gap_penalty;
+//     type_t left = left_prev_stm.read()[0] + linear_gap_penalty;
+//     type_t diag_prev = diag_prev_stm.read()[0];
 
-    type_t match = (local_query_val.read() == local_reference_val.read()) ? diag_prev[0] + match_score : diag_prev[0] + mismatch_score;
+//     type_t match = (local_query_val.read() == local_reference_val.read()) ? diag_prev[0] + match_score : diag_prev[0] + mismatch_score;
 
-    type_t max = up > left ? up : left;
-    max = max > match ? max : match;
-    max = max > zero_fp ? max : zero_fp;
+//     type_t max = up > left ? up : left;
+//     max = max > match ? max : match;
+//     max = max > zero_fp ? max : zero_fp;
 
-    write_score_stm.write({max});
-    if (max == zero_fp)
-    {
-        write_tbp_stm.write({tbp_t(0) + TB_PH});
-    }
-    else
-    {
-        write_tbp_stm.write(
-            {(max == match) ? tbp_t(0) + TB_DIAG : ((max == left) ? (tbp_t(0) + TB_LEFT) : (tbp_t(0) + TB_UP))});
-    }
-}
+//     write_score_stm.write({max});
+//     if (max == zero_fp)
+//     {
+//         write_tbp_stm.write({tbp_t(0) + TB_PH});
+//     }
+//     else
+//     {
+//         write_tbp_stm.write(
+//             {(max == match) ? tbp_t(0) + TB_DIAG : ((max == left) ? (tbp_t(0) + TB_LEFT) : (tbp_t(0) + TB_UP))});
+//     }
+// }
 
-void PE::Linear::Compute(char_t local_query_val,
-                         char_t local_reference_val,
-                         hls::vector<type_t, N_LAYERS> up_prev,
-                         hls::vector<type_t, N_LAYERS> diag_prev,
-                         hls::vector<type_t, N_LAYERS> left_prev,
-                         hls::vector<type_t, N_LAYERS> &write_score,
-                         tbp_t &write_traceback)
-{
-    type_t up = up_prev[0] + linear_gap_penalty;
-    type_t left = left_prev[0] + linear_gap_penalty;
+// void PE::Linear::Compute(char_t local_query_val,
+//                          char_t local_reference_val,
+//                          hls::vector<type_t, N_LAYERS> up_prev,
+//                          hls::vector<type_t, N_LAYERS> diag_prev,
+//                          hls::vector<type_t, N_LAYERS> left_prev,
+//                          hls::vector<type_t, N_LAYERS> &write_score,
+//                          tbp_t &write_traceback)
+// {
+//     // parametrize penalty values
+// #define linear_gap_penalty (type_t) -1
+// #define match_score (type_t) 3
+// #define mismatch_score (type_t) -1
+// #define zero_fp (type_t) 0
 
-    type_t match = (local_query_val == local_reference_val) ? diag_prev[0] + match_score : diag_prev[0] + mismatch_score;
-    type_t max = up > left ? up : left;
-    max = max > match ? max : match;
-    max = max > zero_fp ? max : zero_fp;
+     
+//     type_t up = up_prev[0] + linear_gap_penalty;
+//     type_t left = left_prev[0] + linear_gap_penalty;
 
-    write_score[0] = max;
-    if (max == zero_fp)
-    {
-        write_traceback[0] = (tbp_t(0) + TB_PH);
-    }
-    else
-    {
-        write_traceback[0] =
-            ((max == match) ? tbp_t(0) + TB_DIAG : ((max == left) ? (tbp_t(0) + TB_LEFT) : (tbp_t(0) + TB_UP)));
-    }
-}
+//     type_t match = (local_query_val == local_reference_val) ? diag_prev[0] + match_score : diag_prev[0] + mismatch_score;
+//     type_t max = up > left ? up : left;
+//     max = max > match ? max : match;
+//     max = max > zero_fp ? max : zero_fp;
+
+//     write_score[0] = max;
+//     if (max == zero_fp)
+//     {
+//         write_traceback[0] = (tbp_t(0) + TB_PH);
+//     }
+//     else
+//     {
+//         write_traceback[0] =
+//             ((max == match) ? tbp_t(0) + TB_DIAG : ((max == left) ? (tbp_t(0) + TB_LEFT) : (tbp_t(0) + TB_UP)));
+//     }
+// }
 
 // FIXME: Currently just the functionality of expand the PE is used, rather than the full functioning
 //        kernel, since last_pe_score is not set yet.
@@ -226,35 +233,35 @@ void PE::WriteOutBlock(
     }
 }
 
-void PE::ExpandComputeSoB(input_char_block_t &local_querys,
-                          stream_of_blocks<input_char_block_t> &local_references,
-                          stream_of_blocks<score_block_t> &up_prevs,
-                          stream_of_blocks<score_block_t> &diag_prevs,
-                          stream_of_blocks<score_block_t> &left_prevs,
-                          stream_of_blocks<score_block_t> &output_scores,
-                          stream_of_blocks<tbp_block_t> &output_tbp)
-{
-    // hls::read_lock<input_char_block_t> query_acc(local_querys);
-    hls::read_lock<input_char_block_t> reference_acc(local_references);
-    hls::read_lock<score_block_t> up_acc(up_prevs);
-    hls::read_lock<score_block_t> diag_acc(diag_prevs);
-    hls::read_lock<score_block_t> left_acc(left_prevs);
-    hls::write_lock<score_block_t> out_score_acc(output_scores);
-    hls::write_lock<tbp_block_t> out_tbp_acc(output_tbp);
+// void PE::ExpandComputeSoB(input_char_block_t &local_querys,
+//                           stream_of_blocks<input_char_block_t> &local_references,
+//                           stream_of_blocks<score_block_t> &up_prevs,
+//                           stream_of_blocks<score_block_t> &diag_prevs,
+//                           stream_of_blocks<score_block_t> &left_prevs,
+//                           stream_of_blocks<score_block_t> &output_scores,
+//                           stream_of_blocks<tbp_block_t> &output_tbp)
+// {
+//     // hls::read_lock<input_char_block_t> query_acc(local_querys);
+//     hls::read_lock<input_char_block_t> reference_acc(local_references);
+//     hls::read_lock<score_block_t> up_acc(up_prevs);
+//     hls::read_lock<score_block_t> diag_acc(diag_prevs);
+//     hls::read_lock<score_block_t> left_acc(left_prevs);
+//     hls::write_lock<score_block_t> out_score_acc(output_scores);
+//     hls::write_lock<tbp_block_t> out_tbp_acc(output_tbp);
 
-    for (int i = 0; i < PE_NUM; i++)
-    {
-#pragma HLS unroll
-        PE::Linear::Compute(
-            local_querys[i],
-            reference_acc[i],
-            up_acc[i],
-            diag_acc[i],
-            left_acc[i],
-            out_score_acc[i],
-            out_tbp_acc[i]);
-    }
-}
+//     for (int i = 0; i < PE_NUM; i++)
+//     {
+// #pragma HLS unroll
+//         PE::Linear::Compute(
+//             local_querys[i],
+//             reference_acc[i],
+//             up_acc[i],
+//             diag_acc[i],
+//             left_acc[i],
+//             out_score_acc[i],
+//             out_tbp_acc[i]);
+//     }
+// }
 
 // void PE::ExpandCompute(
 //     input_char_block_t &local_querys,

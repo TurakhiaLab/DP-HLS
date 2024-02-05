@@ -67,6 +67,15 @@ map<string, string> ReconstructTraceback(string query, string reference,
             reference_stack.pop();
         }
 
+        // pad the head for query
+        while (alignment_query.length() < alignment_reference.length()) {
+            alignment_query = alignment_query.insert(0, 1, '_');
+        }
+        // pad the head for reference
+        while (alignment_reference.length() < alignment_query.length()) {
+            alignment_reference = alignment_reference.insert(0, 1, '_');
+        }
+
         // return a dictionary (map) of aligned query and aligned reference
         map<string, string> alignments;
         alignments["query"] = alignment_query;

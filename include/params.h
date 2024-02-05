@@ -9,6 +9,8 @@
 
 // // #define TWO_PIECE_AFFINE // ALIGN_LOCAL_AFFINE, ALIGN_GLOBAL_LINEAR, TWO_PIECE_AFFINE
 
+
+
 #define ALIGN_GLOBAL_LINEAR
 #define CMAKEDEBUG  // This is used to turn on the verification on CMake. 
 
@@ -221,7 +223,7 @@ enum TB_STATE {
 #define ALIGN_TYPE GlobalLinear
 #define N_BLOCKS 1
 #define N_LAYERS 1
-#define PE_NUM 32
+#define PE_NUM 4
 #define LAYER_MAXIMIUM 0  // We need to indicate from which layer (main matrix) is the maximum score stored.
 
 // Primitive Types
@@ -229,17 +231,6 @@ typedef ap_uint<2> char_t;  // Sequence Alphabet
 typedef ap_fixed<16, 10> type_t;  // Scores Type <width, integer_width>
 typedef short idx_t;  // Indexing Type, could be much less than 32. ap_uint<8>
 typedef ap_uint<2> tbp_t;  // Traceback Pointer Type
-
-// Define Traceback Pointer Navigation Direction
-#define TB_PH (tbp_t) 0b00
-#define TB_LEFT (tbp_t) 0b01
-#define TB_DIAG (tbp_t) 0b10
-#define TB_UP (tbp_t) 0b11
-
-// @deprecated Define Traceback Pointer Navigation Matrix, Not for Linear Kernels
-// Put them here to let other functions defined in the frontend.cpp to compile
-#define TB_IMAT (tbp_t) 0b0100  // Insertion Matrix
-#define TB_DMAT (tbp_t) 0b1000  // Deletion Matrix
 
 // Define Zero Value
 #define zero_fp ((type_t)0)
@@ -255,27 +246,27 @@ typedef ap_uint<2> tbp_t;  // Traceback Pointer Type
 #define DEBUG_FILENAME "debug_kernel"
 
 // Custom Types Vital for Kernel Functioning
-typedef hls::vector<type_t, N_LAYERS> init_col_score_block_t[MAX_QUERY_LENGTH];
-typedef hls::vector<type_t, N_LAYERS> init_row_score_block_t[MAX_REFERENCE_LENGTH];
-typedef tbp_t traceback_block_t[MAX_QUERY_LENGTH + MAX_REFERENCE_LENGTH];
-typedef hls::vector<type_t, N_LAYERS> score_block_t[PE_NUM];  // TODO: Change name chunk scores
 typedef hls::vector<type_t, N_LAYERS> chunk_col_scores_inf_t[PE_NUM+1];  // chunk column scores inflated
 typedef tbp_t tbp_block_t[PE_NUM];
 typedef char_t input_char_block_t[PE_NUM];
-typedef hls::vector<type_t, N_LAYERS> dp_mem_block_t[PE_NUM+1][2];
-typedef tbp_t tbp_chunk_block_t[PE_NUM][MAX_REFERENCE_LENGTH];
-typedef hls::vector<type_t, N_LAYERS> score_vec_t;
+
 
 struct ScorePack{  
     type_t score;
     idx_t row;
     idx_t col;
+    idx_t p_col;
+    idx_t ck;
+    idx_t pe;
 
 	// Default Constructor
     ScorePack() {
         score = 0;
         row = 0;
         col = 0;
+        p_col = 0;
+        ck = 0;
+        pe = 0;
     }
 };
 
@@ -474,15 +465,6 @@ enum TB_STATE {
 #endif
 
 
-// @deprecated Those are placed just for some functions under 
-// development to compile. Will be removed in the future. Current 
-// example kernels doesn't require them.  
-#define linear_gap_penalty (type_t) (-2)
-#define opening_score (type_t) -2
-#define extend_score (type_t) -2
-#define mismatch_score (type_t) (-1)
-#define match_score (type_t) 3
-
 #endif
 
 #ifdef TWO_PIECE_AFFINE
@@ -573,9 +555,23 @@ enum TB_STATE {
 // DO NOT MODIFY
 #define CK_NUM (MAX_QUERY_LENGTH / PE_NUM)
 
+typedef hls::vector<type_t, N_LAYERS> score_vec_t;
+typedef score_vec_t init_col_score_block_t[MAX_QUERY_LENGTH];
+typedef score_vec_t init_row_score_block_t[MAX_REFERENCE_LENGTH];
+typedef score_vec_t score_block_t[PE_NUM];  // TODO: Change name chunk scores
+typedef score_vec_t dp_mem_block_t[PE_NUM+1][2];
+
 // Define Traceback Navigation Values
 typedef ap_uint<2> tbr_t;  // Traecback Result Type
 #define AL_END (tbr_t) 0b00  // 0 stopping condition
 #define AL_INS (tbr_t) 0b01  // 1 Align Insertion
 #define AL_MMI (tbr_t) 0b10  // 2 Align Match/Mismatch
 #define AL_DEL (tbr_t) 0b11  // 3 Align Deletion
+
+typedef tbr_t traceback_buf_t[MAX_QUERY_LENGTH + MAX_REFERENCE_LENGTH];
+
+// >>> Debug Macros, turn on for certain debug requests >>>
+#undef CMAKEDEBUG_PRINT_TRACEBACK
+
+// >>> Legacy Kernel Definitions, Not Used, But do NOT remove
+typedef tbp_t tbp_chunk_block_t[PE_NUM][MAX_REFERENCE_LENGTH];

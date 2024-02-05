@@ -120,6 +120,18 @@ void global_linear_solution(string query, string reference,
         }
     }
 
+    // Finish up the rest of the characters in the query and reference
+    while (i >= 0) {
+        aligned_query = query[i] + aligned_query;
+        aligned_reference = "_" + aligned_reference;
+        i--;
+    }
+    while (j >= 0) {
+        aligned_query = "_" + aligned_query;
+        aligned_reference = reference[j] + aligned_reference;
+        j--;
+    }
+
     alignments["query"] = aligned_query;
     alignments["reference"] = aligned_reference;
 }

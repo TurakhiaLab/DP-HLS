@@ -16,19 +16,29 @@
 #include <vector>
 #include <array>
 #include <complex>
+#include <random>
 
 #include "params.h"
 
 using namespace std;
 
 namespace Random {
+    
     // Generate a random sequence of length `length` with alphabet size `alphabet_size`.
     // The alphabet is [0, alphabet_size).
     template <int N>
     string Sequence(char alphabet[N], int length) {
+        std::random_device rd;
+    
+        // Use the seed from random_device to seed the random engine
+        std::mt19937 rng(rd());
+        
+        // Create a uniform distribution for random numbers between 1 and 100
+        std::uniform_int_distribution<int> dist(1, 100);
+
         string seq = "";
         for (int i = 0; i < length; i++) {
-            seq += alphabet[rand() % N];
+            seq += alphabet[dist(rng) % N];
         }
         return seq;
     }
