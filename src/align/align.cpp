@@ -1,5 +1,5 @@
-#include "../../include/align.h"
-#include "../../include/params.h"
+#include "align.h"
+#include "params.h"
 
 using namespace hls;
 
@@ -20,170 +20,6 @@ void Align::ArrangeScores(
 	}
 }
 
-// void Align::DPMemUpdateBlock(
-// 	hls::stream_of_blocks<dp_mem_block_t> &dp_mem_in,
-// 	hls::stream_of_blocks<score_block_t> &score_in,
-// 	hls::stream_of_blocks<dp_mem_block_t> &dp_mem_out)
-// {
-// 	// This function shift the dp_mem based on the new scores
-
-// 	read_lock<dp_mem_block_t> dp_mem_rd(dp_mem_in);
-// 	read_lock<score_block_t> score_rd(score_in);
-// 	write_lock<dp_mem_block_t> dp_mem_wr(dp_mem_out);
-
-// // array partition the accessor of the block
-// #pragma HLS array_partition variable = dp_mem_rd type = complete
-
-// 	for (int i = 0; i < PE_NUM; i++)
-// 	{
-// #pragma HLS unroll
-// 		dp_mem_wr[1][i] = dp_mem_rd[0][i];
-// 		dp_mem_wr[0][i] = score_rd[i];
-// 	}
-// }
-
-// void Align::InitializeChunkColScore(score_vec_t (&init_col_scr)[PE_NUM], stream_of_blocks<dp_mem_block_t> &dp_mem_out)
-// {
-// #pragma HLS array_partition variable = init_col_scr type = complete
-// 	write_lock<dp_mem_block_t> dp_mem_wr(dp_mem_out);
-// #pragma HLS array_partition variable = dp_mem_wr type = complete
-// 	for (int i = 0; i < PE_NUM; i++)
-// 	{
-// #pragma HLS unroll
-// 		dp_mem_wr[0][i] = init_col_scr[i];
-// 	}
-// }
-
-// void Align::PrepareScoresBlock(
-// 	hls::stream_of_blocks<dp_mem_block_t> &dp_mem_in,
-// 	score_vec_t (&init_col_scr)[PE_NUM], int id,
-// 	hls::stream_of_blocks<score_vec_t[2]> &last_chunk_scr,
-// 	hls::stream_of_blocks<score_block_t> &up_out,
-// 	hls::stream_of_blocks<score_block_t> &diag_out,
-// 	hls::stream_of_blocks<score_block_t> &left_out,
-// 	hls::stream_of_blocks<dp_mem_block_t> &dp_mem_out)
-// {
-// 	read_lock<dp_mem_block_t> dp_mem_rd(dp_mem_in);
-// 	read_lock<score_vec_t[2]> last_chunk_rd(last_chunk_scr);
-// 	write_lock<score_block_t> up_wr(up_out);
-// 	write_lock<score_block_t> diag_wr(diag_out);
-// 	write_lock<score_block_t> left_wr(left_out);
-// 	write_lock<dp_mem_block_t> dp_mem_wr(dp_mem_out);
-// #pragma HLS array_partition variable = dp_mem_rd type = complete
-// #pragma HLS array_partition variable = last_chunk_rd type = complete
-// #pragma HLS array_partition variable = up_wr type = complete
-// #pragma HLS array_partition variable = diag_wr type = complete
-// #pragma HLS array_partition variable = left_wr type = complete
-
-// 	up_wr[0] = last_chunk_rd[0];
-// 	diag_wr[0] = last_chunk_rd[1];
-// 	left_wr[0] = dp_mem_rd[0][0];
-
-// 	dp_mem_wr[0][0] = dp_mem_rd[0][0];
-// 	dp_mem_wr[1][0] = dp_mem_rd[1][0];
-
-// 	for (int i = 1; i < PE_NUM; i++)
-// 	{
-// #pragma HLS unroll
-// 		up_wr[i] = dp_mem_rd[0][i - 1];
-// 		diag_wr[i] = dp_mem_rd[1][i - 1];
-// 		left_wr[i] = dp_mem_rd[0][i];
-
-// 		dp_mem_wr[0][i] = dp_mem_rd[0][i];
-// 		dp_mem_wr[1][i] = dp_mem_rd[1][i];
-// 	}
-
-// 	if (id < PE_NUM)
-// 	{
-// 		dp_mem_wr[0][id] = init_col_scr[id];
-// 		left_wr[id] = init_col_scr[id];
-// 	}
-// }
-
-// void Align::ChunkComputeSoB(
-// 	idx_t chunk_row_offset,
-// 	input_char_block_t &query,
-// 	char_t (&reference)[MAX_REFERENCE_LENGTH],
-// 	score_block_t &init_col_scr,
-// 	hls::vector<type_t, N_LAYERS> (&init_row_scr)[MAX_REFERENCE_LENGTH],
-// 	int query_length, int reference_length,
-// 	hls::vector<type_t, N_LAYERS> (&preserved_row_scr)[MAX_REFERENCE_LENGTH],
-// 	ScorePack &max,
-// 	hls::stream_of_blocks<tbp_chunk_block_t> &chunk_tbp_out)
-// {
-// 	/*
-// 	This cannot be synthesized because of the following reasons:
-// 	1. the blocks are flowing backwards.
-// 	2. There are bidirectional channels for unknown reason.
-// 	*/
-
-// 	bool predicate[PE_NUM];
-// 	Utils::Init::ArrSet<bool, PE_NUM>(predicate, false);
-
-// 	idx_t pe_col_offsets[PE_NUM];
-// 	Utils::Init::ArrSet<idx_t, PE_NUM>(pe_col_offsets, 0);
-
-// 	char_t local_query[PE_NUM];
-// 	char_t local_reference[PE_NUM];
-
-// 	stream_of_blocks<input_char_block_t> reference_in_stm;
-
-// 	stream_of_blocks<dp_mem_block_t> dp_mem_stm;
-
-// 	stream_of_blocks<score_block_t> up_scores;
-// 	stream_of_blocks<score_block_t> diag_scores;
-// 	stream_of_blocks<score_block_t> left_scores;
-
-// 	// stream_of_blocks<dp_mem_block_t> initialized;
-
-// 	stream_of_blocks<score_block_t> scores_out;
-// 	stream_of_blocks<tbp_block_t> tbp_out;
-// 	stream_of_blocks<score_vec_t[2]> last_chunk_scr_stm;
-
-// 	stream_of_blocks<dp_mem_block_t> initialized_dup;
-
-// 	score_vec_t local_init_row_scr[2];
-// 	local_init_row_scr[0] = {0};
-// 	local_init_row_scr[1] = {0};
-
-// 	for (int i = 0; i < reference_length + query_length - 1; i++)
-// 	{
-// #pragma HLS dataflow
-
-// 		// if (i < query_length) { Utils::Array::ShiftRight<bool, PE_NUM>(predicate, true); }
-// 		// else if (i >= reference_length) { Utils::Array::ShiftRight(predicate, false); };
-
-// 		// // Shift Reference
-// 		// if (i < reference_length) { Utils::Array::ShiftRight<char_t, PE_NUM>(local_reference, reference[i]); }
-// 		// else {Utils::Array::ShiftRight<char_t, PE_NUM>(local_reference, 0);}
-
-// 		Align::ShiftPredicate(predicate, i, query_length, reference_length);
-// 		Align::ShiftReferece(local_reference, reference, i, reference_length);
-
-// 		Utils::Array::ShiftRight(local_init_row_scr, hls::vector<type_t, N_LAYERS>(0));
-
-// 		Utils::Array::WriteStreamBlock(local_init_row_scr, last_chunk_scr_stm);
-
-// 		// Write Reference to Block
-// 		Utils::Array::WriteStreamBlock<char_t, PE_NUM>(local_reference, reference_in_stm);
-
-// 		// Align::WriteInitialColScore(i, init_col_scr, dp_mem_stm, initialized);
-// 		Align::PrepareScoresBlock(dp_mem_stm, init_col_scr, i, last_chunk_scr_stm, up_scores, diag_scores, left_scores, initialized_dup);
-
-// 		PE::ExpandComputeSoB(
-// 			query,
-// 			reference_in_stm,
-// 			up_scores,
-// 			diag_scores,
-// 			left_scores,
-// 			scores_out,
-// 			tbp_out);
-
-// 		Align::DPMemUpdateBlock(initialized_dup, scores_out, dp_mem_stm);
-
-// 		Align::ArrangeTBPBlock(tbp_out, predicate, pe_col_offsets, chunk_tbp_out);
-// 	}
-// }
 
 void Align::WriteInitialColScore(int i, score_vec_t (&init_scores)[PE_NUM], hls::stream_of_blocks<dp_mem_block_t> &dp_mem_in, hls::stream_of_blocks<dp_mem_block_t> &scores_out)
 {
@@ -214,7 +50,7 @@ void Align::ArrangeTBPBlock(hls::stream_of_blocks<tbp_block_t> &tbp_in, bool (&p
 	write_lock<tbp_chunk_block_t> tbp_chunk_wr(tbp_chunk_out);
 
 #pragma HLS array_partition variable = tbp_rd type = complete
-#pragma HLS array_partition variable = tbp_chunk_wr type = cyclic factor =4 dim = 1
+#pragma HLS array_partition variable = tbp_chunk_wr type = cyclic factor = PE_NUM dim = 1
 
 	for (int i = 0; i < PE_NUM; i++)
 	{
@@ -257,9 +93,9 @@ void Align::PrepareScoresArr(
 	dp_mem_block_t &dp_mem_in,
 	score_vec_t (&init_col_scr)[PE_NUM], int id,
 	score_vec_t (&last_chunk_scr)[2],
-	score_block_t &up_out,
-	score_block_t &diag_out,
-	score_block_t &left_out)
+	wavefront_scores_t &up_out,
+	wavefront_scores_t &diag_out,
+	wavefront_scores_t &left_out)
 {
 
 	// prepare scores for PE 0
@@ -283,7 +119,7 @@ void Align::PrepareScoresArr(
 
 void Align::DPMemUpdateArr(
 	dp_mem_block_t &dp_mem_in,
-	score_block_t &score_in)
+	wavefront_scores_t &score_in)
 {
 	for (int i = 0; i < PE_NUM; i++)
 	{
@@ -482,7 +318,7 @@ void Align::PrepareScoreBuffer(
 	}
 }
 
-void Align::FindMax::ExtractScoresLayer(score_block_t &scores, idx_t layer, type_t (&extracted)[PE_NUM])
+void Align::FindMax::ExtractScoresLayer(wavefront_scores_t &scores, idx_t layer, type_t (&extracted)[PE_NUM])
 {
 	for (int i = 0; i < PE_NUM; i++)
 	{
@@ -504,7 +340,7 @@ void Align::ArrangeTBP(
 	const bool (&predicate)[PE_NUM],
 	tbp_t (&chunk_tbp_out)[PE_NUM][MAX_QUERY_LENGTH / PE_NUM * MAX_REFERENCE_LENGTH])
 {
-#pragma HLS array_partition variable = chunk_tbp_out type = cyclic factor =4 dim = 1
+#pragma HLS array_partition variable = chunk_tbp_out type = cyclic factor = PE_NUM dim = 1
 #pragma HLS array_partition variable = tbp_in type = complete
 #pragma HLS array_partition variable = p_cols type = complete
 #pragma HLS array_partition variable = predicate type = complete
@@ -608,10 +444,10 @@ void Align::AlignStatic(
 // >>> Initialization >>>
 	score_vec_t init_col_score[MAX_QUERY_LENGTH];
 	score_vec_t init_row_score[MAX_REFERENCE_LENGTH];
-	static_assert(MAX_QUERY_LENGTH % PE_NUM == 0, "MAX_QUERY_LENGTH must divice PE_NUM, compilation terminated!");
+	static_assert(MAX_QUERY_LENGTH % PE_NUM == 0, "MAX_QUERY_LENGTH must divide PE_NUM, compilation terminated!");
 	tbp_t tbp_matrix[PE_NUM][MAX_QUERY_LENGTH / PE_NUM * MAX_REFERENCE_LENGTH];
 	
-#pragma HLS array_partition variable = tbp_matrix type = cyclic factor =4 dim = 1
+#pragma HLS array_partition variable = tbp_matrix type = cyclic factor = PE_NUM dim = 1
 
 	// Those are used to iterate through the memory during the score computation
 	idx_t v_rows[PE_NUM];
@@ -634,8 +470,8 @@ void Align::AlignStatic(
 	ScorePack maximum;
 	ScorePack local_max[PE_NUM];
 
-#pragma HLS array_partition variable = query type = cyclic factor =4 dim = 1
-#pragma HLS array_partition variable = tbp_matrix type = cyclic factor =4 dim = 1
+#pragma HLS array_partition variable = query type = cyclic factor = PE_NUM dim = 1
+#pragma HLS array_partition variable = tbp_matrix type = cyclic factor = PE_NUM dim = 1
 #pragma HLS array_partition variable= init_row_score type=complete dim=1
 #pragma HLS array_partition variable = v_rows type = complete
 #pragma HLS array_partition variable = v_cols type = complete
@@ -702,55 +538,10 @@ void SwapBuffer(score_vec_t *&a, score_vec_t *&b){
 }
 
 
-void Align::Reordered::CopyInitialScores(
-	hls::vector<type_t, N_LAYERS> (&init_row_scr)[MAX_REFERENCE_LENGTH],
-	hls::vector<type_t, N_LAYERS> (&init_col_scr)[MAX_QUERY_LENGTH],
-	hls::vector<type_t, N_LAYERS> (&scores)[MAX_QUERY_LENGTH + 1][MAX_REFERENCE_LENGTH + 1])
-{
-	scores[0][0] = score_vec_t(0);
-
-	for (int j = 1; j < MAX_REFERENCE_LENGTH + 1; j++)
-	{
-#pragma HLS unroll
-		scores[0][j] = init_row_scr[j];
-	}
-	for (int i = 1; i < MAX_QUERY_LENGTH + 1; i++)
-	{
-#pragma HLS unroll
-		scores[i][0] = init_col_scr[i];
-	}
-}
-
-void Align::DPMemInit(
-	dp_mem_block_t &dp_mem, 
-	chunk_col_scores_inf_t &init_col_scr, 
-	init_row_score_block_t &init_row_scr){
-
-	for (int i = 0; i < PE_NUM + 1; i++)
-	{
-#pragma HLS unroll
-		dp_mem[i][1] = init_col_scr[i];
-	}
-	dp_mem[0][0] = init_row_scr[0];
-}
-
 
 void Align::UpdateDPMem(dp_mem_block_t &dp_mem, idx_t i, chunk_col_scores_inf_t &init_col_scr, score_vec_t (&init_row_scr)[MAX_REFERENCE_LENGTH] ){
 	Align::UpdateDPMemShift(dp_mem);
 	Align::UpdateDPMemSet(dp_mem, i, init_col_scr, init_row_scr);
-// 	// i is wavefront index here.
-// 	for (int j = 0; j < PE_NUM + 1; j++){
-// #pragma HLS unroll
-// 		dp_mem[j][2] = dp_mem[j][1];
-// 		dp_mem[j][1] = dp_mem[j][0];
-// 	}
-// 	if (i < MAX_REFERENCE_LENGTH){  // FIXME: Actually this could also be actual_reference_length
-// 		dp_mem[0][1] = init_row_scr[i];
-// 	}
-// 	if (i < PE_NUM){
-// 		dp_mem[i][2] = init_col_scr[i];  // set initial diagonal score
-// 		dp_mem[i+1][1] = init_col_scr[i+1];  // set initial left score
-// 	}
 }
 
 void Align::UpdateDPMemShift(dp_mem_block_t &dp_mem){

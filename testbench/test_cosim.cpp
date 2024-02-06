@@ -10,8 +10,8 @@
 
 using namespace std;
 
-#define INPUT_QUERY_LENGTH 45
-#define INPUT_REFERENCE_LENGTH 60
+#define INPUT_QUERY_LENGTH 10
+#define INPUT_REFERENCE_LENGTH 15
 
 char_t base_to_num(char base)
 {

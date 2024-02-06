@@ -1,4 +1,4 @@
-#include "traceback.h"
+#include "../include/traceback.h"
 #include "../include/loop_counter.h"
 #include "../include/frontend.h"
 
@@ -157,7 +157,10 @@ void Traceback::NextAddress(tbr_t &nav,
         } else {
             pe--;
         }
-    } else {  
+    } else if (nav == AL_NULL){
+        // Skip a cycle and do nothing
+    } 
+    else {  
         // Stop Condition Set by User
         // In this case the Stopping Flag is manually set by the user 
         // that want to early stop the traceback. For example, in the 

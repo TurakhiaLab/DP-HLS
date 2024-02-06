@@ -139,7 +139,7 @@ void global_linear_solution(string query, string reference,
 
 void global_affine_solution(std::string query, std::string reference, Penalties_sol &penalties, 
     array<array<array<float, MAX_REFERENCE_LENGTH>, MAX_QUERY_LENGTH>, N_LAYERS> &score_mat, 
-    array<array<char, MAX_REFERENCE_LENGTH>, MAX_QUERY_LENGTH> &tb_mat,
+    array<array<string, MAX_REFERENCE_LENGTH>, MAX_QUERY_LENGTH> &tb_mat,
     map<string, string> &alignments){
         const int N_LAYERS_GA = 3;  // N_Layers for global affiner kernel
 
@@ -237,19 +237,66 @@ void global_affine_solution(std::string query, std::string reference, Penalties_
 
                 // Choose the maximum score and update the traceback matrix
                 if (final_score == mm_score) {
-                    tb_mat[i][j] = 'D'; // 'D' indicates a diagonal direction (match or mismatch)
+                    tb_mat[i][j] = "D "; // 'D' indicates a diagonal direction (match or mismatch)
                 } else if (final_score == deletion_score) {
-                    tb_mat[i][j] = 'U'; // 'U' indicates an up direction (deletion)
+                    tb_mat[i][j] = deletion_score == deletion_open_score ? "U " : "UE"; // 'U' indicates an up direction (deletion)
                 } else if (final_score == insertion_score) {
-                    tb_mat[i][j] = 'L'; // 'L' indicates a left direction (insertion)
+                    tb_mat[i][j] = insertion_score == insertion_open_score ? "L " : "LE"; // 'L' indicates a left direction (insertion)
                 } else {
                     cout << "ERROR: Invalid traceback matrix value" << endl;
                     break;
                 }
-
-
             }
         }
+
+        // Traceback to find the aligned sequences
+        int i = query.length()-1;
+        int j = reference.length()-1;
+        string aligned_query = "";
+        string aligned_reference = "";
+        while (i >= 0 && j >= 0){
+            if (tb_mat[i][j] == "D ") {
+                aligned_query = query[i] + aligned_query;
+                aligned_reference = reference[j] + aligned_reference;
+                i--;
+                j--;
+            } else if (tb_mat[i][j] == "U ") {
+                aligned_query = query[i] + aligned_query;
+                aligned_reference = "_" + aligned_reference;
+                i--;
+            } else if (tb_mat[i][j] == "UE") {
+                aligned_query = query[i] + aligned_query;
+                aligned_reference = "_" + aligned_reference;
+                i--;
+            } else if (tb_mat[i][j] == "L ") {
+                aligned_query = "_" + aligned_query;
+                aligned_reference = reference[j] + aligned_reference;
+                j--;
+            } else if (tb_mat[i][j] == "LE") {
+                aligned_query = "_" + aligned_query;
+                aligned_reference = reference[j] + aligned_reference;
+                j--;
+            } else {
+                cout << "ERROR: Invalid traceback matrix value" << endl;
+                break;
+            }
+        }
+
+        // Finish up the rest of the characters in the query and reference
+        while (i >= 0) {
+            aligned_query = query[i] + aligned_query;
+            aligned_reference = "_" + aligned_reference;
+            i--;
+        }
+        while (j >= 0) {
+            aligned_query = "_" + aligned_query;
+            aligned_reference = reference[j] + aligned_reference;
+            j--;
+        }
+
+        alignments["query"] = aligned_query;
+        alignments["reference"] = aligned_reference;
+        
 
 
 }

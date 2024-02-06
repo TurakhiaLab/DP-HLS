@@ -16,15 +16,27 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O0 -g -fsanitize=address -fno-inline -D
 # run the program to check. 
 
 set(EXECUTABLE_TARGETS
-    # align_local_linear
-    # align_global_linear
-    # align_local_affine
-    # align_global_affine
     tests
     baseline_local_linear
     test_align
-    test_csim
+
+    test_csim_global_linear
+    test_csim_global_affine
 )
+
+add_compile_definitions(PUBLIC CMAKEDEBUG)
+
+set(COMMON_SRCS
+    "testbench/solutions.cpp"
+    "include/PE.h"
+    "include/host_utils.h"
+    "src/seq_align_multiple.cpp"
+    "src/align/align.cpp"
+    "src/pe.cpp"
+    "src/traceback.cpp"
+    "src/utils.cpp"
+    "src/debug.cpp"
+    "src/host_utils.cpp")
 
 # Compile baseline kernel. 
 add_executable(baseline_local_linear "legacy/local_linear.h"
@@ -39,7 +51,7 @@ add_executable(tests "testbench/test_align.cpp"
     "include/align.h"
     "include/utils.h"
     "testbench/testbench.cpp"
-    "src/pe/pe.cpp"
+    "src/pe.cpp"
     "src/align/align.cpp")
 
 # Testbench for individual kernel. 
@@ -51,32 +63,23 @@ add_executable(test_align "testbench/test_align.cpp"
     "include/utils.h"
     "include/pyapi.h"
     "include/frontend.h"
-    "src/toplevel/seq_align_multiple.cpp"
+    "src/seq_align_multiple.cpp"
     "src/align/align.cpp"
-    "src/pe/pe.cpp"
+    "src/pe.cpp"
     "src/traceback.cpp"
     "src/pyapi.cpp"
     "src/utils.cpp"
     "src/frontend.cpp")
 
-add_executable(test_csim "testbench/test_csim.cpp"
-    # "include/params.h"
-    # "include/seq_align_multiple.h"
-    # "include/align.h"
-    "include/PE.h"
-    "include/host_utils.h"
-    # "include/utils.h"
-    # "include/frontend.h"
-    # "include/debug.h"
-    "src/toplevel/seq_align_multiple.cpp"
-    "src/align/align.cpp"
-    "src/pe/pe.cpp"
-    "src/traceback.cpp"
-    "src/utils.cpp"
-    "src/frontend.cpp"
-    "src/debug.cpp"
-    "testbench/solutions.cpp"
-    "src/host_utils.cpp")
+add_executable(test_csim_global_linear 
+    "testbench/test_csim_global_linear.cpp"
+    "src/kernels/kernel_global_linear.cpp"
+    ${COMMON_SRCS})
+
+add_executable(test_csim_global_affine
+    "testbench/test_csim_global_affine.cpp"
+    "src/kernels/kernel_global_affine.cpp"
+    ${COMMON_SRCS})
 
 add_executable(test_csim_dtw "testbench/test_csim_dtw.cpp"
     "include/params.h"
@@ -86,9 +89,9 @@ add_executable(test_csim_dtw "testbench/test_csim_dtw.cpp"
     "include/utils.h"
     "include/frontend.h"
     "include/debug.h"
-    "src/toplevel/seq_align_multiple.cpp"
+    "src/seq_align_multiple.cpp"
     "src/align/align.cpp"
-    "src/pe/pe.cpp"
+    "src/pe.cpp"
     "src/traceback.cpp"
     "src/utils.cpp"
     "src/frontend.cpp"
@@ -101,9 +104,9 @@ add_executable(test_pyapi "testbench/test_align.cpp"
     "include/PE.h"
     "include/utils.h"
     "include/pyapi.h"
-    "src/toplevel/seq_align_multiple.cpp"
+    "src/seq_align_multiple.cpp"
     "src/align/align.cpp"
-    "src/pe/pe.cpp"
+    "src/pe.cpp"
     "src/traceback.cpp"
     "src/pyapi.cpp"
     "include/debug.h")
@@ -113,6 +116,9 @@ add_executable(multidimcast
     "src/pyapi.cpp"
     "testbench/multidimcast_test.cpp"
 )
+
+target_compile_definitions(test_csim_global_linear PRIVATE ALIGN_GLOBAL_LINEAR)
+target_compile_definitions(test_csim_global_affine PRIVATE ALIGN_GLOBAL_AFFINE)
 
 set_property(TARGET test_pyapi PROPERTY CXX_STANDARD 17)
 set_property(TARGET test_align PROPERTY CXX_STANDARD 17)

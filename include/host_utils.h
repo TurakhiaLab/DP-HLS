@@ -17,6 +17,7 @@
 #include <array>
 #include <complex>
 #include <random>
+#include <map>
 
 #include "params.h"
 
@@ -61,7 +62,7 @@ namespace Random {
  * @param query 
  * @param reference 
  */
-map<string, string> ReconstructTraceback(string query, string reference, 
+std::map<string, string> ReconstructTraceback(string query, string reference, 
     int query__start_idx, int reference_start_idx,
     tbr_t (&tb_streams)[MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH]);
 

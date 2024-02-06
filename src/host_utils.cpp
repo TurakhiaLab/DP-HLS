@@ -51,6 +51,8 @@ map<string, string> ReconstructTraceback(string query, string reference,
                 alignment_query = alignment_query.insert(0, 1, query_stack.top());
                 alignment_reference = alignment_reference.insert(0, 1, '_');
                 query_stack.pop();
+            } else if (*curr_ptr == AL_NULL){
+                // Do nothing, AL_NULL Doesn't change the position
             } else {
                 printf("Alignment Output Iteartion End\n");
             }

@@ -1,11 +1,9 @@
 #include <hls_stream.h>
 #include <ap_int.h>
 
-#include "params.h"
 #include "seq_align_multiple.h"
 #include "PE.h"
 #include "align.h"
-#include "initial.h"
 
 #ifdef CMAKEDEBUG
 #include <iostream>
@@ -73,7 +71,8 @@ extern "C"
 				printf("%d ", tb_streams[i][j].to_int());
 			}
 			printf("\n");
-		}
 #endif
+		}
+
 	}
 }

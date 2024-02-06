@@ -32,12 +32,7 @@
 
 using namespace hls;
 
-void align_wp(hls::stream<char_t, MAX_QUERY_LENGTH> &query_stream,
-			  hls::stream<char_t, MAX_REFERENCE_LENGTH> &reference_stream,
-			  hls::stream<hls::vector<type_t, N_LAYERS>, MAX_QUERY_LENGTH> &init_qry_scr,
-			  hls::stream<hls::vector<type_t, N_LAYERS>, MAX_REFERENCE_LENGTH> &init_ref_scr,
-			  // int query_length, int reference_length,
-			  hls::stream<tbp_t, MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH> &traceback_out);
+
 
 namespace Align
 {
@@ -57,12 +52,12 @@ namespace Align
 
 	void DPMemUpdateBlock(
 		hls::stream_of_blocks<dp_mem_block_t> &dp_mem_in,
-		hls::stream_of_blocks<score_block_t> &score_in,
+		hls::stream_of_blocks<wavefront_scores_t> &score_in,
 		hls::stream_of_blocks<dp_mem_block_t> &dp_mem_out);
 
 	void DPMemUpdateArr(
 		dp_mem_block_t &dp_mem_in,
-		score_block_t &score_in);
+		wavefront_scores_t &score_in);
 
 	void InitializeChunkColScore(
 		score_vec_t (&init_col_scr)[PE_NUM],
@@ -82,18 +77,18 @@ namespace Align
 		hls::stream_of_blocks<dp_mem_block_t> &dp_mem_in,
 		score_vec_t (&init_col_scr)[PE_NUM], int id,
 		hls::stream_of_blocks<score_vec_t[2]> &last_chunk_scr,
-		hls::stream_of_blocks<score_block_t> &up_out,
-		hls::stream_of_blocks<score_block_t> &diag_out,
-		hls::stream_of_blocks<score_block_t> &left_out,
+		hls::stream_of_blocks<wavefront_scores_t> &up_out,
+		hls::stream_of_blocks<wavefront_scores_t> &diag_out,
+		hls::stream_of_blocks<wavefront_scores_t> &left_out,
 		hls::stream_of_blocks<dp_mem_block_t> &dp_mem_out);
 
 	void PrepareScoresArr(
 		dp_mem_block_t &dp_mem_in,
 		score_vec_t (&init_col_scr)[PE_NUM], int id,
 		score_vec_t (&last_chunk_scr)[2],
-		score_block_t &up_out,
-		score_block_t &diag_out,
-		score_block_t &left_out);
+		wavefront_scores_t &up_out,
+		wavefront_scores_t &diag_out,
+		wavefront_scores_t &left_out);
 
 	/**
 	 * @brief Compute a chunk of the alignment matrix. Output the chunk traceback pointers.
@@ -109,7 +104,7 @@ namespace Align
 		idx_t chunk_row_offset,
 		input_char_block_t &query,
 		char_t (&reference)[MAX_REFERENCE_LENGTH],
-		score_block_t &init_col_scr,
+		wavefront_scores_t &init_col_scr,
 		hls::vector<type_t, N_LAYERS> (&init_row_scr)[MAX_REFERENCE_LENGTH],
 		int query_length, int reference_length,
 		hls::vector<type_t, N_LAYERS> (&preserved_row_scr)[MAX_REFERENCE_LENGTH],
@@ -172,17 +167,7 @@ namespace Align
 	 */
 	void InitializeRowCoordinates(idx_t (&ic)[PE_NUM]);
 
-	namespace Reordered
-	{
-		void Align(char_t query[MAX_QUERY_LENGTH], char_t reference[MAX_REFERENCE_LENGTH],
-				   int query_length, int reference_length,
-				   tbp_t tbp_matrix[MAX_QUERY_LENGTH][MAX_REFERENCE_LENGTH]);
 
-		void CopyInitialScores(
-			hls::vector<type_t, N_LAYERS> (&init_row_scr)[MAX_REFERENCE_LENGTH],
-			hls::vector<type_t, N_LAYERS> (&init_col_scr)[MAX_QUERY_LENGTH],
-			hls::vector<type_t, N_LAYERS> (&scores)[MAX_QUERY_LENGTH + 1][MAX_REFERENCE_LENGTH + 1]);
-	};
 
 	void ArrangeScores(
 		dp_mem_block_t &tbp_in,
@@ -249,16 +234,6 @@ namespace Align
 		idx_t (&col_lim_left)[PE_NUM], idx_t (&col_lim_right)[PE_NUM], 
 		const idx_t ref_len,
 		bool (&predicate)[PE_NUM]);
-// 	{
-// 		for (int i = 0; i < PE_NUM; i++){
-// #pragma HLS unroll
-// 			predicate[i] = (jcs[i] >= col_lim_left[i]) && 
-// 							(jcs[i] <= col_lim_right[i]
-// 							&& (jcs[i] < ref_len) && jcs[i] >= 0);
-
-// 		}
-// 	}
-	
 
 	/**
 	 * @brief Shift into the local reference a new reference element, given current wavefront index and reference length.
@@ -277,11 +252,6 @@ namespace Align
 		const bool predicate_pe_last,
 		const idx_t idx);
 
-	// Unnecessary
-	void DPMemInit(
-		dp_mem_block_t &dp_mem, 
-		chunk_col_scores_inf_t &init_col_scr, 
-		init_row_score_block_t &init_row_scr);
 
 	template <typename T, int LEN>
 	void CoordinateArrayCopy(T (&src)[LEN], T (&dst)[LEN]){
@@ -350,26 +320,6 @@ namespace Align
 	 */
 	namespace FindMax
 	{
-		// void UpdateMaximium(
-		// 	idx_t chunk_row_offset,
-		// 	idx_t (&pe_offset)[PE_NUM],
-		// 	bool (&predicate)[PE_NUM],
-		// 	ScorePack (&max)[PE_NUM],
-		// 	score_block_t &scores
-		// );
-
-//		/**
-//		 * @brief Update local maximum of each PE after comparing their exist local maximum and new scores. It takes
-//		 * current pe_offsets, chunk_offset, and predicate.
-//		 * FIXME: CUSTOMIZABLE@@@!!!
-//		 * @param new_scr A wavefront of scores computed.
-//		 * @param max Temporary local maximum of each PE.
-//		 * @param pe_offsets Offset of each PE.
-//		 * @param chunk_offset The chunk index number.
-//		 * @param predicate Predicate array.
-//		 */
-//		void UpdatePEMaximum(dp_mem_block_t dp_mem, ScorePack (&max)[PE_NUM], idx_t (&pe_offsets)[PE_NUM], idx_t chunk_offset, bool (&predicate)[PE_NUM]);
-
 		/**
 		 * @brief Extract a layer of a score array.
 		 *
@@ -377,7 +327,7 @@ namespace Align
 		 * @param layer Layer in which the score will be extracted.
 		 * @param extracted Container for extracted scores.
 		 */
-		void ExtractScoresLayer(score_block_t &scores, idx_t layer, type_t (&extracted)[PE_NUM]);
+		void ExtractScoresLayer(wavefront_scores_t &scores, idx_t layer, type_t (&extracted)[PE_NUM]);
 
 		/**
 		 * @brief Extract the maximum score from PE's local maximums
@@ -386,9 +336,6 @@ namespace Align
 		 */
 		void ReductionMaxScores(ScorePack (&max)[PE_NUM], ScorePack &chunk_max);
 
-		void InitializeMaxScores(ScorePack (&max)[PE_NUM]);
-
-		// void Sender ()  // Used to send the scores out the compute logic by blocks to find the max. Implement in the future
 	};
 
 	/**

@@ -1,0 +1,2 @@
+# Legacy Folder
+The soruce codes in this folder doesn't compile with Vitis 2021 compiler. For the purpose of deploying on F1 and keep the current development version clean, we take out the ths parts that was original designed for the Vitis 2023 abd backup here. The code still worth further research when we don't prioritize massive development but more advanced structure. 

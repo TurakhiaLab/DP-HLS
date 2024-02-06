@@ -65,8 +65,8 @@ void Container::compare_scores(
                 if (this->scores_cpp[k][i][j] != scores_sol[k][i][j]){
                     printf("Mismatch at (%d, %d, %d): %f != %f\n", k, i, j, this->scores_cpp[k][i][j], scores_sol[k][i][j]);
                     // print solution and kernel scores
-                    print_matrix<float, MAX_QUERY_LENGTH, MAX_REFERENCE_LENGTH>(scores_sol[k], "Solution Score Matrix");
-                    print_matrix<float, MAX_QUERY_LENGTH, MAX_REFERENCE_LENGTH>(this->scores_cpp[k], "Kernel Score Matrix");
+                    print_matrix<float, MAX_QUERY_LENGTH, MAX_REFERENCE_LENGTH>(scores_sol[k], "Solution Score Matrix, Layer: " + std::to_string(k));
+                    print_matrix<float, MAX_QUERY_LENGTH, MAX_REFERENCE_LENGTH>(this->scores_cpp[k], "Kernel Score Matrix, Layer: " + std::to_string(k));
                     return;
                 }
             }
