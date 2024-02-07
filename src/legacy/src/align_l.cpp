@@ -176,3 +176,22 @@ void Align::DPMemInit(
 	}
 	dp_mem[0][0] = init_row_scr[0];
 }
+
+void Align::ArrangeTBPBlock(hls::stream_of_blocks<tbp_block_t> &tbp_in, bool (&predicate)[PE_NUM], idx_t (&pe_offset)[PE_NUM], hls::stream_of_blocks<tbp_chunk_block_t> &tbp_chunk_out)
+{
+#pragma HLS dataflow
+	read_lock<tbp_block_t> tbp_rd(tbp_in);
+	write_lock<tbp_chunk_block_t> tbp_chunk_wr(tbp_chunk_out);
+
+#pragma HLS array_partition variable = tbp_rd type = complete
+#pragma HLS array_partition variable = tbp_chunk_wr type = cyclic factor = PE_NUM dim = 1
+
+	for (int i = 0; i < PE_NUM; i++)
+	{
+#pragma HLS unroll
+		if (predicate[i])
+		{
+			tbp_chunk_wr[i][pe_offset[i]++] = tbp_rd[i];
+		}
+	}
+}

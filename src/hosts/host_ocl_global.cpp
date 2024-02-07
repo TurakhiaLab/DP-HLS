@@ -51,6 +51,8 @@ int main(int argc, char **argv) {
     std::vector<idx_t, aligned_allocator<idx_t>> query_lengths(N_BLOCKS);
     std::vector<idx_t, aligned_allocator<idx_t>> reference_lengths(N_BLOCKS);
     std::vector<Penalties, aligned_allocator<Penalties>> penalties(N_BLOCKS); // Assuming a single penalties struct
+    std::vector<idx_t, aligned_allocator<idx_t>> traceback_start_is(N_BLOCKS);  // Allocate buffer for the starting row and column of the buffer
+    std::vector<idx_t, aligned_allocator<idx_t>> traceback_start_js(N_BLOCKS);
     std::vector<tbr_t, aligned_allocator<tbr_t>> tb_streams(N_BLOCKS * (MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH));
 
     
@@ -114,8 +116,13 @@ int main(int argc, char **argv) {
                                                        sizeof(idx_t) * reference_lengths.size(), reference_lengths.data(), &err));
     OCL_CHECK(err, cl::Buffer buffer_penalties(context, CL_MEM_USE_HOST_PTR | CL_MEM_READ_ONLY, 
                                                sizeof(Penalties) * penalties.size(), penalties.data(), &err));
+    OCL_CHECK(err, cl::Buffer buffer_traceback_start_is(context, CL_MEM_USE_HOST_PTR | CL_MEM_WRITE_ONLY,  
+                                                   sizeof(idx_t) * traceback_start_is.size(), traceback_start_is.data(), &err));
+    OCL_CHECK(err, cl::Buffer buffer_traceback_start_js(context, CL_MEM_USE_HOST_PTR | CL_MEM_WRITE_ONLY, 
+                                                       sizeof(idx_t) * traceback_start_js.size(), traceback_start_js.data(), &err));
     OCL_CHECK(err, cl::Buffer buffer_tb_streams(context, CL_MEM_USE_HOST_PTR | CL_MEM_WRITE_ONLY, 
                                                 sizeof(tbr_t) * tb_streams.size(), tb_streams.data(), &err));
+                                                
 
     // Set Kernel Arguments
     OCL_CHECK(err, err = krnl_seq_align.setArg(0, buffer_querys));
@@ -123,7 +130,9 @@ int main(int argc, char **argv) {
     OCL_CHECK(err, err = krnl_seq_align.setArg(2, buffer_query_lengths));
     OCL_CHECK(err, err = krnl_seq_align.setArg(3, buffer_reference_lengths));
     OCL_CHECK(err, err = krnl_seq_align.setArg(4, buffer_penalties));
-    OCL_CHECK(err, err = krnl_seq_align.setArg(5, buffer_tb_streams));
+    OCL_CHECK(err, err = krnl_seq_align.setArg(5, buffer_traceback_start_is));
+    OCL_CHECK(err, err = krnl_seq_align.setArg(6, buffer_traceback_start_js));
+    OCL_CHECK(err, err = krnl_seq_align.setArg(7, buffer_tb_streams));
 
     // Copy input data to device global memory
     auto start = std::chrono::high_resolution_clock::now();
@@ -134,14 +143,14 @@ int main(int argc, char **argv) {
     OCL_CHECK(err, err = q.enqueueTask(krnl_seq_align));
 
     // Copy Result from Device Global Memory to Host Local Memory
-    OCL_CHECK(err, err = q.enqueueMigrateMemObjects({buffer_tb_streams}, CL_MIGRATE_MEM_OBJECT_HOST));
+    OCL_CHECK(err, err = q.enqueueMigrateMemObjects({buffer_traceback_start_is, buffer_traceback_start_js, buffer_tb_streams}, CL_MIGRATE_MEM_OBJECT_HOST));
     q.finish();
     auto end = std::chrono::high_resolution_clock::now();
     
 
     // OPENCL HOST CODE AREA END
 
-    // Process results
+    // Print raw traceback pointer streams
     for (int i = 0; i < N_BLOCKS; i++) {
         std::cout << "Query: " << querys_strings.substr(i * MAX_QUERY_LENGTH, MAX_QUERY_LENGTH) << std::endl;
         std::cout << "Reference: " << references_strings.substr(i * MAX_REFERENCE_LENGTH, MAX_REFERENCE_LENGTH) << std::endl;
@@ -170,10 +179,10 @@ int main(int argc, char **argv) {
     int tb_qry_lengths[N_BLOCKS];
     int tb_ref_lengths[N_BLOCKS];
     for (int i = 0; i < N_BLOCKS; i++){
-        tb_qry_lengths[i] = MAX_QUERY_LENGTH-1;
-        tb_ref_lengths[i] = MAX_REFERENCE_LENGTH-1;
+        tb_qry_lengths[i] = traceback_start_is[i];
+        tb_ref_lengths[i] = traceback_start_js[i];
     }
-
+    std::cout << "Reconstructing Traceback" << std::endl;
     array<map<string, string>, N_BLOCKS> kernel_alignments;
     kernel_alignments = ReconstructTracebackBlocks(
         query_strings_primitive,
@@ -187,7 +196,7 @@ int main(int argc, char **argv) {
         std::cout << "Query    : " << query_strings_primitive[i] << std::endl;
         std::cout << "Reference: " << reference_strings_primitive[i] << std::endl;
         std::cout << "Kernel Aligned Query    : " << kernel_alignments[i]["query"] << std::endl;
-        std::cout << "Kernel Aligned Reference: " << kernel_alignments[i]["reference"] << std::endl;
+        std::cout << "Kernel Aligned Reference: " << kernel_alignments[i]["reference"] << std::endl << std::endl;
     }
 
     // Print time

@@ -43,24 +43,7 @@ void Align::WriteInitialColScore(int i, score_vec_t (&init_scores)[PE_NUM], hls:
 	}
 }
 
-void Align::ArrangeTBPBlock(hls::stream_of_blocks<tbp_block_t> &tbp_in, bool (&predicate)[PE_NUM], idx_t (&pe_offset)[PE_NUM], hls::stream_of_blocks<tbp_chunk_block_t> &tbp_chunk_out)
-{
-#pragma HLS dataflow
-	read_lock<tbp_block_t> tbp_rd(tbp_in);
-	write_lock<tbp_chunk_block_t> tbp_chunk_wr(tbp_chunk_out);
 
-#pragma HLS array_partition variable = tbp_rd type = complete
-#pragma HLS array_partition variable = tbp_chunk_wr type = cyclic factor = PE_NUM dim = 1
-
-	for (int i = 0; i < PE_NUM; i++)
-	{
-#pragma HLS unroll
-		if (predicate[i])
-		{
-			tbp_chunk_wr[i][pe_offset[i]++] = tbp_rd[i];
-		}
-	}
-}
 
 void Align::ShiftPredicate(bool (&predicate)[PE_NUM], int idx, int query_len, int reference_len)
 {
@@ -193,7 +176,7 @@ void Align::ChunkCompute(
 	Utils::Init::ArrSet<bool, PE_NUM>(predicate, false);
 
 	char_t local_reference[PE_NUM]; // local reference
-	tbp_block_t tbp_out;
+	tbp_vec_t tbp_out;
 	dp_mem_block_t dp_mem;
 	score_vec_t score_buff[PE_NUM + 1];
 
@@ -335,7 +318,7 @@ void Align::ArrangeSingleTBP(
 
 
 void Align::ArrangeTBP(
-	const tbp_block_t &tbp_in,
+	const tbp_vec_t &tbp_in,
 	const idx_t (&p_cols)[PE_NUM],
 	const bool (&predicate)[PE_NUM],
 	tbp_t (&chunk_tbp_out)[PE_NUM][MAX_QUERY_LENGTH / PE_NUM * MAX_REFERENCE_LENGTH])

@@ -31,7 +31,7 @@ namespace PE {
         const input_char_block_t qry,
         const input_char_block_t ref, 
         const Penalties penalties, 
-        tbp_block_t &tbp);
+        tbp_vec_t &tbp);
 
     /**
      * @brief Unrolls the array of PE, saparating the score input buffer and the score 

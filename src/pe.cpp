@@ -15,7 +15,7 @@ void PE::PEUnroll(
     const input_char_block_t qry, 
     const input_char_block_t ref, 
     const Penalties penalties, 
-    tbp_block_t &tbp)
+    tbp_vec_t &tbp)
 {
 #pragma HLS array_partition variable = dp_mem dim = 0 type = complete
 #pragma HLS array_partition variable = tbp type = complete
