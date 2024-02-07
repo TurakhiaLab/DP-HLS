@@ -22,6 +22,7 @@ set(EXECUTABLE_TARGETS
 
     test_csim_global_linear
     test_csim_global_affine
+    test_csim_local_affine 
 )
 
 add_compile_definitions(PUBLIC CMAKEDEBUG)
@@ -81,6 +82,12 @@ add_executable(test_csim_global_affine
     "src/kernels/kernel_global_affine.cpp"
     ${COMMON_SRCS})
 
+add_executable(test_csim_local_affine
+    "testbench/test_csim_local_affine.cpp"
+    "src/kernels/kernel_local_affine.cpp"
+    ${COMMON_SRCS})
+
+
 add_executable(test_csim_dtw "testbench/test_csim_dtw.cpp"
     "include/params.h"
     "include/seq_align_multiple.h"
@@ -119,6 +126,7 @@ add_executable(multidimcast
 
 target_compile_definitions(test_csim_global_linear PRIVATE ALIGN_GLOBAL_LINEAR)
 target_compile_definitions(test_csim_global_affine PRIVATE ALIGN_GLOBAL_AFFINE)
+target_compile_definitions(test_csim_local_affine PRIVATE ALIGN_LOCAL_AFFINE)
 
 set_property(TARGET test_pyapi PROPERTY CXX_STANDARD 17)
 set_property(TARGET test_align PROPERTY CXX_STANDARD 17)

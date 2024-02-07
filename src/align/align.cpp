@@ -279,7 +279,7 @@ void Align::ChunkCompute(
 			predicate[PE_NUM-1],
 			v_cols[PE_NUM-1]);
 
-		ALIGN_TYPE::UpdatePEMaximum(dp_mem, max, v_rows, v_cols, p_cols, ck_idx,
+		ALIGN_TYPE::UpdatePEMaximum(score_buff, max, v_rows, v_cols, p_cols, ck_idx,
 		predicate, global_query_length, reference_length);
 		Align::CoodrinateArrayOffset<PE_NUM, 1>(v_cols);
 		Align::CoodrinateArrayOffset<PE_NUM, 1>(p_cols);
@@ -434,6 +434,7 @@ void Align::AlignStatic(
 	idx_t query_length,
 	idx_t reference_length,
 	const Penalties &penalties,
+	idx_t &tb_i, idx_t &tb_j, 
 	tbr_t (&tb_out)[MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH]
 #ifdef CMAKEDEBUG
 	, Container &debugger
@@ -528,6 +529,8 @@ void Align::AlignStatic(
 	Align::FindMax::ReductionMaxScores(local_max, maximum);
 
 	// >>> Traceback >>>
+	tb_i = maximum.row;
+	tb_j = maximum.col;
 	Traceback::TracebackOptimized(tbp_matrix, tb_out, ck_start_col, ck_end_col, maximum.ck, maximum.pe, maximum.p_col);
 }
 

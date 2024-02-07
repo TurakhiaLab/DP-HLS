@@ -27,6 +27,11 @@ void global_affine_solution(std::string query, std::string reference, Penalties_
     array<array<string, MAX_REFERENCE_LENGTH>, MAX_QUERY_LENGTH> &tb_mat,
     map<string, string> &alignments);
 
+void local_affine_solution(std::string query, std::string reference, Penalties_sol &penalties, 
+    array<array<array<float, MAX_REFERENCE_LENGTH>, MAX_QUERY_LENGTH>, N_LAYERS> &score_mat, 
+    array<array<string, MAX_REFERENCE_LENGTH>, MAX_QUERY_LENGTH> &tb_mat,
+    map<string, string> &alignments);
+
 
 template<typename T, int M, int N>
 void print_matrix(array<array<T, N>, M> &mat, string name) {

@@ -30,7 +30,7 @@ namespace ALIGN_TYPE
         Penalties penalties);
 
     void UpdatePEMaximum(
-        dp_mem_block_t dp_mem,
+        wavefront_scores_inf_t scores,
         ScorePack (&max)[PE_NUM],
         idx_t (&ics)[PE_NUM], idx_t (&jcs)[PE_NUM],
         idx_t (&p_col)[PE_NUM], idx_t ck_idx,

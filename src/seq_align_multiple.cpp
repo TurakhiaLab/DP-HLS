@@ -26,6 +26,7 @@ extern "C"
 		idx_t (&query_lengths)[N_BLOCKS],
 		idx_t (&reference_lengths)[N_BLOCKS],
 		Penalties (&penalties)[N_BLOCKS],
+		idx_t (&tb_is)[N_BLOCKS], idx_t (&tb_js)[N_BLOCKS], 
 #ifdef CMAKEDEBUG
 		tbr_t (&tb_streams)[N_BLOCKS][MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH],
 		Container (&debugger)[N_BLOCKS])
@@ -56,6 +57,7 @@ extern "C"
 				query_lengths[i],
 				reference_lengths[i],
 				penalties[i],
+				tb_is[i], tb_js[i],
 				tb_streams[i]
 #ifdef CMAKEDEBUG
 				,

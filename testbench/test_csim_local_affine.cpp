@@ -2,13 +2,11 @@
 #include <vector>
 #include <array>
 #include <map>
-#include <chrono>
 #include "params.h"
 #include "seq_align_multiple.h"
 #include "host_utils.h"
 #include "solutions.h"
 #include "debug.h"
-
 
 using namespace std;
 
@@ -112,11 +110,8 @@ int main(){
     }
 
     // Allocate traceback streams
+    idx_t tb_is[N_BLOCKS], tb_js[N_BLOCKS];
     tbr_t tb_streams[N_BLOCKS][MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH];
-
-    // initialize traceback starting coordinates
-    idx_t tb_is[N_BLOCKS];
-    idx_t tb_js[N_BLOCKS];
 
     // Actual kernel calling
     seq_align_multiple_static(
@@ -141,15 +136,11 @@ int main(){
     array<array<array<float, MAX_REFERENCE_LENGTH>, MAX_QUERY_LENGTH>, N_LAYERS> sol_score_mat;
     array<array<string, MAX_REFERENCE_LENGTH>, MAX_QUERY_LENGTH> sol_tb_mat;
     map<string, string> alignments;
-    auto sol_start = std::chrono::high_resolution_clock::now();
-    global_affine_solution(query_string, reference_string, penalties_sol[0], sol_score_mat, sol_tb_mat, alignments);
-    auto sol_end = std::chrono::high_resolution_clock::now();
+    local_affine_solution(query_string, reference_string, penalties_sol[0], sol_score_mat, sol_tb_mat, alignments);
     // print_matrix<float, MAX_QUERY_LENGTH, MAX_REFERENCE_LENGTH>(sol_score_mat[0], "Solution Score Matrix Layer 0");
     // print_matrix<char, MAX_QUERY_LENGTH, MAX_REFERENCE_LENGTH>(sol_tb_mat, "Solution Traceback Matrix");
     cout << "Solution Aligned Query    : " << alignments["query"] << endl;
     cout << "Solution Aligned Reference: " << alignments["reference"] << endl;
-    // Display solution runtime
-    std::cout << "Solution Runtime: " << std::chrono::duration_cast<std::chrono::milliseconds>(sol_end - sol_start).count() << "ms" << std::endl;
 
     // Cast kernel scores to matrix scores
     debuggers[0].cast_scores();
@@ -164,14 +155,14 @@ int main(){
     string reference_string_blocks[N_BLOCKS];
     // for global alignments, adjust the lengths to be the lengths - 1
     for (int i = 0; i < N_BLOCKS; i++) {
-        tb_query_lengths[i] = tb_is[i];
-        tb_reference_lengths[i] = tb_js[i];
+        tb_query_lengths[i] = qry_lengths[i] - 1;
+        tb_reference_lengths[i] = ref_lengths[i] - 1;
         query_string_blocks[i] = query_string;
         reference_string_blocks[i] = reference_string;
     }
     kernel_alignments = ReconstructTracebackBlocks<N_BLOCKS>(
         query_string_blocks, reference_string_blocks,
-        tb_query_lengths, tb_reference_lengths, 
+        tb_is, tb_js, 
         tb_streams);
 
     // Print kernel 0 traceback

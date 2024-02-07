@@ -23,16 +23,12 @@
 #include "utils.h"
 #include "frontend.h"
 
-
 #ifdef CMAKEDEBUG
 #include "./debug.h"
-//#include "./pyapi.h"
+// #include "./pyapi.h"
 #endif // DBEUG
 
-
 using namespace hls;
-
-
 
 namespace Align
 {
@@ -130,49 +126,48 @@ namespace Align
 		hls::vector<type_t, N_LAYERS> (&init_row_scr)[MAX_REFERENCE_LENGTH],
 		// hls::vector<idx_t, PE_NUM> &ics, hls::vector<idx_t, PE_NUM> &jcs,
 		idx_t (&ics)[PE_NUM], idx_t (&jcs)[PE_NUM],
-		idx_t (&p_cols)[PE_NUM], idx_t ck_idx, 
+		idx_t (&p_cols)[PE_NUM], idx_t ck_idx,
 		int global_query_length, int query_length, int reference_length,
-		const Penalties &penalties, 
+		const Penalties &penalties,
 		hls::vector<type_t, N_LAYERS> (&preserved_row_scr)[MAX_REFERENCE_LENGTH],
 		ScorePack (&max)[PE_NUM], // write out so must pass by reference
 		tbp_t (&chunk_tbp_out)[PE_NUM][MAX_QUERY_LENGTH / PE_NUM * MAX_REFERENCE_LENGTH]
 #ifdef CMAKEDEBUG
-		, Container &debugger
+		,
+		Container &debugger
 #endif
-        );
+	);
 
 	/**
-	 * @brief Initialize two lists of coordinates, x coordinate and y coordinate, for each chunk. 
-	 * 		Theis function is called within the chunk compute function. 
+	 * @brief Initialize two lists of coordinates, x coordinate and y coordinate, for each chunk.
+	 * 		Theis function is called within the chunk compute function.
 	 * 		This is especially useful if the chunk doesn't start at the beginning, i.e. after chunk
-	 * 		column offset is developed. 
+	 * 		column offset is developed.
 	 * @param chunk_row_offset Initial Row of a Chunk
-	 * @param chunk_col_offset Initial Column of a Chunk. 
-	 * @param ic Actual Global Coordinates for i. 
-	 * @param jc Actual Global Coordinates for j. 
+	 * @param chunk_col_offset Initial Column of a Chunk.
+	 * @param ic Actual Global Coordinates for i.
+	 * @param jc Actual Global Coordinates for j.
 	 */
 	void InitializeChunkCoordinates(idx_t chunk_row_offset, idx_t chunk_col_offset, hls::vector<idx_t, PE_NUM> &ic, hls::vector<idx_t, PE_NUM> &jc);
 
 	/**
 	 * @brief This function is used to setup the standard column initial coordinates
-	 * 
-	 * @param jc 
+	 *
+	 * @param jc
 	 */
 	void InitializeColumnCoordinates(idx_t (&jc)[PE_NUM]);
-	
+
 	/**
 	 * @brief This function is used to initialize the initial row coordinates
-	 * 
-	 * @param ic 
+	 *
+	 * @param ic
 	 */
 	void InitializeRowCoordinates(idx_t (&ic)[PE_NUM]);
-
-
 
 	void ArrangeScores(
 		dp_mem_block_t &tbp_in,
 		bool (&predicate)[PE_NUM], idx_t (&pe_offset)[PE_NUM],
-		hls::vector<type_t, N_LAYERS>  (*chunk_score_out)[MAX_REFERENCE_LENGTH]);
+		hls::vector<type_t, N_LAYERS> (*chunk_score_out)[MAX_REFERENCE_LENGTH]);
 
 	void WriteInitialColScore(int i, score_vec_t (&init_scores)[PE_NUM],
 							  hls::stream_of_blocks<dp_mem_block_t> &dp_mem_in,
@@ -208,13 +203,13 @@ namespace Align
 	void ShiftPredicate(bool (&predicate)[PE_NUM], int idx, int query_len, int reference_len);
 
 	/**
-	 * @brief Logics to map the global coordinates of a wavefront of PE to their prediate values. 
+	 * @brief Logics to map the global coordinates of a wavefront of PE to their prediate values.
 	 * MapPredicateSquare is a function F: (pe_row: int, pe_col: int) -> (predicate_balue: boolean)
-	 * It's unrolled for PE_NUM applying to each PE. 
+	 * It's unrolled for PE_NUM applying to each PE.
 	 * @param ics Global Row Coordinates of a Wavefront of PE.
 	 * @param jcs Global Column Coordinates of a Wavefront of PE.
-	 * @param ref_len Actual Reference Length. 
-	 * @param predicate Predicate Array. 
+	 * @param ref_len Actual Reference Length.
+	 * @param predicate Predicate Array.
 	 */
 	void MapPredicateSquare(
 		// hls::vector<idx_t, PE_NUM> &ics,
@@ -225,13 +220,13 @@ namespace Align
 
 	/**
 	 * @brief Predicate mapping function for banded alignment.
-	 * FIXME: Add necessary parameter to determine whether a PE with 
+	 * FIXME: Add necessary parameter to determine whether a PE with
 	 * index i and j is computing in the band.
-	 * @param ref_len 
+	 * @param ref_len
 	 */
 	void MapPredicateBanded(
 		idx_t (&ics)[PE_NUM], idx_t (&jcs)[PE_NUM],
-		idx_t (&col_lim_left)[PE_NUM], idx_t (&col_lim_right)[PE_NUM], 
+		idx_t (&col_lim_left)[PE_NUM], idx_t (&col_lim_right)[PE_NUM],
 		const idx_t ref_len,
 		bool (&predicate)[PE_NUM]);
 
@@ -252,27 +247,29 @@ namespace Align
 		const bool predicate_pe_last,
 		const idx_t idx);
 
-
 	template <typename T, int LEN>
-	void CoordinateArrayCopy(T (&src)[LEN], T (&dst)[LEN]){
-		for (int i = 0; i < LEN; i++){
+	void CoordinateArrayCopy(T (&src)[LEN], T (&dst)[LEN])
+	{
+		for (int i = 0; i < LEN; i++)
+		{
 #pragma HLS unroll
 			dst[i] = src[i];
 		}
 	}
 
 	template <int LEN>
-	void CoordinateInitializeUniformReverse(idx_t (&jcs)[LEN], idx_t starting){
+	void CoordinateInitializeUniformReverse(idx_t (&jcs)[LEN], idx_t starting)
+	{
 		for (size_t i = 0; i < LEN; i++)
 		{
 #pragma HLS unroll
 			jcs[i] = starting - i;
 		}
-		
 	}
 
 	template <int LEN>
-	void CoordinateInitializeUniform(idx_t (&jcs)[LEN], idx_t starting){
+	void CoordinateInitializeUniform(idx_t (&jcs)[LEN], idx_t starting)
+	{
 		for (size_t i = 0; i < LEN; i++)
 		{
 #pragma HLS unroll
@@ -281,7 +278,8 @@ namespace Align
 	}
 
 	template <int LEN>
-	void CoordinateInitializeEquals(idx_t (&ics)[LEN], idx_t index){
+	void CoordinateInitializeEquals(idx_t (&ics)[LEN], idx_t index)
+	{
 		for (size_t i = 0; i < LEN; i++)
 		{
 #pragma HLS unroll
@@ -290,8 +288,10 @@ namespace Align
 	}
 
 	template <int LEN, int NUM>
-	void CoodrinateArrayOffset(idx_t (&arr)[LEN]){
-		for (int i = 0; i < LEN; i++){
+	void CoodrinateArrayOffset(idx_t (&arr)[LEN])
+	{
+		for (int i = 0; i < LEN; i++)
+		{
 #pragma HLS unroll
 			arr[i] += NUM;
 		}
@@ -303,16 +303,15 @@ namespace Align
 
 	/**
 	 * @brief Prepare dp_mem at the beginning of a cycle of chunk compute.
-	 * 
-	 * @param dp_mem 
-	 * @param i 
-	 * @param init_col_scr 
-	 * @param init_row_scr 
+	 *
+	 * @param dp_mem
+	 * @param i
+	 * @param init_col_scr
+	 * @param init_row_scr
 	 */
-	void UpdateDPMem(dp_mem_block_t &dp_mem, idx_t i, chunk_col_scores_inf_t &init_col_scr, score_vec_t (&init_row_scr)[MAX_REFERENCE_LENGTH] );
+	void UpdateDPMem(dp_mem_block_t &dp_mem, idx_t i, chunk_col_scores_inf_t &init_col_scr, score_vec_t (&init_row_scr)[MAX_REFERENCE_LENGTH]);
 	void UpdateDPMemShift(dp_mem_block_t &dp_mem);
 	void UpdateDPMemSet(dp_mem_block_t &dp_mem, idx_t i, chunk_col_scores_inf_t &init_col_scr, score_vec_t (&init_row_scr)[MAX_REFERENCE_LENGTH]);
-
 
 	/**
 	 * Namespace related to functions used to find the maximum elements in
@@ -353,9 +352,11 @@ namespace Align
 		idx_t query_length,
 		idx_t reference_length,
 		const Penalties &penalties,
-	tbr_t (&tb_out)[MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH]
+		idx_t &tb_i, idx_t &tb_j,
+		tbr_t (&tb_out)[MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH]
 #ifdef CMAKEDEBUG
-	, Container &debugger
+		,
+		Container &debugger
 #endif
 	);
 
@@ -378,13 +379,13 @@ namespace Align
 	void CopyColScore(chunk_col_scores_inf_t &init_col_scr_local, score_vec_t (&init_col_scr)[MAX_QUERY_LENGTH], idx_t i);
 
 	void UpdateDPMemSep(
-		score_vec_t (&dp_mem)[PE_NUM+1][2],
+		score_vec_t (&dp_mem)[PE_NUM + 1][2],
 		score_vec_t (&score_in)[PE_NUM + 1]);
 
 	void PrepareScoreBuffer(
 		score_vec_t (&score_buff)[PE_NUM + 1],
-		int i, 
-		chunk_col_scores_inf_t (&init_col_scr),
+		int i,
+		chunk_col_scores_inf_t(&init_col_scr),
 		score_vec_t (&init_row_scr)[MAX_REFERENCE_LENGTH]);
 
 }

@@ -12,8 +12,11 @@ map<string, string> ReconstructTraceback(string query, string reference,
     int query_start_idx, int reference_start_idx,
     tbr_t (&tb_stream)[MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH]){
 
-        string alignment_query = query.substr(query_start_idx + 1, query.length());
-        string alignment_reference = reference.substr(reference_start_idx + 1, reference.length());
+        // If we also want to match the portion for the alignment exceeds the start index, use this
+        // string alignment_query = query.substr(query_start_idx + 1, query.length());
+        // string alignment_reference = reference.substr(reference_start_idx + 1, reference.length());
+        string alignment_query = "";
+        string alignment_reference = "";
 
         stack<char> query_stack;
         stack<char> reference_stack;

@@ -8,7 +8,6 @@
 #include <array>
 
 // // #define TWO_PIECE_AFFINE // ALIGN_LOCAL_AFFINE, ALIGN_GLOBAL_LINEAR, TWO_PIECE_AFFINE
-#define ALIGN_GLOBAL_AFFINE
 // #define CMAKEDEBUG
 
 // >>> LOCAL_LINEAR params >>>
@@ -130,42 +129,24 @@ struct ArrayPack {
 #ifdef ALIGN_LOCAL_AFFINE
 #define numofreads 1
 
-#define MAX_QUERY_LENGTH 256
-#define MAX_REFERENCE_LENGTH 256
+#define MAX_QUERY_LENGTH 16
+#define MAX_REFERENCE_LENGTH 16
 
 #define ALIGN_TYPE LocalAffine
 #define N_BLOCKS 1
 #define N_LAYERS 3
-#define PE_NUM 32
+const int PE_NUM = 8;
 #define LAYER_MAXIMIUM 1  // We need to indicate from which layer (main matrix) is the maximum score stored.
-
-#define FIXED_BANDWIDTH 8
 
 // Primitive Types
 typedef ap_uint<2> char_t;  // Sequence Alphabet
 typedef ap_fixed<16, 11> type_t;  // Scores Type <width, integer_width>
 typedef int idx_t;  // Indexing Type, could be much less than 32. ap_uint<8>
 typedef ap_uint<4> tbp_t;  // Traceback Pointer Type
-typedef ap_uint<2> tbr_t;  // Traecback Result Type
-
-// Define Traceback Pointer Navigation Direction
-#define TB_PH (tbp_t) 0b0000
-#define TB_LEFT (tbp_t) 0b0001
-#define TB_DIAG (tbp_t) 0b0010
-#define TB_UP (tbp_t) 0b0011
-
-// Define Traceback Pointer Navigation Matrix
-#define TB_IMAT (tbp_t) 0b0100  // Insertion Matrix
-#define TB_DMAT (tbp_t) 0b1000  // Deletion Matrix
 
 // Define Zero Value
 #define zero_fp ((type_t)0)
-
-// Define Traceback Result Representation
-#define AL_MMI (tbr_t) 0b10  // Align Match/Mismatch
-#define AL_INS (tbr_t) 0b01  // Align Insertion
-#define AL_DEL (tbr_t) 0b11  // Align Deletion
-#define AL_END (tbr_t) 0b00  // stopping condition
+#define ZERO_CHAR (char_t(0))
 
 // Defien upper and lower bound for score type, aka type_t
 #define INF 256
@@ -175,23 +156,24 @@ typedef ap_uint<2> tbr_t;  // Traecback Result Type
 #define DEBUG_OUTPUT_PATH "/home/yic033@AD.UCSD.EDU/DP-HLS-Debug/local_affine/"
 #define DEBUG_FILENAME "debug_kernel"
 
-// Custom Types Vital for Kernel Functioning
-typedef hls::vector<type_t, N_LAYERS> init_col_score_block_t[MAX_QUERY_LENGTH];
-typedef hls::vector<type_t, N_LAYERS> init_row_score_block_t[MAX_REFERENCE_LENGTH];
-typedef tbp_t traceback_block_t[MAX_QUERY_LENGTH + MAX_REFERENCE_LENGTH];
-typedef hls::vector<type_t, N_LAYERS> score_block_t[PE_NUM];  // TODO: Change name chunk scores
-typedef hls::vector<type_t, N_LAYERS> chunk_col_scores_inf_t[PE_NUM+1];  // chunk column scores inflated
-typedef tbp_t tbp_block_t[PE_NUM];
-typedef char_t input_char_block_t[PE_NUM];
-typedef hls::vector<type_t, N_LAYERS> dp_mem_block_t[PE_NUM+1][3];
-typedef tbp_t tbp_chunk_block_t[PE_NUM][MAX_REFERENCE_LENGTH];
-typedef hls::vector<type_t, N_LAYERS> score_vec_t;
 
 struct ScorePack{  
-    type_t score  = 0;
-    idx_t chunk_offset = 0;
-    idx_t pe = 0;
-    idx_t pe_offset = 0;
+    type_t score;
+    idx_t row;
+    idx_t col;
+    idx_t p_col;
+    idx_t ck;
+    idx_t pe;
+
+	// Default Constructor
+    ScorePack() {
+        score = 0;
+        row = 0;
+        col = 0;
+        p_col = 0;
+        ck = 0;
+        pe = 0;
+    }
 };
 
 struct Penalties {
@@ -214,13 +196,13 @@ enum TB_STATE {
 #ifdef ALIGN_GLOBAL_LINEAR
 #define numofreads 1
 
-#define MAX_QUERY_LENGTH 64
-#define MAX_REFERENCE_LENGTH 64
+#define MAX_QUERY_LENGTH 256
+#define MAX_REFERENCE_LENGTH 256
 
 #define ALIGN_TYPE GlobalLinear
 #define N_BLOCKS 1
 #define N_LAYERS 1
-#define PE_NUM 4
+const int PE_NUM = 32;
 #define LAYER_MAXIMIUM 0  // We need to indicate from which layer (main matrix) is the maximum score stored.
 
 // Primitive Types
@@ -231,7 +213,6 @@ typedef ap_uint<2> tbp_t;  // Traceback Pointer Type
 
 // Define Zero Value
 #define zero_fp ((type_t)0)
-
 #define ZERO_CHAR (char_t(0))
 
 // Defien upper and lower bound for score type, aka type_t
@@ -282,13 +263,13 @@ enum TB_STATE {
 
 #define numofreads 1
 
-#define MAX_QUERY_LENGTH 16
-#define MAX_REFERENCE_LENGTH 16
+#define MAX_QUERY_LENGTH 256
+#define MAX_REFERENCE_LENGTH 256
 
 #define ALIGN_TYPE GlobalAffine
 #define N_BLOCKS 1
 #define N_LAYERS 3
-const int PE_NUM = 8;
+const int PE_NUM = 32;
 #define LAYER_MAXIMIUM 1  // We need to indicate from which layer (main matrix) is the maximum score stored.
 
 // Primitive Types

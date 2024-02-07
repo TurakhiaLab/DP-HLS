@@ -8,7 +8,8 @@
 #include <ap_fixed.h>
 #include "../../include/host_utils.h"
 #include "params.h"
-
+#include <map>
+#include <chrono>
 
 int base_to_num(char base){
     switch (base)
@@ -125,6 +126,7 @@ int main(int argc, char **argv) {
     OCL_CHECK(err, err = krnl_seq_align.setArg(5, buffer_tb_streams));
 
     // Copy input data to device global memory
+    auto start = std::chrono::high_resolution_clock::now();
     OCL_CHECK(err, err = q.enqueueMigrateMemObjects({buffer_querys, buffer_references, buffer_query_lengths, 
                                                      buffer_reference_lengths, buffer_penalties}, 0 /* 0 means from host*/));
 
@@ -134,6 +136,9 @@ int main(int argc, char **argv) {
     // Copy Result from Device Global Memory to Host Local Memory
     OCL_CHECK(err, err = q.enqueueMigrateMemObjects({buffer_tb_streams}, CL_MIGRATE_MEM_OBJECT_HOST));
     q.finish();
+    auto end = std::chrono::high_resolution_clock::now();
+    
+
     // OPENCL HOST CODE AREA END
 
     // Process results
@@ -146,6 +151,47 @@ int main(int argc, char **argv) {
         }
         std::cout << std::endl;
     }
+
+    // set up the array to store the traceback lengthes
+    string query_strings_primitive[N_BLOCKS];
+    string reference_strings_primitive[N_BLOCKS];
+    for (int i = 0; i < N_BLOCKS; i++){
+        query_strings_primitive[i] = querys_strings.substr(i * MAX_QUERY_LENGTH, MAX_QUERY_LENGTH);
+        reference_strings_primitive[i] = references_strings.substr(i * MAX_REFERENCE_LENGTH, MAX_REFERENCE_LENGTH);
+    }
+
+    tbr_t tb_streams_primitive[N_BLOCKS][MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH];
+    for (int i = 0; i < N_BLOCKS; i++){
+        for (int j = 0; j < MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH; j++){
+            tb_streams_primitive[i][j] = tb_streams[i * (MAX_QUERY_LENGTH + MAX_REFERENCE_LENGTH) + j];
+        }
+    }
+    
+    int tb_qry_lengths[N_BLOCKS];
+    int tb_ref_lengths[N_BLOCKS];
+    for (int i = 0; i < N_BLOCKS; i++){
+        tb_qry_lengths[i] = MAX_QUERY_LENGTH-1;
+        tb_ref_lengths[i] = MAX_REFERENCE_LENGTH-1;
+    }
+
+    array<map<string, string>, N_BLOCKS> kernel_alignments;
+    kernel_alignments = ReconstructTracebackBlocks(
+        query_strings_primitive,
+        reference_strings_primitive,
+        tb_qry_lengths, tb_ref_lengths, 
+        tb_streams_primitive);
+
+    // Print Actual Alignments
+    for (int i = 0; i < N_BLOCKS; i++){
+        std::cout << "Block " << i << " Results" << std::endl;
+        std::cout << "Query    : " << query_strings_primitive[i] << std::endl;
+        std::cout << "Reference: " << reference_strings_primitive[i] << std::endl;
+        std::cout << "Kernel Aligned Query    : " << kernel_alignments[i]["query"] << std::endl;
+        std::cout << "Kernel Aligned Reference: " << kernel_alignments[i]["reference"] << std::endl;
+    }
+
+    // Print time
+    std::cout << "Kernel execution time: " << std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count() << "ms" << std::endl;
 
     std::cout << "Kernel execution complete." << std::endl;
     return EXIT_SUCCESS;
