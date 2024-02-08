@@ -141,6 +141,7 @@ int main(int argc, char **argv) {
 
     // Launch the Kernel
     OCL_CHECK(err, err = q.enqueueTask(krnl_seq_align));
+    
 
     // Copy Result from Device Global Memory to Host Local Memory
     OCL_CHECK(err, err = q.enqueueMigrateMemObjects({buffer_traceback_start_is, buffer_traceback_start_js, buffer_tb_streams}, CL_MIGRATE_MEM_OBJECT_HOST));

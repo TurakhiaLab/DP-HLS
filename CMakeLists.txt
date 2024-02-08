@@ -57,13 +57,6 @@ add_executable(tests "testbench/test_align.cpp"
 
 # Testbench for individual kernel. 
 add_executable(test_align "testbench/test_align.cpp"
-    "include/params.h"
-    "include/seq_align_multiple.h"
-    "include/align.h"
-    "include/PE.h"
-    "include/utils.h"
-    "include/pyapi.h"
-    "include/frontend.h"
     "src/seq_align_multiple.cpp"
     "src/align/align.cpp"
     "src/pe.cpp"
@@ -74,22 +67,21 @@ add_executable(test_align "testbench/test_align.cpp"
 
 add_executable(test_csim_global_linear 
     "testbench/test_csim_global_linear.cpp"
-    "src/kernels/kernel_global_linear.cpp"
+    "kernels/kernel_global_linear.cpp"
     ${COMMON_SRCS})
 
 add_executable(test_csim_global_affine
     "testbench/test_csim_global_affine.cpp"
-    "src/kernels/kernel_global_affine.cpp"
+    "kernels/global_affine/kernel_global_affine.cpp"
     ${COMMON_SRCS})
 
 add_executable(test_csim_local_affine
     "testbench/test_csim_local_affine.cpp"
-    "src/kernels/kernel_local_affine.cpp"
+    "kernels/kernel_local_affine.cpp"
     ${COMMON_SRCS})
 
 
 add_executable(test_csim_dtw "testbench/test_csim_dtw.cpp"
-    "include/params.h"
     "include/seq_align_multiple.h"
     "include/align.h"
     "include/PE.h"
@@ -105,7 +97,6 @@ add_executable(test_csim_dtw "testbench/test_csim_dtw.cpp"
     "src/debug.cpp")
 
 add_executable(test_pyapi "testbench/test_align.cpp"
-    "include/params.h"
     "include/seq_align_multiple.h"
     "include/align.h"
     "include/PE.h"
@@ -127,6 +118,8 @@ add_executable(multidimcast
 target_compile_definitions(test_csim_global_linear PRIVATE ALIGN_GLOBAL_LINEAR)
 target_compile_definitions(test_csim_global_affine PRIVATE ALIGN_GLOBAL_AFFINE)
 target_compile_definitions(test_csim_local_affine PRIVATE ALIGN_LOCAL_AFFINE)
+
+target_include_directories(test_csim_global_affine PUBLIC "kernels/global_affine")
 
 set_property(TARGET test_pyapi PROPERTY CXX_STANDARD 17)
 set_property(TARGET test_align PROPERTY CXX_STANDARD 17)
