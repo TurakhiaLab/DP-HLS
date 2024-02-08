@@ -119,7 +119,7 @@ target_compile_definitions(test_csim_global_linear PRIVATE ALIGN_GLOBAL_LINEAR)
 target_compile_definitions(test_csim_global_affine PRIVATE ALIGN_GLOBAL_AFFINE)
 target_compile_definitions(test_csim_local_affine PRIVATE ALIGN_LOCAL_AFFINE)
 
-target_include_directories(test_csim_global_affine PUBLIC "kernels/global_affine")
+target_include_directories(test_csim_global_affine PRIVATE "kernels/global_affine")
 
 set_property(TARGET test_pyapi PROPERTY CXX_STANDARD 17)
 set_property(TARGET test_align PROPERTY CXX_STANDARD 17)

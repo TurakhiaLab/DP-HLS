@@ -1,5 +1,6 @@
 import json, time
 import os, glob
+import subprocess
 
 def extract_single_config_afi_id(base_address):
     try:
@@ -42,12 +43,22 @@ def run_benchmark_single(base_folder, host_name='dp-hls-host', xclbin_name='afi_
     for i in range(repeat):
         # create an output file for each run
         output_file = os.path.join(output_folder, f'output_{i}.txt')
+        error_file = os.path.join(output_folder, f'error_{i}.txt')
+        log_file = os.path.join(output_folder, f'log_{i}.txt')
 
         host_path = os.path.join(base_folder, host_name)
         xclbin_path = os.path.join(base_folder, xclbin_name)
 
-        # run the benchmark with bash
-        os.system(f'bash {host_path} {xclbin_path} > {output_file}')
+        # run the benchmark with bash!
+        # os.system(f' && {host_path} {xclbin_path} > {output_file}')
+        process = subprocess.Popen(["/bin/bash"], stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+        process.stdin.write(f'source /home/centos/efs/aws-fpga/vitis_runtime_setup.sh && {host_path} {xclbin_path} > {output_file}')
+        process.stdin.flush()
+        output, errors = process.communicate()
+        with open(log_file, 'w') as f:
+            f.write(output)
+        with open(error_file, 'w') as f:
+            f.write(errors)
 
     # then for all those files, it has a field of the format 'Kernel execution time: <num>ms'
     # we want to discard the first two runs and take the average of the rest
