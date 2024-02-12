@@ -113,6 +113,8 @@ if __name__ == "__main__":
     parser.add_argument('--num_workers', type=int, default=2, help='Number of workers for parallel tasks')
     # add option whether to run the compilation or not
     parser.add_argument('--run', type=bool, default=False, help='Whether to run the compilation or not. If turned off, only compile, not run.')
+    parser.add_argument('--all', type=bool, default=False, help='If True, compile the hardware bitstream. If False, compile host only.')
+
 
     args = parser.parse_args()
     config = read_config_file(args.config)
@@ -122,6 +124,13 @@ if __name__ == "__main__":
         run_str = 'run'
     else:
         run_str = ""
+    
+
+    make_file_target = "host"
+    if args.all:
+        make_file_target = "all"
+    else :
+        make_file_target = "host"
 
     compile = args.compile
 
@@ -183,7 +192,7 @@ if __name__ == "__main__":
         print(f"Compiling the design with {num_workers} workers for type {build_type}...")
         cmds = []
         for build_path in all_build_paths:
-            cmds.append(f"cd {build_path} && make {run_str} all TARGET={build_type} DEVICE=$AWS_PLATFORM")
+            cmds.append(f"cd {build_path} && make {run_str} {make_file_target} TARGET={build_type} DEVICE=$AWS_PLATFORM")
 
         with concurrent.futures.ProcessPoolExecutor(max_workers=num_workers) as executor:
             futures = [executor.submit(run_command, cmd, all_build_paths[i]) for i, cmd in enumerate(cmds)]

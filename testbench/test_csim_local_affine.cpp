@@ -10,8 +10,8 @@
 
 using namespace std;
 
-#define INPUT_QUERY_LENGTH 256
-#define INPUT_REFERENCE_LENGTH 256
+#define INPUT_QUERY_LENGTH 100
+#define INPUT_REFERENCE_LENGTH 120
 
 char_t base_to_num(char base)
 {
@@ -155,8 +155,8 @@ int main(){
     string reference_string_blocks[N_BLOCKS];
     // for global alignments, adjust the lengths to be the lengths - 1
     for (int i = 0; i < N_BLOCKS; i++) {
-        tb_query_lengths[i] = qry_lengths[i] - 1;
-        tb_reference_lengths[i] = ref_lengths[i] - 1;
+        tb_query_lengths[i] = tb_is[i];
+        tb_reference_lengths[i] = tb_js[i];
         query_string_blocks[i] = query_string;
         reference_string_blocks[i] = reference_string;
     }

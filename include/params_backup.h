@@ -458,6 +458,6 @@ typedef tbr_t traceback_buf_t[MAX_QUERY_LENGTH + MAX_REFERENCE_LENGTH];
 // >>> Debug Macros, turn on for certain debug requests >>>
 #undef CMAKEDEBUG_PRINT_TRACEBACK
 
-// >>> Legacy Kernel Definitions, Not Used, But do NOT remove
+// >>> Legacy Kernel Definitions, Not Used, But do NOT remove, DO not include
 typedef tbp_t tbp_chunk_block_t[PE_NUM][MAX_REFERENCE_LENGTH];
 typedef tbp_t tbp_block_t[PE_NUM];

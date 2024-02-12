@@ -168,6 +168,9 @@ void GlobalAffine::InitializeMaxScores(ScorePack (&max)[PE_NUM], idx_t qry_len, 
         max[i].score = NINF; // Need a custom struct for finding the negative infinity
         max[i].row = 0;
         max[i].col = 0;
+        max[i].p_col = 0;
+        max[i].ck = 0;
+        max[i].pe = i;
     }
 }
 

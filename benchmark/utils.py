@@ -1,6 +1,30 @@
 import json, time
-import os, glob
+import os, glob, select
 import subprocess
+from datetime import datetime
+
+def read_all_from_pipe(pipe):
+    """Read all data from a pipe without blocking."""
+    lines = []
+    while True:
+        rlist, _, _ = select.select([pipe], [], [], 0.1)
+        if pipe in rlist:
+            line = pipe.readline()
+            if line:
+                lines.append(line)
+            else:  # No more data
+                break
+        else:  # No more data
+            break
+    return ''.join(lines)
+
+# def read_all_from_pipe_block(pipe)
+#     while True:
+#             line = process.stdout.readline()
+#             if EOF in line:  # Check for the unique marker indicating command completion
+#                 break  # Exit the loop when the marker is found
+#             output_lines.append(line.strip())  # Append each line of output to the list
+    
 
 def extract_single_config_afi_id(base_address):
     try:
@@ -32,53 +56,74 @@ def extrace_all_configs_afi_id(base_address, config_names):
 
 def run_benchmark_single(base_folder, host_name='dp-hls-host', xclbin_name='afi_creation.awsxclbin', repeat=10):
     # check the repeat is larger than 2, if not, throw exception
-    if repeat < 2:
-        raise ValueError("Kernel Should be Replayed At Least 2 Times")
+    if repeat <= 2:
+        raise ValueError("Kernel Should be Replayed At Least 3 Times")
     
     # create an output folder in the base folder, suffix with its time
-    output_folder = os.path.join(base_folder, f'output_{time.time()}')
+    formatted_time = datetime.fromtimestamp(time.time()).strftime('%Y-%m-%d-%H-%M-%S')
+    output_folder = os.path.join(base_folder, f'benchmark_output_{formatted_time}')
     os.mkdir(output_folder)
+
+
+    command = "source /home/centos/efs/aws-fpga/vitis_runtime_setup.sh"
 
     # the benchmark for single kernel have multiple runs. We want to create a output text file for ecah run
     for i in range(repeat):
         # create an output file for each run
         output_file = os.path.join(output_folder, f'output_{i}.txt')
         error_file = os.path.join(output_folder, f'error_{i}.txt')
-        log_file = os.path.join(output_folder, f'log_{i}.txt')
 
         host_path = os.path.join(base_folder, host_name)
         xclbin_path = os.path.join(base_folder, xclbin_name)
+        command += f" && {host_path} {xclbin_path} > {output_file} 2> {error_file}"
 
-        # run the benchmark with bash!
-        # os.system(f' && {host_path} {xclbin_path} > {output_file}')
-        process = subprocess.Popen(["/bin/bash"], stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
-        process.stdin.write(f'source /home/centos/efs/aws-fpga/vitis_runtime_setup.sh && {host_path} {xclbin_path} > {output_file}')
-        process.stdin.flush()
-        output, errors = process.communicate()
-        with open(log_file, 'w') as f:
-            f.write(output)
-        with open(error_file, 'w') as f:
-            f.write(errors)
+    process = subprocess.Popen(command, shell=True, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
 
-    # then for all those files, it has a field of the format 'Kernel execution time: <num>ms'
-    # we want to discard the first two runs and take the average of the rest
+    # synchronize the bash call
+    _, _ = process.communicate()
 
     # read all the output files and extract the kernel execution time
     # we need to explicitly search for the line starting with 'Kernel execution time'
     kernel_execution_time = []
     for i in range(repeat):
-        output_file = os.path.join(output_folder, f'output_{i}.txt')
-        with open(output_file, 'r') as f:
-            lines = f.readlines()
-            for line in lines:
-                if line.startswith('Kernel execution time'):
-                    kernel_execution_time.append(int(line.split(' ')[-1][-2]))
+        try:
+            output_file = os.path.join(output_folder, f'output_{i}.txt')
+            with open(output_file, 'r') as f:
+                lines = f.readlines()
+                for line in lines:
+                    if line.startswith('Kernel execution time'):
+                        kernel_execution_time.append(int(line.split(' ')[-1][:-3]))
+        except FileNotFoundError:
+            print(f"output_{i}.txt not found")
+        
+    print(f"Kernel {os.path.basename(base_folder)} execution time: {sum(kernel_execution_time[2:])/(len(kernel_execution_time)-2)}")
+    return  os.path.basename(base_folder), sum(kernel_execution_time[2:])/(len(kernel_execution_time)-2)
 
-    return sum(kernel_execution_time[2:])/(repeat-2)
 
-def run_benchmark_all():
-    pass
+def run_benchmark_all(base_folders, repeat=10):
+    result = {}
+    for base_folder in base_folders:
+        print(f"running benchmark for {base_folder}")
+        name, benchmark_time = run_benchmark_single(base_folder, repeat=repeat)
+        result[name] = benchmark_time
+        print(f"benchmark for {base_folder} done, sleep for 10 seconds")
+        time.sleep(10)
+    print("Results: ", result)
+    return result
 
+base_names = [
+    "global_affine_512_512_32_8",
+    "global_affine_512_512_32_16",
+    "global_affine_512_512_32_32",
+    "global_affine_512_512_64_8",
+    "global_affine_512_512_64_16",
+    "global_affine_512_512_64_32"
+]
 
-# small test for the function benchmark_single
-print(run_benchmark_single('/home/centos/efs/kernels/global_affine/global_affine_256_256_16_8', 'dp-hls-host', 'afi_creation.awsxclbin', repeat=10))
+base_folders = [ os.path.join("/home/centos/efs/kernels/global_affine", name) for name in base_names]
+
+# Test for all benchmarks
+run_benchmark_all(base_folders, repeat=10)
+
+# Test for single benchmark
+# print(run_benchmark_single(os.path.join("/home/centos/efs/kernels/global_affine", "global_affine_256_256_16_16"), repeat=10))

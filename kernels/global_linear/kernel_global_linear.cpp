@@ -58,7 +58,7 @@ void GlobalLinear::PE::Compute(char_t local_query_val,
 }
 
 void GlobalLinear::UpdatePEMaximum(
-    dp_mem_block_t dp_mem,
+    wavefront_scores_inf_t scores,
     ScorePack (&max)[PE_NUM],
     idx_t (&ics)[PE_NUM], idx_t (&jcs)[PE_NUM],
     idx_t (&p_col)[PE_NUM], idx_t ck_idx,
@@ -70,13 +70,13 @@ void GlobalLinear::UpdatePEMaximum(
 #pragma HLS unroll
         if (predicate[i])
         {
-            if (dp_mem[i + 1][0][LAYER_MAXIMIUM] > max[i].score)
+            if (scores[i + 1][LAYER_MAXIMIUM] > max[i].score)
             {
                 // Notice this filtering condition compared to the Local Affine kernel. 
                 // if ((chunk_offset + i == query_len - 1) || (pe_offset[i] == ref_len - 1))  // last row or last column
                 if ( (ics[i] == query_len - 1) && (jcs[i] == ref_len - 1) )
                 { // So we are at the last row or last column
-                    max[i].score = dp_mem[i + 1][0][LAYER_MAXIMIUM];
+                    max[i].score = scores[i + 1][LAYER_MAXIMIUM];
                     max[i].row = ics[i];
                     max[i].col = jcs[i];
                     max[i].p_col = p_col[i];

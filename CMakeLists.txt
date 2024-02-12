@@ -16,7 +16,6 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O0 -g -fsanitize=address -fno-inline -D
 # run the program to check. 
 
 set(EXECUTABLE_TARGETS
-    tests
     baseline_local_linear
     test_align
 
@@ -29,7 +28,6 @@ add_compile_definitions(PUBLIC CMAKEDEBUG)
 
 set(COMMON_SRCS
     "testbench/solutions.cpp"
-    "include/PE.h"
     "include/host_utils.h"
     "src/seq_align_multiple.cpp"
     "src/align/align.cpp"
@@ -45,15 +43,6 @@ add_executable(baseline_local_linear "legacy/local_linear.h"
     "legacy/shift_register.h"
     "legacy/local_linear_testbench.cpp" )
 
-# Testbench for incremental components. 
-add_executable(tests "testbench/test_align.cpp"
-    "include/testbench.h"
-    "include/PE.h"
-    "include/align.h"
-    "include/utils.h"
-    "testbench/testbench.cpp"
-    "src/pe.cpp"
-    "src/align/align.cpp")
 
 # Testbench for individual kernel. 
 add_executable(test_align "testbench/test_align.cpp"
@@ -67,7 +56,7 @@ add_executable(test_align "testbench/test_align.cpp"
 
 add_executable(test_csim_global_linear 
     "testbench/test_csim_global_linear.cpp"
-    "kernels/kernel_global_linear.cpp"
+    "kernels/global_linear/kernel_global_linear.cpp"
     ${COMMON_SRCS})
 
 add_executable(test_csim_global_affine
@@ -77,9 +66,8 @@ add_executable(test_csim_global_affine
 
 add_executable(test_csim_local_affine
     "testbench/test_csim_local_affine.cpp"
-    "kernels/kernel_local_affine.cpp"
+    "kernels/local_affine/kernel_local_affine.cpp"
     ${COMMON_SRCS})
-
 
 add_executable(test_csim_dtw "testbench/test_csim_dtw.cpp"
     "include/seq_align_multiple.h"
@@ -119,7 +107,9 @@ target_compile_definitions(test_csim_global_linear PRIVATE ALIGN_GLOBAL_LINEAR)
 target_compile_definitions(test_csim_global_affine PRIVATE ALIGN_GLOBAL_AFFINE)
 target_compile_definitions(test_csim_local_affine PRIVATE ALIGN_LOCAL_AFFINE)
 
-target_include_directories(test_csim_global_affine PRIVATE "kernels/global_affine")
+target_include_directories(test_csim_global_affine PRIVATE "/home/centos/workspace/DP-HLS/kernels/global_affine")
+target_include_directories(test_csim_global_linear PRIVATE "/home/centos/workspace/DP-HLS/kernels/global_linear")
+target_include_directories(test_csim_local_affine PRIVATE "/home/centos/workspace/DP-HLS/kernels/local_affine")
 
 set_property(TARGET test_pyapi PROPERTY CXX_STANDARD 17)
 set_property(TARGET test_align PROPERTY CXX_STANDARD 17)

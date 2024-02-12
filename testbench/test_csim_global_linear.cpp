@@ -106,6 +106,10 @@ int main(){
     }
 
     tbr_t tb_streams[N_BLOCKS][MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH];
+    // initialize traceback starting coordinates
+    idx_t tb_is[N_BLOCKS];
+    idx_t tb_js[N_BLOCKS];
+
 // Actual kernel calling
     seq_align_multiple_static(
         query_buff,
@@ -113,6 +117,7 @@ int main(){
         qry_lengths,
         ref_lengths,
         penalties,
+        tb_is, tb_js,
         tb_streams
 #ifdef CMAKEDEBUG
         , debuggers
@@ -139,7 +144,6 @@ int main(){
     // print_matrix<float, MAX_QUERY_LENGTH, MAX_REFERENCE_LENGTH>(debuggers[0].scores_cpp[2], "Kernel 0 Scores Layer 2");
     debuggers[0].compare_scores(sol_score_mat, query.size(), reference.size());
 
-
     // reconstruct kernel alignments
     array<map<string, string>, N_BLOCKS> kernel_alignments;
     int tb_query_lengths[N_BLOCKS];
@@ -148,8 +152,8 @@ int main(){
     string reference_string_blocks[N_BLOCKS];
     // for global alignments, adjust the lengths to be the lengths - 1
     for (int i = 0; i < N_BLOCKS; i++) {
-        tb_query_lengths[i] = qry_lengths[i] - 1;
-        tb_reference_lengths[i] = ref_lengths[i] - 1;
+        tb_query_lengths[i] = tb_is[i];
+        tb_reference_lengths[i] = ref_lengths[i];
         query_string_blocks[i] = query_string;
         reference_string_blocks[i] = reference_string;
     }

@@ -1,28 +1,29 @@
-#ifndef PARAMS_H
-#define PARAMS_H
+#pragma once
+
 
 #include <ap_int.h>
 #include <ap_fixed.h>
 #include <hls_vector.h>
 
 
-// These need to be there to do CMake Simulation, but SHOULD TAKE OFF WHEN COMPIING BITSTREAM
-const int PE_NUM = 2;
-// #define PRAGMA_PE_NUM 32
-#define MAX_QUERY_LENGTH 64
-#define MAX_REFERENCE_LENGTH 64
-#define N_BLOCKS 1
+#define MAX_QUERY_LENGTH 256
+#define MAX_REFERENCE_LENGTH 256
 
-#define ALIGN_TYPE GlobalAffine
-#define N_LAYERS 3
-#define LAYER_MAXIMIUM 1  // We need to indicate from which layer (main matrix) is the maximum score stored.
+#define ALIGN_TYPE GlobalLinear
+#define N_BLOCKS 1
+#define N_LAYERS 1
+const int PE_NUM = 32;
+#define LAYER_MAXIMIUM 0  // We need to indicate from which layer (main matrix) is the maximum score stored.
 
 // Primitive Types
 typedef ap_uint<2> char_t;  // Sequence Alphabet
 typedef ap_fixed<16, 10> type_t;  // Scores Type <width, integer_width>
 typedef short idx_t;  // Indexing Type, could be much less than 32. ap_uint<8>
-typedef ap_uint<4> tbp_t;  // Traceback Pointer Type
+typedef ap_uint<2> tbp_t;  // Traceback Pointer Type
 
+// Define Zero Value
+#define zero_fp ((type_t)0)
+#define ZERO_CHAR (char_t(0))
 
 // Defien upper and lower bound for score type, aka type_t
 #define INF 256
@@ -32,14 +33,13 @@ typedef ap_uint<4> tbp_t;  // Traceback Pointer Type
 #define DEBUG_OUTPUT_PATH "/home/yic033@AD.UCSD.EDU/DP-HLS-Debug/global_affine/"
 #define DEBUG_FILENAME "debug_kernel"
 
-
 struct ScorePack{  
     type_t score;
     idx_t row;
     idx_t col;
-    idx_t p_col;  // Physical column in memory
-    idx_t ck;  // Chunk index
-    idx_t pe;  // PE index
+    idx_t p_col;
+    idx_t ck;
+    idx_t pe;
 
 	// Default Constructor
     ScorePack() {
@@ -67,11 +67,8 @@ enum TB_STATE {
     END = 3   // End
 };
 
-#define ZERO_CHAR (char_t(0))
-#define zero_fp ((type_t)0)
-
-
-// >>> Shared Definitions, Do Not Change
+// >>> Automatically Determined Macros and Configs >>>
+// DO NOT MODIFY
 #define CK_NUM (MAX_QUERY_LENGTH / PE_NUM)
 
 typedef hls::vector<type_t, N_LAYERS> score_vec_t;
@@ -95,6 +92,3 @@ typedef ap_uint<3> tbr_t;  // Traecback Result Type
 #define AL_NULL (tbr_t) 0b100  // 4 Do not change coordinate
 
 typedef tbr_t traceback_buf_t[MAX_QUERY_LENGTH + MAX_REFERENCE_LENGTH];
-
-
-#endif

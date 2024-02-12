@@ -163,42 +163,42 @@ int main(int argc, char **argv) {
     }
 
     // set up the array to store the traceback lengthes
-    string query_strings_primitive[N_BLOCKS];
-    string reference_strings_primitive[N_BLOCKS];
-    for (int i = 0; i < N_BLOCKS; i++){
-        query_strings_primitive[i] = querys_strings.substr(i * MAX_QUERY_LENGTH, MAX_QUERY_LENGTH);
-        reference_strings_primitive[i] = references_strings.substr(i * MAX_REFERENCE_LENGTH, MAX_REFERENCE_LENGTH);
-    }
+    // string query_strings_primitive[N_BLOCKS];
+    // string reference_strings_primitive[N_BLOCKS];
+    // for (int i = 0; i < N_BLOCKS; i++){
+    //     query_strings_primitive[i] = querys_strings.substr(i * MAX_QUERY_LENGTH, MAX_QUERY_LENGTH);
+    //     reference_strings_primitive[i] = references_strings.substr(i * MAX_REFERENCE_LENGTH, MAX_REFERENCE_LENGTH);
+    // }
 
-    tbr_t tb_streams_primitive[N_BLOCKS][MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH];
-    for (int i = 0; i < N_BLOCKS; i++){
-        for (int j = 0; j < MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH; j++){
-            tb_streams_primitive[i][j] = tb_streams[i * (MAX_QUERY_LENGTH + MAX_REFERENCE_LENGTH) + j];
-        }
-    }
+    // tbr_t tb_streams_primitive[N_BLOCKS][MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH];
+    // for (int i = 0; i < N_BLOCKS; i++){
+    //     for (int j = 0; j < MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH; j++){
+    //         tb_streams_primitive[i][j] = tb_streams[i * (MAX_QUERY_LENGTH + MAX_REFERENCE_LENGTH) + j];
+    //     }
+    // }
     
-    int tb_qry_lengths[N_BLOCKS];
-    int tb_ref_lengths[N_BLOCKS];
-    for (int i = 0; i < N_BLOCKS; i++){
-        tb_qry_lengths[i] = traceback_start_is[i];
-        tb_ref_lengths[i] = traceback_start_js[i];
-    }
-    std::cout << "Reconstructing Traceback" << std::endl;
-    array<map<string, string>, N_BLOCKS> kernel_alignments;
-    kernel_alignments = ReconstructTracebackBlocks(
-        query_strings_primitive,
-        reference_strings_primitive,
-        tb_qry_lengths, tb_ref_lengths, 
-        tb_streams_primitive);
+    // int tb_qry_lengths[N_BLOCKS];
+    // int tb_ref_lengths[N_BLOCKS];
+    // for (int i = 0; i < N_BLOCKS; i++){
+    //     tb_qry_lengths[i] = traceback_start_is[i];
+    //     tb_ref_lengths[i] = traceback_start_js[i];
+    // }
+    // std::cout << "Reconstructing Traceback" << std::endl;
+    // array<map<string, string>, N_BLOCKS> kernel_alignments;
+    // kernel_alignments = ReconstructTracebackBlocks(
+    //     query_strings_primitive,
+    //     reference_strings_primitive,
+    //     tb_qry_lengths, tb_ref_lengths, 
+    //     tb_streams_primitive);
 
-    // Print Actual Alignments
-    for (int i = 0; i < N_BLOCKS; i++){
-        std::cout << "Block " << i << " Results" << std::endl;
-        std::cout << "Query    : " << query_strings_primitive[i] << std::endl;
-        std::cout << "Reference: " << reference_strings_primitive[i] << std::endl;
-        std::cout << "Kernel Aligned Query    : " << kernel_alignments[i]["query"] << std::endl;
-        std::cout << "Kernel Aligned Reference: " << kernel_alignments[i]["reference"] << std::endl << std::endl;
-    }
+    // // Print Actual Alignments
+    // for (int i = 0; i < N_BLOCKS; i++){
+    //     std::cout << "Block " << i << " Results" << std::endl;
+    //     std::cout << "Query    : " << query_strings_primitive[i] << std::endl;
+    //     std::cout << "Reference: " << reference_strings_primitive[i] << std::endl;
+    //     std::cout << "Kernel Aligned Query    : " << kernel_alignments[i]["query"] << std::endl;
+    //     std::cout << "Kernel Aligned Reference: " << kernel_alignments[i]["reference"] << std::endl << std::endl;
+    // }
 
     // Print time
     std::cout << "Kernel execution time: " << std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count() << "ms" << std::endl;
