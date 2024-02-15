@@ -4,6 +4,7 @@ import concurrent.futures
 import subprocess
 from multiprocessing import Lock
 import select
+import logging
 
 # Initialize a Lock
 lock = Lock()
@@ -48,7 +49,7 @@ def run_command(cmd, output_folder):
         # This block is executed exclusively among processes
             # Start a persistent shell session
 
-        print(f"Exclusive execution for Vitis Init for {configuration}...")
+        logging.info(f"Vitis Init for {configuration}...")  # this shall be exclusive
         try:
             process.stdin.write(f"source {vitis_prep_script_path}" + "\n")
             process.stdin.flush()
@@ -57,24 +58,24 @@ def run_command(cmd, output_folder):
             output = read_all_from_pipe(process.stdout)
             errors = read_all_from_pipe(process.stderr)
         except subprocess.CalledProcessError as e:
-            print(f"Vitis Initialization Error")
+            logging.error(f"Vitis Initialization Error {configuration}")
         # print vitis initialization output to files in output_folder
         with open(os.path.join(output_folder, 'vitis_init_output.log'), 'w') as f:
             f.write(output)
         with open(os.path.join(output_folder, 'vitis_init_error.log'), 'w') as f:
             f.write(errors)
         
-        print(f"Vitis Initialized for {configuration}")
+        logging.info(f"Vitis Initialized for {configuration}")
 
     # Call compilation
     try:
-        print(f"Compiling {configuration}...")
+        logging.info(f"Compiling {configuration}...")
         process.stdin.write(cmd + "\n")
         process.stdin.flush()
     except subprocess.CalledProcessError as e:
-        print(f"Compilation Error")
+        logging.error(f"Compilation Error")
     output, errors = process.communicate()
-    print(f"Compilation Done For {configuration}")
+    
 
     # create new log files under the output_path folder and write output and error to the log files
     with open(os.path.join(output_folder, 'parallel_compile_output.log'), 'w') as f:
@@ -87,6 +88,7 @@ def run_command(cmd, output_folder):
 
     # remove the aws-fpga folder
     shutil.rmtree(os.path.join(output_folder, 'aws-fpga'))
+    logging.info(f"Compilation Done For {configuration} in Folder {output_folder}")
 
     return f"Build Task Completed {configuration} in Folder {output_folder}"
     
@@ -183,7 +185,8 @@ if __name__ == "__main__":
                         kernel_frontend_path=kernel_frontend_path,
                         dp_hls_root=dp_hls_root,
                         path_hls_config=config['design']['path_hls_config'],
-                        kernel_name=config['kernel_name']
+                        kernel_name=config['kernel_name'],
+                        host_path=config['design']['host_program']
                     ))
             
                 shutil.copy(os.path.join(dp_hls_root, 'templates', 'utils.mk'), os.path.join(build_path, 'utils.mk'))

@@ -36,6 +36,15 @@ char_t base_to_num(char base)
 
 }
 
+struct Penalties_sol
+{
+    float extend;
+    float open;
+    float linear_gap;
+    float match;
+    float mismatch;
+};
+
 int main(){
     // std::string query_string = "AGTCTG";     // CCGTAGACCCGAACTTCGCGGTACACCTTCTGAAACCGTCCCTAATCCGACGAGCGCCTTGAGAACG";
     // std::string reference_string = "TGCCGAT";       // TGAGAACGTAGTCTAGGCGAATCGGCCCTTGTATATCGGGGCCGTAGACCCGAACTTCGCGGTACAC";

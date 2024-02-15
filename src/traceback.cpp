@@ -52,21 +52,37 @@ void Traceback::TracebackOptimized(
     traceback_buf_t &traceback_out,
     idx_t (&ck_start_col)[MAX_QUERY_LENGTH / PE_NUM], // chunk start index
     idx_t (&ck_end_col)[MAX_QUERY_LENGTH / PE_NUM],   // chunk end index
-    int ck_idx, int pe_idx, int col_idx)
+    int ck_idx, int pe_idx, int col_idx, int v_row, int v_col) // starting index to traceback
 {
+
+#define TEST_QUERY_LENGTH 89
+#define TEST_REFERENCE_LENGTH 89
 
 #ifdef CMAKEDEBUG
 #ifdef CMAKEDEBUG_PRINT_TRACEBACK
+
+
     // print the contents of tbmat
     printf("Traceback Matrix:\n");
+    tbp_t good_shaped_tb_mat[MAX_QUERY_LENGTH][MAX_REFERENCE_LENGTH];
     for (int i = 0; i < PE_NUM; i++)
     {
-        for (int j = 0; j < MAX_QUERY_LENGTH / PE_NUM * MAX_REFERENCE_LENGTH; j++)
+        for (int j = 0; j < TEST_QUERY_LENGTH / PE_NUM * TEST_REFERENCE_LENGTH; j++)
         {
-            printf("%d ", tbmat[i][j].to_int());
+            good_shaped_tb_mat[(j / TEST_REFERENCE_LENGTH) * PE_NUM + i][j % TEST_REFERENCE_LENGTH] = tbmat[i][j];
+            // printf("%d ", tbmat[i][j].to_int());
+        }
+        // printf("\n");
+    }
+
+    for (int i = 0; i < TEST_QUERY_LENGTH; i++)
+    {
+        for (int j = 0; j < TEST_REFERENCE_LENGTH; j++)
+        {
+            printf("%d ", good_shaped_tb_mat[i][j].to_int());
         }
         printf("\n");
-    }
+    }   
 #endif
 #endif
 
@@ -98,12 +114,16 @@ traceback_loop:
 //         printf("navigation %d, pointer: %d\n", navigation.to_int(), tbptr.to_int());
 // #endif
 
+#ifdef CMAKEDEBUG
+        // print virtual row and column number
+        // printf("Traceback Coordinates: ck %d, pe %d, p_col %d, row %d, col %d\n", chunk, pe, col, pe + chunk * PE_NUM, col % TEST_REFERENCE_LENGTH);
+#endif
+
         // User define mapping from a pointer and current state to 
         // one of the Del, Ins, Match/Mismatch, or End to the next state. 
         ALIGN_TYPE::Traceback::StateMapping(tbptr, state, navigation);
         traceback_out[w_id++] = navigation;
-        Traceback::NextAddress(navigation, ck_start_col, ck_end_col, chunk, pe, col);
-
+        Traceback::NextAddress(navigation, ck_start_col, ck_end_col, chunk, pe, col, v_row, v_col);
 
     }
     traceback_out[w_id] = AL_END;
@@ -113,18 +133,23 @@ traceback_loop:
 void Traceback::NextAddress(tbr_t &nav, 
     idx_t (&ck_start_idx)[CK_NUM],
     idx_t (&ck_end_idx)[CK_NUM], 
-    int &chunk, int &pe, int &col)
+    int &chunk, int &pe, int &col, int &v_row, int &v_col)
 {
 #ifdef CMAKEDEBUG
     int nav_int = nav.to_int();
 #endif
 
-    if (nav == AL_INS){  // Moving left
+    // Check the condition based on the virtual row and column
+    if (v_row <= 0 || v_col <= 0){
+        nav = AL_END;
+    }
+    else if (nav == AL_INS){  // Moving left
         if (col == 0){
             nav = AL_END;
         } else {
             col--;
         }
+        v_col--;
     } else if (nav == AL_DEL) {  // Moving up
         if (pe == 0){
             if (chunk == 0){
@@ -137,6 +162,7 @@ void Traceback::NextAddress(tbr_t &nav,
         } else {
             pe--;
         }
+        v_row--;
     } else if (nav == AL_MMI){  // Moving Diagonal
         // Moving diagonal is a combination of moving left and moving up
         // QUESTION: am I thinking correctly?
@@ -157,6 +183,8 @@ void Traceback::NextAddress(tbr_t &nav,
         } else {
             pe--;
         }
+        v_row--;
+        v_col--;
     } else if (nav == AL_NULL){
         // Skip a cycle and do nothing
     } 
@@ -167,4 +195,6 @@ void Traceback::NextAddress(tbr_t &nav,
         // local alignment, the traceback will stop if the scores reaches 0. 
         nav = AL_END;  // Just repeat the last write
     }
+
+
 }

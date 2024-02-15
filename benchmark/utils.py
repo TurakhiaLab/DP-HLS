@@ -24,7 +24,7 @@ def read_all_from_pipe(pipe):
 #             if EOF in line:  # Check for the unique marker indicating command completion
 #                 break  # Exit the loop when the marker is found
 #             output_lines.append(line.strip())  # Append each line of output to the list
-    
+
 
 def extract_single_config_afi_id(base_address):
     try:
@@ -111,19 +111,22 @@ def run_benchmark_all(base_folders, repeat=10):
     print("Results: ", result)
     return result
 
-base_names = [
-    "global_affine_512_512_32_8",
-    "global_affine_512_512_32_16",
-    "global_affine_512_512_32_32",
-    "global_affine_512_512_64_8",
-    "global_affine_512_512_64_16",
-    "global_affine_512_512_64_32"
-]
+# base_names = [
+#     "global_affine_1024_1024_16_8",
+#     "global_affine_1024_1024_16_16",
+#     "global_affine_1024_1024_16_32",
+#     "global_affine_1024_1024_32_8",
+#     "global_affine_1024_1024_32_16",
+#     "global_affine_1024_1024_32_32",
+#     "global_affine_1024_1024_64_8",
+#     "global_affine_1024_1024_64_16",
+#     "global_affine_1024_1024_64_32"
+# ]
 
-base_folders = [ os.path.join("/home/centos/efs/kernels/global_affine", name) for name in base_names]
+# base_folders = [ os.path.join("/home/centos/efs/kernels/global_affine", name) for name in base_names]
 
-# Test for all benchmarks
-run_benchmark_all(base_folders, repeat=10)
+# # Test for all benchmarks
+# run_benchmark_all(base_folders, repeat=10)
 
 # Test for single benchmark
 # print(run_benchmark_single(os.path.join("/home/centos/efs/kernels/global_affine", "global_affine_256_256_16_16"), repeat=10))

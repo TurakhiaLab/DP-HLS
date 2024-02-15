@@ -11,6 +11,8 @@
 #include <map>
 #include <chrono>
 
+#define SEQUENCE_WIDTH 20
+
 int base_to_num(char base){
     switch (base)
     {
@@ -55,29 +57,52 @@ int main(int argc, char **argv) {
     std::vector<idx_t, aligned_allocator<idx_t>> traceback_start_js(N_BLOCKS);
     std::vector<tbr_t, aligned_allocator<tbr_t>> tb_streams(N_BLOCKS * (MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH));
 
-    
+    // define 5*5 penalties explicitly
+    std::array<std::array<float, 5>, 5>  transitions_{{
+        // Placeholder profile data
+        // Each sub-vector represents a column in the profile, with scores for each alphabet character
+        // Example: for DNA {A, T, C, G, _}
+        {-0.1, -0.2, -0.3, -0.4, -0.5},
+        {-0.5, -0.4, -0.3, -0.2, -0.1},
+        {-0.1, -0.1, -0.1, -0.1, -0.1},
+        {-0.2, -0.2, -0.2, -0.2, -0.2},
+        {-0.3, -0.3, -0.3, -0.3, -0.3}
+    }};
+
+
+
 
     // Initialize data
-    char alphabet[] = {'A', 'T', 'C', 'G'};  // currently putting just random sequence here
-    string querys_strings = Random::Sequence<4>(alphabet, N_BLOCKS * MAX_QUERY_LENGTH);
-    string references_strings = Random::Sequence<4>(alphabet, N_BLOCKS * MAX_REFERENCE_LENGTH);
-    const char *query_ptr = querys_strings.c_str();
-    const char *reference_ptr = references_strings.c_str();
+    // char alphabet[] = {'A', 'T', 'C', 'G'};  // currently putting just random sequence here
+    // string querys_strings = Random::Sequence<4>(alphabet, N_BLOCKS * MAX_QUERY_LENGTH);
+    // string references_strings = Random::Sequence<4>(alphabet, N_BLOCKS * MAX_REFERENCE_LENGTH);
+
+    // const char *query_ptr = querys_strings.c_str();
+    // const char *reference_ptr = references_strings.c_str();
+
+    std::vector<std::array<int, 5>> query_src = Random::SequenceProfileAlignment<SEQUENCE_WIDTH>(N_BLOCKS * MAX_QUERY_LENGTH);
+    std::vector<std::array<int, 5>> reference_src = Random::SequenceProfileAlignment<SEQUENCE_WIDTH>(N_BLOCKS * MAX_REFERENCE_LENGTH);
+
+    // initialize data
     for (int i = 0; i < N_BLOCKS; i++) {
         query_lengths[i] = MAX_QUERY_LENGTH;
         reference_lengths[i] = MAX_REFERENCE_LENGTH;
         for (int j = 0; j < MAX_QUERY_LENGTH; j++) {
-            querys[i * MAX_QUERY_LENGTH + j] = (type_t) base_to_num(*query_ptr++);
+            for (int k = 0; k < 5; k++) {
+                querys[i * MAX_QUERY_LENGTH + j][k] = query_src[i * MAX_QUERY_LENGTH + j][k];
+            }
         }
         for (int j = 0; j < MAX_REFERENCE_LENGTH; j++) {
-            references[i * MAX_REFERENCE_LENGTH + j] = (type_t) base_to_num(*reference_ptr++);
+            for (int k = 0; k < 5; k++) {
+                references[i * MAX_REFERENCE_LENGTH + j][k] = reference_src[i * MAX_REFERENCE_LENGTH + j][k];
+            }
         }
         // Initialize Penalties
-        penalties[i].open = type_t(-2);
-        penalties[i].extend = type_t(-1);
-        penalties[i].mismatch = type_t(-3);
-        penalties[i].match = type_t(2);
-        penalties[i].linear_gap = type_t(-1);
+        for (int j = 0; j < 5; j++) {
+            for (int k = 0; k < 5; k++) {
+                penalties[i].transition[j][k] = transitions_[j][k];
+            }
+        }
     }
 
     // OPENCL HOST CODE AREA START
@@ -152,12 +177,28 @@ int main(int argc, char **argv) {
 
     // Print raw traceback pointer streams
     for (int i = 0; i < N_BLOCKS; i++) {
-        std::cout << "Query: " << querys_strings.substr(i * MAX_QUERY_LENGTH, MAX_QUERY_LENGTH) << std::endl;
-        std::cout << "Reference: " << references_strings.substr(i * MAX_REFERENCE_LENGTH, MAX_REFERENCE_LENGTH) << std::endl;
+        std::cout << "Block " << i << " Results" << std::endl;
+        std::cout << "Query: " << std::endl;
+        for (int j = 0; j < MAX_QUERY_LENGTH; j++) {
+            for (int k = 0; k < 5; k++){
+                std::cout << querys[i * MAX_QUERY_LENGTH + j][k] << " ";
+            }
+            std::cout << std::endl;
+        }
+        std::cout << std::endl;
+        std::cout << "Reference: " << std::endl;
+        for (int j = 0; j < MAX_REFERENCE_LENGTH; j++) {
+            for (int k = 0; k < 5; k++){
+                std::cout << references[i * MAX_REFERENCE_LENGTH + j][k] << " ";
+            }
+            std::cout << std::endl;
+        }
+        std::cout << std::endl;
         std::cout << "Traceback: " << std::endl;
         for (int j = 0; j < MAX_QUERY_LENGTH + MAX_REFERENCE_LENGTH; j++) {
             std::cout << tb_streams[i * (MAX_QUERY_LENGTH + MAX_REFERENCE_LENGTH) + j];
         }
+        std::cout << std::endl;
         std::cout << std::endl;
     }
 

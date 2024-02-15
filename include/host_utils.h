@@ -53,6 +53,30 @@ namespace Random {
         return seq;
     }
 
+    /**
+     * @brief A function that generates a random sequence in the format of the input of profile alignment. 
+     * Each element of the output vector is an array of length 5. Each element in the array is the count 
+     * of A, T, C, G, and _ in the column. The integers in the array should be non negative and sum up to WID
+     * 
+     * @tparam WID Number of sequences in the aligned sequences. 
+     * @return std::vector<std::array<int, N>> 
+     */
+    template <int WID> 
+    std::vector<std::array<int, 5>> SequenceProfileAlignment(int len) {
+        std::vector<std::array<int, 5>> profile;
+        for (int i = 0; i < len; i++) {
+            int remaining = WID;
+            std::array<int, 5> col;
+            for (int j = 0; j < 4; j++) {
+                col[j] = rand() % remaining;
+                remaining -= col[j];
+            }
+            col[4] = WID - remaining;
+            profile.push_back(col);
+        }
+        return profile;
+    }
+
 }
 
 /**

@@ -4,28 +4,27 @@
 #include "../include/seq_align_multiple.h"
 #include "../include/host_utils.h"
 
+struct Penalties_sol
+{
+    float extend;
+    float open;
+    float linear_gap;
+    float match;
+    float mismatch;
+};
 
 int main(){
 
     auto query = Random::SequenceComplex<char_t>(50);
     auto reference = Random::SequenceComplex<char_t>(250);
 
-
-#ifdef ALIGN_GLOBAL_LINEAR
-    Penalties penalties;
-    penalties.extend = -1;
-    penalties.open = -1;
-    penalties.linear_gap = -1;
-    penalties.match = 3;
-    penalties.mismatch = -2;
-#else
     Penalties penalties;
     penalties.extend = -1;
     penalties.open = -1;
     penalties.linear_gap = -1;
     penalties.match = 3;
     penalties.mismatch = -1;
-#endif
+
 
     try {
         if (query.size() > MAX_QUERY_LENGTH) throw std::runtime_error("Query length should less than MAX_QUERY_LENGTH, "

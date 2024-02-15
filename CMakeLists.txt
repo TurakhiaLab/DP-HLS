@@ -22,12 +22,12 @@ set(EXECUTABLE_TARGETS
     test_csim_global_linear
     test_csim_global_affine
     test_csim_local_affine 
+    test_csim_profile_alignment
 )
 
 add_compile_definitions(PUBLIC CMAKEDEBUG)
 
 set(COMMON_SRCS
-    "testbench/solutions.cpp"
     "include/host_utils.h"
     "src/seq_align_multiple.cpp"
     "src/align/align.cpp"
@@ -43,7 +43,6 @@ add_executable(baseline_local_linear "legacy/local_linear.h"
     "legacy/shift_register.h"
     "legacy/local_linear_testbench.cpp" )
 
-
 # Testbench for individual kernel. 
 add_executable(test_align "testbench/test_align.cpp"
     "src/seq_align_multiple.cpp"
@@ -51,8 +50,7 @@ add_executable(test_align "testbench/test_align.cpp"
     "src/pe.cpp"
     "src/traceback.cpp"
     "src/pyapi.cpp"
-    "src/utils.cpp"
-    "src/frontend.cpp")
+    "src/utils.cpp")
 
 add_executable(test_csim_global_linear 
     "testbench/test_csim_global_linear.cpp"
@@ -69,20 +67,15 @@ add_executable(test_csim_local_affine
     "kernels/local_affine/kernel_local_affine.cpp"
     ${COMMON_SRCS})
 
-add_executable(test_csim_dtw "testbench/test_csim_dtw.cpp"
-    "include/seq_align_multiple.h"
-    "include/align.h"
-    "include/PE.h"
-    "include/utils.h"
-    "include/frontend.h"
-    "include/debug.h"
-    "src/seq_align_multiple.cpp"
-    "src/align/align.cpp"
-    "src/pe.cpp"
-    "src/traceback.cpp"
-    "src/utils.cpp"
-    "src/frontend.cpp"
-    "src/debug.cpp")
+add_executable(test_csim_profile_alignment
+    "testbench/test_csim_profile_alignment.cpp"
+    "kernels/profile_alignment/kernel_profile_alignment.cpp"
+    ${COMMON_SRCS})
+
+add_executable(test_csim_dtw 
+    "testbench/test_csim_dtw.cpp"
+    "kernels/dtw/kernel_dtw.cpp"
+    ${COMMON_SRCS})
 
 add_executable(test_pyapi "testbench/test_align.cpp"
     "include/seq_align_multiple.h"
@@ -110,6 +103,7 @@ target_compile_definitions(test_csim_local_affine PRIVATE ALIGN_LOCAL_AFFINE)
 target_include_directories(test_csim_global_affine PRIVATE "/home/centos/workspace/DP-HLS/kernels/global_affine")
 target_include_directories(test_csim_global_linear PRIVATE "/home/centos/workspace/DP-HLS/kernels/global_linear")
 target_include_directories(test_csim_local_affine PRIVATE "/home/centos/workspace/DP-HLS/kernels/local_affine")
+target_include_directories(test_csim_profile_alignment PRIVATE "/home/centos/workspace/DP-HLS/kernels/profile_alignment")
 
 set_property(TARGET test_pyapi PROPERTY CXX_STANDARD 17)
 set_property(TARGET test_align PROPERTY CXX_STANDARD 17)

@@ -249,7 +249,6 @@ void Align::ChunkCompute(
 		for (int j = 0; j < PE_NUM; j++)
 		{
 			debugger.set_score(chunk_row_offset, 0, j, i, score_buff[j+1], predicate[j]);
-		
 		}
 #endif
 
@@ -424,7 +423,10 @@ void Align::AlignStatic(
 #endif
 	){
 #pragma HLS inline off
-		
+	
+#pragma HLS array_partition variable = query type = cyclic factor = PE_NUM dim = 1
+#pragma HLS array_partition variable = reference type = cyclic factor = PE_NUM dim = 1
+
 // >>> Initialization >>>
 	score_vec_t init_col_score[MAX_QUERY_LENGTH];
 	score_vec_t init_row_score[MAX_REFERENCE_LENGTH];
@@ -437,6 +439,10 @@ void Align::AlignStatic(
 	idx_t v_rows[PE_NUM];
 	idx_t v_cols[PE_NUM];
 	idx_t p_cols[PE_NUM];
+
+#pragma HLS array_partition variable = v_rows type = complete
+#pragma HLS array_partition variable = v_cols type = complete
+#pragma HLS array_partition variable = p_cols type = complete
 
 	// Thos are used to retrive the traceback informations
 	idx_t p_col_offsets[MAX_QUERY_LENGTH / PE_NUM + 1];  // In which column in the physicla memory starts the chunk. 
@@ -454,12 +460,9 @@ void Align::AlignStatic(
 	ScorePack maximum;
 	ScorePack local_max[PE_NUM];
 
-#pragma HLS array_partition variable = query type = cyclic factor = PE_NUM dim = 1
-#pragma HLS array_partition variable = tbp_matrix type = cyclic factor = PE_NUM dim = 1
-#pragma HLS array_partition variable= init_row_score type=complete dim=1
-#pragma HLS array_partition variable = v_rows type = complete
-#pragma HLS array_partition variable = v_cols type = complete
-#pragma HLS array_partition variable = p_cols type = complete
+
+#pragma HLS array_partition variable= init_row_score type=cyclic factor=PE_NUM dim=1
+#pragma HLS array_partition variable= init_col_score type=cyclic factor=PE_NUM dim=1
 
 	ALIGN_TYPE::InitializeScores(init_col_score, init_row_score, penalties);
 	ALIGN_TYPE::InitializeMaxScores(local_max, query_length, reference_length);
@@ -514,7 +517,14 @@ void Align::AlignStatic(
 	// >>> Traceback >>>
 	tb_i = maximum.row;
 	tb_j = maximum.col;
-	Traceback::TracebackOptimized(tbp_matrix, tb_out, ck_start_col, ck_end_col, maximum.ck, maximum.pe, maximum.p_col);
+
+#ifdef CMAKEDEBUG
+	// print tracevack start idx
+	cout << "Traceback start idx: " << tb_i << " " << tb_j << endl;
+	cout << "Traceback start idx physical: " << maximum.ck << " " <<  maximum.pe << " " << maximum.p_col << endl; 
+#endif
+
+	Traceback::TracebackOptimized(tbp_matrix, tb_out, ck_start_col, ck_end_col, maximum.ck, maximum.pe, maximum.p_col, maximum.row, maximum.col);
 }
 
 void SwapBuffer(score_vec_t *&a, score_vec_t *&b){
