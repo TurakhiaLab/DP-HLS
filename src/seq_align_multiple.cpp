@@ -71,7 +71,14 @@ extern "C"
 			tb_is_b[i] = tb_is[i];
 			tb_js_b[i] = tb_js[i];
 		}
-
+#pragma HLS interface mode = axis port = querys_b
+#pragma HLS interface mode = axis port = references_b
+#pragma HLS interface mode = axis port = query_lengths_b
+#pragma HLS interface mode = axis port = reference_lengths_b
+#pragma HLS interface mode = axis port = penalties_b
+#pragma HLS interface mode = axis port = tb_is_b
+#pragma HLS interface mode = axis port = tb_js_b
+#pragma HLS interface mode = axis port = tb_streams_b
 
 #pragma HLS array_partition	variable = querys_b	type = complete dim = 1
 #pragma HLS array_partition	variable = references_b	type = complete dim = 1
@@ -86,13 +93,13 @@ extern "C"
 		{
 #pragma HLS unroll
 			Align::AlignStatic(
-				querys[i],
-				references[i],
-				query_lengths[i],
-				reference_lengths[i],
-				penalties[i],
-				tb_is[i], tb_js[i],
-				tb_streams[i]
+				querys_b[i],
+				references_b[i],
+				query_lengths_b[i],
+				reference_lengths_b[i],
+				penalties_b[i],
+				tb_is_b[i], tb_js_b[i],
+				tb_streams_b[i]
 #ifdef CMAKEDEBUG
 				,
 				debugger[i]

@@ -61,6 +61,7 @@ void Align::ShiftReferece(
 	char_t (&local_reference)[PE_NUM], char_t (&reference)[MAX_REFERENCE_LENGTH],
 	int idx, int ref_len)
 {
+#pragma HLS inline off
 	// Shift Reference
 	if (idx < ref_len)
 	{
@@ -143,6 +144,7 @@ void Align::MapPredicateSquare(
 	idx_t (&ics)[PE_NUM], idx_t (&jcs)[PE_NUM],
 	const idx_t ref_len,
 	bool (&predicate)[PE_NUM]){
+#pragma HLS inline off
 	for (int i = 0; i < PE_NUM; i++)
 	{
 #pragma HLS unroll
@@ -181,6 +183,8 @@ void Align::ChunkCompute(
 	score_vec_t score_buff[PE_NUM + 1];
 
 #pragma HLS array_partition variable = predicate type = complete
+#pragma HLS array_partition variable = local_query type = complete
+
 #pragma HLS array_partition variable = local_reference type = complete
 #pragma HLS array_partition variable = dp_mem type = complete
 #pragma HLS array_partition variable = tbp_out type = complete
@@ -263,8 +267,8 @@ void Align::ChunkCompute(
 
 		ALIGN_TYPE::UpdatePEMaximum(score_buff, max, v_rows, v_cols, p_cols, ck_idx,
 		predicate, global_query_length, reference_length);
-		Align::CoodrinateArrayOffset<PE_NUM, 1>(v_cols);
-		Align::CoodrinateArrayOffset<PE_NUM, 1>(p_cols);
+		Align::CoordinateArrayOffset<PE_NUM>(v_cols);
+		Align::CoordinateArrayOffset<PE_NUM>(p_cols);
 	}
 }
 
@@ -290,7 +294,7 @@ void Align::PrepareScoreBuffer(
 	int i, 
 	chunk_col_scores_inf_t (&init_col_scr),
 	score_vec_t (&init_row_scr)[MAX_REFERENCE_LENGTH]){
-	
+#pragma HLS inline off
 	if (i < MAX_REFERENCE_LENGTH){  // FIXME: Actually this could also be actual_reference_length
 		score_buff[0] = init_row_scr[i];
 	}
@@ -381,7 +385,6 @@ void Align::CopyColScore(chunk_col_scores_inf_t & init_col_scr_local, score_vec_
 
 	for (int j = 0; j < PE_NUM; j++)
 	{
-#pragma HLS unroll
 		init_col_scr_local[j+1] = init_col_scr[idx + j];
 	}
 }
@@ -461,8 +464,8 @@ void Align::AlignStatic(
 	ScorePack local_max[PE_NUM];
 
 
-#pragma HLS array_partition variable= init_row_score type=cyclic factor=PE_NUM dim=1
-#pragma HLS array_partition variable= init_col_score type=cyclic factor=PE_NUM dim=1
+#pragma HLS array_partition variable = init_row_score type=cyclic factor=PE_NUM dim=1
+#pragma HLS array_partition variable = init_col_score type=cyclic factor=PE_NUM dim=1
 
 	ALIGN_TYPE::InitializeScores(init_col_score, init_row_score, penalties);
 	ALIGN_TYPE::InitializeMaxScores(local_max, query_length, reference_length);
@@ -509,7 +512,7 @@ void Align::AlignStatic(
 		p_col_offsets[ic + 1] = p_col_offsets[ic] + (ck_end_col[ic] - ck_start_col[ic] + 1);
 
 		// Offset the virtual row number
-		Align::CoodrinateArrayOffset<PE_NUM, PE_NUM>(v_rows);
+		Align::CoordinateArrayOffsetGeneric<PE_NUM, PE_NUM>(v_rows);
 
 	}
 	Align::FindMax::ReductionMaxScores(local_max, maximum);

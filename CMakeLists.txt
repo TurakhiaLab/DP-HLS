@@ -23,6 +23,7 @@ set(EXECUTABLE_TARGETS
     test_csim_global_affine
     test_csim_local_affine 
     test_csim_profile_alignment
+    test_csim_profile_alignment_real_data
 )
 
 add_compile_definitions(PUBLIC CMAKEDEBUG)
@@ -72,6 +73,11 @@ add_executable(test_csim_profile_alignment
     "kernels/profile_alignment/kernel_profile_alignment.cpp"
     ${COMMON_SRCS})
 
+add_executable(test_csim_profile_alignment_real_data
+    "testbench/test_csim_profile_alignment_real_data.cpp"
+    "kernels/profile_alignment/kernel_profile_alignment.cpp"
+    ${COMMON_SRCS})
+
 add_executable(test_csim_dtw 
     "testbench/test_csim_dtw.cpp"
     "kernels/dtw/kernel_dtw.cpp"
@@ -104,6 +110,8 @@ target_include_directories(test_csim_global_affine PRIVATE "/home/centos/workspa
 target_include_directories(test_csim_global_linear PRIVATE "/home/centos/workspace/DP-HLS/kernels/global_linear")
 target_include_directories(test_csim_local_affine PRIVATE "/home/centos/workspace/DP-HLS/kernels/local_affine")
 target_include_directories(test_csim_profile_alignment PRIVATE "/home/centos/workspace/DP-HLS/kernels/profile_alignment")
+target_include_directories(test_csim_profile_alignment_real_data PRIVATE "/home/centos/workspace/DP-HLS/kernels/profile_alignment")
+target_include_directories(test_csim_profile_alignment_real_data PRIVATE "/home/centos/libs/json/include")
 
 set_property(TARGET test_pyapi PROPERTY CXX_STANDARD 17)
 set_property(TARGET test_align PROPERTY CXX_STANDARD 17)

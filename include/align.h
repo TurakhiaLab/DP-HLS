@@ -262,9 +262,21 @@ namespace Align
 		}
 	}
 
-	template <int LEN, int NUM>
-	void CoodrinateArrayOffset(idx_t (&arr)[LEN])
+	template <int LEN>
+	void CoordinateArrayOffset(idx_t (&arr)[LEN])
 	{
+#pragma HLS inline off
+		for (int i = 0; i < LEN; i++)
+		{
+#pragma HLS unroll
+			arr[i]++;
+		}
+	}
+
+	template <int LEN, int NUM>
+	void CoordinateArrayOffsetGeneric(idx_t (&arr)[LEN])
+	{
+#pragma HLS inline off
 		for (int i = 0; i < LEN; i++)
 		{
 #pragma HLS unroll
