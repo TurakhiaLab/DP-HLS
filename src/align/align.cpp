@@ -3,7 +3,8 @@
 
 using namespace hls;
 
-#define MAX(x, y) (((x) > (y)) ? (x) : (y))
+#define MAX(a, b) ((a) > (b) ? (a) : (b))
+#define MIN(a, b) ((a) < (b) ? (a) : (b))
 
 void Align::ArrangeScores(
 	dp_mem_block_t &dpmem_in,
@@ -44,7 +45,9 @@ void Align::WriteInitialColScore(int i, score_vec_t (&init_scores)[PE_NUM], hls:
 }
 
 
-
+/**
+ * THIS FUNCTION IS NO LONGER IN USE.
+*/
 void Align::ShiftPredicate(bool (&predicate)[PE_NUM], int idx, int query_len, int reference_len)
 {
 	if (idx < PE_NUM) // query len
@@ -152,6 +155,24 @@ void Align::MapPredicateSquare(
 	}
 }
 
+void Align::MapPredicateBanded(
+	int start_index, 
+	int stop_index,
+	idx_t chunk_row_offset,
+	idx_t (&ics)[PE_NUM], 
+	idx_t (&jcs)[PE_NUM],
+	idx_t (&col_lim_left)[PE_NUM], 
+	idx_t (&col_lim_right)[PE_NUM],
+	const idx_t ref_len,
+	bool (&predicate)[PE_NUM]) {
+#pragma HLS inline off
+	for (int i = 0; i < PE_NUM; i++) 
+	{
+#pragma HLS unroll
+		predicate[i] = (ics[i] >= 0 && jcs[i] >= 0 && jcs[i] < stop_index && ics[i] >= start_index);
+	}
+}
+
 
 void Align::ChunkCompute(
 	idx_t chunk_row_offset,
@@ -196,35 +217,24 @@ void Align::ChunkCompute(
 	// space in the chunk. Then, only start the traceback appropriately
 	// so we can make correct computation.
 	Iterating_Wavefronts:
-	for (int i = 0; i < reference_length + PE_NUM - 1; i++)
+#ifdef BANDED
+	int start_index = max(0, chunk_row_offset - FIXED_BANDWIDTH);
+	int stop_index = min(reference_length, chunk_row_offset + (PE_NUM - 1) + FIXED_BANDWIDTH) + PE_NUM - 1;
+#else 
+	int start_index = 0;
+	int stop_index = reference_length + PE_NUM - 1;
+#endif 
+	for (int i = start_index; i < stop_index; i++)
 	{
 #pragma HLS pipeline II = 1
 		// printf("iteration %d\n", i);
 
+#ifdef BANDED 
+		Align::MapPredicateBanded(start_index, stop_index, chunk_row_offset, v_rows, v_cols, reference_length, predicate);
+#else
 		Align::MapPredicateSquare(v_rows, v_cols, reference_length, predicate);
-		
+#endif
 		Align::ShiftReferece(local_reference, reference, i, reference_length);
-
-		// int band_start, band_end;
-
-        // if (i < FIXED_BANDWIDTH)
-        // {
-        //     band_start = 0;
-        //     band_end = i + 1;
-        // }
-        // else if (i < (reference_length - PE_NUM + 1))
-        // {
-        //     band_start = i - FIXED_BANDWIDTH + 1;
-        //     band_end = i + 1;
-        // }
-        // else
-        // {
-        //     band_start = i - FIXED_BANDWIDTH + 1;
-        //     band_end = reference_length;
-        // }
-
-        // if (band_start <= i && i < band_end)
-        // {
 
 		Align::PrepareScoreBuffer(score_buff, i, init_col_scr, init_row_scr);
 

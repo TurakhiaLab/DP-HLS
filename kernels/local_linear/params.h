@@ -15,6 +15,12 @@
 #define query_chunks (MAX_QUERY_LENGTH/PE_NUM)
 #define extra_pe_num (MAX_QUERY_LENGTH%PE_NUM)
 
+// if user decides to use banding
+//#define BANDED
+#ifdef BANDED
+#define FIXED_BANDWIDTH 4
+#endif
+
 #define ALIGN_TYPE Linear
 
 #define WS 16  
