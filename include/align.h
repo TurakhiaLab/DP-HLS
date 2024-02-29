@@ -205,6 +205,7 @@ namespace Align
 		idx_t chunk_row_offset,
 		idx_t (&ics)[PE_NUM], idx_t (&jcs)[PE_NUM],
 		idx_t (&col_lim_left)[PE_NUM], idx_t (&col_lim_right)[PE_NUM],
+		const int query_len,
 		const idx_t ref_len,
 		bool (&predicate)[PE_NUM]);
 

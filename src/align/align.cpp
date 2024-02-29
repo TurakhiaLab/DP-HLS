@@ -163,13 +163,16 @@ void Align::MapPredicateBanded(
 	idx_t (&jcs)[PE_NUM],
 	idx_t (&col_lim_left)[PE_NUM], 
 	idx_t (&col_lim_right)[PE_NUM],
+	const int query_len,
 	const idx_t ref_len,
 	bool (&predicate)[PE_NUM]) {
 #pragma HLS inline off
 	for (int i = 0; i < PE_NUM; i++) 
 	{
 #pragma HLS unroll
-		predicate[i] = (ics[i] >= 0 && jcs[i] >= 0 && jcs[i] < stop_index && ics[i] >= start_index);
+		int minPos = MAX(0, jcs[i] - FIXED_BANDWIDTH + 1);
+		int maxPos = MIN(ref_len, jcs[i] + FIXED_BANDWITH);
+		predicate[i] = (minPos <= ics[i] && ics[i] < maxPos && 0 <= jcs[i] && jcs[i] < query_len);
 	}
 }
 
@@ -218,8 +221,8 @@ void Align::ChunkCompute(
 	// so we can make correct computation.
 	Iterating_Wavefronts:
 #ifdef BANDED
-	int start_index = max(0, chunk_row_offset - FIXED_BANDWIDTH);
-	int stop_index = min(reference_length, chunk_row_offset + (PE_NUM - 1) + FIXED_BANDWIDTH) + PE_NUM - 1;
+	int start_index = max(0, chunk_row_offset - FIXED_BANDWIDTH + 1);
+	int stop_index = min(reference_length, chunk_row_offset + (PE_NUM - 1) + FIXED_BANDWIDTH - 1) + PE_NUM - 1;
 #else 
 	int start_index = 0;
 	int stop_index = reference_length + PE_NUM - 1;
@@ -230,7 +233,7 @@ void Align::ChunkCompute(
 		// printf("iteration %d\n", i);
 
 #ifdef BANDED 
-		Align::MapPredicateBanded(start_index, stop_index, chunk_row_offset, v_rows, v_cols, reference_length, predicate);
+		Align::MapPredicateBanded(start_index, stop_index, chunk_row_offset, v_rows, v_cols, global_query_length, reference_length, predicate);
 #else
 		Align::MapPredicateSquare(v_rows, v_cols, reference_length, predicate);
 #endif
