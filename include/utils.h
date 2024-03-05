@@ -36,7 +36,8 @@ namespace Utils
 		template <typename T, int N>
 		void ShiftRight(T (&arr)[N], T new_data)
 		{
-#pragma HLS array_partition variable = arr type = complete
+#pragma HLS latency max=1
+#pragma HLS array_partition variable = arr dim = 1 type = complete
 			for (int i = N - 1; i > 0; i--)
 			{
 #pragma HLS unroll

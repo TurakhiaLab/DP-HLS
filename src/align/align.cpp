@@ -61,16 +61,18 @@ void Align::ShiftReferece(
 	char_t (&local_reference)[PE_NUM], char_t (&reference)[MAX_REFERENCE_LENGTH],
 	int idx, int ref_len)
 {
-#pragma HLS inline off
-	// Shift Reference
-	if (idx < ref_len)
-	{
-		Utils::Array::ShiftRight<char_t, PE_NUM>(local_reference, reference[idx]);
-	}
-	else
-	{
-		Utils::Array::ShiftRight<char_t, PE_NUM>(local_reference, ZERO_CHAR);
-	}
+// #pragma HLS inline off
+#pragma HLS latency max=1
+	// // Shift Reference
+	// if (idx < ref_len)
+	// {
+	// 	Utils::Array::ShiftRight<char_t, PE_NUM>(local_reference, reference[idx]);
+	// }
+	// else
+	// {
+	// 	Utils::Array::ShiftRight<char_t, PE_NUM>(local_reference, ZERO_CHAR);
+	// }
+	Utils::Array::ShiftRight<char_t, PE_NUM>(local_reference, reference[idx]);
 }
 
 void Align::PrepareScoresArr(
