@@ -5,8 +5,8 @@
 #include <hls_vector.h>
 #include <ap_int.h>
 
-#define MAX_QUERY_LENGTH 256
-#define MAX_REFERENCE_LENGTH 256
+#define MAX_QUERY_LENGTH 1024
+#define MAX_REFERENCE_LENGTH 1024
 #define N_BLOCKS 1
 const int PE_NUM = 32;
 

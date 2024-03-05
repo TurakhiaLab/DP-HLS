@@ -107,7 +107,7 @@ endif
 
 ############################## Setting up Kernel Variables ##############################
 # Kernel compiler global settings
-VPP_FLAGS += -t $(TARGET) --platform $(PLATFORM) --save-temps
+VPP_FLAGS += -t $(TARGET) --platform $(PLATFORM) --save-temps -R2 -O3 --report_dir {{ report_path }}
 ifneq ($(TARGET), hw)
 	VPP_FLAGS += -g
 endif

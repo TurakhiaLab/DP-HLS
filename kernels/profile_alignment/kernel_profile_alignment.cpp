@@ -1,5 +1,9 @@
 #include "frontend.h"
 
+#ifdef CMAKEDEBUG
+#include <vector>
+#include <assert.h>
+#endif // DEBUG
 
 void Profile::PE::Compute(char_t local_query_val,
                                char_t local_reference_val,
@@ -11,6 +15,20 @@ void Profile::PE::Compute(char_t local_query_val,
                                tbp_t &write_traceback)
 {
 #pragma HLS array_partition variable = local_query_val type = complete
+
+#ifdef CMAKEDEBUG
+    // replicate all type_t data structures to a float data structure
+    std::vector<int> local_query_val_f;
+    for (int i = 0; i < 5; i++)
+    {
+        local_query_val_f.push_back(local_query_val[i].to_int());
+    }
+    std::vector<int> local_reference_val_f;
+    for (int i = 0; i < 5; i++)
+    {
+        local_reference_val_f.push_back(local_reference_val[i].to_int());
+    }
+#endif
 
     // Compute the cell scores
     hls::vector<type_t, 5> partial_prod;
@@ -30,12 +48,18 @@ void Profile::PE::Compute(char_t local_query_val,
 
     // Second dot product
     type_t cell_score = 0;
+    ap_int<8> lqc = 0;  // normalization term
+    ap_int<8> lrc = 0;  // normalization term
     for (ushort i = 0; i < 5; i++)
     {
 #pragma HLS unroll
         cell_score += partial_prod[i] * local_reference_val[i];
+        lrc += local_reference_val[i];
+        lqc += local_query_val[i];
     }
+    ap_int<8> lqclrc = lqc * lrc;
 
+    if (lqclrc != 0) cell_score /= lqclrc;
 
 // compute the cell scores with expanded multiplication
 //     type_t cell_score = 0;
@@ -49,16 +73,26 @@ void Profile::PE::Compute(char_t local_query_val,
 //         }
 //     }
 
-    type_t maximum = up_prev[0];
+    type_t ins_score = left_prev[0] + penalties.linear_gap;
+    type_t del_score = up_prev[0] + penalties.linear_gap;
+
+#ifdef CMAKEDEBUG
+    // replicate type_t datas
+    float ins_score_f = ins_score.to_float();
+    float del_score_f = del_score.to_float();
+    float cell_score_f = cell_score.to_float();
+#endif
+
+    type_t maximum = del_score;
     write_traceback = TB_UP;
-    if (maximum < diag_prev[0])
+    if (maximum < diag_prev[0] + cell_score)
     {
-        maximum = diag_prev[0];
+        maximum = diag_prev[0] + cell_score;
         write_traceback = TB_DIAG;
     }
-    if (maximum < left_prev[0])
+    if (maximum < ins_score)
     {
-        maximum = left_prev[0];
+        maximum = ins_score;
         write_traceback = TB_LEFT;
     }
 

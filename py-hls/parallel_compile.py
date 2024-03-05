@@ -13,6 +13,8 @@ import sys, os, shutil
 import json
 import argparse
 
+logging.basicConfig(format='%(asctime)s %(message)s')
+
 # Use something like `python parallel_compile.py --config /home/centos/workspace/kernels/global_affine/config.json --compile True --num_workers 3` to compile in parallel
 # WARNING: Cannot do parallel emulation run
 # Kernle Naming: f'{output_name}_{max_query_length}_{max_reference_length}_{pe_num}_{block}'
@@ -166,11 +168,13 @@ if __name__ == "__main__":
         for pe_num in pe_num_list:
             for block in block_list:
                 build_path = os.path.join(output_path, f'{output_name}_{max_query_length}_{max_reference_length}_{pe_num}_{block}')
+                report_path = os.path.join(build_path, 'report')
                 all_build_paths.append(build_path)
 
                 # Make directory for all the configurations
                 os.makedirs(build_path, exist_ok=True)
-                
+                os.makedirs(report_path, exist_ok=True)
+
                 # Create the template for all the configurations
                 template = jinja2.Template(open(
                     os.path.join(dp_hls_root, 'templates', 'Makefile.template')).read())
@@ -186,7 +190,8 @@ if __name__ == "__main__":
                         dp_hls_root=dp_hls_root,
                         path_hls_config=config['design']['path_hls_config'],
                         kernel_name=config['kernel_name'],
-                        host_path=config['design']['host_program']
+                        host_path=config['design']['host_program'],
+                        report_path=report_path
                     ))
             
                 shutil.copy(os.path.join(dp_hls_root, 'templates', 'utils.mk'), os.path.join(build_path, 'utils.mk'))

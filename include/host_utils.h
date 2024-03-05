@@ -79,6 +79,9 @@ namespace Random {
 
 }
 
+// function to convert the sequences to the format of the input of the profile alignment kernel
+std::vector<std::array<int, 5>> MultipleSequencesToProfileAlign(std::vector<string> seq, int len);
+
 /**
  * @brief Fucntino to reconstruct the alignment result from the an array of traceback navigations. 
  * 
@@ -113,5 +116,18 @@ array<map<string, string>, NB> ReconstructTracebackBlocks(string query[NB], stri
 
     return alignments;
 }
+
+/**
+ * @brief Reconstruct the traceback for profile alignmetnt from the array of traceback navigations.
+ * 
+ * @param querys 
+ * @param references 
+ * @param query_start_idx 
+ * @param reference_start_idx 
+ * @return std::vector<string> 
+ */
+std::vector<string> ReconstructTracebackProfile(std::vector<string> querys, std::vector<string> references, 
+    int query_start_idx, int reference_start_idx, 
+    tbr_t (&tb_streams)[MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH]);
 
 #endif // !HOST_H
