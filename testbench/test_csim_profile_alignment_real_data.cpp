@@ -95,13 +95,6 @@ int main()
     json_file >> data;
 
     // Iterate through the JSON object
-    for (auto &element : data.items())
-    {
-        string species_name = element.key();   // The 'key' is the species name
-        string dna_sequence = element.value(); // The 'value' is the DNA sequence
-    }
-    int num_species = data.size();
-
     // put the species name and genes into vectors
     std::vector<string> species_names;
     std::vector<string> dna_sequences;
@@ -112,7 +105,7 @@ int main()
     }
 
     // show num species
-    std::cout << "Number of species: " << num_species << std::endl;
+    std::cout << "Number of species: " << species_names.size() << std::endl;
 
     // initialize the query and reference sequences
     std::vector<string> query_c_h;     // in character format, on host

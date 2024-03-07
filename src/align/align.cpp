@@ -5,20 +5,20 @@ using namespace hls;
 
 #define MAX(x, y) (((x) > (y)) ? (x) : (y))
 
-void Align::ArrangeScores(
-	dp_mem_block_t &dpmem_in,
-	bool (&predicate)[PE_NUM], idx_t (&pe_offset)[PE_NUM],
-	hls::vector<type_t, N_LAYERS>  (*chunk_score_out)[MAX_REFERENCE_LENGTH])
-{
-	for (int i = 1; i < PE_NUM+1; i++)
-	{
-#pragma HLS unroll
-		if (predicate[i-1])
-		{
-			chunk_score_out[i-1][pe_offset[i-1]] = dpmem_in[i][0];
-		}
-	}
-}
+// void Align::ArrangeScores(
+// 	dp_mem_block_t &dpmem_in,
+// 	bool (&predicate)[PE_NUM], idx_t (&pe_offset)[PE_NUM],
+// 	hls::vector<type_t, N_LAYERS>  (*chunk_score_out)[MAX_REFERENCE_LENGTH])
+// {
+// 	for (int i = 1; i < PE_NUM+1; i++)
+// 	{
+// #pragma HLS unroll
+// 		if (predicate[i-1])
+// 		{
+// 			chunk_score_out[i-1][pe_offset[i-1]] = dpmem_in[i][0];
+// 		}
+// 	}
+// }
 
 
 void Align::WriteInitialColScore(int i, score_vec_t (&init_scores)[PE_NUM], hls::stream_of_blocks<dp_mem_block_t> &dp_mem_in, hls::stream_of_blocks<dp_mem_block_t> &scores_out)
@@ -63,16 +63,16 @@ void Align::ShiftReferece(
 {
 // #pragma HLS inline off
 #pragma HLS latency max=1
-	// // Shift Reference
-	// if (idx < ref_len)
-	// {
-	// 	Utils::Array::ShiftRight<char_t, PE_NUM>(local_reference, reference[idx]);
-	// }
-	// else
-	// {
-	// 	Utils::Array::ShiftRight<char_t, PE_NUM>(local_reference, ZERO_CHAR);
-	// }
-	Utils::Array::ShiftRight<char_t, PE_NUM>(local_reference, reference[idx]);
+	// Shift Reference
+	if (idx < ref_len)
+	{
+		Utils::Array::ShiftRight<char_t, PE_NUM>(local_reference, reference[idx]);
+	}
+	else
+	{
+		Utils::Array::ShiftRight<char_t, PE_NUM>(local_reference, ZERO_CHAR);
+	}
+	// Utils::Array::ShiftRight<char_t, PE_NUM>(local_reference, reference[idx]);
 }
 
 void Align::PrepareScoresArr(
@@ -174,8 +174,10 @@ void Align::ChunkCompute(
 #endif
 	){
 #pragma HLS inline off
+#pragma HLS dataflow
 
 	bool predicate[PE_NUM];
+	// score_vec_t write_row_scr[MAX_REFERENCE_LENGTH];
 
 	Utils::Init::ArrSet<bool, PE_NUM>(predicate, false);
 
@@ -229,10 +231,18 @@ void Align::ChunkCompute(
         // {
 
 		Align::PrepareScoreBuffer(score_buff, i, init_col_scr, init_row_scr);
-
-		// Align::UpdateDPMem(dp_mem, i, init_col_scr, init_row_scr);
 		Align::UpdateDPMemSep(dp_mem, score_buff);
-
+		
+	// 	for (int j = 0; j < PE_NUM + 1; j++)
+	// 	{
+	// #pragma HLS unroll
+	// 		dp_mem[j][1] = dp_mem[j][0];  // shift
+	// 		dp_mem[j][0] = (j - 1 == i && i < PE_NUM) ? init_col_scr[j] : score_buff[j];
+	// 	}
+	// 	if (i < MAX_REFERENCE_LENGTH){  // FIXME: Actually this could also be actual_reference_length
+	// 		dp_mem[0][0] = init_row_scr[i];
+	// 	}
+	
 		// PE::PEUnroll(
 		// 	dp_mem,
 		// 	local_query,
@@ -263,7 +273,7 @@ void Align::ChunkCompute(
 		// while ArrangeTBPArr does
 		Align::PreserveRowScore(
 			preserved_row_scr,
-			score_buff[PE_NUM],
+			score_buff[PE_NUM],  // score_buff is of the length PE_NUM+1
 			predicate[PE_NUM-1],
 			v_cols[PE_NUM-1]);
 
@@ -271,6 +281,13 @@ void Align::ChunkCompute(
 		predicate, global_query_length, reference_length);
 		Align::CoordinateArrayOffset<PE_NUM>(v_cols);
 		Align::CoordinateArrayOffset<PE_NUM>(p_cols);
+	}
+
+	// copy write_row_score to preserve_row_score
+	for (int i = 0; i < MAX_REFERENCE_LENGTH; i++)
+	{
+// #pragma HLS unroll
+		// preserved_row_scr[i] = write_row_scr[i];
 	}
 }
 
@@ -354,7 +371,7 @@ void Align::UpdatePEOffset(
 }
 
 void Align::PreserveRowScore(
-	hls::vector<type_t, N_LAYERS> (&preserved_row_scr)[MAX_REFERENCE_LENGTH],
+	score_vec_t (&preserved_row_scr)[MAX_REFERENCE_LENGTH],
 	const score_vec_t score_vec,
 	const bool predicate_pe_last,
 	const idx_t idx)
@@ -476,7 +493,8 @@ void Align::AlignStatic(
 
 	char_t local_query[PE_NUM];
 	chunk_col_scores_inf_t local_init_col_score;
-	local_init_col_score[PE_NUM] = score_vec_t(0); // Always initialize the upper left cornor to 0
+	// local_init_col_score[PE_NUM] = score_vec_t(0); // Always initialize the upper left cornor to 0
+	std::fill_n(local_init_col_score, N_LAYERS, 0);
 
 	Iterating_Chunks:
 	for (idx_t i = 0, ic = 0; i < query_length; i += PE_NUM, ic ++)

@@ -143,7 +143,6 @@ if __name__ == "__main__":
         print("Config data read successfully:")
         print(config)
 
-    
     problem_sizes_list = config['size']['max_problem_size']
     pe_num_list = config['size']['pe_num']
     block_list = config['size']['blocks']
@@ -189,9 +188,10 @@ if __name__ == "__main__":
                         kernel_frontend_path=kernel_frontend_path,
                         dp_hls_root=dp_hls_root,
                         path_hls_config=config['design']['path_hls_config'],
-                        kernel_name=config['kernel_name'],
+                        kernel_name=config['kernel']['name'],
                         host_path=config['design']['host_program'],
-                        report_path=report_path
+                        report_path=report_path,
+                        clock_frequency=config['kernel']['clock_frequency']
                     ))
             
                 shutil.copy(os.path.join(dp_hls_root, 'templates', 'utils.mk'), os.path.join(build_path, 'utils.mk'))

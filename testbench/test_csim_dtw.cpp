@@ -1,30 +1,60 @@
 #include <string>
 #include <vector>
-#include "../include/params.h"
-#include "../include/seq_align_multiple.h"
-#include "../include/host_utils.h"
+#include <complex>
+#include "params.h"
+#include "seq_align_multiple.h"
+#include "host_utils.h"
+
+#define TEST_QUERY_SIZE 50
+#define TEST_REFERENCE_SIZE 250
 
 struct Penalties_sol
 {
-    float extend;
-    float open;
     float linear_gap;
-    float match;
-    float mismatch;
 };
 
 int main(){
 
-    auto query = Random::SequenceComplex<char_t>(50);
-    auto reference = Random::SequenceComplex<char_t>(250);
+    auto query = Random::SequenceComplex<complex<num_t>>(TEST_QUERY_SIZE);
+    auto reference = Random::SequenceComplex<complex<num_t>>(TEST_REFERENCE_SIZE);
 
-    Penalties penalties;
-    penalties.extend = -1;
-    penalties.open = -1;
-    penalties.linear_gap = -1;
-    penalties.match = 3;
-    penalties.mismatch = -1;
+    // declare the query and reference buffer and copy the initialized data to the buffer
+    char_t reference_buff[N_BLOCKS][MAX_REFERENCE_LENGTH];
+    char_t query_buff[N_BLOCKS][MAX_QUERY_LENGTH];
 
+    for (int b = 0; b < N_BLOCKS; b++)
+    {
+        for (int i = 0; i < MAX_QUERY_LENGTH; i++)
+        {
+            if (i < TEST_QUERY_SIZE){
+                query_buff[b][i].imag = imag(query[i]);
+                query_buff[b][i].real = real(query[i]);
+            } else {
+                query_buff[b][i].imag = 0;
+                query_buff[b][i].real = 0;
+            }
+        }
+        for (int i = 0; i < TEST_REFERENCE_SIZE; i++)
+        {
+            if (i < TEST_REFERENCE_SIZE){
+                reference_buff[b][i].imag = imag(reference[i]);
+                reference_buff[b][i].real = real(reference[i]);
+            } else {
+                reference_buff[b][i].imag = 0;
+                reference_buff[b][i].real = 0;
+            }
+        }
+    }
+
+    Container debuggers[N_BLOCKS];
+    for (int i = 0; i < N_BLOCKS; i++){
+        debuggers[i] = Container();
+    }
+
+    Penalties penalties[N_BLOCKS];
+    for (int i = 0; i < N_BLOCKS; i++){
+        penalties[i].linear_gap = -1;
+    }
 
     try {
         if (query.size() > MAX_QUERY_LENGTH) throw std::runtime_error("Query length should less than MAX_QUERY_LENGTH, "
@@ -36,40 +66,33 @@ int main(){
         throw;
     }
 
-    char_t reference_buff[N_BLOCKS][MAX_REFERENCE_LENGTH];
-    char_t  query_buff[N_BLOCKS][MAX_QUERY_LENGTH];
-
     idx_t qry_lengths[N_BLOCKS], ref_lengths[N_BLOCKS];
-
-    // Fill query buffer and references buffer for all blocks.
-    // Each buffer is of MAX size, but only the actual length
-    // elements is filled.
-    for (int b = 0; b < N_BLOCKS; b++)
-    {
-        for (int i = 0; i < query.size(); i++)
-        {
-            query_buff[b][i] = query[i];
-        }
-        for (int i = 0; i < reference.size(); i++)
-        {
-            reference_buff[b][i] = reference[i];
-        }
-    }
 
     for (int b = 0; b < N_BLOCKS; b++)
     {
         qry_lengths[b] = query.size();
+        cout << "qry_lengths[" << b << "]: " << qry_lengths[b] << endl;
         ref_lengths[b] = reference.size();
+        cout << "ref_lengths[" << b << "]: " << ref_lengths[b] << endl;
     }
 
     tbr_t tb_streams[N_BLOCKS][MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH];
+    // initialize traceback starting coordinates
+    idx_t tb_is[N_BLOCKS];
+    idx_t tb_js[N_BLOCKS];
+
 // Actual kernel calling
+    // Actual kernel calling
     seq_align_multiple_static(
         query_buff,
         reference_buff,
         qry_lengths,
         ref_lengths,
         penalties,
-        tb_streams); 
-    
+        tb_is, tb_js,
+        tb_streams
+#ifdef CMAKEDEBUG
+        , debuggers
+#endif
+        );
 }
