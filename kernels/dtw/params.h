@@ -14,6 +14,12 @@
 #define PE_NUM 32
 #define LAYER_MAXIMIUM 0  // We need to indicate from which layer (main matrix) is the maximum score stored.
 
+// if user decides to use banding
+//#define BANDED
+#ifdef BANDED
+#define FIXED_BANDWIDTH 4
+#endif
+
 // Primitive Types
 typedef short num_t;  // in DTW need to use standard type
 typedef std::complex<num_t> char_t;  // Sequence Alphabet

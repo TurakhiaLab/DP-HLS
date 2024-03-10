@@ -15,6 +15,12 @@
 const int PE_NUM = PRAGMA_PE_NUM;
 #define LAYER_MAXIMIUM 1  // We need to indicate from which layer (main matrix) is the maximum score stored.
 
+// if user decides to use banding
+//#define BANDED
+#ifdef BANDED
+#define FIXED_BANDWIDTH 4
+#endif
+
 // Primitive Types
 typedef ap_uint<2> char_t;  // Sequence Alphabet
 typedef ap_fixed<16, 11> type_t;  // Scores Type <width, integer_width>
