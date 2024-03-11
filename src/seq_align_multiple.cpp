@@ -68,8 +68,6 @@ extern "C"
 			query_lengths_b[i] = query_lengths[i];
 			reference_lengths_b[i] = reference_lengths[i];
 			penalties_b[i] = penalties[i];
-			tb_is_b[i] = tb_is[i];
-			tb_js_b[i] = tb_js[i];
 		}
 #pragma HLS interface mode = axis port = querys_b
 #pragma HLS interface mode = axis port = references_b
@@ -124,6 +122,8 @@ extern "C"
 			{
 				tb_streams[i][j] = tb_streams_b[i][j];
 			}
+			tb_is_b[i] = tb_is[i];
+			tb_js_b[i] = tb_js[i];
 		}
 
 	}

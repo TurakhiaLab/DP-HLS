@@ -17,11 +17,11 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O0 -g -fsanitize=address -fno-inline -D
 
 set(EXECUTABLE_TARGETS
     baseline_local_linear
-    test_align
 
     test_csim_global_linear
     test_csim_global_affine
     test_csim_local_affine 
+    test_csim_dtw
     test_csim_profile_alignment
     test_csim_profile_alignment_real_data
 )
@@ -29,7 +29,6 @@ set(EXECUTABLE_TARGETS
 add_compile_definitions(PUBLIC CMAKEDEBUG)
 
 set(COMMON_SRCS
-    "include/host_utils.h"
     "src/seq_align_multiple.cpp"
     "src/align/align.cpp"
     "src/pe.cpp"
@@ -43,15 +42,6 @@ add_executable(baseline_local_linear "legacy/local_linear.h"
     "legacy/local_linear.cpp"
     "legacy/shift_register.h"
     "legacy/local_linear_testbench.cpp" )
-
-# Testbench for individual kernel. 
-add_executable(test_align "testbench/test_align.cpp"
-    "src/seq_align_multiple.cpp"
-    "src/align/align.cpp"
-    "src/pe.cpp"
-    "src/traceback.cpp"
-    "src/pyapi.cpp"
-    "src/utils.cpp")
 
 add_executable(test_csim_global_linear 
     "testbench/test_csim_global_linear.cpp"
@@ -83,24 +73,19 @@ add_executable(test_csim_dtw
     "kernels/dtw/kernel_dtw.cpp"
     ${COMMON_SRCS})
 
-add_executable(test_pyapi "testbench/test_align.cpp"
-    "include/seq_align_multiple.h"
-    "include/align.h"
-    "include/PE.h"
-    "include/utils.h"
-    "include/pyapi.h"
-    "src/seq_align_multiple.cpp"
-    "src/align/align.cpp"
-    "src/pe.cpp"
-    "src/traceback.cpp"
-    "src/pyapi.cpp"
-    "include/debug.h")
-
-add_executable(multidimcast
-    "include/pyapi.h"
-    "src/pyapi.cpp"
-    "testbench/multidimcast_test.cpp"
-)
+# Test Python APIs
+#add_executable(test_pyapi "testbench/test_align.cpp"
+#    "include/seq_align_multiple.h"
+#    "include/align.h"
+#    "include/PE.h"
+#    "include/utils.h"
+#    "include/pyapi.h"
+#    "src/seq_align_multiple.cpp"
+#    "src/align/align.cpp"
+#    "src/pe.cpp"
+#    "src/traceback.cpp"
+#    "src/pyapi.cpp"
+#    "include/debug.h")
 
 target_compile_definitions(test_csim_global_linear PRIVATE ALIGN_GLOBAL_LINEAR)
 target_compile_definitions(test_csim_global_affine PRIVATE ALIGN_GLOBAL_AFFINE)
@@ -112,12 +97,9 @@ target_include_directories(test_csim_local_affine PRIVATE "/home/centos/workspac
 target_include_directories(test_csim_profile_alignment PRIVATE "/home/centos/workspace/DP-HLS/kernels/profile_alignment")
 target_include_directories(test_csim_profile_alignment_real_data PRIVATE "/home/centos/workspace/DP-HLS/kernels/profile_alignment")
 target_include_directories(test_csim_profile_alignment_real_data PRIVATE "/home/centos/libs/json/include")
+target_include_directories(test_csim_dtw PRIVATE "/home/centos/workspace/DP-HLS/kernels/dtw")
 
-set_property(TARGET test_pyapi PROPERTY CXX_STANDARD 17)
-set_property(TARGET test_align PROPERTY CXX_STANDARD 17)
-set_property(TARGET multidimcast PROPERTY CXX_STANDARD 17)
-
-# Add include to Xilinx Library FIles
+# Add include to Xilinx Library Files
 if (RAPTOR)
     set(HLS_HOME "/home/AD.UCSD.EDU/swalia/Xilinx/Vitis_HLS/2023.1")
     set(DP-HLS_HOME "/home/yic033@AD.UCSD.EDU/DP-HLS")
@@ -135,9 +117,18 @@ elseif(F1)
 
     include_directories(${EXECUTABLE_TARGETS} PUBLIC "${HLS_HOME}/include")
     include_directories(${EXECUTABLE_TARGETS} PUBLIC "${DP-HLS_HOME}/include")
+    include_directories(${EXECUTABLE_TARGETS} PUBLIC "/home/centos/workspace/DP-HLS/common/includes")
+
 
     link_directories(${EXECUTABLE_TARGETS} PUBLIC "${HLS_HOME}/lib")
+    link_directories(${EXECUTABLE_TARGETS} PUBLIC "/usr/lib64")
     link_directories(${EXECUTABLE_TARGETS} PUBLIC "/usr/lib/x86_64-linux-gnu" "/usr/lib32" "/usr/libx32")
+
+    link_libraries(${EXECUTABLE_TARGETS} PUBLIC xrt_coreutil)
+    
+    target_link_libraries(test_csim_dtw PUBLIC OpenCL)
+    target_link_libraries(test_csim_profile_alignment_real_data PUBLIC OpenCL)
+
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread")
 else()
     set(HLS_HOME "/tools/Xilinx/Vitis_HLS/2022.2")
