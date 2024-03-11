@@ -188,7 +188,6 @@ void Align::ChunkCompute(
 
 #pragma HLS array_partition variable = predicate type = complete
 #pragma HLS array_partition variable = local_query type = complete
-
 #pragma HLS array_partition variable = local_reference type = complete
 #pragma HLS array_partition variable = dp_mem type = complete
 #pragma HLS array_partition variable = tbp_out type = complete
@@ -283,12 +282,12 @@ void Align::ChunkCompute(
 		Align::CoordinateArrayOffset<PE_NUM>(p_cols);
 	}
 
-	// copy write_row_score to preserve_row_score
-	for (int i = 0; i < MAX_REFERENCE_LENGTH; i++)
-	{
-// #pragma HLS unroll
-		// preserved_row_scr[i] = write_row_scr[i];
-	}
+// 	// copy write_row_score to preserve_row_score
+// 	for (int i = 0; i < MAX_REFERENCE_LENGTH; i++)
+// 	{
+// // #pragma HLS unroll
+// 		preserved_row_scr[i] = write_row_scr[i];
+// 	}
 }
 
 void Align::UpdateDPMemSep(
@@ -493,8 +492,7 @@ void Align::AlignStatic(
 
 	char_t local_query[PE_NUM];
 	chunk_col_scores_inf_t local_init_col_score;
-	// local_init_col_score[PE_NUM] = score_vec_t(0); // Always initialize the upper left cornor to 0
-	std::fill_n(local_init_col_score, N_LAYERS, 0);
+	local_init_col_score[PE_NUM] = score_vec_t(0); // Always initialize the upper left cornor to 0
 
 	Iterating_Chunks:
 	for (idx_t i = 0, ic = 0; i < query_length; i += PE_NUM, ic ++)

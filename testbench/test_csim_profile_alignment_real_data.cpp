@@ -65,7 +65,7 @@ int main()
     // Solution Penalties
     Penalties_sol penalties_sol;
     penalties_sol.transition = transitions_;
-    penalties_sol.linear_gap = -2;
+    penalties_sol.linear_gap = -40;
 
     Penalties penalties_b[N_BLOCKS];
     tbr_t tb_streams_b[N_BLOCKS][MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH];

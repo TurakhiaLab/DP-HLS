@@ -29,7 +29,6 @@ set(EXECUTABLE_TARGETS
 add_compile_definitions(PUBLIC CMAKEDEBUG)
 
 set(COMMON_SRCS
-    "include/host_utils.h"
     "src/seq_align_multiple.cpp"
     "src/align/align.cpp"
     "src/pe.cpp"
@@ -118,9 +117,18 @@ elseif(F1)
 
     include_directories(${EXECUTABLE_TARGETS} PUBLIC "${HLS_HOME}/include")
     include_directories(${EXECUTABLE_TARGETS} PUBLIC "${DP-HLS_HOME}/include")
+    include_directories(${EXECUTABLE_TARGETS} PUBLIC "/home/centos/workspace/DP-HLS/common/includes")
+
 
     link_directories(${EXECUTABLE_TARGETS} PUBLIC "${HLS_HOME}/lib")
+    link_directories(${EXECUTABLE_TARGETS} PUBLIC "/usr/lib64")
     link_directories(${EXECUTABLE_TARGETS} PUBLIC "/usr/lib/x86_64-linux-gnu" "/usr/lib32" "/usr/libx32")
+
+    link_libraries(${EXECUTABLE_TARGETS} PUBLIC xrt_coreutil)
+    
+    target_link_libraries(test_csim_dtw PUBLIC OpenCL)
+    target_link_libraries(test_csim_profile_alignment_real_data PUBLIC OpenCL)
+
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread")
 else()
     set(HLS_HOME "/tools/Xilinx/Vitis_HLS/2022.2")
