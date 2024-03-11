@@ -13,7 +13,15 @@
 #define PE_NUM 32
 #define LAYER_MAXIMIUM 0  // We need to indicate from which layer (main matrix) is the maximum score stored.
 
+
 typedef ap_fixed<16, 10> num_t;
+
+// if user decides to use banding
+//#define BANDED
+#ifdef BANDED
+#define FIXED_BANDWIDTH 4
+#endif
+
 
 // Primitive Types
 struct char_t_st {
