@@ -1,5 +1,5 @@
-#include "align.h"
-#include "params.h"
+#include "../../include/align.h"
+#include "../../kernels/global_affine/params.h"
 
 using namespace hls;
 
@@ -155,14 +155,13 @@ void Align::MapPredicateSquare(
 	}
 }
 
+#ifdef BANDED
 void Align::MapPredicateBanded(
 	int start_index, 
 	int stop_index,
 	idx_t chunk_row_offset,
 	idx_t (&ics)[PE_NUM], 
 	idx_t (&jcs)[PE_NUM],
-	idx_t (&col_lim_left)[PE_NUM], 
-	idx_t (&col_lim_right)[PE_NUM],
 	const int query_len,
 	const idx_t ref_len,
 	bool (&predicate)[PE_NUM]) {
@@ -171,11 +170,11 @@ void Align::MapPredicateBanded(
 	{
 #pragma HLS unroll
 		int minPos = MAX(0, jcs[i] - FIXED_BANDWIDTH + 1);
-		int maxPos = MIN(ref_len, jcs[i] + FIXED_BANDWITH);
+		int maxPos = MIN(ref_len, jcs[i] + FIXED_BANDWIDTH);
 		predicate[i] = (minPos <= ics[i] && ics[i] < maxPos && 0 <= jcs[i] && jcs[i] < query_len);
 	}
 }
-
+#endif
 
 void Align::ChunkCompute(
 	idx_t chunk_row_offset,
@@ -221,8 +220,8 @@ void Align::ChunkCompute(
 	// so we can make correct computation.
 	Iterating_Wavefronts:
 #ifdef BANDED
-	int start_index = max(0, chunk_row_offset - FIXED_BANDWIDTH + 1);
-	int stop_index = min(reference_length, chunk_row_offset + (PE_NUM - 1) + FIXED_BANDWIDTH - 1) + PE_NUM - 1;
+	int start_index = MAX(0, chunk_row_offset - FIXED_BANDWIDTH + 1);
+	int stop_index = MIN(reference_length, chunk_row_offset + (PE_NUM - 1) + FIXED_BANDWIDTH - 1) + PE_NUM - 1;
 #else 
 	int start_index = 0;
 	int stop_index = reference_length + PE_NUM - 1;
@@ -376,16 +375,25 @@ void Align::PreserveRowScore(
 	}
 }
 
-void Align::FindMax::ReductionMaxScores(ScorePack (&packs)[PE_NUM], ScorePack &global_max)
+void Align::FindMax::ReductionMaxScores(ScorePack (&packs)[PE_NUM], ScorePack &global_max, int query_len, int ref_len)
 {
 	idx_t max = 0;
 	for (int i = 0; i < PE_NUM; i++)
 	{
+#ifdef ALIGN_TYPE
+	#if (ALIGN_TYPE == SemiGlobalAffine) || (ALIGN_TYPE == Overlap)
+		if (packs[i].score > packs[max].score && (packs[i].row == query_len-1 || packs[i].col == ref_len-1)) 
+		{
+			max = i;
+		}
+	#else 
 		if (packs[i].score > packs[max].score)
 		{
 			max = i;
 		}
+	#endif
 	}
+#endif
 	global_max = packs[max];
 }
 
@@ -528,10 +536,10 @@ void Align::AlignStatic(
 		Align::CoordinateArrayOffsetGeneric<PE_NUM, PE_NUM>(v_rows);
 
 	}
-	Align::FindMax::ReductionMaxScores(local_max, maximum);
+	Align::FindMax::ReductionMaxScores(local_max, maximum, query_length, reference_length);
 
 	// >>> Traceback >>>
-	tb_i = maximum.row;
+	/*tb_i = maximum.row;
 	tb_j = maximum.col;
 
 #ifdef CMAKEDEBUG
@@ -540,7 +548,7 @@ void Align::AlignStatic(
 	cout << "Traceback start idx physical: " << maximum.ck << " " <<  maximum.pe << " " << maximum.p_col << endl; 
 #endif
 
-	Traceback::TracebackOptimized(tbp_matrix, tb_out, ck_start_col, ck_end_col, maximum.ck, maximum.pe, maximum.p_col, maximum.row, maximum.col);
+	Traceback::TracebackOptimized(tbp_matrix, tb_out, ck_start_col, ck_end_col, maximum.ck, maximum.pe, maximum.p_col, maximum.row, maximum.col, query_length, reference_length);*/
 }
 
 void SwapBuffer(score_vec_t *&a, score_vec_t *&b){
