@@ -13,10 +13,8 @@
 #define SEQ_ALIGN_H
 
 #include <ap_int.h>
-// #include <hls_task.h>
 #include <hls_vector.h>
 #include <hls_stream.h>
-// #include <hls_streamofblocks.h>
 
 #include "params.h"
 #include "PE.h"
@@ -25,7 +23,6 @@
 
 #ifdef CMAKEDEBUG
 #include "./debug.h"
-// #include "./pyapi.h"
 #endif // DBEUG
 
 using namespace hls;

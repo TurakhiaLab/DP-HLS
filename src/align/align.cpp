@@ -1,25 +1,15 @@
+#ifndef VPP_CLI
+#include "../../include/align.h"
+#include "../../kernels/dtw/params.h"  // FIXME: Temporarily being the DTW Kernel
+#else
 #include "align.h"
 #include "params.h"
+#endif
 
 using namespace hls;
 
 #define MAX(a, b) ((a) > (b) ? (a) : (b))
 #define MIN(a, b) ((a) < (b) ? (a) : (b))
-
-// void Align::ArrangeScores(
-// 	dp_mem_block_t &dpmem_in,
-// 	bool (&predicate)[PE_NUM], idx_t (&pe_offset)[PE_NUM],
-// 	hls::vector<type_t, N_LAYERS>  (*chunk_score_out)[MAX_REFERENCE_LENGTH])
-// {
-// 	for (int i = 1; i < PE_NUM+1; i++)
-// 	{
-// #pragma HLS unroll
-// 		if (predicate[i-1])
-// 		{
-// 			chunk_score_out[i-1][pe_offset[i-1]] = dpmem_in[i][0];
-// 		}
-// 	}
-// }
 
 
 void Align::WriteInitialColScore(int i, score_vec_t (&init_scores)[PE_NUM], hls::stream_of_blocks<dp_mem_block_t> &dp_mem_in, hls::stream_of_blocks<dp_mem_block_t> &scores_out)
@@ -157,6 +147,7 @@ void Align::MapPredicateSquare(
 	}
 }
 
+#ifdef BANDED
 void Align::MapPredicateBanded(
 	int start_index, 
 	int stop_index,
@@ -177,7 +168,7 @@ void Align::MapPredicateBanded(
 		predicate[i] = (minPos <= ics[i] && ics[i] < maxPos && 0 <= jcs[i] && jcs[i] < query_len);
 	}
 }
-
+#endif
 
 void Align::ChunkCompute(
 	idx_t chunk_row_offset,

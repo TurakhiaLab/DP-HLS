@@ -133,24 +133,19 @@ int main(){
 #endif
         );
 
+    cout << "Kernel call done" << endl;
+
 
     // retrive the solution
     array<array<array<float, MAX_REFERENCE_LENGTH>, MAX_QUERY_LENGTH>, N_LAYERS> sol_score_mat;
     array<array<char, MAX_REFERENCE_LENGTH>, MAX_QUERY_LENGTH> sol_tb_mat;
     map<string, string> alignments;
     global_linear_solution<Penalties_sol, MAX_QUERY_LENGTH, MAX_REFERENCE_LENGTH, N_LAYERS>(query_string, reference_string, penalties_sol[0], sol_score_mat, sol_tb_mat, alignments);
-    // print_matrix<float, MAX_QUERY_LENGTH, MAX_REFERENCE_LENGTH>(sol_score_mat[0], "Solution Score Matrix Layer 0");
-    // print_matrix<float, MAX_QUERY_LENGTH, MAX_REFERENCE_LENGTH>(sol_score_mat[1], "Solution Score Matrix Layer 1");
-    // print_matrix<float, MAX_QUERY_LENGTH, MAX_REFERENCE_LENGTH>(sol_score_mat[2], "Solution Score Matrix Layer 2");
-    // print_matrix<char, MAX_QUERY_LENGTH, MAX_REFERENCE_LENGTH>(sol_tb_mat, "Solution Traceback Matrix");
-    cout << "Aligned Query    : " << alignments["query"] << endl;
-    cout << "Aligned Reference: " << alignments["reference"] << endl;
+    cout << "Solution Aligned Query    : " << alignments["query"] << endl;
+    cout << "Solution Aligned Reference: " << alignments["reference"] << endl;
 
     // Print kernel 0 scores
     debuggers[0].cast_scores();
-    // print_matrix<float, MAX_QUERY_LENGTH, MAX_REFERENCE_LENGTH>(debuggers[0].scores_cpp[0], "Kernel 0 Scores Layer 0");
-    // print_matrix<float, MAX_QUERY_LENGTH, MAX_REFERENCE_LENGTH>(debuggers[0].scores_cpp[1], "Kernel 0 Scores Layer 1");
-    // print_matrix<float, MAX_QUERY_LENGTH, MAX_REFERENCE_LENGTH>(debuggers[0].scores_cpp[2], "Kernel 0 Scores Layer 2");
     debuggers[0].compare_scores(sol_score_mat, query.size(), reference.size());
 
     // reconstruct kernel alignments
@@ -161,18 +156,21 @@ int main(){
     string reference_string_blocks[N_BLOCKS];
     // for global alignments, adjust the lengths to be the lengths - 1
     for (int i = 0; i < N_BLOCKS; i++) {
+        // print tbis, tbjs
+        cout << "tb_is[" << i << "]: " << tb_is[i] << endl;
+        cout << "tb_js[" << i << "]: " << tb_js[i] << endl;
         tb_query_lengths[i] = tb_is[i];
-        tb_reference_lengths[i] = ref_lengths[i];
+        tb_reference_lengths[i] = tb_js[i];
         query_string_blocks[i] = query_string;
         reference_string_blocks[i] = reference_string;
     }
-    kernel_alignments = ReconstructTracebackBlocks<N_BLOCKS>(
+    kernel_alignments = HostUtils::Sequence::ReconstructTracebackBlocks<tbr_t, N_BLOCKS, MAX_QUERY_LENGTH, MAX_REFERENCE_LENGTH>(
         query_string_blocks, reference_string_blocks,
         tb_query_lengths, tb_reference_lengths, 
         tb_streams);
     // Print kernel 0 traceback
     cout << "Kernel 0 Traceback" << endl;
-    cout << "Aligned Query    : " << kernel_alignments[0]["query"] << endl;
-    cout << "Aligned Reference: " << kernel_alignments[0]["reference"] << endl;
-
+    cout << "Kernel Aligned Query    : " << kernel_alignments[0]["query"] << endl;
+    cout << "Kernel Aligned Reference: " << kernel_alignments[0]["reference"] << endl;
+    return 0;
 }

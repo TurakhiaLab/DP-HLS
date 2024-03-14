@@ -91,6 +91,9 @@ target_compile_definitions(test_csim_global_linear PRIVATE ALIGN_GLOBAL_LINEAR)
 target_compile_definitions(test_csim_global_affine PRIVATE ALIGN_GLOBAL_AFFINE)
 target_compile_definitions(test_csim_local_affine PRIVATE ALIGN_LOCAL_AFFINE)
 
+target_compile_definitions(test_csim_dtw PRIVATE VPP_CLI)
+target_compile_definitions(test_csim_global_linear PRIVATE VPP_CLI)
+
 target_include_directories(test_csim_global_affine PRIVATE "/home/centos/workspace/DP-HLS/kernels/global_affine")
 target_include_directories(test_csim_global_linear PRIVATE "/home/centos/workspace/DP-HLS/kernels/global_linear")
 target_include_directories(test_csim_local_affine PRIVATE "/home/centos/workspace/DP-HLS/kernels/local_affine")
@@ -128,6 +131,7 @@ elseif(F1)
     
     target_link_libraries(test_csim_dtw PUBLIC OpenCL)
     target_link_libraries(test_csim_profile_alignment_real_data PUBLIC OpenCL)
+    target_link_libraries(test_csim_global_linear PUBLIC OpenCL)
 
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread")
 else()

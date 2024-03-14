@@ -1,9 +1,13 @@
 #include <string>
 #include <vector>
 #include <complex>
+
+
 #include "params.h"
 #include "seq_align_multiple.h"
 #include "host_utils.h"
+#include "debug.h"
+
 
 #define TEST_QUERY_SIZE 50
 #define TEST_REFERENCE_SIZE 250

@@ -148,10 +148,10 @@ void Profile::InitializeMaxScores(ScorePack (&max)[PE_NUM], idx_t qry_len, idx_t
     }
     idx_t max_pe = (qry_len - 1) % PE_NUM;
     idx_t max_ck = (qry_len - 1)/ PE_NUM;
-    max[max_pe].score = INF;  // This is dummy score by I just represent the idea it's maximum
+    max[max_pe].score = INF;
     max[max_pe].row = qry_len - 1;
     max[max_pe].col = ref_len - 1;
-    max[max_pe].p_col = (max_ck + 1) * ref_len - 1; // FIXME
+    max[max_pe].p_col = (max_ck + 1) * ref_len - 1;
     max[max_pe].ck = max_ck;
     max[max_pe].pe = max_pe;
 }

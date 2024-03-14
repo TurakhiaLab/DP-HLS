@@ -20,7 +20,6 @@ namespace CLUtils
             std::map<string, cl::Kernel> kernels;
             std::map<string, cl::CommandQueue> queues;
 
-
             // KernelWrapper();
             // ~KernelWrapper();
     };

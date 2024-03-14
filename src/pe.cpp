@@ -1,13 +1,19 @@
-// #include <hls_task.h>
-#include "PE.h"
 #include <hls_vector.h>
+
+
+#ifndef VPP_CLI
+#include "../include/PE.h"
+#include "../include/params.h"
+#include "../include/frontend.h"
+#else
+#include "PE.h"
 #include "params.h"
 #include "frontend.h"
+#endif
 
 #ifdef CMAKEDEBUG
 #include <cstdio>
 #endif
-
 
 
 void PE::PEUnroll(

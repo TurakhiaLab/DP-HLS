@@ -4,13 +4,15 @@
 #include <hls_vector.h>
 #include <ap_int.h>
 
+#define DP_HLS_UNROLLED
+
 #define MAX_QUERY_LENGTH 256
 #define MAX_REFERENCE_LENGTH 256
 
 #define ALIGN_TYPE GlobalDTW
-#define N_BLOCKS 1
+#define N_BLOCKS 4
 #define N_LAYERS 1
-#define PE_NUM 32
+const int PE_NUM=32;
 #define LAYER_MAXIMIUM 0  // We need to indicate from which layer (main matrix) is the maximum score stored.
 
 

@@ -1,4 +1,8 @@
+#ifndef VPP_CLI
+#include "../../include/frontend.h"
+#else
 #include "frontend.h"
+#endif
 
 void GlobalDTW::InitializeScores(
     score_vec_t (&init_col_scr)[MAX_QUERY_LENGTH],

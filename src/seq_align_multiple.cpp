@@ -1,9 +1,16 @@
 #include <hls_stream.h>
 #include <ap_int.h>
 
+#ifndef VPP_CLI
+#include "../include/seq_align_multiple.h"
+#include "../include/PE.h"
+#include "../include/align.h"
+#else
 #include "seq_align_multiple.h"
 #include "PE.h"
 #include "align.h"
+#endif
+
 
 #ifdef CMAKEDEBUG
 #include <iostream>
@@ -20,6 +27,7 @@ using namespace hls;
  */
 extern "C"
 {
+
 	void seq_align_multiple_static(
 		char_t (&querys)[N_BLOCKS][MAX_QUERY_LENGTH],
 		char_t (&references)[N_BLOCKS][MAX_REFERENCE_LENGTH],
@@ -89,7 +97,9 @@ extern "C"
 
 		for (int i = 0; i < N_BLOCKS; i++)
 		{
+#ifdef DP_HLS_UNROLLED
 #pragma HLS unroll
+#endif
 			Align::AlignStatic(
 				querys_b[i],
 				references_b[i],
@@ -104,15 +114,6 @@ extern "C"
 #endif
 			);
 
-// #ifdef CMAKEDEBUG
-// 			// Print The Traceback Pointer Array
-// 			printf("Traceback Block: %d\n", i);
-// 			for (int j = 0; j < query_lengths[i] + reference_lengths[i]; j++)
-// 			{
-// 				printf("%d ", tb_streams[i][j].to_int());
-// 			}
-// 			printf("\n");
-// #endif
 		}
 
 		// copy the output data to the output buffer
@@ -122,11 +123,13 @@ extern "C"
 			{
 				tb_streams[i][j] = tb_streams_b[i][j];
 			}
-			tb_is_b[i] = tb_is[i];
-			tb_js_b[i] = tb_js[i];
+			tb_is[i] = tb_is_b[i];
+			tb_js[i] = tb_js_b[i];
 		}
 
 	}
+
+
 // 	void seq_align_multiple_static(
 // 		char_t (&querys)[N_BLOCKS][MAX_QUERY_LENGTH],
 // 		char_t (&references)[N_BLOCKS][MAX_REFERENCE_LENGTH],
@@ -161,4 +164,6 @@ extern "C"
 
 // 		}
 // 	}
+
+
 }
