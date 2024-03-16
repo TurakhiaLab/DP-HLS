@@ -216,15 +216,15 @@ void Align::ChunkCompute(
 	// space in the chunk. Then, only start the traceback appropriately
 	// so we can make correct computation.
 	
-#ifdef BANDED
-	int start_index = max(0, chunk_row_offset - FIXED_BANDWIDTH + 1);
-	int stop_index = min(reference_length, chunk_row_offset + (PE_NUM - 1) + FIXED_BANDWIDTH - 1) + PE_NUM - 1;
-#else 
-	const int start_index = 0;
-	const int stop_index = reference_length + PE_NUM - 1;
-#endif 
+// #ifdef BANDED
+// 	int start_index = max(0, chunk_row_offset - FIXED_BANDWIDTH + 1);
+// 	int stop_index = min(reference_length, chunk_row_offset + (PE_NUM - 1) + FIXED_BANDWIDTH - 1) + PE_NUM - 1;
+// #else 
+// 	const int start_index = 0;
+// 	const int stop_index = reference_length + PE_NUM - 1;
+// #endif 
 	Iterating_Wavefronts:
-	for (int i = start_index; i < stop_index; i++)
+	for (int i = 0; i < reference_length + PE_NUM - 1; i++)
 	{
 #pragma HLS pipeline II = 1
 		// printf("iteration %d\n", i);
@@ -448,6 +448,7 @@ void Align::AlignStatic(
 	tbp_t tbp_matrix[PE_NUM][MAX_QUERY_LENGTH / PE_NUM * MAX_REFERENCE_LENGTH];
 	
 #pragma HLS array_partition variable = tbp_matrix type = cyclic factor = PE_NUM dim = 1
+#pragma HLS bind_storage variable = init_row_score type = ram_t2p impl = lutram latency = 1
 
 	// Those are used to iterate through the memory during the score computation
 	idx_t v_rows[PE_NUM];
