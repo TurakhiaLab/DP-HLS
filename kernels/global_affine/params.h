@@ -102,5 +102,4 @@ typedef ap_uint<3> tbr_t;  // Traecback Result Type
 
 typedef tbr_t traceback_buf_t[MAX_QUERY_LENGTH + MAX_REFERENCE_LENGTH];
 
-
 #endif

@@ -93,6 +93,7 @@ target_compile_definitions(test_csim_local_affine PRIVATE ALIGN_LOCAL_AFFINE)
 
 target_compile_definitions(test_csim_dtw PRIVATE VPP_CLI)
 target_compile_definitions(test_csim_global_linear PRIVATE VPP_CLI)
+target_compile_definitions(test_csim_global_affine PRIVATE VPP_CLI)
 
 target_include_directories(test_csim_global_affine PRIVATE "/home/centos/workspace/DP-HLS/kernels/global_affine")
 target_include_directories(test_csim_global_linear PRIVATE "/home/centos/workspace/DP-HLS/kernels/global_linear")

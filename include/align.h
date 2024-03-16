@@ -189,6 +189,7 @@ namespace Align
 		const idx_t ref_len,
 		bool (&predicate)[PE_NUM]);
 
+#ifdef BANDED
 	/**
 	 * @brief Predicate mapping function for banded alignment.
 	 * FIXME: Add necessary parameter to determine whether a PE with
@@ -204,6 +205,7 @@ namespace Align
 		const int query_len,
 		const idx_t ref_len,
 		bool (&predicate)[PE_NUM]);
+#endif 
 
 	/**
 	 * @brief Shift into the local reference a new reference element, given current wavefront index and reference length.

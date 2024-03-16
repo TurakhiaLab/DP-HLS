@@ -55,7 +55,7 @@ void Align::ShiftReferece(
 	int idx, int ref_len)
 {
 // #pragma HLS inline off
-#pragma HLS latency max=1
+// #pragma HLS latency max=1
 	// Shift Reference
 	if (idx < ref_len)
 	{
@@ -189,10 +189,12 @@ void Align::ChunkCompute(
 #endif
 	){
 #pragma HLS inline off
-#pragma HLS dataflow
-
+// #pragma HLS dataflow
 	bool predicate[PE_NUM];
 	// score_vec_t write_row_scr[MAX_REFERENCE_LENGTH];
+#pragma HLS interface mode=ap_memory port=preserved_row_scr
+#pragma HLS interface mode=ap_memory port=init_row_scr
+#pragma HLS array_partition variable = init_row_scr type = complete dim = 2
 
 	Utils::Init::ArrSet<bool, PE_NUM>(predicate, false);
 
@@ -213,14 +215,15 @@ void Align::ChunkCompute(
 	// FIXME: We can compute scores, and set the TBP for the additional
 	// space in the chunk. Then, only start the traceback appropriately
 	// so we can make correct computation.
-	Iterating_Wavefronts:
+	
 #ifdef BANDED
 	int start_index = max(0, chunk_row_offset - FIXED_BANDWIDTH + 1);
 	int stop_index = min(reference_length, chunk_row_offset + (PE_NUM - 1) + FIXED_BANDWIDTH - 1) + PE_NUM - 1;
 #else 
-	int start_index = 0;
-	int stop_index = reference_length + PE_NUM - 1;
+	const int start_index = 0;
+	const int stop_index = reference_length + PE_NUM - 1;
 #endif 
+	Iterating_Wavefronts:
 	for (int i = start_index; i < stop_index; i++)
 	{
 #pragma HLS pipeline II = 1
@@ -235,23 +238,6 @@ void Align::ChunkCompute(
 
 		Align::PrepareScoreBuffer(score_buff, i, init_col_scr, init_row_scr);
 		Align::UpdateDPMemSep(dp_mem, score_buff);
-		
-	// 	for (int j = 0; j < PE_NUM + 1; j++)
-	// 	{
-	// #pragma HLS unroll
-	// 		dp_mem[j][1] = dp_mem[j][0];  // shift
-	// 		dp_mem[j][0] = (j - 1 == i && i < PE_NUM) ? init_col_scr[j] : score_buff[j];
-	// 	}
-	// 	if (i < MAX_REFERENCE_LENGTH){  // FIXME: Actually this could also be actual_reference_length
-	// 		dp_mem[0][0] = init_row_scr[i];
-	// 	}
-	
-		// PE::PEUnroll(
-		// 	dp_mem,
-		// 	local_query,
-		// 	local_reference,
-		// 	penalties,
-		// 	tbp_out);
 
 		PE::PEUnrollSep(
 			dp_mem,
@@ -317,6 +303,7 @@ void Align::PrepareScoreBuffer(
 	chunk_col_scores_inf_t (&init_col_scr),
 	score_vec_t (&init_row_scr)[MAX_REFERENCE_LENGTH]){
 #pragma HLS inline off
+#pragma HLS latency max=1
 	if (i < MAX_REFERENCE_LENGTH){  // FIXME: Actually this could also be actual_reference_length
 		score_buff[0] = init_row_scr[i];
 	}
@@ -379,6 +366,7 @@ void Align::PreserveRowScore(
 	const bool predicate_pe_last,
 	const idx_t idx)
 {
+#pragma HLS latency max=1
 	if (predicate_pe_last)
 	{
 		preserved_row_scr[idx] = score_vec;
@@ -407,6 +395,7 @@ void Align::CopyColScore(chunk_col_scores_inf_t & init_col_scr_local, score_vec_
 
 	for (int j = 0; j < PE_NUM; j++)
 	{
+#pragma HLS unroll
 		init_col_scr_local[j+1] = init_col_scr[idx + j];
 	}
 }
@@ -485,14 +474,13 @@ void Align::AlignStatic(
 	ScorePack maximum;
 	ScorePack local_max[PE_NUM];
 
+#pragma HLS interface
 
-#pragma HLS array_partition variable = init_row_score type=cyclic factor=PE_NUM dim=1
+// #pragma HLS array_partition variable = init_row_score type=cyclic factor=PE_NUM dim=1
 #pragma HLS array_partition variable = init_col_score type=cyclic factor=PE_NUM dim=1
 
 	ALIGN_TYPE::InitializeScores(init_col_score, init_row_score, penalties);
 	ALIGN_TYPE::InitializeMaxScores(local_max, query_length, reference_length);
-
-	idx_t row_buffer_osc = 0;
 
 	char_t local_query[PE_NUM];
 	chunk_col_scores_inf_t local_init_col_score;
@@ -557,8 +545,6 @@ void SwapBuffer(score_vec_t *&a, score_vec_t *&b){
 	a = b;
 	b = temp;
 }
-
-
 
 void Align::UpdateDPMem(dp_mem_block_t &dp_mem, idx_t i, chunk_col_scores_inf_t &init_col_scr, score_vec_t (&init_row_scr)[MAX_REFERENCE_LENGTH] ){
 	Align::UpdateDPMemShift(dp_mem);
