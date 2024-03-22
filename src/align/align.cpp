@@ -139,7 +139,6 @@ void Align::MapPredicateSquare(
 	idx_t (&ics)[PE_NUM], idx_t (&jcs)[PE_NUM],
 	const idx_t ref_len,
 	bool (&predicate)[PE_NUM]){
-#pragma HLS inline off
 	for (int i = 0; i < PE_NUM; i++)
 	{
 #pragma HLS unroll
@@ -189,13 +188,9 @@ void Align::ChunkCompute(
 #endif
 	){
 #pragma HLS inline off
-// #pragma HLS dataflow
+#pragma HLS dataflow
 	bool predicate[PE_NUM];
 	// score_vec_t write_row_scr[MAX_REFERENCE_LENGTH];
-#pragma HLS interface mode=ap_memory port=preserved_row_scr
-#pragma HLS interface mode=ap_memory port=init_row_scr
-#pragma HLS array_partition variable = init_row_scr type = complete dim = 2
-
 	Utils::Init::ArrSet<bool, PE_NUM>(predicate, false);
 
 	char_t local_reference[PE_NUM]; // local reference
@@ -211,10 +206,6 @@ void Align::ChunkCompute(
 #pragma HLS array_partition variable = score_buff type = complete
 
 	dp_mem[0][0] = init_col_scr[0];
-
-	// FIXME: We can compute scores, and set the TBP for the additional
-	// space in the chunk. Then, only start the traceback appropriately
-	// so we can make correct computation.
 	
 // #ifdef BANDED
 // 	int start_index = max(0, chunk_row_offset - FIXED_BANDWIDTH + 1);
@@ -227,7 +218,6 @@ void Align::ChunkCompute(
 	for (int i = 0; i < reference_length + PE_NUM - 1; i++)
 	{
 #pragma HLS pipeline II = 1
-		// printf("iteration %d\n", i);
 
 #ifdef BANDED 
 		Align::MapPredicateBanded(start_index, stop_index, chunk_row_offset, v_rows, v_cols, global_query_length, reference_length, predicate);
@@ -271,21 +261,12 @@ void Align::ChunkCompute(
 		Align::CoordinateArrayOffset<PE_NUM>(v_cols);
 		Align::CoordinateArrayOffset<PE_NUM>(p_cols);
 	}
-
-// 	// copy write_row_score to preserve_row_score
-// 	for (int i = 0; i < MAX_REFERENCE_LENGTH; i++)
-// 	{
-// // #pragma HLS unroll
-// 		preserved_row_scr[i] = write_row_scr[i];
-// 	}
 }
 
 void Align::UpdateDPMemSep(
 	score_vec_t (&dp_mem)[PE_NUM+1][2],
 	score_vec_t (&score_in)[PE_NUM + 1])
 {
-#pragma HLS inline off
-
 #pragma HLS array_partition variable = dp_mem type = complete
 #pragma HLS array_partition variable = score_in type = complete
 
@@ -302,7 +283,6 @@ void Align::PrepareScoreBuffer(
 	int i, 
 	chunk_col_scores_inf_t (&init_col_scr),
 	score_vec_t (&init_row_scr)[MAX_REFERENCE_LENGTH]){
-#pragma HLS inline off
 #pragma HLS latency max=1
 	if (i < MAX_REFERENCE_LENGTH){  // FIXME: Actually this could also be actual_reference_length
 		score_buff[0] = init_row_scr[i];
@@ -437,18 +417,18 @@ void Align::AlignStatic(
 #endif
 	){
 #pragma HLS inline off
-	
+
 #pragma HLS array_partition variable = query type = cyclic factor = PE_NUM dim = 1
-#pragma HLS array_partition variable = reference type = cyclic factor = PE_NUM dim = 1
+// #pragma HLS array_partition variable = reference type = cyclic factor = PE_NUM dim = 1
 
 // >>> Initialization >>>
 	score_vec_t init_col_score[MAX_QUERY_LENGTH];
 	score_vec_t init_row_score[MAX_REFERENCE_LENGTH];
 	static_assert(MAX_QUERY_LENGTH % PE_NUM == 0, "MAX_QUERY_LENGTH must divide PE_NUM, compilation terminated!");
 	tbp_t tbp_matrix[PE_NUM][MAX_QUERY_LENGTH / PE_NUM * MAX_REFERENCE_LENGTH];
-	
+
+#pragma HLS bind_storage variable = init_row_score type = ram_2p impl = bram
 #pragma HLS array_partition variable = tbp_matrix type = cyclic factor = PE_NUM dim = 1
-#pragma HLS bind_storage variable = init_row_score type = ram_t2p impl = lutram latency = 1
 
 	// Those are used to iterate through the memory during the score computation
 	idx_t v_rows[PE_NUM];
@@ -475,9 +455,6 @@ void Align::AlignStatic(
 	ScorePack maximum;
 	ScorePack local_max[PE_NUM];
 
-#pragma HLS interface
-
-// #pragma HLS array_partition variable = init_row_score type=cyclic factor=PE_NUM dim=1
 #pragma HLS array_partition variable = init_col_score type=cyclic factor=PE_NUM dim=1
 
 	ALIGN_TYPE::InitializeScores(init_col_score, init_row_score, penalties);

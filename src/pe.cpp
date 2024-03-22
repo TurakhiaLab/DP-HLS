@@ -49,8 +49,6 @@ void PE::PEUnrollSep(
     wavefront_scores_inf_t &score,
     tbp_vec_t &tbp)
 {
-#pragma HLS inline off
-
 #pragma HLS array_partition variable = dp_mem dim = 0 type = complete
 #pragma HLS array_partition variable = tbp type = complete
 #pragma HLS array_partition variable = score type = complete

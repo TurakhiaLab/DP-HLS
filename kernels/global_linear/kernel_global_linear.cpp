@@ -1,4 +1,8 @@
+#ifndef VPP_CLI
+#include "../../include/frontend.h"
+#else
 #include "frontend.h"
+#endif
 
 // >>> Global Linear Implementation >>>
 void GlobalLinear::InitializeScores(

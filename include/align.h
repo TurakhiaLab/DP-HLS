@@ -267,7 +267,6 @@ namespace Align
 	template <int LEN>
 	void CoordinateArrayOffset(idx_t (&arr)[LEN])
 	{
-#pragma HLS inline off
 		for (int i = 0; i < LEN; i++)
 		{
 #pragma HLS unroll
@@ -278,7 +277,6 @@ namespace Align
 	template <int LEN, int NUM>
 	void CoordinateArrayOffsetGeneric(idx_t (&arr)[LEN])
 	{
-#pragma HLS inline off
 		for (int i = 0; i < LEN; i++)
 		{
 #pragma HLS unroll

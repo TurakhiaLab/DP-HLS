@@ -72,11 +72,12 @@ int main(){
 
     std::vector<char> query(query_string.begin(), query_string.end());
     std::vector<char> reference(reference_string.begin(), reference_string.end());
- 
+#ifdef CMAKEDEBUG
     Container debuggers[N_BLOCKS];
     for (int i = 0; i < N_BLOCKS; i++){
         debuggers[i] = Container();
     }
+#endif
 
     try {
         if (query.size() > MAX_QUERY_LENGTH) throw std::runtime_error("Query length should less than MAX_QUERY_LENGTH, "
@@ -144,9 +145,11 @@ int main(){
     cout << "Solution Aligned Query    : " << alignments["query"] << endl;
     cout << "Solution Aligned Reference: " << alignments["reference"] << endl;
 
+#ifdef CMAKEDEBUG
     // Print kernel 0 scores
     debuggers[0].cast_scores();
     debuggers[0].compare_scores(sol_score_mat, query.size(), reference.size());
+#endif
 
     // reconstruct kernel alignments
     array<map<string, string>, N_BLOCKS> kernel_alignments;
