@@ -416,10 +416,8 @@ void Align::AlignStatic(
 	, Container &debugger
 #endif
 	){
-#pragma HLS inline off
 
 #pragma HLS array_partition variable = query type = cyclic factor = PE_NUM dim = 1
-// #pragma HLS array_partition variable = reference type = cyclic factor = PE_NUM dim = 1
 
 // >>> Initialization >>>
 	score_vec_t init_col_score[MAX_QUERY_LENGTH];
