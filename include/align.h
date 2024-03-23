@@ -18,7 +18,7 @@
 #include <hls_stream.h>
 // #include <hls_streamofblocks.h>
 
-#include "params.h"
+#include "../kernels/global_affine/params.h"
 #include "PE.h"
 #include "utils.h"
 #include "frontend.h"
@@ -193,6 +193,7 @@ namespace Align
 		const idx_t ref_len,
 		bool (&predicate)[PE_NUM]);
 
+#ifdef BANDED
 	/**
 	 * @brief Predicate mapping function for banded alignment.
 	 * FIXME: Add necessary parameter to determine whether a PE with
@@ -204,10 +205,11 @@ namespace Align
 		int stop_index,
 		idx_t chunk_row_offset,
 		idx_t (&ics)[PE_NUM], idx_t (&jcs)[PE_NUM],
-		idx_t (&col_lim_left)[PE_NUM], idx_t (&col_lim_right)[PE_NUM],
+		//idx_t (&col_lim_left)[PE_NUM], idx_t (&col_lim_right)[PE_NUM],
 		const int query_len,
 		const idx_t ref_len,
 		bool (&predicate)[PE_NUM]);
+#endif 
 
 	/**
 	 * @brief Shift into the local reference a new reference element, given current wavefront index and reference length.
@@ -323,8 +325,10 @@ namespace Align
 		 * @brief Extract the maximum score from PE's local maximums
 		 * @param max Array of PE's local maximum.
 		 * @param chunk_max The maximum of the chunk.
+		 * @param query_len Global query length
+		 * @param ref_len Reference length
 		 */
-		void ReductionMaxScores(ScorePack (&max)[PE_NUM], ScorePack &chunk_max);
+		void ReductionMaxScores(ScorePack (&max)[PE_NUM], ScorePack &chunk_max, int query_len, int ref_len);
 
 	};
 

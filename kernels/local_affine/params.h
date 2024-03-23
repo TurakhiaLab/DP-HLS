@@ -9,7 +9,7 @@
 
 #define PRAGMA_PE_NUM 32
 
-#define ALIGN_TYPE LocalAffine
+//#define ALIGN_TYPE LocalAffine
 #define N_BLOCKS 1
 #define N_LAYERS 3
 const int PE_NUM = PRAGMA_PE_NUM;

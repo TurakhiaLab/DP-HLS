@@ -734,7 +734,7 @@ void ChunkCompute(
 
 }
 
-void ReductionMaxScores(ScorePack (&packs)[PE_NUM], ScorePack &global_max)
+void ReductionMaxScores(ScorePack (&packs)[PE_NUM], ScorePack &global_max, int query_len, int ref_len)
 {
 	ScorePack max = packs[0];
 	for (int i = 0; i < PE_NUM; i++)
@@ -841,7 +841,7 @@ void AlignStatic(
 	);
 #endif
 
-	ReductionMaxScores(local_max, maximum);
+	ReductionMaxScores(local_max, maximum, query_length, reference_length);
 
 	// >>> Traceback >>>
 	printf("(index from 0) Traceback Start Row: %d, Col: %d\n", maximum.chunk_offset + maximum.pe, maximum.pe_offset);

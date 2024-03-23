@@ -1,8 +1,8 @@
 // #include <hls_task.h>
-#include "PE.h"
+#include "../include/PE.h"
 #include <hls_vector.h>
-#include "params.h"
-#include "frontend.h"
+#include "../kernels/global_affine/params.h"
+#include "../include/frontend.h"
 
 #ifdef CMAKEDEBUG
 #include <cstdio>

@@ -52,7 +52,8 @@ void Traceback::TracebackOptimized(
     traceback_buf_t &traceback_out,
     idx_t (&ck_start_col)[MAX_QUERY_LENGTH / PE_NUM], // chunk start index
     idx_t (&ck_end_col)[MAX_QUERY_LENGTH / PE_NUM],   // chunk end index
-    int ck_idx, int pe_idx, int col_idx, int v_row, int v_col) // starting index to traceback
+    int ck_idx, int pe_idx, int col_idx, int v_row, int v_col, // starting index to traceback
+    int query_length, int reference_length) 
 {
 
 #define TEST_QUERY_LENGTH 89
@@ -90,6 +91,9 @@ void Traceback::TracebackOptimized(
     int col = col_idx;
     int chunk = ck_idx;
 
+    int temp_row_max = v_row;
+    int temp_col_max = v_col;
+
     int w_id = 0;     // write idx
     bool end = 0;     // end flag
     tbr_t navigation = AL_MMI; // current write value
@@ -123,8 +127,7 @@ traceback_loop:
         // one of the Del, Ins, Match/Mismatch, or End to the next state. 
         ALIGN_TYPE::Traceback::StateMapping(tbptr, state, navigation);
         traceback_out[w_id++] = navigation;
-        Traceback::NextAddress(navigation, ck_start_col, ck_end_col, chunk, pe, col, v_row, v_col);
-
+        Traceback::NextAddress(navigation, ck_start_col, ck_end_col, chunk, pe, col, v_row, v_col, temp_row_max, temp_col_max, query_length, reference_length);
     }
     traceback_out[w_id] = AL_END;
 }
@@ -133,14 +136,24 @@ traceback_loop:
 void Traceback::NextAddress(tbr_t &nav, 
     idx_t (&ck_start_idx)[CK_NUM],
     idx_t (&ck_end_idx)[CK_NUM], 
-    int &chunk, int &pe, int &col, int &v_row, int &v_col)
+    int &chunk, int &pe, int &col, int &v_row, int &v_col, 
+    int &temp_row_max, int &temp_col_max, int &query_len, int &ref_len)
 {
 #ifdef CMAKEDEBUG
     int nav_int = nav.to_int();
 #endif
 
     // Check the condition based on the virtual row and column
+    // Semi-global alignment stopping condition
     if (v_row <= 0 || v_col <= 0){
+#ifdef ALIGN_TYPE
+    // For overlap, terminate at left col if starting from bottom row or top row if starting from right col
+    #if ALIGN_TYPE == Overlap
+    if ((v_row <= 0 && temp_col_max == ref_len) || (v_col <= 0 && temp_row_max == query_len)) {
+        nav = AL_END;
+    }
+    #endif
+#endif 
         nav = AL_END;
     }
     else if (nav == AL_INS){  // Moving left

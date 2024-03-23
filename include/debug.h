@@ -4,7 +4,7 @@
 /*
  * This file contains debug functions of the kernel. Internal development purpose only.
  */
-#include "params.h"
+#include "../kernels/global_affine/params.h"
 #include <list>
 #include <array>
 #include <string>
@@ -12,7 +12,7 @@
 #include <fstream>
 #include <unordered_map>
 #include <hls_vector.h>
-#include "utils.h"
+#include "../include/utils.h"
 #include <vector>
 #include <cstdarg>
 
@@ -36,6 +36,7 @@ public:
     array<array<char, MAX_REFERENCE_LENGTH>, MAX_QUERY_LENGTH> tb_mat_cpp;  // this need to be translated
 
     Container() {};
+	~Container() {};
 
     void cast_scores();
     void cast_tbp();

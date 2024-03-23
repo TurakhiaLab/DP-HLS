@@ -19,7 +19,7 @@
 #include <random>
 #include <map>
 
-#include "params.h"
+#include "../kernels/global_affine/params.h"
 
 using namespace std;
 

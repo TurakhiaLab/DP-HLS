@@ -13,21 +13,27 @@ proc main {} {
     open_project -reset "BasicKernel"
 
     add_files "src/align/align.cpp"
-    add_files "include/params.h"
-    add_files "src/pe/pe.cpp"
+    add_files "kernels/global_affine/params.h"
+    add_files "src/pe.cpp"
     add_files "include/PE.h"
-    add_files "src/toplevel/seq_align_multiple.cpp"
+    add_files "kernels/global_affine/kernel_global_affine.cpp"
     add_files "include/seq_align_multiple.h"
     add_files "include/align.h"
     add_files "include/shift_reg.h"
-    add_files "src/traceback.cpp"
     add_files "include/traceback.h"
+    add_files "src/traceback.cpp"
     add_files "src/utils.cpp"
     add_files "include/utils.h"
     add_files "src/frontend.cpp"
     add_files "include/frontend.h"
-
-    add_files -tb "testbench/test_align.cpp"
+	add_files "src/seq_align_multiple.cpp"
+	
+	# TB files
+	#add_files "src/debug.cpp"
+	#add_files "include/debug.h"
+	add_files "src/host_utils.cpp"
+	add_files "include/host_utils.h"
+    add_files -tb "testbench/test_csim_global_affine.cpp"
 
     set_top seq_align_multiple_static
 
@@ -50,10 +56,10 @@ proc main {} {
     #     exit 1
     # }
 
-    # csim_design
-    csynth_design
+    csim_design
+    # csynth_design
     
-    export_design -flow impl
+    # export_design -flow impl
     
     # close $file_handle
 }

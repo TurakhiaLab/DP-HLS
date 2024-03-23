@@ -1,7 +1,7 @@
 #ifndef TRACEBACK_H
 #define TRACEBACK_H
 
-#include "params.h"
+#include "../kernels/global_affine/params.h"
 #include <hls_stream.h>
 #include <hls_vector.h>
 
@@ -35,7 +35,8 @@ namespace Traceback
 		traceback_buf_t (&traceback_out),
 		idx_t (&ck_start_col)[MAX_QUERY_LENGTH / PE_NUM], // chunk start index
 		idx_t (&ck_end_col)[MAX_QUERY_LENGTH / PE_NUM],	  // chunk end index
-		int ck_idx, int pe_idx, int col_idx, int v_row, int v_col);			  // starting index to traceback
+		int ck_idx, int pe_idx, int col_idx, int v_row, int v_col, // starting index to traceback
+		int query_length, int reference_length);			  
 
 	/**
 	 * @brief A traceback pointer to coordinate mapping function.
@@ -75,7 +76,8 @@ namespace Traceback
 	void NextAddress(tbr_t &nagivation,
 					 idx_t (&ck_start_idx)[CK_NUM],
 					 idx_t (&ck_end_idx)[CK_NUM], 
-					 int &chunk, int &pe, int &col, int &v_row, int &v_col);
+					 int &chunk, int &pe, int &col, int &v_row, int &v_col, 
+					 int &temp_row_max, int &temp_col_max, int &query_len, int &ref_len);
 }
 
 #endif

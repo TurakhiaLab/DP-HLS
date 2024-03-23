@@ -1,7 +1,7 @@
 #ifndef UTILS_H
 #define UTILS_H
 
-#include "params.h"
+#include "../kernels/global_affine/params.h"
 #include <string>
 
 namespace Utils

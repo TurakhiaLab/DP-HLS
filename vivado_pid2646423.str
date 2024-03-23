@@ -1,0 +1,217 @@
+/*
+
+AMD Vivado v2023.1 (64-bit) [Major: 2023, Minor: 1]
+SW Build: 3865809 on Sun May  7 15:04:56 MDT 2023
+IP Build: 3864474 on Sun May  7 20:36:21 MDT 2023
+IP Build: 3864474 on Sun May  7 20:36:21 MDT 2023
+
+Process ID (PID): 2646423
+License: Customer
+Mode: GUI Mode
+
+Current time: 	Tue Mar 12 01:00:40 PDT 2024
+Time zone: 	Pacific Standard Time (America/Los_Angeles)
+
+OS: Ubuntu
+OS Version: 5.4.0-149-generic
+OS Architecture: amd64
+Available processors (cores): 64
+
+Display: raptor.ucsd.edu:10.0
+Screen size: 1280x720
+Screen resolution (DPI): 100
+Available screens: 1
+Default font: family=Dialog,name=Dialog,style=plain,size=12
+Scale size: 12
+OS font scaling: 100%
+
+Java version: 	17.0.3 64-bit
+JavaFX version: 17.0.1
+Java home: 	/home/AD.UCSD.EDU/swalia/Xilinx/Vivado/2023.1/tps/lnx64/jre17.0.3_7
+Java executable: 	/home/AD.UCSD.EDU/swalia/Xilinx/Vivado/2023.1/tps/lnx64/jre17.0.3_7/bin/java
+Java arguments: 	[-Dsun.java2d.pmoffscreen=false, -Dhttps.protocols=TLSv1,TLSv1.1,TLSv1.2, -Dsun.java2d.xrender=false, -Djdk.gtk.version=2, -Dsun.java2d.uiScale.enabled=false, -Dswing.aatext=true, -XX:-UsePerfData, -Djdk.map.althashing.threshold=512, -XX:StringTableSize=4072, -XX:+UseStringDeduplication, -XX:MaxGCPauseMillis=200, -XX:+ParallelRefProcEnabled, --add-opens=java.desktop/javax.swing.plaf.synth=ALL-UNNAMED, --add-opens=java.base/java.nio=ALL-UNNAMED, --add-opens=java.desktop/sun.swing=ALL-UNNAMED, --add-opens=java.desktop/javax.swing=ALL-UNNAMED, --add-opens=java.desktop/javax.swing.tree=ALL-UNNAMED, --add-opens=java.desktop/javax.swing.plaf.basic=ALL-UNNAMED, --add-opens=java.desktop/javax.swing.plaf.synth=ALL-UNNAMED, --add-opens=java.desktop/javax.swing.plaf.basic=ALL-UNNAMED, --add-opens=java.desktop/javax.swing=ALL-UNNAMED, --add-opens=java.desktop/javax.swing.tree=ALL-UNNAMED, --add-opens=java.desktop/java.awt.event=ALL-UNNAMED, --add-exports=java.desktop/javax.swing.plaf.synth=ALL-UNNAMED, --add-exports=java.base/java.nio=ALL-UNNAMED, --add-exports=java.desktop/sun.swing=ALL-UNNAMED, --add-exports=java.desktop/javax.swing=ALL-UNNAMED, --add-exports=java.desktop/javax.swing.tree=ALL-UNNAMED, --add-exports=java.desktop/javax.swing.plaf.basic=ALL-UNNAMED, --add-exports=java.desktop/sun.swing=ALL-UNNAMED, --add-exports=java.desktop/sun.swing.table=ALL-UNNAMED, --add-exports=java.desktop/sun.swing.plaf.synth=ALL-UNNAMED, --add-exports=java.desktop/sun.awt.shell=ALL-UNNAMED, --add-exports=java.base/sun.security.action=ALL-UNNAMED, --add-exports=java.desktop/sun.font=ALL-UNNAMED, --add-opens=java.desktop/sun.awt.X11=ALL-UNNAMED, -XX:NewSize=80m, -XX:MaxNewSize=80m, -Xms512m, -Xmx4072m, -Xss10m, -Xrs]
+Java initial memory (-Xms): 	512 MB
+Java maximum memory (-Xmx):	 3 GB
+
+User name: 	jsliang@AD.UCSD.EDU
+User home directory: /home/jsliang@AD.UCSD.EDU
+User working directory: /home/AD.UCSD.EDU/jsliang/DP-HLS
+User country: 	US
+User language: 	en
+User locale: 	en_US
+
+RDI_BASEROOT: /home/AD.UCSD.EDU/swalia/Xilinx/Vivado
+HDI_APPROOT: /home/AD.UCSD.EDU/swalia/Xilinx/Vivado/2023.1
+RDI_DATADIR: /home/AD.UCSD.EDU/swalia/Xilinx/SharedData/2023.1/data:/home/AD.UCSD.EDU/swalia/Xilinx/Vivado/2023.1/data
+RDI_BINDIR: /home/AD.UCSD.EDU/swalia/Xilinx/Vivado/2023.1/bin
+
+Vivado preferences file: /home/jsliang@AD.UCSD.EDU/.Xilinx/Vivado/2023.1/vivado.xml
+Vivado preferences directory: /home/jsliang@AD.UCSD.EDU/.Xilinx/Vivado/2023.1/
+Vivado layouts directory: /home/jsliang@AD.UCSD.EDU/.Xilinx/Vivado/2023.1/data/layouts
+PlanAhead jar file: 	/home/AD.UCSD.EDU/swalia/Xilinx/Vivado/2023.1/lib/classes/planAhead.jar
+Vivado log file: 	/home/AD.UCSD.EDU/jsliang/DP-HLS/vivado.log
+Vivado journal file: 	/home/AD.UCSD.EDU/jsliang/DP-HLS/vivado.jou
+Engine tmp dir: 	./.Xil/Vivado-2646423-raptor.ucsd.edu
+Non-Default Parameters:	[]
+
+Xilinx & AMD Environment Variables
+--------------------------------------------------------------------------------------------
+RDI_APPROOT: /home/AD.UCSD.EDU/swalia/Xilinx/Vivado/2023.1
+RDI_BASEROOT: /home/AD.UCSD.EDU/swalia/Xilinx/Vivado
+RDI_BINROOT: /home/AD.UCSD.EDU/swalia/Xilinx/Vivado/2023.1/bin
+RDI_BUILD: yes
+RDI_DATADIR: /home/AD.UCSD.EDU/swalia/Xilinx/SharedData/2023.1/data:/home/AD.UCSD.EDU/swalia/Xilinx/Vivado/2023.1/data
+RDI_INSTALLROOT: /home/AD.UCSD.EDU/swalia/Xilinx
+RDI_INSTALLVER: 2023.1
+RDI_JAVA_PLATFORM: 
+RDI_JAVA_VERSION: 17.0.3_7
+RDI_LIBDIR: /home/AD.UCSD.EDU/swalia/Xilinx/Vivado/2023.1/lib/lnx64.o/Ubuntu/20:/home/AD.UCSD.EDU/swalia/Xilinx/Vivado/2023.1/lib/lnx64.o/Ubuntu:/home/AD.UCSD.EDU/swalia/Xilinx/Vivado/2023.1/lib/lnx64.o
+RDI_OPT_EXT: .o
+RDI_PATCHROOT: 
+RDI_PLATFORM: lnx64
+RDI_PREPEND_PATH: /home/AD.UCSD.EDU/swalia/Xilinx/Vitis/2023.1/bin:/home/AD.UCSD.EDU/swalia/Xilinx/Vivado/2023.1/ids_lite/ISE/bin/lin64
+RDI_PROG: /home/AD.UCSD.EDU/swalia/Xilinx/Vivado/2023.1/bin/unwrapped/lnx64.o/vivado
+RDI_SESSION_INFO: /home/AD.UCSD.EDU/jsliang/DP-HLS:raptor.ucsd.edu_1710230410_2646383
+RDI_SHARED_DATA: /home/AD.UCSD.EDU/swalia/Xilinx/SharedData/2023.1/data
+RDI_TPS_ROOT: /home/AD.UCSD.EDU/swalia/Xilinx/Vivado/2023.1/tps/lnx64
+RDI_USE_JDK17: True
+SHELL: /bin/bash
+XILINX: /home/AD.UCSD.EDU/swalia/Xilinx/Vivado/2023.1/ids_lite/ISE
+XILINX_DSP: /home/AD.UCSD.EDU/swalia/Xilinx/Vivado/2023.1/ids_lite/ISE
+XILINX_HLS: /home/AD.UCSD.EDU/swalia/Xilinx/Vitis_HLS/2023.1
+XILINX_PLANAHEAD: /home/AD.UCSD.EDU/swalia/Xilinx/Vivado/2023.1
+XILINX_SDK: /home/AD.UCSD.EDU/swalia/Xilinx/Vitis/2023.1
+XILINX_VITIS: /home/AD.UCSD.EDU/swalia/Xilinx/Vitis/2023.1
+XILINX_VIVADO: /home/AD.UCSD.EDU/swalia/Xilinx/Vivado/2023.1
+XILINX_VIVADO_HLS: /home/AD.UCSD.EDU/swalia/Xilinx/Vivado/2023.1
+
+
+GUI allocated memory:	512 MB
+GUI max memory:		4,072 MB
+Engine allocated memory: 2,393 MB
+
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+
+*/
+
+// TclEventType: START_GUI
+// Tcl Message: start_gui 
+selectList(PAResourceQtoS.SyntheticaGettingStartedView_RECENT_PROJECTS, "/home/AD.UCSD.EDU/jsliang/Darwin-WGA/src/hdl/project_1/project_1.xpr", 0); // b.c
+// [GUI Memory]: 111 MB (+114079kb) [00:00:17]
+// [Engine Memory]: 2,391 MB (+2355247kb) [00:00:17]
+// Opening Vivado Project: /home/AD.UCSD.EDU/jsliang/Darwin-WGA/src/hdl/project_1/project_1.xpr. Version: Vivado v2023.1 
+// WARNING: HEventQueue.dispatchEvent() is taking  2329 ms.
+// TclEventType: DEBUG_PROBE_SET_CHANGE
+// TclEventType: FLOW_ADDED
+// TclEventType: MSGMGR_MOVEMSG
+// TclEventType: FILE_SET_CHANGE
+// HMemoryUtils.trashcanNow. Engine heap size: 2,452 MB. GUI used memory: 65 MB. Current time: 3/12/24, 1:00:40 AM PDT
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: FILE_SET_NEW
+// TclEventType: RUN_COMPLETED
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: RUN_CURRENT
+// TclEventType: PROJECT_DASHBOARD_NEW
+// TclEventType: PROJECT_DASHBOARD_GADGET_NEW
+// TclEventType: PROJECT_DASHBOARD_GADGET_CHANGE
+// TclEventType: PROJECT_DASHBOARD_GADGET_NEW
+// TclEventType: PROJECT_DASHBOARD_GADGET_CHANGE
+// TclEventType: PROJECT_DASHBOARD_GADGET_NEW
+// TclEventType: PROJECT_DASHBOARD_GADGET_CHANGE
+// TclEventType: PROJECT_DASHBOARD_GADGET_NEW
+// TclEventType: PROJECT_DASHBOARD_GADGET_CHANGE
+// TclEventType: PROJECT_DASHBOARD_GADGET_NEW
+// TclEventType: PROJECT_DASHBOARD_GADGET_CHANGE
+// TclEventType: PROJECT_DASHBOARD_GADGET_NEW
+// TclEventType: PROJECT_DASHBOARD_GADGET_CHANGE
+// TclEventType: PROJECT_NEW
+// Tcl Message: open_project /home/AD.UCSD.EDU/jsliang/Darwin-WGA/src/hdl/project_1/project_1.xpr 
+// Tcl Message: INFO: [filemgmt 56-3] Default IP Output Path : Could not find the directory '/home/AD.UCSD.EDU/jsliang/Darwin-WGA/src/hdl/project_1/project_1.gen/sources_1'. 
+// Tcl Message: Scanning sources... Finished scanning sources 
+// TclEventType: PROJECT_NEW
+// [GUI Memory]: 125 MB (+8929kb) [00:00:22]
+// [Engine Memory]: 2,536 MB (+27520kb) [00:00:22]
+// WARNING: HEventQueue.dispatchEvent() is taking  1990 ms.
+// Tcl Message: INFO: [IP_Flow 19-234] Refreshing IP repositories INFO: [IP_Flow 19-1704] No user IP repositories specified INFO: [IP_Flow 19-2313] Loaded Vivado IP repository '/home/AD.UCSD.EDU/swalia/Xilinx/Vivado/2023.1/data/ip'. 
+// Project name: project_1; location: /home/AD.UCSD.EDU/jsliang/Darwin-WGA/src/hdl/project_1; part: xczu7ev-ffvc1156-2-i
+dismissDialog("Open Project"); // bq
+// [GUI Memory]: 148 MB (+17089kb) [00:00:25]
+// Tcl Message: update_compile_order -fileset sources_1 
+// Elapsed time: 12 seconds
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, BSW_ArrayTop (BSW_ArrayTop.v)]", 4, false); // E
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, BSW_ArrayTop (BSW_ArrayTop.v)]", 4, false, false, false, false, true, false); // E - Popup Trigger
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, BSW_ArrayTop (BSW_ArrayTop.v)]", 4, false); // E
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, BSW_Kernel (BSW_Kernel.sv)]", 5, false); // E
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, BSW_Kernel (BSW_Kernel.sv)]", 5, false, false, false, false, false, true); // E - Double Click
+// HMemoryUtils.trashcanNow. Engine heap size: 2,698 MB. GUI used memory: 72 MB. Current time: 3/12/24, 1:01:04 AM PDT
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, BSW_ArrayTop (BSW_ArrayTop.v)]", 4, false); // E
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, BSW_ArrayTop (BSW_ArrayTop.v)]", 4, false); // E
+// [Engine Memory]: 2,699 MB (+37522kb) [00:00:51]
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, BSW_ArrayTop (BSW_ArrayTop.v)]", 4, false, false, false, false, false, true); // E - Double Click
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, BSW_ArrayTop (BSW_ArrayTop.v)]", 4, false, false, false, false, true, false); // E - Popup Trigger
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, BSW_ArrayTop (BSW_ArrayTop.v)]", 4, false); // E
+// [Engine Memory]: 3,116 MB (+295751kb) [00:00:55]
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, BSW_ArrayTop (BSW_ArrayTop.v)]", 4, false, false, false, false, true, false); // E - Popup Trigger
+selectMenu(PAResourceCommand.PACommandNames_OPEN_FILE_WITH, "Open With"); // al
+selectMenu(PAResourceCommand.PACommandNames_OPEN_FILE_WITH, "Open With"); // al
+selectMenu(PAResourceCommand.PACommandNames_AUTO_UPDATE_HIER, "Hierarchy Update"); // al
+selectMenu(PAResourceQtoS.SrcMenu_IP_HIERARCHY, "IP Hierarchy"); // al
+// HMemoryUtils.trashcanNow. Engine heap size: 3,150 MB. GUI used memory: 73 MB. Current time: 3/12/24, 1:01:19 AM PDT
+selectMenuItem(PAResourceCommand.PACommandNames_SET_AS_TOP, "Set as Top"); // ao
+// Run Command: PAResourceCommand.PACommandNames_SET_AS_TOP
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: FILE_SET_OPTIONS_CHANGE
+// TclEventType: DG_GRAPH_STALE
+// Tcl Message: set_property top BSW_ArrayTop [current_fileset] 
+// TclEventType: DG_GRAPH_STALE
+// Elapsed Time for: 'L.f': 38s
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// Elapsed Time for: 'L.f': 40s
+// Tcl Message: update_compile_order -fileset sources_1 
+// Elapsed Time for: 'L.f': 42s
+// Elapsed Time for: 'L.f': 44s
+// Elapsed time: 10 seconds
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, BSW_ArrayTop (BSW_ArrayTop.v)]", 2, false, false, false, false, true, false); // E - Popup Trigger
+selectMenu(PAResourceCommand.PACommandNames_AUTO_UPDATE_HIER, "Hierarchy Update"); // al
+selectMenu(PAResourceQtoS.SrcMenu_IP_HIERARCHY, "IP Hierarchy"); // al
+selectMenu(PAResourceCommand.PACommandNames_AUTO_UPDATE_HIER, "Hierarchy Update"); // al
+selectTree(PAResourceEtoH.FlowNavigatorTreePanel_FLOW_NAVIGATOR_TREE, "[, Project Manager, Settings]", 1, false); // f
+// Run Command: RDIResourceCommand.RDICommands_SETTINGS
+// Tcl (Dont Echo) Command: 'rdi::info_commands {device::*}'
+// Tcl (Dont Echo) Command: 'rdi::info_commands {debug::*}'
+// Tcl (Dont Echo) Command: 'rdi::info_commands {*}'
+// 'dD' command handler elapsed time: 3 seconds
+// WARNING: HEventQueue.dispatchEvent() is taking  3694 ms.
+// WARNING: HEventQueue.dispatchEvent() is taking  1993 ms.
+// WARNING: HEventQueue.dispatchEvent() is taking  6394 ms.
+// Elapsed time: 15 seconds
+dismissDialog("Settings"); // d
+selectTree(PAResourceEtoH.FlowNavigatorTreePanel_FLOW_NAVIGATOR_TREE, "[, Synthesis, Run Synthesis]", 15, false); // f
+// Run Command: PAResourceCommand.PACommandNames_RUN_SYNTHESIS
+// WARNING: HEventQueue.dispatchEvent() is taking  2072 ms.
+// TclEventType: RUN_MODIFY
+// TclEventType: RUN_RESET
+// Tcl Message: reset_run synth_1 
+// TclEventType: RUN_RESET
+// TclEventType: RUN_STATUS_CHANGE
+// TclEventType: RUN_RESET
+// TclEventType: RUN_MODIFY
+// Tcl Message: INFO: [Project 1-1161] Replacing file /home/AD.UCSD.EDU/jsliang/Darwin-WGA/src/hdl/project_1/project_1.srcs/utils_1/imports/synth_1/BSW_bank0.dcp with file /home/AD.UCSD.EDU/jsliang/Darwin-WGA/src/hdl/project_1/project_1.runs/synth_1/BSW_bank0.dcp 
+// TclEventType: FILE_SET_CHANGE
+// WARNING: HEventQueue.dispatchEvent() is taking  2250 ms.
+// TclEventType: FILE_SET_CHANGE
+selectButton(RDIResource.BaseDialog_OK, "OK"); // a
+// WARNING: HEventQueue.dispatchEvent() is taking  2109 ms.
+dismissDialog("Launch Runs"); // f
+// TclEventType: RUN_LAUNCH
+// TclEventType: RUN_MODIFY
+// TclEventType: RUN_STATUS_CHANGE
+// [GUI Memory]: 162 MB (+6596kb) [00:01:46]
+// Tcl Message: launch_runs synth_1 -jobs 32 
+// Tcl Message: [Tue Mar 12 01:02:07 2024] Launched synth_1... Run output will be captured here: /home/AD.UCSD.EDU/jsliang/Darwin-WGA/src/hdl/project_1/project_1.runs/synth_1/runme.log 
+// 'i' command handler elapsed time: 12 seconds
+dismissDialog("Starting Design Runs"); // bq
+// [GUI Memory]: 171 MB (+1686kb) [00:01:46]
+// TclEventType: RUN_STATUS_CHANGE

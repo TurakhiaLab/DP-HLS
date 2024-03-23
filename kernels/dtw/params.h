@@ -8,7 +8,7 @@
 #define MAX_QUERY_LENGTH 256
 #define MAX_REFERENCE_LENGTH 256
 
-#define ALIGN_TYPE GlobalDTW
+//#define ALIGN_TYPE GlobalDTW
 #define N_BLOCKS 1
 #define N_LAYERS 1
 #define PE_NUM 32

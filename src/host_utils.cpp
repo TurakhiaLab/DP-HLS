@@ -3,8 +3,8 @@
 #include <stack>
 #include <map>
 
-#include "params.h"
-#include "host_utils.h"
+#include "../kernels/global_affine/params.h"
+#include "../include/host_utils.h"
 
 using namespace std;
 

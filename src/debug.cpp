@@ -1,5 +1,5 @@
 #include "../include/debug.h"
-#include "solutions.h"
+#include "../include/solutions.h"
 
 void Container::cast_scores(){
     this->scores_cpp[0][0][0] = 1;

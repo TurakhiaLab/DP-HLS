@@ -1,24 +1,34 @@
 #ifndef PARAMS_H
 #define PARAMS_H
 
+#include <ap_int.h>
 #include <ap_fixed.h>
 #include <hls_vector.h>
-#include <ap_int.h>
 
-#define MAX_QUERY_LENGTH 256
-#define MAX_REFERENCE_LENGTH 256
+
+// These need to be there to do CMake Simulation, but SHOULD TAKE OFF WHEN COMPIING BITSTREAM
+const int PE_NUM = 2;
+// #define PRAGMA_PE_NUM 32
+#define MAX_QUERY_LENGTH 64
+#define MAX_REFERENCE_LENGTH 64
 #define N_BLOCKS 1
-const int PE_NUM = 32;
 
-//#define ALIGN_TYPE Profile
-#define N_LAYERS 1
-#define LAYER_MAXIMIUM 0  // We need to indicate from which layer (main matrix) is the maximum score stored.
+//#define ALIGN_TYPE Overlap
+#define N_LAYERS 3
+#define LAYER_MAXIMIUM 1  // We need to indicate from which layer (main matrix) is the maximum score stored.
+
+// if user decides to use banding
+//#define BANDED
+#ifdef BANDED
+#define FIXED_BANDWIDTH 4
+#endif
 
 // Primitive Types
-typedef ap_fixed<32, 24> type_t;  // Scores Type <width, integer_width>
-typedef hls::vector<ap_uint<8>, 5> char_t;  // Sequence Alphabet
+typedef ap_uint<2> char_t;  // Sequence Alphabet
+typedef ap_fixed<16, 10> type_t;  // Scores Type <width, integer_width>
 typedef short idx_t;  // Indexing Type, could be much less than 32. ap_uint<8>
-typedef ap_uint<2> tbp_t;  // Traceback Pointer Type
+typedef ap_uint<4> tbp_t;  // Traceback Pointer Type
+
 
 // Defien upper and lower bound for score type, aka type_t
 #define INF 256
@@ -48,15 +58,11 @@ struct ScorePack{
     }
 };
 
-// Define Traceback Pointer Values
-#define TB_PH (tbp_t) 0b00
-#define TB_LEFT (tbp_t) 0b01
-#define TB_DIAG (tbp_t) 0b10
-#define TB_UP (tbp_t) 0b11
-
-
 struct Penalties {
-    type_t transition[5][5];
+    type_t open;
+    type_t extend;
+    type_t mismatch;
+    type_t match;
     type_t linear_gap;
 };
 

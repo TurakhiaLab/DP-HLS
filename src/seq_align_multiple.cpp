@@ -1,16 +1,16 @@
 #include <hls_stream.h>
 #include <ap_int.h>
 
-#include "seq_align_multiple.h"
-#include "PE.h"
-#include "align.h"
+#include "../include/seq_align_multiple.h"
+#include "../include/PE.h"
+#include "../include/align.h"
 
 #ifdef CMAKEDEBUG
 #include <iostream>
 #include <stdio.h>
 #include <math.h>
 #include <cstdlib>
-#include "debug.h"
+#include "../include/debug.h"
 #endif
 
 using namespace hls;

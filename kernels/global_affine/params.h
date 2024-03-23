@@ -7,10 +7,10 @@
 
 
 // These need to be there to do CMake Simulation, but SHOULD TAKE OFF WHEN COMPIING BITSTREAM
-const int PE_NUM = 2;
-// #define PRAGMA_PE_NUM 32
-#define MAX_QUERY_LENGTH 64
-#define MAX_REFERENCE_LENGTH 64
+const int PE_NUM = 4;
+#define PRAGMA_PE_NUM 4
+#define MAX_QUERY_LENGTH 16
+#define MAX_REFERENCE_LENGTH 16
 #define N_BLOCKS 1
 
 #define ALIGN_TYPE GlobalAffine
@@ -25,7 +25,7 @@ const int PE_NUM = 2;
 
 // Primitive Types
 typedef ap_uint<2> char_t;  // Sequence Alphabet
-typedef ap_fixed<16, 10> type_t;  // Scores Type <width, integer_width>
+typedef int /*ap_fixed<16, 10>*/ type_t;  // Scores Type <width, integer_width> REMEMBER TO CHANGE THIS BACK
 typedef short idx_t;  // Indexing Type, could be much less than 32. ap_uint<8>
 typedef ap_uint<4> tbp_t;  // Traceback Pointer Type
 
@@ -34,6 +34,7 @@ typedef ap_uint<4> tbp_t;  // Traceback Pointer Type
 #define INF 256
 #define NINF -256
 
+//#define CMAKEDEBUG
 // Legacy Debugger Configuration
 #define DEBUG_OUTPUT_PATH "/home/yic033@AD.UCSD.EDU/DP-HLS-Debug/global_affine/"
 #define DEBUG_FILENAME "debug_kernel"

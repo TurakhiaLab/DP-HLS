@@ -1,7 +1,7 @@
-#include "../../include/frontend.h"
+#include "frontend.h"
 
 // >>> Global Affine Implementation >>>
-void GlobalAffine::PE::Compute(char_t local_query_val,
+void SemiGlobal::PE::Compute(char_t local_query_val,
                                char_t local_reference_val,
                                score_vec_t up_prev,
                                score_vec_t diag_prev,
@@ -99,33 +99,29 @@ void GlobalAffine::PE::Compute(char_t local_query_val,
     write_traceback = dir_tb + insert_tb + delete_tb;
 }
 
-void GlobalAffine::Helper::InitCol(score_vec_t (&init_col_scr)[MAX_QUERY_LENGTH], Penalties penalties){
-    type_t gap = penalties.open;
+void SemiGlobalAffine::Helper::InitCol(score_vec_t (&init_col_scr)[MAX_QUERY_LENGTH]){
     for (int i = 0; i < MAX_QUERY_LENGTH; i++){
-        gap += penalties.extend;
-        init_col_scr[i] = score_vec_t({NINF, gap, 0});
+        init_col_scr[i] = score_vec_t({NINF, 0, 0});
     }
 }
 
-void GlobalAffine::Helper::InitRow(score_vec_t (&init_row_scr)[MAX_REFERENCE_LENGTH], Penalties penalties){
-    type_t gap = penalties.open;
+void SemiGlobalAffine::Helper::InitRow(score_vec_t (&init_row_scr)[MAX_REFERENCE_LENGTH]){
     for (int i = 0; i < MAX_REFERENCE_LENGTH; i++){
-        gap += penalties.extend;
-        init_row_scr[i] = score_vec_t({0, gap, NINF});
+        init_row_scr[i] = score_vec_t({0, 0, NINF});
     }
 }   
 
-void GlobalAffine::InitializeScores(
+void SemiGlobalAffine::InitializeScores(
     score_vec_t (&init_col_scr)[MAX_QUERY_LENGTH],
     score_vec_t (&init_row_scr)[MAX_REFERENCE_LENGTH],
     Penalties penalties)
 {
 #pragma HLS dataflow
-    Helper::InitCol(init_col_scr, penalties);
-    Helper::InitRow(init_row_scr, penalties);
+    Helper::InitCol(init_col_scr);
+    Helper::InitRow(init_row_scr);
 }
 
-void GlobalAffine::UpdatePEMaximum(
+void SemiGlobalAffine::UpdatePEMaximum(
         wavefront_scores_inf_t scores,
         ScorePack (&max)[PE_NUM],
         idx_t (&ics)[PE_NUM], idx_t (&jcs)[PE_NUM],
@@ -159,7 +155,7 @@ void GlobalAffine::UpdatePEMaximum(
     }
 }
 
-void GlobalAffine::InitializeMaxScores(ScorePack (&max)[PE_NUM], idx_t qry_len, idx_t ref_len)
+void SemiGlobalAffine::InitializeMaxScores(ScorePack (&max)[PE_NUM], idx_t qry_len, idx_t ref_len)
 {
     // In global alignment, we need to initialize the starting maximum scores to the last column
     for (int i = 0; i < PE_NUM; i++)
@@ -174,7 +170,7 @@ void GlobalAffine::InitializeMaxScores(ScorePack (&max)[PE_NUM], idx_t qry_len, 
     }
 }
 
-void GlobalAffine::Traceback::StateMapping(tbp_t tbp, TB_STATE &state, tbr_t &navigation)
+void SemiGlobalAffine::Traceback::StateMapping(tbp_t tbp, TB_STATE &state, tbr_t &navigation)
 {
 
     if (state == TB_STATE::MM)
@@ -229,7 +225,7 @@ void GlobalAffine::Traceback::StateMapping(tbp_t tbp, TB_STATE &state, tbr_t &na
     }
 }
 
-void GlobalAffine::Traceback::StateInit(tbp_t tbp, TB_STATE &state)
+void SemiGlobalAffine::Traceback::StateInit(tbp_t tbp, TB_STATE &state)
 {
     if (tbp(1, 0) == TB_DIAG)
     {

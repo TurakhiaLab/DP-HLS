@@ -1,7 +1,7 @@
 #ifndef SHIFT_REGISTER_H
 #define SHIFT_REGISTER_H
 
-#include "params.h"
+#include "../kernels/global_affine/params.h"
 
 template <typename T, int LEN> class ShiftRegister {  // This is a shift register, for data index 1, 2, 3, ...
 /*

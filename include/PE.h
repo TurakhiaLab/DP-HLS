@@ -8,7 +8,7 @@
 #include <hls_streamofblocks.h>
 #include "./traceback.h"
 #include <hls_vector.h>
-#include "./params.h"
+#include "../kernels/global_affine/params.h"
 
 #ifdef CMAKEDEBUG
 #include <list>

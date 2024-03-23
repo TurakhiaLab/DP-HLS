@@ -1,10 +1,24 @@
 #include "../../include/align.h"
 #include "../../kernels/global_affine/params.h"
+#include <cstdio>
+#include <array>
 
 using namespace hls;
 
 #define MAX(a, b) ((a) > (b) ? (a) : (b))
 #define MIN(a, b) ((a) < (b) ? (a) : (b))
+
+std::array<std::array<score_vec_t, MAX_REFERENCE_LENGTH>, MAX_QUERY_LENGTH> scores_kernel;
+
+void init() {
+	for (int k = 0; k < N_LAYERS; k++) {
+		for (int i = 0; i < MAX_QUERY_LENGTH; i++) {
+			for (int j = 0; j < MAX_REFERENCE_LENGTH; j++) {
+				scores_kernel[i][j][k] = 0;
+			}
+		}
+	}
+}
 
 void Align::ArrangeScores(
 	dp_mem_block_t &dpmem_in,
@@ -267,7 +281,18 @@ void Align::ChunkCompute(
 			debugger.set_score(chunk_row_offset, 0, j, i, score_buff[j+1], predicate[j]);
 		}
 #endif
-
+		//const char* filename = "output.txt";
+		//FILE* file = fopen(filename, "a");
+		//if (file != nullptr) {
+		//printf("Should execute");
+		for (int j = 0; j < PE_NUM; j++) {
+			int row = chunk_row_offset + j;
+			int col = 0 + i - j;
+			if (0 <= row < MAX_QUERY_LENGTH && 0 <= col < MAX_REFERENCE_LENGTH && predicate[j]) {
+				scores_kernel[row][col] = score_buff[j+1];
+			}
+			//fprintf(file, "\n");
+		}
 		// This should happen before Arrange TBP Arr
 		// Because it doesn't increment PE offsets
 		// while ArrangeTBPArr does
@@ -452,6 +477,18 @@ void Align::AlignStatic(
 #pragma HLS array_partition variable = reference type = cyclic factor = PE_NUM dim = 1
 
 // >>> Initialization >>>
+	init();
+	for (int k = 0; k < N_LAYERS; k++) {
+		printf("MATRIX %d\n", k);
+		for (int i = 0; i < MAX_QUERY_LENGTH; i++) {
+			for (int j = 0; j < MAX_REFERENCE_LENGTH; j++ ) {
+				printf("%d, ", scores_kernel[i][j][k]);
+			}
+			printf("\n");
+		}
+		printf("\n");
+	}
+
 	score_vec_t init_col_score[MAX_QUERY_LENGTH];
 	score_vec_t init_row_score[MAX_REFERENCE_LENGTH];
 	static_assert(MAX_QUERY_LENGTH % PE_NUM == 0, "MAX_QUERY_LENGTH must divide PE_NUM, compilation terminated!");
@@ -497,6 +534,15 @@ void Align::AlignStatic(
 	chunk_col_scores_inf_t local_init_col_score;
 	local_init_col_score[PE_NUM] = score_vec_t(0); // Always initialize the upper left cornor to 0
 
+	printf("INITIAL COL SCORES");
+	for (int i = 0; i < MAX_QUERY_LENGTH; i++) {
+		printf("%d %d %d\n", init_col_score[i][0], init_col_score[i][1], init_col_score[i][2]);
+	}
+	printf("INITIAL ROW SCORES");
+	for (int i = 0; i < MAX_REFERENCE_LENGTH; i++) {
+		printf("%d %d %d\t", init_row_score[i][0], init_row_score[i][1], init_row_score[i][2]);
+	}
+
 	Iterating_Chunks:
 	for (idx_t i = 0, ic = 0; i < query_length; i += PE_NUM, ic ++)
 	{
@@ -537,7 +583,17 @@ void Align::AlignStatic(
 
 	}
 	Align::FindMax::ReductionMaxScores(local_max, maximum, query_length, reference_length);
-
+	
+	for (int k = 0; k < N_LAYERS; k++) {
+		printf("MATRIX %d\n", k);
+		for (int i = 0; i < MAX_QUERY_LENGTH; i++) {
+			for (int j = 0; j < MAX_REFERENCE_LENGTH; j++ ) {
+				printf("%d, ", scores_kernel[i][j][k]);
+			}
+			printf("\n");
+		}
+		printf("\n");
+	}
 	// >>> Traceback >>>
 	/*tb_i = maximum.row;
 	tb_j = maximum.col;

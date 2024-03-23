@@ -3,17 +3,17 @@
 #include <array>
 #include <map>
 #include <chrono>
-#include "params.h"
-#include "seq_align_multiple.h"
-#include "host_utils.h"
-#include "solutions.h"
-#include "debug.h"
+#include "../kernels/global_affine/params.h"
+#include "../include/seq_align_multiple.h"
+#include "../include/host_utils.h"
+#include "../include/solutions.h"
+#include "../include/debug.h"
 
 
 using namespace std;
 
-#define INPUT_QUERY_LENGTH 32
-#define INPUT_REFERENCE_LENGTH 32
+#define INPUT_QUERY_LENGTH 16
+#define INPUT_REFERENCE_LENGTH 16
 
 char_t base_to_num(char base)
 {
@@ -46,12 +46,13 @@ struct Penalties_sol
 };
 
 int main(){
+	//printf("Start of the function");
     // std::string query_string = "AGTCTG";     // CCGTAGACCCGAACTTCGCGGTACACCTTCTGAAACCGTCCCTAATCCGACGAGCGCCTTGAGAACG";
     // std::string reference_string = "TGCCGAT";       // TGAGAACGTAGTCTAGGCGAATCGGCCCTTGTATATCGGGGCCGTAGACCCGAACTTCGCGGTACAC";
     char alphabet[4] = {'A', 'T', 'G', 'C'};
     std::string query_string = Random::Sequence<4>(alphabet, INPUT_QUERY_LENGTH);
     std::string reference_string = Random::Sequence<4>(alphabet, INPUT_REFERENCE_LENGTH);
-
+	
     // Struct for Penalties in kernel
     Penalties penalties[N_BLOCKS];
     for (int i = 0; i < N_BLOCKS; i++){
@@ -69,17 +70,15 @@ int main(){
         penalty.match = 3;
         penalty.mismatch = -1;
     }
-
+	
     // Reference and Query Strings
     std::vector<char> query(query_string.begin(), query_string.end());
     std::vector<char> reference(reference_string.begin(), reference_string.end());
- 
-    // Initialize Debugger
-    Container debuggers[N_BLOCKS];
-    for (int i = 0; i < N_BLOCKS; i++){
-        debuggers[i] = Container();
-    }
-
+	// Initialize Debugger
+    /*Container debuggers[N_BLOCKS]{};
+	for (int i = 0; i < N_BLOCKS; i++){
+		debuggers[i] = new Container();
+    }*/
     // Assert actual query length and reference length should be smaller than the maximum length
     try {
         if (query.size() > MAX_QUERY_LENGTH) throw std::runtime_error("Query length should less than MAX_QUERY_LENGTH, "
@@ -126,7 +125,6 @@ int main(){
     // initialize traceback starting coordinates
     idx_t tb_is[N_BLOCKS];
     idx_t tb_js[N_BLOCKS];
-
     // Actual kernel calling
     seq_align_multiple_static(
         query_buff,
@@ -141,13 +139,12 @@ int main(){
 #endif
         );
 
-    
     // Print the query and reference strings
     cout << "Query    : " << query_string << endl;
     cout << "Reference: " << reference_string << endl;
-
+	
     // Get the solution scores and traceback
-    array<array<array<float, MAX_REFERENCE_LENGTH>, MAX_QUERY_LENGTH>, N_LAYERS> sol_score_mat;
+    /*array<array<array<float, MAX_REFERENCE_LENGTH>, MAX_QUERY_LENGTH>, N_LAYERS> sol_score_mat;
     array<array<string, MAX_REFERENCE_LENGTH>, MAX_QUERY_LENGTH> sol_tb_mat;
     map<string, string> alignments;
     auto sol_start = std::chrono::high_resolution_clock::now();
@@ -159,12 +156,12 @@ int main(){
     cout << "Solution Aligned Reference: " << alignments["reference"] << endl;
     // Display solution runtime
     std::cout << "Solution Runtime: " << std::chrono::duration_cast<std::chrono::milliseconds>(sol_end - sol_start).count() << "ms" << std::endl;
-
+	*/
     // Cast kernel scores to matrix scores
-    debuggers[0].cast_scores();
+    /*debuggers[0].cast_scores();
     // print_matrix<float, MAX_QUERY_LENGTH, MAX_REFERENCE_LENGTH>(debuggers[0].scores_cpp[0], "Kernel 0 Scores Layer 0");
     debuggers[0].compare_scores(sol_score_mat, query.size(), reference.size());  // check if the scores from the kernel matches scores from the solution
-
+	
     // reconstruct kernel alignments
     array<map<string, string>, N_BLOCKS> kernel_alignments;
     int tb_query_lengths[N_BLOCKS];
@@ -187,5 +184,5 @@ int main(){
     cout << "Kernel 0 Traceback" << endl;
     cout << "Kernel   Aligned Query    : " << kernel_alignments[0]["query"] << endl;
     cout << "Kernel   Aligned Reference: " << kernel_alignments[0]["reference"] << endl;
-
+	*/
 }

@@ -5,7 +5,7 @@
 #ifndef FRONTEND_H
 #define FRONTEND_H
 
-#include "params.h"
+#include "../kernels/global_affine/params.h"
 #include "utils.h"
 #include <math.h>
 
