@@ -27,7 +27,11 @@ namespace PE {
      * @param penalties Penalties
      * @param tbp Traceback Pointer Out
      */
-	void PEUnroll(score_vec_t (&dp_mem)[PE_NUM + 1][3],
+	void PEUnroll(
+#ifdef BANDED
+		bool predicate[],
+#endif
+		score_vec_t (&dp_mem)[PE_NUM + 1][3],
         const input_char_block_t qry,
         const input_char_block_t ref, 
         const Penalties penalties, 
@@ -43,16 +47,19 @@ namespace PE {
      * @param penalties Penalties
      * @param score Scores Out Buffer
      * @param tbp Traceback Poitner Out
+	 * @param predicate If banding is enabled, control which PE to activate for scoring
      */
     void PEUnrollSep(
-        dp_mem_block_t &dp_mem,
+#ifdef BANDED
+		bool predicate[],
+#endif
+		dp_mem_block_t &dp_mem,
         const input_char_block_t &qry,
         const input_char_block_t &ref, 
         const Penalties penalties, 
         wavefront_scores_inf_t &score,
-        tbp_vec_t &tbp);
-    
-
+        tbp_vec_t &tbp
+		);
 }
 
  

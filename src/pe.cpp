@@ -11,6 +11,9 @@
 
 
 void PE::PEUnroll(
+#ifdef BANDED
+	bool predicate[],
+#endif
     score_vec_t (&dp_mem)[PE_NUM + 1][3], 
     const input_char_block_t qry, 
     const input_char_block_t ref, 
@@ -23,8 +26,11 @@ void PE::PEUnroll(
     for (int i = 0; i < PE_NUM; i++)
     {
 #pragma HLS unroll
-        ALIGN_TYPE::PE::Compute(
-            qry[i],
+        ALIGN_TYPE::PE::Compute(            
+#ifdef BANDED
+			predicate[i],
+#endif 
+			qry[i],
             ref[i],
             dp_mem[i][1],
             dp_mem[i][2],
@@ -36,12 +42,16 @@ void PE::PEUnroll(
 }
 
 void PE::PEUnrollSep(
-    dp_mem_block_t &dp_mem,
+#ifdef BANDED
+	bool predicate[],
+#endif    
+	dp_mem_block_t &dp_mem,
     const input_char_block_t &qry,
     const input_char_block_t &ref, 
     const Penalties penalties, 
     wavefront_scores_inf_t &score,
-    tbp_vec_t &tbp)
+    tbp_vec_t &tbp
+	)
 {
 #pragma HLS inline off
 
@@ -52,14 +62,20 @@ void PE::PEUnrollSep(
     for (int i = 0; i < PE_NUM; i++)
     {
 #pragma HLS unroll
-        ALIGN_TYPE::PE::Compute(
-            qry[i],
+		printf("EXECUTING FOR PE %d\n", i);
+		// need the predicate to ensure scores are being properly set
+		ALIGN_TYPE::PE::Compute(
+#ifdef BANDED
+			predicate[i],
+#endif
+		    qry[i],
             ref[i],
             dp_mem[i][0],
             dp_mem[i][1],
             dp_mem[i+1][0],
             penalties,
             score[i+1],
-            tbp[i]);
+            tbp[i]
+		);
     }
 }

@@ -142,7 +142,7 @@ int main(){
     // Print the query and reference strings
     cout << "Query    : " << query_string << endl;
     cout << "Reference: " << reference_string << endl;
-	
+	cout << "HI" << endl;	
     // Get the solution scores and traceback
     /*array<array<array<float, MAX_REFERENCE_LENGTH>, MAX_QUERY_LENGTH>, N_LAYERS> sol_score_mat;
     array<array<string, MAX_REFERENCE_LENGTH>, MAX_QUERY_LENGTH> sol_tb_mat;
@@ -161,8 +161,9 @@ int main(){
     /*debuggers[0].cast_scores();
     // print_matrix<float, MAX_QUERY_LENGTH, MAX_REFERENCE_LENGTH>(debuggers[0].scores_cpp[0], "Kernel 0 Scores Layer 0");
     debuggers[0].compare_scores(sol_score_mat, query.size(), reference.size());  // check if the scores from the kernel matches scores from the solution
-	
+	*/
     // reconstruct kernel alignments
+	cout << "EXECUTING TRACEBACK" << endl;
     array<map<string, string>, N_BLOCKS> kernel_alignments;
     int tb_query_lengths[N_BLOCKS];
     int tb_reference_lengths[N_BLOCKS];
@@ -175,14 +176,14 @@ int main(){
         query_string_blocks[i] = query_string;
         reference_string_blocks[i] = reference_string;
     }
+	cout << "NO SEGFAULT YET" << endl;
     kernel_alignments = ReconstructTracebackBlocks<N_BLOCKS>(
         query_string_blocks, reference_string_blocks,
         tb_query_lengths, tb_reference_lengths, 
         tb_streams);
-
+	printf("SEGFAULT HERE\n");
     // Print kernel 0 traceback
     cout << "Kernel 0 Traceback" << endl;
     cout << "Kernel   Aligned Query    : " << kernel_alignments[0]["query"] << endl;
     cout << "Kernel   Aligned Reference: " << kernel_alignments[0]["reference"] << endl;
-	*/
 }

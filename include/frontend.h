@@ -13,7 +13,11 @@ namespace ALIGN_TYPE
 {
     namespace PE
     {
-        void Compute(char_t local_query_val,
+        void Compute(
+#ifdef BANDED
+					 bool predicate,
+#endif
+					 char_t local_query_val,
                      char_t local_reference_val,
                      score_vec_t up_prev,
                      score_vec_t diag_prev,

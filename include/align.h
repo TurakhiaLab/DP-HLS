@@ -201,8 +201,9 @@ namespace Align
 	 * @param ref_len
 	 */
 	void MapPredicateBanded(
-		int start_index, 
-		int stop_index,
+		/*int start_index, 
+		int stop_index,*/
+		int i,
 		idx_t chunk_row_offset,
 		idx_t (&ics)[PE_NUM], idx_t (&jcs)[PE_NUM],
 		//idx_t (&col_lim_left)[PE_NUM], idx_t (&col_lim_right)[PE_NUM],

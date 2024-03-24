@@ -171,8 +171,9 @@ void Align::MapPredicateSquare(
 
 #ifdef BANDED
 void Align::MapPredicateBanded(
-	int start_index, 
-	int stop_index,
+	/*int start_index, 
+	int stop_index,*/
+	int index,
 	idx_t chunk_row_offset,
 	idx_t (&ics)[PE_NUM], 
 	idx_t (&jcs)[PE_NUM],
@@ -183,9 +184,10 @@ void Align::MapPredicateBanded(
 	for (int i = 0; i < PE_NUM; i++) 
 	{
 #pragma HLS unroll
-		int minPos = MAX(0, jcs[i] - FIXED_BANDWIDTH + 1);
-		int maxPos = MIN(ref_len, jcs[i] + FIXED_BANDWIDTH);
-		predicate[i] = (minPos <= ics[i] && ics[i] < maxPos && 0 <= jcs[i] && jcs[i] < query_len);
+		int minPos = MAX(0, (index-i) - FIXED_BANDWIDTH + 1);
+		int maxPos = MIN(ref_len, (index-i) + FIXED_BANDWIDTH);
+		predicate[i] = (minPos <= ics[i] && ics[i] < maxPos && 0 <= (index-i) && (index-i) < query_len);
+		printf("At cell [%d][%d], minPos is %d, maxPos is %d, predicate is %d\n", ics[i], index-i, minPos, maxPos, predicate[i]);		
 	}
 }
 #endif
@@ -240,13 +242,13 @@ void Align::ChunkCompute(
 	int start_index = 0;
 	int stop_index = reference_length + PE_NUM - 1;
 #endif 
-	for (int i = start_index; i < stop_index; i++)
+	printf("START INDEX is %d, STOP INDEX IS %d\n", start_index, stop_index);
+	for (int i = start_index; i <= stop_index; i++)
 	{
 #pragma HLS pipeline II = 1
-		// printf("iteration %d\n", i);
-
+		printf("ANTIDIAGONAL %d\n", i);
 #ifdef BANDED 
-		Align::MapPredicateBanded(start_index, stop_index, chunk_row_offset, v_rows, v_cols, global_query_length, reference_length, predicate);
+		Align::MapPredicateBanded(/*start_index, stop_index,*/i, chunk_row_offset, v_rows, v_cols, global_query_length, reference_length, predicate);
 #else
 		Align::MapPredicateSquare(v_rows, v_cols, reference_length, predicate);
 #endif
@@ -265,14 +267,21 @@ void Align::ChunkCompute(
 		// 	tbp_out);
 
 		PE::PEUnrollSep(
+#ifdef BANDED
+			predicate,
+#endif
 			dp_mem,
 			local_query,
 			local_reference,
 			penalties,
 			score_buff,
-			tbp_out);
-		
+			tbp_out
+		);
 
+		printf("SCORE BUFF\n");	
+		for (auto e : score_buff) {
+			printf("%d, ", e);
+		}
 		Align::ArrangeTBP(tbp_out, p_cols, predicate, chunk_tbp_out);
 
 #ifdef CMAKEDEBUG
@@ -281,17 +290,23 @@ void Align::ChunkCompute(
 			debugger.set_score(chunk_row_offset, 0, j, i, score_buff[j+1], predicate[j]);
 		}
 #endif
-		//const char* filename = "output.txt";
-		//FILE* file = fopen(filename, "a");
-		//if (file != nullptr) {
-		//printf("Should execute");
 		for (int j = 0; j < PE_NUM; j++) {
 			int row = chunk_row_offset + j;
 			int col = 0 + i - j;
-			if (0 <= row < MAX_QUERY_LENGTH && 0 <= col < MAX_REFERENCE_LENGTH && predicate[j]) {
+			if (predicate[j]) {
 				scores_kernel[row][col] = score_buff[j+1];
 			}
-			//fprintf(file, "\n");
+			printf("PE %d, global row %d, global col %d, predicate is %d\n", j, row, col, predicate[j]);
+		}
+		for (int k = 0; k < N_LAYERS; k++) {
+			printf("MATRIX %d\n", k);
+			for (int i = 0; i < MAX_QUERY_LENGTH; i++) {
+				for (int j = 0; j < MAX_REFERENCE_LENGTH; j++ ) {
+					printf("%d, ", scores_kernel[i][j][k]);
+				}
+				printf("\n");
+			}
+			printf("\n");
 		}
 		// This should happen before Arrange TBP Arr
 		// Because it doesn't increment PE offsets
@@ -339,6 +354,11 @@ void Align::PrepareScoreBuffer(
 	if (i < PE_NUM){
 		score_buff[i+1] = init_col_scr[i+1];
 	}
+	printf("SCORE BUFF AFTER PREPARING BUFF\n");
+	for (auto e : score_buff) {
+		printf("%d,", e);
+	}
+	printf("\n");
 }
 
 void Align::FindMax::ExtractScoresLayer(wavefront_scores_t &scores, idx_t layer, type_t (&extracted)[PE_NUM])
@@ -405,20 +425,12 @@ void Align::FindMax::ReductionMaxScores(ScorePack (&packs)[PE_NUM], ScorePack &g
 	idx_t max = 0;
 	for (int i = 0; i < PE_NUM; i++)
 	{
-#ifdef ALIGN_TYPE
-	#if (ALIGN_TYPE == SemiGlobalAffine) || (ALIGN_TYPE == Overlap)
-		if (packs[i].score > packs[max].score && (packs[i].row == query_len-1 || packs[i].col == ref_len-1)) 
-		{
-			max = i;
-		}
-	#else 
+		printf("THIS LINE SHOULD EXECUTE\n"); 
 		if (packs[i].score > packs[max].score)
 		{
 			max = i;
 		}
-	#endif
 	}
-#endif
 	global_max = packs[max];
 }
 
@@ -534,15 +546,15 @@ void Align::AlignStatic(
 	chunk_col_scores_inf_t local_init_col_score;
 	local_init_col_score[PE_NUM] = score_vec_t(0); // Always initialize the upper left cornor to 0
 
-	printf("INITIAL COL SCORES");
+	/*printf("INITIAL COL SCORES\n");
 	for (int i = 0; i < MAX_QUERY_LENGTH; i++) {
 		printf("%d %d %d\n", init_col_score[i][0], init_col_score[i][1], init_col_score[i][2]);
 	}
-	printf("INITIAL ROW SCORES");
+	printf("INITIAL ROW SCORES\n");
 	for (int i = 0; i < MAX_REFERENCE_LENGTH; i++) {
 		printf("%d %d %d\t", init_row_score[i][0], init_row_score[i][1], init_row_score[i][2]);
 	}
-
+	printf("\n");*/
 	Iterating_Chunks:
 	for (idx_t i = 0, ic = 0; i < query_length; i += PE_NUM, ic ++)
 	{
@@ -553,7 +565,7 @@ void Align::AlignStatic(
 
 		Align::CoordinateInitializeUniformReverse(p_cols, p_col_offsets[ic]);  // Initialize physical columns to write to for each PE. 
 		Align::CoordinateInitializeUniformReverse(v_cols, ck_start_col[ic]); // Initialize the column coordinates of each PE
-
+		printf("COMPUTING CHUNK %d\n", ic);
 		Align::ChunkCompute(
 			i,
 			ck_start_col[ic],
@@ -580,6 +592,17 @@ void Align::AlignStatic(
 
 		// Offset the virtual row number
 		Align::CoordinateArrayOffsetGeneric<PE_NUM, PE_NUM>(v_rows);
+		/*for (int k = 0; k < N_LAYERS; k++) {
+			printf("MATRIX %d\n", k);
+			for (int i = 0; i < MAX_QUERY_LENGTH; i++) {
+				for (int j = 0; j < MAX_REFERENCE_LENGTH; j++ ) {
+					printf("%d, ", scores_kernel[i][j][k]);
+				}
+				printf("\n");
+			}
+			printf("\n");
+		}*/
+
 
 	}
 	Align::FindMax::ReductionMaxScores(local_max, maximum, query_length, reference_length);
@@ -595,16 +618,16 @@ void Align::AlignStatic(
 		printf("\n");
 	}
 	// >>> Traceback >>>
-	/*tb_i = maximum.row;
+	tb_i = maximum.row;
 	tb_j = maximum.col;
-
+	printf("MAX ROW: %d, MAX COL: %d\n", tb_i, tb_j);
 #ifdef CMAKEDEBUG
 	// print tracevack start idx
 	cout << "Traceback start idx: " << tb_i << " " << tb_j << endl;
 	cout << "Traceback start idx physical: " << maximum.ck << " " <<  maximum.pe << " " << maximum.p_col << endl; 
 #endif
 
-	Traceback::TracebackOptimized(tbp_matrix, tb_out, ck_start_col, ck_end_col, maximum.ck, maximum.pe, maximum.p_col, maximum.row, maximum.col, query_length, reference_length);*/
+	Traceback::TracebackOptimized(tbp_matrix, tb_out, ck_start_col, ck_end_col, maximum.ck, maximum.pe, maximum.p_col, maximum.row, maximum.col, query_length, reference_length);
 }
 
 void SwapBuffer(score_vec_t *&a, score_vec_t *&b){

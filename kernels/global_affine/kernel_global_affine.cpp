@@ -1,7 +1,11 @@
 #include "../../include/frontend.h"
 
 // >>> Global Affine Implementation >>>
-void GlobalAffine::PE::Compute(char_t local_query_val,
+void GlobalAffine::PE::Compute(
+#ifdef BANDED
+							   bool predicate,
+#endif
+							   char_t local_query_val,
                                char_t local_reference_val,
                                score_vec_t up_prev,
                                score_vec_t diag_prev,
@@ -27,7 +31,11 @@ void GlobalAffine::PE::Compute(char_t local_query_val,
      * Layer 1: Match matrix M, moves diagonally
      * Layer 2: Delete matrix D, moves vertically
      */
-
+#ifdef BANDED
+	if (!predicate) {
+		return;
+	}
+#endif
     const type_t insert_open = left_prev[1] + penalties.open + penalties.extend; // Insert open
     const type_t insert_extend = left_prev[0] + penalties.open;                  // insert extend
     const type_t delete_open = up_prev[1] + penalties.open + penalties.extend;   // delete open
@@ -70,8 +78,7 @@ void GlobalAffine::PE::Compute(char_t local_query_val,
     type_t max_value = write_score[0] > write_score[2] ? write_score[0] : write_score[2]; // compare between insertion and deletion
     max_value = max_value > match ? max_value : match;                                    // compare with match/mismatch
     write_score[1] = max_value;
-
-    tbp_t dir_tb;
+	tbp_t dir_tb;
 
 #ifdef CMAKEDEBUG
     auto match_s = match.to_float();

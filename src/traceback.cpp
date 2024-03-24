@@ -146,14 +146,14 @@ void Traceback::NextAddress(tbr_t &nav,
     // Check the condition based on the virtual row and column
     // Semi-global alignment stopping condition
     if (v_row <= 0 || v_col <= 0){
-#ifdef ALIGN_TYPE
+/*#ifdef ALIGN_TYPE
     // For overlap, terminate at left col if starting from bottom row or top row if starting from right col
     #if ALIGN_TYPE == Overlap
     if ((v_row <= 0 && temp_col_max == ref_len) || (v_col <= 0 && temp_row_max == query_len)) {
         nav = AL_END;
     }
     #endif
-#endif 
+#endif */
         nav = AL_END;
     }
     else if (nav == AL_INS){  // Moving left

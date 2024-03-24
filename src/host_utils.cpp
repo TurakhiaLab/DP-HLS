@@ -38,7 +38,9 @@ map<string, string> ReconstructTraceback(string query, string reference,
         tbr_t *curr_ptr = &tb_stream[0];
         // Insert the characters from the stack to the alignment strings to their beginning. 
         // Iterating in order the tb_steram
+		cout << "STARTING" << endl;
         while (*curr_ptr != AL_END){
+			cout << "THIS SHOULD PRINT" << endl;
             // printf("curr_ptr: %d\n", curr_ptr->to_int());
             if (*curr_ptr == AL_MMI)
             {
@@ -61,7 +63,7 @@ map<string, string> ReconstructTraceback(string query, string reference,
             }
             curr_ptr++;
         }
-
+		cout << "IS THERE A PROBLEM" << endl;
         // Finishing up concatenating the rest of the characters in the stack
         while (!query_stack.empty()) {
             alignment_query = alignment_query.insert(0, 1, query_stack.top());
