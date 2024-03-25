@@ -18,7 +18,7 @@ const int PE_NUM = 2;
 #define LAYER_MAXIMIUM 1  // We need to indicate from which layer (main matrix) is the maximum score stored.
 
 // if user decides to use banding
-//#define BANDED
+#define BANDED
 #ifdef BANDED
 #define FIXED_BANDWIDTH 4
 #endif
@@ -101,6 +101,5 @@ typedef ap_uint<3> tbr_t;  // Traecback Result Type
 #define AL_NULL (tbr_t) 0b100  // 4 Do not change coordinate
 
 typedef tbr_t traceback_buf_t[MAX_QUERY_LENGTH + MAX_REFERENCE_LENGTH];
-
 
 #endif

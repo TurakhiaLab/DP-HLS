@@ -2,7 +2,7 @@
 #define SEQ_ALIGN_MULTIPLE_H
 
 // #include <hls_task.h>
-#include "params.h"
+#include "../kernels/global_affine/params.h"
 #include "ap_int.h"
 #include "ap_fixed.h"
 #include <hls_stream.h>

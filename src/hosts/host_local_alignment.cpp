@@ -1,50 +1,15 @@
 // FIXME: Wheird that if including params.h, the host code will not compile with weird bug. 
 // Need a more elegant way. Currently just redefine those types
 
-#include "../../common/includes/xcl2/xcl2.hpp"
+#include "xcl2.hpp"
 #include <vector>
 #include <algorithm>
 #include <ap_int.h>
 #include <ap_fixed.h>
-#include "../../include/host_utils.h"
-
-#define MAX_QUERY_LENGTH 256
-#define MAX_REFERENCE_LENGTH 256
-#define N_BLOCKS 1
-
-// Primitive Types
-typedef ap_uint<2> char_t;  // Sequence Alphabet
-typedef ap_fixed<16, 10> type_t;  // Scores Type <width, integer_width>
-typedef ap_uint<8> idx_t;  // Indexing Type, could be much less than 32. ap_uint<8>
-typedef ap_uint<4> tbp_t;  // Traceback Pointer Type
-typedef ap_uint<2> tbr_t;  // Traecback Result Type
-
-struct Penalties {
-    type_t open;
-    type_t extend;
-    type_t mismatch;
-    type_t match;
-    type_t linear_gap;
-};
-
-int base_to_num(char base){
-    switch (base)
-    {
-    case 'A':
-        return 0;
-    case 'C':
-        return 1;
-    case 'G':
-        return 2;
-    case 'T':
-        return 3;
-    default:
-        return 0;
-#ifdef CMAKEDEBUG
-        throw std::runtime_error("Unrecognized Nucleotide " + std::string(1, base) + " from A, C, G, and T.\n"); // or throw an exception
-#endif
-    }
-}
+#include "host_utils.h"
+#include "params.h"
+#include <map>
+#include <chrono>
 
 
 int main(int argc, char **argv) {
@@ -66,7 +31,9 @@ int main(int argc, char **argv) {
     std::vector<char_t, aligned_allocator<char_t>> references(N_BLOCKS * MAX_REFERENCE_LENGTH);
     std::vector<idx_t, aligned_allocator<idx_t>> query_lengths(N_BLOCKS);
     std::vector<idx_t, aligned_allocator<idx_t>> reference_lengths(N_BLOCKS);
-    std::vector<Penalties, aligned_allocator<Penalties>> penalties(1); // Assuming a single penalties struct
+    std::vector<Penalties, aligned_allocator<Penalties>> penalties(N_BLOCKS); // Assuming a single penalties struct
+    std::vector<idx_t, aligned_allocator<idx_t>> traceback_start_is(N_BLOCKS);  // Allocate buffer for the starting row and column of the buffer
+    std::vector<idx_t, aligned_allocator<idx_t>> traceback_start_js(N_BLOCKS);
     std::vector<tbr_t, aligned_allocator<tbr_t>> tb_streams(N_BLOCKS * (MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH));
 
     
@@ -86,6 +53,12 @@ int main(int argc, char **argv) {
         for (int j = 0; j < MAX_REFERENCE_LENGTH; j++) {
             references[i * MAX_REFERENCE_LENGTH + j] = (type_t) base_to_num(*reference_ptr++);
         }
+        // Initialize Penalties
+        penalties[i].open = type_t(-2);
+        penalties[i].extend = type_t(-1);
+        penalties[i].mismatch = type_t(-3);
+        penalties[i].match = type_t(2);
+        penalties[i].linear_gap = type_t(-1);
     }
 
     // OPENCL HOST CODE AREA START
@@ -123,9 +96,14 @@ int main(int argc, char **argv) {
     OCL_CHECK(err, cl::Buffer buffer_reference_lengths(context, CL_MEM_USE_HOST_PTR | CL_MEM_READ_ONLY, 
                                                        sizeof(idx_t) * reference_lengths.size(), reference_lengths.data(), &err));
     OCL_CHECK(err, cl::Buffer buffer_penalties(context, CL_MEM_USE_HOST_PTR | CL_MEM_READ_ONLY, 
-                                               sizeof(Penalties), penalties.data(), &err));
+                                               sizeof(Penalties) * penalties.size(), penalties.data(), &err));
+    OCL_CHECK(err, cl::Buffer buffer_traceback_start_is(context, CL_MEM_USE_HOST_PTR | CL_MEM_WRITE_ONLY,  
+                                                   sizeof(idx_t) * traceback_start_is.size(), traceback_start_is.data(), &err));
+    OCL_CHECK(err, cl::Buffer buffer_traceback_start_js(context, CL_MEM_USE_HOST_PTR | CL_MEM_WRITE_ONLY, 
+                                                       sizeof(idx_t) * traceback_start_js.size(), traceback_start_js.data(), &err));
     OCL_CHECK(err, cl::Buffer buffer_tb_streams(context, CL_MEM_USE_HOST_PTR | CL_MEM_WRITE_ONLY, 
                                                 sizeof(tbr_t) * tb_streams.size(), tb_streams.data(), &err));
+                                                
 
     // Set Kernel Arguments
     OCL_CHECK(err, err = krnl_seq_align.setArg(0, buffer_querys));
@@ -133,21 +111,27 @@ int main(int argc, char **argv) {
     OCL_CHECK(err, err = krnl_seq_align.setArg(2, buffer_query_lengths));
     OCL_CHECK(err, err = krnl_seq_align.setArg(3, buffer_reference_lengths));
     OCL_CHECK(err, err = krnl_seq_align.setArg(4, buffer_penalties));
-    OCL_CHECK(err, err = krnl_seq_align.setArg(5, buffer_tb_streams));
+    OCL_CHECK(err, err = krnl_seq_align.setArg(5, buffer_traceback_start_is));
+    OCL_CHECK(err, err = krnl_seq_align.setArg(6, buffer_traceback_start_js));
+    OCL_CHECK(err, err = krnl_seq_align.setArg(7, buffer_tb_streams));
 
     // Copy input data to device global memory
+    auto start = std::chrono::high_resolution_clock::now();
     OCL_CHECK(err, err = q.enqueueMigrateMemObjects({buffer_querys, buffer_references, buffer_query_lengths, 
                                                      buffer_reference_lengths, buffer_penalties}, 0 /* 0 means from host*/));
 
     // Launch the Kernel
     OCL_CHECK(err, err = q.enqueueTask(krnl_seq_align));
+    
 
     // Copy Result from Device Global Memory to Host Local Memory
-    OCL_CHECK(err, err = q.enqueueMigrateMemObjects({buffer_tb_streams}, CL_MIGRATE_MEM_OBJECT_HOST));
+    OCL_CHECK(err, err = q.enqueueMigrateMemObjects({buffer_traceback_start_is, buffer_traceback_start_js, buffer_tb_streams}, CL_MIGRATE_MEM_OBJECT_HOST));
     q.finish();
+    auto end = std::chrono::high_resolution_clock::now();
+    
     // OPENCL HOST CODE AREA END
 
-    // Process results
+    // Print raw traceback pointer streams
     for (int i = 0; i < N_BLOCKS; i++) {
         std::cout << "Query: " << querys_strings.substr(i * MAX_QUERY_LENGTH, MAX_QUERY_LENGTH) << std::endl;
         std::cout << "Reference: " << references_strings.substr(i * MAX_REFERENCE_LENGTH, MAX_REFERENCE_LENGTH) << std::endl;
@@ -157,6 +141,47 @@ int main(int argc, char **argv) {
         }
         std::cout << std::endl;
     }
+
+    // set up the array to store the traceback lengthes
+    // string query_strings_primitive[N_BLOCKS];
+    // string reference_strings_primitive[N_BLOCKS];
+    // for (int i = 0; i < N_BLOCKS; i++){
+    //     query_strings_primitive[i] = querys_strings.substr(i * MAX_QUERY_LENGTH, MAX_QUERY_LENGTH);
+    //     reference_strings_primitive[i] = references_strings.substr(i * MAX_REFERENCE_LENGTH, MAX_REFERENCE_LENGTH);
+    // }
+
+    // tbr_t tb_streams_primitive[N_BLOCKS][MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH];
+    // for (int i = 0; i < N_BLOCKS; i++){
+    //     for (int j = 0; j < MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH; j++){
+    //         tb_streams_primitive[i][j] = tb_streams[i * (MAX_QUERY_LENGTH + MAX_REFERENCE_LENGTH) + j];
+    //     }
+    // }
+    
+    // int tb_qry_lengths[N_BLOCKS];
+    // int tb_ref_lengths[N_BLOCKS];
+    // for (int i = 0; i < N_BLOCKS; i++){
+    //     tb_qry_lengths[i] = traceback_start_is[i];
+    //     tb_ref_lengths[i] = traceback_start_js[i];
+    // }
+    // std::cout << "Reconstructing Traceback" << std::endl;
+    // array<map<string, string>, N_BLOCKS> kernel_alignments;
+    // kernel_alignments = ReconstructTracebackBlocks(
+    //     query_strings_primitive,
+    //     reference_strings_primitive,
+    //     tb_qry_lengths, tb_ref_lengths, 
+    //     tb_streams_primitive);
+
+    // // Print Actual Alignments
+    // for (int i = 0; i < N_BLOCKS; i++){
+    //     std::cout << "Block " << i << " Results" << std::endl;
+    //     std::cout << "Query    : " << query_strings_primitive[i] << std::endl;
+    //     std::cout << "Reference: " << reference_strings_primitive[i] << std::endl;
+    //     std::cout << "Kernel Aligned Query    : " << kernel_alignments[i]["query"] << std::endl;
+    //     std::cout << "Kernel Aligned Reference: " << kernel_alignments[i]["reference"] << std::endl << std::endl;
+    // }
+
+    // Print time
+    std::cout << "Kernel execution time: " << std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count() << "ms" << std::endl;
 
     std::cout << "Kernel execution complete." << std::endl;
     return EXIT_SUCCESS;

@@ -1,0 +1,15 @@
+(base) [centos@ip-172-31-21-210 DP-HLS]$ sudo find / -name cl_ext_xilinx.h
+/home/centos/workspace/XRT/build/Release/opt/xilinx/xrt/include/CL/cl_ext_xilinx.h
+/home/centos/workspace/XRT/build/Release/_CPack_Packages/Linux/TGZ/xrt_202410.2.17.0_7.9.2009-x86_64/xrt/opt/xilinx/xrt/include/CL/cl_ext_xilinx.h
+/home/centos/workspace/XRT/build/Release/_CPack_Packages/Linux/RPM/xrt_202410.2.17.0_7.9.2009-x86_64/xrt/opt/xilinx/xrt/include/CL/cl_ext_xilinx.h
+/home/centos/workspace/XRT/build/Debug/opt/xilinx/xrt/include/CL/cl_ext_xilinx.h
+/home/centos/workspace/XRT/build/Debug/_CPack_Packages/Linux/TGZ/xrt_202410.2.17.0_7.9.2009-x86_64/xrt/opt/xilinx/xrt/include/CL/cl_ext_xilinx.h
+/home/centos/workspace/XRT/build/Debug/_CPack_Packages/Linux/RPM/xrt_202410.2.17.0_7.9.2009-x86_64/xrt/opt/xilinx/xrt/include/CL/cl_ext_xilinx.h
+/home/centos/workspace/XRT/src/include/1_2/CL/cl_ext_xilinx.h
+/opt/xilinx/xrt/include/CL/cl_ext_xilinx.h
+(base) [centos@ip-172-31-21-210 DP-HLS]$ sudo locate libOpenCL.so
+
+/usr/lib64/libOpenCL.so
+/usr/lib64/libOpenCL.so.1
+/usr/lib64/libOpenCL.so.1.0.0
+(base) [centos@ip-172-31-21-210 DP-HLS]$ 

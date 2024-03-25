@@ -4,7 +4,7 @@
 /*
  * This file contains debug functions of the kernel. Internal development purpose only.
  */
-#include "params.h"
+#include "../kernels/global_affine/params.h"
 #include <list>
 #include <array>
 #include <string>

@@ -5,8 +5,8 @@
 #include <hls_vector.h>
 #include <ap_int.h>
 
-#define MAX_QUERY_LENGTH 256
-#define MAX_REFERENCE_LENGTH 256
+#define MAX_QUERY_LENGTH 1024
+#define MAX_REFERENCE_LENGTH 1024
 #define N_BLOCKS 1
 const int PE_NUM = 32;
 
@@ -67,9 +67,8 @@ enum TB_STATE {
     END = 3   // End
 };
 
-#define ZERO_CHAR (char_t(0))
+#define ZERO_CHAR (char_t({0,0,0,0,0}))
 #define zero_fp ((type_t)0)
-
 
 // >>> Shared Definitions, Do Not Change
 #define CK_NUM (MAX_QUERY_LENGTH / PE_NUM)

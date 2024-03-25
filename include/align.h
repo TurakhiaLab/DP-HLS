@@ -13,10 +13,8 @@
 #define SEQ_ALIGN_H
 
 #include <ap_int.h>
-// #include <hls_task.h>
 #include <hls_vector.h>
 #include <hls_stream.h>
-// #include <hls_streamofblocks.h>
 
 #include "params.h"
 #include "PE.h"
@@ -25,7 +23,6 @@
 
 #ifdef CMAKEDEBUG
 #include "./debug.h"
-// #include "./pyapi.h"
 #endif // DBEUG
 
 using namespace hls;
@@ -102,13 +99,12 @@ namespace Align
 		input_char_block_t &query,
 		char_t (&reference)[MAX_REFERENCE_LENGTH],
 		chunk_col_scores_inf_t &init_col_scr,
-		hls::vector<type_t, N_LAYERS> (&init_row_scr)[MAX_REFERENCE_LENGTH],
-		// hls::vector<idx_t, PE_NUM> &ics, hls::vector<idx_t, PE_NUM> &jcs,
+		score_vec_t (&init_row_scr)[MAX_REFERENCE_LENGTH],
 		idx_t (&ics)[PE_NUM], idx_t (&jcs)[PE_NUM],
 		idx_t (&p_cols)[PE_NUM], idx_t ck_idx,
 		int global_query_length, int query_length, int reference_length,
 		const Penalties &penalties,
-		hls::vector<type_t, N_LAYERS> (&preserved_row_scr)[MAX_REFERENCE_LENGTH],
+		score_vec_t (&preserved_row_scr)[MAX_REFERENCE_LENGTH],
 		ScorePack (&max)[PE_NUM], // write out so must pass by reference
 		tbp_t (&chunk_tbp_out)[PE_NUM][MAX_QUERY_LENGTH / PE_NUM * MAX_REFERENCE_LENGTH]
 #ifdef CMAKEDEBUG
@@ -143,10 +139,10 @@ namespace Align
 	 */
 	void InitializeRowCoordinates(idx_t (&ic)[PE_NUM]);
 
-	void ArrangeScores(
-		dp_mem_block_t &tbp_in,
-		bool (&predicate)[PE_NUM], idx_t (&pe_offset)[PE_NUM],
-		hls::vector<type_t, N_LAYERS> (*chunk_score_out)[MAX_REFERENCE_LENGTH]);
+	// void ArrangeScores(
+	// 	dp_mem_block_t &tbp_in,
+	// 	bool (&predicate)[PE_NUM], idx_t (&pe_offset)[PE_NUM],
+	// 	hls::vector<type_t, N_LAYERS> (*chunk_score_out)[MAX_REFERENCE_LENGTH]);
 
 	void WriteInitialColScore(int i, score_vec_t (&init_scores)[PE_NUM],
 							  hls::stream_of_blocks<dp_mem_block_t> &dp_mem_in,
@@ -193,6 +189,7 @@ namespace Align
 		const idx_t ref_len,
 		bool (&predicate)[PE_NUM]);
 
+#ifdef BANDED
 	/**
 	 * @brief Predicate mapping function for banded alignment.
 	 * FIXME: Add necessary parameter to determine whether a PE with
@@ -208,6 +205,7 @@ namespace Align
 		const int query_len,
 		const idx_t ref_len,
 		bool (&predicate)[PE_NUM]);
+#endif 
 
 	/**
 	 * @brief Shift into the local reference a new reference element, given current wavefront index and reference length.
@@ -221,7 +219,7 @@ namespace Align
 		int idx, int ref_len);
 
 	void PreserveRowScore(
-		hls::vector<type_t, N_LAYERS> (&preserved_row_scr)[MAX_REFERENCE_LENGTH],
+		score_vec_t (&preserved_row_scr)[MAX_REFERENCE_LENGTH],
 		const score_vec_t score_vec,
 		const bool predicate_pe_last,
 		const idx_t idx);
@@ -269,7 +267,6 @@ namespace Align
 	template <int LEN>
 	void CoordinateArrayOffset(idx_t (&arr)[LEN])
 	{
-#pragma HLS inline off
 		for (int i = 0; i < LEN; i++)
 		{
 #pragma HLS unroll
@@ -280,7 +277,6 @@ namespace Align
 	template <int LEN, int NUM>
 	void CoordinateArrayOffsetGeneric(idx_t (&arr)[LEN])
 	{
-#pragma HLS inline off
 		for (int i = 0; i < LEN; i++)
 		{
 #pragma HLS unroll

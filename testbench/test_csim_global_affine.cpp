@@ -3,12 +3,12 @@
 #include <array>
 #include <map>
 #include <chrono>
-#include "params.h"
-#include "seq_align_multiple.h"
-#include "host_utils.h"
-#include "solutions.h"
-#include "debug.h"
-
+#include "../kernels/global_affine/params.h"
+#include "../include/seq_align_multiple.h"
+#include "../include/host_utils.h"
+//#include "../src/host_utils.cpp"
+#include "../include/solutions.h"
+#include "../include/debug.h"
 
 using namespace std;
 
@@ -147,7 +147,7 @@ int main(){
     cout << "Reference: " << reference_string << endl;
 
     // Get the solution scores and traceback
-    array<array<array<float, MAX_REFERENCE_LENGTH>, MAX_QUERY_LENGTH>, N_LAYERS> sol_score_mat;
+    /*array<array<array<float, MAX_REFERENCE_LENGTH>, MAX_QUERY_LENGTH>, N_LAYERS> sol_score_mat;
     array<array<string, MAX_REFERENCE_LENGTH>, MAX_QUERY_LENGTH> sol_tb_mat;
     map<string, string> alignments;
     auto sol_start = std::chrono::high_resolution_clock::now();
@@ -164,7 +164,7 @@ int main(){
     debuggers[0].cast_scores();
     // print_matrix<float, MAX_QUERY_LENGTH, MAX_REFERENCE_LENGTH>(debuggers[0].scores_cpp[0], "Kernel 0 Scores Layer 0");
     debuggers[0].compare_scores(sol_score_mat, query.size(), reference.size());  // check if the scores from the kernel matches scores from the solution
-
+	*/
     // reconstruct kernel alignments
     array<map<string, string>, N_BLOCKS> kernel_alignments;
     int tb_query_lengths[N_BLOCKS];
@@ -178,7 +178,7 @@ int main(){
         query_string_blocks[i] = query_string;
         reference_string_blocks[i] = reference_string;
     }
-    kernel_alignments = ReconstructTracebackBlocks<N_BLOCKS>(
+    kernel_alignments = ReconstructTracebackBlocks<tbr_t, N_BLOCKS, MAX_QUERY_LENGTH, MAX_REFERENCE_LENGTH>(
         query_string_blocks, reference_string_blocks,
         tb_query_lengths, tb_reference_lengths, 
         tb_streams);

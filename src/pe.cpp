@@ -1,13 +1,19 @@
-// #include <hls_task.h>
-#include "PE.h"
 #include <hls_vector.h>
+
+
+#ifndef VPP_CLI
+#include "../include/PE.h"
+#include "../include/params.h"
+#include "../include/frontend.h"
+#else
+#include "PE.h"
 #include "params.h"
 #include "frontend.h"
+#endif
 
 #ifdef CMAKEDEBUG
 #include <cstdio>
 #endif
-
 
 
 void PE::PEUnroll(
@@ -43,8 +49,6 @@ void PE::PEUnrollSep(
     wavefront_scores_inf_t &score,
     tbp_vec_t &tbp)
 {
-#pragma HLS inline off
-
 #pragma HLS array_partition variable = dp_mem dim = 0 type = complete
 #pragma HLS array_partition variable = tbp type = complete
 #pragma HLS array_partition variable = score type = complete

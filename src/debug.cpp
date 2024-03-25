@@ -1,5 +1,10 @@
+#ifndef VPP_CLI
 #include "../include/debug.h"
+#include "../include/solutions.h"
+#else
+#include "debug.h"
 #include "solutions.h"
+#endif
 
 void Container::cast_scores(){
     this->scores_cpp[0][0][0] = 1;
