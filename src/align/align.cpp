@@ -10,6 +10,8 @@
 #include "align.h"
 #include "params.h"
 #endif*/
+#include "align.h"
+#include "params.h"
 
 using namespace hls;
 

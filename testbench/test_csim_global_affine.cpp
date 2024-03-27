@@ -6,9 +6,9 @@
 #include "../kernels/global_affine/params.h"
 #include "../include/seq_align_multiple.h"
 #include "../include/host_utils.h"
+//#include "../src/host_utils.cpp"
 #include "../include/solutions.h"
 #include "../include/debug.h"
-
 
 using namespace std;
 
@@ -184,4 +184,5 @@ int main(){
     cout << "Kernel 0 Traceback" << endl;
     cout << "Kernel   Aligned Query    : " << kernel_alignments[0]["query"] << endl;
     cout << "Kernel   Aligned Reference: " << kernel_alignments[0]["reference"] << endl;
+
 }

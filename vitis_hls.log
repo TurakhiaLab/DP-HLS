@@ -8,14 +8,22 @@
 
 source /home/AD.UCSD.EDU/swalia/Xilinx/Vitis_HLS/2023.1/scripts/vitis_hls/hls.tcl -notrace
 INFO: [HLS 200-10] Running '/home/AD.UCSD.EDU/swalia/Xilinx/Vitis_HLS/2023.1/bin/unwrapped/lnx64.o/vitis_hls'
+<<<<<<< HEAD
 INFO: [HLS 200-10] For user 'jsliang@AD.UCSD.EDU' on host 'raptor.ucsd.edu' (Linux_x86_64 version 5.4.0-149-generic) on Wed Mar 27 16:29:44 PDT 2024
 INFO: [HLS 200-10] On os Ubuntu 20.04.6 LTS
 INFO: [HLS 200-10] In directory '/home/AD.UCSD.EDU/jsliang/DP-HLS'
 [2Kvitis_hls> [11C[2Kvitis_hls> s[12C[2Kvitis_hls> so[13C[2Kvitis_hls> sou[14C[2Kvitis_hls> sour[15C[2Kvitis_hls> sourc[16C[2Kvitis_hls> sourc [17C[2Kvitis_hls> sourc e[18C[2Kvitis_hls> sourc [17C[2Kvitis_hls> sourc  [18C[2Kvitis_hls> sourc [17C[2Kvitis_hls> sourc[16C[2Kvitis_hls> source[17C[2Kvitis_hls> source [18C[2Kvitis_hls> source t[19C[2Kvitis_hls> source te[20C[2Kvitis_hls> source tes[21C[2Kvitis_hls> source test[22C[2Kvitis_hls> source testw[23C[2Kvitis_hls> source test[22C[2Kvitis_hls> source test_[23C[2Kvitis_hls> source test_w[24C[2Kvitis_hls> source test_wrapper.tcl[34C
+=======
+INFO: [HLS 200-10] For user 'jsliang@AD.UCSD.EDU' on host 'raptor.ucsd.edu' (Linux_x86_64 version 5.4.0-149-generic) on Mon Mar 25 09:27:19 PDT 2024
+INFO: [HLS 200-10] On os Ubuntu 20.04.6 LTS
+INFO: [HLS 200-10] In directory '/home/AD.UCSD.EDU/jsliang/DP-HLS'
+[2Kvitis_hls> [11C[2Kvitis_hls> s[12C[2Kvitis_hls> so[13C[2Kvitis_hls> sou[14C[2Kvitis_hls> sour[15C[2Kvitis_hls> sourc[16C[2Kvitis_hls> source[17C[2Kvitis_hls> source [18C[2Kvitis_hls> source t[19C[2Kvitis_hls> source te[20C[2Kvitis_hls> source tes[21C[2Kvitis_hls> source test[22C[2Kvitis_hls> source test_[23C[2Kvitis_hls> source test_w[24C[2Kvitis_hls> source test_wr[25C[2Kvitis_hls> source test_wra[26C[2Kvitis_hls> source test_wrap[27C[2Kvitis_hls> source test_wrapp[28C[2Kvitis_hls> source test_wrapper.tcl[34C
+>>>>>>> optimized-tbmat-traceback
 INFO: [HLS 200-1510] Running: open_project -reset BasicKernel 
 INFO: [HLS 200-10] Opening and resetting project '/home/AD.UCSD.EDU/jsliang/DP-HLS/BasicKernel'.
 INFO: [HLS 200-1510] Running: add_files src/align/align.cpp 
 INFO: [HLS 200-10] Adding design file 'src/align/align.cpp' to the project
+<<<<<<< HEAD
 INFO: [HLS 200-1510] Running: add_files kernels/global_affine/params.h 
 INFO: [HLS 200-10] Adding design file 'kernels/global_affine/params.h' to the project
 INFO: [HLS 200-1510] Running: add_files src/pe.cpp 
@@ -24,6 +32,16 @@ INFO: [HLS 200-1510] Running: add_files include/PE.h
 INFO: [HLS 200-10] Adding design file 'include/PE.h' to the project
 INFO: [HLS 200-1510] Running: add_files kernels/global_affine/kernel_global_affine.cpp 
 INFO: [HLS 200-10] Adding design file 'kernels/global_affine/kernel_global_affine.cpp' to the project
+=======
+INFO: [HLS 200-1510] Running: add_files include/params.h 
+WARNING: [HLS 200-40] Cannot find design file 'include/params.h'
+INFO: [HLS 200-1510] Running: add_files src/pe/pe.cpp 
+WARNING: [HLS 200-40] Cannot find design file 'src/pe/pe.cpp'
+INFO: [HLS 200-1510] Running: add_files include/PE.h 
+INFO: [HLS 200-10] Adding design file 'include/PE.h' to the project
+INFO: [HLS 200-1510] Running: add_files src/toplevel/seq_align_multiple.cpp 
+WARNING: [HLS 200-40] Cannot find design file 'src/toplevel/seq_align_multiple.cpp'
+>>>>>>> optimized-tbmat-traceback
 INFO: [HLS 200-1510] Running: add_files include/seq_align_multiple.h 
 INFO: [HLS 200-10] Adding design file 'include/seq_align_multiple.h' to the project
 INFO: [HLS 200-1510] Running: add_files include/align.h 
@@ -114,8 +132,11 @@ INFO: [HLS 200-1510] Running: add_files src/frontend.cpp
 WARNING: [HLS 200-40] Cannot find design file 'src/frontend.cpp'
 INFO: [HLS 200-1510] Running: add_files include/frontend.h 
 INFO: [HLS 200-10] Adding design file 'include/frontend.h' to the project
+<<<<<<< HEAD
 INFO: [HLS 200-1510] Running: add_files src/seq_align_multiple.cpp 
 INFO: [HLS 200-10] Adding design file 'src/seq_align_multiple.cpp' to the project
+=======
+>>>>>>> optimized-tbmat-traceback
 INFO: [HLS 200-1510] Running: add_files src/host_utils.cpp 
 INFO: [HLS 200-10] Adding design file 'src/host_utils.cpp' to the project
 INFO: [HLS 200-1510] Running: add_files include/host_utils.h 
@@ -139,6 +160,7 @@ INFO: [SIM 211-2] *************** CSIM start ***************
 INFO: [SIM 211-4] CSIM will launch GCC as the compiler.
 INFO: [HLS 200-2036] Building debug C Simulation binaries
    Compiling ../../../../testbench/test_csim_global_affine.cpp in debug mode
+<<<<<<< HEAD
    Compiling ../../../../src/host_utils.cpp in debug mode
    Compiling ../../../../src/seq_align_multiple.cpp in debug mode
    Compiling ../../../../src/utils.cpp in debug mode
@@ -6458,3 +6480,28 @@ INFO: [HLS 200-111] Finished Command csim_design CPU user time: 12.8 seconds. CP
 [2Kvitis_hls> [11C[2Kvitis_hls> g[12C[2Kvitis_hls> gi[13C[2Kvitis_hls> git[14C[2Kvitis_hls> git [15C[2Kvitis_hls> git p[16C[2Kvitis_hls> git pu[17C[2Kvitis_hls> git pus[18C[2Kvitis_hls> git push[19C[2Kvitis_hls> git pus[18C[2Kvitis_hls> git pu[17C[2Kvitis_hls> git p[16C[2Kvitis_hls> git [15C[2Kvitis_hls> git[14C[2Kvitis_hls> gi[13C[2Kvitis_hls> g[12C[2Kvitis_hls> [11C[2Kvitis_hls> e[12C[2Kvitis_hls> ex[13C[2Kvitis_hls> exi[14C[2Kvitis_hls> exit[15C
 INFO: [HLS 200-112] Total CPU user time: 68.85 seconds. Total CPU system time: 9.17 seconds. Total elapsed time: 478 seconds; peak allocated memory: 1.096 GB.
 INFO: [Common 17-206] Exiting vitis_hls at Wed Mar 27 16:37:42 2024...
+=======
+../../../../testbench/test_csim_global_affine.cpp: In function ‘int main()’:
+../../../../testbench/test_csim_global_affine.cpp:181:25: error: ‘ReconstructTracebackBlocks’ was not declared in this scope
+     kernel_alignments = ReconstructTracebackBlocks<tbr_t, N_BLOCKS, MAX_QUERY_LENGTH, MAX_REFERENCE_LENGTH>(
+                         ^~~~~~~~~~~~~~~~~~~~~~~~~~
+../../../../testbench/test_csim_global_affine.cpp:181:25: note: suggested alternative:
+In file included from ../../../../testbench/test_csim_global_affine.cpp:8:
+../../../../testbench/../include/host_utils.h:424:40: note:   ‘HostUtils::Sequence::ReconstructTracebackBlocks’
+         array<map<string, string>, NB> ReconstructTracebackBlocks(string query[NB], string reference[NB],
+                                        ^~~~~~~~~~~~~~~~~~~~~~~~~~
+../../../../testbench/test_csim_global_affine.cpp:181:57: error: expected primary-expression before ‘,’ token
+     kernel_alignments = ReconstructTracebackBlocks<tbr_t, N_BLOCKS, MAX_QUERY_LENGTH, MAX_REFERENCE_LENGTH>(
+                                                         ^
+../../../../testbench/test_csim_global_affine.cpp:184:19: error: ISO C++ forbids comparison between pointer and integer [-fpermissive]
+         tb_streams);
+                   ^
+make: *** [csim.mk:79: obj/test_csim_global_affine.o] Error 1
+ERROR: [SIM 211-100] 'csim_design' failed: compilation error(s).
+INFO: [SIM 211-3] *************** CSIM finish ***************
+INFO: [HLS 200-111] Finished Command csim_design CPU user time: 1.49 seconds. CPU system time: 0.53 seconds. Elapsed time: 2.02 seconds; current allocated memory: 0.070 MB.
+4
+[2Kvitis_hls> [11C[2Kvitis_hls> e[12C[2Kvitis_hls> ex[13C[2Kvitis_hls> exi[14C[2Kvitis_hls> exit[15C
+INFO: [HLS 200-112] Total CPU user time: 4.9 seconds. Total CPU system time: 1.52 seconds. Total elapsed time: 333.9 seconds; peak allocated memory: 1.070 GB.
+INFO: [Common 17-206] Exiting vitis_hls at Mon Mar 25 09:32:52 2024...
+>>>>>>> optimized-tbmat-traceback

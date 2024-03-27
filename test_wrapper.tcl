@@ -26,11 +26,15 @@ proc main {} {
     add_files "include/utils.h"
     add_files "src/frontend.cpp"
     add_files "include/frontend.h"
+<<<<<<< HEAD
 	add_files "src/seq_align_multiple.cpp"
 	
 	# TB files
 	#add_files "src/debug.cpp"
 	#add_files "include/debug.h"
+=======
+
+>>>>>>> optimized-tbmat-traceback
 	add_files "src/host_utils.cpp"
 	add_files "include/host_utils.h"
     add_files -tb "testbench/test_csim_global_affine.cpp"

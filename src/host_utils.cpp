@@ -5,11 +5,11 @@
 #include <nlohmann/json.hpp>
 #include <fstream>
 
-#ifndef VPP_CLI
+//#ifndef VPP_CLI
+//#include "../include/host_utils.h"
+//#else
 #include "../include/host_utils.h"
-#else
-#include "host_utils.h"
-#endif
+//#endif
 
 
 using namespace std;
