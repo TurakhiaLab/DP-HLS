@@ -18,9 +18,9 @@ const int PE_NUM = 4;
 #define LAYER_MAXIMIUM 1  // We need to indicate from which layer (main matrix) is the maximum score stored.
 
 // if user decides to use banding
-//#define BANDED
+#define BANDED
 #ifdef BANDED
-#define FIXED_BANDWIDTH 2
+#define FIXED_BANDWIDTH 4
 #endif
 
 // Primitive Types

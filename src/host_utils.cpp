@@ -2,112 +2,142 @@
 #include <vector>
 #include <stack>
 #include <map>
+#include <nlohmann/json.hpp>
+#include <fstream>
 
-#include "../kernels/global_affine/params.h"
+#ifndef VPP_CLI
 #include "../include/host_utils.h"
+#else
+#include "host_utils.h"
+#endif
+
 
 using namespace std;
 
-
-void printStack(std::stack<char>& stk) {
-    stack<char> tempStack = stk; // Make a copy of the stack
-    cout << "Stack elements: ";
-    while (!tempStack.empty()) {
-        cout << tempStack.top() << " ";
-        tempStack.pop();
+int HostUtils::Sequence::base_to_num(char base)
+{
+    switch (base)
+    {
+    case 'A':
+        return 0;
+    case 'C':
+        return 1;
+    case 'G':
+        return 2;
+    case 'T':
+        return 3;
+    case '_':
+        return 4;
+    default:
+        return 0;
+#ifdef CMAKEDEBUG
+        throw std::runtime_error("Unrecognized Nucleotide " + std::string(1, base) + " from A, C, G, and T.\n"); // or throw an exception
+#endif
     }
-    std::cout << std::endl;
+}
+
+char HostUtils::Sequence::num_to_base(int num){
+    switch (num)
+    {
+    case 0:
+        return 'A';
+    case 1:
+        return 'C';
+    case 2:
+        return 'G';
+    case 3:
+        return 'T';
+    case 4:
+        return '_';
+    default:
+        return 'A';
+#ifdef CMAKEDEBUG
+        throw std::runtime_error("Unrecognized Nucleotide " + std::to_string(num) + " from 0, 1, 2, 3, and 4.\n"); // or throw an exception
+#endif
+    }
+}
+
+map<string, std::vector<string>> HostUtils::IO::read_sequences_from_json(string file_path)
+{
+    std::ifstream json_file(file_path);
+
+    // Parse the JSON file
+    nlohmann::json data;
+    json_file >> data;
+
+    // Iterate through the JSON object
+    for (auto &element : data.items())
+    {
+        string species_name = element.key();   // The 'key' is the species name
+        string dna_sequence = element.value(); // The 'value' is the DNA sequence
+    }
+    int num_species = data.size();
+
+    // put the species name and genes into vectors
+    std::vector<string> species_names;
+    std::vector<string> dna_sequences;
+    for (auto &element : data.items())
+    {
+        species_names.push_back(element.key());
+        dna_sequences.push_back(element.value());
+    }
+    map<string, std::vector<string>> sequences;
+    sequences["specie_names"] = species_names;
+    sequences["sequences"] = dna_sequences;
+    return sequences;
 }
 
 
-map<string, string> ReconstructTraceback(string query, string reference, 
-    int query_start_idx, int reference_start_idx,
-    tbr_t (&tb_stream)[MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH]){
-
-        // If we also want to match the portion for the alignment exceeds the start index, use this
-        // string alignment_query = query.substr(query_start_idx + 1, query.length());
-        // string alignment_reference = reference.substr(reference_start_idx + 1, reference.length());
-        string alignment_query = "";
-        string alignment_reference = "";
-
-        stack<char> query_stack;
-        stack<char> reference_stack;
-
-        // insert characters of query and reference into the stack, in sequence
-        for (int i = 0; i < query_start_idx + 1; i++) {
-            query_stack.push(query[i]);
-        }
-        for (int i = 0; i < reference_start_idx + 1; i++) {
-            reference_stack.push(reference[i]);
-        }
-		cout << "QUERY" << endl;
-		printStack(query_stack);
-
-		cout << "REFERENCE" << endl;
-        printStack(reference_stack);
-		// print traceback stream
-        // printf("Traceback stream: ");
-        // for (int i = 0; i < MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH; i++) {
-        //     printf("%d ", tb_stream[i].to_int());
-        // }
-		
-        tbr_t *curr_ptr = &tb_stream[0];
-        // Insert the characters from the stack to the alignment strings to their beginning. 
-        // Iterating in order the tb_steram
-        while (*curr_ptr != AL_END){
-			//cout << "SHOULD EXECUTE" << endl;
-            //cout << curr_ptr->to_int() << endl;
-            if (*curr_ptr == AL_MMI)
-            {
-				//cout << "EXEC 1" << endl;
-                alignment_query = alignment_query.insert(0, 1, query_stack.top());
-                alignment_reference = alignment_reference.insert(0, 1, reference_stack.top());
-                query_stack.pop();
-                reference_stack.pop();
-				//cout << "FINISHED EXEC 1" << endl;
-            } else if (*curr_ptr==AL_INS){
-				//cout << "EXEC 2" << endl;
-                alignment_query = alignment_query.insert(0, 1, '_');
-                alignment_reference = alignment_reference.insert(0, 1, reference_stack.top());
-                reference_stack.pop();
-				//cout << "FINISHED EXEC 2" << endl;
-            } else if (*curr_ptr == AL_DEL){
-				//cout << "EXEC 3" << endl;
-                alignment_query = alignment_query.insert(0, 1, query_stack.top());
-                alignment_reference = alignment_reference.insert(0, 1, '_');
-                query_stack.pop();
-				//cout << "FINISHED EXEC 3" << endl;
-            } else if (*curr_ptr == AL_NULL){
-                // Do nothing, AL_NULL Doesn't change the position
-            } else {
-				//cout << "EXEC 4" << endl;
-                printf("Alignment Output Iteartion End\n");
-            }
-            curr_ptr++;
-        }
-		cout << "MADE IT TO THE END" << endl;
-        // Finishing up concatenating the rest of the characters in the stack
-        while (!query_stack.empty()) {
-            alignment_query = alignment_query.insert(0, 1, query_stack.top());
-            query_stack.pop();
-        }
-        while (!reference_stack.empty()) {
-            alignment_reference = alignment_reference.insert(0, 1, reference_stack.top());
-            reference_stack.pop();
-        }
-
-        // pad the head for query
-        while (alignment_query.length() < alignment_reference.length()) {
-            alignment_query = alignment_query.insert(0, 1, '_');
-        }
-        // pad the head for reference
-        while (alignment_reference.length() < alignment_query.length()) {
-            alignment_reference = alignment_reference.insert(0, 1, '_');
-        }
-
-        // return a dictionary (map) of aligned query and aligned reference
-        map<string, string> alignments;
-        alignments["query"] = alignment_query;
-        alignments["reference"] = alignment_reference;
-        return alignments;
+std::vector<std::array<int, 5>> HostUtils::Sequence::MultipleSequencesToProfileAlign(std::vector<string> seq, int len)
+{
+    std::vector<std::array<int, 5>> profile;
+    if (seq.size() == 0)
+    {
+#ifdef CMAKEDEBUG
+        throw std::invalid_argument("Empty sequence");
+#endif
     }
+    // iterating through each position in the sequence
+    for (int i = 0; i < len; i++)
+    {
+        // iterate through each sequence in the column
+        std::array<int, 5> col;
+        // initialize the column
+        for (int j = 0; j < 5; j++)
+        {
+            col[j] = 0;
+        }
+        for (int j = 0; j < seq.size(); j++)
+        {
+            // count the number of each character in the column
+            if (seq[j][i] == 'A')
+            {
+                col[0]++;
+            }
+            else if (seq[j][i] == 'T')
+            {
+                col[1]++;
+            }
+            else if (seq[j][i] == 'C')
+            {
+                col[2]++;
+            }
+            else if (seq[j][i] == 'G')
+            {
+                col[3]++;
+            }
+            else if (seq[j][i] == '_')
+            {
+                col[4]++;
+            }
+            else
+            {
+#ifdef CMAKEDEBUG
+                throw std::invalid_argument("Invalid character in sequence: " + std::to_string(seq[j][i]));
+#endif
+            }
+        }
+        profile.push_back(col);
+    }
+    return profile;
+}

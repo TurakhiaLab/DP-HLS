@@ -1,9 +1,20 @@
 #include <hls_stream.h>
 #include <ap_int.h>
 
+/*#include "../include/seq_align_multiple.h"
+#include "../include/PE.h"
+#include "../include/align.h"
+*/
+#ifndef VPP_CLI
 #include "../include/seq_align_multiple.h"
 #include "../include/PE.h"
 #include "../include/align.h"
+#else
+#include "seq_align_multiple.h"
+#include "PE.h"
+#include "align.h"
+#endif
+
 
 #ifdef CMAKEDEBUG
 #include <iostream>
@@ -13,6 +24,8 @@
 #include "../include/debug.h"
 #endif
 
+// #define DP_HLS_UNROLLED
+
 using namespace hls;
 
 /*
@@ -20,6 +33,7 @@ using namespace hls;
  */
 extern "C"
 {
+#ifdef DP_HLS_UNROLLED
 	void seq_align_multiple_static(
 		char_t (&querys)[N_BLOCKS][MAX_QUERY_LENGTH],
 		char_t (&references)[N_BLOCKS][MAX_REFERENCE_LENGTH],
@@ -34,7 +48,7 @@ extern "C"
 		tbr_t (&tb_streams)[N_BLOCKS][MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH])
 #endif
 	{
-		// AXIS Interface is not allowed in F1
+		// AXIS Interface is not allowed in F1 on top level
 		// #pragma HLS interface mode = axis port = querys
 		// #pragma HLS interface mode = axis port = references
 		// #pragma HLS interface mode = axis port = query_lengths
@@ -68,17 +82,15 @@ extern "C"
 			query_lengths_b[i] = query_lengths[i];
 			reference_lengths_b[i] = reference_lengths[i];
 			penalties_b[i] = penalties[i];
-			tb_is_b[i] = tb_is[i];
-			tb_js_b[i] = tb_js[i];
 		}
-#pragma HLS interface mode = axis port = querys_b
-#pragma HLS interface mode = axis port = references_b
-#pragma HLS interface mode = axis port = query_lengths_b
-#pragma HLS interface mode = axis port = reference_lengths_b
-#pragma HLS interface mode = axis port = penalties_b
-#pragma HLS interface mode = axis port = tb_is_b
-#pragma HLS interface mode = axis port = tb_js_b
-#pragma HLS interface mode = axis port = tb_streams_b
+// #pragma HLS interface mode = axis port = querys_b
+// #pragma HLS interface mode = axis port = references_b
+// #pragma HLS interface mode = axis port = query_lengths_b
+// #pragma HLS interface mode = axis port = reference_lengths_b
+// #pragma HLS interface mode = axis port = penalties_b
+// #pragma HLS interface mode = axis port = tb_is_b
+// #pragma HLS interface mode = axis port = tb_js_b
+// #pragma HLS interface mode = axis port = tb_streams_b
 
 #pragma HLS array_partition	variable = querys_b	type = complete dim = 1
 #pragma HLS array_partition	variable = references_b	type = complete dim = 1
@@ -106,15 +118,6 @@ extern "C"
 #endif
 			);
 
-// #ifdef CMAKEDEBUG
-// 			// Print The Traceback Pointer Array
-// 			printf("Traceback Block: %d\n", i);
-// 			for (int j = 0; j < query_lengths[i] + reference_lengths[i]; j++)
-// 			{
-// 				printf("%d ", tb_streams[i][j].to_int());
-// 			}
-// 			printf("\n");
-// #endif
 		}
 
 		// copy the output data to the output buffer
@@ -124,7 +127,55 @@ extern "C"
 			{
 				tb_streams[i][j] = tb_streams_b[i][j];
 			}
+			tb_is[i] = tb_is_b[i];
+			tb_js[i] = tb_js_b[i];
 		}
 
 	}
+#else
+
+	void seq_align_multiple_static(
+		char_t (&querys)[N_BLOCKS][MAX_QUERY_LENGTH],
+		char_t (&references)[N_BLOCKS][MAX_REFERENCE_LENGTH],
+		idx_t (&query_lengths)[N_BLOCKS],
+		idx_t (&reference_lengths)[N_BLOCKS],
+		Penalties (&penalties)[N_BLOCKS],
+		idx_t (&tb_is)[N_BLOCKS], idx_t (&tb_js)[N_BLOCKS], 
+#ifdef CMAKEDEBUG
+		tbr_t (&tb_streams)[N_BLOCKS][MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH],
+		Container (&debugger)[N_BLOCKS])
+#else
+		tbr_t (&tb_streams)[N_BLOCKS][MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH])
+#endif
+	{
+#pragma HLS array_partition variable = querys dim = 1 type = complete
+#pragma HLS array_partition variable = references dim = 1 type = complete
+#pragma HLS array_partition variable = query_lengths dim = 1 type = complete
+#pragma HLS array_partition variable = reference_lengths dim = 1 type = complete
+#pragma HLS array_partition variable = tb_streams dim = 1 type = complete
+#pragma HLS array_partition variable = penalties dim = 1 type = complete
+#pragma HLS array_partition variable = tb_is dim = 1 type = complete
+#pragma HLS array_partition variable = tb_js dim = 1 type = complete
+
+		for (int i = 0; i < N_BLOCKS; i++)
+		{
+#pragma HLS unroll
+			Align::AlignStatic(
+				querys[i],
+				references[i],
+				query_lengths[i],
+				reference_lengths[i],
+				penalties[i],
+				tb_is[i], tb_js[i],
+				tb_streams[i]
+#ifdef CMAKEDEBUG
+				,
+				debugger[i]
+#endif
+			);
+
+		}
+	}
+#endif
+
 }

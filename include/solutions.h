@@ -305,7 +305,7 @@ void global_affine_solution(std::string query, std::string reference, PENALTY_T 
     // Initialize intial column and row values
     for (int i = 0; i < MAX_QUERY_LENGTH; i++)
     {
-        initial_col[i][0] = -INFINITY;
+        initial_col[i][0] = -numeric_limits<float>::infinity();
         initial_col[i][1] = penalties.open + penalties.extend * (i + 1);
         initial_col[i][2] = 0; // This can be whatever, since won't be accessed
     }
@@ -314,7 +314,7 @@ void global_affine_solution(std::string query, std::string reference, PENALTY_T 
     {
         initial_row[j][0] = 0; // This can be whatever, since won't be accessed
         initial_row[j][1] = penalties.open + penalties.extend * (j + 1);
-        initial_row[j][2] = -INFINITY;
+        initial_row[j][2] = -numeric_limits<float>::infinity();
     }
 
     // Initialize the score matrix
@@ -502,7 +502,7 @@ void local_affine_solution(std::string query, std::string reference, PENALTY_T &
     // Initialize intial column and row values
     for (int i = 0; i < MAX_QUERY_LENGTH; i++)
     {
-        initial_col[i][0] = -INFINITY;
+        initial_col[i][0] = -numeric_limits<float>::infinity();
         initial_col[i][1] = 0;
         initial_col[i][2] = 0; // This can be whatever, since won't be accessed
     }
@@ -511,7 +511,7 @@ void local_affine_solution(std::string query, std::string reference, PENALTY_T &
     {
         initial_row[j][0] = 0; // This can be whatever, since won't be accessed
         initial_row[j][1] = 0;
-        initial_row[j][2] = -INFINITY;
+        initial_row[j][2] = -numeric_limits<float>::infinity();
     }
 
     // Initialize the score matrix
