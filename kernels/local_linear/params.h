@@ -4,10 +4,10 @@
 #include <hls_vector.h>
 #include <ap_int.h>
 
-#define MAX_QUERY_LENGTH 256
-#define MAX_REFERENCE_LENGTH 256
+#define MAX_QUERY_LENGTH 16
+#define MAX_REFERENCE_LENGTH 16
 
-#define PE_NUM 32
+#define PE_NUM 4
 
 #define numofreads 1
 
@@ -21,7 +21,7 @@
 #define FIXED_BANDWIDTH 4
 #endif
 
-#define ALIGN_TYPE Linear
+#define ALIGN_TYPE LocalLinear
 
 #define WS 16  
 #define IS 6 

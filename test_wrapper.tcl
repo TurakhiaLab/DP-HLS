@@ -1,7 +1,7 @@
 #!/usr/bin/tcl
 
 #############README#######################################################
-## Test script wrapper for verification                                 ##
+## Test script wrapper for simulation and synthesis                     ##
 ## To use, ensure that the path to vitis_hls is set and valid           ##         
 ## You must be in the vitis_hls environment for this script to work     ##
 ##########################################################################

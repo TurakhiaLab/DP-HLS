@@ -20,6 +20,21 @@ void init() {
 	}
 }
 
+void print_scores() {
+	for (int k = 0; k < N_LAYERS; k++) {
+		printf("MATRIX %d\n", k);
+		for (int i = 0; i < MAX_QUERY_LENGTH; i++) {
+			for (int j = 0; j < MAX_REFERENCE_LENGTH; j++ ) {
+				printf("%d, ", scores_kernel[i][j][k]);
+			}
+			printf("\n");
+		}
+		printf("\n");
+	}
+}
+
+
+
 void Align::ArrangeScores(
 	dp_mem_block_t &dpmem_in,
 	bool (&predicate)[PE_NUM], idx_t (&pe_offset)[PE_NUM],
@@ -278,12 +293,8 @@ void Align::ChunkCompute(
 			tbp_out
 		);
 
-		printf("SCORE BUFF\n");	
-		for (auto e : score_buff) {
-			printf("%d, ", e);
-		}
 		Align::ArrangeTBP(tbp_out, p_cols, predicate, chunk_tbp_out);
-
+		
 #ifdef CMAKEDEBUG
 		for (int j = 0; j < PE_NUM; j++)
 		{
@@ -298,16 +309,7 @@ void Align::ChunkCompute(
 			}
 			printf("PE %d, global row %d, global col %d, predicate is %d\n", j, row, col, predicate[j]);
 		}
-		for (int k = 0; k < N_LAYERS; k++) {
-			printf("MATRIX %d\n", k);
-			for (int i = 0; i < MAX_QUERY_LENGTH; i++) {
-				for (int j = 0; j < MAX_REFERENCE_LENGTH; j++ ) {
-					printf("%d, ", scores_kernel[i][j][k]);
-				}
-				printf("\n");
-			}
-			printf("\n");
-		}
+		
 		// This should happen before Arrange TBP Arr
 		// Because it doesn't increment PE offsets
 		// while ArrangeTBPArr does
@@ -322,6 +324,7 @@ void Align::ChunkCompute(
 		Align::CoordinateArrayOffset<PE_NUM>(v_cols);
 		Align::CoordinateArrayOffset<PE_NUM>(p_cols);
 	}
+	//print_scores();
 }
 
 void Align::UpdateDPMemSep(
@@ -338,6 +341,13 @@ void Align::UpdateDPMemSep(
 #pragma HLS unroll
 		dp_mem[j][1] = dp_mem[j][0];
 		dp_mem[j][0] = score_in[j];
+	}
+	printf("PRINTING DP MEM\n");
+	for (int i = 0; i < PE_NUM+1; i++) {
+		for (int j = 0; j < 2; j++) {
+			printf("%d, ", dp_mem[i][j]);
+		}
+		printf("\n");
 	}
 }
 
@@ -425,7 +435,7 @@ void Align::FindMax::ReductionMaxScores(ScorePack (&packs)[PE_NUM], ScorePack &g
 	idx_t max = 0;
 	for (int i = 0; i < PE_NUM; i++)
 	{
-		printf("THIS LINE SHOULD EXECUTE\n"); 
+		printf("Packs[i] score (cell [%d][%d]): %d, packs[max] score (cell [%d][%d]): %d\n", packs[i].row, packs[i].col, packs[i].score, packs[max].row, packs[max].col, packs[max].score);
 		if (packs[i].score > packs[max].score)
 		{
 			max = i;
@@ -490,16 +500,6 @@ void Align::AlignStatic(
 
 // >>> Initialization >>>
 	init();
-	for (int k = 0; k < N_LAYERS; k++) {
-		printf("MATRIX %d\n", k);
-		for (int i = 0; i < MAX_QUERY_LENGTH; i++) {
-			for (int j = 0; j < MAX_REFERENCE_LENGTH; j++ ) {
-				printf("%d, ", scores_kernel[i][j][k]);
-			}
-			printf("\n");
-		}
-		printf("\n");
-	}
 
 	score_vec_t init_col_score[MAX_QUERY_LENGTH];
 	score_vec_t init_row_score[MAX_REFERENCE_LENGTH];
@@ -546,15 +546,6 @@ void Align::AlignStatic(
 	chunk_col_scores_inf_t local_init_col_score;
 	local_init_col_score[PE_NUM] = score_vec_t(0); // Always initialize the upper left cornor to 0
 
-	/*printf("INITIAL COL SCORES\n");
-	for (int i = 0; i < MAX_QUERY_LENGTH; i++) {
-		printf("%d %d %d\n", init_col_score[i][0], init_col_score[i][1], init_col_score[i][2]);
-	}
-	printf("INITIAL ROW SCORES\n");
-	for (int i = 0; i < MAX_REFERENCE_LENGTH; i++) {
-		printf("%d %d %d\t", init_row_score[i][0], init_row_score[i][1], init_row_score[i][2]);
-	}
-	printf("\n");*/
 	Iterating_Chunks:
 	for (idx_t i = 0, ic = 0; i < query_length; i += PE_NUM, ic ++)
 	{
@@ -592,31 +583,12 @@ void Align::AlignStatic(
 
 		// Offset the virtual row number
 		Align::CoordinateArrayOffsetGeneric<PE_NUM, PE_NUM>(v_rows);
-		/*for (int k = 0; k < N_LAYERS; k++) {
-			printf("MATRIX %d\n", k);
-			for (int i = 0; i < MAX_QUERY_LENGTH; i++) {
-				for (int j = 0; j < MAX_REFERENCE_LENGTH; j++ ) {
-					printf("%d, ", scores_kernel[i][j][k]);
-				}
-				printf("\n");
-			}
-			printf("\n");
-		}*/
-
 
 	}
 	Align::FindMax::ReductionMaxScores(local_max, maximum, query_length, reference_length);
-	
-	for (int k = 0; k < N_LAYERS; k++) {
-		printf("MATRIX %d\n", k);
-		for (int i = 0; i < MAX_QUERY_LENGTH; i++) {
-			for (int j = 0; j < MAX_REFERENCE_LENGTH; j++ ) {
-				printf("%d, ", scores_kernel[i][j][k]);
-			}
-			printf("\n");
-		}
-		printf("\n");
-	}
+
+	print_scores();
+		
 	// >>> Traceback >>>
 	tb_i = maximum.row;
 	tb_j = maximum.col;
@@ -635,8 +607,6 @@ void SwapBuffer(score_vec_t *&a, score_vec_t *&b){
 	a = b;
 	b = temp;
 }
-
-
 
 void Align::UpdateDPMem(dp_mem_block_t &dp_mem, idx_t i, chunk_col_scores_inf_t &init_col_scr, score_vec_t (&init_row_scr)[MAX_REFERENCE_LENGTH] ){
 	Align::UpdateDPMemShift(dp_mem);

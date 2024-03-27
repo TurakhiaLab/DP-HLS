@@ -1,7 +1,7 @@
 #include "../../include/frontend.h"
 
 // >>> Global Affine Implementation >>>
-void GlobalAffine::PE::Compute(
+void TwoPieceAffine::PE::Compute(
 #ifdef BANDED
 							   bool predicate,
 #endif
@@ -36,22 +36,7 @@ void GlobalAffine::PE::Compute(
 		return;
 	}
 #endif
-	printf("PRINTING UP PREV\n");
-	for (auto e : up_prev) {
-		printf("%d, ", e);
-	}
-	printf("\n");
-   	printf("PRINTING DIAG PREV\n");
-	for (auto e : diag_prev) {
-		printf("%d, ", e);
-	}
-	printf("\n");
-	printf("PRINTING LEFT PREV\n");
-	for (auto e : left_prev) {
-		printf("%d, ", e);
-	}
-	printf("\n");
-	const type_t insert_open = left_prev[1] + penalties.open + penalties.extend; // Insert open
+    const type_t insert_open = left_prev[1] + penalties.open + penalties.extend; // Insert open
     const type_t insert_extend = left_prev[0] + penalties.open;                  // insert extend
     const type_t delete_open = up_prev[1] + penalties.open + penalties.extend;   // delete open
     const type_t delete_extend = up_prev[2] + penalties.open;                    // delete extend
@@ -121,7 +106,7 @@ void GlobalAffine::PE::Compute(
     write_traceback = dir_tb + insert_tb + delete_tb;
 }
 
-void GlobalAffine::Helper::InitCol(score_vec_t (&init_col_scr)[MAX_QUERY_LENGTH], Penalties penalties){
+void TwoPieceAffine::Helper::InitCol(score_vec_t (&init_col_scr)[MAX_QUERY_LENGTH], Penalties penalties){
     type_t gap = penalties.open;
     for (int i = 0; i < MAX_QUERY_LENGTH; i++){
         gap += penalties.extend;
@@ -129,7 +114,7 @@ void GlobalAffine::Helper::InitCol(score_vec_t (&init_col_scr)[MAX_QUERY_LENGTH]
     }
 }
 
-void GlobalAffine::Helper::InitRow(score_vec_t (&init_row_scr)[MAX_REFERENCE_LENGTH], Penalties penalties){
+void TwoPieceAffine::Helper::InitRow(score_vec_t (&init_row_scr)[MAX_REFERENCE_LENGTH], Penalties penalties){
     type_t gap = penalties.open;
     for (int i = 0; i < MAX_REFERENCE_LENGTH; i++){
         gap += penalties.extend;
@@ -137,7 +122,7 @@ void GlobalAffine::Helper::InitRow(score_vec_t (&init_row_scr)[MAX_REFERENCE_LEN
     }
 }   
 
-void GlobalAffine::InitializeScores(
+void TwoPieceAffine::InitializeScores(
     score_vec_t (&init_col_scr)[MAX_QUERY_LENGTH],
     score_vec_t (&init_row_scr)[MAX_REFERENCE_LENGTH],
     Penalties penalties)
@@ -147,7 +132,7 @@ void GlobalAffine::InitializeScores(
     Helper::InitRow(init_row_scr, penalties);
 }
 
-void GlobalAffine::UpdatePEMaximum(
+void TwoPieceAffine::UpdatePEMaximum(
         wavefront_scores_inf_t scores,
         ScorePack (&max)[PE_NUM],
         idx_t (&ics)[PE_NUM], idx_t (&jcs)[PE_NUM],
@@ -182,7 +167,7 @@ void GlobalAffine::UpdatePEMaximum(
     }
 }
 
-void GlobalAffine::InitializeMaxScores(ScorePack (&max)[PE_NUM], idx_t qry_len, idx_t ref_len)
+void TwoPieceAffine::InitializeMaxScores(ScorePack (&max)[PE_NUM], idx_t qry_len, idx_t ref_len)
 {
     // In global alignment, we need to initialize the starting maximum scores to the last column
     for (int i = 0; i < PE_NUM; i++)
@@ -197,7 +182,7 @@ void GlobalAffine::InitializeMaxScores(ScorePack (&max)[PE_NUM], idx_t qry_len, 
     }
 }
 
-void GlobalAffine::Traceback::StateMapping(tbp_t tbp, TB_STATE &state, tbr_t &navigation)
+void TwoPieceAffine::Traceback::StateMapping(tbp_t tbp, TB_STATE &state, tbr_t &navigation)
 {
 
     if (state == TB_STATE::MM)
@@ -252,7 +237,7 @@ void GlobalAffine::Traceback::StateMapping(tbp_t tbp, TB_STATE &state, tbr_t &na
     }
 }
 
-void GlobalAffine::Traceback::StateInit(tbp_t tbp, TB_STATE &state)
+void TwoPieceAffine::Traceback::StateInit(tbp_t tbp, TB_STATE &state)
 {
     if (tbp(1, 0) == TB_DIAG)
     {

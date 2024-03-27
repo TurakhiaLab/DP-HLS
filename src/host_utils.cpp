@@ -8,6 +8,18 @@
 
 using namespace std;
 
+
+void printStack(std::stack<char>& stk) {
+    stack<char> tempStack = stk; // Make a copy of the stack
+    cout << "Stack elements: ";
+    while (!tempStack.empty()) {
+        cout << tempStack.top() << " ";
+        tempStack.pop();
+    }
+    std::cout << std::endl;
+}
+
+
 map<string, string> ReconstructTraceback(string query, string reference, 
     int query_start_idx, int reference_start_idx,
     tbr_t (&tb_stream)[MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH]){
@@ -28,42 +40,52 @@ map<string, string> ReconstructTraceback(string query, string reference,
         for (int i = 0; i < reference_start_idx + 1; i++) {
             reference_stack.push(reference[i]);
         }
+		cout << "QUERY" << endl;
+		printStack(query_stack);
 
-        // print traceback stream
+		cout << "REFERENCE" << endl;
+        printStack(reference_stack);
+		// print traceback stream
         // printf("Traceback stream: ");
         // for (int i = 0; i < MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH; i++) {
         //     printf("%d ", tb_stream[i].to_int());
         // }
-
+		
         tbr_t *curr_ptr = &tb_stream[0];
         // Insert the characters from the stack to the alignment strings to their beginning. 
         // Iterating in order the tb_steram
-		cout << "STARTING" << endl;
         while (*curr_ptr != AL_END){
-			cout << "THIS SHOULD PRINT" << endl;
-            // printf("curr_ptr: %d\n", curr_ptr->to_int());
+			//cout << "SHOULD EXECUTE" << endl;
+            //cout << curr_ptr->to_int() << endl;
             if (*curr_ptr == AL_MMI)
             {
+				//cout << "EXEC 1" << endl;
                 alignment_query = alignment_query.insert(0, 1, query_stack.top());
                 alignment_reference = alignment_reference.insert(0, 1, reference_stack.top());
                 query_stack.pop();
                 reference_stack.pop();
+				//cout << "FINISHED EXEC 1" << endl;
             } else if (*curr_ptr==AL_INS){
+				//cout << "EXEC 2" << endl;
                 alignment_query = alignment_query.insert(0, 1, '_');
                 alignment_reference = alignment_reference.insert(0, 1, reference_stack.top());
                 reference_stack.pop();
+				//cout << "FINISHED EXEC 2" << endl;
             } else if (*curr_ptr == AL_DEL){
+				//cout << "EXEC 3" << endl;
                 alignment_query = alignment_query.insert(0, 1, query_stack.top());
                 alignment_reference = alignment_reference.insert(0, 1, '_');
                 query_stack.pop();
+				//cout << "FINISHED EXEC 3" << endl;
             } else if (*curr_ptr == AL_NULL){
                 // Do nothing, AL_NULL Doesn't change the position
             } else {
+				//cout << "EXEC 4" << endl;
                 printf("Alignment Output Iteartion End\n");
             }
             curr_ptr++;
         }
-		cout << "IS THERE A PROBLEM" << endl;
+		cout << "MADE IT TO THE END" << endl;
         // Finishing up concatenating the rest of the characters in the stack
         while (!query_stack.empty()) {
             alignment_query = alignment_query.insert(0, 1, query_stack.top());

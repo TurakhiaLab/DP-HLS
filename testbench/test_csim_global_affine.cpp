@@ -176,12 +176,10 @@ int main(){
         query_string_blocks[i] = query_string;
         reference_string_blocks[i] = reference_string;
     }
-	cout << "NO SEGFAULT YET" << endl;
     kernel_alignments = ReconstructTracebackBlocks<N_BLOCKS>(
         query_string_blocks, reference_string_blocks,
         tb_query_lengths, tb_reference_lengths, 
         tb_streams);
-	printf("SEGFAULT HERE\n");
     // Print kernel 0 traceback
     cout << "Kernel 0 Traceback" << endl;
     cout << "Kernel   Aligned Query    : " << kernel_alignments[0]["query"] << endl;

@@ -13,12 +13,12 @@ const int PE_NUM = 4;
 #define MAX_REFERENCE_LENGTH 16
 #define N_BLOCKS 1
 
-#define ALIGN_TYPE GlobalAffine
-#define N_LAYERS 3
+#define ALIGN_TYPE TwoPieceAffine	// by default, two-piece affine is global alignment
+#define N_LAYERS 5	// There will be five matrices this time
 #define LAYER_MAXIMIUM 1  // We need to indicate from which layer (main matrix) is the maximum score stored.
 
 // if user decides to use banding
-//#define BANDED
+#define BANDED
 #ifdef BANDED
 #define FIXED_BANDWIDTH 2
 #endif
@@ -36,7 +36,7 @@ typedef ap_uint<4> tbp_t;  // Traceback Pointer Type
 
 //#define CMAKEDEBUG
 // Legacy Debugger Configuration
-#define DEBUG_OUTPUT_PATH "/home/yic033@AD.UCSD.EDU/DP-HLS-Debug/global_affine/"
+#define DEBUG_OUTPUT_PATH "/home/yic033@AD.UCSD.EDU/DP-HLS-Debug/two_piece_affine/"
 #define DEBUG_FILENAME "debug_kernel"
 
 
@@ -65,6 +65,8 @@ struct Penalties {
     type_t mismatch;
     type_t match;
     type_t linear_gap;
+	type_t open_long;	// penalty for long gap penalties
+	type_t open_extend;	// penalty for long extend penalties
 };
 
 enum TB_STATE {

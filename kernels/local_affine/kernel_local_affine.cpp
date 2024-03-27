@@ -1,4 +1,4 @@
-#include "frontend.h"
+#include "../include/frontend.h"
 
 void LocalAffine::PE::Compute(char_t local_query_val,
                                char_t local_reference_val,

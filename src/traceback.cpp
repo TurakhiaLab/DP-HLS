@@ -56,8 +56,8 @@ void Traceback::TracebackOptimized(
     int query_length, int reference_length) 
 {
 
-#define TEST_QUERY_LENGTH 89
-#define TEST_REFERENCE_LENGTH 89
+#define TEST_QUERY_LENGTH 16
+#define TEST_REFERENCE_LENGTH 16
 
 #ifdef CMAKEDEBUG
 #ifdef CMAKEDEBUG_PRINT_TRACEBACK
