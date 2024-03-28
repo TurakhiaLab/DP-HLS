@@ -28,9 +28,6 @@ namespace PE {
      * @param tbp Traceback Pointer Out
      */
 	void PEUnroll(
-#ifdef BANDED
-		bool predicate[],
-#endif
 		score_vec_t (&dp_mem)[PE_NUM + 1][3],
         const input_char_block_t qry,
         const input_char_block_t ref, 
@@ -47,12 +44,8 @@ namespace PE {
      * @param penalties Penalties
      * @param score Scores Out Buffer
      * @param tbp Traceback Poitner Out
-	 * @param predicate If banding is enabled, control which PE to activate for scoring
      */
     void PEUnrollSep(
-#ifdef BANDED
-		bool predicate[],
-#endif
 		dp_mem_block_t &dp_mem,
         const input_char_block_t &qry,
         const input_char_block_t &ref, 

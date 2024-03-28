@@ -270,9 +270,6 @@ void Align::ChunkCompute(
 		Align::UpdateDPMemSep(dp_mem, score_buff);
 
 		PE::PEUnrollSep(
-#ifdef BANDED
-			predicate,
-#endif
 			dp_mem,
 			local_query,
 			local_reference,

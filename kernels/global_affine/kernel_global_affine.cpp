@@ -2,9 +2,6 @@
 
 // >>> Global Affine Implementation >>>
 void GlobalAffine::PE::Compute(
-#ifdef BANDED
-							   bool predicate,
-#endif
 							   char_t local_query_val,
                                char_t local_reference_val,
                                score_vec_t up_prev,
@@ -31,11 +28,6 @@ void GlobalAffine::PE::Compute(
      * Layer 1: Match matrix M, moves diagonally
      * Layer 2: Delete matrix D, moves vertically
      */
-#ifdef BANDED
-	if (!predicate) {
-		return;
-	}
-#endif
 	printf("PRINTING UP PREV\n");
 	for (auto e : up_prev) {
 		printf("%d, ", e);
