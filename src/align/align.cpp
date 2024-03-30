@@ -12,31 +12,10 @@ using namespace hls;
 #define MIN(a, b) ((a) < (b) ? (a) : (b))
 
 
-void Align::WriteInitialColScore(int i, score_vec_t (&init_scores)[PE_NUM], hls::stream_of_blocks<dp_mem_block_t> &dp_mem_in, hls::stream_of_blocks<dp_mem_block_t> &scores_out)
-{
-	read_lock<dp_mem_block_t> dp_mem_rd(dp_mem_in);
-	write_lock<dp_mem_block_t> scores_wr(scores_out);
-
-#pragma HLS array_partition variable = dp_mem_rd type = complete
-#pragma HLS array_partition variable = scores_wr type = complete
-
-	for (int j = 0; j < PE_NUM; j++)
-	{
-#pragma HLS unroll
-		scores_wr[0][j] = dp_mem_rd[0][j];
-		scores_wr[1][j] = dp_mem_rd[1][j];
-	}
-
-	if (i < PE_NUM)
-	{
-		write_lock<dp_mem_block_t> scores_wr(scores_out);
-		scores_wr[0][i] = init_scores[i];
-	}
-}
-
-
 /**
- * THIS FUNCTION IS NO LONGER IN USE.
+ * IMPORTANT: The shifting logic is taken out because it's hard to design banding kernel with the mechanism. 
+ * However, it result in more optimal hardware and still feasible for the non-banded version. 
+ * Thus, we keep those functions. 
 */
 void Align::ShiftPredicate(bool (&predicate)[PE_NUM], int idx, int query_len, int reference_len)
 {
@@ -133,9 +112,7 @@ void Align::InitializeRowCoordinates(idx_t (&ic)[PE_NUM]){
 	}
 }
 
-void Align::MapPredicateSquare(
-	// hls::vector<idx_t, PE_NUM> &ics,
-	// hls::vector<idx_t, PE_NUM> &jcs,
+void Align::Rectangular::MapPredicate(
 	idx_t (&ics)[PE_NUM], idx_t (&jcs)[PE_NUM],
 	const idx_t ref_len,
 	bool (&predicate)[PE_NUM]){
@@ -169,7 +146,7 @@ void Align::MapPredicateBanded(
 }
 #endif
 
-void Align::ChunkCompute(
+void Align::Rectangular::ChunkCompute(
 	idx_t chunk_row_offset,
 	idx_t chunk_start_col,
 	input_char_block_t &local_query,
@@ -189,8 +166,8 @@ void Align::ChunkCompute(
 	){
 #pragma HLS inline off
 #pragma HLS dataflow
+
 	bool predicate[PE_NUM];
-	// score_vec_t write_row_scr[MAX_REFERENCE_LENGTH];
 	Utils::Init::ArrSet<bool, PE_NUM>(predicate, false);
 
 	char_t local_reference[PE_NUM]; // local reference
@@ -210,22 +187,18 @@ void Align::ChunkCompute(
 // #ifdef BANDED
 // 	int start_index = max(0, chunk_row_offset - FIXED_BANDWIDTH + 1);
 // 	int stop_index = min(reference_length, chunk_row_offset + (PE_NUM - 1) + FIXED_BANDWIDTH - 1) + PE_NUM - 1;
-// #else 
-// 	const int start_index = 0;
-// 	const int stop_index = reference_length + PE_NUM - 1;
-// #endif 
+
 	Iterating_Wavefronts:
 	for (int i = 0; i < reference_length + PE_NUM - 1; i++)
 	{
 #pragma HLS pipeline II = 1
 
-#ifdef BANDED 
-		Align::MapPredicateBanded(start_index, stop_index, chunk_row_offset, v_rows, v_cols, global_query_length, reference_length, predicate);
-#else
-		Align::MapPredicateSquare(v_rows, v_cols, reference_length, predicate);
-#endif
-		Align::ShiftReferece(local_reference, reference, i, reference_length);
+// #ifdef BANDED 
+// 		Align::MapPredicateBanded(start_index, stop_index, chunk_row_offset, v_rows, v_cols, global_query_length, reference_length, predicate);
+// #else
+		Align::Rectangular::MapPredicate(v_rows, v_cols, reference_length, predicate);
 
+		Align::ShiftReferece(local_reference, reference, i, reference_length);
 		Align::PrepareScoreBuffer(score_buff, i, init_col_scr, init_row_scr);
 		Align::UpdateDPMemSep(dp_mem, score_buff);
 
@@ -404,7 +377,7 @@ void Align::ChunkMax(ScorePack &max, ScorePack new_scr)
 	}
 }
 
-void Align::AlignStatic(
+void Align::Rectangular::AlignStatic(
 	char_t (&query)[MAX_QUERY_LENGTH],
 	char_t (&reference)[MAX_REFERENCE_LENGTH],
 	idx_t query_length,
@@ -473,7 +446,7 @@ void Align::AlignStatic(
 		Align::CoordinateInitializeUniformReverse(p_cols, p_col_offsets[ic]);  // Initialize physical columns to write to for each PE. 
 		Align::CoordinateInitializeUniformReverse(v_cols, ck_start_col[ic]); // Initialize the column coordinates of each PE
 
-		Align::ChunkCompute(
+		Align::Rectangular::ChunkCompute(
 			i,
 			ck_start_col[ic],
 			local_query,

@@ -15,11 +15,7 @@
 const int PE_NUM = 4;
 #define LAYER_MAXIMIUM 0  // We need to indicate from which layer (main matrix) is the maximum score stored.
 
-// if user decides to use banding
-//#define BANDED
-#ifdef BANDED
-#define FIXED_BANDWIDTH 4
-#endif
+#define BANDING Rectangular
 
 // Primitive Types
 typedef ap_uint<2> char_t;  // Sequence Alphabet
@@ -50,7 +46,6 @@ enum TB_STATE {
 #define TB_LEFT (tbp_t) 0b01
 #define TB_DIAG (tbp_t) 0b10
 #define TB_UP (tbp_t) 0b11
-
 
 // >>> Automatically Determined Macros and Configs >>>
 // DO NOT MODIFY

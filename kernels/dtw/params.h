@@ -4,8 +4,6 @@
 #include <hls_vector.h>
 #include <ap_int.h>
 
-#define DP_HLS_UNROLLED
-
 #define MAX_QUERY_LENGTH 256
 #define MAX_REFERENCE_LENGTH 256
 
@@ -18,12 +16,7 @@ const int PE_NUM=32;
 
 typedef ap_fixed<16, 10> num_t;
 
-// if user decides to use banding
-//#define BANDED
-#ifdef BANDED
-#define FIXED_BANDWIDTH 4
-#endif
-
+#define BANDING Rectangular
 
 // Primitive Types
 struct char_t_st {

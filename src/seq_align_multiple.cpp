@@ -156,7 +156,7 @@ extern "C"
 		for (int i = 0; i < N_BLOCKS; i++)
 		{
 #pragma HLS unroll
-			Align::AlignStatic(
+			Align::BANDING::AlignStatic(
 				querys[i],
 				references[i],
 				query_lengths[i],

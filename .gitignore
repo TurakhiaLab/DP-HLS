@@ -64,3 +64,6 @@ compile/build_dir.hw_emu.xilinx_aws-vu9p-f1_shell-v04261818_201920_3/
 /synthesis/
 
 /backup/
+
+# ignore the params.h symlinked in the include folder used for Vitis HLS projects. 
+/include/params.h
