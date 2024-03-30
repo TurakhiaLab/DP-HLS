@@ -20,6 +20,7 @@ set(EXECUTABLE_TARGETS
 
     test_csim_global_linear
     test_csim_global_affine
+    test_csim_local_linear
     test_csim_local_affine 
     test_csim_dtw
     test_csim_profile_alignment
@@ -46,6 +47,12 @@ add_executable(baseline_local_linear "legacy/local_linear.h"
 add_executable(test_csim_global_linear 
     "testbench/test_csim_global_linear.cpp"
     "kernels/global_linear/kernel_global_linear.cpp"
+    ${COMMON_SRCS})
+
+
+add_executable(test_csim_local_linear 
+    "testbench/test_csim_local_linear.cpp"
+    "kernels/local_linear/kernel_local_linear.cpp"
     ${COMMON_SRCS})
 
 add_executable(test_csim_global_affine
@@ -87,16 +94,16 @@ add_executable(test_csim_dtw
 #    "src/pyapi.cpp"
 #    "include/debug.h")
 
-target_compile_definitions(test_csim_global_linear PRIVATE ALIGN_GLOBAL_LINEAR)
-target_compile_definitions(test_csim_global_affine PRIVATE ALIGN_GLOBAL_AFFINE)
-target_compile_definitions(test_csim_local_affine PRIVATE ALIGN_LOCAL_AFFINE)
 
 target_compile_definitions(test_csim_dtw PRIVATE VPP_CLI)
 target_compile_definitions(test_csim_global_linear PRIVATE VPP_CLI)
 target_compile_definitions(test_csim_global_affine PRIVATE VPP_CLI)
+target_compile_definitions(test_csim_local_linear PRIVATE VPP_CLI)
+target_compile_definitions(test_csim_local_affine PRIVATE VPP_CLI)
 
 target_include_directories(test_csim_global_affine PRIVATE "/home/centos/workspace/DP-HLS/kernels/global_affine")
 target_include_directories(test_csim_global_linear PRIVATE "/home/centos/workspace/DP-HLS/kernels/global_linear")
+target_include_directories(test_csim_local_linear PRIVATE "/home/centos/workspace/DP-HLS/kernels/local_linear")
 target_include_directories(test_csim_local_affine PRIVATE "/home/centos/workspace/DP-HLS/kernels/local_affine")
 target_include_directories(test_csim_profile_alignment PRIVATE "/home/centos/workspace/DP-HLS/kernels/profile_alignment")
 target_include_directories(test_csim_profile_alignment_real_data PRIVATE "/home/centos/workspace/DP-HLS/kernels/profile_alignment")

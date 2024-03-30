@@ -82,10 +82,6 @@ void LocalAffine::UpdatePEMaximum(
 #pragma HLS unroll
         if (predicate[i])
         {
-// #ifdef CMAKEDEBUG
-//             auto dp_mem_s = dp_mem[i + 1][0][LAYER_MAXIMIUM].to_float();
-//             auto max_s = max[i].score.to_float();
-// #endif
             if (scores[i + 1][LAYER_MAXIMIUM] > max[i].score)
             {
                 max[i].score = scores[i + 1][LAYER_MAXIMIUM];
@@ -106,10 +102,9 @@ void LocalAffine::InitializeMaxScores(ScorePack (&max)[PE_NUM], idx_t qry_len, i
 #pragma HLS unroll
         max[i].score = NINF;
         max[i].row = 0;
-        max[i].col = 0;    
+        max[i].col = 0;
     }
 }
-
 
 void LocalAffine::Traceback::StateMapping(tbp_t tbp, TB_STATE &state, tbr_t &navigation)
 {
@@ -159,10 +154,7 @@ void LocalAffine::Traceback::StateMapping(tbp_t tbp, TB_STATE &state, tbr_t &nav
     }
     else
     {
-        // Unknown State
-// #ifdef CMAKEDEBUG
-//         throw std::runtime_error("Unknown traceback state.");
-// #endif
+        // Placeholder for kernel side debug
     }
 }
 
@@ -182,10 +174,7 @@ void LocalAffine::Traceback::StateInit(tbp_t tbp, TB_STATE &state)
     }
     else
     {
-        // Unknown Direction
-// #ifdef CMAKEDEBUG
-//         throw std::runtime_error("Unknown traceback direction." + std::to_string(tbp.to_int()));
-// #endif
+        // Placeholder for kernel side debug
     }
 }
 
