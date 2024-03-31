@@ -1,6 +1,6 @@
 #ifndef VPP_CLI
 #include "../../include/align.h"
-#include "../../kernels/dtw/params.h"  // FIXME: Temporarily being the DTW Kernel
+#include "../../kernels/global_linear/params.h"  // FIXME: Temporarily being the DTW Kernel
 #else
 #include "align.h"
 #include "params.h"
@@ -135,7 +135,7 @@ void Align::MapPredicateBanded(
 	const int query_len,
 	const idx_t ref_len,
 	bool (&predicate)[PE_NUM]) {
-#pragma HLS inline off
+
 	for (int i = 0; i < PE_NUM; i++) 
 	{
 #pragma HLS unroll
@@ -254,7 +254,6 @@ void Align::PrepareScoreBuffer(
 	int i, 
 	chunk_col_scores_inf_t (&init_col_scr),
 	score_vec_t (&init_row_scr)[MAX_REFERENCE_LENGTH]){
-#pragma HLS latency max=1
 	if (i < MAX_REFERENCE_LENGTH){  // FIXME: Actually this could also be actual_reference_length
 		score_buff[0] = init_row_scr[i];
 	}
@@ -317,7 +316,6 @@ void Align::PreserveRowScore(
 	const bool predicate_pe_last,
 	const idx_t idx)
 {
-#pragma HLS latency max=1
 	if (predicate_pe_last)
 	{
 		preserved_row_scr[idx] = score_vec;
@@ -397,7 +395,8 @@ void Align::Rectangular::AlignStatic(
 	tbp_t tbp_matrix[PE_NUM][MAX_QUERY_LENGTH / PE_NUM * MAX_REFERENCE_LENGTH];
 
 // #pragma HLS bind_storage variable = init_row_score type = ram_2p impl = bram
-#pragma HLS array_partition variable = init_row_score type = cyclic factor = PE_NUM dim = 1
+// I guess the fundemental problem is that we need to partition it form the least dimension
+#pragma HLS array_partition variable = init_row_score type = complete dim = 0
 #pragma HLS array_partition variable = tbp_matrix type = cyclic factor = PE_NUM dim = 1
 
 	// Those are used to iterate through the memory during the score computation
