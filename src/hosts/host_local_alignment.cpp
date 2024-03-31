@@ -48,10 +48,10 @@ int main(int argc, char **argv) {
         query_lengths[i] = MAX_QUERY_LENGTH;
         reference_lengths[i] = MAX_REFERENCE_LENGTH;
         for (int j = 0; j < MAX_QUERY_LENGTH; j++) {
-            querys[i * MAX_QUERY_LENGTH + j] = (type_t) base_to_num(*query_ptr++);
+            querys[i * MAX_QUERY_LENGTH + j] = (type_t) HostUtils::Sequence::base_to_num(*query_ptr++);
         }
         for (int j = 0; j < MAX_REFERENCE_LENGTH; j++) {
-            references[i * MAX_REFERENCE_LENGTH + j] = (type_t) base_to_num(*reference_ptr++);
+            references[i * MAX_REFERENCE_LENGTH + j] = (type_t) HostUtils::Sequence::base_to_num(*reference_ptr++);
         }
         // Initialize Penalties
         penalties[i].open = type_t(-2);

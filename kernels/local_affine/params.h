@@ -7,6 +7,8 @@
 #define MAX_QUERY_LENGTH 128
 #define MAX_REFERENCE_LENGTH 128
 
+#define BANDING Rectangular
+
 #define PRAGMA_PE_NUM 32
 
 #define ALIGN_TYPE LocalAffine

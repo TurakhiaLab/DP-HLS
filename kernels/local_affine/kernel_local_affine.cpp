@@ -17,6 +17,8 @@ void LocalAffine::PE::Compute(char_t local_query_val,
 #define TB_DIAG (tbp_t) 0b10
 #define TB_UP (tbp_t) 0b11
 
+#define TB_IMAT (tbp_t) 0b0100  // Insertion Matrix
+#define TB_DMAT (tbp_t) 0b1000  // Deletion Matrix
 
     const type_t insert_open = left_prev[1] + penalties.open + penalties.extend; // Insert open
     const type_t insert_extend = left_prev[0] + penalties.open;                  // insert extend

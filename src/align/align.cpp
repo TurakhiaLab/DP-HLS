@@ -164,8 +164,6 @@ void Align::Rectangular::ChunkCompute(
 	, Container &debugger
 #endif
 	){
-#pragma HLS inline off
-#pragma HLS dataflow
 
 	bool predicate[PE_NUM];
 	Utils::Init::ArrSet<bool, PE_NUM>(predicate, false);
@@ -398,7 +396,8 @@ void Align::Rectangular::AlignStatic(
 	static_assert(MAX_QUERY_LENGTH % PE_NUM == 0, "MAX_QUERY_LENGTH must divide PE_NUM, compilation terminated!");
 	tbp_t tbp_matrix[PE_NUM][MAX_QUERY_LENGTH / PE_NUM * MAX_REFERENCE_LENGTH];
 
-#pragma HLS bind_storage variable = init_row_score type = ram_2p impl = bram
+// #pragma HLS bind_storage variable = init_row_score type = ram_2p impl = bram
+#pragma HLS array_partition variable = init_row_score type = cyclic factor = PE_NUM dim = 1
 #pragma HLS array_partition variable = tbp_matrix type = cyclic factor = PE_NUM dim = 1
 
 	// Those are used to iterate through the memory during the score computation
