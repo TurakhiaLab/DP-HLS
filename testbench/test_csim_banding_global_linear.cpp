@@ -2,18 +2,23 @@
 #include <vector>
 #include <array>
 #include <map>
-#include <chrono>
+#include <fstream>
+#include <iostream>
 #include "params.h"
 #include "seq_align_multiple.h"
 #include "host_utils.h"
 #include "solutions.h"
 #include "debug.h"
 
-
 using namespace std;
 
-#define INPUT_QUERY_LENGTH 32
-#define INPUT_REFERENCE_LENGTH 32
+char tbp_to_char(tbp_t tbp){
+    if (tbp == TB_DIAG) return 'D';
+    else if (tbp == TB_UP) return 'U';
+    else if (tbp == TB_LEFT) return 'L';
+    else if (tbp == TB_PH) return 'P';
+    else return 'X';
+}
 
 char_t base_to_num(char base)
 {
@@ -46,41 +51,46 @@ struct Penalties_sol
 };
 
 int main(){
-    // std::string query_string = "AGTCTG";     // CCGTAGACCCGAACTTCGCGGTACACCTTCTGAAACCGTCCCTAATCCGACGAGCGCCTTGAGAACG";
-    // std::string reference_string = "TGCCGAT";       // TGAGAACGTAGTCTAGGCGAATCGGCCCTTGTATATCGGGGCCGTAGACCCGAACTTCGCGGTACAC";
+
+    // Create debug file
+    ofstream debug_file(DEBUG_OUTPUT_FILE);
+
+    // std::string query_string = "TACAGAC";     // CCGTAGACCCGAACTTCGCGGTACACCTTCTGAAACCGTCCCTAATCCGACGAGCGCCTTGAGAACG";
+    // std::string reference_string = "TGCTATTC";       // TGAGAACGTAGTCTAGGCGAATCGGCCCTTGTATATCGGGGCCGTAGACCCGAACTTCGCGGTACAC";
     char alphabet[4] = {'A', 'T', 'G', 'C'};
     std::string query_string = Random::Sequence<4>(alphabet, INPUT_QUERY_LENGTH);
     std::string reference_string = Random::Sequence<4>(alphabet, INPUT_REFERENCE_LENGTH);
+    // Ref T  G  C  T  A  T  T  C
+    // Qry TACAGAC
 
-    // Struct for Penalties in kernel
     Penalties penalties[N_BLOCKS];
     for (int i = 0; i < N_BLOCKS; i++){
         penalties[i].extend = -1;
         penalties[i].open = -1;
+        penalties[i].linear_gap = -1;
         penalties[i].match = 3;
         penalties[i].mismatch = -1;
     }
 
-    // Struct for penalties in solution
     Penalties_sol penalties_sol[N_BLOCKS];
     for (Penalties_sol &penalty : penalties_sol) {
         penalty.extend = -1;
         penalty.open = -1;
+        penalty.linear_gap = -1;
         penalty.match = 3;
         penalty.mismatch = -1;
     }
 
-    // Reference and Query Strings
+
     std::vector<char> query(query_string.begin(), query_string.end());
     std::vector<char> reference(reference_string.begin(), reference_string.end());
- 
-    // Initialize Debugger
+#ifdef CMAKEDEBUG
     Container debuggers[N_BLOCKS];
     for (int i = 0; i < N_BLOCKS; i++){
         debuggers[i] = Container();
     }
+#endif
 
-    // Assert actual query length and reference length should be smaller than the maximum length
     try {
         if (query.size() > MAX_QUERY_LENGTH) throw std::runtime_error("Query length should less than MAX_QUERY_LENGTH, "
             "actual query len " + std::to_string(query.size()) + ", Allocated qry len: " + std::to_string(MAX_QUERY_LENGTH));
@@ -91,11 +101,9 @@ int main(){
         throw;
     }
 
-    // Allocate query and reference buffer to pass to the kernel
     char_t reference_buff[N_BLOCKS][MAX_REFERENCE_LENGTH];
     char_t query_buff[N_BLOCKS][MAX_QUERY_LENGTH];
 
-    // Allocate lengths for query and reference
     idx_t qry_lengths[N_BLOCKS], ref_lengths[N_BLOCKS];
 
     // Fill query buffer and references buffer for all blocks.
@@ -113,21 +121,18 @@ int main(){
         }
     }
 
-    // Fill the lengths of the query and reference
     for (int b = 0; b < N_BLOCKS; b++)
     {
         qry_lengths[b] = query.size();
         ref_lengths[b] = reference.size();
     }
 
-    // Allocate traceback streams
     tbr_t tb_streams[N_BLOCKS][MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH];
-
     // initialize traceback starting coordinates
     idx_t tb_is[N_BLOCKS];
     idx_t tb_js[N_BLOCKS];
 
-    // Actual kernel calling
+// Actual kernel calling
     seq_align_multiple_static(
         query_buff,
         reference_buff,
@@ -141,29 +146,33 @@ int main(){
 #endif
         );
 
-    
-    // Print the query and reference strings
-    cout << "Query    : " << query_string << endl;
-    cout << "Reference: " << reference_string << endl;
+    debug_file << "Kernel call done" << endl;
 
-    // Get the solution scores and traceback
+    // print the original traceback to file
+    for (int b = 0; b < N_BLOCKS; b++)
+    {
+        debug_file << "Block " << b << " Traceback" << endl;
+        for (int i = 0; i < tb_is[b] + tb_js[b]; i++)
+        {
+            debug_file << tbp_to_char(tb_streams[b][i]);
+        }
+        debug_file << endl;
+    }
+
+    // retrive the solution
     array<array<array<float, MAX_REFERENCE_LENGTH>, MAX_QUERY_LENGTH>, N_LAYERS> sol_score_mat;
-    array<array<string, MAX_REFERENCE_LENGTH>, MAX_QUERY_LENGTH> sol_tb_mat;
+    array<array<char, MAX_REFERENCE_LENGTH>, MAX_QUERY_LENGTH> sol_tb_mat;
     map<string, string> alignments;
-    auto sol_start = std::chrono::high_resolution_clock::now();
-    global_affine_solution<Penalties_sol, MAX_QUERY_LENGTH, MAX_REFERENCE_LENGTH, N_LAYERS>(query_string, reference_string, penalties_sol[0], sol_score_mat, sol_tb_mat, alignments);
-    auto sol_end = std::chrono::high_resolution_clock::now();
-    // print_matrix<float, MAX_QUERY_LENGTH, MAX_REFERENCE_LENGTH>(sol_score_mat[0], "Solution Score Matrix Layer 0");
-    // print_matrix<char, MAX_QUERY_LENGTH, MAX_REFERENCE_LENGTH>(sol_tb_mat, "Solution Traceback Matrix");
-    cout << "Solution Aligned Query    : " << alignments["query"] << endl;
-    cout << "Solution Aligned Reference: " << alignments["reference"] << endl;
-    // Display solution runtime
-    std::cout << "Solution Runtime: " << std::chrono::duration_cast<std::chrono::milliseconds>(sol_end - sol_start).count() << "ms" << std::endl;
+    fixed_banding_global_linear_solution<Penalties_sol, MAX_QUERY_LENGTH, MAX_REFERENCE_LENGTH, N_LAYERS, BANDWIDTH>(query_string, reference_string, penalties_sol[0], sol_score_mat, sol_tb_mat, alignments);
+    debug_file << "Solution Aligned Query    : " << alignments["query"] << endl;
+    debug_file << "Solution Aligned Reference: " << alignments["reference"] << endl;
 
-    // Cast kernel scores to matrix scores
+#ifdef CMAKEDEBUG
+    // Print kernel 0 scores
     debuggers[0].cast_scores();
-    // print_matrix<float, MAX_QUERY_LENGTH, MAX_REFERENCE_LENGTH>(debuggers[0].scores_cpp[0], "Kernel 0 Scores Layer 0");
-    debuggers[0].compare_scores(sol_score_mat, query.size(), reference.size());  // check if the scores from the kernel matches scores from the solution
+    debuggers[0].compare_scores(sol_score_mat, query.size(), reference.size());
+#endif
+
 
     // reconstruct kernel alignments
     array<map<string, string>, N_BLOCKS> kernel_alignments;
@@ -173,8 +182,11 @@ int main(){
     string reference_string_blocks[N_BLOCKS];
     // for global alignments, adjust the lengths to be the lengths - 1
     for (int i = 0; i < N_BLOCKS; i++) {
-        tb_query_lengths[i] = (int) tb_is[i];
-        tb_reference_lengths[i] = (int) tb_js[i];
+        // print tbis, tbjs
+        debug_file << "tb_is[" << i << "]: " << tb_is[i] << endl;
+        debug_file << "tb_js[" << i << "]: " << tb_js[i] << endl;
+        tb_query_lengths[i] = tb_is[i];
+        tb_reference_lengths[i] = tb_js[i];
         query_string_blocks[i] = query_string;
         reference_string_blocks[i] = reference_string;
     }
@@ -182,10 +194,14 @@ int main(){
         query_string_blocks, reference_string_blocks,
         tb_query_lengths, tb_reference_lengths, 
         tb_streams);
-
     // Print kernel 0 traceback
-    cout << "Kernel 0 Traceback" << endl;
-    cout << "Kernel   Aligned Query    : " << kernel_alignments[0]["query"] << endl;
-    cout << "Kernel   Aligned Reference: " << kernel_alignments[0]["reference"] << endl;
+    debug_file << "Kernel 0 Traceback" << endl;
+    debug_file << "Kernel Aligned Query    : " << kernel_alignments[0]["query"] << endl;
+    debug_file << "Kernel Aligned Reference: " << kernel_alignments[0]["reference"] << endl;
 
+    // print out the scores
+    // print_matrix<float, MAX_QUERY_LENGTH, MAX_REFERENCE_LENGTH>(scores_sol[k], "Solution Score Matrix, Layer: " + std::to_string(k));
+    fprint_matrix<float, MAX_QUERY_LENGTH, MAX_REFERENCE_LENGTH>(debug_file, sol_score_mat[0], query_string, reference_string, "Solution Score Matrix, Layer: " + std::to_string(0));
+    fprint_matrix<float, MAX_QUERY_LENGTH, MAX_REFERENCE_LENGTH>(debug_file, debuggers->scores_cpp[0], query_string, reference_string, "Kernel Score Matrix, Layer: " + std::to_string(0));
+    return 0;
 }

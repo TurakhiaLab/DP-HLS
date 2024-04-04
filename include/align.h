@@ -271,7 +271,7 @@ namespace Align
 	namespace Rectangular
 	{
 		/**
-		 * @brief Perform Pairwise alignment for two sequences.
+		 * @brief Perform Pairwise alignment for two sequences in rectangular grid, with virtual coordinates.
 		 *
 		 * @param query: Query sequence buffer.
 		 * @param reference: Reference sequence buffer.
@@ -294,7 +294,7 @@ namespace Align
 		);
 
 		/**
-		 * @brief Compute the traceback pointers for a chunk of the size PE_NUM * REFERENCE_LENGTH.
+		 * @brief Compute the traceback pointers for a chunk of the size PE_NUM * REFERENCE_LENGTH, with rectangular grid and virtual coordinates.
 		 *
 		 * @param chunk_row_offset : The row offset in the whole traceback matrix the beginning of the chunk.
 		 * @param query : Query sequence with length PE_NUM.
@@ -335,6 +335,161 @@ namespace Align
 		void MapPredicate(
 			idx_t (&ics)[PE_NUM], idx_t (&jcs)[PE_NUM],
 			const idx_t ref_len,
+			bool (&predicate)[PE_NUM]);
+	}
+
+	namespace RectangularOpt
+	{
+		/**
+		 * @brief Perform Pairwise alignment for two sequences in rectangular grid, with shifting logics.
+		 *
+		 * @param query: Query sequence buffer.
+		 * @param reference: Reference sequence buffer.
+		 * @param query_length: Length of the query.
+		 * @param reference_length: Length of the reference.
+		 * @param tb_streams: Output traceback path.
+		 */
+		void AlignStatic(
+			char_t (&query)[MAX_QUERY_LENGTH],
+			char_t (&reference)[MAX_REFERENCE_LENGTH],
+			idx_t query_length,
+			idx_t reference_length,
+			const Penalties &penalties,
+			idx_t &tb_i, idx_t &tb_j,
+			tbr_t (&tb_out)[MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH]
+#ifdef CMAKEDEBUG
+			,
+			Container &debugger
+#endif
+		);
+
+		/**
+		 * @brief Compute the traceback pointers for a chunk of the size PE_NUM * REFERENCE_LENGTH, with rectangular grid and shifting logics.
+		 *
+		 * @param chunk_row_offset : The row offset in the whole traceback matrix the beginning of the chunk.
+		 * @param query : Query sequence with length PE_NUM.
+		 * @param init_col_scr : Initial score for the first column of this chunk.
+		 * @param query_length : Length of the query < PE_NUM.
+		 * @param reference_length : Length of the reference < MAX_REFERENCE_LENGTH.
+		 * @param max : Score pack of the maximium score of this chunk.
+		 */
+		void ChunkCompute(
+			idx_t chunk_row_offset,
+			idx_t chunk_start_col,
+			input_char_block_t &local_query,
+			char_t (&reference)[MAX_REFERENCE_LENGTH],
+			chunk_col_scores_inf_t &init_col_scr,
+			score_vec_t (&init_row_scr)[MAX_REFERENCE_LENGTH],
+			hls::vector<idx_t, PE_NUM>(&v_rows), hls::vector<idx_t, PE_NUM>(&v_cols),
+			hls::vector<idx_t, PE_NUM> &p_cols, idx_t ck_idx,
+			int global_query_length, int query_length, int reference_length,
+			const Penalties &penalties,
+			score_vec_t (&preserved_row_scr)[MAX_REFERENCE_LENGTH],
+			ScorePack (&max)[PE_NUM],
+			tbp_t (&chunk_tbp_out)[PE_NUM][MAX_QUERY_LENGTH / PE_NUM * MAX_REFERENCE_LENGTH]
+#ifdef CMAKEDEBUG
+			,
+			Container &debugger
+#endif
+		);
+
+		void InitializeChunkInfo(
+			idx_t (&ck_start_col)[MAX_QUERY_LENGTH / PE_NUM], // Virtual column index of each chunk
+			idx_t (&ck_end_col)[MAX_QUERY_LENGTH / PE_NUM],	  // Virtual column index of each chunk
+			idx_t (&p_col_offsets)[MAX_QUERY_LENGTH / PE_NUM + 1],
+			idx_t reference_length);
+
+			/**
+			 * @brief Predicate mapping functions but optimized to use a shifting logics according
+			 * to the wavefront behavior.
+			 *
+			 * @param idx
+			 * @param query_len
+			 * @param reference_len
+			 */
+			void ShiftPredicate(bool (&predicate)[PE_NUM], int idx, int query_len, int reference_len);
+
+		void SetTBP(
+			const tbp_vec_t &tbp_in,
+			hls::vector<idx_t, PE_NUM> &p_cols,
+			const bool (&predicate)[PE_NUM],
+			tbp_t (&chunk_tbp_out)[PE_NUM][MAX_QUERY_LENGTH / PE_NUM * MAX_REFERENCE_LENGTH]);
+	}
+
+	namespace Fixed
+	{
+		/**
+		 * @brief Perform Pairwise alignment for two sequences, in fixed banding with virtual coordinates.
+		 *
+		 * @param query: Query sequence buffer.
+		 * @param reference: Reference sequence buffer.
+		 * @param query_length: Length of the query.
+		 * @param reference_length: Length of the reference.
+		 * @param tb_streams: Output traceback path.
+		 */
+		void AlignStatic(
+			char_t (&querys)[MAX_QUERY_LENGTH],
+			char_t (&references)[MAX_REFERENCE_LENGTH],
+			idx_t query_length,
+			idx_t reference_length,
+			const Penalties &penalties,
+			idx_t &tb_i, idx_t &tb_j,
+			tbr_t (&tb_out)[MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH]
+#ifdef CMAKEDEBUG
+			,
+			Container &debugger
+#endif
+		);
+
+		/**
+		 * @brief Compute the traceback pointers for a chunk of the size PE_NUM * REFERENCE_LENGTH, with fixed banding and virtual coordinates.
+		 *
+		 * @param chunk_row_offset : The row offset in the whole traceback matrix the beginning of the chunk.
+		 * @param query : Query sequence with length PE_NUM.
+		 * @param init_col_scr : Initial score for the first column of this chunk.
+		 * @param query_length : Length of the query < PE_NUM.
+		 * @param reference_length : Length of the reference < MAX_REFERENCE_LENGTH.
+		 * @param max : Score pack of the maximium score of this chunk.
+		 */
+		void ChunkCompute(
+			idx_t chunk_row_offset,
+			idx_t chunk_start_col,
+			idx_t chunk_end_col,
+			input_char_block_t &query,
+			char_t (&reference)[MAX_REFERENCE_LENGTH],
+			chunk_col_scores_inf_t &init_col_scr,
+			score_vec_t (&init_row_scr)[MAX_REFERENCE_LENGTH],
+			idx_t (&ics)[PE_NUM], idx_t (&jcs)[PE_NUM],
+			idx_t (&p_cols)[PE_NUM], idx_t ck_idx,
+			idx_t (&l_lim)[PE_NUM], idx_t (&u_lim)[PE_NUM],
+			int global_query_length,
+			const Penalties &penalties,
+			score_vec_t (&preserved_row_scr)[MAX_REFERENCE_LENGTH],
+			ScorePack (&max)[PE_NUM], // write out so must pass by reference
+			tbp_t (&chunk_tbp_out)[PE_NUM][MAX_QUERY_LENGTH / PE_NUM * MAX_REFERENCE_LENGTH]
+#ifdef CMAKEDEBUG
+			,
+			Container &debugger
+#endif
+		);
+
+		// void UpdateDPMem(
+		// 	dp_mem_block_t &dp_mem, idx_t i, idx_t (&l_lim)[PE_NUM], idx_t (&u_lim)[PE_NUM], chunk_col_scores_inf_t &init_col_scr, score_vec_t (&init_row_scr)[MAX_REFERENCE_LENGTH]
+		// );
+
+		/**
+		 * @brief Logics to map the global coordinates of a wavefront of PE to their prediate values.
+		 * MapPredicateSquare is a function F: (pe_row: int, pe_col: int) -> (predicate_balue: boolean)
+		 * It's unrolled for PE_NUM applying to each PE.
+		 * @param ics Global Row Coordinates of a Wavefront of PE.
+		 * @param jcs Global Column Coordinates of a Wavefront of PE.
+		 * @param ref_len Actual Reference Length.
+		 * @param predicate Predicate Array.
+		 */
+		void MapPredicate(
+			idx_t (&ics)[PE_NUM], idx_t (&jcs)[PE_NUM],
+			idx_t (&l_lim)[PE_NUM], idx_t (&u_lim)[PE_NUM],
+			const idx_t ck_start_col, idx_t ck_end_col, idx_t query_length,
 			bool (&predicate)[PE_NUM]);
 	}
 

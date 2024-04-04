@@ -1,80 +1,54 @@
-#ifndef PARAMS_H
-#define PARAMS_H
+#pragma once
+
 
 #include <ap_int.h>
 #include <ap_fixed.h>
 #include <hls_vector.h>
 
 
-// These need to be there to do CMake Simulation, but SHOULD TAKE OFF WHEN COMPIING BITSTREAM
-const int PE_NUM = 2;
-// #define PRAGMA_PE_NUM 32
 #define MAX_QUERY_LENGTH 64
 #define MAX_REFERENCE_LENGTH 64
+
+#define ALIGN_TYPE LocalLinear
 #define N_BLOCKS 1
+#define N_LAYERS 1
+const int PE_NUM = 4;
+#define LAYER_MAXIMIUM 0  // We need to indicate from which layer (main matrix) is the maximum score stored.
 
-#define ALIGN_TYPE GlobalAffine
-#define N_LAYERS 3
-#define LAYER_MAXIMIUM 1  // We need to indicate from which layer (main matrix) is the maximum score stored.
-
-// if user decides to use banding
-#define BANDING Rectangular
+#define BANDING RectangularOpt
 
 // Primitive Types
 typedef ap_uint<2> char_t;  // Sequence Alphabet
 typedef ap_fixed<16, 10> type_t;  // Scores Type <width, integer_width>
 typedef short idx_t;  // Indexing Type, could be much less than 32. ap_uint<8>
-typedef ap_uint<4> tbp_t;  // Traceback Pointer Type
+typedef ap_uint<2> tbp_t;  // Traceback Pointer Type
 
+// Define Zero Value
+#define zero_fp ((type_t)0)
+#define ZERO_CHAR (char_t(0))
 
 // Defien upper and lower bound for score type, aka type_t
 #define INF 256
 #define NINF -256
 
-// Legacy Debugger Configuration
-#define DEBUG_OUTPUT_PATH "/home/yic033@AD.UCSD.EDU/DP-HLS-Debug/global_affine/"
-#define DEBUG_FILENAME "debug_kernel"
-
-
-struct ScorePack{  
-    type_t score;
-    idx_t row;
-    idx_t col;
-    idx_t p_col;  // Physical column in memory
-    idx_t ck;  // Chunk index
-    idx_t pe;  // PE index
-
-	// Default Constructor
-    ScorePack() {
-        score = 0;
-        row = 0;
-        col = 0;
-        p_col = 0;
-        ck = 0;
-        pe = 0;
-    }
-};
-
 struct Penalties {
-    type_t open;
-    type_t extend;
     type_t mismatch;
     type_t match;
     type_t linear_gap;
 };
 
 enum TB_STATE {
-    MM = 0,   // Match/Mismatch
-    INS = 1,  // Insertion
-    DEL = 2,  // Deletion
-    END = 3   // End
+    MM = 0
 };
 
-#define ZERO_CHAR (char_t(0))
-#define zero_fp ((type_t)0)
+// Traceback pointer values
+#define TB_END (tbp_t) 0b00
+#define TB_LEFT (tbp_t) 0b01
+#define TB_DIAG (tbp_t) 0b10
+#define TB_UP (tbp_t) 0b11
 
-
-// >>> Shared Definitions, Do Not Change
+// >>> Automatically Determined Macros and Configs >>>
+// DO NOT MODIFY
 #define CK_NUM (MAX_QUERY_LENGTH / PE_NUM)
 
 typedef hls::vector<type_t, N_LAYERS> score_vec_t;
@@ -88,6 +62,24 @@ typedef idx_t index_vec_t[PE_NUM];
 typedef tbp_t tbp_vec_t[PE_NUM];
 typedef char_t input_char_block_t[PE_NUM];
 
+struct ScorePack{  
+    type_t score;
+    idx_t row;
+    idx_t col;
+    idx_t p_col;
+    idx_t ck;
+    idx_t pe;
+
+	// Default Constructor
+    ScorePack() {
+        score = 0;
+        row = 0;
+        col = 0;
+        p_col = 0;
+        ck = 0;
+        pe = 0;
+    }
+};
 
 // Define Traceback Navigation Values
 typedef ap_uint<3> tbr_t;  // Traecback Result Type
@@ -98,5 +90,3 @@ typedef ap_uint<3> tbr_t;  // Traecback Result Type
 #define AL_NULL (tbr_t) 0b100  // 4 Do not change coordinate
 
 typedef tbr_t traceback_buf_t[MAX_QUERY_LENGTH + MAX_REFERENCE_LENGTH];
-
-#endif

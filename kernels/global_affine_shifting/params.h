@@ -7,7 +7,7 @@
 
 
 // These need to be there to do CMake Simulation, but SHOULD TAKE OFF WHEN COMPIING BITSTREAM
-const int PE_NUM = 2;
+const int PE_NUM = 4;
 // #define PRAGMA_PE_NUM 32
 #define MAX_QUERY_LENGTH 64
 #define MAX_REFERENCE_LENGTH 64
@@ -17,8 +17,7 @@ const int PE_NUM = 2;
 #define N_LAYERS 3
 #define LAYER_MAXIMIUM 1  // We need to indicate from which layer (main matrix) is the maximum score stored.
 
-// if user decides to use banding
-#define BANDING Rectangular
+#define BANDING RectangularOpt
 
 // Primitive Types
 typedef ap_uint<2> char_t;  // Sequence Alphabet
