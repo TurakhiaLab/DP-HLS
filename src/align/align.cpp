@@ -161,7 +161,6 @@ void Align::Rectangular::ChunkCompute(
 	idx_t (&p_cols)[PE_NUM], idx_t ck_idx,
 	int global_query_length, int query_length, int reference_length,
 	const Penalties &penalties,
-	score_vec_t (&preserved_row_scr)[MAX_REFERENCE_LENGTH],
 	ScorePack (&max)[PE_NUM],
 	tbp_t (&chunk_tbp_out)[PE_NUM][MAX_QUERY_LENGTH / PE_NUM * MAX_REFERENCE_LENGTH]
 #ifdef CMAKEDEBUG
@@ -196,6 +195,7 @@ Iterating_Wavefronts:
 	for (int i = 0; i < reference_length + PE_NUM - 1; i++)
 	{
 #pragma HLS pipeline II = 1
+#pragma HLS dependence variable = init_row_scr type = inter direction = RAW false
 
 		// #ifdef BANDED
 		// 		Align::MapPredicateBanded(start_index, stop_index, chunk_row_offset, v_rows, v_cols, global_query_length, reference_length, predicate);
@@ -227,7 +227,7 @@ Iterating_Wavefronts:
 		// Because it doesn't increment PE offsets
 		// while ArrangeTBPArr does
 		Align::PreserveRowScore(
-			preserved_row_scr,
+			init_row_scr,
 			score_buff[PE_NUM], // score_buff is of the length PE_NUM+1
 			predicate[PE_NUM - 1],
 			v_cols[PE_NUM - 1]);
@@ -361,8 +361,7 @@ void Align::CopyColScore(chunk_col_scores_inf_t &init_col_scr_local, score_vec_t
 void Align::PrepareLocalQuery(
 	char_t (&query)[MAX_QUERY_LENGTH],
 	char_t (&local_query)[PE_NUM],
-	idx_t offset,
-	idx_t len)
+	const idx_t offset)
 {
 	for (int i = 0; i < PE_NUM; i++)
 	{
@@ -400,15 +399,10 @@ void Align::Rectangular::AlignStatic(
 	// >>> Initialization >>>
 	score_vec_t init_col_score[MAX_QUERY_LENGTH];
 	score_vec_t init_row_score[MAX_REFERENCE_LENGTH];
-	score_vec_t preserved_row_score[MAX_REFERENCE_LENGTH];
 	static_assert(MAX_QUERY_LENGTH % PE_NUM == 0, "MAX_QUERY_LENGTH must divide PE_NUM, compilation terminated!");
 	tbp_t tbp_matrix[PE_NUM][MAX_QUERY_LENGTH / PE_NUM * MAX_REFERENCE_LENGTH];
 
 #pragma HLS bind_storage variable = init_row_score type = ram_t2p impl = bram
-#pragma HLS bind_storage variable = preserved_row_score type = ram_t2p impl = bram
-// I guess the fundemental problem is that we need to partition it form the least dimension
-// #pragma HLS array_partition variable = init_row_score type = cyclic factor = 32 dim = 1
-// #pragma HLS array_partition variable = init_row_score type = complete dim = 0
 #pragma HLS array_partition variable = tbp_matrix type = cyclic factor = PE_NUM dim = 1
 
 	// Those are used to iterate through the memory during the score computation
@@ -450,33 +444,12 @@ Iterating_Chunks:
 	{
 		idx_t local_query_length = ((idx_t)PE_NUM < query_length - i) ? (idx_t)PE_NUM : (idx_t)(query_length - i);
 
-		Align::PrepareLocalQuery(query, local_query, i, local_query_length); // FIXME: Why not coping rest of the query
+		Align::PrepareLocalQuery(query, local_query, i); 
 		Align::CopyColScore(local_init_col_score, init_col_score, i);		 // Copy the scores
 
 		Align::CoordinateInitializeUniformReverse(p_cols, p_col_offsets[ic]); // Initialize physical columns to write to for each PE.
 		Align::CoordinateInitializeUniformReverse(v_cols, ck_start_col[ic]);  // Initialize the column coordinates of each PE
 
-// 		Align::Rectangular::ChunkCompute(
-// 			i,
-// 			ck_start_col[ic],
-// 			local_query,
-// 			reference,
-// 			local_init_col_score,
-// 			init_row_score[ic % 2],
-// 			v_rows, v_cols,
-// 			p_cols, ic,
-// 			query_length,
-// 			local_query_length,
-// 			reference_length,
-// 			penalties,
-// 			init_row_score[(ic + 1) % 2],
-// 			local_max,
-// 			tbp_matrix
-// #ifdef CMAKEDEBUG
-// 			,
-// 			debugger
-// #endif
-// 		);
 		Align::Rectangular::ChunkCompute(
 			i,
 			ck_start_col[ic],
@@ -490,7 +463,6 @@ Iterating_Chunks:
 			local_query_length,
 			reference_length,
 			penalties,
-			preserved_row_score,
 			local_max,
 			tbp_matrix
 #ifdef CMAKEDEBUG
@@ -501,8 +473,6 @@ Iterating_Chunks:
 
 		// Set the physical column offsets for the next chunk
 		p_col_offsets[ic + 1] = p_col_offsets[ic] + (ck_end_col[ic] - ck_start_col[ic] + 1);
-
-		Utils::Array::Copy<score_vec_t, MAX_REFERENCE_LENGTH>(preserved_row_score, init_row_score);
 
 		// Offset the virtual row number
 		Align::CoordinateArrayOffsetGeneric<PE_NUM, PE_NUM>(v_rows);

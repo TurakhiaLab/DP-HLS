@@ -40,8 +40,7 @@ namespace Align
 	void PrepareLocalQuery(
 		char_t (&query)[MAX_QUERY_LENGTH],
 		char_t (&local_query)[PE_NUM],
-		idx_t offset,
-		idx_t len);
+		const idx_t offset);
 
 	void DPMemUpdateBlock(
 		hls::stream_of_blocks<dp_mem_block_t> &dp_mem_in,
@@ -314,7 +313,6 @@ namespace Align
 			idx_t (&p_cols)[PE_NUM], idx_t ck_idx,
 			int global_query_length, int query_length, int reference_length,
 			const Penalties &penalties,
-			score_vec_t (&preserved_row_scr)[MAX_REFERENCE_LENGTH],
 			ScorePack (&max)[PE_NUM], // write out so must pass by reference
 			tbp_t (&chunk_tbp_out)[PE_NUM][MAX_QUERY_LENGTH / PE_NUM * MAX_REFERENCE_LENGTH]
 #ifdef CMAKEDEBUG

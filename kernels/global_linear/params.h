@@ -6,8 +6,8 @@
 #include <hls_vector.h>
 
 
-#define MAX_QUERY_LENGTH 128
-#define MAX_REFERENCE_LENGTH 128
+#define MAX_QUERY_LENGTH 256
+#define MAX_REFERENCE_LENGTH 256
 
 #define ALIGN_TYPE GlobalLinear
 #define N_BLOCKS 1
