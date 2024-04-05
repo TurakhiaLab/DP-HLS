@@ -132,6 +132,23 @@ namespace Align
 	 */
 	void ShiftPredicate(bool (&predicate)[PE_NUM], int idx, int query_len, int reference_len);
 
+	// write a template functino to merge CopyColScore and PrepareLocalQuery, template on PE_NUM
+	template <int PE_NUM_T>
+	void PrepareLocals(
+		char_t (&query)[MAX_QUERY_LENGTH],
+		char_t (&local_query)[PE_NUM_T],
+		score_vec_t (&init_col_scr)[MAX_QUERY_LENGTH],
+		chunk_col_scores_inf_t &init_col_scr_local,
+		const idx_t idx){
+			init_col_scr_local[0] = init_col_scr_local[PE_NUM_T]; // backup the last element from previous chunk
+			for (int i = 0; i < PE_NUM_T; i++)
+			{
+				init_col_scr_local[i + 1] = init_col_scr[idx + i];
+				local_query[i] = query[idx + i];
+			}
+	}
+	
+
 #ifdef BANDED
 	/**
 	 * @brief Predicate mapping function for banded alignment.

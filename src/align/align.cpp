@@ -393,11 +393,13 @@ void Align::Rectangular::AlignStatic(
 #endif
 )
 {
+// #pragma HLS bind_storage variable = query type = fifo impl = bram
 
 #pragma HLS array_partition variable = query type = cyclic factor = PE_NUM dim = 1
 
 	// >>> Initialization >>>
 	score_vec_t init_col_score[MAX_QUERY_LENGTH];
+// #pragma HLS bind_storage variable = init_col_score type = fifo impl = bram
 	score_vec_t init_row_score[MAX_REFERENCE_LENGTH];
 	static_assert(MAX_QUERY_LENGTH % PE_NUM == 0, "MAX_QUERY_LENGTH must divide PE_NUM, compilation terminated!");
 	tbp_t tbp_matrix[PE_NUM][MAX_QUERY_LENGTH / PE_NUM * MAX_REFERENCE_LENGTH];
@@ -444,8 +446,9 @@ Iterating_Chunks:
 	{
 		idx_t local_query_length = ((idx_t)PE_NUM < query_length - i) ? (idx_t)PE_NUM : (idx_t)(query_length - i);
 
-		Align::PrepareLocalQuery(query, local_query, i); 
-		Align::CopyColScore(local_init_col_score, init_col_score, i);		 // Copy the scores
+		// Align::PrepareLocalQuery(query, local_query, i); 
+		// Align::CopyColScore(local_init_col_score, init_col_score, i);		 // Copy the scores
+		Align::PrepareLocals<PE_NUM>(query, local_query, init_col_score, local_init_col_score, i); // Prepare the local query and the local column scores
 
 		Align::CoordinateInitializeUniformReverse(p_cols, p_col_offsets[ic]); // Initialize physical columns to write to for each PE.
 		Align::CoordinateInitializeUniformReverse(v_cols, ck_start_col[ic]);  // Initialize the column coordinates of each PE
