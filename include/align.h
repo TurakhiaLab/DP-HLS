@@ -40,8 +40,7 @@ namespace Align
 	void PrepareLocalQuery(
 		char_t (&query)[MAX_QUERY_LENGTH],
 		char_t (&local_query)[PE_NUM],
-		idx_t offset,
-		idx_t len);
+		const idx_t offset);
 
 	void DPMemUpdateBlock(
 		hls::stream_of_blocks<dp_mem_block_t> &dp_mem_in,
@@ -132,6 +131,23 @@ namespace Align
 	 * @param reference_len
 	 */
 	void ShiftPredicate(bool (&predicate)[PE_NUM], int idx, int query_len, int reference_len);
+
+	// write a template functino to merge CopyColScore and PrepareLocalQuery, template on PE_NUM
+	template <int PE_NUM_T>
+	void PrepareLocals(
+		char_t (&query)[MAX_QUERY_LENGTH],
+		char_t (&local_query)[PE_NUM_T],
+		score_vec_t (&init_col_scr)[MAX_QUERY_LENGTH],
+		chunk_col_scores_inf_t &init_col_scr_local,
+		const idx_t idx){
+			init_col_scr_local[0] = init_col_scr_local[PE_NUM_T]; // backup the last element from previous chunk
+			for (int i = 0; i < PE_NUM_T; i++)
+			{
+				init_col_scr_local[i + 1] = init_col_scr[idx + i];
+				local_query[i] = query[idx + i];
+			}
+	}
+	
 
 #ifdef BANDED
 	/**
@@ -314,7 +330,6 @@ namespace Align
 			idx_t (&p_cols)[PE_NUM], idx_t ck_idx,
 			int global_query_length, int query_length, int reference_length,
 			const Penalties &penalties,
-			score_vec_t (&preserved_row_scr)[MAX_REFERENCE_LENGTH],
 			ScorePack (&max)[PE_NUM], // write out so must pass by reference
 			tbp_t (&chunk_tbp_out)[PE_NUM][MAX_QUERY_LENGTH / PE_NUM * MAX_REFERENCE_LENGTH]
 #ifdef CMAKEDEBUG
