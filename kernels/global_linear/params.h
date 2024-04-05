@@ -6,13 +6,13 @@
 #include <hls_vector.h>
 
 
-#define MAX_QUERY_LENGTH 64
-#define MAX_REFERENCE_LENGTH 64
+#define MAX_QUERY_LENGTH 128
+#define MAX_REFERENCE_LENGTH 128
 
 #define ALIGN_TYPE GlobalLinear
 #define N_BLOCKS 1
 #define N_LAYERS 1
-const int PE_NUM = 4;
+const int PE_NUM = 32;
 #define LAYER_MAXIMIUM 0  // We need to indicate from which layer (main matrix) is the maximum score stored.
 
 // if user decides to use banding

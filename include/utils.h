@@ -68,6 +68,16 @@ namespace Utils
 			}
 		}
 
+		template <typename T, int N>
+		void Copy(T (&src)[N], T (&dst)[N])
+		{
+			for (int i = 0; i < N; i++)
+			{
+				dst[i] = src[i];
+			}
+		}
+
+
 		// 		template <typename T, int M, int N>
 		// 		void Copy(T(&dst)[M], idx_t dst_idx, T (&src)[N], idx_t src_idx, idx_t len, T default_num)
 		// 		{
