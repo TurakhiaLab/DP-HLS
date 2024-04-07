@@ -146,7 +146,7 @@ $(TEMP_DIR)/seq_align_kernel.xo: ${KERNEL_SRCS}
 $(BUILD_DIR)/seq_align_kernel.xclbin: $(TEMP_DIR)/seq_align_kernel.xo
 	mkdir -p $(BUILD_DIR)
 ifeq ($(HOST_ARCH), x86)  # Added --config flag to create multiple kernels in the binary
-	$(VPP) $(VPP_FLAGS) -l $(VPP_LDFLAGS) --temp_dir $(TEMP_DIR) -o'$(BUILD_DIR)/seq_align_kernel.link.xclbin' --config {{ path_hls_config }} $(+)
+	$(VPP) $(VPP_FLAGS) -l $(VPP_LDFLAGS) --temp_dir $(TEMP_DIR) -o'$(BUILD_DIR)/seq_align_kernel.link.xclbin' --connectivity.nk {{ kernel_name }}:{{ number_of_kernels }} $(+)
 	$(VPP) -p $(BUILD_DIR)/seq_align_kernel.link.xclbin -t $(TARGET) --platform $(PLATFORM) --package.out_dir $(PACKAGE_OUT) -o $(BUILD_DIR)/seq_align_kernel.xclbin
 else
 	$(VPP) $(VPP_FLAGS) -l $(VPP_LDFLAGS) --temp_dir $(TEMP_DIR) -o'$(BUILD_DIR)/seq_align_kernel.xclbin' $(+)

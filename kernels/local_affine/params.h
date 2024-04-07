@@ -42,6 +42,15 @@ typedef ap_uint<4> tbp_t;  // Traceback Pointer Type
 #define DEBUG_FILENAME "debug_kernel"
 
 
+#define TB_PH (tbp_t) 0b00
+#define TB_LEFT (tbp_t) 0b01
+#define TB_DIAG (tbp_t) 0b10
+#define TB_UP (tbp_t) 0b11
+
+#define TB_IMAT (tbp_t) 0b0100  // Insertion Matrix
+#define TB_DMAT (tbp_t) 0b1000  // Deletion Matrix
+
+
 struct ScorePack{  
     type_t score;
     idx_t row;
