@@ -151,7 +151,7 @@ int main(){
     // print the original traceback to file
     for (int b = 0; b < N_BLOCKS; b++)
     {
-        debug_file << "Block " << b << " Traceback" << endl;
+        debug_file << "Block " << b << " Orginal Traceback Pointers" << endl;
         for (int i = 0; i < tb_is[b] + tb_js[b]; i++)
         {
             debug_file << tbp_to_char(tb_streams[b][i]);

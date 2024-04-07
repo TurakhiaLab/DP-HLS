@@ -167,7 +167,7 @@ void Align::Rectangular::ChunkCompute(
 	const Penalties &penalties,
 	score_vec_t (&preserved_row_scr)[MAX_REFERENCE_LENGTH],
 	ScorePack (&max)[PE_NUM],
-	tbp_t (&chunk_tbp_out)[PE_NUM][MAX_QUERY_LENGTH / PE_NUM * MAX_REFERENCE_LENGTH]
+	tbp_t (&chunk_tbp_out)[PE_NUM][TBMEM_SIZE]
 #ifdef CMAKEDEBUG
 	,
 	Container &debugger
@@ -300,7 +300,7 @@ void Align::ArrangeTBP(
 	const tbp_vec_t &tbp_in,
 	const idx_t (&p_cols)[PE_NUM],
 	const bool (&predicate)[PE_NUM],
-	tbp_t (&chunk_tbp_out)[PE_NUM][MAX_QUERY_LENGTH / PE_NUM * MAX_REFERENCE_LENGTH])
+	tbp_t (&chunk_tbp_out)[PE_NUM][TBMEM_SIZE])
 {
 #pragma HLS array_partition variable = chunk_tbp_out type = cyclic factor = PE_NUM dim = 1
 #pragma HLS array_partition variable = tbp_in type = complete
@@ -407,13 +407,13 @@ void Align::Rectangular::AlignStatic(
 	score_vec_t init_col_score[MAX_QUERY_LENGTH];
 	score_vec_t init_row_score[MAX_REFERENCE_LENGTH];
 	static_assert(MAX_QUERY_LENGTH % PE_NUM == 0, "MAX_QUERY_LENGTH must divide PE_NUM, compilation terminated!");
-	tbp_t tbp_matrix[PE_NUM][MAX_QUERY_LENGTH / PE_NUM * MAX_REFERENCE_LENGTH];
+	tbp_t tbp_matrix[PE_NUM][TBMEM_SIZE];
 
 #ifdef CMAKEDEBUG
 	// initialize tbp_matrix with TB_PH
 	for (int i = 0; i < PE_NUM; i++)
 	{
-		for (int j = 0; j < MAX_QUERY_LENGTH / PE_NUM * MAX_REFERENCE_LENGTH; j++)
+		for (int j = 0; j < TBMEM_SIZE; j++)
 		{
 			tbp_matrix[i][j] = TB_PH;
 		}
@@ -575,7 +575,7 @@ void Align::RectangularOpt::AlignStatic(
 	score_vec_t init_col_score[MAX_QUERY_LENGTH];
 	score_vec_t init_row_score[MAX_REFERENCE_LENGTH];
 	static_assert(MAX_QUERY_LENGTH % PE_NUM == 0, "MAX_QUERY_LENGTH must divide PE_NUM, compilation terminated!");
-	tbp_t tbp_matrix[PE_NUM][MAX_QUERY_LENGTH / PE_NUM * MAX_REFERENCE_LENGTH];
+	tbp_t tbp_matrix[PE_NUM][TBMEM_SIZE];
 
 #pragma HLS array_partition variable = init_row_score type = complete dim = 0
 #pragma HLS array_partition variable = tbp_matrix type = cyclic factor = PE_NUM dim = 1
@@ -676,7 +676,7 @@ void Align::RectangularOpt::ChunkCompute(
 	const Penalties &penalties,
 	score_vec_t (&preserved_row_scr)[MAX_REFERENCE_LENGTH],
 	ScorePack (&max)[PE_NUM],
-	tbp_t (&chunk_tbp_out)[PE_NUM][MAX_QUERY_LENGTH / PE_NUM * MAX_REFERENCE_LENGTH]
+	tbp_t (&chunk_tbp_out)[PE_NUM][TBMEM_SIZE]
 #ifdef CMAKEDEBUG
 	,
 	Container &debugger
@@ -765,7 +765,7 @@ void Align::RectangularOpt::SetTBP(
 	const tbp_vec_t &tbp_in,
 	hls::vector<idx_t, PE_NUM> &p_cols,
 	const bool (&predicate)[PE_NUM],
-	tbp_t (&chunk_tbp_out)[PE_NUM][MAX_QUERY_LENGTH / PE_NUM * MAX_REFERENCE_LENGTH])
+	tbp_t (&chunk_tbp_out)[PE_NUM][TBMEM_SIZE])
 {
 #pragma HLS array_partition variable = chunk_tbp_out type = cyclic factor = PE_NUM dim = 1
 #pragma HLS array_partition variable = tbp_in type = complete
@@ -819,7 +819,18 @@ void Align::Fixed::AlignStatic(
 	score_vec_t init_col_score[MAX_QUERY_LENGTH];
 	score_vec_t init_row_score[MAX_REFERENCE_LENGTH];
 	static_assert(MAX_QUERY_LENGTH % PE_NUM == 0, "MAX_QUERY_LENGTH must divide PE_NUM, compilation terminated!");
-	tbp_t tbp_matrix[PE_NUM][MAX_QUERY_LENGTH / PE_NUM * MAX_REFERENCE_LENGTH];
+	tbp_t tbp_matrix[PE_NUM][TBMEM_SIZE];
+
+#ifdef CMAKEDEBUG
+	// initialize tbp_matrix with TB_PH
+	for (int i = 0; i < PE_NUM; i++)
+	{
+		for (int j = 0; j < TBMEM_SIZE; j++)
+		{
+			tbp_matrix[i][j] = TB_PH;
+		}
+	}
+#endif
 
 #pragma HLS array_partition variable = init_row_score type = complete dim = 0
 #pragma HLS array_partition variable = tbp_matrix type = cyclic factor = PE_NUM dim = 1
@@ -948,7 +959,7 @@ void Align::Fixed::ChunkCompute(
 	const Penalties &penalties,
 	score_vec_t (&preserved_row_scr)[MAX_REFERENCE_LENGTH],
 	ScorePack (&max)[PE_NUM], // write out so must pass by reference
-	tbp_t (&chunk_tbp_out)[PE_NUM][MAX_QUERY_LENGTH / PE_NUM * MAX_REFERENCE_LENGTH]
+	tbp_t (&chunk_tbp_out)[PE_NUM][TBMEM_SIZE]
 #ifdef CMAKEDEBUG
 	,
 	Container &debugger
@@ -993,7 +1004,6 @@ Iterating_Wavefronts:
 		init_row_scr_f.push_back(init_row_scr[j][0].to_float());
 	}
 #endif
-
 
 		Align::Fixed::MapPredicate(v_rows, v_cols, l_lim, u_lim, chunk_start_col, chunk_end_col, global_query_length, predicate);
 

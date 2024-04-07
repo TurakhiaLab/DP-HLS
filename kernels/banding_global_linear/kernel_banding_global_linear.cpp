@@ -64,27 +64,27 @@ void GlobalLinear::UpdatePEMaximum(
     bool (&predicate)[PE_NUM],
     idx_t query_len, idx_t ref_len){
 
-//     for (int i = 0; i < PE_NUM; i++)
-//     {
-// #pragma HLS unroll
-//         if (predicate[i])
-//         {
-//             if (scores[i + 1][LAYER_MAXIMIUM] > max[i].score)
-//             {
-//                 // Notice this filtering condition compared to the Local Affine kernel. 
-//                 // if ((chunk_offset + i == query_len - 1) || (pe_offset[i] == ref_len - 1))  // last row or last column
-//                 if ( (ics[i] == query_len - 1) && (jcs[i] == ref_len - 1) )
-//                 { // So we are at the last row or last column
-//                     max[i].score = scores[i + 1][LAYER_MAXIMIUM];
-//                     max[i].row = ics[i];
-//                     max[i].col = jcs[i];
-//                     max[i].p_col = p_col[i];
-//                     max[i].ck = ck_idx;
-//                     max[i].pe = i;
-//                 }
-//             }
-//         }
-//     }
+    for (int i = 0; i < PE_NUM; i++)
+    {
+#pragma HLS unroll
+        if (predicate[i])
+        {
+            if (scores[i + 1][LAYER_MAXIMIUM] > max[i].score)
+            {
+                // Notice this filtering condition compared to the Local Affine kernel. 
+                // if ((chunk_offset + i == query_len - 1) || (pe_offset[i] == ref_len - 1))  // last row or last column
+                if ( (ics[i] == query_len - 1) && (jcs[i] == ref_len - 1) )
+                { // So we are at the last row or last column
+                    max[i].score = scores[i + 1][LAYER_MAXIMIUM];
+                    max[i].row = ics[i];
+                    max[i].col = jcs[i];
+                    max[i].p_col = p_col[i];
+                    max[i].ck = ck_idx;
+                    max[i].pe = i;
+                }
+            }
+        }
+    }
 }
 
 
@@ -103,21 +103,13 @@ void GlobalLinear::InitializeMaxScores(ScorePack (&max)[PE_NUM], idx_t qry_len, 
     for (int i = 0; i < PE_NUM; i++)
     {
 #pragma HLS unroll
-        max[i].score = 0; // Need a custom struct for finding the negative infinity
-        max[i].row = 0;
+        max[i].score = NINF; // Need a custom struct for finding the negative infinity
+        max[i].row = i;
         max[i].col = 0;
         max[i].p_col = 0;
         max[i].ck = 0;
         max[i].pe = i;
     }
-    idx_t max_pe = (qry_len - 1) % PE_NUM;
-    idx_t max_ck = (qry_len - 1)/ PE_NUM;
-    max[max_pe].score = INF;  // This is dummy score by I just represent the idea it's maximum
-    max[max_pe].row = qry_len - 1;
-    max[max_pe].col = ref_len - 1;
-    max[max_pe].p_col = (max_ck + 1) * ref_len - 1; // FIXME
-    max[max_pe].ck = max_ck;
-    max[max_pe].pe = max_pe;
 }
 
 void GlobalLinear::Traceback::StateInit(tbp_t tbp, TB_STATE &state){

@@ -6,20 +6,23 @@
 #include <hls_vector.h>
 
 
-#define MAX_QUERY_LENGTH 8
-#define MAX_REFERENCE_LENGTH 8
+#define MAX_QUERY_LENGTH 15
+#define MAX_REFERENCE_LENGTH 15
 
-#define INPUT_QUERY_LENGTH 7
-#define INPUT_REFERENCE_LENGTH 8
+#define INPUT_QUERY_LENGTH 14
+#define INPUT_REFERENCE_LENGTH 15
 
 #define ALIGN_TYPE GlobalLinear
 #define N_BLOCKS 1
 #define N_LAYERS 1
-const int PE_NUM = 4;
+const int PE_NUM = 3;
 #define LAYER_MAXIMIUM 0  // We need to indicate from which layer (main matrix) is the maximum score stored.
 
 #define BANDING Fixed
 #define BANDWIDTH 3
+
+// This is the typical upperbound of the traceback memory size required for banding kernel
+#define TBMEM_SIZE (MAX_QUERY_LENGTH / PE_NUM * (2 * BANDWIDTH + PE_NUM - 1))
 
 // Primitive Types
 typedef ap_uint<2> char_t;  // Sequence Alphabet

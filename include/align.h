@@ -121,7 +121,7 @@ namespace Align
 		const tbp_vec_t &tbp_in,
 		const idx_t (&p_cols)[PE_NUM],
 		const bool (&predicate)[PE_NUM],
-		tbp_t (&chunk_tbp_out)[PE_NUM][MAX_QUERY_LENGTH / PE_NUM * MAX_REFERENCE_LENGTH]);
+		tbp_t (&chunk_tbp_out)[PE_NUM][TBMEM_SIZE]);
 
 	/**
 	 * @brief Determine the shift of predicate sccording to the desired query legnth, reference length, and the current
@@ -316,7 +316,7 @@ namespace Align
 			const Penalties &penalties,
 			score_vec_t (&preserved_row_scr)[MAX_REFERENCE_LENGTH],
 			ScorePack (&max)[PE_NUM], // write out so must pass by reference
-			tbp_t (&chunk_tbp_out)[PE_NUM][MAX_QUERY_LENGTH / PE_NUM * MAX_REFERENCE_LENGTH]
+			tbp_t (&chunk_tbp_out)[PE_NUM][TBMEM_SIZE]
 #ifdef CMAKEDEBUG
 			,
 			Container &debugger
@@ -386,7 +386,7 @@ namespace Align
 			const Penalties &penalties,
 			score_vec_t (&preserved_row_scr)[MAX_REFERENCE_LENGTH],
 			ScorePack (&max)[PE_NUM],
-			tbp_t (&chunk_tbp_out)[PE_NUM][MAX_QUERY_LENGTH / PE_NUM * MAX_REFERENCE_LENGTH]
+			tbp_t (&chunk_tbp_out)[PE_NUM][TBMEM_SIZE]
 #ifdef CMAKEDEBUG
 			,
 			Container &debugger
@@ -399,21 +399,21 @@ namespace Align
 			idx_t (&p_col_offsets)[MAX_QUERY_LENGTH / PE_NUM + 1],
 			idx_t reference_length);
 
-			/**
-			 * @brief Predicate mapping functions but optimized to use a shifting logics according
-			 * to the wavefront behavior.
-			 *
-			 * @param idx
-			 * @param query_len
-			 * @param reference_len
-			 */
-			void ShiftPredicate(bool (&predicate)[PE_NUM], int idx, int query_len, int reference_len);
+		/**
+		 * @brief Predicate mapping functions but optimized to use a shifting logics according
+		 * to the wavefront behavior.
+		 *
+		 * @param idx
+		 * @param query_len
+		 * @param reference_len
+		 */
+		void ShiftPredicate(bool (&predicate)[PE_NUM], int idx, int query_len, int reference_len);
 
 		void SetTBP(
 			const tbp_vec_t &tbp_in,
 			hls::vector<idx_t, PE_NUM> &p_cols,
 			const bool (&predicate)[PE_NUM],
-			tbp_t (&chunk_tbp_out)[PE_NUM][MAX_QUERY_LENGTH / PE_NUM * MAX_REFERENCE_LENGTH]);
+			tbp_t (&chunk_tbp_out)[PE_NUM][TBMEM_SIZE]);
 	}
 
 	namespace Fixed
@@ -466,7 +466,7 @@ namespace Align
 			const Penalties &penalties,
 			score_vec_t (&preserved_row_scr)[MAX_REFERENCE_LENGTH],
 			ScorePack (&max)[PE_NUM], // write out so must pass by reference
-			tbp_t (&chunk_tbp_out)[PE_NUM][MAX_QUERY_LENGTH / PE_NUM * MAX_REFERENCE_LENGTH]
+			tbp_t (&chunk_tbp_out)[PE_NUM][TBMEM_SIZE]
 #ifdef CMAKEDEBUG
 			,
 			Container &debugger

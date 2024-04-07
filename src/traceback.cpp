@@ -7,6 +7,8 @@
 #ifdef CMAKEDEBUG
 #include <cstdio>
 #include "../include/traceback.h"
+#include <iostream>
+#include <iomanip>
 #endif // DEBUG
 
 // void Traceback::Traceback(
@@ -48,7 +50,7 @@
 // }
 
 void Traceback::TracebackOptimized(
-    tbp_t (&tbmat)[PE_NUM][MAX_QUERY_LENGTH / PE_NUM * MAX_REFERENCE_LENGTH],
+    tbp_t (&tbmat)[PE_NUM][TBMEM_SIZE],
     traceback_buf_t &traceback_out,
     idx_t (&ck_start_col)[MAX_QUERY_LENGTH / PE_NUM],          // chunk start index
     idx_t (&ck_end_col)[MAX_QUERY_LENGTH / PE_NUM],            // chunk end index
@@ -58,42 +60,63 @@ void Traceback::TracebackOptimized(
 
 #ifdef CMAKEDEBUG
 #ifdef CMAKEDEBUG_PRINT_TRACEBACK
-    printf("Original TBMat\n");
-    for (int i = 0; i < MAX_QUERY_LENGTH / PE_NUM; i++)  // Iterate through each strip
+    printf("Stripped Matrix\n");
+    for (int i = 0; i < PE_NUM; i++)
     {
-        int p_col_offset = 0;
+        for (int j = 0; j < TBMEM_SIZE; j++)
+        {
+            printf("%d ", tbmat[i][j].to_int());
+        }
+        printf("\n");
+    }
+
+    printf("Original TBMat\n");
+    int row_cnt = 0;
+    int p_col_offset = 0;
+    // print the header counts
+    cout << "  ";
+    for (int i = 0; i < INPUT_REFERENCE_LENGTH; i++)
+    {
+        const int width = 2;
+        cout << std::right << std::setw(width) << i << " ";
+    }
+    cout << "\n";
+    for (int i = 0; i < MAX_QUERY_LENGTH / PE_NUM; i++)  // Iterate through each strip
+    {   
         for (int j = 0; j < PE_NUM; j++)  // Iterate through each PE. 
         {
+            const int width = 2;
+            cout << std::right << std::setw(width) << row_cnt++ << " ";
             int cnt = p_col_offset;
             for (int k = 0; k < INPUT_REFERENCE_LENGTH; k++)  // Iterate through each TBP in this strip for thie PE
             {
-                if (ck_start_col[i] <= j <= ck_end_col[i])
+                if (ck_start_col[i] <= k && k <= ck_end_col[i])
                 {
                     tbp_t tmp_tbp_t = tbmat[j][cnt++];
                     if (tmp_tbp_t == TB_DIAG)
                     {
-                        printf("D ");
+                        printf("D  ");
                     }
                     else if (tmp_tbp_t == TB_UP)
                     {
-                        printf("U ");
+                        printf("U  ");
                     }
                     else if (tmp_tbp_t == TB_LEFT)
                     {
-                        printf("L ");
+                        printf("L  ");
                     }
                     else if (tmp_tbp_t == TB_PH)
                     {
-                        printf("P ");
+                        printf("P  ");
                     }
                     else
                     {
-                        printf("? ");
+                        printf("?  ");
                     }
                 }
                 else
                 {
-                    printf("X ");
+                    printf("X  ");
                 }
                 // printf("%d ", tbmat[i][j].to_int());
             }
@@ -101,46 +124,6 @@ void Traceback::TracebackOptimized(
         }
         p_col_offset += ck_end_col[i] - ck_start_col[i] + 1;
     }
-
-    // // print the contents of tbmat
-    // printf("Traceback Matrix:\n");
-    // char good_shaped_tb_mat[INPUT_QUERY_LENGTH][INPUT_REFERENCE_LENGTH];
-    // for (int i = 0; i < PE_NUM; i++)
-    // {
-    //     for (int j = 0; j < INPUT_QUERY_LENGTH / PE_NUM * INPUT_REFERENCE_LENGTH; j++)
-    //     {
-    //         tbr_t tmp_tbr_t = tbmat[i][j];
-    //         char tb_char;
-    //         if (tmp_tbr_t == TB_DIAG)
-    //         {
-    //             tb_char = 'D';
-    //         }
-    //         else if (tmp_tbr_t == TB_UP)
-    //         {
-    //             tb_char = 'U';
-    //         }
-    //         else if (tmp_tbr_t == TB_LEFT)
-    //         {
-    //             tb_char = 'L';
-    //         }
-    //         else
-    //         {
-    //             tb_char = 'E';
-    //         }
-    //         good_shaped_tb_mat[(j / INPUT_REFERENCE_LENGTH) * PE_NUM + i][j % INPUT_REFERENCE_LENGTH] = tb_char;
-    //         // printf("%d ", tbmat[i][j].to_int());
-    //     }
-    //     // printf("\n");
-    // }
-
-    // for (int i = 0; i < INPUT_QUERY_LENGTH; i++)
-    // {
-    //     for (int j = 0; j < INPUT_REFERENCE_LENGTH; j++)
-    //     {
-    //         printf("%c ", good_shaped_tb_mat[i][j]);
-    //     }
-    //     printf("\n");
-    // }
 #endif
 #endif
 
