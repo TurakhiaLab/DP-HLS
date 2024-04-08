@@ -15,10 +15,15 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O0 -g -fsanitize=address -fno-inline -D
 # "-fsanitize=address" flag was used to check the stack smashing with Google Address Sanitizer. Use this flag with CLang and 
 # run the program to check. 
 
+set(DP_HLS_HOME "/home/centos/workspace/banding/DP-HLS")
+
+
 set(EXECUTABLE_TARGETS
     baseline_local_linear
 
     test_csim_global_linear
+    test_csim_banding_global_linear
+    test_csim_global_affine_shifting
     test_csim_global_affine
     test_csim_local_linear
     test_csim_local_affine 
@@ -50,6 +55,15 @@ add_executable(test_csim_global_linear
     "kernels/global_linear/kernel_global_linear.cpp"
     ${COMMON_SRCS})
 
+add_executable(test_csim_global_affine_shifting
+    "testbench/test_csim_global_affine.cpp"
+    "kernels/global_affine_shifting/kernel_global_affine_shifting.cpp"
+    ${COMMON_SRCS})
+
+add_executable(test_csim_banding_global_linear
+    "testbench/test_csim_banding_global_linear.cpp"
+    "kernels/banding_global_linear/kernel_banding_global_linear.cpp"
+    ${COMMON_SRCS})
 
 add_executable(test_csim_local_linear 
     "testbench/test_csim_local_linear.cpp"
@@ -104,22 +118,28 @@ add_executable(test_csim_viterbi
 
 target_compile_definitions(test_csim_dtw PRIVATE VPP_CLI)
 target_compile_definitions(test_csim_global_linear PRIVATE VPP_CLI)
+target_compile_definitions(test_csim_banding_global_linear PRIVATE VPP_CLI)
 target_compile_definitions(test_csim_global_affine PRIVATE VPP_CLI)
+target_compile_definitions(test_csim_global_affine_shifting PRIVATE VPP_CLI)
 target_compile_definitions(test_csim_local_linear PRIVATE VPP_CLI)
 target_compile_definitions(test_csim_local_affine PRIVATE VPP_CLI)
 target_compile_definitions(test_csim_profile_alignment PRIVATE VPP_CLI)
 target_compile_definitions(test_csim_profile_alignment_real_data PRIVATE VPP_CLI)
 target_compile_definitions(test_csim_viterbi PRIVATE VPP_CLI)
 
-target_include_directories(test_csim_global_affine PRIVATE "/home/centos/workspace/DP-HLS/kernels/global_affine")
-target_include_directories(test_csim_global_linear PRIVATE "/home/centos/workspace/DP-HLS/kernels/global_linear")
-target_include_directories(test_csim_local_linear PRIVATE "/home/centos/workspace/DP-HLS/kernels/local_linear")
-target_include_directories(test_csim_local_affine PRIVATE "/home/centos/workspace/DP-HLS/kernels/local_affine")
-target_include_directories(test_csim_profile_alignment PRIVATE "/home/centos/workspace/DP-HLS/kernels/profile_alignment")
-target_include_directories(test_csim_profile_alignment_real_data PRIVATE "/home/centos/workspace/DP-HLS/kernels/profile_alignment")
+
+target_include_directories(test_csim_global_affine PRIVATE "${DP_HLS_HOME}/kernels/global_affine")
+target_include_directories(test_csim_global_linear PRIVATE "${DP_HLS_HOME}/kernels/global_linear")
+target_include_directories(test_csim_banding_global_linear PRIVATE "${DP_HLS_HOME}/kernels/banding_global_linear")
+target_include_directories(test_csim_local_linear PRIVATE "${DP_HLS_HOME}/kernels/local_linear")
+target_include_directories(test_csim_local_affine PRIVATE "${DP_HLS_HOME}/kernels/local_affine")
+target_include_directories(test_csim_global_affine_shifting PRIVATE "${DP_HLS_HOME}/kernels/global_affine_shifting")
+target_include_directories(test_csim_profile_alignment PRIVATE "${DP_HLS_HOME}/kernels/profile_alignment")
+target_include_directories(test_csim_profile_alignment_real_data PRIVATE "${DP_HLS_HOME}/kernels/profile_alignment")
 target_include_directories(test_csim_profile_alignment_real_data PRIVATE "/home/centos/libs/json/include")
-target_include_directories(test_csim_dtw PRIVATE "/home/centos/workspace/DP-HLS/kernels/dtw")
-target_include_directories(test_csim_viterbi PRIVATE "/home/centos/workspace/DP-HLS/kernels/viterbi")
+target_include_directories(test_csim_dtw PRIVATE "${DP_HLS_HOME}/kernels/dtw")
+target_include_directories(test_csim_viterbi PRIVATE "${DP_HLS_HOME}/kernels/viterbi")
+
 
 # Add include to Xilinx Library Files
 if (RAPTOR)
@@ -135,10 +155,9 @@ if (RAPTOR)
 
 elseif(F1)
     set(HLS_HOME "/opt/Xilinx/Vitis_HLS/2021.2/")    
-    set(DP-HLS_HOME "/home/centos/workspace/DP-HLS")
 
     include_directories(${EXECUTABLE_TARGETS} PUBLIC "${HLS_HOME}/include")
-    include_directories(${EXECUTABLE_TARGETS} PUBLIC "${DP-HLS_HOME}/include")
+    include_directories(${EXECUTABLE_TARGETS} PUBLIC "${DP_HLS_HOME}/include")
     include_directories(${EXECUTABLE_TARGETS} PUBLIC "/home/centos/workspace/DP-HLS/common/includes")
 
 

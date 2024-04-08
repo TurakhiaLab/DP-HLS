@@ -7,6 +7,9 @@
 #include <array>
 #include <string>
 #include <limits>
+#include <fstream>
+#include <iostream>
+#include <iomanip> // For std::setw and std::setfill
 
 using namespace std;
 
@@ -286,6 +289,180 @@ void global_linear_solution(std::string query, std::string reference, PENALTY_T 
     alignments["query"] = aligned_query;
     alignments["reference"] = aligned_reference;
 }
+
+
+// >>> Banding Global Linear Solution >>>
+template <typename PENALTY_T, int SOL_MAX_QUERY_LENGTH, int SOL_MAX_REFERENCE_LENGTH, int SOL_N_LAYERS, int SOL_BANDWIDTH>
+void fixed_banding_global_linear_solution(std::string query, std::string reference, PENALTY_T &penalties,
+                            array<array<array<float, SOL_MAX_REFERENCE_LENGTH>, SOL_MAX_QUERY_LENGTH>, SOL_N_LAYERS> &score_mat,
+                            array<array<char, SOL_MAX_REFERENCE_LENGTH>, SOL_MAX_QUERY_LENGTH> &tb_mat,
+                            map<string, string> &alignments)
+{
+    // NOTE: we cannot augment the score matrix like this in the hardware since
+    // the initial scores for the following wavefronts will be shifted away in
+    // the dp_mem!
+
+    // declare the intial column and row
+    array<float, MAX_QUERY_LENGTH> initial_col;
+    array<float, MAX_REFERENCE_LENGTH> initial_row;
+
+    // initialize the initial column
+    float upper_left_value = 0;
+    for (int i = 0; i < MAX_QUERY_LENGTH; i++)
+    {
+        upper_left_value += penalties.open; // since it was declared with type_t then convert back to int.
+        initial_col[i] = upper_left_value;
+    }
+
+    // initialize the initial row
+    upper_left_value = 0; // FIXME: This might to be initialized as 0
+    for (int j = 0; j < MAX_REFERENCE_LENGTH; j++)
+    {
+        upper_left_value += penalties.open; // since it was declared with type_t then convert back to int.
+        initial_row[j] = upper_left_value;
+    }
+
+    // initialize the score_matrix
+    for (int i = 0; i < MAX_QUERY_LENGTH; i++)
+    {
+        for (int j = 0; j < MAX_REFERENCE_LENGTH; j++)
+        {
+            score_mat[0][i][j] = 0;
+        }
+    }
+
+    // initialize the traceback matrix
+    for (int i = 0; i < MAX_QUERY_LENGTH; i++)
+    {
+        for (int j = 0; j < MAX_REFERENCE_LENGTH; j++)
+        {
+            tb_mat[i][j] = '*';
+        }
+    }
+
+    int llim[SOL_MAX_QUERY_LENGTH], ulim[SOL_MAX_QUERY_LENGTH];
+    for (int i = 0; i < SOL_MAX_QUERY_LENGTH; i++){
+        llim[i] = max(0, i - SOL_BANDWIDTH);
+        ulim[i] = min(SOL_MAX_REFERENCE_LENGTH - 1, i + SOL_BANDWIDTH - 1);
+    }
+
+    // Fill in the DP matrix and traceback matrix
+    for (int i = 0; i < query.length(); i++)
+    {
+        int scr_diag, scr_up, scr_left;
+        for (int j = 0; j < reference.length(); j++)
+        {
+            if (j < llim[i]) continue;
+            if (j > ulim[i]) break;
+
+            if (i == 0 && j == 0)
+            {
+                scr_diag = 0;
+                scr_up = initial_row[j];
+                scr_left = initial_col[i];
+            }
+            else if (i == 0 && j > 0)
+            {
+                scr_diag = initial_row[j - 1];
+                scr_up = initial_row[j];
+                scr_left = score_mat[0][i][j - 1];
+            }
+            else if (i > 0 && j == 0)
+            {
+                scr_diag = initial_col[i - 1];
+                scr_up = score_mat[0][i - 1][j];
+                scr_left = initial_col[i];
+            }
+            else
+            {
+                scr_diag = score_mat[0][i - 1][j - 1];
+                scr_up = score_mat[0][i - 1][j];
+                scr_left = score_mat[0][i][j - 1];
+            }
+
+            if (j == llim[i]){
+                scr_left = NINF;
+            }
+            if (j == ulim[i]){
+                scr_up = NINF;
+            }
+
+            float m_score = scr_diag + (query[i] == reference[j] ? penalties.match : penalties.mismatch);
+            float d_score = scr_up + penalties.linear_gap;
+            float i_score = scr_left + penalties.linear_gap;
+
+            float max_score = max(m_score, max(d_score, i_score));
+            score_mat[0][i][j] = max_score;
+
+            // Choose the maximum score and update the traceback matrix
+            if (max_score == m_score)
+            {
+                tb_mat[i][j] = 'D'; // 'D' indicates a diagonal direction (match or mismatch)
+            }
+            else if (max_score == d_score)
+            {
+                tb_mat[i][j] = 'U'; // 'U' indicates an up direction (deletion)
+            }
+            else
+            {
+                tb_mat[i][j] = 'L'; // 'L' indicates a left direction (insertion)
+            }
+
+        }
+    }
+
+    // Traceback to find the aligned sequences
+    int i = query.length() - 1;
+    int j = reference.length() - 1;
+    string aligned_query = "";
+    string aligned_reference = "";
+
+    while (i >= 0 && j >= 0)
+    {
+        if (tb_mat[i][j] == 'D')
+        {
+            aligned_query = query[i] + aligned_query;
+            aligned_reference = reference[j] + aligned_reference;
+            i--;
+            j--;
+        }
+        else if (tb_mat[i][j] == 'U')
+        {
+            aligned_query = query[i] + aligned_query;
+            aligned_reference = "_" + aligned_reference;
+            i--;
+        }
+        else if (tb_mat[i][j] == 'L')
+        {
+            aligned_query = "_" + aligned_query;
+            aligned_reference = reference[j] + aligned_reference;
+            j--;
+        }
+        else
+        {
+            cout << "ERROR: Invalid traceback matrix value" << endl;
+            break;
+        }
+    }
+
+    // Finish up the rest of the characters in the query and reference
+    while (i >= 0)
+    {
+        aligned_query = query[i] + aligned_query;
+        aligned_reference = "_" + aligned_reference;
+        i--;
+    }
+    while (j >= 0)
+    {
+        aligned_query = "_" + aligned_query;
+        aligned_reference = reference[j] + aligned_reference;
+        j--;
+    }
+
+    alignments["query"] = aligned_query;
+    alignments["reference"] = aligned_reference;
+}
+
 
 template <typename PENALTY_T, int SOL_MAX_QUERY_LENGTH, int SOL_MAX_REFERENCE_LENGTH, int SOL_N_LAYERS>
 void global_affine_solution(std::string query, std::string reference, PENALTY_T &penalties,
@@ -868,16 +1045,66 @@ void local_affine_solution(std::string query, std::string reference, PENALTY_T &
 template <typename T, int M, int N>
 void print_matrix(array<array<T, N>, M> &mat, string name)
 {
+    int width = 2;
     cout << name << endl;
     for (int i = 0; i < M; i++)
     {
         for (int j = 0; j < N; j++)
         {
-            cout << mat[i][j] << " ";
+
+            cout << std::right << std::setw(width) << mat[i][j] << " ";
         }
         cout << endl;
     }
 }
+
+template <typename T, int M, int N>
+void fprint_matrix(ofstream &file, array<array<T, N>, M> &mat, string name)
+{
+    int width = 2;
+    file << name << endl;
+    for (int i = 0; i < M; i++)
+    {
+        for (int j = 0; j < N; j++)
+        {
+            file << std::right << std::setw(width) << mat[i][j] << " ";
+        }
+        file << endl;
+    }
+}
+
+template <typename T, int M, int N>
+void fprint_matrix(ofstream &file, array<array<T, N>, M> &mat, string query, string reference, string name)
+{
+    int width = 2;
+    file << name << endl;
+    file << std::right << std::setw(width) << "  ";
+    file << std::right << std::setw(width) << "   ";
+    // print some index in the first row
+    for (int j = 0; j < N; j++)
+    {
+        file << " " << std::right << std::setw(width) << j;
+    }
+    file << endl;
+    file << std::right << std::setw(width) << "  ";
+    file << std::right << std::setw(width) << "   ";
+    for (int j = 0; j < N; j++)
+    {
+        file << " " << std::right << std::setw(width) << (j < reference.length() ? reference[j] : ' ');
+    }
+    file << endl;
+    for (int i = 0; i < M; i++)
+    {   
+        file << std::right << std::setw(width) << i << " ";
+        file << std::right << std::setw(width) << (i < query.length() ? query[i] : ' ') << " ";
+        for (int j = 0; j < N; j++)
+        {
+            file << std::right << std::setw(width) << mat[i][j] << " ";
+        }
+        file << endl;
+    }
+}
+
 
 template <typename T, int N>
 void print_vector(array<T, N> &vec, string name)

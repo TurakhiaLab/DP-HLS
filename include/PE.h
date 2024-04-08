@@ -51,7 +51,27 @@ namespace PE {
         const Penalties penalties, 
         wavefront_scores_inf_t &score,
         tbp_vec_t &tbp);
-    
+
+    /**
+     * @brief Unrolls the array of PE, saparating the score input buffer and the score 
+     * output buffer. 
+     * 
+     * @param dp_mem DP Memory of Three Wavefronts
+     * @param qry Local Query
+     * @param ref Local Reference
+     * @param penalties Penalties
+     * @param score Scores Out Buffer
+     * @param tbp Traceback Poitner Out
+     */
+    void PEUnrollFixedSep(
+        dp_mem_block_t &dp_mem,
+        const input_char_block_t &qry,
+        const input_char_block_t &ref,
+        idx_t (&v_cols)[PE_NUM],
+        idx_t (&l_lim)[PE_NUM], idx_t (&u_lim)[PE_NUM], 
+        const Penalties penalties, 
+        wavefront_scores_inf_t &score,
+        tbp_vec_t &tbp);
 
 }
 

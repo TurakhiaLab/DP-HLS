@@ -31,7 +31,7 @@ namespace Traceback
 	 * @param max_col : Column index of the maximum element to start the traceback.
 	 */
 	void TracebackOptimized(
-		tbp_t (&tbmat)[PE_NUM][MAX_QUERY_LENGTH / PE_NUM * MAX_REFERENCE_LENGTH],
+		tbp_t (&tbmat)[PE_NUM][TBMEM_SIZE],
 		traceback_buf_t (&traceback_out),
 		idx_t (&ck_start_col)[MAX_QUERY_LENGTH / PE_NUM], // chunk start index
 		idx_t (&ck_end_col)[MAX_QUERY_LENGTH / PE_NUM],	  // chunk end index
