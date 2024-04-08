@@ -156,6 +156,11 @@ if __name__ == "__main__":
     params_folder_path = config['design']['path_params']
     kernel_frontend_path = config['design']['path_frontend']
 
+    try:
+        compute_units = config['size']['cu']
+    except:  # if doesn't specify number of kernels, then use 1
+        compute_units = [1]
+
     all_build_paths = []
 
     build_type = config['build']['build_type']
@@ -166,36 +171,37 @@ if __name__ == "__main__":
 
         for pe_num in pe_num_list:
             for block in block_list:
-                build_path = os.path.join(output_path, f'{output_name}_{max_query_length}_{max_reference_length}_{pe_num}_{block}')
-                report_path = os.path.join(build_path, 'report')
-                all_build_paths.append(build_path)
+                for compute_unit in compute_units:
+                    build_path = os.path.join(output_path, f'{output_name}_{max_query_length}_{max_reference_length}_{pe_num}_{compute_unit}_{block}')
+                    report_path = os.path.join(build_path, 'report')
+                    all_build_paths.append(build_path)
 
-                # Make directory for all the configurations
-                os.makedirs(build_path, exist_ok=True)
-                os.makedirs(report_path, exist_ok=True)
+                    # Make directory for all the configurations
+                    os.makedirs(build_path, exist_ok=True)
+                    os.makedirs(report_path, exist_ok=True)
 
-                # Create the template for all the configurations
-                template = jinja2.Template(open(
-                    os.path.join(dp_hls_root, 'templates', 'Makefile.template')).read())
-                # render templates, and save it as a Makefile under the output directory
-                with open(os.path.join(build_path, 'Makefile'), 'w') as f:
-                    f.write(template.render(
-                        max_query_length=max_query_length,
-                        max_reference_length=max_reference_length,
-                        pe_num=pe_num,
-                        n_blocks=block,
-                        params_folder_path=params_folder_path,
-                        kernel_frontend_path=kernel_frontend_path,
-                        dp_hls_root=dp_hls_root,
-                        path_hls_config=config['design']['path_hls_config'],
-                        kernel_name=config['kernel']['name'],
-                        host_path=config['design']['host_program'],
-                        report_path=report_path,
-                        clock_frequency=config['kernel']['clock_frequency'],
-                        dp_hls_unrolled="-DDP_HLS_UNROLLED" if bool(config['kernel']['unrolled']) else "",
-                    ))
-            
-                shutil.copy(os.path.join(dp_hls_root, 'templates', 'utils.mk'), os.path.join(build_path, 'utils.mk'))
+                    # Create the template for all the configurations
+                    template = jinja2.Template(open(
+                        os.path.join(dp_hls_root, 'templates', 'Makefile.template')).read())
+                    # render templates, and save it as a Makefile under the output directory
+                    with open(os.path.join(build_path, 'Makefile'), 'w') as f:
+                        f.write(template.render(
+                            max_query_length=max_query_length,
+                            max_reference_length=max_reference_length,
+                            pe_num=pe_num,
+                            n_blocks=block,
+                            params_folder_path=params_folder_path,
+                            kernel_frontend_path=kernel_frontend_path,
+                            dp_hls_root=dp_hls_root,
+                            kernel_name=config['kernel']['name'],
+                            host_path=config['design']['host_program'],
+                            report_path=report_path,
+                            clock_frequency=config['kernel']['clock_frequency'],
+                            number_of_kernels=compute_unit,
+                            dp_hls_unrolled="-DDP_HLS_UNROLLED" if bool(config['kernel']['unrolled']) else "",
+                        ))
+                
+                    shutil.copy(os.path.join(dp_hls_root, 'templates', 'utils.mk'), os.path.join(build_path, 'utils.mk'))
 
     if compile:
         print(f"Compiling the design with {num_workers} workers for type {build_type}...")

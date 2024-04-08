@@ -142,7 +142,6 @@ traceback_loop:
     while (navigation != AL_END) // Now solely this flag determines whether to stop the traceback.
     {
 #pragma HLS PIPELINE II = 1
-#pragma HLS LOOP_TRIPCOUNT min = 1 max = 512 // Need manual tunning
 
         // #ifdef CMAKEDEBUG
         //         // Print Coordinates

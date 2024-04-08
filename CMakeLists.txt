@@ -30,6 +30,7 @@ set(EXECUTABLE_TARGETS
     test_csim_dtw
     test_csim_profile_alignment
     test_csim_profile_alignment_real_data
+    test_csim_viterbi
 )
 
 add_compile_definitions(PUBLIC CMAKEDEBUG)
@@ -94,6 +95,12 @@ add_executable(test_csim_dtw
     "kernels/dtw/kernel_dtw.cpp"
     ${COMMON_SRCS})
 
+add_executable(test_csim_viterbi
+    "testbench/test_csim_viterbi.cpp"
+    "kernels/viterbi/kernel_viterbi.cpp"
+    ${COMMON_SRCS})
+
+
 # Test Python APIs
 #add_executable(test_pyapi "testbench/test_align.cpp"
 #    "include/seq_align_multiple.h"
@@ -116,6 +123,9 @@ target_compile_definitions(test_csim_global_affine PRIVATE VPP_CLI)
 target_compile_definitions(test_csim_global_affine_shifting PRIVATE VPP_CLI)
 target_compile_definitions(test_csim_local_linear PRIVATE VPP_CLI)
 target_compile_definitions(test_csim_local_affine PRIVATE VPP_CLI)
+target_compile_definitions(test_csim_profile_alignment PRIVATE VPP_CLI)
+target_compile_definitions(test_csim_profile_alignment_real_data PRIVATE VPP_CLI)
+target_compile_definitions(test_csim_viterbi PRIVATE VPP_CLI)
 
 
 target_include_directories(test_csim_global_affine PRIVATE "${DP_HLS_HOME}/kernels/global_affine")
@@ -128,6 +138,8 @@ target_include_directories(test_csim_profile_alignment PRIVATE "${DP_HLS_HOME}/k
 target_include_directories(test_csim_profile_alignment_real_data PRIVATE "${DP_HLS_HOME}/kernels/profile_alignment")
 target_include_directories(test_csim_profile_alignment_real_data PRIVATE "/home/centos/libs/json/include")
 target_include_directories(test_csim_dtw PRIVATE "${DP_HLS_HOME}/kernels/dtw")
+target_include_directories(test_csim_viterbi PRIVATE "${DP_HLS_HOME}/kernels/viterbi")
+
 
 # Add include to Xilinx Library Files
 if (RAPTOR)

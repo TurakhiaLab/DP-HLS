@@ -7,8 +7,7 @@
 
 
 // These need to be there to do CMake Simulation, but SHOULD TAKE OFF WHEN COMPIING BITSTREAM
-const int PE_NUM = 2;
-// #define PRAGMA_PE_NUM 32
+const int PE_NUM = 8;
 #define MAX_QUERY_LENGTH 64
 #define MAX_REFERENCE_LENGTH 64
 #define N_BLOCKS 1
