@@ -70,3 +70,5 @@ compile/build_dir.hw_emu.xilinx_aws-vu9p-f1_shell-v04261818_201920_3/
 
 /.idea/
 compile_configs
+
+/reports/

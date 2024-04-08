@@ -187,19 +187,12 @@ void Align::Rectangular::ChunkCompute(
 
 	dp_mem[0][0] = init_col_scr[0];
 
-	// #ifdef BANDED
-	// 	int start_index = max(0, chunk_row_offset - FIXED_BANDWIDTH + 1);
-	// 	int stop_index = min(reference_length, chunk_row_offset + (PE_NUM - 1) + FIXED_BANDWIDTH - 1) + PE_NUM - 1;
-
 Iterating_Wavefronts:
 	for (int i = 0; i < reference_length + PE_NUM - 1; i++)
 	{
 #pragma HLS pipeline II = 1
 #pragma HLS dependence variable = init_row_scr type = inter direction = RAW false
 
-		// #ifdef BANDED
-		// 		Align::MapPredicateBanded(start_index, stop_index, chunk_row_offset, v_rows, v_cols, global_query_length, reference_length, predicate);
-		// #else
 		Align::Rectangular::MapPredicate(v_rows, v_cols, reference_length, predicate);
 
 		Align::ShiftReferece(local_reference, reference, i, reference_length);
@@ -446,8 +439,6 @@ Iterating_Chunks:
 	{
 		idx_t local_query_length = ((idx_t)PE_NUM < query_length - i) ? (idx_t)PE_NUM : (idx_t)(query_length - i);
 
-		// Align::PrepareLocalQuery(query, local_query, i); 
-		// Align::CopyColScore(local_init_col_score, init_col_score, i);		 // Copy the scores
 		Align::PrepareLocals<PE_NUM>(query, local_query, init_col_score, local_init_col_score, i); // Prepare the local query and the local column scores
 
 		Align::CoordinateInitializeUniformReverse(p_cols, p_col_offsets[ic]); // Initialize physical columns to write to for each PE.
