@@ -83,6 +83,23 @@ namespace Align
 		wavefront_scores_t &diag_out,
 		wavefront_scores_t &left_out);
 
+		// write a template functino to merge CopyColScore and PrepareLocalQuery, template on PE_NUM
+	template <int PE_NUM_T>
+	void PrepareLocals(
+		char_t (&query)[MAX_QUERY_LENGTH],
+		char_t (&local_query)[PE_NUM_T],
+		score_vec_t (&init_col_scr)[MAX_QUERY_LENGTH],
+		chunk_col_scores_inf_t &init_col_scr_local,
+		const idx_t idx){
+			init_col_scr_local[0] = init_col_scr_local[PE_NUM_T]; // backup the last element from previous chunk
+			for (int i = 0; i < PE_NUM_T; i++)
+			{
+				init_col_scr_local[i + 1] = init_col_scr[idx + i];
+				local_query[i] = query[idx + i];
+			}
+	}
+	
+
 	/**
 	 * @brief Initialize two lists of coordinates, x coordinate and y coordinate, for each chunk.
 	 * 		Theis function is called within the chunk compute function.
@@ -464,7 +481,6 @@ namespace Align
 			idx_t (&l_lim)[PE_NUM], idx_t (&u_lim)[PE_NUM],
 			int global_query_length,
 			const Penalties &penalties,
-			score_vec_t (&preserved_row_scr)[MAX_REFERENCE_LENGTH],
 			ScorePack (&max)[PE_NUM], // write out so must pass by reference
 			tbp_t (&chunk_tbp_out)[PE_NUM][TBMEM_SIZE]
 #ifdef CMAKEDEBUG

@@ -812,9 +812,6 @@ void Align::Fixed::AlignStatic(
 	Container &debugger
 #endif
 ){
-
-#pragma HLS array_partition variable = query type = cyclic factor = PE_NUM dim = 1
-
 	// >>> Initialization >>>
 	score_vec_t init_col_score[MAX_QUERY_LENGTH];
 	score_vec_t init_row_score[MAX_REFERENCE_LENGTH];
@@ -832,7 +829,6 @@ void Align::Fixed::AlignStatic(
 	}
 #endif
 
-#pragma HLS array_partition variable = init_row_score type = complete dim = 0
 #pragma HLS array_partition variable = tbp_matrix type = cyclic factor = PE_NUM dim = 1
 
 	// Those are used to iterate through the memory during the score computation
@@ -893,8 +889,10 @@ Iterating_Chunks:
 	{
 		idx_t local_query_length = ((idx_t)PE_NUM < query_length - i) ? (idx_t)PE_NUM : (idx_t)(query_length - i);
 
-		Align::PrepareLocalQuery(query, local_query, i, local_query_length); // FIXME: Why not coping rest of the query
-		Align::CopyColScore(local_init_col_score, init_col_score, i);		 // Copy the scores
+		// Align::PrepareLocalQuery(query, local_query, i, local_query_length); // FIXME: Why not coping rest of the query
+		// Align::CopyColScore(local_init_col_score, init_col_score, i);		 // Copy the scores
+
+		Align::PrepareLocals<PE_NUM>(query, local_query, init_col_score, local_init_col_score, i); // Prepare the local query and the local column scores
 
 		Align::CoordinateInitializeUniformReverse(p_cols, p_col_offsets[ic]); // Initialize physical columns to write to for each PE.
 		Align::CoordinateInitializeUniformReverse(v_cols, ck_start_col[ic]);  // Initialize the column coordinates of each PE
@@ -912,7 +910,6 @@ Iterating_Chunks:
 			l_lims, u_lims,
 			query_length,
 			penalties,
-			init_row_score,
 			local_max,
 			tbp_matrix
 #ifdef CMAKEDEBUG
@@ -957,7 +954,6 @@ void Align::Fixed::ChunkCompute(
 	idx_t (&l_lim)[PE_NUM], idx_t (&u_lim)[PE_NUM],
 	int global_query_length,
 	const Penalties &penalties,
-	score_vec_t (&preserved_row_scr)[MAX_REFERENCE_LENGTH],
 	ScorePack (&max)[PE_NUM], // write out so must pass by reference
 	tbp_t (&chunk_tbp_out)[PE_NUM][TBMEM_SIZE]
 #ifdef CMAKEDEBUG
@@ -988,12 +984,13 @@ void Align::Fixed::ChunkCompute(
 #pragma HLS array_partition variable = tbp_out type = complete
 #pragma HLS array_partition variable = score_buff type = complete
 
-	dp_mem[0][0] = chunk_start_col > 0? preserved_row_scr[chunk_start_col-1] : init_col_scr[0];
+	dp_mem[0][0] = chunk_start_col > 0? init_row_scr[chunk_start_col-1] : init_col_scr[0];
 
 Iterating_Wavefronts:
 	for (int i = chunk_start_col; i < chunk_end_col + PE_NUM; i++)
 	{
 #pragma HLS pipeline II = 1
+#pragma HLS dependence variable = init_row_scr type = inter direction = RAW false
 
 #ifdef CMAKEDEBUG
 	// Translate init_row_scr buffer like we did for the reference
@@ -1053,7 +1050,7 @@ Iterating_Wavefronts:
 		// Because it doesn't increment PE offsets
 		// while ArrangeTBPArr does
 		Align::PreserveRowScore(
-			preserved_row_scr,
+			init_row_scr,
 			score_buff[PE_NUM], // score_buff is of the length PE_NUM+1
 			predicate[PE_NUM - 1],
 			v_cols[PE_NUM - 1]);
