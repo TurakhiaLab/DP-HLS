@@ -151,7 +151,7 @@ int main(){
     array<array<string, MAX_REFERENCE_LENGTH>, MAX_QUERY_LENGTH> sol_tb_mat;
     map<string, string> alignments;
     auto sol_start = std::chrono::high_resolution_clock::now();
-    global_affine_solution(query_string, reference_string, penalties_sol[0], sol_score_mat, sol_tb_mat, alignments);
+    global_affine_solution<Penalties_sol, MAX_QUERY_LENGTH, MAX_REFERENCE_LENGTH, N_LAYERS>(query_string, reference_string, penalties_sol[0], sol_score_mat, sol_tb_mat, alignments);
     auto sol_end = std::chrono::high_resolution_clock::now();
     // print_matrix<float, MAX_QUERY_LENGTH, MAX_REFERENCE_LENGTH>(sol_score_mat[0], "Solution Score Matrix Layer 0");
     // print_matrix<char, MAX_QUERY_LENGTH, MAX_REFERENCE_LENGTH>(sol_tb_mat, "Solution Traceback Matrix");
@@ -173,12 +173,12 @@ int main(){
     string reference_string_blocks[N_BLOCKS];
     // for global alignments, adjust the lengths to be the lengths - 1
     for (int i = 0; i < N_BLOCKS; i++) {
-        tb_query_lengths[i] = tb_is[i];
-        tb_reference_lengths[i] = tb_js[i];
+        tb_query_lengths[i] = (int) tb_is[i];
+        tb_reference_lengths[i] = (int) tb_js[i];
         query_string_blocks[i] = query_string;
         reference_string_blocks[i] = reference_string;
     }
-    kernel_alignments = ReconstructTracebackBlocks<tbr_t, N_BLOCKS, MAX_QUERY_LENGTH, MAX_REFERENCE_LENGTH>(
+    kernel_alignments = HostUtils::Sequence::ReconstructTracebackBlocks<tbr_t, N_BLOCKS, MAX_QUERY_LENGTH, MAX_REFERENCE_LENGTH>(
         query_string_blocks, reference_string_blocks,
         tb_query_lengths, tb_reference_lengths, 
         tb_streams);

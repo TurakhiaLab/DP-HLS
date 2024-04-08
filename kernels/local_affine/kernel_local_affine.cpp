@@ -12,13 +12,6 @@ void LocalAffine::PE::Compute(char_t local_query_val,
 #pragma HLS array_partition variable = local_query_val type = complete
 
 // Define Traceback Pointer Navigation Direction
-#define TB_PH (tbp_t) 0b00
-#define TB_LEFT (tbp_t) 0b01
-#define TB_DIAG (tbp_t) 0b10
-#define TB_UP (tbp_t) 0b11
-
-#define TB_IMAT (tbp_t) 0b0100  // Insertion Matrix
-#define TB_DMAT (tbp_t) 0b1000  // Deletion Matrix
 
     const type_t insert_open = left_prev[1] + penalties.open + penalties.extend; // Insert open
     const type_t insert_extend = left_prev[0] + penalties.open;                  // insert extend
@@ -82,17 +75,14 @@ void LocalAffine::UpdatePEMaximum(
     for (int i = 0; i < PE_NUM; i++)
     {
 #pragma HLS unroll
-        if (predicate[i])
+        if (predicate[i] && (scores[i + 1][LAYER_MAXIMIUM] > max[i].score))
         {
-            if (scores[i + 1][LAYER_MAXIMIUM] > max[i].score)
-            {
-                max[i].score = scores[i + 1][LAYER_MAXIMIUM];
-                max[i].row = ics[i];
-                max[i].col = jcs[i];
-                max[i].p_col = p_col[i];
-                max[i].ck = ck_idx;
-                max[i].pe = i;
-            }
+            max[i].score = scores[i + 1][LAYER_MAXIMIUM];
+            max[i].row = ics[i];
+            max[i].col = jcs[i];
+            max[i].p_col = p_col[i];
+            max[i].ck = ck_idx;
+            max[i].pe = i;
         }
     }
 }
@@ -105,6 +95,9 @@ void LocalAffine::InitializeMaxScores(ScorePack (&max)[PE_NUM], idx_t qry_len, i
         max[i].score = NINF;
         max[i].row = 0;
         max[i].col = 0;
+        max[i].p_col = 0;
+        max[i].ck = 0;
+        max[i].pe = 0;
     }
 }
 

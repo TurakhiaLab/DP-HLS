@@ -5,20 +5,22 @@
 #include <hls_vector.h>
 #include <ap_int.h>
 
-// #define MAX_QUERY_LENGTH 256
-// #define MAX_REFERENCE_LENGTH 256
-// #define N_BLOCKS 1
-const int PE_NUM = PRAGMA_PE_NUM;
+#define MAX_QUERY_LENGTH 256
+#define MAX_REFERENCE_LENGTH 256
+#define N_BLOCKS 1
+const int PE_NUM = 32;
 
-#define ALIGN_TYPE Profile
-#define N_LAYERS 1
-#define LAYER_MAXIMIUM 0  // We need to indicate from which layer (main matrix) is the maximum score stored.
+#define ALIGN_TYPE Viterbi
+#define N_LAYERS 3
+#define LAYER_MAXIMIUM 1  // We need to indicate from which layer (main matrix) is the maximum score stored.
+
+#define BANDING Rectangular
 
 // Primitive Types
 typedef ap_fixed<16, 10> type_t;  // Scores Type <width, integer_width>
-typedef vector<5, ap_uint<8>> char_t;  // Sequence Alphabet
+typedef ap_uint<2> char_t;  // Sequence Alphabet
 typedef short idx_t;  // Indexing Type, could be much less than 32. ap_uint<8>
-typedef ap_uint<2> tbp_t;  // Traceback Pointer Type
+typedef ap_uint<4> tbp_t;  // Traceback Pointer Type
 
 // Defien upper and lower bound for score type, aka type_t
 #define INF 256
@@ -27,6 +29,16 @@ typedef ap_uint<2> tbp_t;  // Traceback Pointer Type
 // Legacy Debugger Configuration
 #define DEBUG_OUTPUT_PATH "/home/yic033@AD.UCSD.EDU/DP-HLS-Debug/global_affine/"
 #define DEBUG_FILENAME "debug_kernel"
+
+// Define Traceback Pointer Navigation Direction
+#define TB_PH (tbp_t) 0b0000
+#define TB_LEFT (tbp_t) 0b0001
+#define TB_DIAG (tbp_t) 0b0010
+#define TB_UP (tbp_t) 0b0011
+
+// Define Traceback Pointer Navigation Matrix
+#define TB_IMAT (tbp_t) 0b0100  // Insertion Matrix
+#define TB_JMAT (tbp_t) 0b1000  // Deletion Matrix
 
 
 struct ScorePack{  
@@ -49,11 +61,11 @@ struct ScorePack{
 };
 
 struct Penalties {
-    type_t open;
-    type_t extend;
-    type_t mismatch;
-    type_t match;
-    type_t linear_gap;
+    type_t log_1_m_2_lambda;
+    type_t log_mu;
+    type_t log_lambda;
+    type_t log_1_m_mu;
+    type_t transition[5][5];
 };
 
 enum TB_STATE {
