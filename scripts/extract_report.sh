@@ -1,12 +1,13 @@
 #!/bin/bash
 
-# Define the base directory
-BASE="/home/centos/workspace/banding/DP-HLS/local_kernels/banding_global_linear"
-
-# Define the destination folder
-DESTINATION="/home/centos/workspace/DP-HLS/reports/banding_global_linear"
-
-NAME="banding_global_linear"
+while getopts b:d:n: flag
+do
+    case "${flag}" in
+        b) BASE=${OPTARG};;
+        d) DESTINATION=${OPTARG};;
+        n) NAME=${OPTARG};;
+    esac
+done
 
 # Check if the base directory exists
 if [ ! -d "$BASE" ]; then
