@@ -850,8 +850,8 @@ void Align::Fixed::AlignStatic(
 	idx_t ck_end_col[MAX_QUERY_LENGTH / PE_NUM];		// Virtual column index of each chunk
 
 	idx_t l_lims[PE_NUM], u_lims[PE_NUM];
-#pragma HLS array_partition variable = l_limx type = complete
-#pragma HLS array_partition variable = u_limx type = complete
+#pragma HLS array_partition variable = l_lims type = complete
+#pragma HLS array_partition variable = u_lims type = complete
 
 	Utils::Array::CoordinateInitializeUniform<idx_t, PE_NUM>(l_lims, -BANDWIDTH);
 	Utils::Array::CoordinateInitializeUniform<idx_t, PE_NUM>(u_lims, BANDWIDTH - 1);
