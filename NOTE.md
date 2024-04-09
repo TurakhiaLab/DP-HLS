@@ -1,19 +1,20 @@
-# Note
-This file document the usages. 
+# Vitis HLS Project
+When doing Vitis HLS, use the kernels from the kernels directory. 
+When changing from sequential implementation to parallel implementation, just comment or uncomment the macro definition for `DP_HLS_UNROLLED` in `params.h`. For example, in the file `/home/centos/workspace/DP-HLS/kernels/dtw/params.h`. 
 
-## util.sh
-This script is used to sync updated sourcefile into the vitis project. 
+You must start the vitis_hls in the folder where you create the project to properly use the include path. 
 
-## Nomenclature
-### Module and Testbench
-The file named as `<align_type>.cpp` is the top level design being synthesized. The file named 
-`<aligh_type>_<test>.cpp` is the testbench file. Note that the model name in the top level design
-have to be the same as the file name. 
+# F1 AFI
+WHen genrate the bitstream for AWS F1 software development workflow, need to tweak the `params.h` a little bit for the parallel compile format. 
 
-### C and C++
-For the same folder name in *src*, the *_cpp* suffix means the project are defined in C++, while 
-others are usually in C. 
+# Modularized Design
+In the modularized design, all functions, including the class functions, are desinated to accept input data structures and write to the output data structures. And, the temporary variables of each class is initialized in itself. 
+However, the data access pattern is a struggle. 
 
-----
-# HLS
-## `ap_int.h`
+Modularize means a simple standard to follow. 
+
+# Insertion and Deletion
+The insertion and deletion in this repo is inserting to the query sequence or deleting from the query sequence. 
+## Traceback
+The traceback stored in the result of the python library is from the beginning of the traceback to the end of the
+traceback. The beginning of the traceback normally means the maximum score globally or at the last row or column. 
