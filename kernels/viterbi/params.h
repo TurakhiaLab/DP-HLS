@@ -81,6 +81,11 @@ enum TB_STATE {
 
 // >>> Shared Definitions, Do Not Change
 #define CK_NUM (MAX_QUERY_LENGTH / PE_NUM)
+#define TBMEM_SIZE (MAX_QUERY_LENGTH / PE_NUM) * MAX_REFERENCE_LENGTH
+
+#ifndef BANDWIDTH
+#define BANDWIDTH 0
+#endif
 
 typedef hls::vector<type_t, N_LAYERS> score_vec_t;
 typedef score_vec_t init_col_score_block_t[MAX_QUERY_LENGTH];

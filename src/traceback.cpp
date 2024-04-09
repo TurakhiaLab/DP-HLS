@@ -75,7 +75,7 @@ void Traceback::TracebackOptimized(
     int p_col_offset = 0;
     // print the header counts
     cout << "  ";
-    for (int i = 0; i < INPUT_REFERENCE_LENGTH; i++)
+    for (int i = 0; i < MAX_REFERENCE_LENGTH; i++)
     {
         const int width = 2;
         cout << std::right << std::setw(width) << i << " ";
@@ -88,7 +88,7 @@ void Traceback::TracebackOptimized(
             const int width = 2;
             cout << std::right << std::setw(width) << row_cnt++ << " ";
             int cnt = p_col_offset;
-            for (int k = 0; k < INPUT_REFERENCE_LENGTH; k++)  // Iterate through each TBP in this strip for thie PE
+            for (int k = 0; k < MAX_REFERENCE_LENGTH; k++)  // Iterate through each TBP in this strip for thie PE
             {
                 if (ck_start_col[i] <= k && k <= ck_end_col[i])
                 {

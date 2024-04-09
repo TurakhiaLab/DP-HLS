@@ -15,7 +15,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O0 -g -fsanitize=address -fno-inline -D
 # "-fsanitize=address" flag was used to check the stack smashing with Google Address Sanitizer. Use this flag with CLang and 
 # run the program to check. 
 
-set(DP_HLS_HOME "/home/centos/workspace/banding/DP-HLS")
+set(DP_HLS_HOME "/home/centos/workspace/DP-HLS")
 
 
 set(EXECUTABLE_TARGETS
@@ -138,7 +138,7 @@ target_include_directories(test_csim_profile_alignment PRIVATE "${DP_HLS_HOME}/k
 target_include_directories(test_csim_profile_alignment_real_data PRIVATE "${DP_HLS_HOME}/kernels/profile_alignment")
 target_include_directories(test_csim_profile_alignment_real_data PRIVATE "/home/centos/libs/json/include")
 target_include_directories(test_csim_dtw PRIVATE "${DP_HLS_HOME}/kernels/dtw")
-target_include_directories(test_csim_viterbi PRIVATE "${DP_HLS_HOME}/kernels/viterbi")
+target_include_directories(test_csim_viterbi PRIVATE ${DP_HLS_HOME}/kernels/viterbi)
 
 
 # Add include to Xilinx Library Files

@@ -604,7 +604,7 @@ Iterating_Chunks:
 	{
 		idx_t local_query_length = ((idx_t)PE_NUM < query_length - i) ? (idx_t)PE_NUM : (idx_t)(query_length - i);
 
-		Align::PrepareLocalQuery(query, local_query, i, local_query_length); // FIXME: Why not coping rest of the query
+		Align::PrepareLocalQuery(query, local_query, i); // FIXME: Why not coping rest of the query
 		Align::CopyColScore(local_init_col_score, init_col_score, i);		 // Copy the scores
 
 		Utils::Array::CoordinateInitializeUniformReverse<idx_t, PE_NUM>(p_cols, p_col_offsets[ic]); // Initialize physical columns to write to for each PE.
@@ -734,8 +734,9 @@ Iterating_Wavefronts:
 			predicate[PE_NUM - 1],
 			v_cols[PE_NUM - 1]);
 
-		ALIGN_TYPE::UpdatePEMaximumOpt(score_buff, max, v_rows, v_cols, p_cols, ck_idx,
-									   predicate, global_query_length, reference_length);
+		// FIXME: FindMax is commented off!!!
+		// ALIGN_TYPE::UpdatePEMaximumOpt(score_buff, max, v_rows, v_cols, p_cols, ck_idx,
+		// 							   predicate, global_query_length, reference_length);
 		v_cols += 1;
 		p_cols += 1;
 	}
@@ -963,7 +964,7 @@ void Align::Fixed::ChunkCompute(
 	score_vec_t score_buff[PE_NUM + 1];
 #ifdef CMAKEDEBUG
 	std::vector<char> reference_s;
-	for (int i = 0; i < INPUT_REFERENCE_LENGTH; i++)
+	for (int i = 0; i < MAX_REFERENCE_LENGTH; i++)
 	{
 		reference_s.push_back(HostUtils::Sequence::num_to_base(reference[i]));
 	}

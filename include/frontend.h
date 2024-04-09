@@ -30,14 +30,14 @@ namespace ALIGN_TYPE
         Penalties penalties);
 
 
-    void UpdatePEMaximumOpt(
-        wavefront_scores_inf_t scores,
-        ScorePack (&max)[PE_NUM],
-        hls::vector<idx_t, PE_NUM> &ics, hls::vector<idx_t, PE_NUM> &jcs,
-        hls::vector<idx_t, PE_NUM> &p_col, idx_t ck_idx,
-        bool (&predicate)[PE_NUM],
-        idx_t query_len, idx_t ref_len
-    );
+    // void UpdatePEMaximumOpt(
+    //     wavefront_scores_inf_t scores,
+    //     ScorePack (&max)[PE_NUM],
+    //     hls::vector<idx_t, PE_NUM> &ics, hls::vector<idx_t, PE_NUM> &jcs,
+    //     hls::vector<idx_t, PE_NUM> &p_col, idx_t ck_idx,
+    //     bool (&predicate)[PE_NUM],
+    //     idx_t query_len, idx_t ref_len
+    // );
 
     void UpdatePEMaximum(
     wavefront_scores_inf_t scores,
