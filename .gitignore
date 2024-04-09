@@ -9,3 +9,11 @@ local_seq_align_multiple_sa/vitis_hls.log
 # ingore vitis project folder
 vitis/
 c_cpp_properties.json
+
+/build/
+/cmake-build-debug/
+/reports
+/synthesis
+/.vscode/
+
+compile_configs
