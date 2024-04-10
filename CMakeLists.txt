@@ -31,6 +31,12 @@ set(EXECUTABLE_TARGETS
     test_csim_profile_alignment
     test_csim_profile_alignment_real_data
     test_csim_viterbi
+    test_csim_semi_global_linear_long_short
+    test_csim_semi_global_linear_short_long
+    test_csim_overlap_linear_prefix_suffix
+    test_csim_overlap_linear_suffix_prefix
+    test_csim_local_two_piece_affine
+    test_csim_global_two_piece_affine
 )
 
 add_compile_definitions(PUBLIC CMAKEDEBUG)
@@ -100,6 +106,36 @@ add_executable(test_csim_viterbi
     "kernels/viterbi/kernel_viterbi.cpp"
     ${COMMON_SRCS})
 
+add_executable(test_csim_semi_global_linear_long_short
+    "testbench/test_csim_semi_global_linear_long_short.cpp"
+    "kernels/semi_global_linear_long_short/kernel_semi_global_linear_long_short.cpp"
+    ${COMMON_SRCS})
+
+add_executable(test_csim_semi_global_linear_short_long
+    "testbench/test_csim_semi_global_linear_short_long.cpp"
+    "kernels/semi_global_linear_short_long/kernel_semi_global_linear_short_long.cpp"
+    ${COMMON_SRCS})
+
+add_executable(test_csim_overlap_linear_prefix_suffix
+    "testbench/test_csim_overlap_linear_prefix_suffix.cpp"
+    "kernels/overlap_linear_prefix_suffix/kernel_overlap_linear_prefix_suffix.cpp"
+    ${COMMON_SRCS}) 
+
+add_executable(test_csim_overlap_linear_suffix_prefix
+    "testbench/test_csim_overlap_linear_suffix_prefix.cpp"
+    "kernels/overlap_linear_suffix_prefix/kernel_overlap_linear_suffix_prefix.cpp"
+    ${COMMON_SRCS}) 
+  
+add_executable(test_csim_global_two_piece_affine
+    "testbench/test_csim_global_two_piece_affine.cpp"
+    "kernels/global_two_piece_affine/kernel_global_two_piece_affine.cpp"
+    ${COMMON_SRCS}) 
+
+add_executable(test_csim_local_two_piece_affine
+    "testbench/test_csim_local_two_piece_affine.cpp"
+    "kernels/local_two_piece_affine/kernel_local_two_piece_affine.cpp"
+    ${COMMON_SRCS}) 
+
 
 # Test Python APIs
 #add_executable(test_pyapi "testbench/test_align.cpp"
@@ -126,6 +162,12 @@ target_compile_definitions(test_csim_local_affine PRIVATE VPP_CLI)
 target_compile_definitions(test_csim_profile_alignment PRIVATE VPP_CLI)
 target_compile_definitions(test_csim_profile_alignment_real_data PRIVATE VPP_CLI)
 target_compile_definitions(test_csim_viterbi PRIVATE VPP_CLI)
+target_compile_definitions(test_csim_overlap_linear_suffix_prefix PRIVATE VPP_CLI)
+target_compile_definitions(test_csim_overlap_linear_prefix_suffix PRIVATE VPP_CLI)
+target_compile_definitions(test_csim_semi_global_linear_long_short PRIVATE VPP_CLI)
+target_compile_definitions(test_csim_semi_global_linear_short_long PRIVATE VPP_CLI)
+target_compile_definitions(test_csim_local_two_piece_affine PRIVATE VPP_CLI)
+target_compile_definitions(test_csim_global_two_piece_affine PRIVATE VPP_CLI)
 
 
 target_include_directories(test_csim_global_affine PRIVATE "${DP_HLS_HOME}/kernels/global_affine")
@@ -139,6 +181,12 @@ target_include_directories(test_csim_profile_alignment_real_data PRIVATE "${DP_H
 target_include_directories(test_csim_profile_alignment_real_data PRIVATE "/home/centos/libs/json/include")
 target_include_directories(test_csim_dtw PRIVATE "${DP_HLS_HOME}/kernels/dtw")
 target_include_directories(test_csim_viterbi PRIVATE ${DP_HLS_HOME}/kernels/viterbi)
+target_include_directories(test_csim_overlap_linear_suffix_prefix PRIVATE "${DP_HLS_HOME}/kernels/overlap_linear_suffix_prefix")
+target_include_directories(test_csim_overlap_linear_prefix_suffix PRIVATE "${DP_HLS_HOME}/kernels/overlap_linear_prefix_suffix")
+target_include_directories(test_csim_semi_global_linear_long_short PRIVATE "${DP_HLS_HOME}/kernels/semi_global_linear_long_short")
+target_include_directories(test_csim_semi_global_linear_short_long PRIVATE "${DP_HLS_HOME}/kernels/semi_global_linear_short_long")
+target_include_directories(test_csim_local_two_piece_affine PRIVATE "${DP_HLS_HOME}/kernels/local_two_piece_affine")
+target_include_directories(test_csim_global_two_piece_affine PRIVATE "${DP_HLS_HOME}/kernels/global_two_piece_affine")
 
 
 # Add include to Xilinx Library Files
