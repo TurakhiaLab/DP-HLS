@@ -84,6 +84,18 @@ typedef idx_t index_vec_t[PE_NUM];
 typedef tbp_t tbp_vec_t[PE_NUM];
 typedef char_t input_char_block_t[PE_NUM];
 
+// Determine the memory size for different banding strategy.
+#if defined(BANDING)
+#if BANDING == Rectangular
+#define TBMEM_SIZE (CK_NUM * MAX_REFERENCE_LENGTH)
+#elif BANDING == Fixed
+#define TBMEM_SIZE (MAX_QUERY_LENGTH / PE_NUM * (2 * BANDWIDTH + PE_NUM - 1))
+#else
+#error  "This Banding Strategy is not Supported"
+#endif
+#else
+#error "Banding Strategy is not Defined"
+#endif
 
 // Define Traceback Navigation Values
 typedef ap_uint<3> tbr_t;  // Traecback Result Type

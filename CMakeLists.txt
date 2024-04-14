@@ -40,6 +40,7 @@ set(EXECUTABLE_TARGETS
 )
 
 add_compile_definitions(PUBLIC CMAKEDEBUG)
+add_compile_definitions(PUBLIC VPP_CLI)
 
 set(COMMON_SRCS
     "src/seq_align_multiple.cpp"
@@ -152,24 +153,6 @@ add_executable(test_csim_local_two_piece_affine
 #    "include/debug.h")
 
 
-target_compile_definitions(test_csim_dtw PRIVATE VPP_CLI)
-target_compile_definitions(test_csim_global_linear PRIVATE VPP_CLI)
-target_compile_definitions(test_csim_banding_global_linear PRIVATE VPP_CLI)
-target_compile_definitions(test_csim_global_affine PRIVATE VPP_CLI)
-target_compile_definitions(test_csim_global_affine_shifting PRIVATE VPP_CLI)
-target_compile_definitions(test_csim_local_linear PRIVATE VPP_CLI)
-target_compile_definitions(test_csim_local_affine PRIVATE VPP_CLI)
-target_compile_definitions(test_csim_profile_alignment PRIVATE VPP_CLI)
-target_compile_definitions(test_csim_profile_alignment_real_data PRIVATE VPP_CLI)
-target_compile_definitions(test_csim_viterbi PRIVATE VPP_CLI)
-target_compile_definitions(test_csim_overlap_linear_suffix_prefix PRIVATE VPP_CLI)
-target_compile_definitions(test_csim_overlap_linear_prefix_suffix PRIVATE VPP_CLI)
-target_compile_definitions(test_csim_semi_global_linear_long_short PRIVATE VPP_CLI)
-target_compile_definitions(test_csim_semi_global_linear_short_long PRIVATE VPP_CLI)
-target_compile_definitions(test_csim_local_two_piece_affine PRIVATE VPP_CLI)
-target_compile_definitions(test_csim_global_two_piece_affine PRIVATE VPP_CLI)
-
-
 target_include_directories(test_csim_global_affine PRIVATE "${DP_HLS_HOME}/kernels/global_affine")
 target_include_directories(test_csim_global_linear PRIVATE "${DP_HLS_HOME}/kernels/global_linear")
 target_include_directories(test_csim_banding_global_linear PRIVATE "${DP_HLS_HOME}/kernels/banding_global_linear")
@@ -178,7 +161,6 @@ target_include_directories(test_csim_local_affine PRIVATE "${DP_HLS_HOME}/kernel
 target_include_directories(test_csim_global_affine_shifting PRIVATE "${DP_HLS_HOME}/kernels/global_affine_shifting")
 target_include_directories(test_csim_profile_alignment PRIVATE "${DP_HLS_HOME}/kernels/profile_alignment")
 target_include_directories(test_csim_profile_alignment_real_data PRIVATE "${DP_HLS_HOME}/kernels/profile_alignment")
-target_include_directories(test_csim_profile_alignment_real_data PRIVATE "/home/centos/libs/json/include")
 target_include_directories(test_csim_dtw PRIVATE "${DP_HLS_HOME}/kernels/dtw")
 target_include_directories(test_csim_viterbi PRIVATE ${DP_HLS_HOME}/kernels/viterbi)
 target_include_directories(test_csim_overlap_linear_suffix_prefix PRIVATE "${DP_HLS_HOME}/kernels/overlap_linear_suffix_prefix")
@@ -206,7 +188,7 @@ elseif(F1)
 
     include_directories(${EXECUTABLE_TARGETS} PUBLIC "${HLS_HOME}/include")
     include_directories(${EXECUTABLE_TARGETS} PUBLIC "${DP_HLS_HOME}/include")
-    include_directories(${EXECUTABLE_TARGETS} PUBLIC "/home/centos/workspace/DP-HLS/common/includes")
+    include_directories(${EXECUTABLE_TARGETS} PUBLIC "${DP_HLS_HOME}/common/includes")
 
 
     link_directories(${EXECUTABLE_TARGETS} PUBLIC "${HLS_HOME}/lib")

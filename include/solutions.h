@@ -17,7 +17,6 @@ namespace SolutionUtils
 {
     namespace Profile
     {
-
         template <int ALPHABET_SIZE>
         float score_mult(const std::array<int, ALPHABET_SIZE> &query, const std::array<int, ALPHABET_SIZE> &reference,
                          const std::array<std::array<float, ALPHABET_SIZE>, ALPHABET_SIZE> &A)
@@ -2067,7 +2066,7 @@ void global_two_piece_affine_solution(std::string query, std::string reference, 
         initial_col[i][2] = penalties.open + penalties.extend * i;
         initial_col[i][3] = -numeric_limits<float>::infinity();
         initial_col[i][4] = penalties.long_open + penalties.long_extend * i;
-        initial_col[i][1] = MIN(initial_col[i][2], initial_col[i][4]);
+        initial_col[i][1] = initial_col[i][2] < initial_col[i][4] ? initial_col[i][2] : initial_col[i][4];
     }
 
     for (int j = 1; j < MAX_REFERENCE_LENGTH; j++)
@@ -2076,7 +2075,7 @@ void global_two_piece_affine_solution(std::string query, std::string reference, 
         initial_row[j][2] = -numeric_limits<float>::infinity();
         initial_row[j][3] = penalties.long_open + penalties.long_extend * j;
         initial_row[j][4] = -numeric_limits<float>::infinity();
-        initial_row[j][1] = MIN(initial_row[j][0], initial_row[j][3]);
+        initial_row[j][1] = initial_row[j][0] < initial_row[j][3] ? initial_row[j][0] : initial_row[j][3];
     }
 
     // Initialize the score matrix

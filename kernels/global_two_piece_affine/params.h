@@ -5,8 +5,6 @@
 #include <ap_fixed.h>
 #include <hls_vector.h>
 
-//#define SYNTH 1// change file paths for synthesis
-
 // These need to be there to do CMake Simulation, but SHOULD TAKE OFF WHEN COMPIING BITSTREAM
 #define PRAGMA_PE_NUM 4
 const int PE_NUM = PRAGMA_PE_NUM;
@@ -39,7 +37,6 @@ typedef ap_uint<5> tbp_t;  // Traceback Pointer Type
 #define DEBUG_OUTPUT_PATH "/home/yic033@AD.UCSD.EDU/DP-HLS-Debug/global_affine/"
 #define DEBUG_FILENAME "debug_kernel"
 
-//#define CMAKEDEBUG
 struct ScorePack{  
     type_t score;
     idx_t row;
@@ -84,6 +81,19 @@ enum TB_STATE {
 
 // >>> Shared Definitions, Do Not Change
 #define CK_NUM (MAX_QUERY_LENGTH / PE_NUM)
+
+// Determine the memory size for different banding strategy.
+#if defined(BANDING)
+#if BANDING == Rectangular
+#define TBMEM_SIZE (CK_NUM * MAX_REFERENCE_LENGTH)
+#elif BANDING == Fixed
+#define TBMEM_SIZE (MAX_QUERY_LENGTH / PE_NUM * (2 * BANDWIDTH + PE_NUM - 1))
+#else
+#error  "This Banding Strategy is not Supported"
+#endif
+#else
+#error "Banding Strategy is not Defined"
+#endif
 
 typedef hls::vector<type_t, N_LAYERS> score_vec_t;
 typedef score_vec_t init_col_score_block_t[MAX_QUERY_LENGTH];

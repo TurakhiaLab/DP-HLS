@@ -73,6 +73,19 @@ enum TB_STATE {
 // DO NOT MODIFY
 #define CK_NUM (MAX_QUERY_LENGTH / PE_NUM)
 
+// Determine the memory size for different banding strategy.
+#if defined(BANDING)
+#if BANDING == Rectangular
+#define TBMEM_SIZE (CK_NUM * MAX_REFERENCE_LENGTH)
+#elif BANDING == Fixed
+#define TBMEM_SIZE (MAX_QUERY_LENGTH / PE_NUM * (2 * BANDWIDTH + PE_NUM - 1))
+#else
+#error  "This Banding Strategy is not Supported"
+#endif
+#else
+#error "Banding Strategy is not Defined"
+#endif
+
 typedef hls::vector<type_t, N_LAYERS> score_vec_t;
 typedef score_vec_t init_col_score_block_t[MAX_QUERY_LENGTH];
 typedef score_vec_t init_row_score_block_t[MAX_REFERENCE_LENGTH];
@@ -83,7 +96,6 @@ typedef score_vec_t chunk_col_scores_inf_t[PE_NUM+1];  // chunk column scores in
 typedef idx_t index_vec_t[PE_NUM];
 typedef tbp_t tbp_vec_t[PE_NUM];
 typedef char_t input_char_block_t[PE_NUM];
-
 
 // Define Traceback Navigation Values
 typedef ap_uint<3> tbr_t;  // Traecback Result Type

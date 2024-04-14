@@ -407,7 +407,7 @@ void Align::Rectangular::AlignStatic(
 	{
 		for (int j = 0; j < TBMEM_SIZE; j++)
 		{
-			tbp_matrix[i][j] = TB_PH;
+			tbp_matrix[i][j] = tbp_t(0);
 		}
 	}
 #endif
@@ -805,6 +805,11 @@ void Align::Fixed::AlignStatic(
 	Container &debugger
 #endif
 ){
+
+#ifndef  BANDWIDTH
+#define  BANDWIDTH 0
+#endif
+
 	// >>> Initialization >>>
 	score_vec_t init_col_score[MAX_QUERY_LENGTH];
 	score_vec_t init_row_score[MAX_REFERENCE_LENGTH];
@@ -817,7 +822,7 @@ void Align::Fixed::AlignStatic(
 	{
 		for (int j = 0; j < TBMEM_SIZE; j++)
 		{
-			tbp_matrix[i][j] = TB_PH;
+			tbp_matrix[i][j] = tbp_t(0);
 		}
 	}
 #endif
