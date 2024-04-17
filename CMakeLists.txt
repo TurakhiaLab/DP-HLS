@@ -21,6 +21,7 @@ set(DP_HLS_HOME "/home/centos/workspace/DP-HLS")
 set(EXECUTABLE_TARGETS
     baseline_local_linear
 
+    test_simd
     test_csim_global_linear
     test_csim_banding_global_linear
     test_csim_global_affine_shifting
@@ -50,6 +51,9 @@ set(COMMON_SRCS
     "src/utils.cpp"
     "src/debug.cpp"
     "src/host_utils.cpp")
+
+add_executable(test_simd
+        testbench/test_simd.cpp)
 
 # Compile baseline kernel. 
 add_executable(baseline_local_linear "legacy/local_linear.h"

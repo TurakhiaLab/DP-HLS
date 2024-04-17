@@ -40,12 +40,12 @@ namespace ALIGN_TYPE
     // );
 
     void UpdatePEMaximum(
-    wavefront_scores_inf_t scores,
-    ScorePack (&max)[PE_NUM],
-    idx_t (&ics)[PE_NUM], idx_t (&jcs)[PE_NUM],
-    idx_t (&p_col)[PE_NUM], idx_t ck_idx,
-    bool (&predicate)[PE_NUM],
-    idx_t query_len, idx_t ref_len);
+        const wavefront_scores_inf_t scores,
+        ScorePack (&max)[PE_NUM],
+        const idx_vec_t v_rows, const idx_vec_t v_cols,
+        const idx_vec_t p_cols, const idx_t ck_idx,
+        const hls::vector<bool, PE_NUM> predicate,
+        const idx_t query_len, const idx_t ref_len);
 
     void InitializeMaxScores(ScorePack (&max)[PE_NUM], idx_t qry_len, idx_t ref_len);
 

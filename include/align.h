@@ -85,7 +85,7 @@ namespace Align
 		// write a template functino to merge CopyColScore and PrepareLocalQuery, template on PE_NUM
 	template <int PE_NUM_T>
 	void PrepareLocals(
-		char_t (&query)[MAX_QUERY_LENGTH],
+		const char_t (&query)[MAX_QUERY_LENGTH],
 		char_t (&local_query)[PE_NUM_T],
 		score_vec_t (&init_col_scr)[MAX_QUERY_LENGTH],
 		chunk_col_scores_inf_t &init_col_scr_local,
@@ -134,8 +134,8 @@ namespace Align
 	 */
 	void ArrangeTBP(
 		const tbp_vec_t &tbp_in,
-		const idx_t (&p_cols)[PE_NUM],
-		const bool (&predicate)[PE_NUM],
+		const idx_vec_t &p_cols,
+        const hls::vector<bool, PE_NUM> predicate,
 		tbp_t (&chunk_tbp_out)[PE_NUM][TBMEM_SIZE]);
 
 	/**
@@ -173,8 +173,8 @@ namespace Align
 	 * @param idx
 	 * @param ref_len
 	 */
-	void ShiftReferece(
-		char_t (&local_reference)[PE_NUM], char_t (&reference)[MAX_REFERENCE_LENGTH],
+	void ShiftReference(
+		char_t (&local_reference)[PE_NUM], const char_t (&reference)[MAX_REFERENCE_LENGTH],
 		int idx, int ref_len);
 
 	void PreserveRowScore(
@@ -295,8 +295,8 @@ namespace Align
 		 * @param tb_streams: Output traceback path.
 		 */
 		void AlignStatic(
-			char_t (&querys)[MAX_QUERY_LENGTH],
-			char_t (&references)[MAX_REFERENCE_LENGTH],
+			const char_t (&querys)[MAX_QUERY_LENGTH],
+			const char_t (&references)[MAX_REFERENCE_LENGTH],
 			idx_t query_length,
 			idx_t reference_length,
 			const Penalties &penalties,
@@ -320,14 +320,13 @@ namespace Align
 		 */
 		void ChunkCompute(
 			idx_t chunk_row_offset,
-			idx_t chunk_start_col,
 			input_char_block_t &query,
-			char_t (&reference)[MAX_REFERENCE_LENGTH],
+			const char_t (&reference)[MAX_REFERENCE_LENGTH],
 			chunk_col_scores_inf_t &init_col_scr,
 			score_vec_t (&init_row_scr)[MAX_REFERENCE_LENGTH],
-			idx_t (&ics)[PE_NUM], idx_t (&jcs)[PE_NUM],
-			idx_t (&p_cols)[PE_NUM], idx_t ck_idx,
-			int global_query_length, int query_length, int reference_length,
+            idx_vec_t &v_rows, idx_vec_t  &v_cols,
+            idx_vec_t &p_cols, idx_t ck_idx,
+			idx_t global_query_length, idx_t query_length, idx_t reference_length,
 			const Penalties &penalties,
 			ScorePack (&max)[PE_NUM], // write out so must pass by reference
 			tbp_t (&chunk_tbp_out)[PE_NUM][TBMEM_SIZE]
@@ -347,9 +346,9 @@ namespace Align
 		 * @param predicate Predicate Array.
 		 */
 		void MapPredicate(
-			idx_t (&ics)[PE_NUM], idx_t (&jcs)[PE_NUM],
-			const idx_t ref_len,
-			bool (&predicate)[PE_NUM]);
+            const idx_t wavefront,
+            const idx_t ref_len, const idx_t qry_len,  // This query length is local query length in chunk, always less than PE_NUM
+            hls::vector<bool, PE_NUM> &predicate);
 	}
 
 	namespace RectangularOpt

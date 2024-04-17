@@ -101,7 +101,6 @@ namespace Utils
 		{
 			for (size_t i = 0; i < LEN; i++)
 			{
-#pragma HLS unroll
 				jcs[i] = starting - i;
 			}
 		}
@@ -111,7 +110,6 @@ namespace Utils
 		{
 			for (size_t i = 0; i < LEN; i++)
 			{
-#pragma HLS unroll
 				jcs[i] = starting + i;
 			}
 		}
@@ -121,7 +119,6 @@ namespace Utils
 		{
 			for (size_t i = 0; i < LEN; i++)
 			{
-#pragma HLS unroll
 				jcs[i] = starting + i;
 			}
 		}

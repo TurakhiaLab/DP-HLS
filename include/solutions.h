@@ -945,6 +945,7 @@ void local_affine_solution(std::string query, std::string reference, PENALTY_T &
             float deletion_score = max(deletion_open_score, deletion_extend_score);
 
             float final_score = max(mm_score, max(insertion_score, deletion_score));
+            final_score = max((float)0.0, final_score);
 
             if (final_score > maximum_score)
             {
@@ -969,6 +970,9 @@ void local_affine_solution(std::string query, std::string reference, PENALTY_T &
             else if (final_score == insertion_score)
             {
                 tb_mat[i][j] = insertion_score == insertion_open_score ? "L " : "LE"; // 'L' indicates a left direction (insertion)
+            }
+            else if (final_score == 0){
+                tb_mat[i][j] = "*";
             }
             else
             {
@@ -1015,6 +1019,11 @@ void local_affine_solution(std::string query, std::string reference, PENALTY_T &
             aligned_query = "_" + aligned_query;
             aligned_reference = reference[j] + aligned_reference;
             j--;
+        }
+        else if (tb_mat[i][j] == "*"){
+            i--;
+            j--;
+            break;
         }
         else
         {

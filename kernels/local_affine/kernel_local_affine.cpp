@@ -9,7 +9,6 @@ void LocalAffine::PE::Compute(char_t local_query_val,
                                score_vec_t &write_score,
                                tbp_t &write_traceback)
 {
-#pragma HLS array_partition variable = local_query_val type = complete
 
 // Define Traceback Pointer Navigation Direction
 
@@ -29,7 +28,8 @@ void LocalAffine::PE::Compute(char_t local_query_val,
     const type_t match = (local_query_val == local_reference_val) ? diag_prev[1] + penalties.match : diag_prev[1] + penalties.mismatch;
 
     type_t max_value = write_score[0] > write_score[2] ? write_score[0] : write_score[2]; // compare between insertion and deletion
-    max_value = max_value > match ? max_value : match;                                    // compare with match/mismatch
+    max_value = max_value > match ? max_value : match;
+    max_value = max_value >= 0 ? max_value : (type_t) 0;  // compare with match/mismatch
     write_score[1] = max_value;
 
     tbp_t dir_tb;
@@ -43,9 +43,11 @@ void LocalAffine::PE::Compute(char_t local_query_val,
     {
         dir_tb = TB_UP;
     }
-        else if (max_value == write_score[1])
+    else if (max_value == write_score[1])
     {
         dir_tb = TB_DIAG;
+    } else if (max_value == 0){
+        dir_tb = TB_PH;
     }
     else
     {
@@ -65,12 +67,12 @@ void LocalAffine::InitializeScores(
 }
 
 void LocalAffine::UpdatePEMaximum(
-    wavefront_scores_inf_t scores,
+    const wavefront_scores_inf_t scores,
     ScorePack (&max)[PE_NUM],
-    idx_t (&ics)[PE_NUM], idx_t (&jcs)[PE_NUM],
-    idx_t (&p_col)[PE_NUM], idx_t ck_idx,
-    bool (&predicate)[PE_NUM],
-    idx_t query_len, idx_t ref_len){
+    const idx_vec_t v_rows, const idx_vec_t v_cols,
+    const idx_vec_t p_cols, const idx_t ck_idx,
+    const hls::vector<bool, PE_NUM> predicate,
+    const idx_t query_len, const idx_t ref_len){
         
     for (int i = 0; i < PE_NUM; i++)
     {
@@ -78,11 +80,10 @@ void LocalAffine::UpdatePEMaximum(
         if (predicate[i] && (scores[i + 1][LAYER_MAXIMIUM] > max[i].score))
         {
             max[i].score = scores[i + 1][LAYER_MAXIMIUM];
-            max[i].row = ics[i];
-            max[i].col = jcs[i];
-            max[i].p_col = p_col[i];
+            max[i].p_col = p_cols[i];
+            max[i].col = v_cols[i];
+            max[i].row = v_rows[i];
             max[i].ck = ck_idx;
-            max[i].pe = i;
         }
     }
 }
@@ -93,11 +94,11 @@ void LocalAffine::InitializeMaxScores(ScorePack (&max)[PE_NUM], idx_t qry_len, i
     {
 #pragma HLS unroll
         max[i].score = NINF;
-        max[i].row = 0;
-        max[i].col = 0;
         max[i].p_col = 0;
+        max[i].pe = i;
+        max[i].col = 0;
         max[i].ck = 0;
-        max[i].pe = 0;
+        max[i].row = i;
     }
 }
 
@@ -119,6 +120,8 @@ void LocalAffine::Traceback::StateMapping(tbp_t tbp, TB_STATE &state, tbr_t &nav
         {
             state = TB_STATE::INS;
             navigation = AL_NULL;
+        } else if (tbp(1, 0) == TB_PH){
+            navigation = AL_END;
         }
     }
     else if (state == TB_STATE::DEL)

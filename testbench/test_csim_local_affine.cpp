@@ -10,8 +10,8 @@
 
 using namespace std;
 
-#define INPUT_QUERY_LENGTH 100
-#define INPUT_REFERENCE_LENGTH 120
+#define INPUT_QUERY_LENGTH 16
+#define INPUT_REFERENCE_LENGTH 16
 
 char_t base_to_num(char base)
 {
@@ -165,6 +165,7 @@ int main(){
         query_string_blocks[i] = query_string;
         reference_string_blocks[i] = reference_string;
     }
+    cout << "Start Reconstructing Traceback Blocks" << endl;
     kernel_alignments = HostUtils::Sequence::ReconstructTracebackBlocks<tbr_t, N_BLOCKS, MAX_QUERY_LENGTH, MAX_REFERENCE_LENGTH>(
         query_string_blocks, reference_string_blocks,
         tb_is_h, tb_js_h, 
