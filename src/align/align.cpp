@@ -135,7 +135,7 @@ void Align::Rectangular::MapPredicate(
 //        }
 //    }
     Utils::Array::ShiftRight(predicate, wavefront < ref_len);
-
+ 
 #ifdef CMAKEDEBUG
 //    // print out predicate
 //    cout << "Wavefront " << std::right << std::setw(2) << wavefront << " Predicate: ";
