@@ -136,13 +136,13 @@ void Align::Rectangular::MapPredicate(
     }
 
 #ifdef CMAKEDEBUG
-    // print out predicate
-    cout << "Wavefront " << std::right << std::setw(2) << wavefront << " Predicate: ";
-    for (int i = 0; i < PE_NUM; i++)
-    {
-        cout << predicate[i] << " ";
-    }
-    cout << endl;
+//    // print out predicate
+//    cout << "Wavefront " << std::right << std::setw(2) << wavefront << " Predicate: ";
+//    for (int i = 0; i < PE_NUM; i++)
+//    {
+//        cout << predicate[i] << " ";
+//    }
+//    cout << endl;
 #endif
 }
 
@@ -176,7 +176,6 @@ void Align::Rectangular::ChunkCompute(
 	const char_t (&reference)[MAX_REFERENCE_LENGTH],
 	chunk_col_scores_inf_t &init_col_scr,
 	score_vec_t (&init_row_scr)[MAX_REFERENCE_LENGTH],
-	idx_vec_t &v_rows, idx_vec_t  &v_cols,
 	idx_vec_t &p_cols, idx_t ck_idx,
 	idx_t global_query_length, idx_t query_length, idx_t reference_length,
 	const Penalties &penalties,
@@ -240,11 +239,11 @@ Iterating_Wavefronts:
 			init_row_scr,
 			score_buff[PE_NUM], // score_buff is of the length PE_NUM+1
 			predicate[PE_NUM - 1],
-			v_cols[PE_NUM - 1]);
+			idx_t(i-PE_NUM+1));
 
-		ALIGN_TYPE::UpdatePEMaximum(score_buff, max,  v_rows, v_cols, p_cols, ck_idx, predicate,
+		ALIGN_TYPE::UpdatePEMaximum(score_buff, max,  chunk_row_offset, i, p_cols, ck_idx, predicate,
                                     global_query_length, reference_length);
-		v_cols++;
+
 		p_cols++;
 	}
 }
@@ -429,11 +428,7 @@ void Align::Rectangular::AlignStatic(
 #endif
 
 	// Those are used to iterate through the memory during the score computation
-	hls::vector<idx_t, PE_NUM> v_rows;
-    hls::vector<idx_t, PE_NUM> v_cols;
     hls::vector<idx_t, PE_NUM> p_cols;
-
-	Utils::Array::CoordinateInitializeUniform<idx_t, PE_NUM>(v_rows, 0);						 // Initialize the row coordinates of each PE
 
 	// Declare and initialize maximum scores.
 	ScorePack maximum;
@@ -453,8 +448,8 @@ Iterating_Chunks:
 
 		Align::PrepareLocals<PE_NUM>(query, local_query, init_col_score, local_init_col_score, i); // Prepare the local query and the local column scores
 
-		Utils::Array::CoordinateInitializeUniformReverse<idx_t, PE_NUM>(p_cols, p_col_offsets); // Initialize physical columns to write to for each PE.
-        Utils::Array::CoordinateInitializeUniformReverse<idx_t, PE_NUM>(v_cols, 0); // Initialize the column coordinates of each PE
+        //		p_cols = p_col_offsets; // Initialize physical columns to write to for each PE.
+        Utils::Array::CoordinateInitializeUniformReverse<idx_t, PE_NUM>(p_cols, p_col_offsets);
 
 		Align::Rectangular::ChunkCompute(
 			i,
@@ -462,7 +457,6 @@ Iterating_Chunks:
 			reference,
 			local_init_col_score,
 			init_row_score,
-			v_rows, v_cols,
 			p_cols, ic,
 			query_length,
 			local_query_length,
@@ -476,8 +470,6 @@ Iterating_Chunks:
 #endif
 		);
 
-		// Offset the virtual row number
-		v_rows += PE_NUM;
 	}
 	Align::FindMax::ReductionMaxScores(local_max, maximum);
 

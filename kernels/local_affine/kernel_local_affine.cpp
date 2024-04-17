@@ -69,20 +69,20 @@ void LocalAffine::InitializeScores(
 void LocalAffine::UpdatePEMaximum(
     const wavefront_scores_inf_t scores,
     ScorePack (&max)[PE_NUM],
-    const idx_vec_t v_rows, const idx_vec_t v_cols,
+    const idx_t chunk_row_offset, const idx_t wavefront,
     const idx_vec_t p_cols, const idx_t ck_idx,
     const hls::vector<bool, PE_NUM> predicate,
     const idx_t query_len, const idx_t ref_len){
         
-    for (int i = 0; i < PE_NUM; i++)
+    for (idx_t i = 0; i < PE_NUM; i++)
     {
 #pragma HLS unroll
         if (predicate[i] && (scores[i + 1][LAYER_MAXIMIUM] > max[i].score))
         {
             max[i].score = scores[i + 1][LAYER_MAXIMIUM];
             max[i].p_col = p_cols[i];
-            max[i].col = v_cols[i];
-            max[i].row = v_rows[i];
+            max[i].col = wavefront - i;
+            max[i].row = i + chunk_row_offset;
             max[i].ck = ck_idx;
         }
     }
