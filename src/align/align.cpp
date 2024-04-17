@@ -122,18 +122,19 @@ void Align::InitializeRowCoordinates(idx_t (&ic)[PE_NUM])
 void Align::Rectangular::MapPredicate(
 	const idx_t wavefront,
 	const idx_t ref_len, const idx_t qry_len,  // This query length is local query length in chunk, always less than PE_NUM
-	hls::vector<bool, PE_NUM> &predicate)
+	bool (&predicate)[PE_NUM])
 {
-    if (wavefront < PE_NUM) {
-        predicate[wavefront] = true;
-    } else if (wavefront >= ref_len) {
-        predicate[wavefront-ref_len] = false;
-    }
-    for (idx_t i = 0; i < PE_NUM; i++){
-        if (i >= qry_len){
-            predicate[i] = false;
-        }
-    }
+//    if (wavefront < PE_NUM) {
+//        predicate[wavefront] = true;
+//    } else if (wavefront >= ref_len) {
+//        predicate[wavefront-ref_len] = false;
+//    }
+//    for (idx_t i = 0; i < PE_NUM; i++){
+//        if (i >= qry_len){
+//            predicate[i] = false;
+//        }
+//    }
+    Utils::Array::ShiftRight(predicate, wavefront < ref_len);
 
 #ifdef CMAKEDEBUG
 //    // print out predicate
@@ -187,8 +188,8 @@ void Align::Rectangular::ChunkCompute(
 #endif
 )
 {
-	hls::vector<bool, PE_NUM> predicate;
-    predicate = false;
+    bool predicate[PE_NUM];
+    Utils::Init::ArrSet<bool, PE_NUM>(predicate, false);
 
 	char_t local_reference[PE_NUM]; // local reference
 	tbp_vec_t tbp_out;
@@ -204,7 +205,7 @@ void Align::Rectangular::ChunkCompute(
 	dp_mem[0][0] = init_col_scr[0];
 
 Iterating_Wavefronts:
-	for (idx_t i = 0; i < reference_length + PE_NUM - 1; i++)
+	for (idx_t i = 0; i < reference_length + query_length - 1; i++)
 	{
 #pragma HLS pipeline II = 1
 #pragma HLS dependence variable = init_row_scr type = inter direction = RAW false
@@ -286,7 +287,7 @@ void Align::FindMax::ExtractScoresLayer(wavefront_scores_t &scores, idx_t layer,
 	for (int i = 0; i < PE_NUM; i++)
 	{
 #pragma HLS unroll
-		extracted[i] = scores[i][layer];
+		extracted[i] = scores[i].data[layer];
 	}
 }
 
@@ -303,7 +304,7 @@ void Align::ArrangeSingleTBP(
 void Align::ArrangeTBP(
 	const tbp_vec_t &tbp_in,
 	const idx_vec_t &p_cols,
-	const hls::vector<bool, PE_NUM> predicate,
+	const bool (&predicate)[PE_NUM],
 	tbp_t (&chunk_tbp_out)[PE_NUM][TBMEM_SIZE])
 {
 #pragma HLS array_partition variable = chunk_tbp_out type = cyclic factor = PE_NUM dim = 1
@@ -979,7 +980,7 @@ Iterating_Wavefronts:
 	std::vector<float> init_row_scr_f;
 	for (int j = 0; j < MAX_REFERENCE_LENGTH; j++)
 	{
-		init_row_scr_f.push_back(init_row_scr[j][0].to_float());
+		init_row_scr_f.push_back(init_row_scr[j].data[0].to_float());
 	}
 #endif
 

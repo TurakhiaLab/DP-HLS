@@ -135,7 +135,7 @@ namespace Align
 	void ArrangeTBP(
 		const tbp_vec_t &tbp_in,
 		const idx_vec_t &p_cols,
-        const hls::vector<bool, PE_NUM> predicate,
+        const bool (&predicate)[PE_NUM],
 		tbp_t (&chunk_tbp_out)[PE_NUM][TBMEM_SIZE]);
 
 	/**
@@ -347,7 +347,7 @@ namespace Align
 		void MapPredicate(
             const idx_t wavefront,
             const idx_t ref_len, const idx_t qry_len,  // This query length is local query length in chunk, always less than PE_NUM
-            hls::vector<bool, PE_NUM> &predicate);
+            bool (&predicate)[PE_NUM]);
 	}
 
 	namespace RectangularOpt

@@ -51,6 +51,22 @@ typedef ap_uint<4> tbp_t;  // Traceback Pointer Type
 #define TB_IMAT (tbp_t) 0b0100  // Insertion Matrix
 #define TB_DMAT (tbp_t) 0b1000  // Deletion Matrix
 
+struct score_vec_t {
+    type_t data[N_LAYERS];
+    // write a constructor
+    score_vec_t() {
+        InitializeScoreVec:
+        for (int i = 0; i < N_LAYERS; i++) {
+            data[i] = 0;
+        }
+    }
+    score_vec_t(type_t num) {
+        InitializeScoreVecNum:
+        for (int i = 0; i < N_LAYERS; i++) {
+            data[i] = num;
+        }
+    }
+};
 
 struct ScorePack{  
     type_t score;
@@ -82,7 +98,7 @@ enum TB_STATE {
 
 #define TBMEM_SIZE (CK_NUM * MAX_REFERENCE_LENGTH)
 
-typedef hls::vector<type_t, N_LAYERS> score_vec_t;
+//typedef hls::vector<type_t, N_LAYERS> score_vec_t;
 typedef score_vec_t init_col_score_block_t[MAX_QUERY_LENGTH];
 typedef score_vec_t init_row_score_block_t[MAX_REFERENCE_LENGTH];
 typedef score_vec_t wavefront_scores_t[PE_NUM];  // TODO: Change name chunk scores
