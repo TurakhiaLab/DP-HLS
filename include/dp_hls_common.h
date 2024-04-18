@@ -59,7 +59,7 @@ struct ScorePack{
 //typedef hls::vector<type_t, N_LAYERS> score_vec_t;
 typedef score_vec_t init_col_score_block_t[MAX_QUERY_LENGTH];
 typedef score_vec_t init_row_score_block_t[MAX_REFERENCE_LENGTH];
-typedef score_vec_t wavefront_scores_t[PE_NUM];  // TODO: Change name chunk scores
+typedef score_vec_t wavefront_scores_t[PE_NUM];
 typedef score_vec_t wavefront_scores_inf_t[PE_NUM+1];  // chunk column scores inflated
 typedef score_vec_t dp_mem_block_t[PE_NUM+1][2];
 typedef score_vec_t chunk_col_scores_inf_t[PE_NUM+1];  // chunk column scores inflated

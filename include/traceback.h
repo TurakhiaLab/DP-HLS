@@ -138,6 +138,7 @@ namespace Traceback
             traceback_buf_t (&traceback_out),
             int ck_idx, int pe_idx, int col_idx, int v_row, int v_col
     ){
+#pragma HLS bind_storage variable=traceback_out type=fifo impl=uram
         int pe = pe_idx; // row index, but in tbmat
         int col = col_idx;
         int chunk = ck_idx;
