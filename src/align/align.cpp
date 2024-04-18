@@ -167,7 +167,7 @@ void Align::Rectangular::ChunkCompute(
 	const char_t (&reference)[MAX_REFERENCE_LENGTH],
 	chunk_col_scores_inf_t &init_col_scr,
 	score_vec_t (&init_row_scr)[MAX_REFERENCE_LENGTH],
-	idx_vec_t &p_cols, idx_t ck_idx,
+	idx_t &p_col_offset, idx_t ck_idx,
 	idx_t global_query_length, idx_t query_length, idx_t reference_length,
 	const Penalties &penalties,
 	ScorePack (&max)[PE_NUM],
@@ -190,7 +190,7 @@ void Align::Rectangular::ChunkCompute(
 #pragma HLS array_partition variable = local_reference type = complete
 #pragma HLS array_partition variable = dp_mem type = complete
 #pragma HLS array_partition variable = tbp_out type = complete
-//#pragma HLS bind_storage variable = init_col_scr type = rom_1p impl = bram
+
 
 	dp_mem[0][0] = init_col_scr[0];
 
@@ -214,7 +214,7 @@ Iterating_Wavefronts:
 			score_buff,
 			tbp_out);
 
-		Align::ArrangeTBP(tbp_out, p_cols, predicate, chunk_tbp_out);
+		Align::ArrangeTBP(tbp_out, p_col_offset, predicate, chunk_tbp_out);
 
 #ifdef CMAKEDEBUG
 		for (int j = 0; j < PE_NUM; j++)
@@ -232,10 +232,10 @@ Iterating_Wavefronts:
 			predicate[PE_NUM - 1],
 			idx_t(i-PE_NUM+1));
 
-		ALIGN_TYPE::UpdatePEMaximum(score_buff, max,  chunk_row_offset, i, p_cols, ck_idx, predicate,
+		ALIGN_TYPE::UpdatePEMaximum(score_buff, max,  chunk_row_offset, i, p_col_offset, ck_idx, predicate,
                                     global_query_length, reference_length);
 
-		p_cols++;
+		p_col_offset++;
 	}
 }
 
@@ -277,7 +277,7 @@ void Align::FindMax::ExtractScoresLayer(wavefront_scores_t &scores, idx_t layer,
 	for (int i = 0; i < PE_NUM; i++)
 	{
 #pragma HLS unroll
-		extracted[i] = scores[i].data[layer];
+//		extracted[i] = scores[i].data[layer];
 	}
 }
 
@@ -293,22 +293,18 @@ void Align::ArrangeSingleTBP(
 
 void Align::ArrangeTBP(
 	const tbp_vec_t &tbp_in,
-	const idx_vec_t &p_cols,
+	const idx_t &p_col_offset,
 	const bool (&predicate)[PE_NUM],
 	tbp_t (&chunk_tbp_out)[PE_NUM][TBMEM_SIZE])
 {
 #pragma HLS array_partition variable = chunk_tbp_out type = cyclic factor = PE_NUM dim = 1
 #pragma HLS array_partition variable = tbp_in type = complete
-#pragma HLS array_partition variable = p_cols type = complete
 #pragma HLS array_partition variable = predicate type = complete
 
 	for (int i = 0; i < PE_NUM; i++)
 	{
 #pragma HLS unroll
-		if (predicate[i])
-		{
-			chunk_tbp_out[i][p_cols[i]] = tbp_in[i];
-		}
+        chunk_tbp_out[i][p_col_offset] = tbp_in[i];
 	}
 }
 
@@ -328,7 +324,6 @@ void Align::PreserveRowScore(
 	const bool predicate_pe_last,
 	const idx_t idx)
 {
-
 	if (predicate_pe_last)
 	{
 		preserved_row_scr[idx] = score_vec;
@@ -418,7 +413,8 @@ void Align::Rectangular::AlignStatic(
 #endif
 
 	// Those are used to iterate through the memory during the score computation
-    hls::vector<idx_t, PE_NUM> p_cols;
+//    hls::vector<idx_t, PE_NUM> p_cols;
+    idx_t p_cols;
 
 	// Declare and initialize maximum scores.
 	ScorePack maximum;
@@ -432,14 +428,15 @@ void Align::Rectangular::AlignStatic(
 	local_init_col_score[PE_NUM] = score_vec_t(0); // Always initialize the upper left cornor to 0
 
 Iterating_Chunks:
-	for (idx_t i = 0, ic = 0, p_col_offsets = 0; i < query_length; i += PE_NUM, ic++, p_col_offsets += MAX_REFERENCE_LENGTH)
+	for (idx_t i = 0, ic = 0, p_col_offsets = 0; i < query_length; i += PE_NUM, ic++, p_col_offsets += (MAX_REFERENCE_LENGTH+PE_NUM-1))
 	{
 		idx_t local_query_length = ((idx_t)PE_NUM < query_length - i) ? (idx_t)PE_NUM : (idx_t)(query_length - i);
 
 		Align::PrepareLocals<PE_NUM>(query, local_query, init_col_score, local_init_col_score, i); // Prepare the local query and the local column scores
 
         //		p_cols = p_col_offsets; // Initialize physical columns to write to for each PE.
-        Utils::Array::CoordinateInitializeUniformReverse<idx_t, PE_NUM>(p_cols, p_col_offsets);
+        // Utils::Array::CoordinateInitializeUniformReverse<idx_t, PE_NUM>(p_cols, p_col_offsets);
+        p_cols = p_col_offsets;
 
 		Align::Rectangular::ChunkCompute(
 			i,
@@ -466,12 +463,12 @@ Iterating_Chunks:
 
 	// >>> Traceback >>>
 	tb_i = maximum.ck * PE_NUM + max_pe;
-	tb_j = maximum.p_col - maximum.ck * MAX_REFERENCE_LENGTH;
+	tb_j = maximum.p_col - maximum.ck * (MAX_REFERENCE_LENGTH + PE_NUM - 1) - max_pe;
 
 #ifdef CMAKEDEBUG
 	// print tracevack start idx
 	cout << "Traceback start idx: " << tb_i << " " << tb_j << endl;
-	cout << "Traceback start idx physical: " << max_pe << " " << maximum.p_col << endl;
+	cout << "Traceback start idx physical: " << maximum.ck << " " << max_pe << " " << maximum.p_col << endl;
 #endif
 
 	Traceback::TracebackFixedSize<MAX_REFERENCE_LENGTH>(tbp_matrix, tb_out, maximum.ck, max_pe, maximum.p_col, tb_i, tb_j);

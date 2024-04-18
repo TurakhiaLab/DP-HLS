@@ -43,7 +43,7 @@ namespace ALIGN_TYPE
         const wavefront_scores_inf_t scores,
         ScorePack (&max)[PE_NUM],
         const idx_t chunk_row_offset, const idx_t wavefront,
-        const idx_vec_t p_cols, const idx_t ck_idx,
+        const idx_t p_cols, const idx_t ck_idx,
         const hls::vector<bool, PE_NUM> predicate,
         const idx_t query_len, const idx_t ref_len);
 

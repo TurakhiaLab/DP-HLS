@@ -45,7 +45,7 @@ struct ScorePack{
 // Determine the memory size for different banding strategy.
 #if defined(BANDING)
 #if BANDING == Rectangular
-#define TBMEM_SIZE (CK_NUM * MAX_REFERENCE_LENGTH)
+#define TBMEM_SIZE (CK_NUM * (MAX_REFERENCE_LENGTH + PE_NUM - 1))
 #elif BANDING == Fixed
 #define TBMEM_SIZE (MAX_QUERY_LENGTH / PE_NUM * (2 * BANDWIDTH + PE_NUM - 1))
 #else

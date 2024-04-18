@@ -134,7 +134,7 @@ namespace Align
 	 */
 	void ArrangeTBP(
 		const tbp_vec_t &tbp_in,
-		const idx_vec_t &p_cols,
+		const idx_t &p_col_offset,
         const bool (&predicate)[PE_NUM],
 		tbp_t (&chunk_tbp_out)[PE_NUM][TBMEM_SIZE]);
 
@@ -324,7 +324,7 @@ namespace Align
 			const char_t (&reference)[MAX_REFERENCE_LENGTH],
 			chunk_col_scores_inf_t &init_col_scr,
 			score_vec_t (&init_row_scr)[MAX_REFERENCE_LENGTH],
-            idx_vec_t &p_cols, idx_t ck_idx,
+            idx_t &p_col_offset, idx_t ck_idx,
 			idx_t global_query_length, idx_t query_length, idx_t reference_length,
 			const Penalties &penalties,
 			ScorePack (&max)[PE_NUM], // write out so must pass by reference

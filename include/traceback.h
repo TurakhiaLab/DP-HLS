@@ -45,6 +45,7 @@ namespace Traceback
             ){
 #ifdef CMAKEDEBUG
         int nav_int = nav.to_int();
+        cout << col << " " << pe << " " << chunk << " " << v_row << " " << v_col << " " << nav_int << endl;
 #endif
 
         // Check the condition based on the virtual row and column
@@ -54,7 +55,7 @@ namespace Traceback
         }
         else if (nav == AL_INS)
         { // Moving left
-            if (col == 0)
+            if (col == pe)
             {
                 nav = AL_END;
             }
@@ -81,6 +82,7 @@ namespace Traceback
             }
             else
             {
+                col--;
                 pe--;
             }
             v_row--;
@@ -89,7 +91,7 @@ namespace Traceback
         {
             // Moving Diagonal
             // Moving diagonal is a combination of moving left and moving up
-            if (col == 0)
+            if (col == pe)
             {
                 nav = AL_END;
             }
@@ -113,6 +115,7 @@ namespace Traceback
             }
             else
             {
+                col--;
                 pe--;
             }
             v_row--;
@@ -121,6 +124,7 @@ namespace Traceback
         else if (nav == AL_NULL)
         {
             // Skip a cycle and do nothing
+//            col--;
         }
         else
         {
@@ -161,7 +165,7 @@ namespace Traceback
             tbp_t tbptr = tbmat[pe][col]; // Want to represented by the symbol rather than pointer
 #ifdef CMAKEDEBUG
 // print traceback pionter
-std::cout << tbptr.to_int() << " ";
+//std::cout << tbptr.to_int() << " ";
 #endif
             // #ifdef CMAKEDEBUG
             //         // Print the current Navigation and Traceback Pointer Value
