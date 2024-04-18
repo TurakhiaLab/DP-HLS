@@ -38,7 +38,7 @@ namespace Traceback
 		idx_t (&ck_end_col)[MAX_QUERY_LENGTH / PE_NUM],	  // chunk end index
 		int ck_idx, int pe_idx, int col_idx, int v_row, int v_col);			  // starting index to traceback
 
-    template <int CHUNK_WIDTH>
+    template <int VIRTUAL_CHUNK_WIDTH>
     void NextAddressFixedSize(
             tbr_t &nav,
             int &chunk, int &pe, int &col, int &v_row, int &v_col
@@ -55,30 +55,16 @@ namespace Traceback
         }
         else if (nav == AL_INS)
         { // Moving left
-            if (col == pe)
-            {
-                nav = AL_END;
-            }
-            else
-            {
-                col--;
-            }
+            col--;
             v_col--;
         }
         else if (nav == AL_DEL)
         { // Moving up
             if (pe == 0)
             {
-                if (chunk == 0)
-                {
-                    nav = AL_END;
-                }
-                else
-                {
-                    pe = PE_NUM - 1;
-                    col -= CHUNK_WIDTH;
-                    chunk--;
-                }
+                pe = PE_NUM - 1;
+                col -= VIRTUAL_CHUNK_WIDTH;
+                chunk--;
             }
             else
             {
@@ -91,27 +77,15 @@ namespace Traceback
         {
             // Moving Diagonal
             // Moving diagonal is a combination of moving left and moving up
-            if (col == pe)
-            {
-                nav = AL_END;
-            }
-            else
-            {
-                col--;
-            }
+
+            col--;
+
 
             if (pe == 0)
             {
-                if (chunk == 0)
-                {
-                    nav = AL_END;
-                }
-                else
-                {
-                    pe = PE_NUM - 1;
-                    col -= CHUNK_WIDTH;
-                    chunk--;
-                }
+                pe = PE_NUM - 1;
+                col -= VIRTUAL_CHUNK_WIDTH;
+                chunk--;
             }
             else
             {
@@ -124,7 +98,6 @@ namespace Traceback
         else if (nav == AL_NULL)
         {
             // Skip a cycle and do nothing
-//            col--;
         }
         else
         {
