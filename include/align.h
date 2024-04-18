@@ -279,7 +279,7 @@ namespace Align
 		 * @param max Array of PE's local maximum.
 		 * @param chunk_max The maximum of the chunk.
 		 */
-		void ReductionMaxScores(ScorePack (&max)[PE_NUM], ScorePack &chunk_max);
+		void ReductionMaxScores(ScorePack (&max)[PE_NUM], ScorePack &chunk_max, idx_t &max_pe);
 
 	};
 

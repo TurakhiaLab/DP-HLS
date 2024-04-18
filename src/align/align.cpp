@@ -124,18 +124,8 @@ void Align::Rectangular::MapPredicate(
 	const idx_t ref_len, const idx_t qry_len,  // This query length is local query length in chunk, always less than PE_NUM
 	bool (&predicate)[PE_NUM])
 {
-//    if (wavefront < PE_NUM) {
-//        predicate[wavefront] = true;
-//    } else if (wavefront >= ref_len) {
-//        predicate[wavefront-ref_len] = false;
-//    }
-//    for (idx_t i = 0; i < PE_NUM; i++){
-//        if (i >= qry_len){
-//            predicate[i] = false;
-//        }
-//    }
     Utils::Array::ShiftRight(predicate, wavefront < ref_len);
- 
+
 #ifdef CMAKEDEBUG
 //    // print out predicate
 //    cout << "Wavefront " << std::right << std::setw(2) << wavefront << " Predicate: ";
@@ -345,17 +335,16 @@ void Align::PreserveRowScore(
 	}
 }
 
-void Align::FindMax::ReductionMaxScores(ScorePack (&packs)[PE_NUM], ScorePack &global_max)
+void Align::FindMax::ReductionMaxScores(ScorePack (&packs)[PE_NUM], ScorePack &global_max, idx_t &max_pe)
 {
-	idx_t max = 0;
-	for (int i = 0; i < PE_NUM; i++)
+	for (idx_t i = 0; i < PE_NUM; i++)
 	{
-		if (packs[i].score > packs[max].score)
+		if (packs[i].score > packs[max_pe].score)
 		{
-			max = i;
+			max_pe = i;
 		}
 	}
-	global_max = packs[max];
+	global_max = packs[max_pe];
 }
 
 void Align::CopyColScore(chunk_col_scores_inf_t &init_col_scr_local, score_vec_t (&init_col_scr)[MAX_QUERY_LENGTH], idx_t idx)
@@ -385,8 +374,8 @@ void Align::ChunkMax(ScorePack &max, ScorePack new_scr)
 	if (new_scr.score > max.score)
 	{
 		max.score = new_scr.score;
-		max.row = new_scr.row;
-		max.col = new_scr.col;
+//		max.row = new_scr.row;
+//		max.col = new_scr.col;
 	}
 }
 
@@ -472,19 +461,20 @@ Iterating_Chunks:
 		);
 
 	}
-	Align::FindMax::ReductionMaxScores(local_max, maximum);
+    idx_t max_pe = 0;
+	Align::FindMax::ReductionMaxScores(local_max, maximum, max_pe);
 
 	// >>> Traceback >>>
-	tb_i = maximum.row;
-	tb_j = maximum.col;
+	tb_i = maximum.ck * PE_NUM + max_pe;
+	tb_j = maximum.p_col - maximum.ck * MAX_REFERENCE_LENGTH;
 
 #ifdef CMAKEDEBUG
 	// print tracevack start idx
 	cout << "Traceback start idx: " << tb_i << " " << tb_j << endl;
-	cout << "Traceback start idx physical: " << maximum.pe << " " << maximum.p_col << endl;
+	cout << "Traceback start idx physical: " << max_pe << " " << maximum.p_col << endl;
 #endif
 
-	Traceback::TracebackFixedSize<MAX_REFERENCE_LENGTH>(tbp_matrix, tb_out, maximum.ck, maximum.pe, maximum.p_col, maximum.row, maximum.col);
+	Traceback::TracebackFixedSize<MAX_REFERENCE_LENGTH>(tbp_matrix, tb_out, maximum.ck, max_pe, maximum.p_col, tb_i, tb_j);
 }
 
 void SwapBuffer(score_vec_t *&a, score_vec_t *&b)
@@ -618,25 +608,25 @@ Iterating_Chunks:
 
 		v_rows += PE_NUM;
 	}
-	Align::FindMax::ReductionMaxScores(local_max, maximum);
+//	Align::FindMax::ReductionMaxScores(local_max, maximum);
 
 	// >>> Traceback >>>
-	tb_i = maximum.row;
-	tb_j = maximum.col;
+//	tb_i = maximum.row;
+//	tb_j = maximum.col;
 
 #ifdef CMAKEDEBUG
 	// print scores of all local_max
 	for (int i = 0; i < PE_NUM; i++)
 	{
-		cout << "Local Max: " << local_max[i].score << " " << local_max[i].row << " " << local_max[i].col << endl;
+//		cout << "Local Max: " << local_max[i].score << " " << local_max[i].row << " " << local_max[i].col << endl;
 	}
 
 	// print tracevack start idx
-	cout << "Traceback start idx: " << tb_i << " " << tb_j << endl;
-	cout << "Traceback start idx physical: " << maximum.ck << " " << maximum.pe << " " << maximum.p_col << endl;
+//	cout << "Traceback start idx: " << tb_i << " " << tb_j << endl;
+//	cout << "Traceback start idx physical: " << maximum.ck << " " << maximum.pe << " " << maximum.p_col << endl;
 #endif
 
-	Traceback::TracebackOptimized(tbp_matrix, tb_out, ck_start_col, ck_end_col, maximum.ck, maximum.pe, maximum.p_col, maximum.row, maximum.col);
+//	Traceback::TracebackOptimized(tbp_matrix, tb_out, ck_start_col, ck_end_col, maximum.ck, maximum.pe, maximum.p_col, maximum.row, maximum.col);
 }
 
 void Align::RectangularOpt::ChunkCompute(
@@ -908,19 +898,21 @@ Iterating_Chunks:
 		Align::CoordinateArrayOffsetGeneric<PE_NUM, PE_NUM>(l_lims);
 		Align::CoordinateArrayOffsetGeneric<PE_NUM, PE_NUM>(u_lims);
 	}
-	Align::FindMax::ReductionMaxScores(local_max, maximum);
 
-	// >>> Traceback >>>
-	tb_i = maximum.row;
-	tb_j = maximum.col;
+    idx_t max_pe = 0;
+    Align::FindMax::ReductionMaxScores(local_max, maximum, max_pe);
+
+    // >>> Traceback >>>
+    tb_i = maximum.ck * PE_NUM + max_pe;
+    tb_j = maximum.p_col - maximum.ck * MAX_REFERENCE_LENGTH;
 
 #ifdef CMAKEDEBUG
-	// print tracevack start idx
-	cout << "Traceback start idx: " << tb_i << " " << tb_j << endl;
-	cout << "Traceback start idx physical: " << maximum.ck << " " << maximum.pe << " " << maximum.p_col << endl;
+    // print tracevack start idx
+    cout << "Traceback start idx: " << tb_i << " " << tb_j << endl;
+    cout << "Traceback start idx physical: " << max_pe << " " << maximum.p_col << endl;
 #endif
 
-	Traceback::TracebackOptimized(tbp_matrix, tb_out, ck_start_col, ck_end_col, maximum.ck, maximum.pe, maximum.p_col, maximum.row, maximum.col);
+    Traceback::TracebackFixedSize<MAX_REFERENCE_LENGTH>(tbp_matrix, tb_out, maximum.ck, max_pe, maximum.p_col, tb_i, tb_j);
 }
 
 void Align::Fixed::ChunkCompute(

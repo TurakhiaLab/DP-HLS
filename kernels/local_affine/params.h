@@ -57,12 +57,14 @@ struct score_vec_t {
     score_vec_t() {
         InitializeScoreVec:
         for (int i = 0; i < N_LAYERS; i++) {
+#pragma HLS unroll
             data[i] = 0;
         }
     }
     score_vec_t(type_t num) {
         InitializeScoreVecNum:
         for (int i = 0; i < N_LAYERS; i++) {
+#pragma HLS unroll
             data[i] = num;
         }
     }
@@ -70,11 +72,8 @@ struct score_vec_t {
 
 struct ScorePack{  
     type_t score;
-    idx_t row;
-    idx_t col;
     idx_t ck;
     idx_t p_col;
-    idx_t pe;
 };
 
 struct Penalties {

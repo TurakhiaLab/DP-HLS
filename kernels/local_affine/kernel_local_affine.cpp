@@ -96,8 +96,6 @@ void LocalAffine::UpdatePEMaximum(
         {
             max[i].score = scores[i + 1].data[LAYER_MAXIMIUM];
             max[i].p_col = p_cols[i];
-            max[i].col = wavefront - i;
-            max[i].row = i + chunk_row_offset;
             max[i].ck = ck_idx;
         }
     }
@@ -110,10 +108,7 @@ void LocalAffine::InitializeMaxScores(ScorePack (&max)[PE_NUM], idx_t qry_len, i
 #pragma HLS unroll
         max[i].score = NINF;
         max[i].p_col = 0;
-        max[i].pe = i;
-        max[i].col = 0;
         max[i].ck = 0;
-        max[i].row = i;
     }
 }
 
