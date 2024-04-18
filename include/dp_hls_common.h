@@ -9,6 +9,7 @@
 
 struct score_vec_t {
     type_t data[N_LAYERS];
+
     // write a constructor
     score_vec_t() {
         InitializeScoreVec:
@@ -24,6 +25,11 @@ struct score_vec_t {
             data[i] = num;
         }
     }
+
+    type_t& operator[](idx_t index) { return data[index]; }
+
+    // Const version of operator[]
+    const type_t& operator[](idx_t index) const { return data[index]; }
 };
 
 struct ScorePack{

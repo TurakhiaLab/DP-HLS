@@ -12,38 +12,38 @@ void LocalAffine::PE::Compute(char_t local_query_val,
 
 // Define Traceback Pointer Navigation Direction
 
-    const type_t insert_open = left_prev.data[1] + penalties.open + penalties.extend; // Insert open
-    const type_t insert_extend = left_prev.data[0] + penalties.open;                  // insert extend
-    const type_t delete_open = up_prev.data[1] + penalties.open + penalties.extend;   // delete open
-    const type_t delete_extend = up_prev.data[2] + penalties.open;                    // delete extend
+    const type_t insert_open = left_prev[1] + penalties.open + penalties.extend; // Insert open
+    const type_t insert_extend = left_prev[0] + penalties.open;                  // insert extend
+    const type_t delete_open = up_prev[1] + penalties.open + penalties.extend;   // delete open
+    const type_t delete_extend = up_prev[2] + penalties.open;                    // delete extend
 
     bool insert_open_b = insert_open > insert_extend;
     bool delete_open_b = delete_open > delete_extend;
-    write_score.data[0] = insert_open_b ? insert_open : insert_extend;
-    write_score.data[2] = delete_open_b ? delete_open : delete_extend;
+    write_score[0] = insert_open_b ? insert_open : insert_extend;
+    write_score[2] = delete_open_b ? delete_open : delete_extend;
     tbp_t insert_tb = insert_open_b ? (tbp_t) 0 : TB_IMAT;
     tbp_t delete_tb = delete_open_b ? (tbp_t) 0 : TB_DMAT;
 
 
-    const type_t match = (local_query_val == local_reference_val) ? diag_prev.data[1] + penalties.match : diag_prev.data[1] + penalties.mismatch;
+    const type_t match = (local_query_val == local_reference_val) ? diag_prev[1] + penalties.match : diag_prev[1] + penalties.mismatch;
 
-    type_t max_value = write_score.data[0] > write_score.data[2] ? write_score.data[0] : write_score.data[2]; // compare between insertion and deletion
+    type_t max_value = write_score[0] > write_score[2] ? write_score[0] : write_score[2]; // compare between insertion and deletion
     max_value = max_value > match ? max_value : match;
     max_value = max_value >= 0 ? max_value : (type_t) 0;  // compare with match/mismatch
-    write_score.data[1] = max_value;
+    write_score[1] = max_value;
 
     tbp_t dir_tb;
 
     // Set traceback pointer based on the direction of the maximum score.
-    if (max_value == write_score.data[0])
+    if (max_value == write_score[0])
     { // Insert Case
         dir_tb = TB_LEFT;
     }
-    else if (max_value == write_score.data[2])
+    else if (max_value == write_score[2])
     {
         dir_tb = TB_UP;
     }
-    else if (max_value == write_score.data[1])
+    else if (max_value == write_score[1])
     {
         dir_tb = TB_DIAG;
     } else if (max_value == 0){
@@ -68,16 +68,16 @@ void LocalAffine::InitializeScores(
     InitializeColumnScores:
     for (int i = 0; i < MAX_QUERY_LENGTH; i++)
     {
-        init_col_scr[i].data[0] = NINF;
-        init_col_scr[i].data[1] = 0.0;
-        init_col_scr[i].data[2] = 0.0;
+        init_col_scr[i][0] = NINF;
+        init_col_scr[i][1] = 0.0;
+        init_col_scr[i][2] = 0.0;
     }
     InitializeRowScores:
     for (int i = 0; i < MAX_REFERENCE_LENGTH; i++)
     {
-        init_row_scr[i].data[0] = 0.0;
-        init_row_scr[i].data[1] = 0.0;
-        init_row_scr[i].data[2] = NINF;
+        init_row_scr[i][0] = 0.0;
+        init_row_scr[i][1] = 0.0;
+        init_row_scr[i][2] = NINF;
     }
 }
 
@@ -92,9 +92,9 @@ void LocalAffine::UpdatePEMaximum(
     for (idx_t i = 0; i < PE_NUM; i++)
     {
 #pragma HLS unroll
-        if (predicate[i] && (scores[i + 1].data[LAYER_MAXIMIUM] > max[i].score))
+        if (predicate[i] && (scores[i + 1][LAYER_MAXIMIUM] > max[i].score))
         {
-            max[i].score = scores[i + 1].data[LAYER_MAXIMIUM];
+            max[i].score = scores[i + 1][LAYER_MAXIMIUM];
             max[i].p_col = p_cols[i];
             max[i].ck = ck_idx;
         }
