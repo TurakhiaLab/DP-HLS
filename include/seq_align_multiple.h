@@ -1,8 +1,7 @@
 #ifndef SEQ_ALIGN_MULTIPLE_H
 #define SEQ_ALIGN_MULTIPLE_H
 
-// #include <hls_task.h>
-#include "params.h"
+#include "dp_hls_common.h"
 #include "ap_int.h"
 #include "ap_fixed.h"
 #include <hls_stream.h>

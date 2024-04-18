@@ -16,7 +16,7 @@
 #include <hls_vector.h>
 #include <hls_stream.h>
 
-#include "params.h"
+#include "dp_hls_common.h"
 #include "PE.h"
 #include "utils.h"
 #include "frontend.h"

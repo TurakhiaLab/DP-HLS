@@ -4,7 +4,7 @@
 /*
  * This file contains debug functions of the kernel. Internal development purpose only.
  */
-#include "params.h"
+#include "dp_hls_common.h"
 #include <list>
 #include <array>
 #include <string>

@@ -5,7 +5,7 @@
 #ifndef FRONTEND_H
 #define FRONTEND_H
 
-#include "params.h"
+#include "dp_hls_common.h"
 #include "utils.h"
 #include <math.h>
 
