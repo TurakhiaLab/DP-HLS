@@ -45,7 +45,7 @@ add_compile_definitions(PUBLIC VPP_CLI)
 
 set(COMMON_SRCS
     "src/seq_align_multiple.cpp"
-    "src/align/align.cpp"
+    "src/align.cpp"
     "src/pe.cpp"
     "src/traceback.cpp"
     "src/utils.cpp"
