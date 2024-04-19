@@ -6,15 +6,17 @@
 #endif // DEBUG
 
 void Profile::PE::Compute(char_t local_query_val,
-                               char_t local_reference_val,
-                               score_vec_t up_prev,
-                               score_vec_t diag_prev,
-                               score_vec_t left_prev,
-                               const Penalties penalties,
-                               score_vec_t &write_score,
-                               tbp_t &write_traceback)
+                          char_t local_reference_val,
+                          score_vec_t up_prev,
+                          score_vec_t diag_prev,
+                          score_vec_t left_prev,
+                          const Penalties penalties,
+                          score_vec_t &write_score,
+                          tbp_t &write_traceback)
 {
 #pragma HLS array_partition variable = local_query_val type = complete
+#pragma HLS array_partition variable = local_reference_val type = complete
+#pragma HLS array_partition variable = penalties.transition type = complete
 
 #ifdef CMAKEDEBUG
     // replicate all type_t data structures to a float data structure
@@ -30,9 +32,18 @@ void Profile::PE::Compute(char_t local_query_val,
     }
 #endif
 
+    // ap_int<8> lqc = 0;  // normalization term
+    // ap_int<8> lrc = 0;  // normalization term
+    // ap_int<8> lqclrc;
+
+// #pragma HLS bind_op variable=lqclrc op=mul impl = dsp
+
     // Compute the cell scores
-    hls::vector<type_t, 5> partial_prod;
+    type_t partial_prod[5];
+
 #pragma HLS array_partition variable = partial_prod type = complete
+#pragma HLS bind_op variable=partial_prod op=mul impl = dsp
+
     // First dot product
     for (ushort i = 0; i < 5; i++)
     {
@@ -48,30 +59,14 @@ void Profile::PE::Compute(char_t local_query_val,
 
     // Second dot product
     type_t cell_score = 0;
-    ap_int<8> lqc = 0;  // normalization term
-    ap_int<8> lrc = 0;  // normalization term
+#pragma HLS bind_op variable=cell_score op=mul impl = dsp
+
     for (ushort i = 0; i < 5; i++)
     {
 #pragma HLS unroll
         cell_score += partial_prod[i] * local_reference_val[i];
-        lrc += local_reference_val[i];
-        lqc += local_query_val[i];
+
     }
-    ap_int<8> lqclrc = lqc * lrc;
-
-    if (lqclrc != 0) cell_score /= lqclrc;
-
-// compute the cell scores with expanded multiplication
-//     type_t cell_score = 0;
-//     for (ushort i = 0; i < 5; i++)
-//     {
-// #pragma HLS unroll
-//         for (ushort j = 0; j < 5; j++)
-//         {
-// #pragma HLS unroll
-//             cell_score += local_query_val[i] * local_reference_val[j] * penalties.transition[i][j];
-//         }
-//     }
 
     type_t ins_score = left_prev[0] + penalties.linear_gap;
     type_t del_score = up_prev[0] + penalties.linear_gap;
@@ -100,9 +95,9 @@ void Profile::PE::Compute(char_t local_query_val,
 }
 
 void Profile::InitializeScores(
-    score_vec_t (&init_col_scr)[MAX_QUERY_LENGTH],
-    score_vec_t (&init_row_scr)[MAX_REFERENCE_LENGTH],
-    Penalties penalties)
+        score_vec_t (&init_col_scr)[MAX_QUERY_LENGTH],
+        score_vec_t (&init_row_scr)[MAX_REFERENCE_LENGTH],
+        Penalties penalties)
 {
     // Initialize the first column
     type_t gap_penl = 0;
@@ -115,22 +110,22 @@ void Profile::InitializeScores(
     // Initialize the first row
     gap_penl = 0;
     for (int i = 0; i < MAX_REFERENCE_LENGTH; i++)
-    {   
+    {
         gap_penl += penalties.linear_gap;
         init_row_scr[i][0] = gap_penl;
     }
-    
+
 }
 
 void Profile::UpdatePEMaximum(
-    wavefront_scores_inf_t scores,
-    ScorePack (&max)[PE_NUM],
-    idx_t (&ics)[PE_NUM], idx_t (&jcs)[PE_NUM],
-    idx_t (&p_col)[PE_NUM], idx_t ck_idx,
-    bool (&predicate)[PE_NUM],
-    idx_t query_len, idx_t ref_len){
-        
-    // PE maximum doesn't need to be updated for the global affine kernels since 
+        wavefront_scores_inf_t scores,
+        ScorePack (&max)[PE_NUM],
+        idx_t (&ics)[PE_NUM], idx_t (&jcs)[PE_NUM],
+        idx_t (&p_col)[PE_NUM], idx_t ck_idx,
+        bool (&predicate)[PE_NUM],
+        idx_t query_len, idx_t ref_len){
+
+    // PE maximum doesn't need to be updated for the global affine kernels since
     // we know that the traceback starts from the bottom right element of the score matrix
 }
 
@@ -148,10 +143,10 @@ void Profile::InitializeMaxScores(ScorePack (&max)[PE_NUM], idx_t qry_len, idx_t
     }
     idx_t max_pe = (qry_len - 1) % PE_NUM;
     idx_t max_ck = (qry_len - 1)/ PE_NUM;
-    max[max_pe].score = INF;
+    max[max_pe].score = INF;  // This is dummy score by I just represent the idea it's maximum
     max[max_pe].row = qry_len - 1;
     max[max_pe].col = ref_len - 1;
-    max[max_pe].p_col = (max_ck + 1) * ref_len - 1;
+    max[max_pe].p_col = (max_ck + 1) * ref_len - 1; // FIXME
     max[max_pe].ck = max_ck;
     max[max_pe].pe = max_pe;
 }

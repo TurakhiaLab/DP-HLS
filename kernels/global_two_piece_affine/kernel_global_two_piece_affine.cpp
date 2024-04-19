@@ -132,7 +132,7 @@ void GlobalTwoPieceAffine::PE::Compute(char_t local_query_val,
         // Undefined behavior happens if the max score is non of the I', D', I, D, or M.
     }
 
-    write_traceback = pre_trace + next_state;//insert_tb + delete_tb + long_insert_tb + long_delete_tb;
+    write_traceback = pre_trace + next_state; //insert_tb + delete_tb + long_insert_tb + long_delete_tb;
 }
 
 void GlobalTwoPieceAffine::Helper::InitCol(score_vec_t (&init_col_scr)[MAX_QUERY_LENGTH], Penalties penalties){
