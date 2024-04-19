@@ -103,7 +103,9 @@ void GlobalAffine::Helper::InitCol(score_vec_t (&init_col_scr)[MAX_QUERY_LENGTH]
     type_t gap = penalties.open;
     for (int i = 0; i < MAX_QUERY_LENGTH; i++){
         gap += penalties.extend;
-        init_col_scr[i] = score_vec_t({NINF, gap, 0});
+        init_col_scr[i][0] = NINF;
+        init_col_scr[i][1] =  gap;
+        init_col_scr[i][2] =  0;
     }
 }
 
@@ -111,7 +113,9 @@ void GlobalAffine::Helper::InitRow(score_vec_t (&init_row_scr)[MAX_REFERENCE_LEN
     type_t gap = penalties.open;
     for (int i = 0; i < MAX_REFERENCE_LENGTH; i++){
         gap += penalties.extend;
-        init_row_scr[i] = score_vec_t({0, gap, NINF});
+        init_row_scr[i][0] = 0;
+        init_row_scr[i][1] = gap ;
+        init_row_scr[i][2] =  NINF;
     }
 }   
 
@@ -126,15 +130,13 @@ void GlobalAffine::InitializeScores(
 }
 
 void GlobalAffine::UpdatePEMaximum(
-    wavefront_scores_inf_t scores,
-    ScorePack (&max)[PE_NUM],
-    idx_t (&ics)[PE_NUM], idx_t (&jcs)[PE_NUM],
-    idx_t (&p_col)[PE_NUM], idx_t ck_idx,
-    bool (&predicate)[PE_NUM],
-    idx_t query_len, idx_t ref_len){
-        
-    // PE maximum doesn't need to be updated for the global affine kernels since 
-    // we know that the traceback starts from the bottom right element of the score matrix
+        const wavefront_scores_inf_t scores,
+        ScorePack (&max)[PE_NUM],
+        const idx_t chunk_row_offset, const idx_t wavefront,
+        const idx_t p_cols, const idx_t ck_idx,
+        const hls::vector<bool, PE_NUM> predicate,
+        const idx_t query_len, const idx_t ref_len){
+
 }
 
 void GlobalAffine::InitializeMaxScores(ScorePack (&max)[PE_NUM], idx_t qry_len, idx_t ref_len)
@@ -143,20 +145,15 @@ void GlobalAffine::InitializeMaxScores(ScorePack (&max)[PE_NUM], idx_t qry_len, 
     {
 #pragma HLS unroll
         max[i].score = NINF;
-        max[i].row = i;
-        max[i].col = 0;
         max[i].p_col = 0;
         max[i].ck = 0;
-        max[i].pe = i;
+
     }
     idx_t max_pe = (qry_len - 1) % PE_NUM;
-    idx_t max_ck = (qry_len - 1)/ PE_NUM;
+    idx_t max_ck = (qry_len - 1)  / PE_NUM;
     max[max_pe].score = INF;
-    max[max_pe].row = qry_len - 1;
-    max[max_pe].col = ref_len - 1;
-    max[max_pe].p_col = (max_ck + 1) * ref_len - 1;
+    max[max_pe].p_col = (max_ck) * (MAX_REFERENCE_LENGTH + PE_NUM - 1) + max_pe + ref_len - 1;
     max[max_pe].ck = max_ck;
-    max[max_pe].pe = max_pe;
 }
 
 
