@@ -45,7 +45,7 @@ namespace Traceback
             ){
 #ifdef CMAKEDEBUG
         int nav_int = nav.to_int();
-        cout << col << " " << pe << " " << chunk << " " << v_row << " " << v_col << " " << nav_int << endl;
+        // cout << col << " " << pe << " " << chunk << " " << v_row << " " << v_col << " " << nav_int << endl;
 #endif
 
         // Check the condition based on the virtual row and column

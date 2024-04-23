@@ -1,0 +1,1 @@
+open_tcl_project ./project_basics.tcl

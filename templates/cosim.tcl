@@ -1,0 +1,21 @@
+############################################################
+## This file is generated automatically by Vitis HLS.
+## Please DO NOT edit it.
+## Copyright 1986-2021 Xilinx, Inc. All Rights Reserved.
+############################################################
+open_project seq_align_multiple_static
+set_top seq_align_multiple_static
+add_files ../../../../DP-HLS/vitis_projects/local_affine_tbp_coalescing/local_affine_tbp_coalescing_256_256_16_1/design_src/kernel_local_affine.cpp -cflags "-DMAX_QUERY_LENGTH=256 -DMAX_REFERENCE_LENGTH=256 -DPRAGMA_PE_NUM=16 -DN_BLOCKS=1 -DDP_HLS_UNROLLED -DVPP_CLI -I/home/centos/workspace/DP-HLS/vitis_projects/local_affine_tbp_coalescing/local_affine_tbp_coalescing_256_256_16_1/design_include -I/home/centos/workspace/DP-HLS/vitis_projects/local_affine_tbp_coalescing/local_affine_tbp_coalescing_256_256_16_1/local_include"
+add_files ../../../../DP-HLS/vitis_projects/local_affine_tbp_coalescing/local_affine_tbp_coalescing_256_256_16_1/local_src/pe.cpp -cflags "-DMAX_QUERY_LENGTH=256 -DMAX_REFERENCE_LENGTH=256 -DPRAGMA_PE_NUM=16 -DN_BLOCKS=1 -DDP_HLS_UNROLLED -DVPP_CLI -I/home/centos/workspace/DP-HLS/vitis_projects/local_affine_tbp_coalescing/local_affine_tbp_coalescing_256_256_16_1/design_include -I/home/centos/workspace/DP-HLS/vitis_projects/local_affine_tbp_coalescing/local_affine_tbp_coalescing_256_256_16_1/local_include"
+add_files ../../../../DP-HLS/vitis_projects/local_affine_tbp_coalescing/local_affine_tbp_coalescing_256_256_16_1/local_src/traceback.cpp -cflags "-DMAX_QUERY_LENGTH=256 -DMAX_REFERENCE_LENGTH=256 -DPRAGMA_PE_NUM=16 -DN_BLOCKS=1 -DDP_HLS_UNROLLED -DVPP_CLI -I/home/centos/workspace/DP-HLS/vitis_projects/local_affine_tbp_coalescing/local_affine_tbp_coalescing_256_256_16_1/design_include -I/home/centos/workspace/DP-HLS/vitis_projects/local_affine_tbp_coalescing/local_affine_tbp_coalescing_256_256_16_1/local_include"
+add_files ../../../../DP-HLS/vitis_projects/local_affine_tbp_coalescing/local_affine_tbp_coalescing_256_256_16_1/local_src/utils.cpp -cflags "-DMAX_QUERY_LENGTH=256 -DMAX_REFERENCE_LENGTH=256 -DPRAGMA_PE_NUM=16 -DN_BLOCKS=1 -DDP_HLS_UNROLLED -DVPP_CLI -I/home/centos/workspace/DP-HLS/vitis_projects/local_affine_tbp_coalescing/local_affine_tbp_coalescing_256_256_16_1/design_include -I/home/centos/workspace/DP-HLS/vitis_projects/local_affine_tbp_coalescing/local_affine_tbp_coalescing_256_256_16_1/local_include"
+add_files ../../../../DP-HLS/vitis_projects/local_affine_tbp_coalescing/local_affine_tbp_coalescing_256_256_16_1/local_src/align.cpp -cflags "-DMAX_QUERY_LENGTH=256 -DMAX_REFERENCE_LENGTH=256 -DPRAGMA_PE_NUM=16 -DN_BLOCKS=1 -DDP_HLS_UNROLLED -DVPP_CLI -I/home/centos/workspace/DP-HLS/vitis_projects/local_affine_tbp_coalescing/local_affine_tbp_coalescing_256_256_16_1/design_include -I/home/centos/workspace/DP-HLS/vitis_projects/local_affine_tbp_coalescing/local_affine_tbp_coalescing_256_256_16_1/local_include"
+add_files ../../../../DP-HLS/vitis_projects/local_affine_tbp_coalescing/local_affine_tbp_coalescing_256_256_16_1/local_src/seq_align_multiple.cpp -cflags "-DMAX_QUERY_LENGTH=256 -DMAX_REFERENCE_LENGTH=256 -DPRAGMA_PE_NUM=16 -DN_BLOCKS=1 -DDP_HLS_UNROLLED -DVPP_CLI -I/home/centos/workspace/DP-HLS/vitis_projects/local_affine_tbp_coalescing/local_affine_tbp_coalescing_256_256_16_1/design_include -I/home/centos/workspace/DP-HLS/vitis_projects/local_affine_tbp_coalescing/local_affine_tbp_coalescing_256_256_16_1/local_include"
+add_files -tb ../../../../DP-HLS/testbench/test_csim_local_affine.cpp -cflags "-I/home/centos/workspace/DP-HLS/vitis_projects/local_affine_tbp_coalescing/local_affine_tbp_coalescing_256_256_16_1/design_include -I/home/centos/workspace/DP-HLS/vitis_projects/local_affine_tbp_coalescing/local_affine_tbp_coalescing_256_256_16_1/local_include -DMAX_QUERY_LENGTH=256 -DMAX_REFERENCE_LENGTH=256 -DPRAGMA_PE_NUM=16 -DN_BLOCKS=1 -DDP_HLS_UNROLLED -DVPP_CLI -Wno-unknown-pragmas" -csimflags "-Wno-unknown-pragmas"
+open_solution "solution1" -flow_target vitis
+set_part {xcvu9p-flgb2104-2-i}
+create_clock -period 200MHz -name default
+config_interface -m_axi_alignment_byte_size 64 -m_axi_latency 64 -m_axi_max_widen_bitwidth 512
+config_rtl -register_reset_num 3
+source "./seq_align_multiple_static/solution1/directives.tcl"
+cosim_design -enable_dataflow_profiling -trace_level all

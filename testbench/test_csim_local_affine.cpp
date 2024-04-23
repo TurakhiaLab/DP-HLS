@@ -6,12 +6,15 @@
 #include "seq_align_multiple.h"
 #include "host_utils.h"
 #include "solutions.h"
+
+#ifdef CMAKEDEBUG
 #include "debug.h"
+#endif
 
 using namespace std;
 
-#define INPUT_QUERY_LENGTH 16
-#define INPUT_REFERENCE_LENGTH 16
+#define INPUT_QUERY_LENGTH 128
+#define INPUT_REFERENCE_LENGTH 80
 
 char_t base_to_num(char base)
 {
@@ -68,12 +71,14 @@ int main(){
     // Reference and Query Strings
     std::vector<char> query(query_string.begin(), query_string.end());
     std::vector<char> reference(reference_string.begin(), reference_string.end());
- 
+
+#ifdef CMAKEDEBUG
     // Initialize Debugger
     Container debuggers[N_BLOCKS];
     for (int i = 0; i < N_BLOCKS; i++){
         debuggers[i] = Container();
     }
+#endif
 
     // Assert actual query length and reference length should be smaller than the maximum length
     try {
@@ -138,6 +143,7 @@ int main(){
     cout << "Query    : " << query_string << endl;
     cout << "Reference: " << reference_string << endl;
 
+#ifdef CMAKEDEBUG
     // Get the solution scores and traceback
     array<array<array<float, MAX_REFERENCE_LENGTH>, MAX_QUERY_LENGTH>, N_LAYERS> sol_score_mat;
     array<array<string, MAX_REFERENCE_LENGTH>, MAX_QUERY_LENGTH> sol_tb_mat;
@@ -151,6 +157,7 @@ int main(){
     // Cast kernel scores to matrix scores
     debuggers[0].cast_scores();
     debuggers[0].compare_scores(sol_score_mat, query.size(), reference.size());  // check if the scores from the kernel matches scores from the solution
+#endif
 
     // reconstruct kernel alignments
     array<map<string, string>, N_BLOCKS> kernel_alignments;

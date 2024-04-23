@@ -10,8 +10,7 @@ void GlobalAffine::PE::Compute(char_t local_query_val,
                                score_vec_t &write_score,
                                tbp_t &write_traceback)
 {
-#pragma HLS array_partition variable = local_query_val type = complete
-
+    
 // Define Traceback Pointer Navigation Direction
 #define TB_PH (tbp_t) 0b0000
 #define TB_LEFT (tbp_t) 0b0001
@@ -102,6 +101,7 @@ void GlobalAffine::PE::Compute(char_t local_query_val,
 void GlobalAffine::Helper::InitCol(score_vec_t (&init_col_scr)[MAX_QUERY_LENGTH], Penalties penalties){
     type_t gap = penalties.open;
     for (int i = 0; i < MAX_QUERY_LENGTH; i++){
+#pragma HLS pipeline II=1
         gap += penalties.extend;
         init_col_scr[i][0] = NINF;
         init_col_scr[i][1] =  gap;
@@ -112,6 +112,7 @@ void GlobalAffine::Helper::InitCol(score_vec_t (&init_col_scr)[MAX_QUERY_LENGTH]
 void GlobalAffine::Helper::InitRow(score_vec_t (&init_row_scr)[MAX_REFERENCE_LENGTH], Penalties penalties){
     type_t gap = penalties.open;
     for (int i = 0; i < MAX_REFERENCE_LENGTH; i++){
+#pragma HLS pipeline II = 1
         gap += penalties.extend;
         init_row_scr[i][0] = 0;
         init_row_scr[i][1] = gap ;

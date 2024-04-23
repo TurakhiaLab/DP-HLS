@@ -55,9 +55,9 @@ extern "C"
 		idx_t tb_js_b[N_BLOCKS];
 		tbr_t tb_streams_b[N_BLOCKS][MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH];
 
-#pragma HLS bind_storage variable = tb_streams_b type = fifo impl = uram
-#pragma HLS bind_storage variable = querys_b type = ram_1p impl = uram
-#pragma HLS bind_storage variable = references_b type = ram_1p impl = uram
+// #pragma HLS bind_storage variable = tb_streams_b type = fifo impl = uram
+// #pragma HLS bind_storage variable = querys_b type = ram_1p impl = uram
+// #pragma HLS bind_storage variable = references_b type = ram_1p impl = uram
 
 
 #pragma HLS array_partition	variable = querys_b	type = complete dim = 1
