@@ -1,0 +1,14 @@
+############################################################
+## This file is generated automatically by Vitis HLS.
+## Please DO NOT edit it.
+## Copyright 1986-2021 Xilinx, Inc. All Rights Reserved.
+############################################################
+open_project seq_align_multiple_static
+set_top seq_align_multiple_static
+
+open_solution "solution1" -flow_target vitis
+set_part {xcvu9p-flgb2104-2-i}
+create_clock -period {{ clock_frequency }}Hz -name default
+config_interface -m_axi_alignment_byte_size 64 -m_axi_latency 64 -m_axi_max_widen_bitwidth 512
+config_rtl -register_reset_num 3
+cosim_design -enable_dataflow_profiling -trace_level all -v

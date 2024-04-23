@@ -7,30 +7,32 @@
 
 #include "params.h"
 
-struct score_vec_t {
-    type_t data[N_LAYERS];
+// struct score_vec_t {
+//     type_t data[N_LAYERS];
 
-    // write a constructor
-    score_vec_t() {
-        InitializeScoreVec:
-        for (int i = 0; i < N_LAYERS; i++) {
-#pragma HLS unroll
-            data[i] = 0;
-        }
-    }
-    score_vec_t(type_t num) {
-        InitializeScoreVecNum:
-        for (int i = 0; i < N_LAYERS; i++) {
-#pragma HLS unroll
-            data[i] = num;
-        }
-    }
+//     // write a constructor
+//     score_vec_t() {
+//         InitializeScoreVec:
+//         for (int i = 0; i < N_LAYERS; i++) {
+// #pragma HLS unroll
+//             data[i] = 0;
+//         }
+//     }
+//     score_vec_t(type_t num) {
+//         InitializeScoreVecNum:
+//         for (int i = 0; i < N_LAYERS; i++) {
+// #pragma HLS unroll
+//             data[i] = num;
+//         }
+//     }
 
-    type_t& operator[](idx_t index) { return data[index]; }
+//     type_t& operator[](idx_t index) { return data[index]; }
 
-    // Const version of operator[]
-    const type_t& operator[](idx_t index) const { return data[index]; }
-};
+//     // Const version of operator[]
+//     const type_t& operator[](idx_t index) const { return data[index]; }
+// };
+
+typedef hls::vector<type_t, N_LAYERS> score_vec_t;
 
 struct ScorePack{
     type_t score;

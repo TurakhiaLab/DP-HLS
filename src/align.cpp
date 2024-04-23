@@ -137,7 +137,7 @@ void Align::Rectangular::ChunkCompute(
 #pragma HLS array_partition variable = dp_mem type = complete
 #pragma HLS array_partition variable = tbp_out type = complete
 
-#pragma HLS aggregate variable=score_buff
+
 
 	dp_mem[0][0] = init_col_scr[0];
 
@@ -344,7 +344,6 @@ void Align::Rectangular::AlignStatic(
 	static_assert(MAX_QUERY_LENGTH % PE_NUM == 0, "MAX_QUERY_LENGTH must divide PE_NUM, compilation terminated!");
 	tbp_t tbp_matrix[PE_NUM][TBMEM_SIZE];
 
-#pragma HLS aggregate variable=init_col_score
 
 #pragma HLS bind_storage variable = init_row_score type = ram_t2p impl = bram
 //#pragma HLS bind_storage variable = init_col_score type = ram_1p impl = bram

@@ -83,7 +83,7 @@ if __name__ == "__main__":
 
                     # Create the template for all the configurations
                     template = jinja2.Template(open(
-                        os.path.join(dp_hls_root, 'templates', 'create_project.tcl.template')).read())
+                        os.path.join(dp_hls_root, 'templates', 'project_basics.tcl.template')).read())
                     # render templates, and save it as a Makefile under the output directory
                     with open(os.path.join(build_path, 'project_basics.tcl'), 'w') as f:
                         f.write(template.render(
@@ -95,13 +95,17 @@ if __name__ == "__main__":
                             local_include=local_include_path,
                             design_params=design_include_path,
                             kernel_frontend=os.path.join(design_src_path, os.path.basename(kernel_frontend_path)),
-                            clock_frequency=config['kernel']['clock_frequency'],
                             tb_file=cosim_testbench
                         ))
-
-    # if compile:
-    #     print(f"Compiling the design with {num_workers} workers for type {build_type}...")
-    #     cmds = []
-    #     for build_path in all_build_paths:
-    #         cmds.append(f"")
+                    cosim_template = jinja2.Template(open(
+                        os.path.join(dp_hls_root, 'templates', 'cosim.tcl.template')).read())
+                    with open(os.path.join(build_path, 'project_basics.tcl'), 'w') as f:
+                        f.write(cosim_template.render(
+                            clock_frequency=config['kernel']['clock_frequency']
+                        ))
+                    
+    if compile:
+        cmds = []
+        for build_path in all_build_paths:
+            cmds.append(f"cd {build_path} && vivado_hls -f create_projects.tcl && vivado_hls -f cosim.tcl")
 
