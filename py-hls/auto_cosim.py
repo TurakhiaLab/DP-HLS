@@ -16,6 +16,18 @@ import argparse
 
 logging.basicConfig(format='%(asctime)s %(message)s')
 
+def hz_to_ns(frequency_hz):
+    # Conversion factor from seconds to nanoseconds
+    seconds_to_nanoseconds = 10**9
+    
+    # Calculate period in seconds (T = 1 / f)
+    period_seconds = 1 / frequency_hz
+    
+    # Convert period from seconds to nanoseconds
+    period_nanoseconds = period_seconds * seconds_to_nanoseconds
+    
+    return period_nanoseconds
+
 def read_config_file(config_file_path):
     try:
         with open(config_file_path, 'r') as file:
@@ -31,7 +43,7 @@ def read_config_file(config_file_path):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Read contents of a JSON config file.')
     parser.add_argument('--config', type=str, help='Path to the JSON config file')
-    parser.add_argument('--compile', type=bool, default=False, help='Compile the design. If turned off, only templates are created')
+    parser.add_argument('--simulate', type=bool, default=False, help='Run the CoSimulation. If turned off, only project is created. ')
 
     args = parser.parse_args()
     config = read_config_file(args.config)
@@ -83,9 +95,9 @@ if __name__ == "__main__":
 
                     # Create the template for all the configurations
                     template = jinja2.Template(open(
-                        os.path.join(dp_hls_root, 'templates', 'project_basics.tcl.template')).read())
+                        os.path.join(dp_hls_root, 'templates', 'create_project.tcl.template')).read())
                     # render templates, and save it as a Makefile under the output directory
-                    with open(os.path.join(build_path, 'project_basics.tcl'), 'w') as f:
+                    with open(os.path.join(build_path, 'create_project.tcl'), 'w') as f:
                         f.write(template.render(
                             max_query_length=max_query_length,
                             max_reference_length=max_reference_length,
@@ -99,13 +111,18 @@ if __name__ == "__main__":
                         ))
                     cosim_template = jinja2.Template(open(
                         os.path.join(dp_hls_root, 'templates', 'cosim.tcl.template')).read())
-                    with open(os.path.join(build_path, 'project_basics.tcl'), 'w') as f:
+                    with open(os.path.join(build_path, 'cosim.tcl'), 'w') as f:
                         f.write(cosim_template.render(
-                            clock_frequency=config['kernel']['clock_frequency']
+                            clock_frequency=hz_to_ns(config['kernel']['clock_frequency'])
                         ))
                     
-    if compile:
+    if args.simulate:
         cmds = []
         for build_path in all_build_paths:
-            cmds.append(f"cd {build_path} && vivado_hls -f create_projects.tcl && vivado_hls -f cosim.tcl")
+            cmds.append(f"cd {build_path} && vitis_hls -f ./create_project.tcl && vitis_hls -f ./cosim.tcl")
+        # execute the commands sequentially 
+        for cmd in cmds:
+            print(f"Executing command: {cmd}")
+            os.system(cmd)
+
 

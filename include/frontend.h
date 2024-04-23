@@ -44,7 +44,7 @@ namespace ALIGN_TYPE
         ScorePack (&max)[PE_NUM],
         const idx_t chunk_row_offset, const idx_t wavefront,
         const idx_t p_cols, const idx_t ck_idx,
-        const hls::vector<bool, PE_NUM> predicate,
+        const bool (&predicate)[PE_NUM],
         const idx_t query_len, const idx_t ref_len);
 
     void InitializeMaxScores(ScorePack (&max)[PE_NUM], idx_t qry_len, idx_t ref_len);

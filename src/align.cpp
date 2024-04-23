@@ -127,6 +127,16 @@ void Align::Rectangular::ChunkCompute(
     bool predicate[PE_NUM];
     Utils::Init::ArrSet<bool, PE_NUM>(predicate, false);
 
+#ifdef CMAKEDEBUG
+	// print predicate
+	cout << "Predicate: ";
+	for (int j = 0; j < PE_NUM; j++)
+	{
+		cout << predicate[j];
+	}
+	cout << endl;
+#endif
+
 	char_t local_reference[PE_NUM]; // local reference
 	tbp_vec_t tbp_out;
 	dp_mem_block_t dp_mem;
@@ -136,8 +146,6 @@ void Align::Rectangular::ChunkCompute(
 #pragma HLS array_partition variable = local_reference type = complete
 #pragma HLS array_partition variable = dp_mem type = complete
 #pragma HLS array_partition variable = tbp_out type = complete
-
-
 
 	dp_mem[0][0] = init_col_scr[0];
 
@@ -418,6 +426,7 @@ Iterating_Chunks:
 #ifdef CMAKEDEBUG
 	// print tracevack start idx
 	cout << "Traceback start idx: " << tb_i << " " << tb_j << endl;
+	cout << "Traceback start chunk:" << maximum.ck << endl;
 	cout << "Traceback start idx physical: " << maximum.ck << " " << max_pe << " " << maximum.p_col << endl;
 #endif
 

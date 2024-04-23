@@ -11,7 +11,7 @@ void Container::cast_scores(){
     for (int k = 0; k < N_LAYERS; k++){
         for (int i = 0; i < MAX_QUERY_LENGTH; i++){
             for (int j = 0; j < MAX_REFERENCE_LENGTH; j++){
-                this->scores_cpp[k][i][j] = this->scores_kernel[i][j].data[k].to_float();
+                this->scores_cpp[k][i][j] = this->scores_kernel[i][j][k].to_float();
             }
         }
     }
