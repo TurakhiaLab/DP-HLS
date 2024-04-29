@@ -128,13 +128,13 @@ void Align::Rectangular::ChunkCompute(
     Utils::Init::ArrSet<bool, PE_NUM>(predicate, false);
 
 #ifdef CMAKEDEBUG
-	// print predicate
-	cout << "Predicate: ";
-	for (int j = 0; j < PE_NUM; j++)
-	{
-		cout << predicate[j];
-	}
-	cout << endl;
+//	// print predicate
+//	cout << "Predicate: ";
+//	for (int j = 0; j < PE_NUM; j++)
+//	{
+//		cout << predicate[j];
+//	}
+//	cout << endl;
 #endif
 
 	char_t local_reference[PE_NUM]; // local reference
@@ -430,7 +430,10 @@ Iterating_Chunks:
 	cout << "Traceback start idx physical: " << maximum.ck << " " << max_pe << " " << maximum.p_col << endl;
 #endif
 
+#ifndef NO_TRACEBACK
 	Traceback::TracebackFixedSize<MAX_REFERENCE_LENGTH>(tbp_matrix, tb_out, maximum.ck, max_pe, maximum.p_col, tb_i, tb_j);
+#endif
+
 }
 
 void SwapBuffer(score_vec_t *&a, score_vec_t *&b)

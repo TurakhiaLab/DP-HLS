@@ -10,8 +10,8 @@
 
 using namespace std;
 
-#define INPUT_QUERY_LENGTH 30
-#define INPUT_REFERENCE_LENGTH 50
+#define INPUT_QUERY_LENGTH 256
+#define INPUT_REFERENCE_LENGTH 256
 
 char_t base_to_num(char base)
 {
@@ -69,11 +69,13 @@ int main(){
     std::vector<char> query(query_string.begin(), query_string.end());
     std::vector<char> reference(reference_string.begin(), reference_string.end());
  
+#ifdef CMAKEDEBUG
     // Initialize Debugger
     Container debuggers[N_BLOCKS];
     for (int i = 0; i < N_BLOCKS; i++){
         debuggers[i] = Container();
     }
+#endif
 
     // Assert actual query length and reference length should be smaller than the maximum length
     try {
@@ -143,10 +145,12 @@ int main(){
     cout << "Solution Aligned Query    : " << alignments["query"] << endl;
     cout << "Solution Aligned Reference: " << alignments["reference"] << endl;
 
+#ifdef CMAKEDEBUG
     // Cast kernel scores to matrix scores
     debuggers[0].cast_scores();
     // print_matrix<float, MAX_QUERY_LENGTH, MAX_REFERENCE_LENGTH>(debuggers[0].scores_cpp[0], "Kernel 0 Scores Layer 0");
     debuggers[0].compare_scores(sol_score_mat, query.size(), reference.size());  // check if the scores from the kernel matches scores from the solution
+#endif
 
     // reconstruct kernel alignments
     array<map<string, string>, N_BLOCKS> kernel_alignments;
@@ -166,9 +170,11 @@ int main(){
         tb_is_h, tb_js_h, 
         tb_streams_d);
 
-    // Print kernel 0 traceback
-    cout << "Kernel 0 Traceback" << endl;
-    cout << "Kernel   Aligned Query    : " << kernel_alignments[0]["query"] << endl;
-    cout << "Kernel   Aligned Reference: " << kernel_alignments[0]["reference"] << endl;
+    // Print all kernel traceback
+    for (int i = 0; i < N_BLOCKS; i++) {
+        cout << "Kernel " << i << " Traceback" << endl;
+        cout << "Kernel   Aligned Query    : " << kernel_alignments[0]["query"] << endl;
+        cout << "Kernel   Aligned Reference: " << kernel_alignments[0]["reference"] << endl;
+    }
 
 }

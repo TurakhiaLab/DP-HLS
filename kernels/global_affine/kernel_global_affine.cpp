@@ -101,7 +101,6 @@ void GlobalAffine::PE::Compute(char_t local_query_val,
 void GlobalAffine::Helper::InitCol(score_vec_t (&init_col_scr)[MAX_QUERY_LENGTH], Penalties penalties){
     type_t gap = penalties.open;
     for (int i = 0; i < MAX_QUERY_LENGTH; i++){
-#pragma HLS pipeline II=1
         gap += penalties.extend;
         init_col_scr[i][0] = NINF;
         init_col_scr[i][1] =  gap;
@@ -112,7 +111,6 @@ void GlobalAffine::Helper::InitCol(score_vec_t (&init_col_scr)[MAX_QUERY_LENGTH]
 void GlobalAffine::Helper::InitRow(score_vec_t (&init_row_scr)[MAX_REFERENCE_LENGTH], Penalties penalties){
     type_t gap = penalties.open;
     for (int i = 0; i < MAX_REFERENCE_LENGTH; i++){
-#pragma HLS pipeline II = 1
         gap += penalties.extend;
         init_row_scr[i][0] = 0;
         init_row_scr[i][1] = gap ;
@@ -135,7 +133,7 @@ void GlobalAffine::UpdatePEMaximum(
         ScorePack (&max)[PE_NUM],
         const idx_t chunk_row_offset, const idx_t wavefront,
         const idx_t p_cols, const idx_t ck_idx,
-        const hls::vector<bool, PE_NUM> predicate,
+        const bool (&predicate)[PE_NUM],
         const idx_t query_len, const idx_t ref_len){
 
 }

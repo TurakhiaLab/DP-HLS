@@ -79,17 +79,19 @@ extern "C"
 // #pragma HLS interface mode = axis port = tb_js_b
 // #pragma HLS interface mode = axis port = tb_streams_b
 
-
-
-		for (int i = 0; i < N_BLOCKS; i++)
-		{
-#pragma HLS unroll
+		for (int i = 0; i < N_BLOCKS; i++){
             Utils::Array::Copy(querys[i], querys_b[i]);
             Utils::Array::Copy(references[i], references_b[i]);
 
             query_lengths_b[i] = query_lengths[i];
             reference_lengths_b[i] = reference_lengths[i];
             penalties_b[i] = penalties[i];
+		}
+
+
+		for (int i = 0; i < N_BLOCKS; i++)
+		{
+#pragma HLS unroll
 
 			Align::BANDING::AlignStatic(
 				querys_b[i],
@@ -104,13 +106,13 @@ extern "C"
 				debugger[i]
 #endif
 			);
-
-            Utils::Array::Copy(tb_streams_b[i], tb_streams[i]);
+		}
+		
+		for (int i = 0; i < N_BLOCKS; i++){
+			Utils::Array::Copy(tb_streams_b[i], tb_streams[i]);
             tb_is[i] = tb_is_b[i];
             tb_js[i] = tb_js_b[i];
-
 		}
-
 	}
 
 // 	void seq_align_multiple_static(

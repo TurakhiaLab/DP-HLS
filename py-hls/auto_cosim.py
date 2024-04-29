@@ -65,8 +65,8 @@ if __name__ == "__main__":
 
     all_build_paths = []
 
-    cosim_testbench = config['cosim_testbench']
-
+    cosim_testbench = config['vitis_hls']['cosim_testbench']
+    export_design = bool(config['vitis_hls']['export_design'])
     for i in range(len(problem_sizes_list)):
         max_query_length = problem_sizes_list[i]["max_query_length"]
         max_reference_length = problem_sizes_list[i]["max_reference_length"]
@@ -113,7 +113,8 @@ if __name__ == "__main__":
                         os.path.join(dp_hls_root, 'templates', 'cosim.tcl.template')).read())
                     with open(os.path.join(build_path, 'cosim.tcl'), 'w') as f:
                         f.write(cosim_template.render(
-                            clock_frequency=hz_to_ns(config['kernel']['clock_frequency'])
+                            clock_frequency=hz_to_ns(config['kernel']['clock_frequency']),
+                            export_design="export_design -flow impl" if export_design else ""
                         ))
                     
     if args.simulate:

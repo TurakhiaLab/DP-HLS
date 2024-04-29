@@ -566,27 +566,28 @@ void global_affine_solution(std::string query, std::string reference, PENALTY_T 
 
             float mm_score = scr_diag + (query[i] == reference[j] ? penalties.match : penalties.mismatch);
 
-            float insertion_score = max(insertion_open_score, insertion_extend_score);
-            float deletion_score = max(deletion_open_score, deletion_extend_score);
+            float insertion_score = insertion_open_score > insertion_extend_score ? insertion_open_score : insertion_extend_score;
+            float deletion_score = deletion_open_score > deletion_extend_score ? deletion_open_score : deletion_extend_score;
 
-            float final_score = max(mm_score, max(insertion_score, deletion_score));
+            float final_score = insertion_score > deletion_score ? insertion_score : deletion_score;
+            final_score = final_score > mm_score ? final_score : mm_score;
 
             score_mat[0][i][j] = insertion_score;
             score_mat[1][i][j] = final_score;
             score_mat[2][i][j] = deletion_score;
 
             // Choose the maximum score and update the traceback matrix
-            if (final_score == mm_score)
+            if (final_score == insertion_score)
             {
-                tb_mat[i][j] = "D "; // 'D' indicates a diagonal direction (match or mismatch)
+                tb_mat[i][j] = insertion_score == insertion_open_score ? "L " : "LE"; // 'L' indicates a left direction (insertion)
             }
             else if (final_score == deletion_score)
             {
                 tb_mat[i][j] = deletion_score == deletion_open_score ? "U " : "UE"; // 'U' indicates an up direction (deletion)
             }
-            else if (final_score == insertion_score)
+            else if (final_score == mm_score)
             {
-                tb_mat[i][j] = insertion_score == insertion_open_score ? "L " : "LE"; // 'L' indicates a left direction (insertion)
+                tb_mat[i][j] = "D "; // 'D' indicates a diagonal direction (match or mismatch)
             }
             else
             {
@@ -759,7 +760,11 @@ void local_linear_solution(std::string query, std::string reference, PENALTY_T &
             }
 
             // Choose the maximum score and update the traceback matrix
-            if (max_score == m_score)
+            if (max_score == i_score)
+            {
+                tb_mat[i][j] = 'L'; // 'L' indicates a left direction (insertion)
+            }
+            else if (max_score == m_score)
             {
                 tb_mat[i][j] = 'D'; // 'D' indicates a diagonal direction (match or mismatch)
             }
@@ -767,10 +772,7 @@ void local_linear_solution(std::string query, std::string reference, PENALTY_T &
             {
                 tb_mat[i][j] = 'U'; // 'U' indicates an up direction (deletion)
             }
-            else if (max_score == i_score)
-            {
-                tb_mat[i][j] = 'L'; // 'L' indicates a left direction (insertion)
-            } else {
+            else {
                 tb_mat[i][j] = '*';
             }
         }
@@ -940,37 +942,40 @@ void local_affine_solution(std::string query, std::string reference, PENALTY_T &
 
             float mm_score = scr_diag + (query[i] == reference[j] ? penalties.match : penalties.mismatch);
 
-            float insertion_score = max(insertion_open_score, insertion_extend_score);
-            float deletion_score = max(deletion_open_score, deletion_extend_score);
+            float insertion_score = insertion_open_score > insertion_extend_score ? insertion_open_score : insertion_extend_score;
+            float deletion_score = deletion_open_score > deletion_extend_score ? deletion_open_score :deletion_extend_score;
 
-            float final_score = max(mm_score, max(insertion_score, deletion_score));
-            final_score = max((float)0.0, final_score);
+//            float final_score = max(mm_score, max(insertion_score, deletion_score));
+//            final_score = max((float)0.0, final_score);
+            float max_score = insertion_score > deletion_score ? insertion_score : deletion_score;
+            max_score = max_score > mm_score ? max_score : mm_score;
+            max_score = max_score >= 0 ? max_score : 0;
 
-            if (final_score > maximum_score)
+            if (max_score > maximum_score)
             {
-                maximum_score = final_score;
+                maximum_score = max_score;
                 max_i = i;
                 max_j = j;
             }
 
             score_mat[0][i][j] = insertion_score;
-            score_mat[1][i][j] = final_score;
+            score_mat[1][i][j] = max_score;
             score_mat[2][i][j] = deletion_score;
 
             // Choose the maximum score and update the traceback matrix
-            if (final_score == mm_score)
-            {
-                tb_mat[i][j] = "D "; // 'D' indicates a diagonal direction (match or mismatch)
-            }
-            else if (final_score == deletion_score)
-            {
-                tb_mat[i][j] = deletion_score == deletion_open_score ? "U " : "UE"; // 'U' indicates an up direction (deletion)
-            }
-            else if (final_score == insertion_score)
+            if (max_score == insertion_score)
             {
                 tb_mat[i][j] = insertion_score == insertion_open_score ? "L " : "LE"; // 'L' indicates a left direction (insertion)
             }
-            else if (final_score == 0){
+            else if (max_score == deletion_score)
+            {
+                tb_mat[i][j] = deletion_score == deletion_open_score ? "U " : "UE"; // 'U' indicates an up direction (deletion)
+            }
+            else if (max_score == mm_score)
+            {
+                tb_mat[i][j] = "D "; // 'D' indicates a diagonal direction (match or mismatch)
+            }
+            else if (max_score == 0){
                 tb_mat[i][j] = "*";
             }
             else

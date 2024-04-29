@@ -5,12 +5,12 @@
 #include <ap_fixed.h>
 #include <hls_vector.h>
 
-#define MAX_QUERY_LENGTH 16
-#define MAX_REFERENCE_LENGTH 16
+#define MAX_QUERY_LENGTH 256
+#define MAX_REFERENCE_LENGTH 256
 
 #define BANDING Rectangular
 
-#define PRAGMA_PE_NUM 8
+#define PRAGMA_PE_NUM 32
 
 #define ALIGN_TYPE LocalAffine
 #define N_BLOCKS 1
