@@ -81,6 +81,15 @@ void Align::Rectangular::MapPredicate(
 	bool (&predicate)[PE_NUM])
 {
     Utils::Array::ShiftRight(predicate, wavefront < ref_len);
+#ifdef CMAKEDEBUG
+	// print predicate
+	cout << "Predicate: ";
+	for (int j = 0; j < PE_NUM; j++)
+	{
+		cout << predicate[j] << " ";
+	}
+	cout << endl;
+#endif
 }
 
 #ifdef BANDED

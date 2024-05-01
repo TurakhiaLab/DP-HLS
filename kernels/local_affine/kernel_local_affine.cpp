@@ -92,10 +92,6 @@ void LocalAffine::UpdatePEMaximum(
     for (idx_t i = 0; i < PE_NUM; i++)
     {
 #pragma HLS unroll
-#ifdef CMAKEDEBUG
-        // print predicaes
-        std::cout << predicate[i] << " ";
-#endif
         if (predicate[i] && (scores[i + 1][LAYER_MAXIMIUM] > max[i].score))
         {
             max[i].score = scores[i + 1][LAYER_MAXIMIUM];
@@ -103,9 +99,6 @@ void LocalAffine::UpdatePEMaximum(
             max[i].ck = ck_idx;
         }
     }
-#ifdef CMAKEDEBUG
-    std::cout << std::endl;
-#endif
 }
 
 void LocalAffine::InitializeMaxScores(ScorePack (&max)[PE_NUM], idx_t qry_len, idx_t ref_len)

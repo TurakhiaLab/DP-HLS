@@ -57,14 +57,13 @@ if __name__ == "__main__":
     block_list = config['size']['blocks']
     output_name = config['output_name']
 
-    output_path = config['output_path']  # base output folder
-
     dp_hls_root = config['design']['dp-hls_root']  # DP-HLS root
     params_folder_path = config['design']['path_params']  # include folder for params.h
     kernel_frontend_path = config['design']['path_frontend']  # .cpp file implementing the frontend.h
 
     all_build_paths = []
 
+    output_path = config['vitis_hls']['output_path']  # base output folder
     cosim_testbench = config['vitis_hls']['cosim_testbench']
     export_design = bool(config['vitis_hls']['export_design'])
     for i in range(len(problem_sizes_list)):
