@@ -31,17 +31,17 @@ extern "C"
 {
 
 	void seq_align_multiple_static(
-		char_t (&querys)[N_BLOCKS][MAX_QUERY_LENGTH],
-		char_t (&references)[N_BLOCKS][MAX_REFERENCE_LENGTH],
+		char_t (&querys)[MAX_QUERY_LENGTH][N_BLOCKS],
+		char_t (&references)[MAX_REFERENCE_LENGTH][N_BLOCKS],
 		idx_t (&query_lengths)[N_BLOCKS],
 		idx_t (&reference_lengths)[N_BLOCKS],
 		Penalties (&penalties)[N_BLOCKS],
 		idx_t (&tb_is)[N_BLOCKS], idx_t (&tb_js)[N_BLOCKS], 
 #ifdef CMAKEDEBUG
-		tbr_t (&tb_streams)[N_BLOCKS][MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH],
+		tbr_t (&tb_streams)[MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH][N_BLOCKS],
 		Container (&debugger)[N_BLOCKS])
 #else
-		tbr_t (&tb_streams)[N_BLOCKS][MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH])
+		tbr_t (&tb_streams)[MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH][N_BLOCKS])
 #endif
 	{
 
@@ -79,10 +79,10 @@ extern "C"
 // #pragma HLS interface mode = axis port = tb_js_b
 // #pragma HLS interface mode = axis port = tb_streams_b
 
-		for (int i = 0; i < N_BLOCKS; i++){
-            Utils::Array::Copy(querys[i], querys_b[i]);
-            Utils::Array::Copy(references[i], references_b[i]);
+		Utils::Kernel::top_level_readin(querys, querys_b);
+		Utils::Kernel::top_level_readin(references, references_b);
 
+		for (int i = 0; i < N_BLOCKS; i++){
             query_lengths_b[i] = query_lengths[i];
             reference_lengths_b[i] = reference_lengths[i];
             penalties_b[i] = penalties[i];
@@ -108,8 +108,8 @@ extern "C"
 			);
 		}
 		
+		Utils::Kernel::top_level_writeout(tb_streams_b, tb_streams);
 		for (int i = 0; i < N_BLOCKS; i++){
-			Utils::Array::Copy(tb_streams_b[i], tb_streams[i]);
             tb_is[i] = tb_is_b[i];
             tb_js[i] = tb_js_b[i];
 		}

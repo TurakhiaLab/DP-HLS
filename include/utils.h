@@ -257,6 +257,27 @@ namespace Utils
 
 	}
 
+	namespace Kernel {
+		template <typename T, int LEN, int BLK>
+		void top_level_readin(T ddr_in[LEN][BLK], T internal[BLK][LEN]){
+			for (idx_t i = 0; i < LEN; i++){
+#pragma HLS PIPELINE II=1
+				for (idx_t j = 0; j < BLK; j++){
+					internal[j][i] = ddr_in[i][j];
+				}
+			}
+		}
+
+		template <typename T, int LEN, int BLK>
+		void top_level_writeout(T internal[BLK][LEN], T ddr_out[LEN][BLK]){
+			for (idx_t i = 0; i < LEN; i++){
+#pragma HLS PIPELINE II=1
+				for (idx_t j = 0; j < BLK; j++){
+					ddr_out[i][j] = internal[j][i];
+				}
+			}
+		}
+	}
 }
 
 #endif // UTILS_H
