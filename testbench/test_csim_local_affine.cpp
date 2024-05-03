@@ -13,8 +13,8 @@
 
 using namespace std;
 
-#define INPUT_QUERY_LENGTH 35
-#define INPUT_REFERENCE_LENGTH 64
+#define INPUT_QUERY_LENGTH 256
+#define INPUT_REFERENCE_LENGTH 256
 
 char_t base_to_num(char base)
 {
@@ -94,6 +94,8 @@ int main(){
     // Allocate query and reference buffer to pass to the kernel
     char_t reference_buff[MAX_REFERENCE_LENGTH][N_BLOCKS];
     char_t query_buff[MAX_QUERY_LENGTH][N_BLOCKS];
+    // char_t *reference_buff = new char_t[MAX_REFERENCE_LENGTH * N_BLOCKS];
+    // char_t *query_buff = new char_t[MAX_QUERY_LENGTH * N_BLOCKS];
 
     // Allocate lengths for query and reference
     idx_t qry_lengths[N_BLOCKS], ref_lengths[N_BLOCKS];
@@ -124,6 +126,8 @@ int main(){
     idx_t tb_is_d[N_BLOCKS], tb_js_d[N_BLOCKS];
     tbr_t tb_streams[MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH][N_BLOCKS];
 
+    cout << "Kernel Started" << endl;
+
     // Actual kernel calling
     seq_align_multiple_static(
         query_buff,
@@ -143,7 +147,7 @@ int main(){
     cout << "Query    : " << query_string << endl;
     cout << "Reference: " << reference_string << endl;
 
-#ifdef CMAKEDEBUG
+
     // Get the solution scores and traceback
     array<array<array<float, MAX_REFERENCE_LENGTH>, MAX_QUERY_LENGTH>, N_LAYERS> sol_score_mat;
     array<array<string, MAX_REFERENCE_LENGTH>, MAX_QUERY_LENGTH> sol_tb_mat;
@@ -153,7 +157,7 @@ int main(){
     // print_matrix<char, MAX_QUERY_LENGTH, MAX_REFERENCE_LENGTH>(sol_tb_mat, "Solution Traceback Matrix");
     cout << "Solution Aligned Query    : " << alignments["query"] << endl;
     cout << "Solution Aligned Reference: " << alignments["reference"] << endl;
-
+#ifdef CMAKEDEBUG
     // Cast kernel scores to matrix scores
     debuggers[0].cast_scores();
     debuggers[0].compare_scores(sol_score_mat, query.size(), reference.size());  // check if the scores from the kernel matches scores from the solution

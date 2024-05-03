@@ -267,9 +267,17 @@ namespace Utils
 
 		template <typename T, int LEN, int BLK>
 		void top_level_readin(T ddr_in[LEN][BLK], T internal[BLK][LEN]){
-			for (idx_t i = 0; i < LEN; i++){
-#pragma HLS PIPELINE II=1
-				top_level_radin_line<T, LEN, BLK>(ddr_in[i], internal, i);
+			// char_t burst_buffer[BLK];
+			for (idx_t i = 0; i < LEN; i ++){
+// #pragma HLS PIPELINE II=1
+				// top_level_radin_line<T, LEN, BLK>(ddr_in[i], internal, i);
+				for (idx_t j = 0; j < BLK; j++){
+					internal[j][i] = ddr_in[i][j];
+				}
+				// top_level_radin_line<T, LEN, BLK>(burst_buffer, internal, i);
+				// for (idx_t j = 0; j < BLK; j++){
+				// 	internal[j][k] = ddr_in[i + j];
+				// }
 			}
 		}
 

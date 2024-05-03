@@ -48,6 +48,9 @@ extern "C"
     tbr_t (&tb_streams)[MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH][N_BLOCKS])
     #endif
     {
+#pragma HLS interface mode=m_axi port=querys max_read_burst_length=PRAGMA_N_BLOCKS
+#pragma HLS interface mode=m_axi port=references max_read_burst_length=PRAGMA_N_BLOCKS
+
         // Initialize local buffer to copy the input data
         char_t querys_b[N_BLOCKS][MAX_QUERY_LENGTH];
         char_t references_b[N_BLOCKS][MAX_REFERENCE_LENGTH];
@@ -85,11 +88,11 @@ extern "C"
 #ifdef CMAKEDEBUG
         cout << "Copy Querys" << endl;
 #endif
-        Utils::Kernel::top_level_readin(querys, querys_b);
+        Utils::Kernel::top_level_readin<char_t, MAX_QUERY_LENGTH, N_BLOCKS>(querys, querys_b);
 #ifdef CMAKEDEBUG
         cout << "Copy References" << endl;
 #endif
-        Utils::Kernel::top_level_readin(references, references_b);
+        Utils::Kernel::top_level_readin<char_t, MAX_REFERENCE_LENGTH, N_BLOCKS>(references, references_b);
 
         ReadQueryLengths:
         for (int i = 0; i < N_BLOCKS; i++) {

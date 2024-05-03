@@ -10,7 +10,7 @@ open_solution "solution1" -flow_target vitis
 set_part {xcvu9p-flgb2104-2-i}
 create_clock -period {{ clock_frequency }}ns -name default
 config_dataflow -strict_mode warning
-config_interface -m_axi_alignment_byte_size 64 -m_axi_latency 64 -m_axi_max_widen_bitwidth 512 -m_axi_max_read_burst_length 32
+config_interface -m_axi_alignment_byte_size 64 -m_axi_latency 64 -m_axi_max_widen_bitwidth 512
 config_rtl -register_reset_num 3
 config_export -deadlock_detection none
 config_interface -m_axi_conservative_mode=1
