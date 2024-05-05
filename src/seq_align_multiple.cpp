@@ -81,7 +81,7 @@ extern "C"
 		// #pragma HLS interface mode = axis port = tb_js_b
 		// #pragma HLS interface mode = axis port = tb_streams_b
 
-		CopyQuerys:
+	CopyQuerys:
 		for (idx_t i = 0; i < MAX_QUERY_LENGTH; i++)
 		{
 #pragma HLS PIPELINE II = 1
@@ -91,7 +91,7 @@ extern "C"
 			}
 		}
 
-		CopyReferences:
+	CopyReferences:
 		for (idx_t i = 0; i < MAX_REFERENCE_LENGTH; i++)
 		{
 #pragma HLS PIPELINE II = 1
@@ -140,7 +140,16 @@ extern "C"
 			);
 		}
 
-		Utils::Kernel::top_level_writeout(tb_streams_b, tb_streams);
+	// Utils::Kernel::top_level_writeout(tb_streams_b, tb_streams);
+	WriteTBP:
+		for (idx_t i = 0; i < MAX_QUERY_LENGTH + MAX_REFERENCE_LENGTH; i++)
+		{
+#pragma HLS PIPELINE II = 1
+			for (idx_t j = 0; j < N_BLOCKS; j++)
+			{
+				tb_streams[i][j] = tb_streams_b[j][i];
+			}
+		}
 
 	ExtractTracebackCoordinate:
 		for (int i = 0; i < N_BLOCKS; i++)
