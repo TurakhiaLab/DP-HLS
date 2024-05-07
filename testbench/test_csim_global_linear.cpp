@@ -10,8 +10,8 @@
 
 using namespace std;
 
-#define INPUT_QUERY_LENGTH 94
-#define INPUT_REFERENCE_LENGTH 250
+#define INPUT_QUERY_LENGTH 256
+#define INPUT_REFERENCE_LENGTH 256
 
 char_t base_to_num(char base)
 {
@@ -36,8 +36,6 @@ char_t base_to_num(char base)
 
 struct Penalties_sol
 {
-    float extend;
-    float open;
     float linear_gap;
     float match;
     float mismatch;
@@ -53,8 +51,6 @@ int main(){
 
     Penalties penalties[N_BLOCKS];
     for (int i = 0; i < N_BLOCKS; i++){
-        penalties[i].extend = -1;
-        penalties[i].open = -1;
         penalties[i].linear_gap = -1;
         penalties[i].match = 3;
         penalties[i].mismatch = -1;
@@ -62,8 +58,6 @@ int main(){
 
     Penalties_sol penalties_sol[N_BLOCKS];
     for (Penalties_sol &penalty : penalties_sol) {
-        penalty.extend = -1;
-        penalty.open = -1;
         penalty.linear_gap = -1;
         penalty.match = 3;
         penalty.mismatch = -1;
@@ -89,8 +83,8 @@ int main(){
         throw;
     }
 
-    char_t reference_buff[N_BLOCKS][MAX_REFERENCE_LENGTH];
-    char_t query_buff[N_BLOCKS][MAX_QUERY_LENGTH];
+    char_t reference_buff[MAX_REFERENCE_LENGTH][N_BLOCKS];
+    char_t query_buff[MAX_QUERY_LENGTH][N_BLOCKS];
 
     idx_t qry_lengths[N_BLOCKS], ref_lengths[N_BLOCKS];
 
@@ -101,11 +95,11 @@ int main(){
     {
         for (int i = 0; i < query.size(); i++)
         {
-            query_buff[b][i] = base_to_num(query[i]);
+            query_buff[i][b] = base_to_num(query[i]);
         }
         for (int i = 0; i < reference.size(); i++)
         {
-            reference_buff[b][i] = base_to_num(reference[i]);
+            reference_buff[i][b] = base_to_num(reference[i]);
         }
     }
 
@@ -115,7 +109,7 @@ int main(){
         ref_lengths[b] = reference.size();
     }
 
-    tbr_t tb_streams[N_BLOCKS][MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH];
+    tbr_t tb_streams[MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH][N_BLOCKS];
     // initialize traceback starting coordinates
     idx_t tb_is[N_BLOCKS];
     idx_t tb_js[N_BLOCKS];
@@ -153,8 +147,8 @@ int main(){
 
     // reconstruct kernel alignments
     array<map<string, string>, N_BLOCKS> kernel_alignments;
-    int tb_query_lengths[N_BLOCKS];
-    int tb_reference_lengths[N_BLOCKS];
+    int tb_is_h[N_BLOCKS];
+    int tb_js_h[N_BLOCKS];
     string query_string_blocks[N_BLOCKS];
     string reference_string_blocks[N_BLOCKS];
     // for global alignments, adjust the lengths to be the lengths - 1
@@ -162,18 +156,26 @@ int main(){
         // print tbis, tbjs
         cout << "tb_is[" << i << "]: " << tb_is[i] << endl;
         cout << "tb_js[" << i << "]: " << tb_js[i] << endl;
-        tb_query_lengths[i] = tb_is[i];
-        tb_reference_lengths[i] = tb_js[i];
+        tb_is_h[i] = tb_is[i];
+        tb_js_h[i] = tb_js[i];
         query_string_blocks[i] = query_string;
         reference_string_blocks[i] = reference_string;
     }
+
+    tbr_t tb_streams_host[N_BLOCKS][MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH];
+    HostUtils::IO::SwitchDimension(tb_streams, tb_streams_host);
+
     kernel_alignments = HostUtils::Sequence::ReconstructTracebackBlocks<tbr_t, N_BLOCKS, MAX_QUERY_LENGTH, MAX_REFERENCE_LENGTH>(
         query_string_blocks, reference_string_blocks,
-        tb_query_lengths, tb_reference_lengths, 
-        tb_streams);
+        tb_is_h, tb_js_h, 
+        tb_streams_host);
+
     // Print kernel 0 traceback
-    cout << "Kernel 0 Traceback" << endl;
-    cout << "Kernel Aligned Query    : " << kernel_alignments[0]["query"] << endl;
-    cout << "Kernel Aligned Reference: " << kernel_alignments[0]["reference"] << endl;
+    for (int i = 0; i < N_BLOCKS; i++) {
+        cout << "Kernel " << i << " Traceback, Start Row: " << tb_is_h[i] << ", Start Column: " << tb_js_h[i] << endl;
+        cout << "Kernel   Aligned Query    : " << kernel_alignments[0]["query"] << endl;
+        cout << "Kernel   Aligned Reference: " << kernel_alignments[0]["reference"] << endl;
+    }
+
     return 0;
 }

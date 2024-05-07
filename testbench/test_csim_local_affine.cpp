@@ -6,12 +6,15 @@
 #include "seq_align_multiple.h"
 #include "host_utils.h"
 #include "solutions.h"
+
+#ifdef CMAKEDEBUG
 #include "debug.h"
+#endif
 
 using namespace std;
 
-#define INPUT_QUERY_LENGTH 100
-#define INPUT_REFERENCE_LENGTH 120
+#define INPUT_QUERY_LENGTH 256
+#define INPUT_REFERENCE_LENGTH 256
 
 char_t base_to_num(char base)
 {
@@ -68,12 +71,14 @@ int main(){
     // Reference and Query Strings
     std::vector<char> query(query_string.begin(), query_string.end());
     std::vector<char> reference(reference_string.begin(), reference_string.end());
- 
+
+#ifdef CMAKEDEBUG
     // Initialize Debugger
     Container debuggers[N_BLOCKS];
     for (int i = 0; i < N_BLOCKS; i++){
         debuggers[i] = Container();
     }
+#endif
 
     // Assert actual query length and reference length should be smaller than the maximum length
     try {
@@ -87,8 +92,10 @@ int main(){
     }
 
     // Allocate query and reference buffer to pass to the kernel
-    char_t reference_buff[N_BLOCKS][MAX_REFERENCE_LENGTH];
-    char_t query_buff[N_BLOCKS][MAX_QUERY_LENGTH];
+    char_t reference_buff[MAX_REFERENCE_LENGTH][N_BLOCKS];
+    char_t query_buff[MAX_QUERY_LENGTH][N_BLOCKS];
+    // char_t *reference_buff = new char_t[MAX_REFERENCE_LENGTH * N_BLOCKS];
+    // char_t *query_buff = new char_t[MAX_QUERY_LENGTH * N_BLOCKS];
 
     // Allocate lengths for query and reference
     idx_t qry_lengths[N_BLOCKS], ref_lengths[N_BLOCKS];
@@ -100,11 +107,11 @@ int main(){
     {
         for (int i = 0; i < query.size(); i++)
         {
-            query_buff[b][i] = base_to_num(query[i]);
+            query_buff[i][b] = base_to_num(query[i]);
         }
         for (int i = 0; i < reference.size(); i++)
         {
-            reference_buff[b][i] = base_to_num(reference[i]);
+            reference_buff[i][b] = base_to_num(reference[i]);
         }
     }
 
@@ -117,7 +124,9 @@ int main(){
 
     // Allocate traceback streams
     idx_t tb_is_d[N_BLOCKS], tb_js_d[N_BLOCKS];
-    tbr_t tb_streams[N_BLOCKS][MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH];
+    tbr_t tb_streams[MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH][N_BLOCKS];
+
+    cout << "Kernel Started" << endl;
 
     // Actual kernel calling
     seq_align_multiple_static(
@@ -138,6 +147,7 @@ int main(){
     cout << "Query    : " << query_string << endl;
     cout << "Reference: " << reference_string << endl;
 
+
     // Get the solution scores and traceback
     array<array<array<float, MAX_REFERENCE_LENGTH>, MAX_QUERY_LENGTH>, N_LAYERS> sol_score_mat;
     array<array<string, MAX_REFERENCE_LENGTH>, MAX_QUERY_LENGTH> sol_tb_mat;
@@ -147,10 +157,11 @@ int main(){
     // print_matrix<char, MAX_QUERY_LENGTH, MAX_REFERENCE_LENGTH>(sol_tb_mat, "Solution Traceback Matrix");
     cout << "Solution Aligned Query    : " << alignments["query"] << endl;
     cout << "Solution Aligned Reference: " << alignments["reference"] << endl;
-
+#ifdef CMAKEDEBUG
     // Cast kernel scores to matrix scores
     debuggers[0].cast_scores();
     debuggers[0].compare_scores(sol_score_mat, query.size(), reference.size());  // check if the scores from the kernel matches scores from the solution
+#endif
 
     // reconstruct kernel alignments
     array<map<string, string>, N_BLOCKS> kernel_alignments;
@@ -160,19 +171,26 @@ int main(){
     string reference_string_blocks[N_BLOCKS];
     // for global alignments, adjust the lengths to be the lengths - 1
     for (int i = 0; i < N_BLOCKS; i++) {
-        tb_is_h[i] = tb_is_d[i];
-        tb_js_h[i] = tb_js_d[i];
+        tb_is_h[i] = (int) tb_is_d[i];
+        tb_js_h[i] = (int) tb_js_d[i];
         query_string_blocks[i] = query_string;
         reference_string_blocks[i] = reference_string;
     }
+    tbr_t tb_streams_host[N_BLOCKS][MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH];
+    HostUtils::IO::SwitchDimension(tb_streams, tb_streams_host);
+    
+    cout << "Start Reconstructing Traceback Blocks" << endl;
     kernel_alignments = HostUtils::Sequence::ReconstructTracebackBlocks<tbr_t, N_BLOCKS, MAX_QUERY_LENGTH, MAX_REFERENCE_LENGTH>(
         query_string_blocks, reference_string_blocks,
         tb_is_h, tb_js_h, 
-        tb_streams);
+        tb_streams_host);
 
     // Print kernel 0 traceback
-    cout << "Kernel 0 Traceback" << endl;
-    cout << "Kernel   Aligned Query    : " << kernel_alignments[0]["query"] << endl;
-    cout << "Kernel   Aligned Reference: " << kernel_alignments[0]["reference"] << endl;
+    for (int i = 0; i < N_BLOCKS; i++) {
+        cout << "Kernel " << i << " Traceback, Start Row: " << tb_is_h[i] << ", Start Column: " << tb_js_h[i] << endl;
+        cout << "Kernel   Aligned Query    : " << kernel_alignments[0]["query"] << endl;
+        cout << "Kernel   Aligned Reference: " << kernel_alignments[0]["reference"] << endl;
+    }
+
 
 }

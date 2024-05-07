@@ -52,39 +52,13 @@ void LocalLinear::PE::Compute(char_t local_query_val,
     write_score = max_value;
 }
 
-void LocalLinear::UpdatePEMaximumOpt(
-    wavefront_scores_inf_t scores,
-    ScorePack (&max)[PE_NUM],
-    hls::vector<idx_t, PE_NUM> &ics, hls::vector<idx_t, PE_NUM> &jcs,
-    hls::vector<idx_t, PE_NUM> &p_col, idx_t ck_idx,
-    bool (&predicate)[PE_NUM],
-    idx_t query_len, idx_t ref_len)
-{
-    for (int i = 0; i < PE_NUM; i++)
-    {
-#pragma HLS unroll
-        if (predicate[i])
-        {
-            if (scores[i + 1][LAYER_MAXIMIUM] > max[i].score)
-            {
-                max[i].score = scores[i + 1][LAYER_MAXIMIUM];
-                max[i].row = ics[i];
-                max[i].col = jcs[i];
-                max[i].p_col = p_col[i];
-                max[i].ck = ck_idx;
-                max[i].pe = i;
-            }
-        }
-    }
-}
-
 void LocalLinear::UpdatePEMaximum(
-    wavefront_scores_inf_t scores,
+    const wavefront_scores_inf_t scores,
     ScorePack (&max)[PE_NUM],
-    idx_t (&ics)[PE_NUM], idx_t (&jcs)[PE_NUM],
-    idx_t (&p_col)[PE_NUM], idx_t ck_idx,
-    bool (&predicate)[PE_NUM],
-    idx_t query_len, idx_t ref_len)
+    const idx_t chunk_row_offset, const idx_t wavefront,
+    const idx_t p_col, const idx_t ck_idx,
+    const bool (&predicate)[PE_NUM],
+    const idx_t query_len, const idx_t ref_len)
 {
 
     for (int i = 0; i < PE_NUM; i++)
@@ -95,11 +69,8 @@ void LocalLinear::UpdatePEMaximum(
             if (scores[i + 1][LAYER_MAXIMIUM] > max[i].score)
             {
                 max[i].score = scores[i + 1][LAYER_MAXIMIUM];
-                max[i].row = ics[i];
-                max[i].col = jcs[i];
-                max[i].p_col = p_col[i];
+                max[i].p_col = p_col;
                 max[i].ck = ck_idx;
-                max[i].pe = i;
             }
         }
     }
@@ -111,8 +82,8 @@ void LocalLinear::InitializeMaxScores(ScorePack (&max)[PE_NUM], idx_t qry_len, i
     {
 #pragma HLS unroll
         max[i].score = NINF;
-        max[i].row = 0;
-        max[i].col = 0;
+        max[i].ck = 0;
+        max[i].p_col = 0;
     }
 }
 

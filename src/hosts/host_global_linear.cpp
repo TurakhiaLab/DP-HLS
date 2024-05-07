@@ -1,6 +1,3 @@
-// FIXME: Wheird that if including params.h, the host code will not compile with weird bug. 
-// Need a more elegant way. Currently just redefine those types
-
 #include "xcl2.hpp"
 #include <vector>
 #include <algorithm>
@@ -73,8 +70,6 @@ int main(int argc, char **argv) {
             references[i * MAX_REFERENCE_LENGTH + j] = (type_t) base_to_num(*reference_ptr++);
         }
         // Initialize Penalties
-        penalties[i].open = type_t(-2);
-        penalties[i].extend = type_t(-1);
         penalties[i].mismatch = type_t(-3);
         penalties[i].match = type_t(2);
         penalties[i].linear_gap = type_t(-1);

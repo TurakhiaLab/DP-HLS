@@ -13,6 +13,7 @@ out/
 
 # ignore build file at the top level
 /build/
+.idea/
 
 # ignore vitis projects
 local_seq_align_multiple_sa/local_seq_align_multiple_sa_vitis/
@@ -79,5 +80,16 @@ banding_global_linear_out.txt
 /.idea/
 compile_configs
 
-/reports/
+/reports_compile/
+/reports_cosim/
 
+/tmp/
+/vitis_projects/
+
+/build/
+/cmake-build-debug/
+/reports
+/synthesis
+/.vscode/
+
+compile_configs

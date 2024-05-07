@@ -1,6 +1,6 @@
-#include "../include/traceback.h"
-#include "../include/loop_counter.h"
-#include "../include/frontend.h"
+#include "params.h"
+#include "traceback.h"
+#include "frontend.h"
 
 #include <hls_vector.h>
 
