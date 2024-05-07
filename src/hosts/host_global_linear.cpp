@@ -1,6 +1,3 @@
-// FIXME: Wheird that if including params.h, the host code will not compile with weird bug. 
-// Need a more elegant way. Currently just redefine those types
-
 #include "xcl2.hpp"
 #include <vector>
 #include <algorithm>
