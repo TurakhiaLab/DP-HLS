@@ -1,7 +1,8 @@
 #ifndef SEQ_ALIGN_MULTIPLE_H
 #define SEQ_ALIGN_MULTIPLE_H
 
-#include "dp_hls_common.h"
+// #include <hls_task.h>
+#include "params.h"
 #include "ap_int.h"
 #include "ap_fixed.h"
 #include <hls_stream.h>
@@ -20,13 +21,13 @@ extern "C" {
 	 * 
 	 */
 	void seq_align_multiple_static(
-		char_t (&querys)[MAX_QUERY_LENGTH][N_BLOCKS],
-		char_t (&references)[MAX_REFERENCE_LENGTH][N_BLOCKS],
+		char_t (&querys)[N_BLOCKS][MAX_QUERY_LENGTH],
+		char_t (&references)[N_BLOCKS][MAX_REFERENCE_LENGTH],
 		idx_t (&query_lengths)[N_BLOCKS],
 		idx_t (&reference_lengths)[N_BLOCKS],
 		Penalties (&penalties)[N_BLOCKS],
 		idx_t (&tb_is)[N_BLOCKS], idx_t (&tb_js)[N_BLOCKS], 
-		tbr_t (&tb_streams)[MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH][N_BLOCKS]
+		tbr_t (&tb_streams)[N_BLOCKS][MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH]
 #ifdef CMAKEDEBUG
 		, Container (&debugger)[N_BLOCKS]
 #endif

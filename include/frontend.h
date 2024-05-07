@@ -5,7 +5,7 @@
 #ifndef FRONTEND_H
 #define FRONTEND_H
 
-#include "dp_hls_common.h"
+#include "params.h"
 #include "utils.h"
 #include <math.h>
 
@@ -40,12 +40,12 @@ namespace ALIGN_TYPE
     // );
 
     void UpdatePEMaximum(
-        const wavefront_scores_inf_t scores,
-        ScorePack (&max)[PE_NUM],
-        const idx_t chunk_row_offset, const idx_t wavefront,
-        const idx_t p_cols, const idx_t ck_idx,
-        const bool (&predicate)[PE_NUM],
-        const idx_t query_len, const idx_t ref_len);
+    wavefront_scores_inf_t scores,
+    ScorePack (&max)[PE_NUM],
+    idx_t (&ics)[PE_NUM], idx_t (&jcs)[PE_NUM],
+    idx_t (&p_col)[PE_NUM], idx_t ck_idx,
+    bool (&predicate)[PE_NUM],
+    idx_t query_len, idx_t ref_len);
 
     void InitializeMaxScores(ScorePack (&max)[PE_NUM], idx_t qry_len, idx_t ref_len);
 
