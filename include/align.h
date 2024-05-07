@@ -75,12 +75,14 @@ namespace Align
 		char_t (&local_query)[PE_NUM_T],
 		score_vec_t (&init_col_scr)[MAX_QUERY_LENGTH],
 		chunk_col_scores_inf_t &init_col_scr_local,
+		bool (&col_pred)[PE_NUM], const idx_t local_query_len,
 		const idx_t idx){
 			init_col_scr_local[0] = init_col_scr_local[PE_NUM_T]; // backup the last element from previous chunk
 			for (int i = 0; i < PE_NUM_T; i++)
 			{
 				init_col_scr_local[i + 1] = init_col_scr[idx + i];
 				local_query[i] = query[idx + i];
+				col_pred[i] = i < local_query_len;
 			}
 	}
 	
@@ -280,6 +282,7 @@ namespace Align
 			score_vec_t (&init_row_scr)[MAX_REFERENCE_LENGTH],
             idx_t &p_col_offset, idx_t ck_idx,
 			idx_t global_query_length, idx_t query_length, idx_t reference_length,
+			const bool (&col_pred)[PE_NUM],
 			const Penalties &penalties,
 			ScorePack (&max)[PE_NUM], // write out so must pass by reference
 			tbp_t (&chunk_tbp_out)[PE_NUM][TBMEM_SIZE]
@@ -299,9 +302,11 @@ namespace Align
 		 * @param predicate Predicate Array.
 		 */
 		void MapPredicate(
-            const idx_t wavefront,
-            const idx_t ref_len, const idx_t qry_len,  // This query length is local query length in chunk, always less than PE_NUM
-            bool (&predicate)[PE_NUM]);
+			const idx_t wavefront,
+			const idx_t ref_len, const idx_t qry_len,  // This query length is local query length in chunk, always less than PE_NUM
+			bool (&row_pred)[PE_NUM],
+			const bool (&col_pred)[PE_NUM],
+			bool (&pred)[PE_NUM]);
 	}
 
 	namespace Fixed

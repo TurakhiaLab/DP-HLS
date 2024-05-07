@@ -79,7 +79,8 @@ banding_global_linear_out.txt
 /.idea/
 compile_configs
 
-/reports/
+/reports_compile/
+/reports_cosim/
 
 /tmp/
 /vitis_projects/

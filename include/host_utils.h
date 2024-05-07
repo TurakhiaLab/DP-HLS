@@ -104,6 +104,18 @@ namespace HostUtils
          * The second entry is "sequences": vector<string>
          */
         map<string, std::vector<string>> read_sequences_from_json(string file_path);
+
+        template <typename T, size_t M, size_t N>
+        void SwitchDimension(T (&src)[M][N], T (&dst)[N][M])
+        {
+            for (int i = 0; i < M; i++)
+            {
+                for (int j = 0; j < N; j++)
+                {
+                    dst[j][i] = src[i][j];
+                }
+            }
+        }
     }
 
     namespace Generate

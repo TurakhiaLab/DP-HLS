@@ -198,7 +198,6 @@ if __name__ == "__main__":
                             report_path=report_path,
                             clock_frequency=config['kernel']['clock_frequency'],
                             number_of_kernels=compute_unit,
-                            dp_hls_unrolled="-DDP_HLS_UNROLLED" if bool(config['kernel']['unrolled']) else "",
                         ))
                 
                     shutil.copy(os.path.join(dp_hls_root, 'templates', 'utils.mk'), os.path.join(build_path, 'utils.mk'))

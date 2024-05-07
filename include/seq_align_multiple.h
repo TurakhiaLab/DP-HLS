@@ -20,13 +20,13 @@ extern "C" {
 	 * 
 	 */
 	void seq_align_multiple_static(
-		char_t (&querys)[N_BLOCKS][MAX_QUERY_LENGTH],
-		char_t (&references)[N_BLOCKS][MAX_REFERENCE_LENGTH],
+		char_t (&querys)[MAX_QUERY_LENGTH][N_BLOCKS],
+		char_t (&references)[MAX_REFERENCE_LENGTH][N_BLOCKS],
 		idx_t (&query_lengths)[N_BLOCKS],
 		idx_t (&reference_lengths)[N_BLOCKS],
 		Penalties (&penalties)[N_BLOCKS],
 		idx_t (&tb_is)[N_BLOCKS], idx_t (&tb_js)[N_BLOCKS], 
-		tbr_t (&tb_streams)[N_BLOCKS][MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH]
+		tbr_t (&tb_streams)[MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH][N_BLOCKS]
 #ifdef CMAKEDEBUG
 		, Container (&debugger)[N_BLOCKS]
 #endif

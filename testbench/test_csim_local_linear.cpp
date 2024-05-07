@@ -89,8 +89,8 @@ int main(){
     }
 
     // Allocate query and reference buffer to pass to the kernel
-    char_t reference_buff[N_BLOCKS][MAX_REFERENCE_LENGTH];
-    char_t query_buff[N_BLOCKS][MAX_QUERY_LENGTH];
+    char_t reference_buff[MAX_REFERENCE_LENGTH][N_BLOCKS];
+    char_t query_buff[MAX_QUERY_LENGTH][N_BLOCKS];
 
     // Allocate lengths for query and reference
     idx_t qry_lengths[N_BLOCKS], ref_lengths[N_BLOCKS];
@@ -102,11 +102,11 @@ int main(){
     {
         for (int i = 0; i < query.size(); i++)
         {
-            query_buff[b][i] = base_to_num(query[i]);
+            query_buff[i][b] = base_to_num(query[i]);
         }
         for (int i = 0; i < reference.size(); i++)
         {
-            reference_buff[b][i] = base_to_num(reference[i]);
+            reference_buff[i][b] = base_to_num(reference[i]);
         }
         qry_lengths[b] = query.size();
         ref_lengths[b] = reference.size();
@@ -114,7 +114,8 @@ int main(){
 
     // Allocate traceback streams
     idx_t tb_is_d[N_BLOCKS], tb_js_d[N_BLOCKS];
-    tbr_t tb_streams_d[N_BLOCKS][MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH];
+    tbr_t tb_streams_d[MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH][N_BLOCKS];
+    tbr_t tb_streams_h[N_BLOCKS][MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH];
 
     // Actual kernel calling
     seq_align_multiple_static(
@@ -165,10 +166,11 @@ int main(){
         query_string_blocks[i] = query_string;
         reference_string_blocks[i] = reference_string;
     }
+    HostUtils::IO::SwitchDimension(tb_streams_d, tb_streams_h);
     kernel_alignments = HostUtils::Sequence::ReconstructTracebackBlocks<tbr_t, N_BLOCKS, MAX_QUERY_LENGTH, MAX_REFERENCE_LENGTH>(
         query_string_blocks, reference_string_blocks,
         tb_is_h, tb_js_h, 
-        tb_streams_d);
+        tb_streams_h);
 
     // Print all kernel traceback
     for (int i = 0; i < N_BLOCKS; i++) {

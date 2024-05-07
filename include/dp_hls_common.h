@@ -32,6 +32,8 @@
 //     const type_t& operator[](idx_t index) const { return data[index]; }
 // };
 
+const int PRAGMA_N_BLOCKS = N_BLOCKS;
+
 typedef hls::vector<type_t, N_LAYERS> score_vec_t;
 
 struct ScorePack{
