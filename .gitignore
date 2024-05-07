@@ -13,6 +13,7 @@ out/
 
 # ignore build file at the top level
 /build/
+.idea/
 
 # ignore vitis projects
 local_seq_align_multiple_sa/local_seq_align_multiple_sa_vitis/
@@ -84,3 +85,11 @@ compile_configs
 
 /tmp/
 /vitis_projects/
+
+/build/
+/cmake-build-debug/
+/reports
+/synthesis
+/.vscode/
+
+compile_configs
