@@ -152,7 +152,7 @@ void global_linear_solution(std::string query, std::string reference, PENALTY_T 
     float upper_left_value = 0;
     for (int i = 0; i < MAX_QUERY_LENGTH; i++)
     {
-        upper_left_value += penalties.open; // since it was declared with type_t then convert back to int.
+        upper_left_value += penalties.linear_gap; // since it was declared with type_t then convert back to int.
         initial_col[i] = upper_left_value;
     }
 
@@ -160,7 +160,7 @@ void global_linear_solution(std::string query, std::string reference, PENALTY_T 
     upper_left_value = 0; // FIXME: This might to be initialized as 0
     for (int j = 0; j < MAX_REFERENCE_LENGTH; j++)
     {
-        upper_left_value += penalties.open; // since it was declared with type_t then convert back to int.
+        upper_left_value += penalties.linear_gap; // since it was declared with type_t then convert back to int.
         initial_row[j] = upper_left_value;
     }
 
