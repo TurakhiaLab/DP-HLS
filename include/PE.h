@@ -4,10 +4,11 @@
 #include <hls_stream.h>
 #include <ap_int.h>
 #include <ap_fixed.h>
+#include "./shift_reg.h"
 #include <hls_streamofblocks.h>
 #include "./traceback.h"
 #include <hls_vector.h>
-#include "dp_hls_common.h"
+#include "./params.h"
 
 #ifdef CMAKEDEBUG
 #include <list>
