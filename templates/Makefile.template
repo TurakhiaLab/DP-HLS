@@ -24,7 +24,7 @@ HOST_SRCS += {{ host_path }} ${DHR}/src/host_utils.cpp ${DHR}/include/host_utils
 CXXFLAGS += -I{{ params_folder_path }} -I${DHR}/include ${PARAMS_FLAGS}
 VPP_FLAGS += --hls.clock {{ clock_frequency }}Hz:{{ kernel_name }} -I{{ params_folder_path }} -I${DHR}/include ${PARAMS_FLAGS}
 KERNEL_FRONTEND = {{ kernel_frontend_path }}
-KERNEL_SRCS = ${DHR}/src/seq_align_multiple.cpp ${DHR}/src/align/align.cpp ${DHR}/src/utils.cpp ${DHR}/src/traceback.cpp ${DHR}/src/pe.cpp ${KERNEL_FRONTEND}
+KERNEL_SRCS = ${DHR}/src/seq_align_multiple.cpp ${DHR}/src/align.cpp ${DHR}/src/utils.cpp ${DHR}/src/traceback.cpp ${DHR}/src/pe.cpp ${KERNEL_FRONTEND}
 
 help::
 	$(ECHO) "Makefile Usage:"

@@ -24,13 +24,14 @@ fi
 for kernel_folder in "$BASE"/$NAME_*; do
     if [ -d "$kernel_folder" ]; then
         # Check if report.rpt file exists in KERNEL_n/report/impl/
-        report_file="$kernel_folder/report/link/imp/impl_1_kernel_util_routed.rpt"
-        if [ -f "$report_file" ]; then
+        report_folder="$kernel_folder/report/link/imp"
+        if [ -d "$report_folder" ]; then
             # Copy report.rpt to destination folder
-            cp "$report_file" "$DESTINATION"/$(basename "$kernel_folder")
-            echo "Copied $report_file to $DESTINATION"
+            mkdir "$DESTINATION"/$(basename "$kernel_folder")
+            cp -r "$report_folder" "$DESTINATION"/$(basename "$kernel_folder")
+            echo "Copied $report_folder to $DESTINATION"
         else
-            echo "report.rpt not found in $kernel_folder"
+            echo "report not found in $kernel_folder"
         fi
     fi
 done

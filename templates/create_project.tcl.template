@@ -1,0 +1,32 @@
+open_project seq_align_multiple_static
+set_top seq_align_multiple_static
+# v++ -g, -D, -I, --advanced.prop kernel.seq_align_multiple_static.kernel_flags
+add_files "{{ local_src }}/seq_align_multiple.cpp" -cflags " -D MAX_QUERY_LENGTH={{ max_query_length }} -D MAX_REFERENCE_LENGTH={{ max_reference_length }} -D PRAGMA_PE_NUM={{ pe_num }} -D N_BLOCKS={{ blocks }} -D DP_HLS_UNROLLED -D VPP_CLI -I {{ design_params }} -I {{ local_include }} "
+add_files "{{ local_src }}/align.cpp" -cflags " -D MAX_QUERY_LENGTH={{ max_query_length }} -D MAX_REFERENCE_LENGTH={{ max_reference_length }} -D PRAGMA_PE_NUM={{ pe_num }} -D N_BLOCKS={{ blocks }} -D DP_HLS_UNROLLED -D VPP_CLI -I {{ design_params }} -I {{ local_include }} "
+add_files "{{ local_src }}/utils.cpp" -cflags " -D MAX_QUERY_LENGTH={{ max_query_length }} -D MAX_REFERENCE_LENGTH={{ max_reference_length }} -D PRAGMA_PE_NUM={{ pe_num }} -D N_BLOCKS={{ blocks }} -D DP_HLS_UNROLLED -D VPP_CLI -I {{ design_params }} -I {{ local_include }} "
+add_files "{{ local_src }}/traceback.cpp" -cflags " -D MAX_QUERY_LENGTH={{ max_query_length }} -D MAX_REFERENCE_LENGTH={{ max_reference_length }} -D PRAGMA_PE_NUM={{ pe_num }} -D N_BLOCKS={{ blocks }} -D DP_HLS_UNROLLED -D VPP_CLI -I {{ design_params }} -I {{ local_include }} "
+add_files "{{ local_src }}/pe.cpp" -cflags " -D MAX_QUERY_LENGTH={{ max_query_length }} -D MAX_REFERENCE_LENGTH={{ max_reference_length }} -D PRAGMA_PE_NUM={{ pe_num }} -D N_BLOCKS={{ blocks }} -D DP_HLS_UNROLLED -D VPP_CLI -I {{ design_params }} -I {{ local_include }} "
+add_files "{{ kernel_frontend }}" -cflags " -D MAX_QUERY_LENGTH={{ max_query_length }} -D MAX_REFERENCE_LENGTH={{ max_reference_length }} -D PRAGMA_PE_NUM={{ pe_num }} -D N_BLOCKS={{ blocks }} -D DP_HLS_UNROLLED -D VPP_CLI -I {{ design_params }} -I {{ local_include }} "
+add_files -tb "{{ tb_file }}" -cflags " -D MAX_QUERY_LENGTH={{ max_query_length }} -D MAX_REFERENCE_LENGTH={{ max_reference_length }} -D PRAGMA_PE_NUM={{ pe_num }} -D N_BLOCKS={{ blocks }} -D DP_HLS_UNROLLED -D VPP_CLI -I {{ design_params }} -I {{ local_include }} "
+
+# The followings should be put in another script after reopening the project created. 
+# The problem is that we must close and reopen the project to successfully create a solution. There is a bug to create solution with tcl script. 
+# open_solution -flow_target vitis solution1
+# set_part xcvu9p-flgb2104-2-i
+# # v++ --hls.clock or --kernel_frequency
+# create_clock -period {{ clock_frequency }}Hz -name default  # This must be something like -period 5
+# # v++ --advanced.param compiler.hlsDataflowStrictMode
+# config_dataflow -strict_mode warning
+# # v++ --advanced.param compiler.deadlockDetection
+# config_export -deadlock_detection none
+# # v++ --advanced.param compiler.axiDeadLockFree
+# config_interface -m_axi_conservative_mode=1
+# config_interface -m_axi_addr64
+# # v++ --hls.max_memory_ports
+# config_interface -m_axi_auto_max_ports=0
+# config_export -format xo -ipname seq_align_multiple_static
+# csynth_design
+# export_design
+close_project
+puts "HLS Project Successfully Created"
+exit

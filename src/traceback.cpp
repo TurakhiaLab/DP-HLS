@@ -1,6 +1,6 @@
-#include "../include/traceback.h"
-#include "../include/loop_counter.h"
-#include "../include/frontend.h"
+#include "params.h"
+#include "traceback.h"
+#include "frontend.h"
 
 #include <hls_vector.h>
 
@@ -56,8 +56,6 @@ void Traceback::TracebackOptimized(
     idx_t (&ck_end_col)[MAX_QUERY_LENGTH / PE_NUM],            // chunk end index
     int ck_idx, int pe_idx, int col_idx, int v_row, int v_col) // starting index to traceback
 {
-#define CMAKEDEBUG_PRINT_TRACEBACK 1
-
 #ifdef CMAKEDEBUG
 #ifdef CMAKEDEBUG_PRINT_TRACEBACK
     printf("Stripped Matrix\n");
@@ -217,9 +215,9 @@ void Traceback::NextAddress(tbr_t &nav,
         v_row--;
     }
     else if (nav == AL_MMI)
-    { // Moving Diagonal
+    {
+        // Moving Diagonal
         // Moving diagonal is a combination of moving left and moving up
-        // QUESTION: am I thinking correctly?
         if (col == 0)
         {
             nav = AL_END;
