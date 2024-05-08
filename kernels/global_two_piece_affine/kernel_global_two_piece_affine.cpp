@@ -49,32 +49,32 @@ void GlobalTwoPieceAffine::PE::Compute(char_t local_query_val,
 
     tbp_t tbp_temp = 0b0000000;
 
-    if (insert_open > insert_extend){
-        write_score[0] = insert_open;
+    if (insert_open < insert_extend){
+        write_score[0] = insert_extend;
         tbp_temp = tbp_temp | TB_INSERT;
     } else {
-        write_score[0] = insert_extend;
+        write_score[0] = insert_open;
     }
 
-    if (delete_open > delete_extend){
-        write_score[2] = delete_open;
+    if (delete_open < delete_extend){
+        write_score[2] = delete_extend;
         tbp_temp = tbp_temp | TB_DELETE;
     } else {
-        write_score[2] = delete_extend;
+        write_score[2] = delete_open;
     }
 
-    if (long_insert_open > long_insert_extend){
-        write_score[3] = long_insert_open;
+    if (long_insert_open < long_insert_extend){
+        write_score[3] = long_insert_extend;
         tbp_temp = tbp_temp | TB_LONG_INSERT;
     } else {
-        write_score[3] = long_insert_extend;
+        write_score[3] = long_insert_open;
     }
 
-    if (long_delete_open > long_delete_extend){
-        write_score[4] = long_delete_open;
+    if (long_delete_open < long_delete_extend){
+        write_score[4] = long_delete_extend;
         tbp_temp = tbp_temp | TB_LONG_DELETE;
     } else {
-        write_score[4] = long_delete_extend;
+        write_score[4] = long_delete_open;
     }
 
 
@@ -92,8 +92,12 @@ void GlobalTwoPieceAffine::PE::Compute(char_t local_query_val,
 #endif
 
     // compare insertion and deletion matrices 
-    type_t max_value = MAX(MAX(write_score[0], write_score[3]), MAX(write_score[2], write_score[4]));
-    max_value = max_value > match ? max_value : match;                                    // compare with match/mismatch
+    type_t max_value = match;
+    max_value = max_value > write_score[0] ? max_value : write_score[0]; // MAX(write_score[0], match);
+    max_value = max_value > write_score[2] ? max_value : write_score[2]; // MAX(MAX(write_score[0], match), write_score[2]);
+    max_value = max_value > write_score[3] ? max_value : write_score[3]; // MAX(MAX(write_score[0], write_score[2]), write_score[3]);
+    max_value = max_value > write_score[4] ? max_value : write_score[4];
+
     write_score[1] = max_value;  // write score to the main matrix should be the max score, not match score
 
 #ifdef CMAKEDEBUG
@@ -106,6 +110,14 @@ void GlobalTwoPieceAffine::PE::Compute(char_t local_query_val,
     {
         tbp_temp = tbp_temp | TB_MAIN;
     }
+        else if (max_value == write_score[3])
+    {
+        tbp_temp = tbp_temp | TB_LONG_INSERT;
+    }
+    else if (max_value == write_score[4])
+    {
+        tbp_temp = tbp_temp | TB_LONG_DELETE;
+    }
     else if (max_value == write_score[0])
     { 
         tbp_temp = tbp_temp | TB_INSERT;
@@ -113,14 +125,6 @@ void GlobalTwoPieceAffine::PE::Compute(char_t local_query_val,
     else if (max_value == write_score[2])
     {
         tbp_temp = tbp_temp | TB_DELETE;
-    }
-    else if (max_value == write_score[3])
-    {
-        tbp_temp = tbp_temp | TB_LONG_INSERT;
-    }
-    else if (max_value == write_score[4])
-    {
-        tbp_temp = tbp_temp | TB_LONG_DELETE;
     }
     else
     {
@@ -265,59 +269,67 @@ void GlobalTwoPieceAffine::Traceback::StateMapping(tbp_t tbp, TB_STATE &state, t
         else if (tbp(2, 0) == TB_DELETE)
         {
             state = TB_STATE::DEL;
-            navigation = AL_NULL;
+            navigation = AL_DEL;
         }
         else if (tbp(2, 0) == TB_INSERT)
         {
             state = TB_STATE::INS;
-            navigation = AL_NULL;
+            navigation = AL_INS;
         }
         else if (tbp(2, 0) == TB_LONG_DELETE)
         {
             state = TB_STATE::LONG_DEL;
-            navigation = AL_NULL;
+            navigation = AL_DEL;
         }
         else if (tbp(2, 0) == TB_LONG_INSERT)
         {
             state = TB_STATE::LONG_INS;
-            navigation = AL_NULL;
+            navigation = AL_INS;
+        } else {
+#ifdef CMAKEDEBUG
+            // call an runtime error
+            std::runtime_error("unknown direction");
+#endif
         }
     }
     else if (state == TB_STATE::DEL)
     {
         if (tbp[5] != 1)
-        { 
+        {
             state = TB_STATE::MM;
+            navigation = AL_NULL;
         }
         // otherwise remain in the same state/matrix
-        navigation = AL_DEL;
+
     }
     else if (state == TB_STATE::INS)
     {
         if (tbp[3] != 1)
         {
             state = TB_STATE::MM; // set the state back to MM
+            navigation = AL_NULL;
         }
         // otherwise remain in the same state/matrix
-        navigation = AL_INS;
+
     }
     else if (state == TB_STATE::LONG_INS) 
     {  
         if (tbp[4] != 1) 
         {
             state = TB_STATE::MM;
+            navigation = AL_NULL;
         }
         // otherwise stay in the long insertion state
-        navigation = AL_INS;
+
     }
     else if (state == TB_STATE::LONG_DEL)
     {
         if (tbp[6] != 1) 
         {
             state = TB_STATE::MM;
+            navigation = AL_NULL;
         }
         // otherwise stay in the long deletion state
-        navigation = AL_DEL;
     }
     else
     {

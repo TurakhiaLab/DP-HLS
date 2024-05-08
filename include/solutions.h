@@ -2374,10 +2374,14 @@ void global_two_piece_affine_solution(std::string query, std::string reference, 
             float insertion_score = max(insertion_open_score, insertion_extend_score);
             float deletion_score = max(deletion_open_score, deletion_extend_score);
 
-            float long_insertion_score = max(long_insertion_open_score, long_insertion_extend_score);
-            float long_deletion_score = max(long_deletion_open_score, long_deletion_extend_score);
+            float long_insertion_score = long_insertion_open_score > long_insertion_extend_score ? long_insertion_open_score : long_insertion_extend_score;
+            float long_deletion_score = long_deletion_open_score > long_deletion_extend_score ? long_deletion_open_score : long_deletion_extend_score;
 
-            float final_score = max(mm_score, max(max(insertion_score, deletion_score), max(long_insertion_score, long_deletion_score)));
+            float final_score = mm_score;
+            final_score = final_score > insertion_score ? final_score : insertion_score;
+            final_score = final_score > deletion_score ? final_score : deletion_score;
+            final_score = final_score > long_insertion_score ? final_score : long_insertion_score;
+            final_score = final_score > long_deletion_score ? final_score : long_deletion_score;
 
             score_mat[0][i][j] = insertion_score;
             score_mat[1][i][j] = final_score;
