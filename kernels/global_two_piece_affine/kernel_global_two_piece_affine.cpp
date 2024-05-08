@@ -275,7 +275,7 @@ void GlobalTwoPieceAffine::Traceback::StateMapping(tbp_t tbp, TB_STATE &state, t
 //         throw std::runtime_error("Unknown traceback state.");
 // #endif
     }
-    std::cout << "NAVIGATION IS " << navigation << std::endl;
+    // std::cout << "NAVIGATION IS " << navigation << std::endl;
 }
 
 void GlobalTwoPieceAffine::Traceback::StateInit(tbp_t tbp, TB_STATE &state)
