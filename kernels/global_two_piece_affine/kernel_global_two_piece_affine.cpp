@@ -47,18 +47,36 @@ void GlobalTwoPieceAffine::PE::Compute(char_t local_query_val,
     auto up_prev_2_s = up_prev[2].to_float();
 #endif
 
-    bool insert_open_b = insert_open > insert_extend;
-    bool delete_open_b = delete_open > delete_extend;
-    bool long_insert_open_b = long_insert_open > long_insert_extend;
-    bool long_delete_open_b = long_delete_open > long_delete_extend;
-    write_score[0] = insert_open_b ? insert_open : insert_extend;
-    write_score[2] = delete_open_b ? delete_open : delete_extend;
-    write_score[3] = long_insert_open_b ? long_insert_open : long_insert_extend;
-    write_score[4] = long_delete_open_b ? long_delete_open : long_delete_extend;
-    // tbp_t insert_tb = insert_open_b ? (tbp_t) 0 : TB_IMAT;
-    // tbp_t delete_tb = delete_open_b ? (tbp_t) 0 : TB_DMAT;
-    // tbp_t long_insert_tb = long_insert_open_b ? (tbp_t) 0 : TB_LIMAT;
-    // tbp_t long_delete_tb = long_delete_open_b ? (tbp_t) 0 : TB_LDMAT;
+    tbp_t tbp_temp = 0b0000000;
+
+    if (insert_open > insert_extend){
+        write_score[0] = insert_open;
+        tbp_temp = tbp_temp | TB_INSERT;
+    } else {
+        write_score[0] = insert_extend;
+    }
+
+    if (delete_open > delete_extend){
+        write_score[2] = delete_open;
+        tbp_temp = tbp_temp | TB_DELETE;
+    } else {
+        write_score[2] = delete_extend;
+    }
+
+    if (long_insert_open > long_insert_extend){
+        write_score[3] = long_insert_open;
+        tbp_temp = tbp_temp | TB_LONG_INSERT;
+    } else {
+        write_score[3] = long_insert_extend;
+    }
+
+    if (long_delete_open > long_delete_extend){
+        write_score[4] = long_delete_open;
+        tbp_temp = tbp_temp | TB_LONG_DELETE;
+    } else {
+        write_score[4] = long_delete_extend;
+    }
+
 
 #ifdef CMAKEDEBUG
     auto write_score_0_s = write_score[0].to_float();
@@ -78,46 +96,38 @@ void GlobalTwoPieceAffine::PE::Compute(char_t local_query_val,
     max_value = max_value > match ? max_value : match;                                    // compare with match/mismatch
     write_score[1] = max_value;  // write score to the main matrix should be the max score, not match score
 
-    // keep track where the max value came from
-    tbp_t pre_trace;
-    tbp_t next_state = (tbp_t)0b00000;  // by default this is the main matrix state
-
 #ifdef CMAKEDEBUG
     auto match_s = match.to_float();
     auto write_score_1_s = write_score[1].to_float();
 #endif
 
     // Set traceback pointer based on the direction of the maximum score.
-    if (max_value == write_score[0])
-    { 
-        pre_trace = TB_INSERT;
-        next_state = TB_IMAT;
-    }
-    else if (max_value == write_score[1])
+    if (max_value == write_score[1])
     {
-        pre_trace = TB_MAIN;
+        tbp_temp = tbp_temp | TB_MAIN;
+    }
+    else if (max_value == write_score[0])
+    { 
+        tbp_temp = tbp_temp | TB_INSERT;
     }
     else if (max_value == write_score[2])
     {
-        pre_trace = TB_DELETE;
-        next_state = TB_DMAT;
+        tbp_temp = tbp_temp | TB_DELETE;
     }
     else if (max_value == write_score[3])
     {
-        pre_trace = TB_LONG_INSERT;
-        next_state = TB_LIMAT;
+        tbp_temp = tbp_temp | TB_LONG_INSERT;
     }
     else if (max_value == write_score[4])
     {
-        pre_trace = TB_LONG_DELETE;
-        next_state = TB_LDMAT;
+        tbp_temp = tbp_temp | TB_LONG_DELETE;
     }
     else
     {
         // Undefined behavior happens if the max score is non of the I', D', I, D, or M.
     }
 
-    write_traceback = pre_trace + next_state; //insert_tb + delete_tb + long_insert_tb + long_delete_tb;
+    write_traceback = tbp_temp; //insert_tb + delete_tb + long_insert_tb + long_delete_tb;
 }
 
 void GlobalTwoPieceAffine::Helper::InitCol(score_vec_t (&init_col_scr)[MAX_QUERY_LENGTH], Penalties penalties){
@@ -236,7 +246,6 @@ void GlobalTwoPieceAffine::InitializeMaxScores(ScorePack (&max)[PE_NUM], idx_t q
         max[i].score = NINF;
         max[i].p_col = 0;
         max[i].ck = 0;
-
     }
     idx_t max_pe = (qry_len - 1) % PE_NUM;
     idx_t max_ck = (qry_len - 1)  / PE_NUM;
@@ -276,8 +285,7 @@ void GlobalTwoPieceAffine::Traceback::StateMapping(tbp_t tbp, TB_STATE &state, t
     }
     else if (state == TB_STATE::DEL)
     {
-        tbp_t temp = tbp & (~0u << 3);
-        if (temp != TB_DMAT)
+        if (tbp[5] != 1)
         { 
             state = TB_STATE::MM;
         }
@@ -286,8 +294,7 @@ void GlobalTwoPieceAffine::Traceback::StateMapping(tbp_t tbp, TB_STATE &state, t
     }
     else if (state == TB_STATE::INS)
     {
-        tbp_t temp = tbp & (~0u << 3);
-        if (temp != TB_IMAT)
+        if (tbp[3] != 1)
         {
             state = TB_STATE::MM; // set the state back to MM
         }
@@ -296,8 +303,7 @@ void GlobalTwoPieceAffine::Traceback::StateMapping(tbp_t tbp, TB_STATE &state, t
     }
     else if (state == TB_STATE::LONG_INS) 
     {  
-        tbp_t temp = tbp & (~0u << 3);
-        if (temp != TB_LIMAT) 
+        if (tbp[4] != 1) 
         {
             state = TB_STATE::MM;
         }
@@ -306,8 +312,7 @@ void GlobalTwoPieceAffine::Traceback::StateMapping(tbp_t tbp, TB_STATE &state, t
     }
     else if (state == TB_STATE::LONG_DEL)
     {
-        tbp_t temp = tbp & (~0u << 3);
-        if (temp != TB_LIMAT) 
+        if (tbp[6] != 1) 
         {
             state = TB_STATE::MM;
         }
@@ -327,25 +332,5 @@ void GlobalTwoPieceAffine::Traceback::StateMapping(tbp_t tbp, TB_STATE &state, t
 void GlobalTwoPieceAffine::Traceback::StateInit(tbp_t tbp, TB_STATE &state)
 {
     state = TB_STATE::MM;
-//     if (tbp(1, 0) == TB_DIAG)
-//     {
-//         state = TB_STATE::MM;
-//     }
-//     else if (tbp(1, 0) == TB_UP)
-//     {
-
-//         state = TB_STATE::DEL;
-//     }
-//     else if (tbp(1, 0) == TB_LEFT)
-//     {
-//         state = TB_STATE::INS;
-//     }
-//     else
-//     {
-//         // Unknown Direction
-// // #ifdef CMAKEDEBUG
-// //         throw std::runtime_error("Unknown traceback direction." + std::to_string(tbp.to_int()));
-// // #endif
-//     }
 }
 // <<< Global Two Piece Affine Implementation <<<
