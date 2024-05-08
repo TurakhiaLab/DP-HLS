@@ -187,10 +187,12 @@ int main(){
         tb_query_lengths, tb_reference_lengths, 
         tb_streams_host);
 
-    // Print kernel traceback for all blocks
+    // Print kernel 0 traceback
     for (int i = 0; i < N_BLOCKS; i++) {
         cout << "Kernel " << i << " Traceback" << endl;
-        cout << "Kernel   Aligned Query    : " << kernel_alignments[i]["query"] << endl;
-        cout << "Kernel   Aligned Reference: " << kernel_alignments[i]["reference"] << endl;
+        cout << "Kernel   Aligned Query    : " << kernel_alignments[0]["query"] << endl;
+        cout << "Kernel   Aligned Reference: " << kernel_alignments[0]["reference"] << endl;
     }
+
+
 }

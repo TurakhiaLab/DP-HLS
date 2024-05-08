@@ -12,8 +12,8 @@
 
 using namespace std;
 
-#define INPUT_QUERY_LENGTH 256
-#define INPUT_REFERENCE_LENGTH 256
+#define INPUT_QUERY_LENGTH 16
+#define INPUT_REFERENCE_LENGTH 16
 
 char_t base_to_num(char base)
 {
@@ -33,6 +33,7 @@ char_t base_to_num(char base)
         throw std::runtime_error("Unrecognized Nucleotide " + std::string(1, base) + " from A, C, G, and T.\n"); // or throw an exception
 #endif
     }
+
 }
 
 struct Penalties_sol
@@ -47,6 +48,8 @@ struct Penalties_sol
 };
 
 int main(){
+    // std::string query_string = "AGTCTG";     // CCGTAGACCCGAACTTCGCGGTACACCTTCTGAAACCGTCCCTAATCCGACGAGCGCCTTGAGAACG";
+    // std::string reference_string = "TGCCGAT";       // TGAGAACGTAGTCTAGGCGAATCGGCCCTTGTATATCGGGGCCGTAGACCCGAACTTCGCGGTACAC";
     char alphabet[4] = {'A', 'T', 'G', 'C'};
     std::string query_string = Random::Sequence<4>(alphabet, INPUT_QUERY_LENGTH);
     std::string reference_string = Random::Sequence<4>(alphabet, INPUT_REFERENCE_LENGTH);
@@ -97,8 +100,8 @@ int main(){
     }
 
     // Allocate query and reference buffer to pass to the kernel
-    char_t reference_buff[MAX_REFERENCE_LENGTH][N_BLOCKS];
-    char_t query_buff[MAX_QUERY_LENGTH][N_BLOCKS];
+    char_t reference_buff[N_BLOCKS][MAX_REFERENCE_LENGTH];
+    char_t query_buff[N_BLOCKS][MAX_QUERY_LENGTH];
 
     // Allocate lengths for query and reference
     idx_t qry_lengths[N_BLOCKS], ref_lengths[N_BLOCKS];
@@ -110,11 +113,11 @@ int main(){
     {
         for (int i = 0; i < query.size(); i++)
         {
-            query_buff[i][b] = base_to_num(query[i]);
+            query_buff[b][i] = base_to_num(query[i]);
         }
         for (int i = 0; i < reference.size(); i++)
         {
-            reference_buff[i][b] = base_to_num(reference[i]);
+            reference_buff[b][i] = base_to_num(reference[i]);
         }
     }
 
@@ -126,8 +129,7 @@ int main(){
     }
 
     // Allocate traceback streams
-    tbr_t tb_streams_d[MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH][N_BLOCKS];
-    tbr_t tb_streams_h[N_BLOCKS][MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH];
+    tbr_t tb_streams[N_BLOCKS][MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH];
 
     // initialize traceback starting coordinates
     idx_t tb_is[N_BLOCKS];
@@ -141,7 +143,7 @@ int main(){
         ref_lengths,
         penalties,
         tb_is, tb_js,
-        tb_streams_d
+        tb_streams
 #ifdef CMAKEDEBUG
         , debuggers
 #endif
@@ -166,12 +168,10 @@ int main(){
     // Display solution runtime
     std::cout << "Solution Runtime: " << std::chrono::duration_cast<std::chrono::milliseconds>(sol_end - sol_start).count() << "ms" << std::endl;
 
-#ifdef CMAKEDEBUG
     // Cast kernel scores to matrix scores
     debuggers[0].cast_scores();
     // print_matrix<float, MAX_QUERY_LENGTH, MAX_REFERENCE_LENGTH>(debuggers[0].scores_cpp[0], "Kernel 0 Scores Layer 0");
     debuggers[0].compare_scores(sol_score_mat, query.size(), reference.size());  // check if the scores from the kernel matches scores from the solution
-#endif
 
     // reconstruct kernel alignments
     array<map<string, string>, N_BLOCKS> kernel_alignments;
@@ -186,17 +186,14 @@ int main(){
         query_string_blocks[i] = query_string;
         reference_string_blocks[i] = reference_string;
     }
-    HostUtils::IO::SwitchDimension(tb_streams_d, tb_streams_h);
-    kernel_alignments = HostUtils::Sequence::ReconstructTracebackBlocks<tbr_t, N_BLOCKS, MAX_QUERY_LENGTH, MAX_REFERENCE_LENGTH>(
+     kernel_alignments = HostUtils::Sequence::ReconstructTracebackBlocks<tbr_t, N_BLOCKS, MAX_QUERY_LENGTH, MAX_REFERENCE_LENGTH>(
         query_string_blocks, reference_string_blocks,
         tb_query_lengths, tb_reference_lengths, 
-        tb_streams_h);
+        tb_streams);
 
-    // Print kernel traceback for all blocks
     // Print kernel 0 traceback
-    for (int i = 0; i < N_BLOCKS; i++) {
-        cout << "Kernel " << i << " Traceback" << endl;
-        cout << "Kernel   Aligned Query    : " << kernel_alignments[i]["query"] << endl;
-        cout << "Kernel   Aligned Reference: " << kernel_alignments[i]["reference"] << endl;
-    }
+    cout << "Kernel 0 Traceback" << endl;
+    cout << "Kernel   Aligned Query    : " << kernel_alignments[0]["query"] << endl;
+    cout << "Kernel   Aligned Reference: " << kernel_alignments[0]["reference"] << endl;
+
 }

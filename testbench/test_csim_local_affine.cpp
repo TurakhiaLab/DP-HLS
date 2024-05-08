@@ -188,7 +188,9 @@ int main(){
     // Print kernel 0 traceback
     for (int i = 0; i < N_BLOCKS; i++) {
         cout << "Kernel " << i << " Traceback, Start Row: " << tb_is_h[i] << ", Start Column: " << tb_js_h[i] << endl;
-        cout << "Kernel   Aligned Query    : " << kernel_alignments[i]["query"] << endl;
-        cout << "Kernel   Aligned Reference: " << kernel_alignments[i]["reference"] << endl;
+        cout << "Kernel   Aligned Query    : " << kernel_alignments[0]["query"] << endl;
+        cout << "Kernel   Aligned Reference: " << kernel_alignments[0]["reference"] << endl;
     }
+
+
 }
