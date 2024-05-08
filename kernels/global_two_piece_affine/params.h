@@ -72,9 +72,9 @@ enum TB_STATE {
 // #define TB_DMAT (tbp_t) 0b01000  // Deletion Matrix
 // #define TB_LIMAT (tbp_t) 0b10000 // Long Insertion Matrix
 // #define TB_LDMAT (tbp_t) 0b11000 // Long Deletion Matrix
-#define TB_INS_EXTEND 0b0001000
-#define TB_LONG_INS_EXTEND 0b0010000
-#define TB_DEL_EXTEND 0b0100000
-#define TB_LONG_DEL_EXTEND 0b1000000
+#define TB_INS_EXTEND (tbp_t) 0b0001000
+#define TB_LONG_INS_EXTEND (tbp_t) 0b0010000
+#define TB_DEL_EXTEND (tbp_t) 0b0100000
+#define TB_LONG_DEL_EXTEND (tbp_t) 0b1000000
 
 #endif

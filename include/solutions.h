@@ -2253,35 +2253,42 @@ void global_two_piece_affine_solution(std::string query, std::string reference, 
     array<array<float, N_LAYERS_GA>, SOL_MAX_QUERY_LENGTH> initial_col;
     array<array<float, N_LAYERS_GA>, SOL_MAX_REFERENCE_LENGTH> initial_row;
 
-    initial_col[0][0] = -numeric_limits<float>::infinity();
-    initial_col[0][1] = 0;
-    initial_col[0][2] = -numeric_limits<float>::infinity();
-    initial_col[0][3] = -numeric_limits<float>::infinity();
-    initial_col[0][4] = -numeric_limits<float>::infinity();
+    // initial_col[0][0] = -numeric_limits<float>::infinity();
+    // initial_col[0][1] = 0;
+    // initial_col[0][2] = -numeric_limits<float>::infinity();
+    // initial_col[0][3] = -numeric_limits<float>::infinity();
+    // initial_col[0][4] = -numeric_limits<float>::infinity();
 
-    initial_row[0][0] = -numeric_limits<float>::infinity();
-    initial_row[0][1] = 0;
-    initial_row[0][2] = -numeric_limits<float>::infinity();
-    initial_row[0][3] = -numeric_limits<float>::infinity();
-    initial_row[0][4] = -numeric_limits<float>::infinity();
+    // initial_row[0][0] = -numeric_limits<float>::infinity();
+    // initial_row[0][1] = 0;
+    // initial_row[0][2] = -numeric_limits<float>::infinity();
+    // initial_row[0][3] = -numeric_limits<float>::infinity();
+    // initial_row[0][4] = -numeric_limits<float>::infinity();
 
     // Initialize intial column and row values
-    for (int i = 1; i < SOL_MAX_QUERY_LENGTH; i++)
+    float short_pen = penalties.open;
+    float long_pen = penalties.long_open;
+    for (int j = 0; j < SOL_MAX_QUERY_LENGTH; j++)
     {
-        initial_col[i][0] = -numeric_limits<float>::infinity();
-        initial_col[i][2] = penalties.open + penalties.extend * i;
-        initial_col[i][3] = -numeric_limits<float>::infinity();
-        initial_col[i][4] = penalties.long_open + penalties.long_extend * i;
-        initial_col[i][1] = initial_col[i][2] > initial_col[i][4] ? initial_col[i][2] : initial_col[i][4];
+        short_pen += penalties.extend;
+        long_pen += penalties.long_extend;
+        initial_col[j][0] = -numeric_limits<float>::infinity();
+        initial_col[j][2] = -numeric_limits<float>::infinity();
+        initial_col[j][3] = -numeric_limits<float>::infinity();
+        initial_col[j][4] = -numeric_limits<float>::infinity();
+        initial_col[j][1] = short_pen > long_pen ? short_pen : long_pen;
     }
-
-    for (int j = 1; j < SOL_MAX_REFERENCE_LENGTH; j++)
+    short_pen = penalties.open;
+    long_pen = penalties.long_open;
+    for (int i = 0; i < SOL_MAX_REFERENCE_LENGTH; i++)
     {
-        initial_row[j][0] = penalties.open + penalties.extend * j;
-        initial_row[j][2] = -numeric_limits<float>::infinity();
-        initial_row[j][3] = penalties.long_open + penalties.long_extend * j;
-        initial_row[j][4] = -numeric_limits<float>::infinity();
-        initial_row[j][1] = initial_row[j][0] > initial_row[j][3] ? initial_row[j][0] : initial_row[j][3];
+        short_pen += penalties.extend;
+        long_pen += penalties.long_extend;
+        initial_row[i][0] = -numeric_limits<float>::infinity();
+        initial_row[i][2] = -numeric_limits<float>::infinity();
+        initial_row[i][3] = -numeric_limits<float>::infinity();
+        initial_row[i][4] = -numeric_limits<float>::infinity();
+        initial_row[i][1] = long_pen > short_pen ? long_pen : short_pen;
     }
 
     // Initialize the score matrix
