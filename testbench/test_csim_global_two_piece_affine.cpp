@@ -9,28 +9,10 @@
 #include "solutions.h"
 #include "debug.h"
 
-// Query    : TGAAAGACGGAGGCTACTCTAGTGACTATGGCCCAGGGAGAACTCGTGATACGTAAACACACGACGCACACGCTGGTTAT
-// Reference: TCTTAACTCCGAGCTGATAGGTATCTGTCCGGTTCAGCGACAAAGACGGTATCGCAGTGACCATCGCCCCCATTAGGTGCTACGAGGGTAGACCCTAAGACATTGGTCCATCCGGATCTTACGGCCCTGCTACTCCCAAGGTACTAACGGTTCACGCTAA
-// Solution Aligned Query    : _________________________________________________________________________________TGAAAGACGGAGGCTACTCTAGTGACTATGGCCCAGGGAGAACTCGTGATACGTAAACACACGACGCACACGCTGGTTAT
-// Solution Aligned Reference: TCTTAACTCCGAGCTGATAGGTATCTGTCCGGTTCAGCGACAAAGACGGTATCGCAGTGACCATCGCCCCCATTAGGTGCT_ACGAGGGTAGACCCTAAGACATTGGTCCATCCGGATCTTACGGCCCTGCTACTCCCAAGGTACTAACGGTTCACGCTAA
-// Solution Runtime: 16ms
-// All scores match!
-// Kernel 0 Aligned Query    : _TGAAAGACGGAGGCTACTCTAGT____GACTAT___GGC___CCA___GGG___AGA___ACT___CGT___GAT___ACG___TAA_____________________________________ACA___CAC___GAC___________________________________________GCA___CAC___GCT___GGT___TAT_______
-// Kernel 0 Aligned Reference: TCTTAACTCCGAGCTGATAGG___TATC___TGTCCG___GTT___CAG___CGA___CAA___AGA___CGG___TAT___CGC___AGTGACCATCGCCCCCATTAGGTGCTACGAGGGTAGA___CCC___TAA___GACATTGGTCCATCCGGATCTTACGGCCCTGCTACTCCCAAGG___TAC___TAA___CGG___TTC___ACGCTAA
-
-// Query    : AGGGTAGTTCATGCATTTTAGGCAAGCCTGCTCCTACCCGCAGTTCCTGCGCCTATCGCCCTTAAACGAATAGGTTCAGA
-// Reference: AGCATACCATAGCGTCTAGCTGGGAAGACAATCGGCAAAAGACGCATCCTCCAAGGCCACTCCAATGAACAGAACACTCGAATAAAAGAGCCAATGGCAAAACTGTTCAACCGGTTCAAAGCGAAACCCATACCTTGCTATTAGGGAGGAACAGCACCCC
-// Solution Aligned Query    : _________________________________________________________________________________AGGGTAGTTCATGCATTTTAGGCAAGCCTGCTCCTACCCGCAGTTCCTGCGCCTATCGCCCTTAAACGAATAGGTTCAGA
-// Solution Aligned Reference: AGCATACCATAGCGTCTAGCTGGGAAGACAATCGGCAAAAGACGCATCCTCCAAGGCCACTCCAATGAACAGAACACTCGA_ATAAAAGAGCCAATGGCAAAACTGTTCAACCGGTTCAAAGCGAAACCCATACCTTGCTATTAGGGAGGAACAGCACCCC
-// Solution Runtime: 17ms
-// All scores match!
-// Kernel 0 Aligned Query    : AGGG____TAG___TTCATG___CATTTTA___GGC___AAG___CCT___GCT___CCT___ACC___CGC___AGT___TCC___TGC___GCC___TAT___CGC___CCT___TAA__________________________________ACG___AAT___AGG___TTC___AGA_____________________________________________________
-// Kernel 0 Aligned Reference: ___AGCAT___ACC___ATAGCG__TC___TAG___CTG___GGA___AGA___CAA___TCG___GCA___AAA___GAC___GCA___TCC___TCC___AAG___GCC___ACT___CCAATGAACAGAACACTCGAATAAAAGAGCCAAT___GGC___AAA___ACT___GTT___CAACCGGTTCAAAGCGAAACCCATACCTTGCTATTAGGGAGGAACAGCACCCC
-
 using namespace std;
 
-#define INPUT_QUERY_LENGTH 80
-#define INPUT_REFERENCE_LENGTH 160
+#define INPUT_QUERY_LENGTH 256
+#define INPUT_REFERENCE_LENGTH 256
 
 char_t base_to_num(char base)
 {
@@ -78,7 +60,7 @@ int main(){
         penalties[i].extend = -3;
         penalties[i].open = -4;
         penalties[i].match = 4;
-        penalties[i].mismatch = -1.5;
+        penalties[i].mismatch = -5;
         penalties[i].long_extend = -2;
         penalties[i].long_open = -16;
     }
@@ -89,7 +71,7 @@ int main(){
         penalties_sol[i].extend = -3;
         penalties_sol[i].open = -4;
         penalties_sol[i].match = 4;
-        penalties_sol[i].mismatch = -1.5;
+        penalties_sol[i].mismatch = -5;
         penalties_sol[i].long_extend = -2;
         penalties_sol[i].long_open = -16;
     }
