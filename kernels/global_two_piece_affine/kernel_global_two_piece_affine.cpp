@@ -51,28 +51,28 @@ void GlobalTwoPieceAffine::PE::Compute(char_t local_query_val,
 
     if (insert_open < insert_extend){
         write_score[0] = insert_extend;
-        tbp_temp = tbp_temp | TB_INSERT;
+        tbp_temp += TB_INSERT;
     } else {
         write_score[0] = insert_open;
     }
 
     if (delete_open < delete_extend){
         write_score[2] = delete_extend;
-        tbp_temp = tbp_temp | TB_DELETE;
+        tbp_temp += TB_DELETE;
     } else {
         write_score[2] = delete_open;
     }
 
     if (long_insert_open < long_insert_extend){
         write_score[3] = long_insert_extend;
-        tbp_temp = tbp_temp | TB_LONG_INSERT;
+        tbp_temp += TB_LONG_INSERT;
     } else {
         write_score[3] = long_insert_open;
     }
 
     if (long_delete_open < long_delete_extend){
         write_score[4] = long_delete_extend;
-        tbp_temp = tbp_temp | TB_LONG_DELETE;
+        tbp_temp += TB_LONG_DELETE;
     } else {
         write_score[4] = long_delete_open;
     }
@@ -110,7 +110,7 @@ void GlobalTwoPieceAffine::PE::Compute(char_t local_query_val,
     {
         tbp_temp = tbp_temp | TB_MAIN;
     }
-        else if (max_value == write_score[3])
+    else if (max_value == write_score[3])
     {
         tbp_temp = tbp_temp | TB_LONG_INSERT;
     }
@@ -269,68 +269,67 @@ void GlobalTwoPieceAffine::Traceback::StateMapping(tbp_t tbp, TB_STATE &state, t
         else if (tbp(2, 0) == TB_DELETE)
         {
             state = TB_STATE::DEL;
-            navigation = AL_DEL;
+            navigation = AL_NULL;
         }
         else if (tbp(2, 0) == TB_INSERT)
         {
             state = TB_STATE::INS;
-            navigation = AL_INS;
+            navigation = AL_NULL;
         }
-        else if (tbp(2, 0) == TB_LONG_DELETE)
-        {
-            state = TB_STATE::LONG_DEL;
-            navigation = AL_DEL;
-        }
-        else if (tbp(2, 0) == TB_LONG_INSERT)
-        {
-            state = TB_STATE::LONG_INS;
-            navigation = AL_INS;
-        } else {
-#ifdef CMAKEDEBUG
-            // call an runtime error
-            std::runtime_error("unknown direction");
-#endif
-        }
+//         else if (tbp(2, 0) == TB_LONG_DELETE)
+//         {
+//             state = TB_STATE::LONG_DEL;
+//             navigation = AL_NULL;
+//         }
+//         else if (tbp(2, 0) == TB_LONG_INSERT)
+//         {
+//             state = TB_STATE::LONG_INS;
+//             navigation = AL_NULL;
+//         } else {
+// #ifdef CMAKEDEBUG
+//             // call an runtime error
+//             std::runtime_error("unknown direction");
+// #endif
+//         }
     }
     else if (state == TB_STATE::DEL)
     {
-        if (tbp[5] != 1)
+        if ((bool) tbp[5] != 1)
         {
             state = TB_STATE::MM;
-            navigation = AL_NULL;
         }
         // otherwise remain in the same state/matrix
-
+        navigation = AL_DEL;
     }
     else if (state == TB_STATE::INS)
     {
-        if (tbp[3] != 1)
+        if ((bool) tbp[3] != 1)
         {
             state = TB_STATE::MM; // set the state back to MM
-            navigation = AL_NULL;
         }
         // otherwise remain in the same state/matrix
+        navigation = AL_INS;
+    }
+    // else if (state == TB_STATE::LONG_INS) 
+    // {  
+    //     if (tbp[4] != 1) 
+    //     {
+    //         state = TB_STATE::MM;
+    //     }
+    //     // otherwise stay in the long insertion state
+    //     navigation = AL_INS;
+    // }
+    // else if (state == TB_STATE::LONG_DEL)
+    // {
+    //     if (tbp[6] != 1) 
+    //     {
+    //         state = TB_STATE::MM;
+    //     }
 
-    }
-    else if (state == TB_STATE::LONG_INS) 
-    {  
-        if (tbp[4] != 1) 
-        {
-            state = TB_STATE::MM;
-            navigation = AL_NULL;
-        }
-        // otherwise stay in the long insertion state
+    //     // otherwise stay in the long deletion state
+    //     navigation = AL_DEL;
 
-    }
-    else if (state == TB_STATE::LONG_DEL)
-    {
-        if (tbp[6] != 1) 
-        {
-            state = TB_STATE::MM;
-            navigation = AL_NULL;
-        }
-        // otherwise stay in the long deletion state
-    }
+    // }
     else
     {
         // Unknown State
@@ -343,6 +342,29 @@ void GlobalTwoPieceAffine::Traceback::StateMapping(tbp_t tbp, TB_STATE &state, t
 
 void GlobalTwoPieceAffine::Traceback::StateInit(tbp_t tbp, TB_STATE &state)
 {
-    state = TB_STATE::MM;
+    if (tbp(1, 0) == TB_MAIN)
+    {
+        state = TB_STATE::MM;
+    }
+    else if (tbp(1, 0) == TB_INSERT)
+    {
+        state = TB_STATE::INS;
+    }
+    // else if (tbp == TB_LONG_INSERT)
+    // {
+    //     state = TB_STATE::LONG_INS;
+    // }
+    else if (tbp(1, 0) == TB_DELETE)
+    {
+        state = TB_STATE::DEL;
+    }
+    // else if (tbp == TB_LONG_DELETE)
+    // {
+    //     state = TB_STATE::LONG_DEL;
+    // }
+    else
+    {
+        // Unknown State
+    }
 }
 // <<< Global Two Piece Affine Implementation <<<
