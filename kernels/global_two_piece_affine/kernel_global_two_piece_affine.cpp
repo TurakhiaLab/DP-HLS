@@ -76,7 +76,7 @@ void GlobalTwoPieceAffine::PE::Compute(char_t local_query_val,
     // compare insertion and deletion matrices 
     type_t max_value = MAX(MAX(write_score[0], write_score[3]), MAX(write_score[2], write_score[4]));
     max_value = max_value > match ? max_value : match;                                    // compare with match/mismatch
-    write_score[1] = match;
+    write_score[1] = max_value;  // write score to the main matrix should be the max score, not match score
 
     // keep track where the max value came from
     tbp_t pre_trace;

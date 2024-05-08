@@ -2380,7 +2380,7 @@ void global_two_piece_affine_solution(std::string query, std::string reference, 
             float final_score = max(mm_score, max(max(insertion_score, deletion_score), max(long_insertion_score, long_deletion_score)));
 
             score_mat[0][i][j] = insertion_score;
-            score_mat[1][i][j] = mm_score;
+            score_mat[1][i][j] = final_score;
             score_mat[2][i][j] = deletion_score;
             score_mat[3][i][j] = long_insertion_score;
             score_mat[4][i][j] = long_deletion_score;
