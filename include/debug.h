@@ -48,6 +48,9 @@ public:
     void compare_scores(array<array<array<float, MAX_REFERENCE_LENGTH>, MAX_QUERY_LENGTH>, N_LAYERS> scores_sol,
     int query_len, int ref_len);
 
+    void compare_scores(array<array<array<float, MAX_REFERENCE_LENGTH>, MAX_QUERY_LENGTH>, N_LAYERS> scores_sol,
+    int query_len, int ref_len, float threashold);
+
 private:
     std::string debugpath;
     std::string filepath;

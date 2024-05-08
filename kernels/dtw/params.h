@@ -4,17 +4,17 @@
 #include <hls_vector.h>
 #include <ap_int.h>
 
-#define MAX_QUERY_LENGTH 256
-#define MAX_REFERENCE_LENGTH 256
+#define MAX_QUERY_LENGTH 16
+#define MAX_REFERENCE_LENGTH 16
 
 #define ALIGN_TYPE GlobalDTW
 #define N_BLOCKS 4
 #define N_LAYERS 1
-const int PE_NUM=32;
+const int PE_NUM=8;
 #define LAYER_MAXIMIUM 0  // We need to indicate from which layer (main matrix) is the maximum score stored.
 
 
-typedef ap_fixed<16, 10> num_t;
+typedef ap_fixed<16, 12> num_t;
 
 #define BANDING Rectangular
 
@@ -22,10 +22,16 @@ typedef ap_fixed<16, 10> num_t;
 struct char_t_st {
     num_t real;
     num_t imag;
+
+    // default constructor
+    char_t_st() : real(0), imag(0) {}
+
+    // Write a constructor
+    char_t_st(num_t real, num_t imag) : real(real), imag(imag) {}
 };
 
 typedef char_t_st char_t;  // Sequence Alphabet
-typedef ap_fixed<16,10> type_t;  // Scores Type <width, integer_width>
+typedef ap_fixed<32,28> type_t;  // Scores Type <width, integer_width>
 typedef short idx_t;  // Indexing Type, could be much less than 32. ap_uint<8>
 typedef ap_uint<2> tbp_t;  // Traceback Pointer Type
 
@@ -40,32 +46,12 @@ typedef ap_uint<2> tbp_t;  // Traceback Pointer Type
 #define ZERO_CHAR (char_t({0,0}))
 
 // Defien upper and lower bound for score type, aka type_t
-#define INF 256
-#define NINF -256
+#define INF 1048576
+#define NINF -1048576
 
 // Legacy Debugger Configuration
 #define DEBUG_OUTPUT_PATH "/home/yic033@AD.UCSD.EDU/DP-HLS-Debug/global_affine/"
 #define DEBUG_FILENAME "debug_kernel"
-
-
-struct ScorePack{  
-    type_t score;
-    idx_t row;
-    idx_t col;
-    idx_t p_col;
-    idx_t ck;
-    idx_t pe;
-
-	// Default Constructor
-    ScorePack() {
-        score = 0;
-        row = 0;
-        col = 0;
-        p_col = 0;
-        ck = 0;
-        pe = 0;
-    }
-};
 
 struct Penalties {
     type_t linear_gap;
@@ -77,37 +63,3 @@ enum TB_STATE {
     DEL = 2,  // Deletion
     END = 3   // End
 };
-
-
-// >>> Automatically Determined Macros and Configs >>>
-// DO NOT MODIFY
-#define CK_NUM (MAX_QUERY_LENGTH / PE_NUM)
-
-typedef hls::vector<type_t, N_LAYERS> score_vec_t;
-typedef score_vec_t init_col_score_block_t[MAX_QUERY_LENGTH];
-typedef score_vec_t init_row_score_block_t[MAX_REFERENCE_LENGTH];
-typedef score_vec_t wavefront_scores_t[PE_NUM];  // TODO: Change name chunk scores
-typedef score_vec_t wavefront_scores_inf_t[PE_NUM+1];  // chunk column scores inflated
-typedef score_vec_t dp_mem_block_t[PE_NUM+1][2];
-typedef score_vec_t chunk_col_scores_inf_t[PE_NUM+1];  // chunk column scores inflated
-typedef idx_t index_vec_t[PE_NUM];
-typedef tbp_t tbp_vec_t[PE_NUM];
-typedef char_t input_char_block_t[PE_NUM];
-
-
-// Define Traceback Navigation Values
-typedef ap_uint<3> tbr_t;  // Traecback Result Type
-#define AL_END (tbr_t) 0b000  // 0 stopping condition
-#define AL_INS (tbr_t) 0b001  // 1 Align Insertion
-#define AL_MMI (tbr_t) 0b010  // 2 Align Match/Mismatch
-#define AL_DEL (tbr_t) 0b011  // 3 Align Deletion
-#define AL_NULL (tbr_t) 0b100  // 4 Do not change coordinate
-
-typedef tbr_t traceback_buf_t[MAX_QUERY_LENGTH + MAX_REFERENCE_LENGTH];
-
-// >>> Debug Macros, turn on for certain debug requests >>>
-#undef CMAKEDEBUG_PRINT_TRACEBACK
-
-// >>> Legacy Kernel Definitions, Not Used, But do NOT remove, DO not include
-typedef tbp_t tbp_chunk_block_t[PE_NUM][MAX_REFERENCE_LENGTH];
-typedef tbp_t tbp_block_t[PE_NUM];

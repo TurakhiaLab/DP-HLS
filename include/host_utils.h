@@ -58,7 +58,7 @@ namespace Random
         std::vector<T> seq;
         for (int i = 0; i < length; i++)
         {
-            seq.push_back(T(rand(), rand()));
+            seq.push_back(T(rand() % 500, rand()% 500));
         }
         return seq;
     }

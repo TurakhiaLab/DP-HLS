@@ -68,7 +68,8 @@ int main()
     penalties_sol.linear_gap = -40;
 
     Penalties penalties_b[N_BLOCKS];
-    tbr_t tb_streams_b[N_BLOCKS][MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH];
+    tbr_t tb_streams_b[MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH][N_BLOCKS];
+    tbr_t tb_streams_h[N_BLOCKS][MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH];
     idx_t tb_is[N_BLOCKS];
     idx_t tb_js[N_BLOCKS];
 
@@ -114,15 +115,15 @@ int main()
     std::vector<std::array<int, 5>> query_n_h;     // in number format, on host
     std::vector<std::array<int, 5>> reference_n_h; // in number format, on host
 
-    char_t query_d[N_BLOCKS][MAX_QUERY_LENGTH];         // in number format, on device
-    char_t reference_d[N_BLOCKS][MAX_REFERENCE_LENGTH]; // in number format, on device
+    char_t query_d[MAX_QUERY_LENGTH][N_BLOCKS];         // in number format, on device
+    char_t reference_d[MAX_REFERENCE_LENGTH][N_BLOCKS]; // in number format, on device
     idx_t qry_len_d[N_BLOCKS];                          // length of the query sequence
     idx_t ref_len_d[N_BLOCKS];                          // length of the reference sequence
 
     // we use the first block to align all the sequences
     // Iterating through the map with an index
     reference_c_h.push_back(dna_sequences[0]);
-    reference_n_h = MultipleSequencesToProfileAlign(reference_c_h, reference_c_h[0].length());
+    reference_n_h = HostUtils::Sequence::MultipleSequencesToProfileAlign(reference_c_h, reference_c_h[0].length());
 
     // prepare very first reference sequence
     for (int seq_id = 1; seq_id < dna_sequences.size(); seq_id++)
@@ -132,7 +133,7 @@ int main()
 
         query_c_h.clear();
         query_c_h.push_back(dna_sequences[seq_id]);
-        query_n_h = MultipleSequencesToProfileAlign(query_c_h, query_c_h[0].length());
+        query_n_h = HostUtils::Sequence::MultipleSequencesToProfileAlign(query_c_h, query_c_h[0].length());
 
         // Align using kernel
         for (int b = 0; b < N_BLOCKS; b++)
@@ -141,8 +142,8 @@ int main()
             {
                 for (int j = 0; j < 5; j++)
                 {
-                    if (i < query_c_h[0].size()) query_d[b][i][j] = query_n_h[i][j];
-                    else query_d[b][i][j] = 1;
+                    if (i < query_c_h[0].size()) query_d[i][b][j] = query_n_h[i][j];
+                    else query_d[i][b][j] = 1;
                 }
             }
         }
@@ -152,8 +153,8 @@ int main()
             {
                 for (int j = 0; j < 5; j++)
                 {
-                    if (i < reference_c_h[0].size()) reference_d[b][i][j] = reference_n_h[i][j];
-                    else reference_d[b][i][j] = 1;
+                    if (i < reference_c_h[0].size()) reference_d[i][b][j] = reference_n_h[i][j];
+                    else reference_d[i][b][j] = 1;
                 }
             }
         }
@@ -184,9 +185,13 @@ int main()
         // print something
         output_file << "Alignment done" << std::endl;
 
+        // transpose the output
+
+
         // Reconstruct the alignment
-        std::vector<string> alignments = ReconstructTracebackProfile(query_c_h, reference_c_h,
-                                                                     qry_len_d[0], ref_len_d[0], tb_streams_b[0]);
+        HostUtils::IO::SwitchDimension(tb_streams_b, tb_streams_h);
+        std::vector<string> alignments = HostUtils::Sequence::ReconstructTracebackProfile<tbr_t, MAX_QUERY_LENGTH, MAX_REFERENCE_LENGTH>(query_c_h, reference_c_h,
+                                                                    (int) qry_len_d[0], (int) ref_len_d[0], tb_streams_h[0]);
 
         // print something
         output_file << "Reconstruction done" << std::endl;
@@ -197,7 +202,7 @@ int main()
         }
 
         reference_c_h = alignments;
-        reference_n_h = MultipleSequencesToProfileAlign(reference_c_h, reference_c_h[0].length());
+        reference_n_h = HostUtils::Sequence::MultipleSequencesToProfileAlign(reference_c_h, reference_c_h[0].length());
 
     }
 

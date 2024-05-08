@@ -17,21 +17,6 @@ void GlobalTwoPieceAffine::PE::Compute(char_t local_query_val,
                                score_vec_t &write_score,
                                tbp_t &write_traceback)
 {
-#pragma HLS array_partition variable = local_query_val type = complete
-
-// Define Traceback Pointer Origin (H - Main, I, I', D, D')
-#define TB_MAIN (tbp_t) 0b000
-#define TB_INSERT (tbp_t) 0b001
-#define TB_LONG_INSERT (tbp_t) 0b010
-#define TB_DELETE (tbp_t) 0b011
-#define TB_LONG_DELETE (tbp_t) 0b100
-
-// Define Traceback Pointer Navigation Matrix
-#define TB_IMAT (tbp_t) 0b00000  // Insertion Matrix
-#define TB_DMAT (tbp_t) 0b01000  // Deletion Matrix
-#define TB_LIMAT (tbp_t) 0b10000 // Long Insertion Matrix
-#define TB_LDMAT (tbp_t) 0b11000 // Long Deletion Matrix
-
     /*
      * Layer 0: Insert matrix I, moves horizontally
      * Layer 1: Match matrix M, moves diagonally
@@ -142,7 +127,7 @@ void GlobalTwoPieceAffine::Helper::InitCol(score_vec_t (&init_col_scr)[MAX_QUERY
     for (int i = 1; i < MAX_QUERY_LENGTH; i++){
         gap += penalties.extend;
         long_gap += penalties.long_extend;
-        init_col_scr[i] = score_vec_t({NINF,MIN(gap,long_gap),gap,NINF,long_gap});
+        init_col_scr[i] = score_vec_t({NINF,MAX(gap,long_gap),gap,NINF,long_gap});
     }
     // std::cout << "KERNEL" << std::endl;
     // std::cout << "MATRIX 0 col" << std::endl;
@@ -177,7 +162,7 @@ void GlobalTwoPieceAffine::Helper::InitRow(score_vec_t (&init_row_scr)[MAX_REFER
 #ifdef CMAKEDEBUG
         float gap_f = gap.to_float();
 #endif
-        init_row_scr[i] = score_vec_t({gap,MIN(gap,long_gap),NINF,long_gap,NINF});
+        init_row_scr[i] = score_vec_t({gap,MAX(gap,long_gap),NINF,long_gap,NINF});
     }
     // std::cout << "KERNEL" << std::endl;
     // std::cout << "MATRIX 0 row" << std::endl;
@@ -213,52 +198,51 @@ void GlobalTwoPieceAffine::InitializeScores(
 }
 
 void GlobalTwoPieceAffine::UpdatePEMaximum(
-        wavefront_scores_inf_t scores,
+        const wavefront_scores_inf_t scores,
         ScorePack (&max)[PE_NUM],
-        idx_t (&ics)[PE_NUM], idx_t (&jcs)[PE_NUM],
-        idx_t (&p_col)[PE_NUM], idx_t ck_idx,
-        bool (&predicate)[PE_NUM],
-        idx_t query_len, idx_t ref_len){
-    for (int i = 0; i < PE_NUM; i++)
-    {
-#pragma HLS unroll
-        if (predicate[i])
-        {
-#ifdef CMAKEDEBUG
-            auto dp_mem_s = scores[i + 1][LAYER_MAXIMIUM].to_float();
-            auto max_s = max[i].score.to_float();
-#endif
-            if (scores[i + 1][LAYER_MAXIMIUM] > max[i].score)
-            {
-                // Notice this filtering condition compared to the Local Affine kernel. 
-                // if ((chunk_offset + i == query_len - 1) || (pe_offset[i] == ref_len - 1))  // last row or last column
-                if ( (ics[i] == query_len - 1) && (jcs[i] == ref_len - 1) )
-                { // So we are at the last row or last column
-                    max[i].score = scores[i + 1][LAYER_MAXIMIUM];
-                    max[i].row = ics[i];
-                    max[i].col = jcs[i];
-                    max[i].p_col = p_col[i];
-                    max[i].ck = ck_idx;
-                    max[i].pe = i;
-                }
-            }
-        }
-    }
+        const idx_t chunk_row_offset, const idx_t wavefront,
+        const idx_t p_cols, const idx_t ck_idx,
+        const bool (&predicate)[PE_NUM],
+        const idx_t query_len, const idx_t ref_len){
+//     for (int i = 0; i < PE_NUM; i++)
+//     {
+// #pragma HLS unroll
+//         if (predicate[i])
+//         {
+// #ifdef CMAKEDEBUG
+//             auto dp_mem_s = scores[i + 1][LAYER_MAXIMIUM].to_float();
+//             auto max_s = max[i].score.to_float();
+// #endif
+//             if (scores[i + 1][LAYER_MAXIMIUM] > max[i].score)
+//             {
+//                 // Notice this filtering condition compared to the Local Affine kernel.
+//                 // if ((chunk_offset + i == query_len - 1) || (pe_offset[i] == ref_len - 1))  // last row or last column
+//                 if ( (chunk_row_offset +i == query_len - 1) && (wavefront - i == ref_len - 1) )
+//                 { // So we are at the last row or last column
+//                     max[i].score = scores[i + 1][LAYER_MAXIMIUM];
+//                     max[i].ck = ck_idx;
+//                     max[i].p_col = p_cols;
+//                 }
+//             }
+//         }
+//     }
 }
 
 void GlobalTwoPieceAffine::InitializeMaxScores(ScorePack (&max)[PE_NUM], idx_t qry_len, idx_t ref_len)
 {
-    // In global alignment, we need to initialize the starting maximum scores to the last column
     for (int i = 0; i < PE_NUM; i++)
     {
 #pragma HLS unroll
-        max[i].score = NINF; // Need a custom struct for finding the negative infinity
-        max[i].row = 0;
-        max[i].col = 0;
+        max[i].score = NINF;
         max[i].p_col = 0;
         max[i].ck = 0;
-        max[i].pe = i;
+
     }
+    idx_t max_pe = (qry_len - 1) % PE_NUM;
+    idx_t max_ck = (qry_len - 1)  / PE_NUM;
+    max[max_pe].score = INF;
+    max[max_pe].p_col = (max_ck) * (MAX_REFERENCE_LENGTH + PE_NUM - 1) + max_pe + ref_len - 1;
+    max[max_pe].ck = max_ck;
 }
 
 void GlobalTwoPieceAffine::Traceback::StateMapping(tbp_t tbp, TB_STATE &state, tbr_t &navigation)

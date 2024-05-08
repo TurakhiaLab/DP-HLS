@@ -118,15 +118,13 @@ void Profile::InitializeScores(
 }
 
 void Profile::UpdatePEMaximum(
-        wavefront_scores_inf_t scores,
-        ScorePack (&max)[PE_NUM],
-        idx_t (&ics)[PE_NUM], idx_t (&jcs)[PE_NUM],
-        idx_t (&p_col)[PE_NUM], idx_t ck_idx,
-        bool (&predicate)[PE_NUM],
-        idx_t query_len, idx_t ref_len){
+    const wavefront_scores_inf_t scores,
+    ScorePack (&max)[PE_NUM],
+    const idx_t chunk_row_offset, const idx_t wavefront,
+    const idx_t p_cols, const idx_t ck_idx,
+    const bool (&predicate)[PE_NUM],
+    const idx_t query_len, const idx_t ref_len){
 
-    // PE maximum doesn't need to be updated for the global affine kernels since
-    // we know that the traceback starts from the bottom right element of the score matrix
 }
 
 void Profile::InitializeMaxScores(ScorePack (&max)[PE_NUM], idx_t qry_len, idx_t ref_len)
@@ -135,20 +133,15 @@ void Profile::InitializeMaxScores(ScorePack (&max)[PE_NUM], idx_t qry_len, idx_t
     {
 #pragma HLS unroll
         max[i].score = NINF;
-        max[i].row = i;
-        max[i].col = 0;
         max[i].p_col = 0;
         max[i].ck = 0;
-        max[i].pe = i;
+
     }
     idx_t max_pe = (qry_len - 1) % PE_NUM;
-    idx_t max_ck = (qry_len - 1)/ PE_NUM;
-    max[max_pe].score = INF;  // This is dummy score by I just represent the idea it's maximum
-    max[max_pe].row = qry_len - 1;
-    max[max_pe].col = ref_len - 1;
-    max[max_pe].p_col = (max_ck + 1) * ref_len - 1; // FIXME
+    idx_t max_ck = (qry_len - 1)  / PE_NUM;
+    max[max_pe].score = INF;
+    max[max_pe].p_col = (max_ck) * (MAX_REFERENCE_LENGTH + PE_NUM - 1) + max_pe + ref_len - 1;
     max[max_pe].ck = max_ck;
-    max[max_pe].pe = max_pe;
 }
 
 

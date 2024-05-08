@@ -34,6 +34,16 @@ void GlobalDTW::PE::Compute(char_t local_query_val,
                                score_vec_t &write_score,
                                tbp_t &write_traceback)
 {
+// Write some debug prints
+#ifdef CMAKEDEBUG
+    // std::cout << "local_query_val: " << local_query_val.real << " " << local_query_val.imag << std::endl;
+    // std::cout << "local_reference_val: " << local_reference_val.real << " " << local_reference_val.imag << std::endl;
+    // std::cout << "up_prev: " << up_prev[0] << std::endl;
+    // std::cout << "diag_prev: " << diag_prev[0] << std::endl;
+    // std::cout << "left_prev: " << left_prev[0] << std::endl;
+    // std::cout << "penalties.linear_gap: " << penalties.linear_gap << std::endl;
+#endif
+
     num_t diff_imag = local_query_val.imag - local_reference_val.imag;
     num_t diff_real = local_query_val.real - local_reference_val.real;
     type_t dist = diff_imag * diff_imag + diff_real * diff_real;  // compute the magnitud of the difference
@@ -42,17 +52,26 @@ void GlobalDTW::PE::Compute(char_t local_query_val,
     min_value = min_value < left_prev[0] ? min_value : left_prev[0];
 
     write_traceback = (min_value == diag_prev[0]) ? TB_DIAG : ((min_value == up_prev[0]) ? TB_UP : TB_LEFT);
+// Add some debug config
+#ifdef CMAKEDEBUG
+
+    // std::cout << "diff_imag: " << diff_imag << std::endl;   
+    // std::cout << "diff_real: " << diff_real << std::endl;   
+    // std::cout << "dist: " << dist << std::endl;
+    // std::cout << "min_value: " << min_value << std::endl;
+    // std::cout << "write_traceback: " << write_traceback << std::endl;
+#endif
 
     write_score[0] = min_value + dist;
 }
 
 void GlobalDTW::UpdatePEMaximum(
-        wavefront_scores_inf_t scores,
+        const wavefront_scores_inf_t scores,
         ScorePack (&max)[PE_NUM],
-        idx_t (&ics)[PE_NUM], idx_t (&jcs)[PE_NUM],
-        idx_t (&p_col)[PE_NUM], idx_t ck_idx,
-        bool (&predicate)[PE_NUM],
-        idx_t query_len, idx_t ref_len){
+        const idx_t chunk_row_offset, const idx_t wavefront,
+        const idx_t p_cols, const idx_t ck_idx,
+        const bool (&predicate)[PE_NUM],
+        const idx_t query_len, const idx_t ref_len){
         // None, since this kernel doesn't trace maximum PE location on the fly
 }
 
@@ -62,20 +81,14 @@ void GlobalDTW::InitializeMaxScores(ScorePack (&max)[PE_NUM], idx_t qry_len, idx
     {
 #pragma HLS unroll
         max[i].score = NINF;
-        max[i].row = i;
-        max[i].col = 0;
         max[i].p_col = 0;
         max[i].ck = 0;
-        max[i].pe = i;
     }
     idx_t max_pe = (qry_len - 1) % PE_NUM;
-    idx_t max_ck = (qry_len - 1)/ PE_NUM;
-    max[max_pe].score = INF;  // This is dummy score by I just represent the idea it's maximum
-    max[max_pe].row = qry_len - 1;
-    max[max_pe].col = ref_len - 1;
-    max[max_pe].p_col = (max_ck + 1) * ref_len - 1; // FIXME
+    idx_t max_ck = (qry_len - 1)  / PE_NUM;
+    max[max_pe].score = INF;
+    max[max_pe].p_col = (max_ck) * (MAX_REFERENCE_LENGTH + PE_NUM - 1) + max_pe + ref_len - 1;
     max[max_pe].ck = max_ck;
-    max[max_pe].pe = max_pe;
 }
 
 

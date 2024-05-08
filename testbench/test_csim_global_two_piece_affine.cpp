@@ -9,11 +9,28 @@
 #include "solutions.h"
 #include "debug.h"
 
+// Query    : TGAAAGACGGAGGCTACTCTAGTGACTATGGCCCAGGGAGAACTCGTGATACGTAAACACACGACGCACACGCTGGTTAT
+// Reference: TCTTAACTCCGAGCTGATAGGTATCTGTCCGGTTCAGCGACAAAGACGGTATCGCAGTGACCATCGCCCCCATTAGGTGCTACGAGGGTAGACCCTAAGACATTGGTCCATCCGGATCTTACGGCCCTGCTACTCCCAAGGTACTAACGGTTCACGCTAA
+// Solution Aligned Query    : _________________________________________________________________________________TGAAAGACGGAGGCTACTCTAGTGACTATGGCCCAGGGAGAACTCGTGATACGTAAACACACGACGCACACGCTGGTTAT
+// Solution Aligned Reference: TCTTAACTCCGAGCTGATAGGTATCTGTCCGGTTCAGCGACAAAGACGGTATCGCAGTGACCATCGCCCCCATTAGGTGCT_ACGAGGGTAGACCCTAAGACATTGGTCCATCCGGATCTTACGGCCCTGCTACTCCCAAGGTACTAACGGTTCACGCTAA
+// Solution Runtime: 16ms
+// All scores match!
+// Kernel 0 Aligned Query    : _TGAAAGACGGAGGCTACTCTAGT____GACTAT___GGC___CCA___GGG___AGA___ACT___CGT___GAT___ACG___TAA_____________________________________ACA___CAC___GAC___________________________________________GCA___CAC___GCT___GGT___TAT_______
+// Kernel 0 Aligned Reference: TCTTAACTCCGAGCTGATAGG___TATC___TGTCCG___GTT___CAG___CGA___CAA___AGA___CGG___TAT___CGC___AGTGACCATCGCCCCCATTAGGTGCTACGAGGGTAGA___CCC___TAA___GACATTGGTCCATCCGGATCTTACGGCCCTGCTACTCCCAAGG___TAC___TAA___CGG___TTC___ACGCTAA
+
+// Query    : AGGGTAGTTCATGCATTTTAGGCAAGCCTGCTCCTACCCGCAGTTCCTGCGCCTATCGCCCTTAAACGAATAGGTTCAGA
+// Reference: AGCATACCATAGCGTCTAGCTGGGAAGACAATCGGCAAAAGACGCATCCTCCAAGGCCACTCCAATGAACAGAACACTCGAATAAAAGAGCCAATGGCAAAACTGTTCAACCGGTTCAAAGCGAAACCCATACCTTGCTATTAGGGAGGAACAGCACCCC
+// Solution Aligned Query    : _________________________________________________________________________________AGGGTAGTTCATGCATTTTAGGCAAGCCTGCTCCTACCCGCAGTTCCTGCGCCTATCGCCCTTAAACGAATAGGTTCAGA
+// Solution Aligned Reference: AGCATACCATAGCGTCTAGCTGGGAAGACAATCGGCAAAAGACGCATCCTCCAAGGCCACTCCAATGAACAGAACACTCGA_ATAAAAGAGCCAATGGCAAAACTGTTCAACCGGTTCAAAGCGAAACCCATACCTTGCTATTAGGGAGGAACAGCACCCC
+// Solution Runtime: 17ms
+// All scores match!
+// Kernel 0 Aligned Query    : AGGG____TAG___TTCATG___CATTTTA___GGC___AAG___CCT___GCT___CCT___ACC___CGC___AGT___TCC___TGC___GCC___TAT___CGC___CCT___TAA__________________________________ACG___AAT___AGG___TTC___AGA_____________________________________________________
+// Kernel 0 Aligned Reference: ___AGCAT___ACC___ATAGCG__TC___TAG___CTG___GGA___AGA___CAA___TCG___GCA___AAA___GAC___GCA___TCC___TCC___AAG___GCC___ACT___CCAATGAACAGAACACTCGAATAAAAGAGCCAAT___GGC___AAA___ACT___GTT___CAACCGGTTCAAAGCGAAACCCATACCTTGCTATTAGGGAGGAACAGCACCCC
 
 using namespace std;
 
-#define INPUT_QUERY_LENGTH 16
-#define INPUT_REFERENCE_LENGTH 16
+#define INPUT_QUERY_LENGTH 80
+#define INPUT_REFERENCE_LENGTH 160
 
 char_t base_to_num(char base)
 {
@@ -40,7 +57,6 @@ struct Penalties_sol
 {
     float extend;
     float open;
-    float linear_gap;
     float match;
     float mismatch;
     float long_extend;
@@ -59,23 +75,23 @@ int main(){
     // Struct for Penalties in kernel
     Penalties penalties[N_BLOCKS];
     for (int i = 0; i < N_BLOCKS; i++){
-        penalties[i].extend = -2;
+        penalties[i].extend = -3;
         penalties[i].open = -4;
-        penalties[i].match = 3;
-        penalties[i].mismatch = -1;
-        penalties[i].long_extend = -3;
-        penalties[i].long_open = -1;
+        penalties[i].match = 4;
+        penalties[i].mismatch = -1.5;
+        penalties[i].long_extend = -2;
+        penalties[i].long_open = -16;
     }
 
     // Struct for penalties in solution
     Penalties_sol penalties_sol[N_BLOCKS];
-    for (Penalties_sol &penalty : penalties_sol) {
-        penalty.extend = -2;
-        penalty.open = -4;
-        penalty.match = 3;
-        penalty.mismatch = -1;
-        penalty.long_extend = -3;
-        penalty.long_open = -1;
+    for (int i = 0; i < N_BLOCKS; i++) {
+        penalties_sol[i].extend = -3;
+        penalties_sol[i].open = -4;
+        penalties_sol[i].match = 4;
+        penalties_sol[i].mismatch = -1.5;
+        penalties_sol[i].long_extend = -2;
+        penalties_sol[i].long_open = -16;
     }
 
     // Reference and Query Strings
@@ -100,8 +116,8 @@ int main(){
     }
 
     // Allocate query and reference buffer to pass to the kernel
-    char_t reference_buff[N_BLOCKS][MAX_REFERENCE_LENGTH];
-    char_t query_buff[N_BLOCKS][MAX_QUERY_LENGTH];
+    char_t reference_buff[MAX_REFERENCE_LENGTH][N_BLOCKS];
+    char_t query_buff[MAX_QUERY_LENGTH][N_BLOCKS];
 
     // Allocate lengths for query and reference
     idx_t qry_lengths[N_BLOCKS], ref_lengths[N_BLOCKS];
@@ -113,11 +129,11 @@ int main(){
     {
         for (int i = 0; i < query.size(); i++)
         {
-            query_buff[b][i] = base_to_num(query[i]);
+            query_buff[i][b] = base_to_num(query[i]);
         }
         for (int i = 0; i < reference.size(); i++)
         {
-            reference_buff[b][i] = base_to_num(reference[i]);
+            reference_buff[i][b] = base_to_num(reference[i]);
         }
     }
 
@@ -129,7 +145,8 @@ int main(){
     }
 
     // Allocate traceback streams
-    tbr_t tb_streams[N_BLOCKS][MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH];
+    tbr_t tb_streams_h[N_BLOCKS][MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH];
+    tbr_t tb_streams_d[MAX_REFERENCE_LENGTH +MAX_QUERY_LENGTH][N_BLOCKS];
 
     // initialize traceback starting coordinates
     idx_t tb_is[N_BLOCKS];
@@ -143,7 +160,7 @@ int main(){
         ref_lengths,
         penalties,
         tb_is, tb_js,
-        tb_streams
+        tb_streams_d
 #ifdef CMAKEDEBUG
         , debuggers
 #endif
@@ -173,6 +190,8 @@ int main(){
     // print_matrix<float, MAX_QUERY_LENGTH, MAX_REFERENCE_LENGTH>(debuggers[0].scores_cpp[0], "Kernel 0 Scores Layer 0");
     debuggers[0].compare_scores(sol_score_mat, query.size(), reference.size());  // check if the scores from the kernel matches scores from the solution
 
+
+
     // reconstruct kernel alignments
     array<map<string, string>, N_BLOCKS> kernel_alignments;
     int tb_query_lengths[N_BLOCKS];
@@ -186,14 +205,16 @@ int main(){
         query_string_blocks[i] = query_string;
         reference_string_blocks[i] = reference_string;
     }
+    HostUtils::IO::SwitchDimension(tb_streams_d, tb_streams_h);
      kernel_alignments = HostUtils::Sequence::ReconstructTracebackBlocks<tbr_t, N_BLOCKS, MAX_QUERY_LENGTH, MAX_REFERENCE_LENGTH>(
         query_string_blocks, reference_string_blocks,
         tb_query_lengths, tb_reference_lengths, 
-        tb_streams);
+        tb_streams_h);
 
-    // Print kernel 0 traceback
-    cout << "Kernel 0 Traceback" << endl;
-    cout << "Kernel   Aligned Query    : " << kernel_alignments[0]["query"] << endl;
-    cout << "Kernel   Aligned Reference: " << kernel_alignments[0]["reference"] << endl;
+    // Print all kernel traceback 
+    for (int i = 0; i < N_BLOCKS; i++) {
+        cout << "Kernel " << i << " Aligned Query    : " << kernel_alignments[i]["query"] << endl;
+        cout << "Kernel " << i << " Aligned Reference: " << kernel_alignments[i]["reference"] << endl;
+    }
 
 }

@@ -98,13 +98,13 @@ void PE::PEUnrollFixedSep(
             score[i+1],
             tbp[i]);
 #ifdef CMAKEDEBUG
-        printf("PE %d: V Col: %d, Qry: %c, Ref: %c, Up: %f, Diag: %f, Left: %f, Out: %f\n", 
-        i, v_cols[i], 
-        HostUtils::Sequence::num_to_base(qry[i]), HostUtils::Sequence::num_to_base(ref[i]), 
-        v_cols[i] == u_lim[i] ? score_vec_t(NINF)[0].to_float() : dp_mem[i][0][0].to_float(),
-        dp_mem[i][1][0].to_float(),
-        v_cols[i] == l_lim[i] ? score_vec_t(NINF)[0].to_float() : dp_mem[i+1][0][0].to_float(),
-        score[i+1][0].to_float());
+//        printf("PE %d: V Col: %d, Qry: %c, Ref: %c, Up: %f, Diag: %f, Left: %f, Out: %f\n",
+//        i, v_cols[i],
+//        HostUtils::Sequence::num_to_base(qry[i]), HostUtils::Sequence::num_to_base(ref[i]),
+//        v_cols[i] == u_lim[i] ? score_vec_t(NINF)[0].to_float() : dp_mem[i][0][0].to_float(),
+//        dp_mem[i][1][0].to_float(),
+//        v_cols[i] == l_lim[i] ? score_vec_t(NINF)[0].to_float() : dp_mem[i+1][0][0].to_float(),
+//        score[i+1][0].to_float());
 #endif
     }
 #ifdef CMAKEDEBUG

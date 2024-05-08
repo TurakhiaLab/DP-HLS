@@ -676,13 +676,6 @@ void Align::Fixed::ChunkCompute(
 	tbp_vec_t tbp_out;
 	dp_mem_block_t dp_mem;
 	score_vec_t score_buff[PE_NUM + 1];
-#ifdef CMAKEDEBUG
-	std::vector<char> reference_s;
-	for (int i = 0; i < MAX_REFERENCE_LENGTH; i++)
-	{
-		reference_s.push_back(HostUtils::Sequence::num_to_base(reference[i]));
-	}
-#endif
 
 #pragma HLS array_partition variable = predicate type = complete
 #pragma HLS array_partition variable = local_query type = complete
@@ -713,23 +706,7 @@ Iterating_Wavefronts:
 
 		// Align::ShiftReference(local_reference, reference, i, chunk_end_col);
 		Utils::Array::ShiftRight<char_t, PE_NUM>(local_reference, i < MAX_REFERENCE_LENGTH ? reference[i] : ZERO_CHAR);
-		
-#ifdef CMAKEDEBUG
-		// print local reference
-		cout << "Local Reference: ";
-		for (int j = 0; j < PE_NUM; j++)
-		{
-			cout << HostUtils::Sequence::num_to_base(local_reference[j]);
-		}
-		cout << endl;
-		// print predicate
-		cout << "Predicate: ";
-		for (int j = 0; j < PE_NUM; j++)
-		{
-			cout << predicate[j];
-		}
-		cout << endl;
-#endif
+
 
 		Align::PrepareScoreBuffer(score_buff, i, init_col_scr, init_row_scr);
 		Align::UpdateDPMemSep(dp_mem, score_buff);

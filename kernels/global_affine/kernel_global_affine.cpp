@@ -129,12 +129,12 @@ void GlobalAffine::InitializeScores(
 }
 
 void GlobalAffine::UpdatePEMaximum(
-        const wavefront_scores_inf_t scores,
-        ScorePack (&max)[PE_NUM],
-        const idx_t chunk_row_offset, const idx_t wavefront,
-        const idx_t p_cols, const idx_t ck_idx,
-        const bool (&predicate)[PE_NUM],
-        const idx_t query_len, const idx_t ref_len){
+    const wavefront_scores_inf_t scores,
+    ScorePack (&max)[PE_NUM],
+    const idx_t chunk_row_offset, const idx_t wavefront,
+    const idx_t p_cols, const idx_t ck_idx,
+    const bool (&predicate)[PE_NUM],
+    const idx_t query_len, const idx_t ref_len){
 
 }
 
