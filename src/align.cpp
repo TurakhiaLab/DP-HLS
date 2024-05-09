@@ -272,7 +272,7 @@ void Align::ArrangeTBP(
 	const bool (&predicate)[PE_NUM],
 	tbp_t (&chunk_tbp_out)[PE_NUM][TBMEM_SIZE])
 {
-#pragma HLS array_partition variable = chunk_tbp_out type = cyclic factor = PE_NUM dim = 1
+#pragma HLS array_partition variable = chunk_tbp_out type = cyclic factor = PRAGMA_PE_NUM dim = 1
 #pragma HLS array_partition variable = tbp_in type = complete
 #pragma HLS array_partition variable = predicate type = complete
 
@@ -376,7 +376,7 @@ void Align::Rectangular::AlignStatic(
 
 #pragma HLS bind_storage variable = init_row_score type = ram_t2p impl = bram
 //#pragma HLS bind_storage variable = init_col_score type = ram_1p impl = bram
-#pragma HLS array_partition variable = tbp_matrix type = cyclic factor = PE_NUM dim = 1
+#pragma HLS array_partition variable = tbp_matrix type = cyclic factor = PRAGMA_PE_NUM dim = 1
 
 #ifdef CMAKEDEBUG
 	// initialize tbp_matrix with TB_PH
@@ -534,7 +534,7 @@ void Align::Fixed::AlignStatic(
 	}
 #endif
 
-#pragma HLS array_partition variable = tbp_matrix type = cyclic factor = PE_NUM dim = 1
+#pragma HLS array_partition variable = tbp_matrix type = cyclic factor = PRAGMA_PE_NUM dim = 1
 
 	// Those are used to iterate through the memory during the score computation
 	idx_t v_rows[PE_NUM];
@@ -580,7 +580,7 @@ void Align::Fixed::AlignStatic(
 	ScorePack maximum;
 	ScorePack local_max[PE_NUM];
 
-#pragma HLS array_partition variable = init_col_score type = cyclic factor = PE_NUM dim = 1
+#pragma HLS array_partition variable = init_col_score type = cyclic factor = PRAGMA_PE_NUM dim = 1
 
 	ALIGN_TYPE::InitializeScores(init_col_score, init_row_score, penalties);
 	ALIGN_TYPE::InitializeMaxScores(local_max, query_length, reference_length);
@@ -698,7 +698,7 @@ Iterating_Wavefronts:
 	std::vector<float> init_row_scr_f;
 	for (int j = 0; j < MAX_REFERENCE_LENGTH; j++)
 	{
-		init_row_scr_f.push_back(init_row_scr[j][0].to_float());
+		init_row_scr_f.push_back((float) init_row_scr[j][0]);
 	}
 #endif
 

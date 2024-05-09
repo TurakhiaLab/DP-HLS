@@ -15,6 +15,7 @@
 #include "utils.h"
 #include <vector>
 #include <cstdarg>
+#include <set>
 
 // NOTE: This file system thing doesn't seems to present on F1 AWS FPGA AMI. 
 // It uses higher standard, which older HLS's host compiler doesn't support. 

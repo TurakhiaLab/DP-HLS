@@ -10,17 +10,17 @@ void GlobalDTW::InitializeScores(
     Penalties penalties)
 {
     // initialize global alignment with some linear gap panelty
-    type_t gap_penl = 0;
+    // type_t gap_penl = 0;
     for (int i = 0; i < MAX_QUERY_LENGTH; i++)
     {
-        gap_penl += penalties.linear_gap;
-        init_col_scr[i][0] = gap_penl;
+        // gap_penl += penalties.linear_gap;
+        init_col_scr[i][0] = INF;
     }
-    gap_penl = 0;
+    // gap_penl = 0;
     for (int i = 0; i < MAX_REFERENCE_LENGTH; i++)
     {
-        gap_penl += penalties.linear_gap;
-        init_row_scr[i][0] = gap_penl;
+        // gap_penl += penalties.linear_gap;
+        init_row_scr[i][0] = INF;
     }
 }
 

@@ -19,7 +19,7 @@
 .PHONY: help
 
 DHR = {{ dp_hls_root }}
-PARAMS_FLAGS += -DMAX_QUERY_LENGTH={{ max_query_length }} -DMAX_REFERENCE_LENGTH={{ max_reference_length }} -DPRAGMA_PE_NUM={{ pe_num }} -DN_BLOCKS={{ n_blocks }} {{ dp_hls_unrolled }} -DVPP_CLI
+PARAMS_FLAGS += -DMAX_QUERY_LENGTH={{ max_query_length }} -DMAX_REFERENCE_LENGTH={{ max_reference_length }} -DPE_NUM={{ pe_num }} -DN_BLOCKS={{ n_blocks }} {{ dp_hls_unrolled }} -DVPP_CLI
 HOST_SRCS += {{ host_path }} ${DHR}/src/host_utils.cpp ${DHR}/include/host_utils.h
 CXXFLAGS += -I{{ params_folder_path }} -I${DHR}/include ${PARAMS_FLAGS}
 VPP_FLAGS += --hls.clock {{ clock_frequency }}Hz:{{ kernel_name }} -I{{ params_folder_path }} -I${DHR}/include ${PARAMS_FLAGS}

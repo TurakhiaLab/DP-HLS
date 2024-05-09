@@ -184,7 +184,7 @@ void Align::ArrangeTBPBlock(hls::stream_of_blocks<tbp_block_t> &tbp_in, bool (&p
 	write_lock<tbp_chunk_block_t> tbp_chunk_wr(tbp_chunk_out);
 
 #pragma HLS array_partition variable = tbp_rd type = complete
-#pragma HLS array_partition variable = tbp_chunk_wr type = cyclic factor = PE_NUM dim = 1
+#pragma HLS array_partition variable = tbp_chunk_wr type = cyclic factor = PRAGMA_PE_NUM dim = 1
 
 	for (int i = 0; i < PE_NUM; i++)
 	{

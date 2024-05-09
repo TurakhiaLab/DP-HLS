@@ -10,8 +10,8 @@
 #include "solutions.h"
 
 
-#define TEST_QUERY_SIZE 15
-#define TEST_REFERENCE_SIZE 16
+#define TEST_QUERY_SIZE 250
+#define TEST_REFERENCE_SIZE 256
 
 struct Penalties_sol
 {
@@ -27,10 +27,10 @@ int main(){
 
     // Write a loop to explictly cast the kernel queries and references to the host
     for (int i = 0; i < TEST_QUERY_SIZE; i++){
-        query_sol.push_back(complex<float>( query[i].real.to_float(), query[i].imag.to_float()) );
+        query_sol.push_back(complex<float>((float)  query[i].real,(float)  query[i].imag) );
     }
     for (int i = 0; i < TEST_REFERENCE_SIZE; i++){
-        reference_sol.push_back(complex<float>( reference[i].real.to_float(), reference[i].imag.to_float()));
+        reference_sol.push_back(complex<float>((float)  reference[i].real,(float)  reference[i].imag));
     }
 
     // declare the query and reference buffer and copy the initialized data to the buffer
@@ -51,12 +51,12 @@ int main(){
     
     cout << "Query Buff: ";
     for (int i = 0; i < TEST_QUERY_SIZE; i++){
-        cout << query[i].real.to_float() << " " << query[i].imag .to_float() << " ";
+        cout << (float) query[i].real << " " << (float) query[i].imag << " ";
     }
     cout << endl;
     cout << "Reference Buff: ";
     for (int i = 0; i < TEST_REFERENCE_SIZE; i++){
-        cout << reference[i].real.to_float() << " " << reference[i].imag.to_float() << " ";
+        cout << (float) reference[i].real << " " << (float) reference[i].imag << " ";
     }
     cout << endl;
 
