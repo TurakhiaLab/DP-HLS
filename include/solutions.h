@@ -1670,16 +1670,16 @@ void overlap_linear_suffix_prefix_solution(std::string query, std::string refere
 
     // Traceback to find the aligned sequences
     // Initialize the max value to be the top rightmost value
-    float maxVal = score_mat[0][SOL_MAX_QUERY_LENGTH - 1][SOL_MAX_REFERENCE_LENGTH - 1];
-    std::pair<int, int> maxPos = {SOL_MAX_QUERY_LENGTH - 1, SOL_MAX_REFERENCE_LENGTH - 1};
+    float maxVal = score_mat[0][0][reference.length() - 1];
+    std::pair<int, int> maxPos = {query.length() - 1, reference.length() - 1};
 
     // check for max value in the rightmost column
-    for (int j = SOL_MAX_QUERY_LENGTH - 1; j >= 0; j--)
+    for (int i = 0; i < query.length(); i++)
     {
-        if (score_mat[0][j][SOL_MAX_REFERENCE_LENGTH - 1] > maxVal)
+        if (score_mat[0][i][reference.length() - 1] > maxVal)
         {
-            maxVal = score_mat[0][j][SOL_MAX_REFERENCE_LENGTH - 1];
-            maxPos = {j, SOL_MAX_REFERENCE_LENGTH - 1};
+            maxVal = score_mat[0][i][reference.length() - 1];
+            maxPos = {i, reference.length() - 1};
         }
     }
     int i = maxPos.first;

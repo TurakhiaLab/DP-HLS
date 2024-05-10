@@ -24,7 +24,6 @@ set(EXECUTABLE_TARGETS
     test_simd
     test_csim_global_linear
     test_csim_banding_global_linear
-    test_csim_global_affine_shifting
     test_csim_global_affine
     test_csim_local_linear
     test_csim_local_affine 
@@ -66,11 +65,6 @@ add_executable(baseline_local_linear "legacy/local_linear.h"
 add_executable(test_csim_global_linear 
     "testbench/test_csim_global_linear.cpp"
     "kernels/global_linear/kernel_global_linear.cpp"
-    ${COMMON_SRCS})
-
-add_executable(test_csim_global_affine_shifting
-    "testbench/test_csim_global_affine.cpp"
-    "kernels/global_affine_shifting/kernel_global_affine_shifting.cpp"
     ${COMMON_SRCS})
 
 add_executable(test_csim_banding_global_linear
@@ -171,7 +165,6 @@ target_include_directories(test_csim_global_linear PRIVATE "${DP_HLS_HOME}/kerne
 target_include_directories(test_csim_banding_global_linear PRIVATE "${DP_HLS_HOME}/kernels/banding_global_linear")
 target_include_directories(test_csim_local_linear PRIVATE "${DP_HLS_HOME}/kernels/local_linear")
 target_include_directories(test_csim_local_affine PRIVATE "${DP_HLS_HOME}/kernels/local_affine")
-target_include_directories(test_csim_global_affine_shifting PRIVATE "${DP_HLS_HOME}/kernels/global_affine_shifting")
 target_include_directories(test_csim_profile_alignment PRIVATE "${DP_HLS_HOME}/kernels/profile_alignment")
 target_include_directories(test_csim_profile_alignment_real_data PRIVATE "${DP_HLS_HOME}/kernels/profile_alignment")
 target_include_directories(test_csim_dtw PRIVATE "${DP_HLS_HOME}/kernels/dtw")
