@@ -15,8 +15,8 @@
 
 using namespace std;
 
-#define INPUT_QUERY_LENGTH 12
-#define INPUT_REFERENCE_LENGTH 15
+#define INPUT_QUERY_LENGTH 60
+#define INPUT_REFERENCE_LENGTH 62
 
 struct Penalties_sol {
     double log_1_m_2_lambda;
@@ -26,8 +26,8 @@ struct Penalties_sol {
     double transition[5][5];
 };
 
-#define MU 0.3
-#define LAMBDA 0.3
+#define MU 0.4
+#define LAMBDA 0.4
 
 int main(){
     // std::string query_string = "AGTCTG";     // CCGTAGACCCGAACTTCGCGGTACACCTTCTGAAACCGTCCCTAATCCGACGAGCGCCTTGAGAACG";
