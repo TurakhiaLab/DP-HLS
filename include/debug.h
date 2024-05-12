@@ -52,6 +52,17 @@ public:
     void compare_scores(array<array<array<float, MAX_REFERENCE_LENGTH>, MAX_QUERY_LENGTH>, N_LAYERS> scores_sol,
     int query_len, int ref_len, float threashold);
 
+    /**
+     * @brief Compare the Kernel Scores with Solution Scores, but when the solution scores are in double precision. 
+     * 
+     * @param scores_sol 
+     * @param query_len 
+     * @param ref_len 
+     * @param threashold 
+     */
+    void compare_scores_double(array<array<array<double, MAX_REFERENCE_LENGTH>, MAX_QUERY_LENGTH>, N_LAYERS> scores_sol,
+    int query_len, int ref_len, float threashold);
+
 private:
     std::string debugpath;
     std::string filepath;

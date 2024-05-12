@@ -5,37 +5,18 @@
 #include <chrono>
 #include <math.h>
 #include "params.h"
+#include "dp_hls_common.h"
 #include "seq_align_multiple.h"
 #include "host_utils.h"
 #include "solutions.h"
 #include "debug.h"
+#include "solution_viterbi.h"
 #include <bitset>
 
 using namespace std;
 
-#define INPUT_QUERY_LENGTH 128
-#define INPUT_REFERENCE_LENGTH 255
-
-char_t base_to_num(char base)
-{
-    switch (base)
-    {
-    case 'A':
-        return 0;
-    case 'C':
-        return 1;
-    case 'G':
-        return 2;
-    case 'T':
-        return 3;
-    default:
-        return 0;
-#ifdef CMAKEDEBUG
-        throw std::runtime_error("Unrecognized Nucleotide " + std::string(1, base) + " from A, C, G, and T.\n"); // or throw an exception
-#endif
-    }
-
-}
+#define INPUT_QUERY_LENGTH 12
+#define INPUT_REFERENCE_LENGTH 15
 
 struct Penalties_sol {
     float log_1_m_2_lambda;
@@ -73,35 +54,42 @@ int main(){
     // Struct for Penalties in kernel
     Penalties penalties[N_BLOCKS];
     for (int i = 0; i < N_BLOCKS; i++){
-        penalties[i].log_mu = log(MU);
-        penalties[i].log_lambda = log(LAMBDA);
-        penalties[i].log_1_m_mu = log(1 - MU);
-        penalties[i].log_1_m_2_lambda = log(1 - 2 * LAMBDA);
+        penalties[i].log_mu = -log(MU);
+        penalties[i].log_lambda = -log(LAMBDA);
+        penalties[i].log_1_m_mu = -log(1 - MU);
+        penalties[i].log_1_m_2_lambda = -log(1 - 2 * LAMBDA);
         for (int j = 0; j < 5; j++){
             for (int k = 0; k < 5; k++){
-                penalties[i].transition[j][k] = log_transitions_[j][k];
+                penalties[i].transition[j][k] = -log_transitions_[j][k];
             }
         }
     }
 
-    // // Struct for penalties in solution
-    // Penalties_sol penalties_sol[N_BLOCKS];
-    // for (Penalties_sol &penalty : penalties_sol) {
-    //     penalty.extend = -1;
-    //     penalty.open = -1;
-    //     penalty.match = 3;
-    //     penalty.mismatch = -1;
-    // }
+    // Struct for penalties in solution
+    Penalties_sol penalties_sol[N_BLOCKS];
+    for (int i = 0; i < N_BLOCKS; i ++) {
+        penalties_sol[i].log_mu = -log(MU);
+        penalties_sol[i].log_lambda = -log(LAMBDA);
+        penalties_sol[i].log_1_m_mu = -log(1 - MU);
+        penalties_sol[i].log_1_m_2_lambda = -log(1 - 2 * LAMBDA);
+        for (int j = 0; j < 5; j++){
+            for (int k = 0; k < 5; k++){
+                penalties_sol[i].transition[j][k] = -log_transitions_[j][k];
+            }
+        }
+    }
 
     // Reference and Query Strings
     std::vector<char> query(query_string.begin(), query_string.end());
     std::vector<char> reference(reference_string.begin(), reference_string.end());
  
+#ifdef CMAKEDEBUG
     // Initialize Debugger
     Container debuggers[N_BLOCKS];
     for (int i = 0; i < N_BLOCKS; i++){
         debuggers[i] = Container();
     }
+#endif
 
     // Assert actual query length and reference length should be smaller than the maximum length
     try {
@@ -115,8 +103,8 @@ int main(){
     }
 
     // Allocate query and reference buffer to pass to the kernel
-    char_t reference_buff[N_BLOCKS][MAX_REFERENCE_LENGTH];
-    char_t query_buff[N_BLOCKS][MAX_QUERY_LENGTH];
+    char_t reference_buff[MAX_REFERENCE_LENGTH][N_BLOCKS];
+    char_t query_buff[MAX_QUERY_LENGTH][N_BLOCKS];
 
     // Allocate lengths for query and reference
     idx_t qry_lengths[N_BLOCKS], ref_lengths[N_BLOCKS];
@@ -128,11 +116,11 @@ int main(){
     {
         for (int i = 0; i < query.size(); i++)
         {
-            query_buff[b][i] = base_to_num(query[i]);
+            query_buff[b][i] = HostUtils::Sequence::base_to_num(query[i]);
         }
         for (int i = 0; i < reference.size(); i++)
         {
-            reference_buff[b][i] = base_to_num(reference[i]);
+            reference_buff[b][i] = HostUtils::Sequence::base_to_num(reference[i]);
         }
     }
 
@@ -144,7 +132,8 @@ int main(){
     }
 
     // Allocate traceback streams
-    tbr_t tb_streams[N_BLOCKS][MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH];
+    tbr_t tb_streams_d[MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH][N_BLOCKS];
+    tbr_t tb_streams_h[N_BLOCKS][MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH];
 
     // initialize traceback starting coordinates
     idx_t tb_is[N_BLOCKS];
@@ -158,44 +147,31 @@ int main(){
         ref_lengths,
         penalties,
         tb_is, tb_js,
-        tb_streams
+        tb_streams_d
 #ifdef CMAKEDEBUG
         , debuggers
 #endif
         );
     
-    // print original traceback pointers as 4 bits binaries
-    for (int i = 0; i < N_BLOCKS; i++){
-        cout << "Block " << i << " Traceback Pointers" << endl;
-        for (int j = 0; j < MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH; j++){
-            cout << bitset<4>(tb_streams[i][j].to_int()) << " ";
-        }
-        cout << endl;
-    }
 
-    
     // Print the query and reference strings
     cout << "Query    : " << query_string << endl;
     cout << "Reference: " << reference_string << endl;
 
     // Get the solution scores and traceback
-    array<array<array<float, MAX_REFERENCE_LENGTH>, MAX_QUERY_LENGTH>, N_LAYERS> sol_score_mat;
+    array<array<array<double, MAX_REFERENCE_LENGTH>, MAX_QUERY_LENGTH>, N_LAYERS> sol_score_mat;
     array<array<string, MAX_REFERENCE_LENGTH>, MAX_QUERY_LENGTH> sol_tb_mat;
     map<string, string> alignments;
-    auto sol_start = std::chrono::high_resolution_clock::now();
-    // global_affine_solution(query_string, reference_string, penalties_sol[0], sol_score_mat, sol_tb_mat, alignments);
-    auto sol_end = std::chrono::high_resolution_clock::now();
-    // print_matrix<float, MAX_QUERY_LENGTH, MAX_REFERENCE_LENGTH>(sol_score_mat[0], "Solution Score Matrix Layer 0");
-    // print_matrix<char, MAX_QUERY_LENGTH, MAX_REFERENCE_LENGTH>(sol_tb_mat, "Solution Traceback Matrix");
+    viterbi_solution<Penalties_sol, MAX_QUERY_LENGTH, MAX_REFERENCE_LENGTH, N_LAYERS>(query_string, reference_string, penalties_sol[0], sol_score_mat, sol_tb_mat, alignments);
     cout << "Solution Aligned Query    : " << alignments["query"] << endl;
     cout << "Solution Aligned Reference: " << alignments["reference"] << endl;
     // Display solution runtime
-    std::cout << "Solution Runtime: " << std::chrono::duration_cast<std::chrono::milliseconds>(sol_end - sol_start).count() << "ms" << std::endl;
 
+#ifdef CMAKEDEBUG
     // Cast kernel scores to matrix scores
-    // debuggers[0].cast_scores();
-    // print_matrix<float, MAX_QUERY_LENGTH, MAX_REFERENCE_LENGTH>(debuggers[0].scores_cpp[0], "Kernel 0 Scores Layer 0");
-    // debuggers[0].compare_scores(sol_score_mat, query.size(), reference.size());  // check if the scores from the kernel matches scores from the solution
+    debuggers[0].cast_scores();
+    debuggers[0].compare_scores_double(sol_score_mat, query.size(), reference.size(), 0.5);  // check if the scores from the kernel matches scores from the solution
+#endif
 
     // reconstruct kernel alignments
     array<map<string, string>, N_BLOCKS> kernel_alignments;
@@ -210,10 +186,20 @@ int main(){
         query_string_blocks[i] = query_string;
         reference_string_blocks[i] = reference_string;
     }
+    HostUtils::IO::SwitchDimension(tb_streams_d, tb_streams_h);
+
+    for (int i = 0; i < N_BLOCKS; i++){
+        cout << "Block " << i << " Traceback Pointers" << endl;
+        for (int j = 0; j < MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH; j++){
+            cout << bitset<4>(tb_streams_h[i][j].to_int()) << " ";
+        }
+        cout << endl;
+    }
+
     kernel_alignments = HostUtils::Sequence::ReconstructTracebackBlocks<tbr_t, N_BLOCKS, MAX_QUERY_LENGTH, MAX_REFERENCE_LENGTH>(
         query_string_blocks, reference_string_blocks,
         tb_query_lengths, tb_reference_lengths, 
-        tb_streams);
+        tb_streams_h);
 
     // Print kernel 0 traceback
     cout << "Kernel 0 Traceback" << endl;

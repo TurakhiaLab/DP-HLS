@@ -38,8 +38,8 @@ void Viterbi::PE::Compute(char_t local_query_val,
 
     bool I_open_b = I_open > I_extend;
     bool J_open_b = J_open > J_extend;
-    write_score[0] = penalties.transition[local_query_val][4] + (I_open_b ? I_open : I_extend);
-    write_score[2] = penalties.transition[4][local_reference_val] + (J_open_b ? J_open : J_extend);
+    write_score[0] = penalties.transition[ (int) local_query_val][4] + (I_open_b ? I_open : I_extend);
+    write_score[2] = penalties.transition[4][(int) local_reference_val] + (J_open_b ? J_open : J_extend);
     tbp_t insert_tb = I_open_b ? (tbp_t) 0 : TB_IMAT;
     tbp_t delete_tb = J_open_b ? (tbp_t) 0 : TB_JMAT;
 
@@ -92,23 +92,23 @@ void Viterbi::InitializeScores(
     type_t gap = penalties.log_lambda;
     for (int i = 0; i < MAX_QUERY_LENGTH; i++){
         gap += penalties.log_1_m_mu;
-        init_col_scr[i] = score_vec_t({0, gap, NINF});
+        init_col_scr[i] = score_vec_t({NINF, gap, NINF});
     }
 // Init Row
     gap = penalties.log_lambda;
     for (int i = 0; i < MAX_REFERENCE_LENGTH; i++){
         gap += penalties.log_1_m_mu;
-        init_row_scr[i] = score_vec_t({NINF, gap, 0});
+        init_row_scr[i] = score_vec_t({NINF, gap, NINF});
     }
 }
 
 void Viterbi::UpdatePEMaximum(
-    wavefront_scores_inf_t scores,
+    const wavefront_scores_inf_t scores,
     ScorePack (&max)[PE_NUM],
-    idx_t (&ics)[PE_NUM], idx_t (&jcs)[PE_NUM],
-    idx_t (&p_col)[PE_NUM], idx_t ck_idx,
-    bool (&predicate)[PE_NUM],
-    idx_t query_len, idx_t ref_len){
+    const idx_t chunk_row_offset, const idx_t wavefront,
+    const idx_t p_cols, const idx_t ck_idx,
+    const bool (&predicate)[PE_NUM],
+    const idx_t query_len, const idx_t ref_len){
         
 }
 
@@ -118,20 +118,10 @@ void Viterbi::InitializeMaxScores(ScorePack (&max)[PE_NUM], idx_t qry_len, idx_t
     {
 #pragma HLS unroll
         max[i].score = NINF;
-        max[i].row = i;
-        max[i].col = 0;
         max[i].p_col = 0;
         max[i].ck = 0;
-        max[i].pe = i;
     }
-    idx_t max_pe = (qry_len - 1) % PE_NUM;
-    idx_t max_ck = (qry_len - 1)/ PE_NUM;
-    max[max_pe].score = INF;
-    max[max_pe].row = qry_len - 1;
-    max[max_pe].col = ref_len - 1;
-    max[max_pe].p_col = (max_ck + 1) * ref_len - 1;
-    max[max_pe].ck = max_ck;
-    max[max_pe].pe = max_pe;
+    Utils::Init::DetermineGlobalTracebackCoordinate(max, qry_len, ref_len);
 }
 
 

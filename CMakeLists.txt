@@ -168,7 +168,7 @@ target_include_directories(test_csim_local_affine PRIVATE "${DP_HLS_HOME}/kernel
 target_include_directories(test_csim_profile_alignment PRIVATE "${DP_HLS_HOME}/kernels/profile_alignment")
 target_include_directories(test_csim_profile_alignment_real_data PRIVATE "${DP_HLS_HOME}/kernels/profile_alignment")
 target_include_directories(test_csim_dtw PRIVATE "${DP_HLS_HOME}/kernels/dtw")
-target_include_directories(test_csim_viterbi PRIVATE ${DP_HLS_HOME}/kernels/viterbi)
+target_include_directories(test_csim_viterbi PRIVATE "${DP_HLS_HOME}/kernels/viterbi")
 target_include_directories(test_csim_overlap_linear_suffix_prefix PRIVATE "${DP_HLS_HOME}/kernels/overlap_linear_suffix_prefix")
 target_include_directories(test_csim_overlap_linear_prefix_suffix PRIVATE "${DP_HLS_HOME}/kernels/overlap_linear_prefix_suffix")
 target_include_directories(test_csim_semi_global_linear_long_short PRIVATE "${DP_HLS_HOME}/kernels/semi_global_linear_long_short")

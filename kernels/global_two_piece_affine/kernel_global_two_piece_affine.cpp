@@ -51,32 +51,33 @@ void GlobalTwoPieceAffine::PE::Compute(char_t local_query_val,
 
     tbp_t tbp_temp = 0b0000000;
 
+    type_t insert_r, long_insert_r, delete_r, long_delete_r;
     if (insert_open < insert_extend){
-        write_score[0] = insert_extend;
+        insert_r = insert_extend;
         tbp_temp += TB_INS_EXTEND;
     } else {
-        write_score[0] = insert_open;
+        insert_r = insert_open;
     }
 
     if (delete_open < delete_extend){
-        write_score[2] = delete_extend;
+        delete_r = delete_extend;
         tbp_temp += TB_DEL_EXTEND;
     } else {
-        write_score[2] = delete_open;
+        delete_r = delete_open;
     }
 
     if (long_insert_open < long_insert_extend){
-        write_score[3] = long_insert_extend;
+        long_insert_r = long_insert_extend;
         tbp_temp += TB_LONG_INS_EXTEND;
     } else {
-        write_score[3] = long_insert_open;
+        long_insert_r = long_insert_open;
     }
 
     if (long_delete_open < long_delete_extend){
-        write_score[4] = long_delete_extend;
+        long_delete_r = long_delete_extend;
         tbp_temp += TB_LONG_DEL_EXTEND;
     } else {
-        write_score[4] = long_delete_open;
+        long_delete_r = long_delete_open;
     }
 
 
@@ -93,47 +94,39 @@ void GlobalTwoPieceAffine::PE::Compute(char_t local_query_val,
     auto local_reference_val_s = local_reference_val.to_int();
 #endif
 
-    // compare insertion and deletion matrices 
-    type_t max_value = match;
-    max_value = max_value > write_score[0] ? max_value : write_score[0]; // MAX(write_score[0], match);
-    max_value = max_value > write_score[2] ? max_value : write_score[2]; // MAX(MAX(write_score[0], match), write_score[2]);
-    max_value = max_value > write_score[3] ? max_value : write_score[3]; // MAX(MAX(write_score[0], write_score[2]), write_score[3]);
-    max_value = max_value > write_score[4] ? max_value : write_score[4];
-
-    write_score[1] = max_value;  // write score to the main matrix should be the max score, not match score
-
 #ifdef CMAKEDEBUG
     auto match_s = match.to_float();
     auto write_score_1_s = write_score[1].to_float();
 #endif
 
+    // compare insertion and deletion matrices 
+    type_t max_value = match;
+    tbp_t dir_bit = TB_MAIN;
+
     // Set traceback pointer based on the direction of the maximum score.
-    if (max_value == match)
+    if (max_value < long_insert_r)
     {
-        tbp_temp = tbp_temp | TB_MAIN;
+        max_value = long_insert_r;
+        dir_bit = TB_LONG_INSERT;
     }
-    else if (max_value == write_score[3])
+    if (max_value < long_delete_r)
     {
-        tbp_temp = tbp_temp | TB_LONG_INSERT;
+        max_value = long_delete_r;
+        dir_bit = TB_LONG_DELETE;
     }
-    else if (max_value == write_score[4])
+    if (max_value < insert_r)
     {
-        tbp_temp = tbp_temp | TB_LONG_DELETE;
+        max_value = insert_r;
+        dir_bit = TB_INSERT;
     }
-    else if (max_value == write_score[0])
-    { 
-        tbp_temp = tbp_temp | TB_INSERT;
-    }
-    else if (max_value == write_score[2])
+    if (max_value < delete_r)
     {
-        tbp_temp = tbp_temp | TB_DELETE;
-    }
-    else
-    {
-        // Undefined behavior happens if the max score is non of the I', D', I, D, or M.
+        max_value = delete_r;
+        dir_bit = TB_DELETE;
     }
 
-    write_traceback = tbp_temp; //insert_tb + delete_tb + long_insert_tb + long_delete_tb;
+    write_score =   {insert_r, max_value, delete_r, long_insert_r, long_delete_r};  // write score to the main matrix should be the max score, not match score
+    write_traceback = tbp_temp | dir_bit; //insert_tb + delete_tb + long_insert_tb + long_delete_tb;
 }
 
 void GlobalTwoPieceAffine::Helper::InitCol(score_vec_t (&init_col_scr)[MAX_QUERY_LENGTH], Penalties penalties){

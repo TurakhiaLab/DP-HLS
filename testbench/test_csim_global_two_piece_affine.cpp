@@ -46,8 +46,6 @@ struct Penalties_sol
 };
 
 int main(){
-    // std::string query_string = "AGTCTG";     // CCGTAGACCCGAACTTCGCGGTACACCTTCTGAAACCGTCCCTAATCCGACGAGCGCCTTGAGAACG";
-    // std::string reference_string = "TGCCGAT";       // TGAGAACGTAGTCTAGGCGAATCGGCCCTTGTATATCGGGGCCGTAGACCCGAACTTCGCGGTACAC";
     char alphabet[4] = {'A', 'T', 'G', 'C'};
     std::string query_string = Random::Sequence<4>(alphabet, INPUT_QUERY_LENGTH);
     std::string reference_string = Random::Sequence<4>(alphabet, INPUT_REFERENCE_LENGTH);
@@ -94,11 +92,13 @@ int main(){
     std::vector<char> query(query_string.begin(), query_string.end());
     std::vector<char> reference(reference_string.begin(), reference_string.end());
  
+#ifdef CMAKEDEBUG
     // Initialize Debugger
     Container debuggers[N_BLOCKS];
     for (int i = 0; i < N_BLOCKS; i++){
         debuggers[i] = Container();
     }
+#endif
 
     // Assert actual query length and reference length should be smaller than the maximum length
     try {
@@ -181,12 +181,12 @@ int main(){
     // Display solution runtime
     std::cout << "Solution Runtime: " << std::chrono::duration_cast<std::chrono::milliseconds>(sol_end - sol_start).count() << "ms" << std::endl;
 
+#ifdef CMAKEDEBUG
     // Cast kernel scores to matrix scores
     debuggers[0].cast_scores();
     // print_matrix<float, MAX_QUERY_LENGTH, MAX_REFERENCE_LENGTH>(debuggers[0].scores_cpp[0], "Kernel 0 Scores Layer 0");
     debuggers[0].compare_scores(sol_score_mat, query.size(), reference.size());  // check if the scores from the kernel matches scores from the solution
-
-
+#endif
 
     // reconstruct kernel alignments
     array<map<string, string>, N_BLOCKS> kernel_alignments;
@@ -201,6 +201,7 @@ int main(){
         query_string_blocks[i] = query_string;
         reference_string_blocks[i] = reference_string;
     }
+
     HostUtils::IO::SwitchDimension(tb_streams_d, tb_streams_h);
      kernel_alignments = HostUtils::Sequence::ReconstructTracebackBlocks<tbr_t, N_BLOCKS, MAX_QUERY_LENGTH, MAX_REFERENCE_LENGTH>(
         query_string_blocks, reference_string_blocks,

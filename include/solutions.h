@@ -2594,7 +2594,7 @@ void global_two_piece_affine_solution(std::string query, std::string reference, 
 template <typename T, int M, int N>
 void print_matrix(array<array<T, N>, M> &mat, string name, std::set<std::tuple<int, int, int>> incorrect_coordinates, int layer_k)
 {
-    int width = 8;
+    int width = 6;
     cout << name << endl;
     for (int i = 0; i < M; i++)
     {

@@ -6,11 +6,10 @@
 #include <hls_vector.h>
 
 // These need to be there to do CMake Simulation, but SHOULD TAKE OFF WHEN COMPIING BITSTREAM
-#define PRAGMA_PE_NUM 16
+#define PE_NUM 16
 #define MAX_QUERY_LENGTH 256
 #define MAX_REFERENCE_LENGTH 256
 #define N_BLOCKS 1
-const int PE_NUM = PRAGMA_PE_NUM;
 
 #define ALIGN_TYPE GlobalTwoPieceAffine
 #define N_LAYERS 5

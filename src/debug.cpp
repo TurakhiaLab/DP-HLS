@@ -69,7 +69,7 @@ void Container::compare_scores(
         for (int i = 0; i < query_len; i++){
             for (int j = 0; j < ref_len; j++){
                 if (this->scores_cpp[k][i][j] != scores_sol[k][i][j]){
-                    printf("Mismatch at (%d, %d, %d): %f != %f\n", k, i, j, this->scores_cpp[k][i][j], scores_sol[k][i][j]);
+                    // printf("Mismatch at (%d, %d, %d): %f != %f\n", k, i, j, this->scores_cpp[k][i][j], scores_sol[k][i][j]);
                     // print solution and kernel scores
                     mismatch = true;
 
@@ -97,7 +97,7 @@ void Container::compare_scores(
         for (int i = 0; i < query_len; i++){
             for (int j = 0; j < ref_len; j++){
                 if (abs( this->scores_cpp[k][i][j] - scores_sol[k][i][j]) > threashold){
-                    printf("Mismatch at (%d, %d, %d): %f != %f\n", k, i, j, this->scores_cpp[k][i][j], scores_sol[k][i][j]);
+                    // printf("Mismatch at (%d, %d, %d): %f != %f\n", k, i, j, this->scores_cpp[k][i][j], scores_sol[k][i][j]);
                     // print solution and kernel scores
                     incorrect_coordinates.emplace(k, i, j);
                     mismatch = true;
@@ -108,6 +108,34 @@ void Container::compare_scores(
     if (mismatch){
         for (int k = 0; k < N_LAYERS; k++){
             print_matrix<float, MAX_QUERY_LENGTH, MAX_REFERENCE_LENGTH>(scores_sol[k], "Solution Score Matrix, Layer: " + std::to_string(k), incorrect_coordinates, k);
+            print_matrix<float, MAX_QUERY_LENGTH, MAX_REFERENCE_LENGTH>(this->scores_cpp[k], "Kernel Score Matrix, Layer: " + std::to_string(k), incorrect_coordinates, k);
+        }
+    } else {
+        printf("All scores match!\n");
+    }
+}
+
+void Container::compare_scores_double(
+    array<array<array<double, MAX_REFERENCE_LENGTH>, MAX_QUERY_LENGTH>, N_LAYERS> scores_sol,
+    int query_len, int ref_len, float threashold){
+    this->cast_scores();
+    bool mismatch = false;
+    std::set<std::tuple<int, int, int>> incorrect_coordinates;
+    for (int k = 0; k < N_LAYERS; k++){
+        for (int i = 0; i < query_len; i++){
+            for (int j = 0; j < ref_len; j++){
+                if (abs( this->scores_cpp[k][i][j] - scores_sol[k][i][j]) > threashold){
+                    // printf("Mismatch at (%d, %d, %d): %f != %f\n", k, i, j, this->scores_cpp[k][i][j], scores_sol[k][i][j]);
+                    // print solution and kernel scores
+                    incorrect_coordinates.emplace(k, i, j);
+                    mismatch = true;
+                }
+            }
+        }
+    }
+    if (mismatch){
+        for (int k = 0; k < N_LAYERS; k++){
+            print_matrix<double, MAX_QUERY_LENGTH, MAX_REFERENCE_LENGTH>(scores_sol[k], "Solution Score Matrix, Layer: " + std::to_string(k), incorrect_coordinates, k);
             print_matrix<float, MAX_QUERY_LENGTH, MAX_REFERENCE_LENGTH>(this->scores_cpp[k], "Kernel Score Matrix, Layer: " + std::to_string(k), incorrect_coordinates, k);
         }
     } else {
