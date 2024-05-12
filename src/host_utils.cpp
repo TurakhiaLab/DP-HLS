@@ -141,3 +141,33 @@ std::vector<std::array<int, 5>> HostUtils::Sequence::MultipleSequencesToProfileA
     }
     return profile;
 }
+
+
+std::vector<std::string> HostUtils::IO::readFasta(const std::string &filePath) {
+    std::vector<std::string> sequences;
+    std::ifstream file(filePath);
+    if (!file.is_open()) {
+        std::cerr << "Error: Could not open file " << filePath << std::endl;
+        return sequences;
+    }
+
+    std::string line;
+    std::string sequence;
+    while (std::getline(file, line)) {
+        if (line.empty()) continue;
+        if (line[0] == '>') {
+            if (!sequence.empty()) {
+                sequences.push_back(sequence);
+                sequence.clear();
+            }
+        } else {
+            sequence += line;
+        }
+    }
+    if (!sequence.empty()) {
+        sequences.push_back(sequence);
+    }
+
+    file.close();
+    return sequences;
+}

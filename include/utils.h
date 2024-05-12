@@ -179,6 +179,27 @@ namespace Utils
 			}
 		}
 
+		/**
+		 * @brief Global alignment start the traceback at the bottom right corner of the score matrix. 
+		 * Given the query and reference length, the traceback physical address can be determined before 
+		 * the score matri iteration. Thus, this function takes the ScorePack array, according to the
+		 * query and reference legnth, to set the traceback starting PE's ScorePack with INF and corresponding
+		 * coordinate. 
+		 * 
+		 * @tparam LEN Number of PE
+		 * @tparam IDX_T Index Type Used in the Kernel
+		 * @param qry_len Actual Query Length
+		 * @param ref_len Actual Reference Length
+		 */
+		template <typename PACK, typename IDX_T, int LEN>
+		void DetermineGlobalTracebackCoordinate(PACK (&local_maximum)[LEN], IDX_T qry_len, IDX_T ref_len){
+			IDX_T max_pe = (qry_len - 1) % PE_NUM;
+			IDX_T max_ck = (qry_len - 1)  / PE_NUM;
+			local_maximum[max_pe].score = INF;
+			local_maximum[max_pe].p_col = (max_ck) * (MAX_REFERENCE_LENGTH + PE_NUM - 1) + max_pe + ref_len - 1;
+			local_maximum[max_pe].ck = max_ck;
+		}
+
 	}
 
 	namespace Matrix

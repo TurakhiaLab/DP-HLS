@@ -24,12 +24,14 @@ void GlobalTwoPieceAffine::PE::Compute(char_t local_query_val,
      * Layer 3: Long insert matrix I', moves horizontally
      * Layer 4: Long delete matrix D', moves vertically
      */
+
     const type_t insert_open = left_prev[1] + penalties.open + penalties.extend; // Insert open
     const type_t insert_extend = left_prev[0] + penalties.extend;                  // insert extend
-    const type_t delete_open = up_prev[1] + penalties.open + penalties.extend;   // delete open
-    const type_t delete_extend = up_prev[2] + penalties.extend;                    // delete extend
     const type_t long_insert_open = left_prev[1] + penalties.long_open + penalties.long_extend;
     const type_t long_insert_extend = left_prev[3] + penalties.long_extend;
+    
+    const type_t delete_open = up_prev[1] + penalties.open + penalties.extend;   // delete open
+    const type_t delete_extend = up_prev[2] + penalties.extend;                    // delete extend
     const type_t long_delete_open = up_prev[1] + penalties.long_open + penalties.long_extend;
     const type_t long_delete_extend = up_prev[4] + penalties.long_extend;
 
@@ -47,18 +49,37 @@ void GlobalTwoPieceAffine::PE::Compute(char_t local_query_val,
     auto up_prev_2_s = up_prev[2].to_float();
 #endif
 
-    bool insert_open_b = insert_open > insert_extend;
-    bool delete_open_b = delete_open > delete_extend;
-    bool long_insert_open_b = long_insert_open > long_insert_extend;
-    bool long_delete_open_b = long_delete_open > long_delete_extend;
-    write_score[0] = insert_open_b ? insert_open : insert_extend;
-    write_score[2] = delete_open_b ? delete_open : delete_extend;
-    write_score[3] = long_insert_open_b ? long_insert_open : long_insert_extend;
-    write_score[4] = long_delete_open_b ? long_delete_open : long_delete_extend;
-    // tbp_t insert_tb = insert_open_b ? (tbp_t) 0 : TB_IMAT;
-    // tbp_t delete_tb = delete_open_b ? (tbp_t) 0 : TB_DMAT;
-    // tbp_t long_insert_tb = long_insert_open_b ? (tbp_t) 0 : TB_LIMAT;
-    // tbp_t long_delete_tb = long_delete_open_b ? (tbp_t) 0 : TB_LDMAT;
+    tbp_t tbp_temp = 0b0000000;
+
+    type_t insert_r, long_insert_r, delete_r, long_delete_r;
+    if (insert_open < insert_extend){
+        insert_r = insert_extend;
+        tbp_temp += TB_INS_EXTEND;
+    } else {
+        insert_r = insert_open;
+    }
+
+    if (delete_open < delete_extend){
+        delete_r = delete_extend;
+        tbp_temp += TB_DEL_EXTEND;
+    } else {
+        delete_r = delete_open;
+    }
+
+    if (long_insert_open < long_insert_extend){
+        long_insert_r = long_insert_extend;
+        tbp_temp += TB_LONG_INS_EXTEND;
+    } else {
+        long_insert_r = long_insert_open;
+    }
+
+    if (long_delete_open < long_delete_extend){
+        long_delete_r = long_delete_extend;
+        tbp_temp += TB_LONG_DEL_EXTEND;
+    } else {
+        long_delete_r = long_delete_open;
+    }
+
 
 #ifdef CMAKEDEBUG
     auto write_score_0_s = write_score[0].to_float();
@@ -73,118 +94,62 @@ void GlobalTwoPieceAffine::PE::Compute(char_t local_query_val,
     auto local_reference_val_s = local_reference_val.to_int();
 #endif
 
-    // compare insertion and deletion matrices 
-    type_t max_value = MAX(MAX(write_score[0], write_score[3]), MAX(write_score[2], write_score[4]));
-    max_value = max_value > match ? max_value : match;                                    // compare with match/mismatch
-    write_score[1] = match;
-
-    // keep track where the max value came from
-    tbp_t pre_trace;
-    tbp_t next_state = (tbp_t)0b00000;  // by default this is the main matrix state
-
 #ifdef CMAKEDEBUG
     auto match_s = match.to_float();
     auto write_score_1_s = write_score[1].to_float();
 #endif
 
+    // compare insertion and deletion matrices 
+    type_t max_value = match;
+    tbp_t dir_bit = TB_MAIN;
+
     // Set traceback pointer based on the direction of the maximum score.
-    if (max_value == write_score[0])
-    { 
-        pre_trace = TB_INSERT;
-        next_state = TB_IMAT;
-    }
-    else if (max_value == write_score[1])
+    if (max_value < long_insert_r)
     {
-        pre_trace = TB_MAIN;
+        max_value = long_insert_r;
+        dir_bit = TB_LONG_INSERT;
     }
-    else if (max_value == write_score[2])
+    if (max_value < long_delete_r)
     {
-        pre_trace = TB_DELETE;
-        next_state = TB_DMAT;
+        max_value = long_delete_r;
+        dir_bit = TB_LONG_DELETE;
     }
-    else if (max_value == write_score[3])
+    if (max_value < insert_r)
     {
-        pre_trace = TB_LONG_INSERT;
-        next_state = TB_LIMAT;
+        max_value = insert_r;
+        dir_bit = TB_INSERT;
     }
-    else if (max_value == write_score[4])
+    if (max_value < delete_r)
     {
-        pre_trace = TB_LONG_DELETE;
-        next_state = TB_LDMAT;
-    }
-    else
-    {
-        // Undefined behavior happens if the max score is non of the I', D', I, D, or M.
+        max_value = delete_r;
+        dir_bit = TB_DELETE;
     }
 
-    write_traceback = pre_trace + next_state; //insert_tb + delete_tb + long_insert_tb + long_delete_tb;
+    write_score =   {insert_r, max_value, delete_r, long_insert_r, long_delete_r};  // write score to the main matrix should be the max score, not match score
+    write_traceback = tbp_temp | dir_bit; //insert_tb + delete_tb + long_insert_tb + long_delete_tb;
 }
 
 void GlobalTwoPieceAffine::Helper::InitCol(score_vec_t (&init_col_scr)[MAX_QUERY_LENGTH], Penalties penalties){
     type_t gap = penalties.open;
     type_t long_gap = penalties.long_open;
-    init_col_scr[0] = score_vec_t({NINF, 0, NINF, NINF, NINF});
-    for (int i = 1; i < MAX_QUERY_LENGTH; i++){
+    for (int i = 0; i < MAX_QUERY_LENGTH; i++){
         gap += penalties.extend;
         long_gap += penalties.long_extend;
-        init_col_scr[i] = score_vec_t({NINF,MAX(gap,long_gap),gap,NINF,long_gap});
+        init_col_scr[i] = score_vec_t({NINF,MAX(gap,long_gap),NINF,NINF, NINF});
     }
-    // std::cout << "KERNEL" << std::endl;
-    // std::cout << "MATRIX 0 col" << std::endl;
-    // for (int i = 0; i < MAX_QUERY_LENGTH; i++) {
-    //     std::cout << init_col_scr[i][0] << std::endl;
-    // }
-    // std::cout << "MATRIX 1 col" << std::endl;
-    // for (int i = 0; i < MAX_QUERY_LENGTH; i++) {
-    //     std::cout << init_col_scr[i][1] << std::endl;
-    // }
-    // std::cout << "MATRIX 2 col" << std::endl;
-    // for (int i = 0; i < MAX_QUERY_LENGTH; i++) {
-    //     std::cout << init_col_scr[i][2] << std::endl;
-    // }
-    // std::cout << "MATRIX 3 col" << std::endl;
-    // for (int i = 0; i < MAX_QUERY_LENGTH; i++) {
-    //     std::cout << init_col_scr[i][3] << std::endl;
-    // }
-    // std::cout << "MATRIX 4 col" << std::endl;
-    // for (int i = 0; i < MAX_QUERY_LENGTH; i++) {
-    //     std::cout << init_col_scr[i][4] << std::endl;
-    // }
 }
 
 void GlobalTwoPieceAffine::Helper::InitRow(score_vec_t (&init_row_scr)[MAX_REFERENCE_LENGTH], Penalties penalties){
     type_t gap = penalties.open;
     type_t long_gap = penalties.long_open;
-    init_row_scr[0] = score_vec_t({NINF, 0, NINF, NINF, NINF});
-    for (int i = 1; i < MAX_REFERENCE_LENGTH; i++){
+    for (int i = 0; i < MAX_REFERENCE_LENGTH; i++){
         gap += penalties.extend;
         long_gap += penalties.long_extend;
 #ifdef CMAKEDEBUG
         float gap_f = gap.to_float();
 #endif
-        init_row_scr[i] = score_vec_t({gap,MAX(gap,long_gap),NINF,long_gap,NINF});
+        init_row_scr[i] = score_vec_t({NINF,MAX(gap,long_gap),NINF,NINF,NINF});
     }
-    // std::cout << "KERNEL" << std::endl;
-    // std::cout << "MATRIX 0 row" << std::endl;
-    // for (int i = 0; i < MAX_QUERY_LENGTH; i++) {
-    //     std::cout << init_row_scr[i][0] << std::endl;
-    // }
-    // std::cout << "MATRIX 1 row" << std::endl;
-    // for (int i = 0; i < MAX_QUERY_LENGTH; i++) {
-    //     std::cout << init_row_scr[i][1] << std::endl;
-    // }
-    // std::cout << "MATRIX 2 row" << std::endl;
-    // for (int i = 0; i < MAX_QUERY_LENGTH; i++) {
-    //     std::cout << init_row_scr[i][2] << std::endl;
-    // }
-    // std::cout << "MATRIX 3 row" << std::endl;
-    // for (int i = 0; i < MAX_QUERY_LENGTH; i++) {
-    //     std::cout << init_row_scr[i][3] << std::endl;
-    // }
-    // std::cout << "MATRIX 4 row" << std::endl;
-    // for (int i = 0; i < MAX_QUERY_LENGTH; i++) {
-    //     std::cout << init_row_scr[i][4] << std::endl;
-    // }
 }   
 
 void GlobalTwoPieceAffine::InitializeScores(
@@ -192,7 +157,7 @@ void GlobalTwoPieceAffine::InitializeScores(
     score_vec_t (&init_row_scr)[MAX_REFERENCE_LENGTH],
     Penalties penalties)
 {
-#pragma HLS dataflow
+
     Helper::InitCol(init_col_scr, penalties);
     Helper::InitRow(init_row_scr, penalties);
 }
@@ -204,28 +169,7 @@ void GlobalTwoPieceAffine::UpdatePEMaximum(
         const idx_t p_cols, const idx_t ck_idx,
         const bool (&predicate)[PE_NUM],
         const idx_t query_len, const idx_t ref_len){
-//     for (int i = 0; i < PE_NUM; i++)
-//     {
-// #pragma HLS unroll
-//         if (predicate[i])
-//         {
-// #ifdef CMAKEDEBUG
-//             auto dp_mem_s = scores[i + 1][LAYER_MAXIMIUM].to_float();
-//             auto max_s = max[i].score.to_float();
-// #endif
-//             if (scores[i + 1][LAYER_MAXIMIUM] > max[i].score)
-//             {
-//                 // Notice this filtering condition compared to the Local Affine kernel.
-//                 // if ((chunk_offset + i == query_len - 1) || (pe_offset[i] == ref_len - 1))  // last row or last column
-//                 if ( (chunk_row_offset +i == query_len - 1) && (wavefront - i == ref_len - 1) )
-//                 { // So we are at the last row or last column
-//                     max[i].score = scores[i + 1][LAYER_MAXIMIUM];
-//                     max[i].ck = ck_idx;
-//                     max[i].p_col = p_cols;
-//                 }
-//             }
-//         }
-//     }
+
 }
 
 void GlobalTwoPieceAffine::InitializeMaxScores(ScorePack (&max)[PE_NUM], idx_t qry_len, idx_t ref_len)
@@ -236,7 +180,6 @@ void GlobalTwoPieceAffine::InitializeMaxScores(ScorePack (&max)[PE_NUM], idx_t q
         max[i].score = NINF;
         max[i].p_col = 0;
         max[i].ck = 0;
-
     }
     idx_t max_pe = (qry_len - 1) % PE_NUM;
     idx_t max_ck = (qry_len - 1)  / PE_NUM;
@@ -272,13 +215,18 @@ void GlobalTwoPieceAffine::Traceback::StateMapping(tbp_t tbp, TB_STATE &state, t
         {
             state = TB_STATE::LONG_INS;
             navigation = AL_NULL;
+        } 
+        else {
+#ifdef CMAKEDEBUG
+            // call an runtime error
+            std::runtime_error("unknown direction");
+#endif
         }
     }
     else if (state == TB_STATE::DEL)
     {
-        tbp_t temp = tbp & (~0u << 3);
-        if (temp != TB_DMAT)
-        { 
+        if ((bool) tbp[5] != 1)
+        {
             state = TB_STATE::MM;
         }
         // otherwise remain in the same state/matrix
@@ -286,8 +234,7 @@ void GlobalTwoPieceAffine::Traceback::StateMapping(tbp_t tbp, TB_STATE &state, t
     }
     else if (state == TB_STATE::INS)
     {
-        tbp_t temp = tbp & (~0u << 3);
-        if (temp != TB_IMAT)
+        if ((bool) tbp[3] != 1)
         {
             state = TB_STATE::MM; // set the state back to MM
         }
@@ -296,8 +243,7 @@ void GlobalTwoPieceAffine::Traceback::StateMapping(tbp_t tbp, TB_STATE &state, t
     }
     else if (state == TB_STATE::LONG_INS) 
     {  
-        tbp_t temp = tbp & (~0u << 3);
-        if (temp != TB_LIMAT) 
+        if ((bool) tbp[4] != 1) 
         {
             state = TB_STATE::MM;
         }
@@ -306,13 +252,14 @@ void GlobalTwoPieceAffine::Traceback::StateMapping(tbp_t tbp, TB_STATE &state, t
     }
     else if (state == TB_STATE::LONG_DEL)
     {
-        tbp_t temp = tbp & (~0u << 3);
-        if (temp != TB_LIMAT) 
+        if ((bool) tbp[6] != 1) 
         {
             state = TB_STATE::MM;
         }
+
         // otherwise stay in the long deletion state
         navigation = AL_DEL;
+
     }
     else
     {
@@ -321,31 +268,34 @@ void GlobalTwoPieceAffine::Traceback::StateMapping(tbp_t tbp, TB_STATE &state, t
 //         throw std::runtime_error("Unknown traceback state.");
 // #endif
     }
-    std::cout << "NAVIGATION IS " << navigation << std::endl;
+    // std::cout << "NAVIGATION IS " << navigation << std::endl;
 }
 
 void GlobalTwoPieceAffine::Traceback::StateInit(tbp_t tbp, TB_STATE &state)
 {
-    state = TB_STATE::MM;
-//     if (tbp(1, 0) == TB_DIAG)
-//     {
-//         state = TB_STATE::MM;
-//     }
-//     else if (tbp(1, 0) == TB_UP)
-//     {
-
-//         state = TB_STATE::DEL;
-//     }
-//     else if (tbp(1, 0) == TB_LEFT)
-//     {
-//         state = TB_STATE::INS;
-//     }
-//     else
-//     {
-//         // Unknown Direction
-// // #ifdef CMAKEDEBUG
-// //         throw std::runtime_error("Unknown traceback direction." + std::to_string(tbp.to_int()));
-// // #endif
-//     }
+    if (tbp(1, 0) == TB_MAIN)
+    {
+        state = TB_STATE::MM;
+    }
+    else if (tbp(1, 0) == TB_INSERT)
+    {
+        state = TB_STATE::INS;
+    }
+    else if (tbp(1, 0) == TB_DELETE)
+    {
+        state = TB_STATE::DEL;
+    }
+    else if (tbp == TB_LONG_INSERT)
+    {
+        state = TB_STATE::LONG_INS;
+    }
+    else if (tbp == TB_LONG_DELETE)
+    {
+        state = TB_STATE::LONG_DEL;
+    }
+    else
+    {
+        // Unknown State
+    }
 }
 // <<< Global Two Piece Affine Implementation <<<

@@ -27,7 +27,7 @@ using namespace std;
 #define AL_INS_H 0b001  // 1 Align Insertion
 #define AL_MMI_H 0b010  // 2 Align Match/Mismatch
 #define AL_DEL_H 0b011  // 3 Align Deletion
-#define AL_NULL_H 0b100  // 4 Do not change coordinate
+#define AL_NULL_H 0b100 // 4 Do not change coordinate
 
 namespace Random
 {
@@ -55,10 +55,18 @@ namespace Random
     template <typename T>
     std::vector<T> SequenceComplex(int length)
     {
+        std::random_device rd;
+
+        // Use the seed from random_device to seed the random engine
+        std::mt19937 rng(rd());
+
+        // Create a uniform distribution for random numbers between 1 and 100
+        std::uniform_int_distribution<int> dist(1, 100);
+
         std::vector<T> seq;
         for (int i = 0; i < length; i++)
         {
-            seq.push_back(T(rand() % 500, rand()% 500));
+            seq.push_back(T(dist(rng) % 10, dist(rng) % 10));
         }
         return seq;
     }
@@ -105,6 +113,8 @@ namespace HostUtils
          */
         map<string, std::vector<string>> read_sequences_from_json(string file_path);
 
+        std::vector<std::string> readFasta(const std::string &filePath);
+
         template <typename T, size_t M, size_t N>
         void SwitchDimension(T (&src)[M][N], T (&dst)[N][M])
         {
@@ -139,6 +149,36 @@ namespace HostUtils
         int base_to_num(char base);
 
         char num_to_base(int num);
+
+        template <typename T>
+        string nav_to_string(T nav)
+        {
+            // Copilot, please write the above switch statement in to if statement
+            if (nav == (T) AL_NULL_H)
+            {
+                return "";
+            }
+            else if (nav == (T) AL_MMI_H)
+            {
+                return "D";
+            }
+            else if (nav == (T) AL_INS_H)
+            {
+                return "L";
+            }
+            else if (nav == (T) AL_DEL_H)
+            {
+                return "U";
+            }
+            else if (nav == (T) AL_END_H)
+            {
+                return "*";
+            }
+            else
+            {
+                return "?";
+            }
+        }
 
         /**
          * @brief Reconstruct the traceback for profile alignmetnt from the array of traceback navigations.
@@ -208,10 +248,10 @@ namespace HostUtils
             // Insert the characters from the stack to the alignment strings to their beginning.
             // Iterating in order the tb_steram
             int cnt = 0;
-            while (*curr_ptr != (T) AL_END_H)
+            while (*curr_ptr != (T)AL_END_H)
             {
                 // printf("curr_ptr: %d\n", curr_ptr->to_int());
-                if (*curr_ptr == (T) AL_MMI_H)
+                if (*curr_ptr == (T)AL_MMI_H)
                 {
                     for (int i = 0; i < querys.size(); i++)
                     {
@@ -224,7 +264,7 @@ namespace HostUtils
                         reference_stack[i].pop();
                     }
                 }
-                else if (*curr_ptr == (T) AL_INS_H)
+                else if (*curr_ptr == (T)AL_INS_H)
                 {
                     for (int i = 0; i < query_stack.size(); i++)
                     {
@@ -236,7 +276,7 @@ namespace HostUtils
                         reference_stack[i].pop();
                     }
                 }
-                else if (*curr_ptr == (T) AL_DEL_H)
+                else if (*curr_ptr == (T)AL_DEL_H)
                 {
                     for (int i = 0; i < query_stack.size(); i++)
                     {
@@ -248,7 +288,7 @@ namespace HostUtils
                         alignments_reference[i].insert(0, 1, '_');
                     }
                 }
-                else if (*curr_ptr == (T) AL_NULL_H)
+                else if (*curr_ptr == (T)AL_NULL_H)
                 {
                     // Do nothing, AL_NULL Doesn't change the position
                 }
@@ -362,29 +402,29 @@ namespace HostUtils
             T *curr_ptr = &tb_streams[0];
             // Insert the characters from the stack to the alignment strings to their beginning.
             // Iterating in order the tb_steram
-            while (*curr_ptr != (T) AL_END_H)
+            while (*curr_ptr != (T)AL_END_H)
             {
                 // printf("curr_ptr: %d\n", curr_ptr->to_int());
-                if (*curr_ptr == (T) AL_MMI_H)
+                if (*curr_ptr == (T)AL_MMI_H)
                 {
                     alignment_query = alignment_query.insert(0, 1, query_stack.top());
                     alignment_reference = alignment_reference.insert(0, 1, reference_stack.top());
                     query_stack.pop();
                     reference_stack.pop();
                 }
-                else if (*curr_ptr == (T) AL_INS_H)
+                else if (*curr_ptr == (T)AL_INS_H)
                 {
                     alignment_query = alignment_query.insert(0, 1, '_');
                     alignment_reference = alignment_reference.insert(0, 1, reference_stack.top());
                     reference_stack.pop();
                 }
-                else if (*curr_ptr == (T) AL_DEL_H)
+                else if (*curr_ptr == (T)AL_DEL_H)
                 {
                     alignment_query = alignment_query.insert(0, 1, query_stack.top());
                     alignment_reference = alignment_reference.insert(0, 1, '_');
                     query_stack.pop();
                 }
-                else if (*curr_ptr == (T) AL_NULL_H)
+                else if (*curr_ptr == (T)AL_NULL_H)
                 {
                     // Do nothing, AL_NULL Doesn't change the position
                 }
@@ -425,6 +465,194 @@ namespace HostUtils
             return alignments;
         }
 
+        template <typename T, size_t MAX_QRY_LENGTH, size_t MAX_REF_LENGTH>
+        std::map<string, string> ReconstructTracebackSemiglobal(string query, string reference,
+                                                                int query_start_idx, int reference_start_idx,
+                                                                T (&tb_streams)[MAX_REF_LENGTH + MAX_QRY_LENGTH])
+        {
+
+            string alignment_reference = "";
+            string alignment_query = "";
+            string read_tb = "";
+            T *curr_ptr = &tb_streams[0];
+            if (query_start_idx == query.length() - 1)
+            { // short-long
+                char *qry_ptr = &query[query.length() - 1];
+                char *ref_ptr = &reference[reference.length() - 1];
+
+                for (int i = 0; i < reference.size() - reference_start_idx; i++)
+                {
+                    alignment_query = alignment_query.insert(0, 1, '_');
+                    alignment_reference = alignment_reference.insert(0, 1, *ref_ptr--);
+                }
+
+                // cout << alignment_query << endl;
+                // cout << alignment_reference << endl;
+                // cout << endl;
+
+                while (*curr_ptr != (T)AL_END_H)
+                {
+                    // check if ref_ptr or qry_ptr points to the first character of the string, break the loop if they do
+                    if (*qry_ptr == '\0' || '\0' == *ref_ptr)
+                    {
+                        break;
+                    }
+
+                    // printf("curr_ptr: %d\n", curr_ptr->to_int());
+                    if (*curr_ptr == (T)AL_MMI_H)
+                    {
+                        alignment_query = alignment_query.insert(0, 1, *qry_ptr--);
+                        alignment_reference = alignment_reference.insert(0, 1, *ref_ptr--);
+                    }
+                    else if (*curr_ptr == (T)AL_INS_H)
+                    {
+                        alignment_query = alignment_query.insert(0, 1, '_');
+                        alignment_reference = alignment_reference.insert(0, 1, *ref_ptr--);
+                    }
+                    else if (*curr_ptr == (T)AL_DEL_H)
+                    {
+                        alignment_query = alignment_query.insert(0, 1, *qry_ptr--);
+                        alignment_reference = alignment_reference.insert(0, 1, '_');
+                    }
+                    else if (*curr_ptr == (T)AL_NULL_H)
+                    {
+                        // Do nothing, AL_NULL Doesn't change the position
+                    }
+                    else
+                    {
+                        printf("Alignment Output Iteartion End\n");
+                    }
+                    read_tb.append(nav_to_string(*curr_ptr));
+                    curr_ptr++;
+
+                    // cout << alignment_query << endl;
+                    // cout << alignment_reference << endl;
+                    // cout << read_tb << endl;
+                    // cout << endl;
+                }
+
+                // finish the alignment
+                while (*qry_ptr != '\0')
+                {
+                    alignment_query = alignment_query.insert(0, 1, *qry_ptr--);
+                }
+                while (*qry_ptr != '\0'){
+                    alignment_reference = alignment_reference.insert(0, 1, *ref_ptr--);
+                }
+
+                while (*ref_ptr != '\0'){
+                    alignment_query = alignment_query.insert(0, 1, '_');
+                    alignment_reference = alignment_reference.insert(0, 1, *ref_ptr--);
+                }
+
+            }
+            else if (reference_start_idx == reference.length() - 1)
+            { // long-short
+            }
+            else
+            {
+                std::runtime_error("Alignment is not actually semiglobal, please check traceback start index");
+            }
+            cout << "Reconstructed" << endl;
+
+            map<string, string> alignments;
+            alignments["query"] = alignment_query;
+            alignments["reference"] = alignment_reference;
+            return alignments;
+        }
+
+        template <typename T, size_t MAX_QRY_LENGTH, size_t MAX_REF_LENGTH>
+        std::map<string, string> ReconstructTracebackOverlapSuffixPrefix(string query, string reference,
+                                                                int query_start_idx, int reference_start_idx,
+                                                                T (&tb_streams)[MAX_REF_LENGTH + MAX_QRY_LENGTH])
+        {
+            string alignment_reference = "";
+            string alignment_query = "";
+            string read_tb = "";
+            T *curr_ptr = &tb_streams[0];
+
+            char *qry_ptr = &query[query.length() - 1];
+            char *ref_ptr = &reference[reference.length() - 1];
+
+            for (int i = 0; i < query.size() - query_start_idx; i++)
+            {
+                alignment_query = alignment_query.insert(0, 1, *qry_ptr--);
+                alignment_reference = alignment_reference.insert(0, 1, '_');
+            }
+
+
+
+
+
+                // cout << alignment_query << endl;
+                // cout << alignment_reference << endl;
+                // cout << endl;
+
+                while (*curr_ptr != (T)AL_END_H)
+                {
+                    // check if ref_ptr or qry_ptr points to the first character of the string, break the loop if they do
+                    if (*qry_ptr == '\0' || '\0' == *ref_ptr)
+                    {
+                        break;
+                    }
+
+                    // printf("curr_ptr: %d\n", curr_ptr->to_int());
+                    if (*curr_ptr == (T)AL_MMI_H)
+                    {
+                        alignment_query = alignment_query.insert(0, 1, *qry_ptr--);
+                        alignment_reference = alignment_reference.insert(0, 1, *ref_ptr--);
+                    }
+                    else if (*curr_ptr == (T)AL_INS_H)
+                    {
+                        alignment_query = alignment_query.insert(0, 1, '_');
+                        alignment_reference = alignment_reference.insert(0, 1, *ref_ptr--);
+                    }
+                    else if (*curr_ptr == (T)AL_DEL_H)
+                    {
+                        alignment_query = alignment_query.insert(0, 1, *qry_ptr--);
+                        alignment_reference = alignment_reference.insert(0, 1, '_');
+                    }
+                    else if (*curr_ptr == (T)AL_NULL_H)
+                    {
+                        // Do nothing, AL_NULL Doesn't change the position
+                    }
+                    else
+                    {
+                        printf("Alignment Output Iteartion End\n");
+                    }
+                    read_tb.append(nav_to_string(*curr_ptr));
+                    curr_ptr++;
+
+                    // cout << alignment_query << endl;
+                    // cout << alignment_reference << endl;
+                    // cout << read_tb << endl;
+                    // cout << endl;
+                }
+
+            while (*ref_ptr != '\0'){
+                alignment_query = alignment_query.insert(0, 1, '_');
+                alignment_reference = alignment_reference.insert(0, 1, *ref_ptr--);
+            }
+
+            cout << "Reconstructed" << endl;
+
+            map<string, string> alignments;
+            alignments["query"] = alignment_query;
+            alignments["reference"] = alignment_reference;
+            return alignments;
+        }
+
+        template <typename T, int LEN>
+        string NavigationToString(T nav[LEN])
+        {
+            string str = "";
+            for (int i = 0; i < LEN; i++)
+            {
+                str.append(HostUtils::Sequence::nav_to_string(nav[i]));
+            }
+            return str;
+        }
+
         /**
          * @brief Function to reconstruct the alignment result from the array of the traceback navigations for all blocks.
          *
@@ -443,13 +671,83 @@ namespace HostUtils
             for (int i = 0; i < NB; i++)
             {
                 alignments[i] = HostUtils::Sequence::ReconstructTraceback<T, MAX_QRY_LENGTH, MAX_REF_LENGTH>(query[i], reference[i],
-                                                                          query_start_idx[i], reference_start_idx[i], tb_streams[i]);
+                                                                                                             query_start_idx[i], reference_start_idx[i], tb_streams[i]);
+            }
+
+            return alignments;
+        }
+
+        template <typename T, int NB, int MAX_QRY_LENGTH, int MAX_REF_LENGTH>
+        array<map<string, string>, NB> ReconstructTracebackSemiglobalBlocks(string query[NB], string reference[NB],
+                                                                            int query_start_idx[NB], int reference_start_idx[NB],
+                                                                            T (&tb_streams)[NB][MAX_REF_LENGTH + MAX_QRY_LENGTH])
+        {
+
+            // declare the result data structure
+            array<map<string, string>, NB> alignments;
+
+            for (int i = 0; i < NB; i++)
+            {
+                alignments[i] = HostUtils::Sequence::ReconstructTracebackSemiglobal<T, MAX_QRY_LENGTH, MAX_REF_LENGTH>(query[i], reference[i],
+                                                                                                                       query_start_idx[i], reference_start_idx[i], tb_streams[i]);
+            }
+
+            return alignments;
+        }
+
+
+        template <typename T, int NB, int MAX_QRY_LENGTH, int MAX_REF_LENGTH>
+        array<map<string, string>, NB> ReconstructTracebackOverlapSuffixPrefixBlocks(string query[NB], string reference[NB],
+                                                                            int query_start_idx[NB], int reference_start_idx[NB],
+                                                                            T (&tb_streams)[NB][MAX_REF_LENGTH + MAX_QRY_LENGTH])
+        {
+
+            // declare the result data structure
+            array<map<string, string>, NB> alignments;
+
+            for (int i = 0; i < NB; i++)
+            {
+                alignments[i] = HostUtils::Sequence::ReconstructTracebackOverlapSuffixPrefix<T, MAX_QRY_LENGTH, MAX_REF_LENGTH>(query[i], reference[i],
+                                                                                                                       query_start_idx[i], reference_start_idx[i], tb_streams[i]);
             }
 
             return alignments;
         }
 
     }
+
+    // template <typename T, int N_BLOCKS, typename CHAR_T, typename IDX_T, typename TBR_T>
+    // std::vector<std::vector<T>>align_all_sequences(void (*seq_align_multiple_static)(const std::string&, const std::string&),
+    //     std::vector<string> querys, std::vector<string> references){
+    //     const size_t num_pairs;
+
+    //     if (querys.size() != references.size()){
+    //         // raise some runtime exception
+    //         throw std::runtime_error("Different number of query and reference seqences. ");
+    //     } else {
+    //         num_pairs = querys.size();
+    //     }
+
+    //     for (int i = 0; i < num_pairs; i += N_BLOCKS){
+    //         for (int j = 0; j < N_BLOCKS; j++){
+    //             // align kernel once
+
+    //         }
+    //     }
+    // }
+
+    // Need ot determine the type of the character so that the traceback can be reconstructed
+    // void align_all_sequences(std::vector<string> querys, std::vector<string> references, file){
+
+    // }
 }
+
+/*
+DLDDLLDDDDDUDDUUDDDDUDUDUDDUUDDDDDDDDDDDDDD******?????**?*????***?????**?????***?????*********?*????**?????**
+DLDDLLDDDDDUDDUUDDDDUDUDUDDUUDDDDDDDDDDDDD
+
+DDDLDDLDDLLLDDDDDLDLDDDUDDDLDDDDDDLDLDLDDLDDDUDDDDDD
+DDDLDDLDDLLLDDDDDLDLDDDUDDDLDDDDDDLDLDLDDLDDDUDDDDDD*?**?*???****???**????****???**?******?*???**????**
+*/
 
 #endif // !HOST_H

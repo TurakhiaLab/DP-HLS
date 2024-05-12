@@ -45,7 +45,7 @@ namespace Traceback
             ){
 #ifdef CMAKEDEBUG
         int nav_int = nav.to_int();
-        // cout << col << " " << pe << " " << chunk << " " << v_row << " " << v_col << " " << nav_int << endl;
+        // cout << "col: " << col << ", pe: " << pe << ", chunk: " << chunk << ", v_row: " << v_row << ", v_col " << v_col << ", nav_int: " << nav_int << endl;
 #endif
 
         // Check the condition based on the virtual row and column
@@ -131,19 +131,16 @@ namespace Traceback
         {
 #pragma HLS PIPELINE II = 1
 
-            // #ifdef CMAKEDEBUG
-            //         // Print Coordinates
-            //         printf("Traceback Current Coordinates: pe %d, col %d, chunk %d\n", pe, col, chunk);
-            // #endif
+#ifdef CMAKEDEBUG
+        // Print Coordinates
+        // printf("Traceback Current Coordinates: pe %d, col %d, chunk %d\n", pe, col, chunk);
+#endif
             tbp_t tbptr = tbmat[pe][col]; // Want to represented by the symbol rather than pointer
 #ifdef CMAKEDEBUG
 // print traceback pionter
 //std::cout << tbptr.to_int() << " ";
+        // printf("navigation %d, pointer: %d\n", navigation.to_int(), tbptr.to_int());
 #endif
-            // #ifdef CMAKEDEBUG
-            //         // Print the current Navigation and Traceback Pointer Value
-            //         printf("navigation %d, pointer: %d\n", navigation.to_int(), tbptr.to_int());
-            // #endif
 
 #ifdef CMAKEDEBUG
             // print virtual row and column number

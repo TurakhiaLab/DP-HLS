@@ -9,6 +9,7 @@
 #include <iostream>
 #include <iomanip> // For std::setw and std::setfill
 #include <complex>
+#include <set>
 
 using namespace std;
 
@@ -1333,24 +1334,25 @@ void semi_global_linear_short_long_solution(std::string query, std::string refer
     }
 
     // Traceback to find the aligned sequences
-    float maxVal;
-    std::pair<int, int> maxPos;
+    float maxVal = score_mat[0][query.size() - 1][0];
+    std::pair<int, int> maxPos = {query.size() - 1, 0};
 
     // check for max value in the bottom row
-    maxVal = score_mat[0][SOL_MAX_QUERY_LENGTH - 1][SOL_MAX_REFERENCE_LENGTH - 1];
-    maxPos = {SOL_MAX_QUERY_LENGTH - 1, SOL_MAX_REFERENCE_LENGTH - 1};
-    for (int i = SOL_MAX_REFERENCE_LENGTH - 1; i >= 0; i--)
+    for (int i = 0; i < reference.size() - 1; i++)
     {
-        if (score_mat[0][SOL_MAX_QUERY_LENGTH - 1][i] > maxVal)
+        if (score_mat[0][query.size() - 1][i] > maxVal)
         {
-            maxVal = score_mat[0][SOL_MAX_QUERY_LENGTH - 1][i];
-            maxPos = {SOL_MAX_QUERY_LENGTH - 1, i};
+            maxVal = score_mat[0][query.size() - 1][i];
+            maxPos = {query.size() - 1, i};
         }
     }
-    int i = maxPos.first;
-    int j = maxPos.second;
+
     string aligned_query = "";
     string aligned_reference = "";
+
+    int i = maxPos.first;
+    int j = maxPos.second;
+
 
     while (i >= 0 && j >= 0)
     {
@@ -1375,7 +1377,7 @@ void semi_global_linear_short_long_solution(std::string query, std::string refer
         }
         else
         {
-            cout << "ERROR: Invalid traceback matrix value" << endl;
+            cout << "ERROR: Invalid traceback matrix value" << tb_mat[i][j] << endl;
             break;
         }
     }
@@ -1668,16 +1670,16 @@ void overlap_linear_suffix_prefix_solution(std::string query, std::string refere
 
     // Traceback to find the aligned sequences
     // Initialize the max value to be the top rightmost value
-    float maxVal = score_mat[0][SOL_MAX_QUERY_LENGTH - 1][SOL_MAX_REFERENCE_LENGTH - 1];
-    std::pair<int, int> maxPos = {SOL_MAX_QUERY_LENGTH - 1, SOL_MAX_REFERENCE_LENGTH - 1};
+    float maxVal = score_mat[0][0][reference.length() - 1];
+    std::pair<int, int> maxPos = {query.length() - 1, reference.length() - 1};
 
     // check for max value in the rightmost column
-    for (int j = SOL_MAX_QUERY_LENGTH - 1; j >= 0; j--)
+    for (int i = 0; i < query.length(); i++)
     {
-        if (score_mat[0][j][SOL_MAX_REFERENCE_LENGTH - 1] > maxVal)
+        if (score_mat[0][i][reference.length() - 1] > maxVal)
         {
-            maxVal = score_mat[0][j][SOL_MAX_REFERENCE_LENGTH - 1];
-            maxPos = {j, SOL_MAX_REFERENCE_LENGTH - 1};
+            maxVal = score_mat[0][i][reference.length() - 1];
+            maxPos = {i, reference.length() - 1};
         }
     }
     int i = maxPos.first;
@@ -2092,14 +2094,14 @@ void global_dtw_solution(std::vector<std::complex<float>> query, std::vector<std
     // Initialize intial column and row values
     for (int i = 0; i < SOL_MAX_QUERY_LENGTH; i++)
     {
-        linear_gp += penalties.linear_gap; // since it was declared with type_t then convert back to int.
-        initial_col[i][0] = linear_gp;
+        // linear_gp += penalties.linear_gap; // since it was declared with type_t then convert back to int.
+        initial_col[i][0] = numeric_limits<float>::infinity();
     }
     linear_gp = 0;
     for (int j = 0; j < SOL_MAX_REFERENCE_LENGTH; j++)
     {
-        linear_gp += penalties.linear_gap; // since it was declared with type_t then convert back to int.
-        initial_row[j][0] = linear_gp; // This can be whatever, since won't be accessed
+        // linear_gp += penalties.linear_gap; // since it was declared with type_t then convert back to int.
+        initial_row[j][0] = numeric_limits<float>::infinity();; // This can be whatever, since won't be accessed
     }
 
     // Initialize the score matrix
@@ -2154,7 +2156,15 @@ void global_dtw_solution(std::vector<std::complex<float>> query, std::vector<std
                 scr_left = score_mat[0][i][j - 1];
             }
 
-            float dist = abs(query[i] - reference[j]) * abs(query[i] - reference[j]);
+            auto c1 = query[i];
+            auto c2 = reference[j];
+            float r1 = c1.real();
+            float i1 = c1.imag();
+            float r2 = c2.real();
+            float i2 = c2.imag();
+            float dist_img = (i1 - i2) * (i1 - i2);
+            float dist_real = (r1 - r2) * (r1 - r2);
+            float dist = dist_img + dist_real;
 
             // find the minimum
             float min_score = scr_up; 
@@ -2163,7 +2173,8 @@ void global_dtw_solution(std::vector<std::complex<float>> query, std::vector<std
             {
                 tb_mat[i][j] = "D ";
                 min_score = scr_diag;
-            } else if (scr_left < min_score)
+            }
+            if (scr_left < min_score)
             {
                 tb_mat[i][j] = "L ";
                 min_score = scr_left;
@@ -2253,35 +2264,42 @@ void global_two_piece_affine_solution(std::string query, std::string reference, 
     array<array<float, N_LAYERS_GA>, SOL_MAX_QUERY_LENGTH> initial_col;
     array<array<float, N_LAYERS_GA>, SOL_MAX_REFERENCE_LENGTH> initial_row;
 
-    initial_col[0][0] = -numeric_limits<float>::infinity();
-    initial_col[0][1] = 0;
-    initial_col[0][2] = -numeric_limits<float>::infinity();
-    initial_col[0][3] = -numeric_limits<float>::infinity();
-    initial_col[0][4] = -numeric_limits<float>::infinity();
+    // initial_col[0][0] = -numeric_limits<float>::infinity();
+    // initial_col[0][1] = 0;
+    // initial_col[0][2] = -numeric_limits<float>::infinity();
+    // initial_col[0][3] = -numeric_limits<float>::infinity();
+    // initial_col[0][4] = -numeric_limits<float>::infinity();
 
-    initial_row[0][0] = -numeric_limits<float>::infinity();
-    initial_row[0][1] = 0;
-    initial_row[0][2] = -numeric_limits<float>::infinity();
-    initial_row[0][3] = -numeric_limits<float>::infinity();
-    initial_row[0][4] = -numeric_limits<float>::infinity();
+    // initial_row[0][0] = -numeric_limits<float>::infinity();
+    // initial_row[0][1] = 0;
+    // initial_row[0][2] = -numeric_limits<float>::infinity();
+    // initial_row[0][3] = -numeric_limits<float>::infinity();
+    // initial_row[0][4] = -numeric_limits<float>::infinity();
 
     // Initialize intial column and row values
-    for (int i = 1; i < SOL_MAX_QUERY_LENGTH; i++)
+    float short_pen = penalties.open;
+    float long_pen = penalties.long_open;
+    for (int j = 0; j < SOL_MAX_QUERY_LENGTH; j++)
     {
-        initial_col[i][0] = -numeric_limits<float>::infinity();
-        initial_col[i][2] = penalties.open + penalties.extend * i;
-        initial_col[i][3] = -numeric_limits<float>::infinity();
-        initial_col[i][4] = penalties.long_open + penalties.long_extend * i;
-        initial_col[i][1] = initial_col[i][2] > initial_col[i][4] ? initial_col[i][2] : initial_col[i][4];
+        short_pen += penalties.extend;
+        long_pen += penalties.long_extend;
+        initial_col[j][0] = -numeric_limits<float>::infinity();
+        initial_col[j][2] = -numeric_limits<float>::infinity();
+        initial_col[j][3] = -numeric_limits<float>::infinity();
+        initial_col[j][4] = -numeric_limits<float>::infinity();
+        initial_col[j][1] = short_pen > long_pen ? short_pen : long_pen;
     }
-
-    for (int j = 1; j < SOL_MAX_REFERENCE_LENGTH; j++)
+    short_pen = penalties.open;
+    long_pen = penalties.long_open;
+    for (int i = 0; i < SOL_MAX_REFERENCE_LENGTH; i++)
     {
-        initial_row[j][0] = penalties.open + penalties.extend * j;
-        initial_row[j][2] = -numeric_limits<float>::infinity();
-        initial_row[j][3] = penalties.long_open + penalties.long_extend * j;
-        initial_row[j][4] = -numeric_limits<float>::infinity();
-        initial_row[j][1] = initial_row[j][0] > initial_row[j][3] ? initial_row[j][0] : initial_row[j][3];
+        short_pen += penalties.extend;
+        long_pen += penalties.long_extend;
+        initial_row[i][0] = -numeric_limits<float>::infinity();
+        initial_row[i][2] = -numeric_limits<float>::infinity();
+        initial_row[i][3] = -numeric_limits<float>::infinity();
+        initial_row[i][4] = -numeric_limits<float>::infinity();
+        initial_row[i][1] = long_pen > short_pen ? long_pen : short_pen;
     }
 
     // Initialize the score matrix
@@ -2356,6 +2374,7 @@ void global_two_piece_affine_solution(std::string query, std::string reference, 
                 long_ins_scr = score_mat[3][i][j - 1];
                 long_del_scr = score_mat[4][i - 1][j];
             }
+
             float insertion_open_score = scr_left + penalties.open + penalties.extend;
             float insertion_extend_score = ins_scr + penalties.extend;
 
@@ -2374,13 +2393,17 @@ void global_two_piece_affine_solution(std::string query, std::string reference, 
             float insertion_score = max(insertion_open_score, insertion_extend_score);
             float deletion_score = max(deletion_open_score, deletion_extend_score);
 
-            float long_insertion_score = max(long_insertion_open_score, long_insertion_extend_score);
-            float long_deletion_score = max(long_deletion_open_score, long_deletion_extend_score);
+            float long_insertion_score = long_insertion_open_score > long_insertion_extend_score ? long_insertion_open_score : long_insertion_extend_score;
+            float long_deletion_score = long_deletion_open_score > long_deletion_extend_score ? long_deletion_open_score : long_deletion_extend_score;
 
-            float final_score = max(mm_score, max(max(insertion_score, deletion_score), max(long_insertion_score, long_deletion_score)));
+            float final_score = mm_score;
+            final_score = final_score > insertion_score ? final_score : insertion_score;
+            final_score = final_score > deletion_score ? final_score : deletion_score;
+            final_score = final_score > long_insertion_score ? final_score : long_insertion_score;
+            final_score = final_score > long_deletion_score ? final_score : long_deletion_score;
 
             score_mat[0][i][j] = insertion_score;
-            score_mat[1][i][j] = mm_score;
+            score_mat[1][i][j] = final_score;
             score_mat[2][i][j] = deletion_score;
             score_mat[3][i][j] = long_insertion_score;
             score_mat[4][i][j] = long_deletion_score;
@@ -2424,38 +2447,13 @@ void global_two_piece_affine_solution(std::string query, std::string reference, 
     {
         switch (matrix_type)
         {
-        // insertion type 1
-        case 0:
-            aligned_query = "_" + aligned_query;
-            aligned_reference = reference[j] + aligned_reference;
-            if (score_mat[0][i][j] != score_mat[0][i][j - 1] + penalties.extend)
-            {
-                matrix_type = 1;
-            }
-            j--;
-            break;
-        // match/mismatch
         case 1:
-            if (score_mat[1][i][j] == score_mat[1][i - 1][j - 1] + penalties.mismatch)
+            if (score_mat[1][i][j] == score_mat[1][i - 1][j - 1] + penalties.match)
             {
                 aligned_query = query[i] + aligned_query;
                 aligned_reference = reference[j] + aligned_reference;
                 i--;
                 j--;
-            }
-            else if (score_mat[1][i][j] == score_mat[4][i][j])
-            {
-                aligned_query = query[i] + aligned_query;
-                aligned_reference = "_" + aligned_reference;
-                i--;
-                matrix_type = 4;
-            }
-            else if (score_mat[1][i][j] == score_mat[2][i][j])
-            {
-                aligned_query = query[i] + aligned_query;
-                aligned_reference = "_" + aligned_reference;
-                i--;
-                matrix_type = 2;
             }
             else if (score_mat[1][i][j] == score_mat[3][i][j])
             {
@@ -2464,6 +2462,13 @@ void global_two_piece_affine_solution(std::string query, std::string reference, 
                 j--;
                 matrix_type = 3;
             }
+            else if (score_mat[1][i][j] == score_mat[4][i][j])
+            {
+                aligned_query = query[i] + aligned_query;
+                aligned_reference = "_" + aligned_reference;
+                i--;
+                matrix_type = 4;
+            }
             else if (score_mat[1][i][j] == score_mat[0][i][j])
             {
                 aligned_query = "_" + aligned_query;
@@ -2471,7 +2476,14 @@ void global_two_piece_affine_solution(std::string query, std::string reference, 
                 j--;
                 matrix_type = 0;
             }
-            else if (score_mat[1][i][j] == score_mat[1][i - 1][j - 1] + penalties.match)
+            else if (score_mat[1][i][j] == score_mat[2][i][j])
+            {
+                aligned_query = query[i] + aligned_query;
+                aligned_reference = "_" + aligned_reference;
+                i--;
+                matrix_type = 2;
+            }
+            else if (score_mat[1][i][j] == score_mat[1][i - 1][j - 1] + penalties.mismatch)
             {
                 aligned_query = query[i] + aligned_query;
                 aligned_reference = reference[j] + aligned_reference;
@@ -2484,17 +2496,6 @@ void global_two_piece_affine_solution(std::string query, std::string reference, 
                 exit(1);
             }
             break;
-        // deletion type 1
-        case 2:
-            aligned_query = query[i] + aligned_query;
-            aligned_reference = "_" + aligned_reference;
-            if (score_mat[2][i][j] != score_mat[2][i - 1][j] + penalties.extend)
-            {
-                matrix_type = 1;
-            }
-            i--;
-            break;
-        // insertion type 2
         case 3:
             aligned_query = "_" + aligned_query;
             aligned_reference = reference[j] + aligned_reference;
@@ -2509,6 +2510,25 @@ void global_two_piece_affine_solution(std::string query, std::string reference, 
             aligned_query = query[i] + aligned_query;
             aligned_reference = "_" + aligned_reference;
             if (score_mat[4][i][j] != score_mat[4][i - 1][j] + penalties.long_extend)
+            {
+                matrix_type = 1;
+            }
+            i--;
+            break;
+        case 0:
+            aligned_query = "_" + aligned_query;
+            aligned_reference = reference[j] + aligned_reference;
+            if (score_mat[0][i][j] != score_mat[0][i][j - 1] + penalties.extend)
+            {
+                matrix_type = 1;
+            }
+            j--;
+            break;
+        // deletion type 1
+        case 2:
+            aligned_query = query[i] + aligned_query;
+            aligned_reference = "_" + aligned_reference;
+            if (score_mat[2][i][j] != score_mat[2][i - 1][j] + penalties.extend)
             {
                 matrix_type = 1;
             }
@@ -2572,16 +2592,21 @@ void global_two_piece_affine_solution(std::string query, std::string reference, 
 }
 
 template <typename T, int M, int N>
-void print_matrix(array<array<T, N>, M> &mat, string name)
+void print_matrix(array<array<T, N>, M> &mat, string name, std::set<std::tuple<int, int, int>> incorrect_coordinates, int layer_k)
 {
-    int width = 2;
+    int width = 6;
     cout << name << endl;
     for (int i = 0; i < M; i++)
     {
         for (int j = 0; j < N; j++)
         {
+            std::tuple<int, int, int> search_tuple = std::make_tuple(layer_k, i, j);
+            bool wrong_score = incorrect_coordinates.find(search_tuple) != incorrect_coordinates.end();
+            if (wrong_score) std::cout << "\033[31m";
 
             cout << std::right << std::setw(width) << mat[i][j] << " ";
+
+            if (wrong_score) std::cout << "\033[0m";
         }
         cout << endl;
     }

@@ -17,16 +17,16 @@ void Viterbi::PE::Compute(char_t local_query_val,
      * Layer 2: Vj
      */
 
-    const type_t I_open = up_prev[1] + penalties.log_lambda; // Insert open
-    const type_t I_extend = up_prev[0] + penalties.log_1_m_mu;                  // insert extend
-    const type_t J_open = left_prev[1] + penalties.log_lambda;   // delete open
-    const type_t J_extend = left_prev[2] + penalties.log_1_m_mu;                    // delete extend
+    const type_t I_open = left_prev[1] + penalties.log_lambda; // Insert open
+    const type_t I_extend = left_prev[0] + penalties.log_1_m_mu;                  // insert extend
+    const type_t D_open = up_prev[1] + penalties.log_lambda;   // delete open
+    const type_t D_extend = up_prev[2] + penalties.log_1_m_mu;                    // delete extend
 
 #ifdef CMAKEDEBUG
     auto insert_open_s = I_open.to_float();     // Insert open
     auto insert_extend_s = I_extend.to_float(); // insert extend
-    auto delete_open_s = J_open.to_float();
-    auto delete_extend_s = J_extend.to_float();
+    auto delete_open_s = D_open.to_float();
+    auto delete_extend_s = D_extend.to_float();
 
     auto left_prev_0_s = left_prev[0].to_float();
     auto left_prev_1_s = left_prev[1].to_float();
@@ -37,11 +37,11 @@ void Viterbi::PE::Compute(char_t local_query_val,
 #endif
 
     bool I_open_b = I_open > I_extend;
-    bool J_open_b = J_open > J_extend;
+    bool D_open_b = D_open > D_extend;
     write_score[0] = penalties.transition[local_query_val][4] + (I_open_b ? I_open : I_extend);
-    write_score[2] = penalties.transition[4][local_reference_val] + (J_open_b ? J_open : J_extend);
+    write_score[2] = penalties.transition[4][local_reference_val] + (D_open_b ? D_open : D_extend);
     tbp_t insert_tb = I_open_b ? (tbp_t) 0 : TB_IMAT;
-    tbp_t delete_tb = J_open_b ? (tbp_t) 0 : TB_JMAT;
+    tbp_t delete_tb = D_open_b ? (tbp_t) 0 : TB_JMAT;
 
 #ifdef CMAKEDEBUG
     auto write_score_0_s = write_score[0].to_float();
@@ -49,8 +49,8 @@ void Viterbi::PE::Compute(char_t local_query_val,
 #endif
 
     const type_t match_M = penalties.log_1_m_2_lambda + diag_prev[1];
-    const type_t match_I = penalties.log_mu + diag_prev[0];
-    const type_t match_J = penalties.log_mu + diag_prev[2];
+    const type_t match_I = penalties.log_mu + left_prev[0];
+    const type_t match_D = penalties.log_mu + up_prev[2];
 
 #ifdef CMAKEDEBUG
     auto diag_prev_s = diag_prev[1].to_float();
@@ -60,6 +60,8 @@ void Viterbi::PE::Compute(char_t local_query_val,
 
     type_t max_val = match_M;
     tbp_t dir_tb = TB_DIAG;
+
+    type_t transition_score = penalties.transition[local_query_val][local_reference_val];
 
 #ifdef CMAKEDEBUG
     auto write_score_1_s = write_score[1].to_float();
@@ -72,15 +74,15 @@ void Viterbi::PE::Compute(char_t local_query_val,
         dir_tb = TB_LEFT;
     }
 
-    if (max_val < match_J)
+    if (max_val < match_D)
     {
-        max_val = match_J;
+        max_val = match_D;
         dir_tb = TB_UP;
     }
 
-    write_score[1] = penalties.transition[local_query_val][local_reference_val] + max_val;
+    write_score[1] = transition_score + max_val;
 
-    write_traceback = dir_tb + insert_tb + delete_tb;
+    write_traceback = dir_tb | insert_tb | delete_tb;
 }
 
 void Viterbi::InitializeScores(
@@ -92,23 +94,23 @@ void Viterbi::InitializeScores(
     type_t gap = penalties.log_lambda;
     for (int i = 0; i < MAX_QUERY_LENGTH; i++){
         gap += penalties.log_1_m_mu;
-        init_col_scr[i] = score_vec_t({0, gap, NINF});
+        init_col_scr[i] = score_vec_t({NINF, gap, NINF});
     }
 // Init Row
     gap = penalties.log_lambda;
     for (int i = 0; i < MAX_REFERENCE_LENGTH; i++){
         gap += penalties.log_1_m_mu;
-        init_row_scr[i] = score_vec_t({NINF, gap, 0});
+        init_row_scr[i] = score_vec_t({NINF, gap, NINF});
     }
 }
 
 void Viterbi::UpdatePEMaximum(
-    wavefront_scores_inf_t scores,
+    const wavefront_scores_inf_t scores,
     ScorePack (&max)[PE_NUM],
-    idx_t (&ics)[PE_NUM], idx_t (&jcs)[PE_NUM],
-    idx_t (&p_col)[PE_NUM], idx_t ck_idx,
-    bool (&predicate)[PE_NUM],
-    idx_t query_len, idx_t ref_len){
+    const idx_t chunk_row_offset, const idx_t wavefront,
+    const idx_t p_cols, const idx_t ck_idx,
+    const bool (&predicate)[PE_NUM],
+    const idx_t query_len, const idx_t ref_len){
         
 }
 
@@ -118,20 +120,10 @@ void Viterbi::InitializeMaxScores(ScorePack (&max)[PE_NUM], idx_t qry_len, idx_t
     {
 #pragma HLS unroll
         max[i].score = NINF;
-        max[i].row = i;
-        max[i].col = 0;
         max[i].p_col = 0;
         max[i].ck = 0;
-        max[i].pe = i;
     }
-    idx_t max_pe = (qry_len - 1) % PE_NUM;
-    idx_t max_ck = (qry_len - 1)/ PE_NUM;
-    max[max_pe].score = INF;
-    max[max_pe].row = qry_len - 1;
-    max[max_pe].col = ref_len - 1;
-    max[max_pe].p_col = (max_ck + 1) * ref_len - 1;
-    max[max_pe].ck = max_ck;
-    max[max_pe].pe = max_pe;
+    Utils::Init::DetermineGlobalTracebackCoordinate(max, qry_len, ref_len);
 }
 
 
@@ -153,6 +145,8 @@ void Viterbi::Traceback::StateMapping(tbp_t tbp, TB_STATE &state, tbr_t &navigat
         {
             state = TB_STATE::INS;
             navigation = AL_NULL;
+        } else {
+            navigation = AL_END;
         }
     }
     else if (state == TB_STATE::DEL)

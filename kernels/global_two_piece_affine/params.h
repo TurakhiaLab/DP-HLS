@@ -6,11 +6,10 @@
 #include <hls_vector.h>
 
 // These need to be there to do CMake Simulation, but SHOULD TAKE OFF WHEN COMPIING BITSTREAM
-#define PRAGMA_PE_NUM 16
+#define PE_NUM 16
 #define MAX_QUERY_LENGTH 256
 #define MAX_REFERENCE_LENGTH 256
 #define N_BLOCKS 1
-const int PE_NUM = PRAGMA_PE_NUM;
 
 #define ALIGN_TYPE GlobalTwoPieceAffine
 #define N_LAYERS 5
@@ -22,16 +21,16 @@ const int PE_NUM = PRAGMA_PE_NUM;
 
 // Primitive Types
 typedef ap_uint<2> char_t;  // Sequence Alphabet
-typedef ap_fixed<16, 12> type_t;  // Scores Type <width, integer_width>
+typedef ap_fixed<32, 20> type_t;  // Scores Type <width, integer_width>
 typedef short idx_t;  // Indexing Type, could be much less than 32. ap_uint<8>
-typedef ap_uint<5> tbp_t;  // Traceback Pointer Type
+typedef ap_uint<7> tbp_t;  // Traceback Pointer Type
 
 // Bit 0, 1, 2: specify which of H, I, I', D, D' matrices to go to
 // Bit 4, 5: specify which movement for I, I', D, D'
 
 // Defien upper and lower bound for score type, aka type_t
-#define INF 1024
-#define NINF -1024
+#define INF 65536
+#define NINF -65536
 
 // Legacy Debugger Configuration
 #define DEBUG_OUTPUT_PATH "/home/yic033@AD.UCSD.EDU/DP-HLS-Debug/global_affine/"
@@ -68,10 +67,9 @@ enum TB_STATE {
 #define TB_LONG_DELETE (tbp_t) 0b100
 
 // Define Traceback Pointer Navigation Matrix
-#define TB_IMAT (tbp_t) 0b00000  // Insertion Matrix
-#define TB_DMAT (tbp_t) 0b01000  // Deletion Matrix
-#define TB_LIMAT (tbp_t) 0b10000 // Long Insertion Matrix
-#define TB_LDMAT (tbp_t) 0b11000 // Long Deletion Matrix
-
+#define TB_INS_EXTEND (tbp_t) 0b0001000
+#define TB_LONG_INS_EXTEND (tbp_t) 0b0010000
+#define TB_DEL_EXTEND (tbp_t) 0b0100000
+#define TB_LONG_DEL_EXTEND (tbp_t) 0b1000000
 
 #endif

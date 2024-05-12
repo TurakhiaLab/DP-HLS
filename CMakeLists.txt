@@ -24,7 +24,6 @@ set(EXECUTABLE_TARGETS
     test_simd
     test_csim_global_linear
     test_csim_banding_global_linear
-    test_csim_global_affine_shifting
     test_csim_global_affine
     test_csim_local_linear
     test_csim_local_affine 
@@ -38,6 +37,8 @@ set(EXECUTABLE_TARGETS
     test_csim_overlap_linear_suffix_prefix
     test_csim_local_two_piece_affine
     test_csim_global_two_piece_affine
+
+    test_global_affine_real_data
 )
 
 add_compile_definitions(PUBLIC CMAKEDEBUG)
@@ -64,11 +65,6 @@ add_executable(baseline_local_linear "legacy/local_linear.h"
 add_executable(test_csim_global_linear 
     "testbench/test_csim_global_linear.cpp"
     "kernels/global_linear/kernel_global_linear.cpp"
-    ${COMMON_SRCS})
-
-add_executable(test_csim_global_affine_shifting
-    "testbench/test_csim_global_affine.cpp"
-    "kernels/global_affine_shifting/kernel_global_affine_shifting.cpp"
     ${COMMON_SRCS})
 
 add_executable(test_csim_banding_global_linear
@@ -142,6 +138,13 @@ add_executable(test_csim_local_two_piece_affine
     ${COMMON_SRCS}) 
 
 
+add_executable(test_global_affine_real_data
+    "testbench/test_csim_global_affine_real_data.cpp"
+    "kernels/global_affine/kernel_global_affine.cpp"
+    ${COMMON_SRCS}
+)
+
+
 # Test Python APIs
 #add_executable(test_pyapi "testbench/test_align.cpp"
 #    "include/seq_align_multiple.h"
@@ -162,11 +165,10 @@ target_include_directories(test_csim_global_linear PRIVATE "${DP_HLS_HOME}/kerne
 target_include_directories(test_csim_banding_global_linear PRIVATE "${DP_HLS_HOME}/kernels/banding_global_linear")
 target_include_directories(test_csim_local_linear PRIVATE "${DP_HLS_HOME}/kernels/local_linear")
 target_include_directories(test_csim_local_affine PRIVATE "${DP_HLS_HOME}/kernels/local_affine")
-target_include_directories(test_csim_global_affine_shifting PRIVATE "${DP_HLS_HOME}/kernels/global_affine_shifting")
 target_include_directories(test_csim_profile_alignment PRIVATE "${DP_HLS_HOME}/kernels/profile_alignment")
 target_include_directories(test_csim_profile_alignment_real_data PRIVATE "${DP_HLS_HOME}/kernels/profile_alignment")
 target_include_directories(test_csim_dtw PRIVATE "${DP_HLS_HOME}/kernels/dtw")
-target_include_directories(test_csim_viterbi PRIVATE ${DP_HLS_HOME}/kernels/viterbi)
+target_include_directories(test_csim_viterbi PRIVATE "${DP_HLS_HOME}/kernels/viterbi")
 target_include_directories(test_csim_overlap_linear_suffix_prefix PRIVATE "${DP_HLS_HOME}/kernels/overlap_linear_suffix_prefix")
 target_include_directories(test_csim_overlap_linear_prefix_suffix PRIVATE "${DP_HLS_HOME}/kernels/overlap_linear_prefix_suffix")
 target_include_directories(test_csim_semi_global_linear_long_short PRIVATE "${DP_HLS_HOME}/kernels/semi_global_linear_long_short")
@@ -174,6 +176,7 @@ target_include_directories(test_csim_semi_global_linear_short_long PRIVATE "${DP
 target_include_directories(test_csim_local_two_piece_affine PRIVATE "${DP_HLS_HOME}/kernels/local_two_piece_affine")
 target_include_directories(test_csim_global_two_piece_affine PRIVATE "${DP_HLS_HOME}/kernels/global_two_piece_affine")
 
+target_include_directories(test_global_affine_real_data PRIVATE "${DP_HLS_HOME}/kernels/global_affine")
 
 # Add include to Xilinx Library Files
 if (RAPTOR)

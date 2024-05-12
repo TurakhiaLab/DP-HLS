@@ -24,11 +24,6 @@ void OverlapLinearSuffixPrefix::PE::Compute(char_t local_query_val,
                 score_vec_t &write_score,
                 tbp_t &write_traceback)
 {
-#define TB_PH (tbp_t) 0b00
-#define TB_LEFT (tbp_t) 0b01
-#define TB_DIAG (tbp_t) 0b10
-#define TB_UP (tbp_t) 0b11
-
 		const type_t ins = left_prev[0] + penalties.linear_gap;
 		const type_t del = up_prev[0] + penalties.linear_gap;
 
@@ -51,31 +46,28 @@ void OverlapLinearSuffixPrefix::PE::Compute(char_t local_query_val,
 }
 
 void OverlapLinearSuffixPrefix::UpdatePEMaximum(
-    wavefront_scores_inf_t scores,
+    const wavefront_scores_inf_t scores,
     ScorePack (&max)[PE_NUM],
-    idx_t (&ics)[PE_NUM], idx_t (&jcs)[PE_NUM],
-    idx_t (&p_col)[PE_NUM], idx_t ck_idx,
-    bool (&predicate)[PE_NUM],
-    idx_t query_len, idx_t ref_len){
+    const idx_t chunk_row_offset, const idx_t wavefront,
+    const idx_t p_cols, const idx_t ck_idx,
+    const bool (&predicate)[PE_NUM],
+    const idx_t query_len, const idx_t ref_len){
 
     for (int i = 0; i < PE_NUM; i++)
     {
 #pragma HLS unroll
-        std::cout << scores[i+1][LAYER_MAXIMIUM] << std::endl;
+        // std::cout << scores[i+1][LAYER_MAXIMIUM] << std::endl;
         if (predicate[i])
         {
             if (scores[i + 1][LAYER_MAXIMIUM] > max[i].score)
             {
                 // Notice this filtering condition compared to the Local Affine kernel. 
                 // if ((chunk_offset + i == query_len - 1) || (pe_offset[i] == ref_len - 1))  // last row or last column
-                if ( jcs[i] == ref_len - 1 )
+                if ( wavefront - i == ref_len - 1 )
                 { // So we are at the last row or last column
                     max[i].score = scores[i + 1][LAYER_MAXIMIUM];
-                    max[i].row = ics[i];
-                    max[i].col = jcs[i];
-                    max[i].p_col = p_col[i];
+                    max[i].p_col = p_cols;
                     max[i].ck = ck_idx;
-                    max[i].pe = i;
                 }
             }
         }
@@ -86,21 +78,10 @@ void OverlapLinearSuffixPrefix::InitializeMaxScores(ScorePack (&max)[PE_NUM], id
     for (int i = 0; i < PE_NUM; i++)
     {
 #pragma HLS unroll
-        max[i].score = 0; // Need a custom struct for finding the negative infinity
-        max[i].row = 0;
-        max[i].col = 0;
+        max[i].score = NINF; // Need a custom struct for finding the negative infinity
         max[i].p_col = 0;
         max[i].ck = 0;
-        max[i].pe = i;
     }
-    idx_t max_pe = (qry_len - 1) % PE_NUM;
-    idx_t max_ck = (qry_len - 1)/ PE_NUM;
-    max[max_pe].score = INF;  // This is dummy score by I just represent the idea it's maximum
-    max[max_pe].row = qry_len - 1;
-    max[max_pe].col = ref_len - 1;
-    max[max_pe].p_col = (max_ck + 1) * ref_len - 1; // FIXME
-    max[max_pe].ck = max_ck;
-    max[max_pe].pe = max_pe;
 }
 
 void OverlapLinearSuffixPrefix::Traceback::StateInit(tbp_t tbp, TB_STATE &state){

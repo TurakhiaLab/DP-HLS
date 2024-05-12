@@ -31,7 +31,7 @@ int base_to_num(char base){
     }
 }
 
-#define MU 0.7
+#define MU 0.4
 #define LAMBDA 0.4
 
 int main(int argc, char **argv) {
@@ -62,12 +62,13 @@ int main(int argc, char **argv) {
     std::vector<idx_t, aligned_allocator<idx_t>> traceback_start_js(N_BLOCKS);
     std::vector<tbr_t, aligned_allocator<tbr_t>> tb_streams(N_BLOCKS * (MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH));
 
+
     float transition_[5][5] = {
-        {0.8, 0.3, 0.3, 0.3, 0.5},
-        {0.3, 0.3, 0.3, 0.3, 0.5},
-        {0.3, 0.3, 0.8, 0.3, 0.5},
-        {0.3, 0.3, 0.3, 0.8, 0.5},
-        {0.5, 0.5, 0.5, 0.5, 0.8}
+        {0.8, 0.3, 0.3, 0.3, 0.2},
+        {0.3, 0.8, 0.3, 0.3, 0.2},
+        {0.3, 0.3, 0.8, 0.3, 0.2},
+        {0.3, 0.3, 0.3, 0.8, 0.2},
+        {0.2, 0.2, 0.2, 0.2, 0.2}
     };
 
     float log_transitions_[5][5];

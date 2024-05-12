@@ -9,28 +9,10 @@
 #include "solutions.h"
 #include "debug.h"
 
-// Query    : TGAAAGACGGAGGCTACTCTAGTGACTATGGCCCAGGGAGAACTCGTGATACGTAAACACACGACGCACACGCTGGTTAT
-// Reference: TCTTAACTCCGAGCTGATAGGTATCTGTCCGGTTCAGCGACAAAGACGGTATCGCAGTGACCATCGCCCCCATTAGGTGCTACGAGGGTAGACCCTAAGACATTGGTCCATCCGGATCTTACGGCCCTGCTACTCCCAAGGTACTAACGGTTCACGCTAA
-// Solution Aligned Query    : _________________________________________________________________________________TGAAAGACGGAGGCTACTCTAGTGACTATGGCCCAGGGAGAACTCGTGATACGTAAACACACGACGCACACGCTGGTTAT
-// Solution Aligned Reference: TCTTAACTCCGAGCTGATAGGTATCTGTCCGGTTCAGCGACAAAGACGGTATCGCAGTGACCATCGCCCCCATTAGGTGCT_ACGAGGGTAGACCCTAAGACATTGGTCCATCCGGATCTTACGGCCCTGCTACTCCCAAGGTACTAACGGTTCACGCTAA
-// Solution Runtime: 16ms
-// All scores match!
-// Kernel 0 Aligned Query    : _TGAAAGACGGAGGCTACTCTAGT____GACTAT___GGC___CCA___GGG___AGA___ACT___CGT___GAT___ACG___TAA_____________________________________ACA___CAC___GAC___________________________________________GCA___CAC___GCT___GGT___TAT_______
-// Kernel 0 Aligned Reference: TCTTAACTCCGAGCTGATAGG___TATC___TGTCCG___GTT___CAG___CGA___CAA___AGA___CGG___TAT___CGC___AGTGACCATCGCCCCCATTAGGTGCTACGAGGGTAGA___CCC___TAA___GACATTGGTCCATCCGGATCTTACGGCCCTGCTACTCCCAAGG___TAC___TAA___CGG___TTC___ACGCTAA
-
-// Query    : AGGGTAGTTCATGCATTTTAGGCAAGCCTGCTCCTACCCGCAGTTCCTGCGCCTATCGCCCTTAAACGAATAGGTTCAGA
-// Reference: AGCATACCATAGCGTCTAGCTGGGAAGACAATCGGCAAAAGACGCATCCTCCAAGGCCACTCCAATGAACAGAACACTCGAATAAAAGAGCCAATGGCAAAACTGTTCAACCGGTTCAAAGCGAAACCCATACCTTGCTATTAGGGAGGAACAGCACCCC
-// Solution Aligned Query    : _________________________________________________________________________________AGGGTAGTTCATGCATTTTAGGCAAGCCTGCTCCTACCCGCAGTTCCTGCGCCTATCGCCCTTAAACGAATAGGTTCAGA
-// Solution Aligned Reference: AGCATACCATAGCGTCTAGCTGGGAAGACAATCGGCAAAAGACGCATCCTCCAAGGCCACTCCAATGAACAGAACACTCGA_ATAAAAGAGCCAATGGCAAAACTGTTCAACCGGTTCAAAGCGAAACCCATACCTTGCTATTAGGGAGGAACAGCACCCC
-// Solution Runtime: 17ms
-// All scores match!
-// Kernel 0 Aligned Query    : AGGG____TAG___TTCATG___CATTTTA___GGC___AAG___CCT___GCT___CCT___ACC___CGC___AGT___TCC___TGC___GCC___TAT___CGC___CCT___TAA__________________________________ACG___AAT___AGG___TTC___AGA_____________________________________________________
-// Kernel 0 Aligned Reference: ___AGCAT___ACC___ATAGCG__TC___TAG___CTG___GGA___AGA___CAA___TCG___GCA___AAA___GAC___GCA___TCC___TCC___AAG___GCC___ACT___CCAATGAACAGAACACTCGAATAAAAGAGCCAAT___GGC___AAA___ACT___GTT___CAACCGGTTCAAAGCGAAACCCATACCTTGCTATTAGGGAGGAACAGCACCCC
-
 using namespace std;
 
-#define INPUT_QUERY_LENGTH 80
-#define INPUT_REFERENCE_LENGTH 160
+#define INPUT_QUERY_LENGTH 256
+#define INPUT_REFERENCE_LENGTH 256
 
 char_t base_to_num(char base)
 {
@@ -64,8 +46,6 @@ struct Penalties_sol
 };
 
 int main(){
-    // std::string query_string = "AGTCTG";     // CCGTAGACCCGAACTTCGCGGTACACCTTCTGAAACCGTCCCTAATCCGACGAGCGCCTTGAGAACG";
-    // std::string reference_string = "TGCCGAT";       // TGAGAACGTAGTCTAGGCGAATCGGCCCTTGTATATCGGGGCCGTAGACCCGAACTTCGCGGTACAC";
     char alphabet[4] = {'A', 'T', 'G', 'C'};
     std::string query_string = Random::Sequence<4>(alphabet, INPUT_QUERY_LENGTH);
     std::string reference_string = Random::Sequence<4>(alphabet, INPUT_REFERENCE_LENGTH);
@@ -77,10 +57,10 @@ int main(){
     for (int i = 0; i < N_BLOCKS; i++){
         penalties[i].extend = -3;
         penalties[i].open = -4;
-        penalties[i].match = 4;
-        penalties[i].mismatch = -1.5;
-        penalties[i].long_extend = -2;
-        penalties[i].long_open = -16;
+        penalties[i].match = 10;
+        penalties[i].mismatch = -3;
+        penalties[i].long_extend = -1;
+        penalties[i].long_open = -2;
     }
 
     // Struct for penalties in solution
@@ -88,21 +68,37 @@ int main(){
     for (int i = 0; i < N_BLOCKS; i++) {
         penalties_sol[i].extend = -3;
         penalties_sol[i].open = -4;
-        penalties_sol[i].match = 4;
-        penalties_sol[i].mismatch = -1.5;
-        penalties_sol[i].long_extend = -2;
-        penalties_sol[i].long_open = -16;
+        penalties_sol[i].match = 10;
+        penalties_sol[i].mismatch = -3;
+        penalties_sol[i].long_extend = -1;
+        penalties_sol[i].long_open = -2;
     }
+
+// Solution Aligned Query    : _CCCTCGTTGAC___TCAGCTACCG____CA__CC______GAATACTCGGTACACGTAGTAACATT__CA___GTGA__GTGGGCCAGA__CACC____GTAAATCGAGTCAACTGGGCCCC__GCCGTTCGGCT__TTG___CCCGCTAAAATCGG__ACCC__GTTCGT__GACTGCTGGCAGT__GAAGCGCTG_____C___GAC__AC__ACGCTGTGGA__AAGACGA____AGTGAACGAGATGCGGGATAACAGACGCCTCAACATCTCGCTACTC____GC____CG__A__A__GGTCGTCCGGGACG__T__TCCTCAATCATA
+// Solution Aligned Reference: T______TTA__GCACGAG__ATACGAGTCACCCGCGGGTG__AATAT__CT__ACAT__TAACACTGC__GACGT__ATGT___C__GATC__CCGTGGGAAAA_____GC_____AACTCTATGTC_____GGTGGTCGGGCTCGCTTAGATTGTGACGACCAGG_____TGGACTGTTA____ATCATAGCT___AGTCACCCAGACAAGCCAAC___GCTCACTGACAC__ATATAT__GACGT____C____T__CCGATGCCTCC___TTCTTATTCGGTTGGCCGTAACCCAACTATGGG__GACAAATACAGATTCCACGAA__GATA
+// Solution Runtime: 24ms
+// All scores match!
+// Kernel 0 Aligned Query    : CCCTCGTT_G_ACTCAGCTACCG___CACC_______GAATACTCGGTACACGTAGTAACA_TTC_A_GTGA_GTGGGCCAGA_CACCGT___AAATCGAGTCAACTGGGCCC_____CGCCGT__TCGGCTTTGCCCGCTAAAATCG_GAC__CC_GTTCGT_GACTG_____C_TGGC_AGTGAAGCGCTGC_GACA___C_ACGCT__GTGGAAAGACGA___AGTGAACGAGATGCGGGATAACAGACGCCTCAACATCTCGCTACTCGCCGAAGGTCGT___CC_______GGGAC_______G_TTCCTC_AATCATA
+// Kernel 0 Aligned Reference: _____TTTAGCAC_GAGATA_CGAGTCACCCGCGGGTGAATA_TC__TACA__T__TAACACTGCGACGT_ATGT____C_GATC_CCGTGGGAAA___AG_CAACT_____CTATGTCG__GTGGTCGG____GCTCGCTTAGATTGTGACGACCAG___GTGGACTGTTAATCATAGCTAGTCA__C_C__CAGACAAGCCAACGCTCACTG___ACAC_ATATA_TG_ACG___T_C____T__CCGATGCCTC__CTTCT___TATTCG__GTTGGCCGTAACCCAACTATGGGGACAAATACAGATTCCACGAA_GATA
+
+// Solution Aligned Query    : _AGTCG__CCCCTT__CTAAAGAAG__TGGGTACCCCTGTCCCAGGCGCCAGGATGAGGGACGT__T___CG__AAT__CAACATCTTCAGGCTCCGG__CTTAACCAACTGGCTTGTCGGCAAAAT___CACCTG____CCAA__ATTCTTATA__CCGCGATGCCGCAGTTCTCTGTGCTGCGAATTTCTTTAAGTCTGGCAGACCAC___A__TGT___ACACA____CAA__T__A__ATGTG__T__ACT__T__C____A__GTC__AT___GATGATATTCAACAGGTCTGTACCAAATAG__CAAG____TCAA__ACC__GAG
+// Solution Aligned Reference: G_____AACCCCGTGC__A______GTGGCG__CGC__TTCGAATG___CAGA__TTAGGA__CTATTTCCTGATATAGC____AGCTTA__GGGGCGAAAAGAACTGAAAAGGTAGTGG__A____GTGGA___CGCGCCACACCAC___TAGACCCCCAACTG_______TTTTT___CTCC__GTT__GTTA__GCCGAAAGACA__GCTTAT__GCTACAACTAGGTCACACGTAGTGCCCTTCCTCCACAGGTTGCCACGGCG__CGA__GTGAAGAAGA___A__A__TGTCTGGAA___AGCACGACGTTTTAAACGATCGGAAG
+// Solution Runtime: 36ms
+// All scores match!
+// Kernel 0 Aligned Query    : AGTCG__CCCCTTCTAAAGAAGTGGGTAC_CCCTGTCCCAGGCGCCAGGATGAGGGAC__GTTC__GA_ATCAACATCTTCAGGCTCCGGCTTAACCAACTG____GCTTGTCGGCAAAAT_CAC_CTGCCA_A__ATTCTTATACCGCGATGCCGCA___GTTCTCTGTGCTGCGAATTTCTTTAAGTCTGGCAGACCA_C__ATG_TAC_AC_A___CA_A__TAATGTG_______T__AC___TT__CA_GTC___A_TGATGATATTCAACAGGTCTGTACCAAATAGCA__A_G__TCAAAC___CG__AG
+// Kernel 0 Aligned Reference: ____GAACCCCGT_____GCAGTGG___CGCGCT_TCGAATG___CA_GATTA_GGACTATTTCCTGATAT_AGCAGCTT_AGG____GGCGAAAAGAACTGAAAAGGTAGT_GG___AGTGGACGC_GCCACACCA__C_TAGACC______CC_CAACTGTT_T_T_T_CTCCG___TTGTT__AG_CCGAAAGA_CAGCTTATGCTACAACTAGGTCACACGTA__GTGCCCTTCCTCCACAGGTTGCCACGGCGCGAGTGAAGA_A__GAA_ATGTCTG____GAA_AGCACGACGTTTTAAACGATCGGAAG
 
     // Reference and Query Strings
     std::vector<char> query(query_string.begin(), query_string.end());
     std::vector<char> reference(reference_string.begin(), reference_string.end());
  
+#ifdef CMAKEDEBUG
     // Initialize Debugger
     Container debuggers[N_BLOCKS];
     for (int i = 0; i < N_BLOCKS; i++){
         debuggers[i] = Container();
     }
+#endif
 
     // Assert actual query length and reference length should be smaller than the maximum length
     try {
@@ -185,12 +181,12 @@ int main(){
     // Display solution runtime
     std::cout << "Solution Runtime: " << std::chrono::duration_cast<std::chrono::milliseconds>(sol_end - sol_start).count() << "ms" << std::endl;
 
+#ifdef CMAKEDEBUG
     // Cast kernel scores to matrix scores
     debuggers[0].cast_scores();
     // print_matrix<float, MAX_QUERY_LENGTH, MAX_REFERENCE_LENGTH>(debuggers[0].scores_cpp[0], "Kernel 0 Scores Layer 0");
     debuggers[0].compare_scores(sol_score_mat, query.size(), reference.size());  // check if the scores from the kernel matches scores from the solution
-
-
+#endif
 
     // reconstruct kernel alignments
     array<map<string, string>, N_BLOCKS> kernel_alignments;
@@ -205,6 +201,7 @@ int main(){
         query_string_blocks[i] = query_string;
         reference_string_blocks[i] = reference_string;
     }
+
     HostUtils::IO::SwitchDimension(tb_streams_d, tb_streams_h);
      kernel_alignments = HostUtils::Sequence::ReconstructTracebackBlocks<tbr_t, N_BLOCKS, MAX_QUERY_LENGTH, MAX_REFERENCE_LENGTH>(
         query_string_blocks, reference_string_blocks,
