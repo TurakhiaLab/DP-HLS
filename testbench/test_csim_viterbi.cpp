@@ -19,15 +19,15 @@ using namespace std;
 #define INPUT_REFERENCE_LENGTH 15
 
 struct Penalties_sol {
-    float log_1_m_2_lambda;
-    float log_mu;
-    float log_lambda;
-    float log_1_m_mu;
-    float transition[5][5];
+    double log_1_m_2_lambda;
+    double log_mu;
+    double log_lambda;
+    double log_1_m_mu;
+    double transition[5][5];
 };
 
-#define MU 0.7
-#define LAMBDA 0.4
+#define MU 0.3
+#define LAMBDA 0.3
 
 int main(){
     // std::string query_string = "AGTCTG";     // CCGTAGACCCGAACTTCGCGGTACACCTTCTGAAACCGTCCCTAATCCGACGAGCGCCTTGAGAACG";
@@ -37,11 +37,11 @@ int main(){
     std::string reference_string = Random::Sequence<4>(alphabet, INPUT_REFERENCE_LENGTH);
 
     float transition_[5][5] = {
-        {0.8, 0.3, 0.3, 0.3, 0.5},
-        {0.3, 0.3, 0.3, 0.3, 0.5},
-        {0.3, 0.3, 0.8, 0.3, 0.5},
-        {0.3, 0.3, 0.3, 0.8, 0.5},
-        {0.5, 0.5, 0.5, 0.5, 0.8}
+        {0.8, 0.3, 0.3, 0.3, 0.2},
+        {0.3, 0.8, 0.3, 0.3, 0.2},
+        {0.3, 0.3, 0.8, 0.3, 0.2},
+        {0.3, 0.3, 0.3, 0.8, 0.2},
+        {0.2, 0.2, 0.2, 0.2, 0.2}
     };
 
     float log_transitions_[5][5];
@@ -54,13 +54,13 @@ int main(){
     // Struct for Penalties in kernel
     Penalties penalties[N_BLOCKS];
     for (int i = 0; i < N_BLOCKS; i++){
-        penalties[i].log_mu = -log(MU);
-        penalties[i].log_lambda = -log(LAMBDA);
-        penalties[i].log_1_m_mu = -log(1 - MU);
-        penalties[i].log_1_m_2_lambda = -log(1 - 2 * LAMBDA);
+        penalties[i].log_mu = log(MU);
+        penalties[i].log_lambda = log(LAMBDA);
+        penalties[i].log_1_m_mu = log(1 - MU);
+        penalties[i].log_1_m_2_lambda = log(1 - 2 * LAMBDA);
         for (int j = 0; j < 5; j++){
             for (int k = 0; k < 5; k++){
-                penalties[i].transition[j][k] = -log_transitions_[j][k];
+                penalties[i].transition[j][k] = log_transitions_[j][k];
             }
         }
     }
@@ -68,13 +68,13 @@ int main(){
     // Struct for penalties in solution
     Penalties_sol penalties_sol[N_BLOCKS];
     for (int i = 0; i < N_BLOCKS; i ++) {
-        penalties_sol[i].log_mu = -log(MU);
-        penalties_sol[i].log_lambda = -log(LAMBDA);
-        penalties_sol[i].log_1_m_mu = -log(1 - MU);
-        penalties_sol[i].log_1_m_2_lambda = -log(1 - 2 * LAMBDA);
+        penalties_sol[i].log_mu = log(MU);
+        penalties_sol[i].log_lambda = log(LAMBDA);
+        penalties_sol[i].log_1_m_mu = log(1 - MU);
+        penalties_sol[i].log_1_m_2_lambda = log(1 - 2 * LAMBDA);
         for (int j = 0; j < 5; j++){
             for (int k = 0; k < 5; k++){
-                penalties_sol[i].transition[j][k] = -log_transitions_[j][k];
+                penalties_sol[i].transition[j][k] = log_transitions_[j][k];
             }
         }
     }
