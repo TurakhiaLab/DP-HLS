@@ -369,7 +369,6 @@ void Align::Rectangular::AlignStatic(
 	// >>> Initialization >>>
 	score_vec_t init_col_score[MAX_QUERY_LENGTH];
 	score_vec_t init_row_score[MAX_REFERENCE_LENGTH];
-	static_assert(MAX_QUERY_LENGTH % PE_NUM == 0, "MAX_QUERY_LENGTH must divide PE_NUM, compilation terminated!");
 	tbp_t tbp_matrix[PE_NUM][TBMEM_SIZE];
 	bool col_pred[PE_NUM];
 
@@ -513,6 +512,7 @@ void Align::Fixed::AlignStatic(
 #endif
 ){
 
+// This is to make this function compilable if in rectangular banding and BANDWIDTH not defined. 
 #ifndef  BANDWIDTH
 #define  BANDWIDTH 0
 #endif
@@ -520,7 +520,6 @@ void Align::Fixed::AlignStatic(
 	// >>> Initialization >>>
 	score_vec_t init_col_score[MAX_QUERY_LENGTH];
 	score_vec_t init_row_score[MAX_REFERENCE_LENGTH];
-	static_assert(MAX_QUERY_LENGTH % PE_NUM == 0, "MAX_QUERY_LENGTH must divide PE_NUM, compilation terminated!");
 	tbp_t tbp_matrix[PE_NUM][TBMEM_SIZE];
 
 #ifdef CMAKEDEBUG

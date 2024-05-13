@@ -29,16 +29,6 @@ namespace ALIGN_TYPE
         score_vec_t (&init_row_scr)[MAX_REFERENCE_LENGTH],
         Penalties penalties);
 
-
-    // void UpdatePEMaximumOpt(
-    //     wavefront_scores_inf_t scores,
-    //     ScorePack (&max)[PE_NUM],
-    //     hls::vector<idx_t, PE_NUM> &ics, hls::vector<idx_t, PE_NUM> &jcs,
-    //     hls::vector<idx_t, PE_NUM> &p_col, idx_t ck_idx,
-    //     bool (&predicate)[PE_NUM],
-    //     idx_t query_len, idx_t ref_len
-    // );
-
     void UpdatePEMaximum(
         const wavefront_scores_inf_t scores,
         ScorePack (&max)[PE_NUM],

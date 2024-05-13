@@ -308,7 +308,7 @@ void fixed_banding_global_linear_solution(std::string query, std::string referen
     float upper_left_value = 0;
     for (int i = 0; i < SOL_MAX_QUERY_LENGTH; i++)
     {
-        upper_left_value += penalties.open; // since it was declared with type_t then convert back to int.
+        upper_left_value += penalties.linear_gap; // since it was declared with type_t then convert back to int.
         initial_col[i] = upper_left_value;
     }
 
@@ -316,7 +316,7 @@ void fixed_banding_global_linear_solution(std::string query, std::string referen
     upper_left_value = 0; // FIXME: This might to be initialized as 0
     for (int j = 0; j < SOL_MAX_REFERENCE_LENGTH; j++)
     {
-        upper_left_value += penalties.open; // since it was declared with type_t then convert back to int.
+        upper_left_value += penalties.linear_gap; // since it was declared with type_t then convert back to int.
         initial_row[j] = upper_left_value;
     }
 

@@ -43,7 +43,7 @@ struct ScorePack{
     idx_t p_col;
 };
 
-
+static_assert(MAX_QUERY_LENGTH % PE_NUM == 0, "MAX_QUERY_LENGTH must divide PE_NUM, compilation terminated!");
 
 #define CK_NUM (MAX_QUERY_LENGTH / PE_NUM)
 
@@ -52,7 +52,7 @@ struct ScorePack{
 #if BANDING == Rectangular
 #define TBMEM_SIZE (CK_NUM * (MAX_REFERENCE_LENGTH + PE_NUM - 1))
 #elif BANDING == Fixed
-#define TBMEM_SIZE (MAX_QUERY_LENGTH / PE_NUM * (2 * BANDWIDTH + PE_NUM - 1))
+#define TBMEM_SIZE (CK_NUM * (2 * BANDWIDTH + PE_NUM - 1 + PE_NUM - 1))
 #else
 #error  "This Banding Strategy is not Supported"
 #endif

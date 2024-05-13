@@ -82,7 +82,7 @@ void PE::PEUnrollFixedSep(
 #pragma HLS array_partition variable = dp_mem dim = 0 type = complete
 #pragma HLS array_partition variable = tbp type = complete
 #pragma HLS array_partition variable = score type = complete
-// up, diag, left
+
     for (int i = 0; i < PE_NUM; i++)
     {
 #pragma HLS unroll
