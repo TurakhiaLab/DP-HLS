@@ -21,7 +21,7 @@ typedef ap_fixed<16, 12> type_t;  // Scores Type <width, integer_width>
 typedef short idx_t;  // Indexing Type, could be much less than 32. ap_uint<8>
 typedef ap_uint<2> tbp_t;  // Traceback Pointer Type
 
-#define BANDING Rectangular
+#define BANDING RECTANGULAR
 
 // Define Zero Value
 #define zero_fp ((type_t)0)

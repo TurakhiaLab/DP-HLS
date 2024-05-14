@@ -53,22 +53,3 @@ enum TB_STATE {
     DEL = 2,  // Deletion
     END = 3   // End
 };
-
-template <int N>
-char tbp_to_char(tbp_t tbp) {
-    if (tbp == TB_LEFT){
-        return 'L'; 
-    }
-    else if (tbp == TB_UP){
-        return 'U';
-    }
-    else if (tbp == TB_DIAG){
-        return 'D';
-    }
-    else if (tbp == TB_PH){
-        return 'H';
-    }
-    else{
-        return 'X';
-    }
-};

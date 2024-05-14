@@ -21,7 +21,7 @@ typedef ap_fixed<16, 10> type_t;  // Scores Type <width, integer_width>
 typedef short idx_t;  // Indexing Type, could be much less than 32. ap_uint<8>
 typedef ap_uint<2> tbp_t;  // Traceback Pointer Type
 
-#define BANDING Rectangular
+#define BANDING RECTANGULAR
 
 // Define Zero Value
 #define zero_fp ((type_t)0)
@@ -75,7 +75,7 @@ enum TB_STATE {
 
 // Determine the memory size for different banding strategy.
 #if defined(BANDING)
-#if BANDING == Rectangular
+#if BANDING == RECTANGULAR
 #define TBMEM_SIZE (CK_NUM * MAX_REFERENCE_LENGTH)
 #elif BANDING == Fixed
 #define TBMEM_SIZE (MAX_QUERY_LENGTH / PE_NUM * (2 * BANDWIDTH + PE_NUM - 1))

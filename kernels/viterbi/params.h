@@ -14,7 +14,7 @@
 #define N_LAYERS 3
 #define LAYER_MAXIMIUM 1  // We need to indicate from which layer (main matrix) is the maximum score stored.
 
-#define BANDING Rectangular
+#define BANDING RECTANGULAR
 
 // Primitive Types
 typedef ap_fixed<32, 12> type_t;  // Scores Type <width, integer_width>

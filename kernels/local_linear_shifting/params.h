@@ -15,7 +15,7 @@
 const int PE_NUM = 4;
 #define LAYER_MAXIMIUM 0  // We need to indicate from which layer (main matrix) is the maximum score stored.
 
-#define BANDING RectangularOpt
+#define BANDING RECTANGULAROpt
 
 // Primitive Types
 typedef ap_uint<2> char_t;  // Sequence Alphabet

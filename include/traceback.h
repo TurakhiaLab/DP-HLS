@@ -114,35 +114,6 @@ namespace Traceback
         traceback_buf_t(&traceback_out),
         int ck_idx, int pe_idx, int col_idx, int v_row, int v_col)
     {
-#ifdef CMAKEDEBUG
-        cout << "chunk_width " << CHUNK_WIDTH << endl;
-        cout << "tb mem size " << TBMEM_SIZE << endl;
-
-        // print original traceback matrix
-        for (int c = 0; c < CK_NUM; c++)
-        {
-            for (int i = 0; i < PE_NUM; i++)
-            {
-                for (int j = 0; j < TB_CHUNK_WIDTH; j++)
-                {
-                    std::cout << tbp_to_char<0>(tbmat[i][c * TB_CHUNK_WIDTH + j]) << " ";
-                }
-                std::cout << std::endl;
-            }
-        }
-
-        for (int j = 0; j < TBMEM_SIZE; j++){
-            std::cout << std::setw(2) << j << " ";
-        } std::cout << std::endl;
-        for (int i = 0; i < PE_NUM; i++)
-        {
-            for (int j = 0; j < TBMEM_SIZE; j++)
-            {
-                std::cout << tbp_to_char<0>(tbmat[i][j]) << "  ";
-            }
-            std::cout << std::endl;
-        }
-#endif
 
 #pragma HLS bind_storage variable = traceback_out type = fifo impl = uram
         int pe = pe_idx; // row index, but in tbmat

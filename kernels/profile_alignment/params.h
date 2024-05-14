@@ -14,7 +14,7 @@ const int PE_NUM = 32;
 #define N_LAYERS 1
 #define LAYER_MAXIMIUM 0  // We need to indicate from which layer (main matrix) is the maximum score stored.
 
-#define BANDING Rectangular
+#define BANDING RECTANGULAR
 
 // Primitive Types
 typedef ap_fixed<32, 24> type_t;  // Scores Type <width, integer_width>

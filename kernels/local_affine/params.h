@@ -8,7 +8,7 @@
 #define MAX_QUERY_LENGTH 256
 #define MAX_REFERENCE_LENGTH 256
 
-#define BANDING Rectangular
+#define BANDING RECTANGULAR
 
 #define PRAGMA_PE_NUM 32
 

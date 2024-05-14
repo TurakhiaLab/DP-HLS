@@ -15,7 +15,7 @@
 #define N_LAYERS 5
 #define LAYER_MAXIMIUM 1  // We need to indicate from which layer (main matrix) is the maximum score stored.
 
-#define BANDING Rectangular
+#define BANDING RECTANGULAR
 
 //#define THRESHOLD 5 // this needs to be less than the query and reference length
 
