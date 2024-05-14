@@ -394,22 +394,21 @@ void fixed_banding_global_linear_solution(std::string query, std::string referen
             float d_score = scr_up + penalties.linear_gap;
             float i_score = scr_left + penalties.linear_gap;
 
-            float max_score = max(m_score, max(d_score, i_score));
+            float max_score = m_score;
+            tb_mat[i][j] = 'D';
+            if (max_score < i_score)
+            {
+                max_score = i_score;
+                tb_mat[i][j] = 'L';
+            }
+            if (max_score < d_score)
+            {
+                max_score = d_score;
+                tb_mat[i][j] = 'U';
+            }
+
             score_mat[0][i][j] = max_score;
 
-            // Choose the maximum score and update the traceback matrix
-            if (max_score == m_score)
-            {
-                tb_mat[i][j] = 'D'; // 'D' indicates a diagonal direction (match or mismatch)
-            }
-            else if (max_score == d_score)
-            {
-                tb_mat[i][j] = 'U'; // 'U' indicates an up direction (deletion)
-            }
-            else
-            {
-                tb_mat[i][j] = 'L'; // 'L' indicates a left direction (insertion)
-            }
         }
     }
 

@@ -125,7 +125,7 @@ extern "C"
 #ifdef CMAKEDEBUG
 			cout << "Aligning Block " << i << endl;
 #endif
-			Align::BANDING::AlignStatic(
+			Align::BANDING_NAMESPACE::AlignStatic(
 				querys_b[i],
 				references_b[i],
 				query_lengths_b[i],

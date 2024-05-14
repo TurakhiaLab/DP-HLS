@@ -66,14 +66,14 @@ int main(){
     for (int i = 0; i < N_BLOCKS; i++){
         penalties[i].linear_gap = -1;
         penalties[i].match = 3;
-        penalties[i].mismatch = -1;
+        penalties[i].mismatch = -2;
     }
 
     Penalties_sol penalties_sol[N_BLOCKS];
     for (Penalties_sol &penalty : penalties_sol) {
         penalty.linear_gap = -1;
         penalty.match = 3;
-        penalty.mismatch = -1;
+        penalty.mismatch = -2;
     }
 
 
@@ -195,13 +195,16 @@ int main(){
     // Print kernel 0 traceback
     for (int i = 0; i < N_BLOCKS; i++){
         debug_file << "Kernel: " << i << " Traceback" << endl;
-        debug_file << "Kernel Aligned Query    : " << kernel_alignments[i]["query"] << endl;
-        debug_file << "Kernel Aligned Reference: " << kernel_alignments[i]["reference"] << endl;
+        debug_file << "Kernel Aligned Query      : " << kernel_alignments[i]["query"] << endl;
+        debug_file << "Kernel Aligned Reference  : " << kernel_alignments[i]["reference"] << endl;
     }
 
     // print out the scores
     // print_matrix<float, MAX_QUERY_LENGTH, MAX_REFERENCE_LENGTH>(scores_sol[k], "Solution Score Matrix, Layer: " + std::to_string(k));
     fprint_matrix<float, MAX_QUERY_LENGTH, MAX_REFERENCE_LENGTH>(debug_file, sol_score_mat[0], query_string, reference_string, "Solution Score Matrix, Layer: " + std::to_string(0));
     fprint_matrix<float, MAX_QUERY_LENGTH, MAX_REFERENCE_LENGTH>(debug_file, debuggers->scores_cpp[0], query_string, reference_string, "Kernel Score Matrix, Layer: " + std::to_string(0));
+    // print traceback pointer matrices
+    fprint_matrix<char, MAX_QUERY_LENGTH, MAX_REFERENCE_LENGTH>(debug_file, sol_tb_mat, "Solution Traceback Matrix, Layer: " + std::to_string(0));
+    
     return 0;
 }

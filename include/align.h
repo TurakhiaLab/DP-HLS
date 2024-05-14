@@ -30,18 +30,16 @@ using namespace hls;
 namespace Align
 {
 
-    /**
-     * Copy a segment of global query to local query.
-     * @param query Query sequence
-     * @param local_query Local query is a buffer of PE_NUM length that is read in parallel by PEs during the wavefront computation.
-     * @param offset The offset in the query to start copy.
-     */
+	/**
+	 * Copy a segment of global query to local query.
+	 * @param query Query sequence
+	 * @param local_query Local query is a buffer of PE_NUM length that is read in parallel by PEs during the wavefront computation.
+	 * @param offset The offset in the query to start copy.
+	 */
 	void PrepareLocalQuery(
 		char_t (&query)[MAX_QUERY_LENGTH],
 		char_t (&local_query)[PE_NUM],
 		const idx_t offset);
-
-
 
 	void DPMemUpdateArr(
 		dp_mem_block_t &dp_mem_in,
@@ -51,7 +49,6 @@ namespace Align
 		score_vec_t (&init_col_scr)[PE_NUM],
 		stream_of_blocks<dp_mem_block_t> &dp_mem_out);
 
-
 	void PrepareScoresArr(
 		dp_mem_block_t &dp_mem_in,
 		score_vec_t (&init_col_scr)[PE_NUM], int id,
@@ -60,15 +57,15 @@ namespace Align
 		wavefront_scores_t &diag_out,
 		wavefront_scores_t &left_out);
 
-    /**
-     * This function merge PrepareLocalQuery function and CopyColScore function.
-     * @tparam PE_NUM_T Number of PE
-     * @param query Query Sequence
-     * @param local_query Local Query Buffer
-     * @param init_col_scr Initial Column Scores
-     * @param init_col_scr_local Local Initial Column Score Buffer.
-     * @param idx
-     */
+	/**
+	 * This function merge PrepareLocalQuery function and CopyColScore function.
+	 * @tparam PE_NUM_T Number of PE
+	 * @param query Query Sequence
+	 * @param local_query Local Query Buffer
+	 * @param init_col_scr Initial Column Scores
+	 * @param init_col_scr_local Local Initial Column Score Buffer.
+	 * @param idx
+	 */
 	template <int PE_NUM_T>
 	void PrepareLocals(
 		const char_t (&query)[MAX_QUERY_LENGTH],
@@ -76,16 +73,17 @@ namespace Align
 		score_vec_t (&init_col_scr)[MAX_QUERY_LENGTH],
 		chunk_col_scores_inf_t &init_col_scr_local,
 		bool (&col_pred)[PE_NUM], const idx_t local_query_len,
-		const idx_t idx){
-			init_col_scr_local[0] = init_col_scr_local[PE_NUM_T]; // backup the last element from previous chunk
-			for (int i = 0; i < PE_NUM_T; i++)
-			{
-				init_col_scr_local[i + 1] = init_col_scr[idx + i];
-				local_query[i] = query[idx + i];
-				col_pred[i] = i < local_query_len;
-			}
+		const idx_t idx)
+	{
+		init_col_scr_local[0] = init_col_scr_local[PE_NUM_T]; // backup the last element from previous chunk
+		for (int i = 0; i < PE_NUM_T; i++)
+		{
+			init_col_scr_local[i + 1] = init_col_scr[idx + i];
+			local_query[i] = query[idx + i];
+			col_pred[i] = i < local_query_len;
+		}
 	}
-	
+
 	/**
 	 * @brief Initialize two lists of coordinates, x coordinate and y coordinate, for each chunk.
 	 * 		Theis function is called within the chunk compute function.
@@ -109,7 +107,7 @@ namespace Align
 	void ArrangeTBP(
 		const tbp_vec_t &tbp_in,
 		const idx_t &p_col_offset,
-        const bool (&predicate)[PE_NUM],
+		const bool (&predicate)[PE_NUM],
 		tbp_t (&chunk_tbp_out)[PE_NUM][TBMEM_SIZE]);
 
 	/**
@@ -253,8 +251,8 @@ namespace Align
 		void AlignStatic(
 			const char_t (&querys)[MAX_QUERY_LENGTH],
 			const char_t (&references)[MAX_REFERENCE_LENGTH],
-			idx_t query_length,
-			idx_t reference_length,
+			const idx_t query_length,
+			const idx_t reference_length,
 			const Penalties &penalties,
 			idx_t &tb_i, idx_t &tb_j,
 			tbr_t (&tb_out)[MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH]
@@ -280,7 +278,7 @@ namespace Align
 			const char_t (&reference)[MAX_REFERENCE_LENGTH],
 			chunk_col_scores_inf_t &init_col_scr,
 			score_vec_t (&init_row_scr)[MAX_REFERENCE_LENGTH],
-            idx_t &p_col_offset, idx_t ck_idx,
+			idx_t &p_col_offset, idx_t ck_idx,
 			idx_t global_query_length, idx_t query_length, idx_t reference_length,
 			const bool (&col_pred)[PE_NUM],
 			const Penalties &penalties,
@@ -303,7 +301,7 @@ namespace Align
 		 */
 		void MapPredicate(
 			const idx_t wavefront,
-			const idx_t ref_len, const idx_t qry_len,  // This query length is local query length in chunk, always less than PE_NUM
+			const idx_t ref_len, const idx_t qry_len, // This query length is local query length in chunk, always less than PE_NUM
 			bool (&row_pred)[PE_NUM],
 			const bool (&col_pred)[PE_NUM],
 			bool (&pred)[PE_NUM]);
@@ -321,10 +319,10 @@ namespace Align
 		 * @param tb_streams: Output traceback path.
 		 */
 		void AlignStatic(
-			char_t (&querys)[MAX_QUERY_LENGTH],
-			char_t (&references)[MAX_REFERENCE_LENGTH],
-			idx_t query_length,
-			idx_t reference_length,
+			const char_t (&querys)[MAX_QUERY_LENGTH],
+			const char_t (&references)[MAX_REFERENCE_LENGTH],
+			const idx_t query_length,
+			const idx_t reference_length,
 			const Penalties &penalties,
 			idx_t &tb_i, idx_t &tb_j,
 			tbr_t (&tb_out)[MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH]
@@ -345,17 +343,15 @@ namespace Align
 		 * @param max : Score pack of the maximium score of this chunk.
 		 */
 		void ChunkCompute(
-			idx_t chunk_row_offset,
-			idx_t chunk_start_col,
-			idx_t chunk_end_col,
-			input_char_block_t &query,
-			char_t (&reference)[MAX_REFERENCE_LENGTH],
-			chunk_col_scores_inf_t &init_col_scr,
+			const idx_t chunk_row_offset,
+			const input_char_block_t &query,
+			const char_t (&reference)[MAX_REFERENCE_LENGTH],
+			const chunk_col_scores_inf_t &init_col_scr,
 			score_vec_t (&init_row_scr)[MAX_REFERENCE_LENGTH],
-			idx_t (&ics)[PE_NUM], idx_t (&jcs)[PE_NUM],
-			idx_t (&p_cols)[PE_NUM], idx_t ck_idx,
-			idx_t (&l_lim)[PE_NUM], idx_t (&u_lim)[PE_NUM],
-			int global_query_length,
+			idx_t p_cols, const idx_t ck_idx,
+			const idx_t (&local_l_lim)[PE_NUM], const idx_t (&local_u_lim)[PE_NUM],
+			const bool (&col_pred)[PE_NUM],
+			const idx_t global_query_length, const idx_t reference_length,
 			const Penalties &penalties,
 			ScorePack (&max)[PE_NUM], // write out so must pass by reference
 			tbp_t (&chunk_tbp_out)[PE_NUM][TBMEM_SIZE]
@@ -379,10 +375,49 @@ namespace Align
 		 * @param predicate Predicate Array.
 		 */
 		void MapPredicate(
-			idx_t (&ics)[PE_NUM], idx_t (&jcs)[PE_NUM],
-			idx_t (&l_lim)[PE_NUM], idx_t (&u_lim)[PE_NUM],
-			const idx_t ck_start_col, idx_t ck_end_col, idx_t query_length,
+			const idx_t (&local_l_lim)[PE_NUM], const idx_t (&local_u_lim)[PE_NUM],
+			const idx_t ck_start_col, const bool (&col_pred)[PE_NUM],
 			bool (&predicate)[PE_NUM]);
+
+		template <typename IDX_T, int MAX_QUERY_LENGTH_, int BANDWIDTH_>
+		constexpr void PrecomputeLowerLimits(IDX_T (&l_lim)[MAX_QUERY_LENGTH_])
+		{
+			for (int i = 0; i < MAX_QUERY_LENGTH_; i++)
+			{
+				l_lim[i] = i - BANDWIDTH_ < 0 ? 0 : i - BANDWIDTH_;
+			}
+		}
+
+		template <typename IDX_T, int MAX_QUERY_LENGTH_, int BANDWIDTH_>
+		constexpr void PrecomputeUpperLimits(IDX_T (&u_lim)[MAX_QUERY_LENGTH_], const IDX_T reference_length)
+		{
+			for (int i = 0; i < MAX_QUERY_LENGTH_; i++)
+			{
+				u_lim[i] = i + BANDWIDTH_ - 1 > reference_length - 1 ? reference_length - 1 : i + BANDWIDTH_ - 1;
+			}
+		}
+
+		template <int PE_NUM_, int MAX_QUERY_LENGTH_>
+		void PrepareLocals(
+			const char_t (&query)[MAX_QUERY_LENGTH_],
+			const score_vec_t (&init_col_scr)[MAX_QUERY_LENGTH_],
+			const idx_t (&l_lim)[MAX_QUERY_LENGTH_], const idx_t (&u_lim)[MAX_QUERY_LENGTH_],
+			char_t (&local_query)[PE_NUM_],
+			chunk_col_scores_inf_t &init_col_scr_local,
+			idx_t (&local_l_lim)[PE_NUM_], idx_t (&local_u_lim)[PE_NUM_],
+			bool (&col_pred)[PE_NUM_], const idx_t local_query_len,
+			const idx_t idx)
+		{
+			init_col_scr_local[0] = init_col_scr_local[PE_NUM_]; // backup the last element from previous chunk
+			for (int i = 0; i < PE_NUM_; i++)
+			{
+				init_col_scr_local[i + 1] = init_col_scr[idx + i];
+				local_query[i] = query[idx + i];
+				col_pred[i] = i < local_query_len;
+				local_l_lim[i] = l_lim[idx + i];
+				local_u_lim[i] = u_lim[idx + i];
+			}
+		}
 	}
 
 	/**
@@ -409,10 +444,9 @@ namespace Align
 
 	void PrepareScoreBuffer(
 		score_vec_t (&score_buff)[PE_NUM + 1],
-		int i,
-		chunk_col_scores_inf_t(&init_col_scr),
-		score_vec_t (&init_row_scr)[MAX_REFERENCE_LENGTH]);
-
+		const idx_t i,
+		const chunk_col_scores_inf_t(&init_col_scr),
+		const score_vec_t (&init_row_scr)[MAX_REFERENCE_LENGTH]);
 }
 
 #endif // !SEQ_ALIGN_H

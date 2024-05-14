@@ -5,32 +5,10 @@
 #ifndef DP_HLS_DP_HLS_COMMON_H
 #define DP_HLS_DP_HLS_COMMON_H
 
+#define RECTANGULAR 0
+#define FIXED 1
+
 #include "params.h"
-
-// struct score_vec_t {
-//     type_t data[N_LAYERS];
-
-//     // write a constructor
-//     score_vec_t() {
-//         InitializeScoreVec:
-//         for (int i = 0; i < N_LAYERS; i++) {
-// #pragma HLS unroll
-//             data[i] = 0;
-//         }
-//     }
-//     score_vec_t(type_t num) {
-//         InitializeScoreVecNum:
-//         for (int i = 0; i < N_LAYERS; i++) {
-// #pragma HLS unroll
-//             data[i] = num;
-//         }
-//     }
-
-//     type_t& operator[](idx_t index) { return data[index]; }
-
-//     // Const version of operator[]
-//     const type_t& operator[](idx_t index) const { return data[index]; }
-// };
 
 const int PRAGMA_PE_NUM = PE_NUM;
 const int PRAGMA_N_BLOCKS = N_BLOCKS;
@@ -49,15 +27,23 @@ static_assert(MAX_QUERY_LENGTH % PE_NUM == 0, "MAX_QUERY_LENGTH must divide PE_N
 
 // Determine the memory size for different banding strategy.
 #if defined(BANDING)
-#if BANDING == Rectangular
+#if BANDING == 0
+#define BANDING_NAMESPACE Rectangular
 #define TBMEM_SIZE (CK_NUM * (MAX_REFERENCE_LENGTH + PE_NUM - 1))
-#elif BANDING == Fixed
+#define TB_CHUNK_WIDTH (MAX_REFERENCE_LENGTH + PE_NUM - 1)
+#define BANDWIDTH 0  // Just put here to make the fixed banded kernel compilable in rectangular mode. 
+#elif BANDING == 1
+#ifndef BANDWIDTH
+#error "BANDWIDTH must be defined in fixed banding kernel, please define BANDWIDTH."
+#endif
+#define BANDING_NAMESPACE Fixed
 #define TBMEM_SIZE (CK_NUM * (2 * BANDWIDTH + PE_NUM - 1 + PE_NUM - 1))
+#define TB_CHUNK_WIDTH (2 * BANDWIDTH + PE_NUM - 1 + PE_NUM - 1)
 #else
-#error  "This Banding Strategy is not Supported"
+#error  "This Banding Strategy is not Supported. "
 #endif
 #else
-#error "Banding Strategy is not Defined"
+#error "Banding Strategy is not Defined, Please define a banding strategy."
 #endif
 
 
