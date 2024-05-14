@@ -1,0 +1,37 @@
+name: CMake Build and Test
+
+on:
+  push:
+    branches:
+      - devel
+  pull_request:
+    branches:
+      - devel
+
+jobs:
+  Build_and_Test_All_Targets:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Install CMake and Make
+      run: sudo apt-get update && sudo apt-get install -y cmake make
+
+    - name: Create build directory
+      run: mkdir build
+
+    - name: Run CMake
+      run: |
+        cd build
+        cmake ..
+
+    - name: Build project
+      run: |
+        cd build
+        make
+
+    - name: Run tests
+      run: |
+        cd build
+        make test

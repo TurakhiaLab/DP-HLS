@@ -531,7 +531,6 @@ void Align::Fixed::AlignStatic(
 #endif
 
 #pragma HLS array_partition variable = tbp_matrix type = cyclic factor = PRAGMA_PE_NUM dim = 1
-#pragma HLS array_partition variable = p_cols type = complete
 
 	idx_t l_lims[MAX_QUERY_LENGTH], u_lims[MAX_QUERY_LENGTH];
 #pragma HLS bind_storage variable = l_lims type = ram_1p impl = bram
@@ -557,8 +556,6 @@ void Align::Fixed::AlignStatic(
 	ScorePack maximum;
 	ScorePack local_max[PE_NUM];
 
-#pragma HLS array_partition variable = init_col_score type = cyclic factor = PRAGMA_PE_NUM dim = 1
-
 	ALIGN_TYPE::InitializeScores(init_col_score, init_row_score, penalties);
 	ALIGN_TYPE::InitializeMaxScores(local_max, query_length, reference_length);
 
@@ -568,6 +565,11 @@ void Align::Fixed::AlignStatic(
 	idx_t local_l_lim[PE_NUM];
 	idx_t local_u_lim[PE_NUM];
 	bool col_pred[PE_NUM];
+
+#pragma HLS array_partition variable = local_query type = complete
+#pragma HLS array_partition variable = local_l_lim type = complete
+#pragma HLS array_partition variable = local_u_lim type = complete
+#pragma HLS array_partition variable = col_pred type = complete
 
 	idx_t p_col_offset = 0;
 	idx_t p_col = 0;
@@ -593,7 +595,6 @@ Iterating_Chunks:
 			i
 		); // Prepare the local query and the local column scores
 		
-
 		Align::Fixed::ChunkCompute(
 			i,
 			local_query,
