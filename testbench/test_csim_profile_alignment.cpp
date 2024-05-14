@@ -9,8 +9,8 @@
 
 // Define length of actual alignment sequences
 // 88 to 89 result in error 
-#define TEST_QUERY_LENGTH 190
-#define TEST_REFERENCE_LENGTH 200
+#define TEST_QUERY_LENGTH 256
+#define TEST_REFERENCE_LENGTH 256
 
 #undef TESTBENCH_PRINT_SCORES
 
@@ -106,15 +106,15 @@ int main() {
     std::cout << std::endl;
 
     // Allocate the buffer to hold the input and output of the kernel
-    char_t query_b[N_BLOCKS][MAX_QUERY_LENGTH];
-    char_t reference_b[N_BLOCKS][MAX_REFERENCE_LENGTH];
+    char_t query_b[MAX_QUERY_LENGTH][N_BLOCKS];
+    char_t reference_b[MAX_REFERENCE_LENGTH][N_BLOCKS];
     idx_t qry_len_b[N_BLOCKS];
     idx_t ref_len_b[N_BLOCKS];
 
 
     Penalties penalties_b[N_BLOCKS];
     idx_t tb_is_b[N_BLOCKS], tb_js_b[N_BLOCKS];
-    tbr_t tb_streams_b[N_BLOCKS][MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH];
+    tbr_t tb_streams_b[MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH][N_BLOCKS];
 
     // Copy the generated sequences to the buffer
     for (int b = 0; b < N_BLOCKS; b++){
@@ -148,11 +148,17 @@ int main() {
         penalties_b[i].linear_gap = penalties_sol.linear_gap;
     }
 
+#ifdef CMAKEDEBUG
     // initialize a dummy debugger
     Container debugger[N_BLOCKS];
+#endif
 
     // Call the kernel
+#ifdef CMAKEDEBUG
     seq_align_multiple_static(query_b, reference_b, qry_len_b, ref_len_b, penalties_b, tb_is_b, tb_js_b, tb_streams_b, debugger);
+#else
+    seq_align_multiple_static(query_b, reference_b, qry_len_b, ref_len_b, penalties_b, tb_is_b, tb_js_b, tb_streams_b);
+#endif
     // print the result traceback
     std::cout << "Result Traceback: " << std::endl;
     for (int i = 0; i < N_BLOCKS; i++) {
