@@ -13,7 +13,7 @@
 #define ALIGN_TYPE BandingGlobalLinear
 #define N_BLOCKS 1
 #define N_LAYERS 1
-const int PE_NUM = 2;
+const int PE_NUM = 4;
 #define LAYER_MAXIMIUM 0  // We need to indicate from which layer (main matrix) is the maximum score stored.
 
 #define BANDING FIXED
