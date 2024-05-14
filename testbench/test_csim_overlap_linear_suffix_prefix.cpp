@@ -10,8 +10,8 @@
 
 using namespace std;
 
-#define INPUT_QUERY_LENGTH 120
-#define INPUT_REFERENCE_LENGTH 125
+#define INPUT_QUERY_LENGTH 256
+#define INPUT_REFERENCE_LENGTH 256
 
 char_t base_to_num(char base)
 {
@@ -43,14 +43,12 @@ struct Penalties_sol
 
 
 int main(){
-    // std::string query_string = "AGTCTG";     // CCGTAGACCCGAACTTCGCGGTACACCTTCTGAAACCGTCCCTAATCCGACGAGCGCCTTGAGAACG";
-    // std::string reference_string = "TGCCGAT";       // TGAGAACGTAGTCTAGGCGAATCGGCCCTTGTATATCGGGGCCGTAGACCCGAACTTCGCGGTACAC";
     char alphabet[4] = {'A', 'T', 'G', 'C'};
-    // std::string query_string = Random::Sequence<4>(alphabet, INPUT_QUERY_LENGTH);
-    // std::string reference_string = Random::Sequence<4>(alphabet, INPUT_REFERENCE_LENGTH);
+    std::string query_string = Random::Sequence<4>(alphabet, INPUT_QUERY_LENGTH);
+    std::string reference_string = Random::Sequence<4>(alphabet, INPUT_REFERENCE_LENGTH);
 
-    std::string query_string = "GACTGACGTGCTGCTGCTGCTGCTCAGTCCAGGTCAGTCGACTCGACTGACGTGCTGCTGCTGGCTAGCTGCTCAGTCCAGGTCAGTCGACTCGACTGACGTGCTGCTGCTGCTGCT";
-    std::string reference_string = "CAGTCCAGGTCAGTCGACTCGACTGACGTGCTGCTGCTGCTGCTCAGTCACCTTCAGGTCAGTCGACTCGACTGACGTGCTGCTGCTGCTGCTCAGTCCAGGTCAGTCGACTCGAC";
+    // std::string query_string = "GACTGACGTGCTGCTGCTGCTGCTCAGTCCAGGTCAGTCGACTCGACTGACGTGCTGCTGCTGGCTAGCTGCTCAGTCCAGGTCAGTCGACTCGACTGACGTGCTGCTGCTGCTGCT";
+    // std::string reference_string = "CAGTCCAGGTCAGTCGACTCGACTGACGTGCTGCTGCTGCTGCTCAGTCACCTTCAGGTCAGTCGACTCGACTGACGTGCTGCTGCTGCTGCTCAGTCCAGGTCAGTCGACTCGAC";
 
     // Struct for Penalties in kernel
     Penalties penalties[N_BLOCKS];

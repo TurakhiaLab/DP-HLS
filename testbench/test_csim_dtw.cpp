@@ -10,7 +10,7 @@
 #include "solutions.h"
 
 
-#define TEST_QUERY_SIZE 250
+#define TEST_QUERY_SIZE 256
 #define TEST_REFERENCE_SIZE 256
 
 struct Penalties_sol
