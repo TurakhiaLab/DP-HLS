@@ -231,9 +231,9 @@ void Align::UpdateDPMemSep(
 
 void Align::PrepareScoreBuffer(
 	score_vec_t (&score_buff)[PE_NUM + 1],
-	int i,
-	chunk_col_scores_inf_t(&init_col_scr),
-	score_vec_t (&init_row_scr)[MAX_REFERENCE_LENGTH])
+	const idx_t i,
+	const chunk_col_scores_inf_t(&init_col_scr),
+	const score_vec_t (&init_row_scr)[MAX_REFERENCE_LENGTH])
 {
 	if (i < MAX_REFERENCE_LENGTH)
 	{ // FIXME: Actually this could also be actual_reference_length
@@ -352,8 +352,8 @@ void Align::ChunkMax(ScorePack &max, ScorePack new_scr)
 void Align::Rectangular::AlignStatic(
 	const char_t (&query)[MAX_QUERY_LENGTH],
 	const char_t (&reference)[MAX_REFERENCE_LENGTH],
-	idx_t query_length,
-	idx_t reference_length,
+	const idx_t query_length,
+	const idx_t reference_length,
 	const Penalties &penalties,
 	idx_t &tb_i, idx_t &tb_j,
 	tbr_t (&tb_out)[MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH]
@@ -369,13 +369,11 @@ void Align::Rectangular::AlignStatic(
 	// >>> Initialization >>>
 	score_vec_t init_col_score[MAX_QUERY_LENGTH];
 	score_vec_t init_row_score[MAX_REFERENCE_LENGTH];
-	static_assert(MAX_QUERY_LENGTH % PE_NUM == 0, "MAX_QUERY_LENGTH must divide PE_NUM, compilation terminated!");
 	tbp_t tbp_matrix[PE_NUM][TBMEM_SIZE];
 	bool col_pred[PE_NUM];
 
 
 #pragma HLS bind_storage variable = init_row_score type = ram_t2p impl = bram
-//#pragma HLS bind_storage variable = init_col_score type = ram_1p impl = bram
 #pragma HLS array_partition variable = tbp_matrix type = cyclic factor = PRAGMA_PE_NUM dim = 1
 
 #ifdef CMAKEDEBUG
@@ -389,8 +387,6 @@ void Align::Rectangular::AlignStatic(
 	}
 #endif
 
-	// Those are used to iterate through the memory during the score computation
-//    hls::vector<idx_t, PE_NUM> p_cols;
     idx_t p_cols;
 
 	// Declare and initialize maximum scores.
@@ -500,10 +496,10 @@ void Align::UpdateDPMemSet(dp_mem_block_t &dp_mem, idx_t i, chunk_col_scores_inf
 }
 
 void Align::Fixed::AlignStatic(
-	char_t (&query)[MAX_QUERY_LENGTH],
-	char_t (&reference)[MAX_REFERENCE_LENGTH],
-	idx_t query_length,
-	idx_t reference_length,
+	const char_t (&query)[MAX_QUERY_LENGTH],
+	const char_t (&reference)[MAX_REFERENCE_LENGTH],
+	const idx_t query_length,
+	const idx_t reference_length,
 	const Penalties &penalties,
 	idx_t &tb_i, idx_t &tb_j,
 	tbr_t (&tb_out)[MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH]
@@ -513,6 +509,7 @@ void Align::Fixed::AlignStatic(
 #endif
 ){
 
+// This is to make this function compilable if in rectangular banding and BANDWIDTH not defined. 
 #ifndef  BANDWIDTH
 #define  BANDWIDTH 0
 #endif
@@ -520,7 +517,6 @@ void Align::Fixed::AlignStatic(
 	// >>> Initialization >>>
 	score_vec_t init_col_score[MAX_QUERY_LENGTH];
 	score_vec_t init_row_score[MAX_REFERENCE_LENGTH];
-	static_assert(MAX_QUERY_LENGTH % PE_NUM == 0, "MAX_QUERY_LENGTH must divide PE_NUM, compilation terminated!");
 	tbp_t tbp_matrix[PE_NUM][TBMEM_SIZE];
 
 #ifdef CMAKEDEBUG
@@ -535,46 +531,27 @@ void Align::Fixed::AlignStatic(
 #endif
 
 #pragma HLS array_partition variable = tbp_matrix type = cyclic factor = PRAGMA_PE_NUM dim = 1
-
-	// Those are used to iterate through the memory during the score computation
-	idx_t v_rows[PE_NUM];
-	idx_t v_cols[PE_NUM];
-	idx_t p_cols[PE_NUM];
-
-#pragma HLS array_partition variable = v_rows type = complete
-#pragma HLS array_partition variable = v_cols type = complete
 #pragma HLS array_partition variable = p_cols type = complete
 
-	// Thos are used to retrive the traceback informations
-	idx_t p_col_offsets[MAX_QUERY_LENGTH / PE_NUM + 1]; // In which column in the physicla memory starts the chunk.
-	idx_t ck_start_col[MAX_QUERY_LENGTH / PE_NUM];		// Virtual column index of each chunk
-	idx_t ck_end_col[MAX_QUERY_LENGTH / PE_NUM];		// Virtual column index of each chunk
+	idx_t l_lims[MAX_QUERY_LENGTH], u_lims[MAX_QUERY_LENGTH];
+#pragma HLS bind_storage variable = l_lims type = ram_1p impl = bram
+#pragma HLS bind_storage variable = u_lims type = ram_1p impl = bram
 
-	idx_t l_lims[PE_NUM], u_lims[PE_NUM];
-#pragma HLS array_partition variable = l_lims type = complete
-#pragma HLS array_partition variable = u_lims type = complete
+	Align::Fixed::PrecomputeLowerLimits<idx_t, MAX_QUERY_LENGTH, BANDWIDTH>(l_lims);
+	Align::Fixed::PrecomputeUpperLimits<idx_t, MAX_QUERY_LENGTH, BANDWIDTH>(u_lims, reference_length);
 
-	Utils::Array::CoordinateInitializeUniform<idx_t, PE_NUM>(l_lims, -BANDWIDTH);
-	Utils::Array::CoordinateInitializeUniform<idx_t, PE_NUM>(u_lims, BANDWIDTH - 1);
-
-	idx_t cnt = -BANDWIDTH;
-	Initialize_ck_start_col:
-	for (int i = 0; i < MAX_QUERY_LENGTH / PE_NUM; i++)
-	{
-		ck_start_col[i] = cnt > 0? cnt : 0;
-		cnt += PE_NUM;
+#ifdef CMAKEDEBUG
+	// print l_lims and u_lims
+	std::cout << "Lower limits: ";
+	for (int j = 0; j < MAX_QUERY_LENGTH; j++) {
+		std::cout << l_lims[j] << " ";
 	}
-	cnt = BANDWIDTH + PE_NUM - 2;
-	Initialize_ck_end_col:
-	for (int i = 0; i < MAX_QUERY_LENGTH / PE_NUM; i++)
-	{
-		ck_end_col[i] = cnt < reference_length - 1 ? cnt : reference_length - 1;
-		cnt += PE_NUM;
+	std::cout << endl << "Upper limits: ";
+	for (int j = 0; j < MAX_QUERY_LENGTH; j++) {
+		std::cout << u_lims[j] << " ";
 	}
-
-	p_col_offsets[0] = 0; // Initialize the physical column position of the very first chunk to be 0
-
-	Align::CoordinateInitializeUniform(v_rows, 0);	 // Initialize the row coordinates of each PE
+	std::cout << endl;
+#endif
 
 	// Declare and initialize maximum scores.
 	ScorePack maximum;
@@ -588,32 +565,44 @@ void Align::Fixed::AlignStatic(
 	char_t local_query[PE_NUM];
 	chunk_col_scores_inf_t local_init_col_score;
 	local_init_col_score[PE_NUM] = score_vec_t(0); // Always initialize the upper left cornor to 0
+	idx_t local_l_lim[PE_NUM];
+	idx_t local_u_lim[PE_NUM];
+	bool col_pred[PE_NUM];
+
+	idx_t p_col_offset = 0;
+	idx_t p_col = 0;
+	idx_t p_cols_internal_offset = BANDWIDTH;
 
 Iterating_Chunks:
 	for (idx_t i = 0, ic = 0; i < query_length; i += PE_NUM, ic++)
 	{
 		idx_t local_query_length = ((idx_t)PE_NUM < query_length - i) ? (idx_t)PE_NUM : (idx_t)(query_length - i);
 
-		// Align::PrepareLocalQuery(query, local_query, i, local_query_length); // FIXME: Why not coping rest of the query
-		// Align::CopyColScore(local_init_col_score, init_col_score, i);		 // Copy the scores
+		p_col = p_cols_internal_offset + p_col_offset;
+		p_cols_internal_offset = p_cols_internal_offset - PE_NUM > 0 ? p_cols_internal_offset - PE_NUM : 0;
 
-		// Align::PrepareLocals<PE_NUM>(query, local_query, init_col_score, local_init_col_score, i); // Prepare the local query and the local column scores
-
-		Align::CoordinateInitializeUniformReverse(p_cols, p_col_offsets[ic]); // Initialize physical columns to write to for each PE.
-		Align::CoordinateInitializeUniformReverse(v_cols, ck_start_col[ic]);  // Initialize the column coordinates of each PE
+		Align::Fixed::PrepareLocals<PE_NUM, MAX_QUERY_LENGTH>(
+			query,
+			init_col_score,
+			l_lims, u_lims,
+			local_query,
+			local_init_col_score,
+			local_l_lim, local_u_lim,
+			col_pred,
+			local_query_length,
+			i
+		); // Prepare the local query and the local column scores
+		
 
 		Align::Fixed::ChunkCompute(
 			i,
-			ck_start_col[ic],
-			ck_end_col[ic],
 			local_query,
 			reference,
 			local_init_col_score,
 			init_row_score,
-			v_rows, v_cols,
-			p_cols, ic,
-			l_lims, u_lims,
-			query_length,
+			p_col, ic,
+			local_l_lim, local_u_lim, col_pred,
+			query_length, reference_length,
 			penalties,
 			local_max,
 			tbp_matrix
@@ -624,12 +613,7 @@ Iterating_Chunks:
 		);
 
 		// Set the physical column offsets for the next chunk
-		p_col_offsets[ic + 1] = p_col_offsets[ic] + (ck_end_col[ic] - ck_start_col[ic] + 1);
-
-		// Offset the virtual row number
-		Align::CoordinateArrayOffsetGeneric<PE_NUM, PE_NUM>(v_rows);
-		Align::CoordinateArrayOffsetGeneric<PE_NUM, PE_NUM>(l_lims);
-		Align::CoordinateArrayOffsetGeneric<PE_NUM, PE_NUM>(u_lims);
+		p_col_offset += TB_CHUNK_WIDTH;
 	}
 
     idx_t max_pe = 0;
@@ -637,29 +621,30 @@ Iterating_Chunks:
 
     // >>> Traceback >>>
     tb_i = maximum.ck * PE_NUM + max_pe;
-    tb_j = maximum.p_col - maximum.ck * MAX_REFERENCE_LENGTH;
+    tb_j = maximum.p_col - (maximum.ck) * TB_CHUNK_WIDTH - max_pe + l_lims[maximum.ck * PE_NUM];
 
 #ifdef CMAKEDEBUG
     // print tracevack start idx
-    cout << "Traceback start idx: " << tb_i << " " << tb_j << endl;
-    cout << "Traceback start idx physical: " << max_pe << " " << maximum.p_col << endl;
+    std::cout << "Traceback start idx: " << maximum.ck << " "<< tb_i << " " << tb_j << endl;
+    std::cout << "Traceback start idx physical: " << max_pe << " " << maximum.p_col << endl;
 #endif
 
-    Traceback::TracebackFixedSize<MAX_REFERENCE_LENGTH>(tbp_matrix, tb_out, maximum.ck, max_pe, maximum.p_col, tb_i, tb_j);
+    Traceback::TracebackFixedSize<2 * BANDWIDTH - 1>(tbp_matrix, tb_out, maximum.ck, max_pe, maximum.p_col, tb_i, tb_j);
+#ifdef CMAKEDEBUG
+	std::cout << "Traceback done" << std::endl;
+#endif
 }
 
 void Align::Fixed::ChunkCompute(
-	idx_t chunk_row_offset,
-	idx_t chunk_start_col,
-	idx_t chunk_end_col,
-	input_char_block_t &local_query,
-	char_t (&reference)[MAX_REFERENCE_LENGTH],
-	chunk_col_scores_inf_t &init_col_scr,
+	const idx_t chunk_row_offset,
+	const input_char_block_t &local_query,
+	const char_t (&reference)[MAX_REFERENCE_LENGTH],
+	const chunk_col_scores_inf_t &init_col_scr,
 	score_vec_t (&init_row_scr)[MAX_REFERENCE_LENGTH],
-	idx_t (&v_rows)[PE_NUM], idx_t (&v_cols)[PE_NUM],
-	idx_t (&p_cols)[PE_NUM], idx_t ck_idx,
-	idx_t (&l_lim)[PE_NUM], idx_t (&u_lim)[PE_NUM],
-	int global_query_length,
+	idx_t p_cols, const idx_t ck_idx,
+	const idx_t (&local_l_lim)[PE_NUM], const idx_t (&local_u_lim)[PE_NUM],
+	const bool (&col_pred)[PE_NUM],
+	const idx_t global_query_length, const idx_t reference_length,
 	const Penalties &penalties,
 	ScorePack (&max)[PE_NUM], // write out so must pass by reference
 	tbp_t (&chunk_tbp_out)[PE_NUM][TBMEM_SIZE]
@@ -667,7 +652,21 @@ void Align::Fixed::ChunkCompute(
 	,
 	Container &debugger
 #endif
-){
+		){
+
+#ifdef CMAKEDEBUG
+	std::cout << "Started Chunk: " << ck_idx << std::endl;
+	// print local l lim and local u lim
+	std::cout << "Local Lower limits: ";
+	for (int j = 0; j < PE_NUM; j++) {
+		std::cout << local_l_lim[j] << " ";
+	}
+	std::cout << endl << "Local Upper limits: ";
+	for (int j = 0; j < PE_NUM; j++) {
+		std::cout << local_u_lim[j] << " ";
+	}
+	std::cout << endl;
+#endif
 
 	bool predicate[PE_NUM];
 	Utils::Init::ArrSet<bool, PE_NUM>(predicate, false);
@@ -684,7 +683,11 @@ void Align::Fixed::ChunkCompute(
 #pragma HLS array_partition variable = tbp_out type = complete
 #pragma HLS array_partition variable = score_buff type = complete
 
-	dp_mem[0][0] = chunk_start_col > 0? init_row_scr[chunk_start_col-1] : init_col_scr[0];
+	const idx_t chunk_start_col = local_l_lim[0];
+	const idx_t chunk_end_col = local_u_lim[PE_NUM - 1];
+
+	// Set the upper left corner cell of the chunk, depending whether it's the first chunk. 
+	dp_mem[0][0] = local_l_lim[0] > 0 ? init_row_scr[local_l_lim[0]-1] : init_col_scr[0];
 
 Iterating_Wavefronts:
 	for (int i = chunk_start_col; i < chunk_end_col + PE_NUM; i++)
@@ -702,11 +705,19 @@ Iterating_Wavefronts:
 	}
 #endif
 
-		Align::Fixed::MapPredicate(v_rows, v_cols, l_lim, u_lim, chunk_start_col, chunk_end_col, global_query_length, predicate);
+		Align::Fixed::MapPredicate(local_l_lim, local_u_lim, i, col_pred, predicate);
+#ifdef CMAKEDEBUG
+	// print predicate
+	std::cout << "Predicate: ";
+	for (int j = 0; j < PE_NUM; j++)
+	{
+		std::cout << predicate[j];
+	}
+	std::cout << endl;
+#endif
 
 		// Align::ShiftReference(local_reference, reference, i, chunk_end_col);
 		Utils::Array::ShiftRight<char_t, PE_NUM>(local_reference, i < MAX_REFERENCE_LENGTH ? reference[i] : ZERO_CHAR);
-
 
 		Align::PrepareScoreBuffer(score_buff, i, init_col_scr, init_row_scr);
 		Align::UpdateDPMemSep(dp_mem, score_buff);
@@ -715,13 +726,13 @@ Iterating_Wavefronts:
 			dp_mem,
 			local_query,
 			local_reference,
-			v_cols,
-			l_lim, u_lim,
+			i, 
+			local_l_lim, local_u_lim,
 			penalties,
 			score_buff,
 			tbp_out);
 
-//		Align::ArrangeTBP(tbp_out, p_cols, predicate, chunk_tbp_out);
+		Align::ArrangeTBP(tbp_out, p_cols, predicate, chunk_tbp_out);
 
 #ifdef CMAKEDEBUG
 		for (int j = 0; j < PE_NUM; j++)
@@ -737,23 +748,22 @@ Iterating_Wavefronts:
 			init_row_scr,
 			score_buff[PE_NUM], // score_buff is of the length PE_NUM+1
 			predicate[PE_NUM - 1],
-			v_cols[PE_NUM - 1]);
+			i - PE_NUM + 1);
 
-//		ALIGN_TYPE::UpdatePEMaximum(score_buff, max, p_cols,
-//									predicate, global_query_length, chunk_end_col);
-		Align::CoordinateArrayOffset<PE_NUM>(v_cols);
-		Align::CoordinateArrayOffset<PE_NUM>(p_cols);
+		ALIGN_TYPE::UpdatePEMaximum(score_buff, max, chunk_row_offset, i, p_cols,
+									ck_idx, predicate, global_query_length, reference_length);
+		p_cols++;
 	}
 }
 
 
 void Align::Fixed::MapPredicate(
-	idx_t (&ics)[PE_NUM], idx_t (&jcs)[PE_NUM],
-	idx_t (&l_lim)[PE_NUM], idx_t (&u_lim)[PE_NUM],
-	const idx_t ck_start_col, idx_t ck_end_col, idx_t query_length,
+	const idx_t (&local_l_lim)[PE_NUM], const idx_t (&local_u_lim)[PE_NUM],
+	const idx_t wf_i, const bool (&col_pred)[PE_NUM],
 	bool (&predicate)[PE_NUM]){
 		for (int i = 0; i < PE_NUM; i++)
 		{
-			predicate[i] = (jcs[i] >= l_lim[i]) && (jcs[i] >= ck_start_col) && (jcs[i] <= ck_end_col) && (jcs[i] <= u_lim[i]) && (ics[i] < query_length);
+			idx_t col = wf_i - i;
+			predicate[i] = col_pred[i] && (col >= local_l_lim[i]) && (col <= local_u_lim[i]);
 		}
 	}

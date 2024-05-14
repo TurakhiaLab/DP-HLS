@@ -13,29 +13,28 @@
 #include <list>
 #endif // DEBUG
 
+namespace PE
+{
 
-
-namespace PE {
-    
     /**
-     * @brief Unrolls the array of PE. 
-     * 
+     * @brief Unrolls the array of PE.
+     *
      * @param dp_mem DP Memory of Three Wavefronts
      * @param qry Local Query
      * @param ref Local Reference
      * @param penalties Penalties
      * @param tbp Traceback Pointer Out
      */
-	void PEUnroll(score_vec_t (&dp_mem)[PE_NUM + 1][3],
-        const input_char_block_t qry,
-        const input_char_block_t ref, 
-        const Penalties penalties, 
-        tbp_vec_t &tbp);
+    void PEUnroll(score_vec_t (&dp_mem)[PE_NUM + 1][3],
+                  const input_char_block_t qry,
+                  const input_char_block_t ref,
+                  const Penalties penalties,
+                  tbp_vec_t &tbp);
 
     /**
-     * @brief Unrolls the array of PE, saparating the score input buffer and the score 
-     * output buffer. 
-     * 
+     * @brief Unrolls the array of PE, saparating the score input buffer and the score
+     * output buffer.
+     *
      * @param dp_mem DP Memory of Three Wavefronts
      * @param qry Local Query
      * @param ref Local Reference
@@ -46,15 +45,15 @@ namespace PE {
     void PEUnrollSep(
         dp_mem_block_t &dp_mem,
         const input_char_block_t &qry,
-        const input_char_block_t &ref, 
-        const Penalties penalties, 
+        const input_char_block_t &ref,
+        const Penalties penalties,
         wavefront_scores_inf_t &score,
         tbp_vec_t &tbp);
 
     /**
-     * @brief Unrolls the array of PE, saparating the score input buffer and the score 
-     * output buffer. 
-     * 
+     * @brief Unrolls the array of PE, saparating the score input buffer and the score
+     * output buffer.
+     *
      * @param dp_mem DP Memory of Three Wavefronts
      * @param qry Local Query
      * @param ref Local Reference
@@ -66,15 +65,14 @@ namespace PE {
         dp_mem_block_t &dp_mem,
         const input_char_block_t &qry,
         const input_char_block_t &ref,
-        idx_t (&v_cols)[PE_NUM],
-        idx_t (&l_lim)[PE_NUM], idx_t (&u_lim)[PE_NUM], 
-        const Penalties penalties, 
+        const idx_t wavefront,
+        const idx_t (&l_lim)[PE_NUM], const idx_t (&u_lim)[PE_NUM],
+        const Penalties penalties,
         wavefront_scores_inf_t &score,
         tbp_vec_t &tbp);
 
 }
 
- 
 #endif // !PE_H
 
 // Static data members are shared by all instances of a class.

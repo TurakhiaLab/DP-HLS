@@ -180,7 +180,7 @@ namespace Utils
 		}
 
 		/**
-		 * @brief Global alignment start the traceback at the bottom right corner of the score matrix. 
+		 * @brief ONLY FOR RECTANGULAR KERNEL Global alignment start the traceback at the bottom right corner of the score matrix. 
 		 * Given the query and reference length, the traceback physical address can be determined before 
 		 * the score matri iteration. Thus, this function takes the ScorePack array, according to the
 		 * query and reference legnth, to set the traceback starting PE's ScorePack with INF and corresponding

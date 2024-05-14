@@ -7,6 +7,7 @@
 #include "params.h"
 #include "seq_align_multiple.h"
 #include "host_utils.h"
+#include "dp_hls_common.h"
 #include "solutions.h"
 #include "debug.h"
 
@@ -43,8 +44,6 @@ char_t base_to_num(char base)
 
 struct Penalties_sol
 {
-    float extend;
-    float open;
     float linear_gap;
     float match;
     float mismatch;
@@ -65,20 +64,16 @@ int main(){
 
     Penalties penalties[N_BLOCKS];
     for (int i = 0; i < N_BLOCKS; i++){
-        penalties[i].extend = -1;
-        penalties[i].open = -1;
         penalties[i].linear_gap = -1;
         penalties[i].match = 3;
-        penalties[i].mismatch = -1;
+        penalties[i].mismatch = -2;
     }
 
     Penalties_sol penalties_sol[N_BLOCKS];
     for (Penalties_sol &penalty : penalties_sol) {
-        penalty.extend = -1;
-        penalty.open = -1;
         penalty.linear_gap = -1;
         penalty.match = 3;
-        penalty.mismatch = -1;
+        penalty.mismatch = -2;
     }
 
 
@@ -101,8 +96,8 @@ int main(){
         throw;
     }
 
-    char_t reference_buff[N_BLOCKS][MAX_REFERENCE_LENGTH];
-    char_t query_buff[N_BLOCKS][MAX_QUERY_LENGTH];
+    char_t reference_buff[MAX_REFERENCE_LENGTH][N_BLOCKS];
+    char_t query_buff[MAX_QUERY_LENGTH][N_BLOCKS];
 
     idx_t qry_lengths[N_BLOCKS], ref_lengths[N_BLOCKS];
 
@@ -113,11 +108,11 @@ int main(){
     {
         for (int i = 0; i < query.size(); i++)
         {
-            query_buff[b][i] = base_to_num(query[i]);
+            query_buff[i][b] = base_to_num(query[i]);
         }
         for (int i = 0; i < reference.size(); i++)
         {
-            reference_buff[b][i] = base_to_num(reference[i]);
+            reference_buff[i][b] = base_to_num(reference[i]);
         }
     }
 
@@ -127,7 +122,9 @@ int main(){
         ref_lengths[b] = reference.size();
     }
 
-    tbr_t tb_streams[N_BLOCKS][MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH];
+    tbr_t tb_streams_d[MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH][N_BLOCKS];
+    tbr_t tb_streams_h[N_BLOCKS][MAX_QUERY_LENGTH + MAX_REFERENCE_LENGTH];
+
     // initialize traceback starting coordinates
     idx_t tb_is[N_BLOCKS];
     idx_t tb_js[N_BLOCKS];
@@ -140,7 +137,7 @@ int main(){
         ref_lengths,
         penalties,
         tb_is, tb_js,
-        tb_streams
+        tb_streams_d
 #ifdef CMAKEDEBUG
         , debuggers
 #endif
@@ -154,7 +151,7 @@ int main(){
         debug_file << "Block " << b << " Orginal Traceback Pointers" << endl;
         for (int i = 0; i < tb_is[b] + tb_js[b]; i++)
         {
-            debug_file << tbp_to_char(tb_streams[b][i]);
+            debug_file << tbp_to_char(tb_streams_d[i][b]);
         }
         debug_file << endl;
     }
@@ -190,18 +187,24 @@ int main(){
         query_string_blocks[i] = query_string;
         reference_string_blocks[i] = reference_string;
     }
+    HostUtils::IO::SwitchDimension(tb_streams_d, tb_streams_h);
     kernel_alignments = HostUtils::Sequence::ReconstructTracebackBlocks<tbr_t, N_BLOCKS, MAX_QUERY_LENGTH, MAX_REFERENCE_LENGTH>(
         query_string_blocks, reference_string_blocks,
         tb_query_lengths, tb_reference_lengths, 
-        tb_streams);
+        tb_streams_h);
     // Print kernel 0 traceback
-    debug_file << "Kernel 0 Traceback" << endl;
-    debug_file << "Kernel Aligned Query    : " << kernel_alignments[0]["query"] << endl;
-    debug_file << "Kernel Aligned Reference: " << kernel_alignments[0]["reference"] << endl;
+    for (int i = 0; i < N_BLOCKS; i++){
+        debug_file << "Kernel: " << i << " Traceback" << endl;
+        debug_file << "Kernel Aligned Query      : " << kernel_alignments[i]["query"] << endl;
+        debug_file << "Kernel Aligned Reference  : " << kernel_alignments[i]["reference"] << endl;
+    }
 
     // print out the scores
     // print_matrix<float, MAX_QUERY_LENGTH, MAX_REFERENCE_LENGTH>(scores_sol[k], "Solution Score Matrix, Layer: " + std::to_string(k));
     fprint_matrix<float, MAX_QUERY_LENGTH, MAX_REFERENCE_LENGTH>(debug_file, sol_score_mat[0], query_string, reference_string, "Solution Score Matrix, Layer: " + std::to_string(0));
     fprint_matrix<float, MAX_QUERY_LENGTH, MAX_REFERENCE_LENGTH>(debug_file, debuggers->scores_cpp[0], query_string, reference_string, "Kernel Score Matrix, Layer: " + std::to_string(0));
+    // print traceback pointer matrices
+    fprint_matrix<char, MAX_QUERY_LENGTH, MAX_REFERENCE_LENGTH>(debug_file, sol_tb_mat, "Solution Traceback Matrix, Layer: " + std::to_string(0));
+    
     return 0;
 }

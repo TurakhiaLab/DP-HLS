@@ -73,8 +73,8 @@ void PE::PEUnrollFixedSep(
     dp_mem_block_t &dp_mem,
     const input_char_block_t &qry,
     const input_char_block_t &ref,
-    idx_t (&v_cols)[PE_NUM],
-    idx_t (&l_lim)[PE_NUM], idx_t (&u_lim)[PE_NUM], 
+    const idx_t wavefront, 
+    const idx_t (&l_lim)[PE_NUM], const idx_t (&u_lim)[PE_NUM], 
     const Penalties penalties, 
     wavefront_scores_inf_t &score,
     tbp_vec_t &tbp){
@@ -82,7 +82,7 @@ void PE::PEUnrollFixedSep(
 #pragma HLS array_partition variable = dp_mem dim = 0 type = complete
 #pragma HLS array_partition variable = tbp type = complete
 #pragma HLS array_partition variable = score type = complete
-// up, diag, left
+
     for (int i = 0; i < PE_NUM; i++)
     {
 #pragma HLS unroll
@@ -90,10 +90,10 @@ void PE::PEUnrollFixedSep(
             qry[i],
             ref[i],
             // dp_mem[i][0], 
-            v_cols[i] == u_lim[i] ? score_vec_t(NINF) : dp_mem[i][0],
+            wavefront - i == u_lim[i] ? score_vec_t(NINF) : dp_mem[i][0],
             dp_mem[i][1],
             // dp_mem[i+1][0], 
-            v_cols[i] == l_lim[i] ? score_vec_t(NINF) : dp_mem[i+1][0],
+            wavefront - i == l_lim[i] ? score_vec_t(NINF) : dp_mem[i+1][0],
             penalties,
             score[i+1],
             tbp[i]);

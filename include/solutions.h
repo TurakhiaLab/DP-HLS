@@ -308,7 +308,7 @@ void fixed_banding_global_linear_solution(std::string query, std::string referen
     float upper_left_value = 0;
     for (int i = 0; i < SOL_MAX_QUERY_LENGTH; i++)
     {
-        upper_left_value += penalties.open; // since it was declared with type_t then convert back to int.
+        upper_left_value += penalties.linear_gap; // since it was declared with type_t then convert back to int.
         initial_col[i] = upper_left_value;
     }
 
@@ -316,7 +316,7 @@ void fixed_banding_global_linear_solution(std::string query, std::string referen
     upper_left_value = 0; // FIXME: This might to be initialized as 0
     for (int j = 0; j < SOL_MAX_REFERENCE_LENGTH; j++)
     {
-        upper_left_value += penalties.open; // since it was declared with type_t then convert back to int.
+        upper_left_value += penalties.linear_gap; // since it was declared with type_t then convert back to int.
         initial_row[j] = upper_left_value;
     }
 
@@ -394,22 +394,21 @@ void fixed_banding_global_linear_solution(std::string query, std::string referen
             float d_score = scr_up + penalties.linear_gap;
             float i_score = scr_left + penalties.linear_gap;
 
-            float max_score = max(m_score, max(d_score, i_score));
+            float max_score = m_score;
+            tb_mat[i][j] = 'D';
+            if (max_score < i_score)
+            {
+                max_score = i_score;
+                tb_mat[i][j] = 'L';
+            }
+            if (max_score < d_score)
+            {
+                max_score = d_score;
+                tb_mat[i][j] = 'U';
+            }
+
             score_mat[0][i][j] = max_score;
 
-            // Choose the maximum score and update the traceback matrix
-            if (max_score == m_score)
-            {
-                tb_mat[i][j] = 'D'; // 'D' indicates a diagonal direction (match or mismatch)
-            }
-            else if (max_score == d_score)
-            {
-                tb_mat[i][j] = 'U'; // 'U' indicates an up direction (deletion)
-            }
-            else
-            {
-                tb_mat[i][j] = 'L'; // 'L' indicates a left direction (insertion)
-            }
         }
     }
 
