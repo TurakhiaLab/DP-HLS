@@ -541,15 +541,15 @@ void Align::Fixed::AlignStatic(
 
 #ifdef CMAKEDEBUG
 	// print l_lims and u_lims
-	std::cout << "Lower limits: ";
-	for (int j = 0; j < MAX_QUERY_LENGTH; j++) {
-		std::cout << l_lims[j] << " ";
-	}
-	std::cout << endl << "Upper limits: ";
-	for (int j = 0; j < MAX_QUERY_LENGTH; j++) {
-		std::cout << u_lims[j] << " ";
-	}
-	std::cout << endl;
+	// std::cout << "Lower limits: ";
+	// for (int j = 0; j < MAX_QUERY_LENGTH; j++) {
+	// 	std::cout << l_lims[j] << " ";
+	// }
+	// std::cout << endl << "Upper limits: ";
+	// for (int j = 0; j < MAX_QUERY_LENGTH; j++) {
+	// 	std::cout << u_lims[j] << " ";
+	// }
+	// std::cout << endl;
 #endif
 
 	// Declare and initialize maximum scores.
@@ -656,17 +656,17 @@ void Align::Fixed::ChunkCompute(
 		){
 
 #ifdef CMAKEDEBUG
-	std::cout << "Started Chunk: " << ck_idx << std::endl;
-	// print local l lim and local u lim
-	std::cout << "Local Lower limits: ";
-	for (int j = 0; j < PE_NUM; j++) {
-		std::cout << local_l_lim[j] << " ";
-	}
-	std::cout << endl << "Local Upper limits: ";
-	for (int j = 0; j < PE_NUM; j++) {
-		std::cout << local_u_lim[j] << " ";
-	}
-	std::cout << endl;
+	// std::cout << "Started Chunk: " << ck_idx << std::endl;
+	// // print local l lim and local u lim
+	// std::cout << "Local Lower limits: ";
+	// for (int j = 0; j < PE_NUM; j++) {
+	// 	std::cout << local_l_lim[j] << " ";
+	// }
+	// std::cout << endl << "Local Upper limits: ";
+	// for (int j = 0; j < PE_NUM; j++) {
+	// 	std::cout << local_u_lim[j] << " ";
+	// }
+	// std::cout << endl;
 #endif
 
 	bool predicate[PE_NUM];
@@ -688,7 +688,7 @@ void Align::Fixed::ChunkCompute(
 	const idx_t chunk_end_col = local_u_lim[PE_NUM - 1];
 
 	// Set the upper left corner cell of the chunk, depending whether it's the first chunk. 
-	dp_mem[0][0] = local_l_lim[0] > 0 ? init_row_scr[local_l_lim[0]-1] : init_col_scr[0];
+	dp_mem[0][0] = local_l_lim[0] > 0 ? init_row_scr[chunk_start_col-1] : init_col_scr[0];
 
 Iterating_Wavefronts:
 	for (int i = chunk_start_col; i < chunk_end_col + PE_NUM; i++)
@@ -709,12 +709,12 @@ Iterating_Wavefronts:
 		Align::Fixed::MapPredicate(local_l_lim, local_u_lim, i, col_pred, predicate);
 #ifdef CMAKEDEBUG
 	// print predicate
-	std::cout << "Predicate: ";
-	for (int j = 0; j < PE_NUM; j++)
-	{
-		std::cout << predicate[j];
-	}
-	std::cout << endl;
+	// std::cout << "Predicate: ";
+	// for (int j = 0; j < PE_NUM; j++)
+	// {
+	// 	std::cout << predicate[j];
+	// }
+	// std::cout << endl;
 #endif
 
 		// Align::ShiftReference(local_reference, reference, i, chunk_end_col);

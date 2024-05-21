@@ -4,20 +4,20 @@
 #include <ap_fixed.h>
 #include <hls_vector.h>
 
-#define MAX_QUERY_LENGTH 16
-#define MAX_REFERENCE_LENGTH 16
+#define MAX_QUERY_LENGTH 256
+#define MAX_REFERENCE_LENGTH 256
 
-#define INPUT_QUERY_LENGTH 14
-#define INPUT_REFERENCE_LENGTH 15
+#define INPUT_QUERY_LENGTH 256
+#define INPUT_REFERENCE_LENGTH 256
 
 #define ALIGN_TYPE BandingGlobalLinear
 #define N_BLOCKS 1
 #define N_LAYERS 1
-const int PE_NUM = 4;
+const int PE_NUM = 5;
 #define LAYER_MAXIMIUM 0  // We need to indicate from which layer (main matrix) is the maximum score stored.
 
 #define BANDING FIXED
-#define BANDWIDTH 3
+#define BANDWIDTH 64
 
 // Primitive Types
 typedef ap_uint<2> char_t;  // Sequence Alphabet
@@ -39,7 +39,7 @@ typedef ap_uint<2> tbp_t;  // Traceback Pointer Type
 #define TB_UP (tbp_t) 0b11
 
 // Legacy Debugger Configuration
-#define DEBUG_OUTPUT_FILE "/home/centos/workspace/banding/DP-HLS/banding_global_linear_out.txt"
+#define DEBUG_OUTPUT_FILE "/home/centos/workspace/DP-HLS/banding_global_linear_out.txt"
 
 struct Penalties {
     type_t mismatch;

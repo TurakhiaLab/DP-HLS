@@ -86,6 +86,7 @@ void PE::PEUnrollFixedSep(
     for (int i = 0; i < PE_NUM; i++)
     {
 #pragma HLS unroll
+        // FIXME: I can probably fuse the predicate and feeding NINF logic here. 
         ALIGN_TYPE::PE::Compute(
             qry[i],
             ref[i],
@@ -108,6 +109,6 @@ void PE::PEUnrollFixedSep(
 #endif
     }
 #ifdef CMAKEDEBUG
-    printf("\n");
+    // printf("\n");
 #endif
 }
