@@ -70,11 +70,11 @@ void PE::PEUnrollSep(
 }
 
 void PE::PEUnrollFixedSep(
-    dp_mem_block_t &dp_mem,
-    const input_char_block_t &qry,
-    const input_char_block_t &ref,
-    const idx_t wavefront, 
-    const idx_t (&l_lim)[PE_NUM], const idx_t (&u_lim)[PE_NUM], 
+    const dp_mem_block_t dp_mem,
+    const input_char_block_t qry,
+    const input_char_block_t ref,
+    const bool entering, const bool exiting,
+    const idx_t entering_pe, const idx_t exiting_pe, 
     const Penalties penalties, 
     wavefront_scores_inf_t &score,
     tbp_vec_t &tbp){
@@ -90,11 +90,9 @@ void PE::PEUnrollFixedSep(
         ALIGN_TYPE::PE::Compute(
             qry[i],
             ref[i],
-            // dp_mem[i][0], 
-            wavefront - i == u_lim[i] ? score_vec_t(NINF) : dp_mem[i][0],
+            i == exiting_pe && exiting ? score_vec_t(NINF) : dp_mem[i][0],
             dp_mem[i][1],
-            // dp_mem[i+1][0], 
-            wavefront - i == l_lim[i] ? score_vec_t(NINF) : dp_mem[i+1][0],
+            i == entering_pe && entering ? score_vec_t(NINF) : dp_mem[i+1][0],
             penalties,
             score[i+1],
             tbp[i]);

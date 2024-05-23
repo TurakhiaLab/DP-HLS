@@ -4,20 +4,17 @@
 #include <ap_fixed.h>
 #include <hls_vector.h>
 
-#define MAX_QUERY_LENGTH 256
-#define MAX_REFERENCE_LENGTH 256
-
-#define INPUT_QUERY_LENGTH 256
-#define INPUT_REFERENCE_LENGTH 256
+#define MAX_QUERY_LENGTH 32
+#define MAX_REFERENCE_LENGTH 32
 
 #define ALIGN_TYPE BandingGlobalLinear
 #define N_BLOCKS 1
 #define N_LAYERS 1
-const int PE_NUM = 5;
+const int PE_NUM = 8;
 #define LAYER_MAXIMIUM 0  // We need to indicate from which layer (main matrix) is the maximum score stored.
 
 #define BANDING FIXED
-#define BANDWIDTH 64
+#define BANDWIDTH 10
 
 // Primitive Types
 typedef ap_uint<2> char_t;  // Sequence Alphabet

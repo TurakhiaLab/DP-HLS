@@ -11,8 +11,8 @@
 #include "solutions.h"
 #include "debug.h"
 
-#define INPUT_QUERY_LENGTH 256
-#define INPUT_REFERENCE_LENGTH 256
+#define INPUT_QUERY_LENGTH 32
+#define INPUT_REFERENCE_LENGTH 32
 
 using namespace std;
 
@@ -170,7 +170,7 @@ int main(){
 #ifdef CMAKEDEBUG
     // Print kernel 0 scores
     debuggers[0].cast_scores();
-    debuggers[0].compare_scores(sol_score_mat, query.size(), reference.size());
+    debuggers[0].compare_scores(sol_score_mat, query.size(), reference.size(), 0.1);
 #endif
 
 

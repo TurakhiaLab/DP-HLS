@@ -307,6 +307,7 @@ void Align::PreserveRowScore(
 
 void Align::FindMax::ReductionMaxScores(ScorePack (&packs)[PE_NUM], ScorePack &global_max, idx_t &max_pe)
 {
+	ReductionMax:
 	for (idx_t i = 0; i < PE_NUM; i++)
 	{
 		if (packs[i].score > packs[max_pe].score)
@@ -567,8 +568,6 @@ void Align::Fixed::AlignStatic(
 	bool col_pred[PE_NUM];
 
 #pragma HLS array_partition variable = local_query type = complete
-#pragma HLS array_partition variable = local_l_lim type = complete
-#pragma HLS array_partition variable = local_u_lim type = complete
 #pragma HLS array_partition variable = col_pred type = complete
 
 	idx_t p_col_offset = 0;
@@ -676,7 +675,7 @@ void Align::Fixed::ChunkCompute(
 	tbp_vec_t tbp_out;
 	dp_mem_block_t dp_mem;
 	score_vec_t score_buff[PE_NUM + 1];
-
+	
 #pragma HLS array_partition variable = predicate type = complete
 #pragma HLS array_partition variable = local_query type = complete
 #pragma HLS array_partition variable = local_reference type = complete
@@ -686,6 +685,11 @@ void Align::Fixed::ChunkCompute(
 
 	const idx_t chunk_start_col = local_l_lim[0];
 	const idx_t chunk_end_col = local_u_lim[PE_NUM - 1];
+
+	idx_t entering_pe = 0;
+	idx_t exiting_pe = 0;
+	bool entering = false;
+	bool exiting = false;
 
 	// Set the upper left corner cell of the chunk, depending whether it's the first chunk. 
 	dp_mem[0][0] = local_l_lim[0] > 0 ? init_row_scr[chunk_start_col-1] : init_col_scr[0];
@@ -706,18 +710,12 @@ Iterating_Wavefronts:
 	}
 #endif
 
-		Align::Fixed::MapPredicate(local_l_lim, local_u_lim, i, col_pred, predicate);
-#ifdef CMAKEDEBUG
-	// print predicate
-	// std::cout << "Predicate: ";
-	// for (int j = 0; j < PE_NUM; j++)
-	// {
-	// 	std::cout << predicate[j];
-	// }
-	// std::cout << endl;
-#endif
+		entering = (entering_pe < PE_NUM && local_l_lim[entering_pe] == i - entering_pe);
+		exiting = (exiting_pe < PE_NUM && local_u_lim[exiting_pe] == i - 1 - exiting_pe);
 
-		// Align::ShiftReference(local_reference, reference, i, chunk_end_col);
+		if (entering) predicate[entering_pe] = true;
+		if (exiting) predicate[exiting_pe] = false; 
+
 		Utils::Array::ShiftRight<char_t, PE_NUM>(local_reference, i < MAX_REFERENCE_LENGTH ? reference[i] : ZERO_CHAR);
 
 		Align::PrepareScoreBuffer(score_buff, i, init_col_scr, init_row_scr);
@@ -727,8 +725,8 @@ Iterating_Wavefronts:
 			dp_mem,
 			local_query,
 			local_reference,
-			i, 
-			local_l_lim, local_u_lim,
+			entering, exiting,
+			entering_pe, exiting_pe,
 			penalties,
 			score_buff,
 			tbp_out);
@@ -753,18 +751,20 @@ Iterating_Wavefronts:
 
 		ALIGN_TYPE::UpdatePEMaximum(score_buff, max, chunk_row_offset, i, p_cols,
 									ck_idx, predicate, global_query_length, reference_length);
+
 		p_cols++;
+		if (entering) entering_pe++;
+		if (exiting) exiting_pe++;
 	}
 }
 
 
 void Align::Fixed::MapPredicate(
 	const idx_t (&local_l_lim)[PE_NUM], const idx_t (&local_u_lim)[PE_NUM],
-	const idx_t wf_i, const bool (&col_pred)[PE_NUM],
+	const idx_t (&virtual_cols)[PE_NUM], const bool (&col_pred)[PE_NUM],
 	bool (&predicate)[PE_NUM]){
 		for (int i = 0; i < PE_NUM; i++)
 		{
-			idx_t col = wf_i - i;
-			predicate[i] = col_pred[i] && (col >= local_l_lim[i]) && (col <= local_u_lim[i]);
+			predicate[i] = col_pred[i] && (virtual_cols[i] >= local_l_lim[i]) && (virtual_cols[i] <= local_u_lim[i]);
 		}
 	}

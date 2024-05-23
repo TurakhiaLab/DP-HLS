@@ -345,6 +345,13 @@ void fixed_banding_global_linear_solution(std::string query, std::string referen
         ulim[i] = min(SOL_MAX_REFERENCE_LENGTH - 1, i + SOL_BANDWIDTH - 1);
     }
 
+    // print ulim
+    for (int i = 0; i < SOL_MAX_QUERY_LENGTH; i++) {
+        cout << ulim[i] << " ";
+
+    }
+    cout << endl;
+
     // Fill in the DP matrix and traceback matrix
     for (int i = 0; i < query.length(); i++)
     {
@@ -2593,7 +2600,7 @@ void global_two_piece_affine_solution(std::string query, std::string reference, 
 template <typename T, int M, int N>
 void print_matrix(array<array<T, N>, M> &mat, string name, std::set<std::tuple<int, int, int>> incorrect_coordinates, int layer_k)
 {
-    int width = 6;
+    int width = 2;
     cout << name << endl;
     for (int i = 0; i < M; i++)
     {

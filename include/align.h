@@ -376,7 +376,7 @@ namespace Align
 		 */
 		void MapPredicate(
 			const idx_t (&local_l_lim)[PE_NUM], const idx_t (&local_u_lim)[PE_NUM],
-			const idx_t ck_start_col, const bool (&col_pred)[PE_NUM],
+			const idx_t (&virtual_cols)[PE_NUM], const bool (&col_pred)[PE_NUM],
 			bool (&predicate)[PE_NUM]);
 
 		template <typename IDX_T, int MAX_QUERY_LENGTH_, int BANDWIDTH_>
@@ -408,6 +408,7 @@ namespace Align
 			bool (&col_pred)[PE_NUM_], const idx_t local_query_len,
 			const idx_t idx)
 		{
+			FixedBandingPrepareChunkLocals:
 			init_col_scr_local[0] = init_col_scr_local[PE_NUM_]; // backup the last element from previous chunk
 			for (int i = 0; i < PE_NUM_; i++)
 			{
