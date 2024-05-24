@@ -690,6 +690,12 @@ void Align::Fixed::ChunkCompute(
 	idx_t exiting_pe = 0;
 	bool entering = false;
 	bool exiting = false;
+	bool entering_shift[PE_NUM];
+	bool exiting_shift[PE_NUM];
+#pragma HLS array_partition variable = entering_shift type = complete
+#pragma HLS array_partition variable = exiting_shift type = complete
+	Utils::Init::ArrSet<bool, PE_NUM>(entering_shift, false);
+	Utils::Init::ArrSet<bool, PE_NUM>(exiting_shift, true);
 
 	// Set the upper left corner cell of the chunk, depending whether it's the first chunk. 
 	dp_mem[0][0] = local_l_lim[0] > 0 ? init_row_scr[chunk_start_col-1] : init_col_scr[0];
@@ -712,9 +718,17 @@ Iterating_Wavefronts:
 
 		entering = (entering_pe < PE_NUM && local_l_lim[entering_pe] == i - entering_pe);
 		exiting = (exiting_pe < PE_NUM && local_u_lim[exiting_pe] == i - 1 - exiting_pe);
+		if (entering) Utils::Array::ShiftRight<bool, PE_NUM>(entering_shift, true);
+		if (exiting) Utils::Array::ShiftRight<bool, PE_NUM>(exiting_shift, false);
+		
+		for (int j = 0; j < PE_NUM; j++)
+		{
+#pragma HLS unroll
+			predicate[j] = col_pred[j] && entering_shift[j] && exiting_shift[j];
+		}
 
-		if (entering) predicate[entering_pe] = true;
-		if (exiting) predicate[exiting_pe] = false; 
+		// if (entering) predicate[entering_pe] = true;
+		// if (exiting) predicate[exiting_pe] = false; 
 
 		Utils::Array::ShiftRight<char_t, PE_NUM>(local_reference, i < MAX_REFERENCE_LENGTH ? reference[i] : ZERO_CHAR);
 
