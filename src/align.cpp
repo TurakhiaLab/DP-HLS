@@ -732,6 +732,9 @@ Iterating_Wavefronts:
 
 		Utils::Array::ShiftRight<char_t, PE_NUM>(local_reference, i < MAX_REFERENCE_LENGTH ? reference[i] : ZERO_CHAR);
 
+		if (exiting) score_buff[exiting_pe] = score_vec_t(NINF);
+		if (entering) score_buff[entering_pe + 1] = score_vec_t(NINF);
+
 		Align::PrepareScoreBuffer(score_buff, i, init_col_scr, init_row_scr);
 		Align::UpdateDPMemSep(dp_mem, score_buff);
 
@@ -739,8 +742,6 @@ Iterating_Wavefronts:
 			dp_mem,
 			local_query,
 			local_reference,
-			entering, exiting,
-			entering_pe, exiting_pe,
 			penalties,
 			score_buff,
 			tbp_out);
