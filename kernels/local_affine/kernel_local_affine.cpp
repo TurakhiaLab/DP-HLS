@@ -24,6 +24,7 @@ void LocalAffine::PE::Compute(char_t local_query_val,
     tbp_t insert_tb = insert_open_b ? (tbp_t) 0 : TB_IMAT;
     tbp_t delete_tb = delete_open_b ? (tbp_t) 0 : TB_DMAT;
 
+
     const type_t match = (local_query_val == local_reference_val) ? diag_prev[1] + penalties.match : diag_prev[1] + penalties.mismatch;
 
     type_t max_value = write_score[0] > write_score[2] ? write_score[0] : write_score[2]; // compare between insertion and deletion
@@ -88,16 +89,16 @@ void LocalAffine::UpdatePEMaximum(
     const bool (&predicate)[PE_NUM],
     const idx_t query_len, const idx_t ref_len){
         
-//     for (idx_t i = 0; i < PE_NUM; i++)
-//     {
-// #pragma HLS unroll
-//         if (predicate[i] && (scores[i + 1][LAYER_MAXIMIUM] > max[i].score))
-//         {
-//             max[i].score = scores[i + 1][LAYER_MAXIMIUM];
-//             max[i].p_col = p_cols;
-//             max[i].ck = ck_idx;
-//         }
-//     }
+    for (idx_t i = 0; i < PE_NUM; i++)
+    {
+#pragma HLS unroll
+        if (predicate[i] && (scores[i + 1][LAYER_MAXIMIUM] > max[i].score))
+        {
+            max[i].score = scores[i + 1][LAYER_MAXIMIUM];
+            max[i].p_col = p_cols;
+            max[i].ck = ck_idx;
+        }
+    }
 }
 
 void LocalAffine::InitializeMaxScores(ScorePack (&max)[PE_NUM], idx_t qry_len, idx_t ref_len)
@@ -109,11 +110,6 @@ void LocalAffine::InitializeMaxScores(ScorePack (&max)[PE_NUM], idx_t qry_len, i
         max[i].p_col = 0;
         max[i].ck = 0;
     }
-    idx_t max_pe = (qry_len - 1) % PE_NUM;
-    idx_t max_ck = (qry_len - 1)  / PE_NUM;
-    max[max_pe].score = INF;
-    max[max_pe].p_col = (max_ck) * (TB_CHUNK_WIDTH) + max_pe + ref_len - 1;
-    max[max_pe].ck = max_ck;
 }
 
 void LocalAffine::Traceback::StateMapping(tbp_t tbp, TB_STATE &state, tbr_t &navigation)
@@ -191,7 +187,3 @@ void LocalAffine::Traceback::StateInit(tbp_t tbp, TB_STATE &state)
 }
 
 // <<< Local Affine Implementation <<<
-
-
-
-
