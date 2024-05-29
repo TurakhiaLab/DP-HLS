@@ -10,6 +10,7 @@
 #include "dp_hls_common.h"
 #include "solutions.h"
 #include "debug.h"
+#include <nlohmann/json.hpp>
 
 #define INPUT_QUERY_LENGTH 8
 #define INPUT_REFERENCE_LENGTH 8
@@ -147,6 +148,9 @@ int main(){
         );
 
     debug_file << "Kernel call done" << endl;
+
+    // create a json file and dump the data
+
 
     // print the original traceback to file
     for (int b = 0; b < N_BLOCKS; b++)
