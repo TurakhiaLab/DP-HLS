@@ -12,9 +12,6 @@
 #include "debug.h"
 #include <nlohmann/json.hpp>
 
-#define INPUT_QUERY_LENGTH 8
-#define INPUT_REFERENCE_LENGTH 8
-
 using namespace std;
 
 char tbp_to_char(tbp_t tbp){
@@ -57,6 +54,8 @@ int main(){
 
     // Create debug file
     ofstream debug_file(DEBUG_OUTPUT_FILE);
+
+    cout << "TB Chunk Size: " << TB_CHUNK_WIDTH << endl;
 
     // std::string query_string = "TACAGAC";     // CCGTAGACCCGAACTTCGCGGTACACCTTCTGAAACCGTCCCTAATCCGACGAGCGCCTTGAGAACG";
     // std::string reference_string = "TGCTATTC";       // TGAGAACGTAGTCTAGGCGAATCGGCCCTTGTATATCGGGGCCGTAGACCCGAACTTCGCGGTACAC";
@@ -214,5 +213,15 @@ int main(){
     // print traceback pointer matrices
     fprint_matrix<char, MAX_QUERY_LENGTH, MAX_REFERENCE_LENGTH>(debug_file, sol_tb_mat, "Solution Traceback Matrix, Layer: " + std::to_string(0));
 #endif
+    // print traceback pointers for block 0
+    debug_file << "Block 0 Traceback Pointers: ";
+    for (int i = 0; i < MAX_QUERY_LENGTH + MAX_REFERENCE_LENGTH; i++){
+        debug_file << tbp_to_char(tb_streams_d[i][0]);
+    }
+    debug_file << endl;
+
+    debuggers[0].dump_scores_infos<N_LAYERS>(debug_file);
+
+
     return 0;
 }

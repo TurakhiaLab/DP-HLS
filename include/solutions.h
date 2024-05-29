@@ -341,8 +341,8 @@ void fixed_banding_global_linear_solution(std::string query, std::string referen
     int llim[SOL_MAX_QUERY_LENGTH], ulim[SOL_MAX_QUERY_LENGTH];
     for (int i = 0; i < SOL_MAX_QUERY_LENGTH; i++)
     {
-        llim[i] = max(0, i - SOL_BANDWIDTH);
-        ulim[i] = min(SOL_MAX_REFERENCE_LENGTH - 1, i + SOL_BANDWIDTH - 1);
+        llim[i] = i - SOL_BANDWIDTH;
+        ulim[i] = i + SOL_BANDWIDTH - 1;
     }
 
     // print ulim
@@ -2636,7 +2636,7 @@ void fprint_matrix(ofstream &file, array<array<T, N>, M> &mat, string name)
 template <typename T, int M, int N>
 void fprint_matrix(ofstream &file, array<array<T, N>, M> &mat, string query, string reference, string name)
 {
-    int width = 2;
+    int width = 3;
     file << name << endl;
     file << std::right << std::setw(width) << "  ";
     file << std::right << std::setw(width) << "   ";

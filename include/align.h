@@ -351,7 +351,7 @@ namespace Align
 			idx_t p_cols, const idx_t ck_idx,
 			idx_t &l_lim_reg, idx_t &u_lim_reg,
 			const bool (&col_pred)[PE_NUM],
-			const idx_t global_query_length, const idx_t reference_length,
+			const idx_t global_query_length, const idx_t local_query_length, const idx_t reference_length,
 			const Penalties &penalties,
 			ScorePack (&max)[PE_NUM], // write out so must pass by reference
 			tbp_t (&chunk_tbp_out)[PE_NUM][TBMEM_SIZE]

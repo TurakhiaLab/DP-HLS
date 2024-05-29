@@ -115,6 +115,14 @@ namespace Traceback
         int ck_idx, int pe_idx, int col_idx, int v_row, int v_col)
     {
 
+#ifdef CMAKEDEBUG
+        // set the initial state of the traceback to be AL_END
+        for (int i = 0; i < MAX_QUERY_LENGTH + MAX_REFERENCE_LENGTH; i++)
+        {
+            traceback_out[i] = AL_END;
+        }
+#endif
+
 #pragma HLS bind_storage variable = traceback_out type = fifo impl = uram
         int pe = pe_idx; // row index, but in tbmat
         int col = col_idx;
