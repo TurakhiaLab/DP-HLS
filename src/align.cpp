@@ -621,7 +621,7 @@ Iterating_Chunks:
 
     // >>> Traceback >>>
     tb_i = maximum.ck * PE_NUM + max_pe;
-    tb_j = maximum.p_col - (maximum.ck) * TB_CHUNK_WIDTH - max_pe + l_lims[maximum.ck * PE_NUM];
+    tb_j = maximum.p_col - (maximum.ck) * TB_CHUNK_WIDTH - max_pe;
 
 #ifdef CMAKEDEBUG
     // print tracevack start idx
@@ -737,6 +737,10 @@ Iterating_Wavefronts:
 
 		Align::PrepareScoreBuffer(score_buff, i, init_col_scr, init_row_scr);
 		Align::UpdateDPMemSep(dp_mem, score_buff);
+
+#ifdef CMAKEDEBUG
+		debugger.set_wf_dp_mem<idx_t>(ck_idx, i, dp_mem);
+#endif
 
 		PE::PEUnrollFixedSep(
 			dp_mem,

@@ -11,8 +11,8 @@
 #include "solutions.h"
 #include "debug.h"
 
-#define INPUT_QUERY_LENGTH 32
-#define INPUT_REFERENCE_LENGTH 32
+#define INPUT_QUERY_LENGTH 8
+#define INPUT_REFERENCE_LENGTH 8
 
 using namespace std;
 

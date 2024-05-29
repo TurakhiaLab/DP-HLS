@@ -9,6 +9,7 @@
 #include <array>
 #include <string>
 // #include <experimental/filesystem>
+#include <map>
 #include <fstream>
 #include <unordered_map>
 #include <hls_vector.h>
@@ -36,6 +37,9 @@ public:
     array<array<tbr_t, MAX_REFERENCE_LENGTH>, MAX_QUERY_LENGTH> tb_mat_kernel;
     array<array<char, MAX_REFERENCE_LENGTH>, MAX_QUERY_LENGTH> tb_mat_cpp;  // this need to be translated
 
+    std::map<std::pair<uint, uint>, std::array<std::array<std::array<float, N_LAYERS>, PE_NUM+1>, 2>> wf_dp_mem;
+    std::map<std::pair<uint, uint>, std::array<bool, PE_NUM>> wf_predicates;
+
     Container() {};
 
     void cast_scores();
@@ -45,6 +49,19 @@ public:
 
     void set_score(int chunk_row_offset, int chunk_col_offset, int pe_num, int wavefront, score_vec_t vals, bool pred);
     void set_scores_wf(int chunk_row_offset, int chunk_col_offset, int wavefront, score_vec_t vals[PE_NUM], bool predicates[PE_NUM]);
+
+    template <typename IDX_T>
+    void set_wf_dp_mem(IDX_T ck_idx, IDX_T wf_idx, dp_mem_block_t dp_mem){
+        array<std::array<std::array<float, N_LAYERS>, PE_NUM+1>, 2> store_dp_mem;
+        for (int i = 0; i < PE_NUM+1; i++){
+            for (int j = 0; j < 2; j++){
+                for (int k = 0; k < N_LAYERS; k++){
+                    store_dp_mem[j][i][k] = dp_mem[i][j][k];
+                }
+            }
+        }
+        wf_dp_mem[std::make_pair(ck_idx, wf_idx)] = store_dp_mem;
+    }
   
     void compare_scores(array<array<array<float, MAX_REFERENCE_LENGTH>, MAX_QUERY_LENGTH>, N_LAYERS> scores_sol,
     int query_len, int ref_len);

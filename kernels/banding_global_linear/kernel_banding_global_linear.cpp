@@ -77,19 +77,19 @@ void BandingGlobalLinear::UpdatePEMaximum(
     const bool (&predicate)[PE_NUM],
     const idx_t query_len, const idx_t ref_len)
 {
-    for (int i = 0; i < PE_NUM; i++)
-    {
-#pragma HLS unroll
-        if (predicate[i] && chunk_row_offset + i == query_len - 1 && wavefront - i == ref_len - 1)
-        {
-            if (max[i].score < scores[i + 1][0])
-            {
-                max[i].score = scores[i + 1][0];
-                max[i].p_col = p_cols;
-                max[i].ck = ck_idx;
-            }
-        }
-    }
+//     for (int i = 0; i < PE_NUM; i++)
+//     {
+// #pragma HLS unroll
+//         if (predicate[i] && chunk_row_offset + i == query_len - 1 && wavefront - i == ref_len - 1)
+//         {
+//             if (max[i].score < scores[i + 1][0])
+//             {
+//                 max[i].score = scores[i + 1][0];
+//                 max[i].p_col = p_cols;
+//                 max[i].ck = ck_idx;
+//             }
+//         }
+//     }
 }
 
 void BandingGlobalLinear::InitializeMaxScores(ScorePack (&max)[PE_NUM], idx_t qry_len, idx_t ref_len)
@@ -102,11 +102,11 @@ void BandingGlobalLinear::InitializeMaxScores(ScorePack (&max)[PE_NUM], idx_t qr
         max[i].ck = 0;
     }
 
-    // idx_t max_pe = (qry_len - 1) % PE_NUM;
-    // idx_t max_ck = (qry_len - 1)  / PE_NUM;
-    // max[max_pe].score = INF;
-    // max[max_pe].p_col = max_ck * (2 * BANDWIDTH + PE_NUM - 1 + PE_NUM - 1) + max_pe + ref_len - 1;
-    // max[max_pe].ck = max_ck;
+    idx_t max_pe = (qry_len - 1) % PE_NUM;
+    idx_t max_ck = (qry_len - 1)  / PE_NUM;
+    max[max_pe].score = INF;
+    max[max_pe].p_col = max_ck * (TB_CHUNK_WIDTH) + max_pe + ref_len - 1;
+    max[max_pe].ck = max_ck;
 }
 
 void BandingGlobalLinear::Traceback::StateInit(tbp_t tbp, TB_STATE &state)
