@@ -4,12 +4,12 @@
 #include <ap_fixed.h>
 #include <hls_vector.h>
 
-#define MAX_QUERY_LENGTH 32
-#define MAX_REFERENCE_LENGTH 32
+#define MAX_QUERY_LENGTH 256
+#define MAX_REFERENCE_LENGTH 256
 
 
-#define INPUT_QUERY_LENGTH 31
-#define INPUT_REFERENCE_LENGTH 32
+#define INPUT_QUERY_LENGTH 256
+#define INPUT_REFERENCE_LENGTH 256
 
 
 #define ALIGN_TYPE BandingGlobalLinear
