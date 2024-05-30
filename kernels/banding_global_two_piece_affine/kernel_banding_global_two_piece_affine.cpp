@@ -8,7 +8,7 @@
 #define MIN(a, b) ((a) < (b) ? (a) : (b))
 
 // >>> Global Two Piece Affine Implementation >>>
-void BandingGlobalTwoPieceAffine::PE::Compute(char_t local_query_val,
+void GlobalTwoPieceAffine::PE::Compute(char_t local_query_val,
                                char_t local_reference_val,
                                score_vec_t up_prev,
                                score_vec_t diag_prev,
@@ -125,11 +125,11 @@ void BandingGlobalTwoPieceAffine::PE::Compute(char_t local_query_val,
         dir_bit = TB_DELETE;
     }
 
-    write_score =   {insert_r, max_value, delete_r, long_insert_r, long_delete_r};  // write score to the main matrix should be the max score, not match score
+    write_score =  {insert_r, max_value, delete_r, long_insert_r, long_delete_r};  // write score to the main matrix should be the max score, not match score
     write_traceback = tbp_temp | dir_bit; //insert_tb + delete_tb + long_insert_tb + long_delete_tb;
 }
 
-void BandingGlobalTwoPieceAffine::Helper::InitCol(score_vec_t (&init_col_scr)[MAX_QUERY_LENGTH], Penalties penalties){
+void GlobalTwoPieceAffine::Helper::InitCol(score_vec_t (&init_col_scr)[MAX_QUERY_LENGTH], Penalties penalties){
     type_t gap = penalties.open;
     type_t long_gap = penalties.long_open;
     for (int i = 0; i < MAX_QUERY_LENGTH; i++){
@@ -139,7 +139,7 @@ void BandingGlobalTwoPieceAffine::Helper::InitCol(score_vec_t (&init_col_scr)[MA
     }
 }
 
-void BandingGlobalTwoPieceAffine::Helper::InitRow(score_vec_t (&init_row_scr)[MAX_REFERENCE_LENGTH], Penalties penalties){
+void GlobalTwoPieceAffine::Helper::InitRow(score_vec_t (&init_row_scr)[MAX_REFERENCE_LENGTH], Penalties penalties){
     type_t gap = penalties.open;
     type_t long_gap = penalties.long_open;
     for (int i = 0; i < MAX_REFERENCE_LENGTH; i++){
@@ -152,7 +152,7 @@ void BandingGlobalTwoPieceAffine::Helper::InitRow(score_vec_t (&init_row_scr)[MA
     }
 }   
 
-void BandingGlobalTwoPieceAffine::InitializeScores(
+void GlobalTwoPieceAffine::InitializeScores(
     score_vec_t (&init_col_scr)[MAX_QUERY_LENGTH],
     score_vec_t (&init_row_scr)[MAX_REFERENCE_LENGTH],
     Penalties penalties)
@@ -162,7 +162,7 @@ void BandingGlobalTwoPieceAffine::InitializeScores(
     Helper::InitRow(init_row_scr, penalties);
 }
 
-void BandingGlobalTwoPieceAffine::UpdatePEMaximum(
+void GlobalTwoPieceAffine::UpdatePEMaximum(
         const wavefront_scores_inf_t scores,
         ScorePack (&max)[PE_NUM],
         const idx_t chunk_row_offset, const idx_t wavefront,
@@ -172,7 +172,7 @@ void BandingGlobalTwoPieceAffine::UpdatePEMaximum(
 
 }
 
-void BandingGlobalTwoPieceAffine::InitializeMaxScores(ScorePack (&max)[PE_NUM], idx_t qry_len, idx_t ref_len)
+void GlobalTwoPieceAffine::InitializeMaxScores(ScorePack (&max)[PE_NUM], idx_t qry_len, idx_t ref_len)
 {
     for (int i = 0; i < PE_NUM; i++)
     {
@@ -181,14 +181,10 @@ void BandingGlobalTwoPieceAffine::InitializeMaxScores(ScorePack (&max)[PE_NUM], 
         max[i].p_col = 0;
         max[i].ck = 0;
     }
-    idx_t max_pe = (qry_len - 1) % PE_NUM;
-    idx_t max_ck = (qry_len - 1)  / PE_NUM;
-    max[max_pe].score = INF;
-    max[max_pe].p_col = (max_ck) * (MAX_REFERENCE_LENGTH + PE_NUM - 1) + max_pe + ref_len - 1;
-    max[max_pe].ck = max_ck;
+    Utils::Init::DetermineFixedBandingGlobalTracebackCoordinate<ScorePack, idx_t, PE_NUM, BANDWIDTH, TB_CHUNK_WIDTH>(max, qry_len, ref_len);
 }
 
-void BandingGlobalTwoPieceAffine::Traceback::StateMapping(tbp_t tbp, TB_STATE &state, tbr_t &navigation)
+void GlobalTwoPieceAffine::Traceback::StateMapping(tbp_t tbp, TB_STATE &state, tbr_t &navigation)
 {
     if (state == TB_STATE::MM)
     {
@@ -271,7 +267,7 @@ void BandingGlobalTwoPieceAffine::Traceback::StateMapping(tbp_t tbp, TB_STATE &s
     // std::cout << "NAVIGATION IS " << navigation << std::endl;
 }
 
-void BandingBandingGlobalTwoPieceAffine::Traceback::StateInit(tbp_t tbp, TB_STATE &state)
+void GlobalTwoPieceAffine::Traceback::StateInit(tbp_t tbp, TB_STATE &state)
 {
     if (tbp(1, 0) == TB_MAIN)
     {

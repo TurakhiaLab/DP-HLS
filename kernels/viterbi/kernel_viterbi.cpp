@@ -141,20 +141,21 @@ void Viterbi::Traceback::StateMapping(tbp_t tbp, TB_STATE &state, tbr_t &navigat
     {
         if (tbp(1, 0) == TB_DIAG)
         {
-
+            navigation = AL_MMI;
+            state = TB_STATE::MM;
         }
         else if (tbp(1, 0) == TB_UP)
         {
+            navigation = AL_DEL;
             state = TB_STATE::DEL;
         }
         else if (tbp(1, 0) == TB_LEFT)
         {
+            navigation = AL_INS;
             state = TB_STATE::INS;
-            
         } else {
             navigation = AL_END;
         }
-        navigation = AL_MMI;
     }
     else if (state == TB_STATE::DEL)
     {

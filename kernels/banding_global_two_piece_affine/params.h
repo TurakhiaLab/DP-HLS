@@ -7,17 +7,16 @@
 
 // These need to be there to do CMake Simulation, but SHOULD TAKE OFF WHEN COMPIING BITSTREAM
 #define PE_NUM 16
-#define MAX_QUERY_LENGTH 256
-#define MAX_REFERENCE_LENGTH 256
+#define MAX_QUERY_LENGTH 128
+#define MAX_REFERENCE_LENGTH 128
 #define N_BLOCKS 1
 
-#define ALIGN_TYPE BandingGlobalTwoPieceAffine
+#define ALIGN_TYPE GlobalTwoPieceAffine
 #define N_LAYERS 5
 #define LAYER_MAXIMIUM 1  // We need to indicate from which layer (main matrix) is the maximum score stored.
 
-#define BANDING RECTANGULAR
-
-//#define THRESHOLD 5 // this needs to be less than the query and reference length
+#define BANDING FIXED
+#define BANDWIDTH 64
 
 // Primitive Types
 typedef ap_uint<2> char_t;  // Sequence Alphabet

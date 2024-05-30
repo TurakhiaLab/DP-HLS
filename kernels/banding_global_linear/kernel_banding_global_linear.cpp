@@ -105,13 +105,8 @@ void BandingGlobalLinear::InitializeMaxScores(ScorePack (&max)[PE_NUM], idx_t qr
     idx_t max_pe = (qry_len - 1) % PE_NUM;
     idx_t max_ck = (qry_len - 1)  / PE_NUM;
     max[max_pe].score = INF;
-    std::cout << "Magic Number: " << ( max_ck * PE_NUM - BANDWIDTH ) << std::endl;
     max[max_pe].p_col = max_ck * (TB_CHUNK_WIDTH) + max_pe + ref_len - ( max_ck * PE_NUM - BANDWIDTH ) - 1;  // FIXME: Problemmatic, the problem is that the last chunk doesn't have length ref_len. 
     max[max_pe].ck = max_ck;
-#ifdef CMAKEDEBUG
-    std::cout << "Physical Column" << max[max_pe].p_col << std::endl;
-
-#endif
 }
 
 void BandingGlobalLinear::Traceback::StateInit(tbp_t tbp, TB_STATE &state)

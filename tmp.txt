@@ -50,3 +50,10 @@
   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   3   2   3   3   3   3   2   2   2   2   2   2   2   2   1   1   2   2   2   1   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   3   3   2   3   2   2   2   2   3   2   2   2   2   1   0   0   0   0   0   0   0   0   0   0 
   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   2   1   2   3   3   2   2   2   2   2   2   2   1   2   2   1   1   1   1   2   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   3   2   3   2   2   2   2   3   2   2   2   2   0   0   0   0   0   0   0   0   0   0 
   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   2   3   3   3   2   2   2   2   2   2   3   2   1   1   2   2   2   1   1   1   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0 
+
+
+Solution Aligned Query    : _CAAGAGAGAGGGCGAATAGAGAC__ATGCCGACC__C__________C__T__GC________T__GG__AATTCGGG__G______AC__GTCTAATTC____CTTTTGCAGGAT____C__GAATA__T__T__CCGCCATATCGA__GCTGAGCAGCTTATTGGAGTCTGGTCCTGAATCGA
+Solution Aligned Reference: C___________GCGT___G____CTA___TGCCCAACCAAAGGGGCACGTTTG__GTAGGGCTGGAGTGCAAT___TCAAGGTTACCACAGG___A__TCGGCGCTTTC___AGGTCGTCACAAAATTAGTGCTGCCCGCA__AC__ACC___GAC__GCGT____GAC___TGT__T______A
+Solution Runtime: 8ms
+Kernel 0 Aligned Query    : CAAGAGAGAGGGCGAATAGAGAC_ATG_CCGACC_______C_C______T___GCTGG_____AATTC__GGGGACGTCTA__ATTC____CTTTTGCAGGATCG______AA_TA_T__T__CCGCCATATCGAGCTGAGCAGCTTATTGGAGTCTGGTCCTGAATCGA
+Kernel 0 Aligned Reference: __________CGCG__T___G_CTATGCCCAACCAAAGGGGCACGTTTGGTAGGGCTGGAGTGCAATTCAAGGTTACCAC_AGGA_TCGGCGCTTT__CAGG_TCGTCACAAAATTAGTGCTGCCCG_CA_A_C_A_CCGA_C_GCGT____GA__CTG____T___T__A

@@ -15,7 +15,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O0 -g -fsanitize=address -fno-inline -D
 # "-fsanitize=address" flag was used to check the stack smashing with Google Address Sanitizer. Use this flag with CLang and 
 # run the program to check. 
 
-set(DP_HLS_HOME "/home/centos/workspace/banding/DP-HLS")
+set(DP_HLS_HOME "/home/centos/workspace/DP-HLS")
 
 set(EXECUTABLE_TARGETS
     baseline_local_linear
@@ -36,6 +36,8 @@ set(EXECUTABLE_TARGETS
     test_csim_overlap_linear_suffix_prefix
     test_csim_local_two_piece_affine
     test_csim_global_two_piece_affine
+    test_csim_banding_global_two_piece_affine 
+    test_csim_banding_local_affine
 
     test_global_affine_real_data
 )
@@ -61,6 +63,7 @@ add_executable(baseline_local_linear "legacy/local_linear.h"
     "legacy/shift_register.h"
     "legacy/local_linear_testbench.cpp" )
 
+
 add_executable(test_csim_global_linear 
     "testbench/test_csim_global_linear.cpp"
     "kernels/global_linear/kernel_global_linear.cpp"
@@ -70,6 +73,12 @@ add_executable(test_csim_banding_global_linear
     "testbench/test_csim_banding_global_linear.cpp"
     "kernels/banding_global_linear/kernel_banding_global_linear.cpp"
     ${COMMON_SRCS})
+
+add_executable(test_csim_banding_local_affine
+    "/home/centos/workspace/DP-HLS/kernels/banding_local_affine/kernel_banding_local_affine.cpp"
+    "testbench/test_csim_local_affine.cpp"
+    ${COMMON_SRCS}
+)
 
 add_executable(test_csim_local_linear 
     "testbench/test_csim_local_linear.cpp"
@@ -131,6 +140,11 @@ add_executable(test_csim_global_two_piece_affine
     "kernels/global_two_piece_affine/kernel_global_two_piece_affine.cpp"
     ${COMMON_SRCS}) 
 
+add_executable(test_csim_banding_global_two_piece_affine 
+    "kernels/banding_global_two_piece_affine/kernel_banding_global_two_piece_affine.cpp"
+    "testbench/test_csim_global_two_piece_affine.cpp"
+    ${COMMON_SRCS})
+
 add_executable(test_csim_local_two_piece_affine
     "testbench/test_csim_local_two_piece_affine.cpp"
     "kernels/local_two_piece_affine/kernel_local_two_piece_affine.cpp"
@@ -176,6 +190,8 @@ target_include_directories(test_csim_local_two_piece_affine PRIVATE "${DP_HLS_HO
 target_include_directories(test_csim_global_two_piece_affine PRIVATE "${DP_HLS_HOME}/kernels/global_two_piece_affine")
 
 target_include_directories(test_global_affine_real_data PRIVATE "${DP_HLS_HOME}/kernels/global_affine")
+target_include_directories(test_csim_banding_global_two_piece_affine  PRIVATE "${DP_HLS_HOME}/kernels/banding_global_two_piece_affine")
+target_include_directories(test_csim_banding_local_affine PRIVATE "${DP_HLS_HOME}/kernels/banding_local_affine")
 
 # Add include to Xilinx Library Files
 if (RAPTOR)

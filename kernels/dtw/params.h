@@ -8,9 +8,9 @@
 #define MAX_REFERENCE_LENGTH 256
 
 #define ALIGN_TYPE GlobalDTW
-#define N_BLOCKS 1
+#define N_BLOCKS 8
 #define N_LAYERS 1
-#define PE_NUM 8
+#define PE_NUM 32
 #define LAYER_MAXIMIUM 0  // We need to indicate from which layer (main matrix) is the maximum score stored.
 
 typedef ap_fixed<32, 26> num_t;

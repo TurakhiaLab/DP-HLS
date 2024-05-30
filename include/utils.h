@@ -200,6 +200,15 @@ namespace Utils
 			local_maximum[max_pe].ck = max_ck;
 		}
 
+		template <typename PACK, typename IDX_T, int PE_NUM_, int BANDWIDTH_, int TB_CHUNK_WIDTH_>
+		void DetermineFixedBandingGlobalTracebackCoordinate(PACK (&max)[PE_NUM_], IDX_T qry_len, IDX_T ref_len){
+			IDX_T max_pe = (qry_len - 1) % PE_NUM;
+			IDX_T max_ck = (qry_len - 1)  / PE_NUM;
+			max[max_pe].score = INF;
+			max[max_pe].p_col = max_ck * (TB_CHUNK_WIDTH_) + max_pe + ref_len - ( max_ck * PE_NUM - BANDWIDTH_ ) - 1;  // FIXME: Problemmatic, the problem is that the last chunk doesn't have length ref_len. 
+			max[max_pe].ck = max_ck;
+		}
+
 	}
 
 	namespace Matrix
