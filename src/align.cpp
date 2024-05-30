@@ -679,7 +679,6 @@ void Align::Fixed::ChunkCompute(
 
 	const idx_t chunk_start_col = l_lim_reg > 0 ? l_lim_reg : (idx_t) 0;
 	const idx_t chunk_end_col = u_lim_reg + PE_NUM - 1 <= reference_length - 1 ? u_lim_reg + PE_NUM - 1: reference_length - 1;
-	cout << "Chunk start col: " << chunk_start_col << " Chunk end col: " << chunk_end_col << endl;
 	idx_t entering_pe = 0;
 	idx_t exiting_pe = 0;
 	bool entering = false;
