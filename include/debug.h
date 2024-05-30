@@ -9,6 +9,7 @@
 #include <array>
 #include <string>
 // #include <experimental/filesystem>
+#include <map>
 #include <fstream>
 #include <unordered_map>
 #include <hls_vector.h>
@@ -36,6 +37,27 @@ public:
     array<array<tbr_t, MAX_REFERENCE_LENGTH>, MAX_QUERY_LENGTH> tb_mat_kernel;
     array<array<char, MAX_REFERENCE_LENGTH>, MAX_QUERY_LENGTH> tb_mat_cpp;  // this need to be translated
 
+    std::map<std::pair<uint, uint>, std::array<std::array<std::array<float, N_LAYERS>, PE_NUM+1>, 2>> wf_dp_mem;
+    std::map<std::pair<uint, uint>, std::array<bool, PE_NUM>> wf_predicates;
+
+    struct score_info {
+        float up[N_LAYERS];
+        float left[N_LAYERS];
+        float diag[N_LAYERS];
+        float write[N_LAYERS];
+        bool pred;
+        bool exiting;
+        bool entering;
+        int entering_pe;
+        int exiting_pe;
+    };
+
+    /**
+     * @brief Record the information of scores, with their coordinate as the index
+     * 
+     */
+    std::map<std::pair<int, int>, score_info> scores_infos;
+
     Container() {};
 
     void cast_scores();
@@ -45,6 +67,78 @@ public:
 
     void set_score(int chunk_row_offset, int chunk_col_offset, int pe_num, int wavefront, score_vec_t vals, bool pred);
     void set_scores_wf(int chunk_row_offset, int chunk_col_offset, int wavefront, score_vec_t vals[PE_NUM], bool predicates[PE_NUM]);
+
+    template <typename IDX_T>
+    void set_wf_dp_mem(IDX_T ck_idx, IDX_T wf_idx, dp_mem_block_t dp_mem){
+        array<std::array<std::array<float, N_LAYERS>, PE_NUM+1>, 2> store_dp_mem;
+        for (int i = 0; i < PE_NUM+1; i++){
+            for (int j = 0; j < 2; j++){
+                for (int k = 0; k < N_LAYERS; k++){
+                    store_dp_mem[j][i][k] = dp_mem[i][j][k];
+                }
+            }
+        }
+        wf_dp_mem[std::make_pair(ck_idx, wf_idx)] = store_dp_mem;
+    }
+
+    template <typename IDX_T>
+    void set_score_info_dependency(IDX_T chunk_offset, IDX_T wf_idx, dp_mem_block_t dp_mem){
+        for (int i = 0; i < PE_NUM; i++){
+            score_info curr_info;
+            scores_infos[std::make_pair(chunk_offset + i, wf_idx - i)] = curr_info;
+            for (int k = 0; k < N_LAYERS; k++){
+                scores_infos[std::make_pair(chunk_offset + i, wf_idx - i)].up[k] = dp_mem[i][0][k];
+                scores_infos[std::make_pair(chunk_offset + i, wf_idx - i)].left[k] = dp_mem[i+1][0][k];
+                scores_infos[std::make_pair(chunk_offset + i, wf_idx - i)].diag[k] = dp_mem[i][1][k];
+            }
+            
+        }
+    }
+
+    template <typename IDX_T>
+    void set_score_info_entering_exiting(IDX_T chunk_offset, IDX_T wf_idx, bool entering, bool exiting, int entering_pe, int exiting_pe){
+        for (int i = 0; i < PE_NUM; i++){
+            scores_infos[std::make_pair(chunk_offset + i, wf_idx - i)].entering = entering;
+            scores_infos[std::make_pair(chunk_offset + i, wf_idx - i)].exiting = exiting;
+            scores_infos[std::make_pair(chunk_offset + i, wf_idx - i)].entering_pe = entering_pe;
+            scores_infos[std::make_pair(chunk_offset + i, wf_idx - i)].exiting_pe = exiting_pe;
+        }
+    }
+
+    // function that dump scores infos to a debug file
+    template <int N_LAYERS_>
+    void dump_scores_infos(ofstream &file){
+    // dump scores, one cell per line
+    file << "Scores: " << endl;
+    for (const auto& kv : this->scores_infos) {
+        const std::pair<int, int>& key = kv.first;
+        const score_info& value = kv.second;
+        for (int i = 0; i < N_LAYERS_; i++){
+            file << "Coordinate: (" << key.first << ", " << key.second << "), Layer: " << i << 
+                ", Up: " << value.up[i] << ", Left: " << value.left[i] << ", Diag: " << value.diag[i] << ", Pred: " << value.pred << ", ";
+                if (value.entering){
+                    file << "Entering PE: " << value.entering_pe << ", ";
+                }
+                if (value.exiting){
+                    file << "Exiting PE: " << value.exiting_pe << ", ";
+                }
+                file << endl;
+        }
+    }
+    
+}
+    // set score info predicate
+    template <typename IDX_T>
+    void set_score_info_predicates(IDX_T ck_offset, IDX_T wf_idx, bool preds[PE_NUM]){
+        for (int i = 0; i < PE_NUM; i++){
+            this->scores_infos[std::make_pair(ck_offset + i, wf_idx-i)].pred = preds[i];
+        }
+    }
+
+    // template <typename IDX_T>
+    // void dump_tb_info(ofstream &file){
+        
+    // }
   
     void compare_scores(array<array<array<float, MAX_REFERENCE_LENGTH>, MAX_QUERY_LENGTH>, N_LAYERS> scores_sol,
     int query_len, int ref_len);

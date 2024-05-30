@@ -65,8 +65,6 @@ namespace PE
         const dp_mem_block_t dp_mem,
         const input_char_block_t qry,
         const input_char_block_t ref,
-        const bool entering, const bool exiting,
-        const idx_t entering_pe, const idx_t exiting_pe,
         const Penalties penalties,
         wavefront_scores_inf_t &score,
         tbp_vec_t &tbp);

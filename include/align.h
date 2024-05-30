@@ -349,9 +349,9 @@ namespace Align
 			const chunk_col_scores_inf_t &init_col_scr,
 			score_vec_t (&init_row_scr)[MAX_REFERENCE_LENGTH],
 			idx_t p_cols, const idx_t ck_idx,
-			const idx_t (&local_l_lim)[PE_NUM], const idx_t (&local_u_lim)[PE_NUM],
+			idx_t &l_lim_reg, idx_t &u_lim_reg,
 			const bool (&col_pred)[PE_NUM],
-			const idx_t global_query_length, const idx_t reference_length,
+			const idx_t global_query_length, const idx_t local_query_length, const idx_t reference_length,
 			const Penalties &penalties,
 			ScorePack (&max)[PE_NUM], // write out so must pass by reference
 			tbp_t (&chunk_tbp_out)[PE_NUM][TBMEM_SIZE]
@@ -401,10 +401,8 @@ namespace Align
 		void PrepareLocals(
 			const char_t (&query)[MAX_QUERY_LENGTH_],
 			const score_vec_t (&init_col_scr)[MAX_QUERY_LENGTH_],
-			const idx_t (&l_lim)[MAX_QUERY_LENGTH_], const idx_t (&u_lim)[MAX_QUERY_LENGTH_],
 			char_t (&local_query)[PE_NUM_],
 			chunk_col_scores_inf_t &init_col_scr_local,
-			idx_t (&local_l_lim)[PE_NUM_], idx_t (&local_u_lim)[PE_NUM_],
 			bool (&col_pred)[PE_NUM_], const idx_t local_query_len,
 			const idx_t idx)
 		{
@@ -415,8 +413,6 @@ namespace Align
 				init_col_scr_local[i + 1] = init_col_scr[idx + i];
 				local_query[i] = query[idx + i];
 				col_pred[i] = i < local_query_len;
-				local_l_lim[i] = l_lim[idx + i];
-				local_u_lim[i] = u_lim[idx + i];
 			}
 		}
 	}

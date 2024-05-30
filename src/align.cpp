@@ -279,7 +279,7 @@ void Align::ArrangeTBP(
 	for (int i = 0; i < PE_NUM; i++)
 	{
 #pragma HLS unroll
-        chunk_tbp_out[i][p_col_offset] = tbp_in[i];
+        if (predicate[i]) chunk_tbp_out[i][p_col_offset] = tbp_in[i];
 	}
 }
 
@@ -533,13 +533,6 @@ void Align::Fixed::AlignStatic(
 
 #pragma HLS array_partition variable = tbp_matrix type = cyclic factor = PRAGMA_PE_NUM dim = 1
 
-	idx_t l_lims[MAX_QUERY_LENGTH], u_lims[MAX_QUERY_LENGTH];
-#pragma HLS bind_storage variable = l_lims type = ram_1p impl = bram
-#pragma HLS bind_storage variable = u_lims type = ram_1p impl = bram
-
-	Align::Fixed::PrecomputeLowerLimits<idx_t, MAX_QUERY_LENGTH, BANDWIDTH>(l_lims);
-	Align::Fixed::PrecomputeUpperLimits<idx_t, MAX_QUERY_LENGTH, BANDWIDTH>(u_lims, reference_length);
-
 #ifdef CMAKEDEBUG
 	// print l_lims and u_lims
 	// std::cout << "Lower limits: ";
@@ -563,9 +556,10 @@ void Align::Fixed::AlignStatic(
 	char_t local_query[PE_NUM];
 	chunk_col_scores_inf_t local_init_col_score;
 	local_init_col_score[PE_NUM] = score_vec_t(0); // Always initialize the upper left cornor to 0
-	idx_t local_l_lim[PE_NUM];
-	idx_t local_u_lim[PE_NUM];
+
 	bool col_pred[PE_NUM];
+	idx_t l_lim_reg = -BANDWIDTH;
+	idx_t u_lim_reg = BANDWIDTH - 1;  // we don't need to - 1 because the cell score is 0 only when it's out of the band
 
 #pragma HLS array_partition variable = local_query type = complete
 #pragma HLS array_partition variable = col_pred type = complete
@@ -580,15 +574,13 @@ Iterating_Chunks:
 		idx_t local_query_length = ((idx_t)PE_NUM < query_length - i) ? (idx_t)PE_NUM : (idx_t)(query_length - i);
 
 		p_col = p_cols_internal_offset + p_col_offset;
-		p_cols_internal_offset = p_cols_internal_offset - PE_NUM > 0 ? p_cols_internal_offset - PE_NUM : 0;
+		p_cols_internal_offset = p_cols_internal_offset > (idx_t) PE_NUM ? p_cols_internal_offset - PE_NUM : 0;
 
 		Align::Fixed::PrepareLocals<PE_NUM, MAX_QUERY_LENGTH>(
 			query,
 			init_col_score,
-			l_lims, u_lims,
 			local_query,
 			local_init_col_score,
-			local_l_lim, local_u_lim,
 			col_pred,
 			local_query_length,
 			i
@@ -601,8 +593,9 @@ Iterating_Chunks:
 			local_init_col_score,
 			init_row_score,
 			p_col, ic,
-			local_l_lim, local_u_lim, col_pred,
-			query_length, reference_length,
+			l_lim_reg, u_lim_reg, 
+			col_pred,
+			query_length, local_query_length, reference_length,
 			penalties,
 			local_max,
 			tbp_matrix
@@ -621,12 +614,13 @@ Iterating_Chunks:
 
     // >>> Traceback >>>
     tb_i = maximum.ck * PE_NUM + max_pe;
-    tb_j = maximum.p_col - (maximum.ck) * TB_CHUNK_WIDTH - max_pe + l_lims[maximum.ck * PE_NUM];
+    tb_j = maximum.p_col - (maximum.ck) * TB_CHUNK_WIDTH - max_pe  + (PE_NUM * maximum.ck - BANDWIDTH);
 
 #ifdef CMAKEDEBUG
     // print tracevack start idx
     std::cout << "Traceback start idx: " << maximum.ck << " "<< tb_i << " " << tb_j << endl;
     std::cout << "Traceback start idx physical: " << max_pe << " " << maximum.p_col << endl;
+	std::cout << "First TBP: " << tbp_matrix[max_pe][maximum.p_col] << std::endl;
 #endif
 
     Traceback::TracebackFixedSize<2 * BANDWIDTH - 1>(tbp_matrix, tb_out, maximum.ck, max_pe, maximum.p_col, tb_i, tb_j);
@@ -642,9 +636,9 @@ void Align::Fixed::ChunkCompute(
 	const chunk_col_scores_inf_t &init_col_scr,
 	score_vec_t (&init_row_scr)[MAX_REFERENCE_LENGTH],
 	idx_t p_cols, const idx_t ck_idx,
-	const idx_t (&local_l_lim)[PE_NUM], const idx_t (&local_u_lim)[PE_NUM],
+	idx_t &l_lim_reg, idx_t &u_lim_reg,
 	const bool (&col_pred)[PE_NUM],
-	const idx_t global_query_length, const idx_t reference_length,
+	const idx_t global_query_length, const idx_t local_query_length, const idx_t reference_length,
 	const Penalties &penalties,
 	ScorePack (&max)[PE_NUM], // write out so must pass by reference
 	tbp_t (&chunk_tbp_out)[PE_NUM][TBMEM_SIZE]
@@ -683,9 +677,8 @@ void Align::Fixed::ChunkCompute(
 #pragma HLS array_partition variable = tbp_out type = complete
 #pragma HLS array_partition variable = score_buff type = complete
 
-	const idx_t chunk_start_col = local_l_lim[0];
-	const idx_t chunk_end_col = local_u_lim[PE_NUM - 1];
-
+	const idx_t chunk_start_col = l_lim_reg > 0 ? l_lim_reg : (idx_t) 0;
+	const idx_t chunk_end_col = u_lim_reg + PE_NUM - 1 <= reference_length - 1 ? u_lim_reg + PE_NUM - 1: reference_length - 1;  
 	idx_t entering_pe = 0;
 	idx_t exiting_pe = 0;
 	bool entering = false;
@@ -698,10 +691,10 @@ void Align::Fixed::ChunkCompute(
 	Utils::Init::ArrSet<bool, PE_NUM>(exiting_shift, true);
 
 	// Set the upper left corner cell of the chunk, depending whether it's the first chunk. 
-	dp_mem[0][0] = local_l_lim[0] > 0 ? init_row_scr[chunk_start_col-1] : init_col_scr[0];
+	dp_mem[0][0] = l_lim_reg > 0 ? init_row_scr[chunk_start_col-1] : init_col_scr[0];
 
 Iterating_Wavefronts:
-	for (int i = chunk_start_col; i < chunk_end_col + PE_NUM; i++)
+	for (idx_t i = chunk_start_col; i < chunk_end_col + local_query_length; i++)
 	{
 #pragma HLS pipeline II = 1
 #pragma HLS dependence variable = init_row_scr type = inter direction = RAW false
@@ -715,11 +708,11 @@ Iterating_Wavefronts:
 		init_row_scr_f.push_back((float) init_row_scr[j][0]);
 	}
 #endif
-
-		entering = (entering_pe < PE_NUM && local_l_lim[entering_pe] == i - entering_pe);
-		exiting = (exiting_pe < PE_NUM && local_u_lim[exiting_pe] == i - 1 - exiting_pe);
+		
+		entering = (entering_pe < PE_NUM && (l_lim_reg > 0 ? l_lim_reg : (idx_t) 0) == i - entering_pe);
+		exiting = (exiting_pe < PE_NUM && (u_lim_reg < reference_length ? u_lim_reg : reference_length) == i - exiting_pe);
 		if (entering) Utils::Array::ShiftRight<bool, PE_NUM>(entering_shift, true);
-		if (exiting) Utils::Array::ShiftRight<bool, PE_NUM>(exiting_shift, false);
+
 		
 		for (int j = 0; j < PE_NUM; j++)
 		{
@@ -727,20 +720,28 @@ Iterating_Wavefronts:
 			predicate[j] = col_pred[j] && entering_shift[j] && exiting_shift[j];
 		}
 
-		// if (entering) predicate[entering_pe] = true;
-		// if (exiting) predicate[exiting_pe] = false; 
-
 		Utils::Array::ShiftRight<char_t, PE_NUM>(local_reference, i < MAX_REFERENCE_LENGTH ? reference[i] : ZERO_CHAR);
 
 		Align::PrepareScoreBuffer(score_buff, i, init_col_scr, init_row_scr);
+		if (exiting) {
+			score_buff[exiting_pe] = score_vec_t(NINF);
+		}
+		if (entering) score_buff[entering_pe + 1] = l_lim_reg <= 0 ? init_col_scr[entering_pe + 1] : score_vec_t(NINF);
+
 		Align::UpdateDPMemSep(dp_mem, score_buff);
+
+
+#ifdef CMAKEDEBUG
+		debugger.set_wf_dp_mem<idx_t>(ck_idx, i, dp_mem);
+		debugger.set_score_info_dependency<idx_t>(chunk_row_offset, i, dp_mem);
+		debugger.set_score_info_predicates<idx_t>(chunk_row_offset, i, predicate);
+		debugger.set_score_info_entering_exiting<idx_t>(chunk_row_offset, i, entering, exiting, entering_pe, exiting_pe);
+#endif
 
 		PE::PEUnrollFixedSep(
 			dp_mem,
 			local_query,
 			local_reference,
-			entering, exiting,
-			entering_pe, exiting_pe,
 			penalties,
 			score_buff,
 			tbp_out);
@@ -765,10 +766,16 @@ Iterating_Wavefronts:
 
 		ALIGN_TYPE::UpdatePEMaximum(score_buff, max, chunk_row_offset, i, p_cols,
 									ck_idx, predicate, global_query_length, reference_length);
-
 		p_cols++;
-		if (entering) entering_pe++;
-		if (exiting) exiting_pe++;
+		if (entering) {
+			entering_pe++;
+			l_lim_reg++;
+		}
+		if (exiting) {
+			Utils::Array::ShiftRight<bool, PE_NUM>(exiting_shift, false);
+			exiting_pe++;
+			u_lim_reg++;
+		}
 	}
 }
 
