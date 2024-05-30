@@ -678,7 +678,7 @@ void Align::Fixed::ChunkCompute(
 #pragma HLS array_partition variable = score_buff type = complete
 
 	const idx_t chunk_start_col = l_lim_reg > 0 ? l_lim_reg : (idx_t) 0;
-	const idx_t chunk_end_col = u_lim_reg + PE_NUM - 1 <= reference_length - 1 ? u_lim_reg + PE_NUM - 1: reference_length - 1;
+	const idx_t chunk_end_col = u_lim_reg + PE_NUM - 1 <= reference_length - 1 ? u_lim_reg + PE_NUM - 1: reference_length - 1;  
 	idx_t entering_pe = 0;
 	idx_t exiting_pe = 0;
 	bool entering = false;
