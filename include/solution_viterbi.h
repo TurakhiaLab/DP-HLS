@@ -89,6 +89,7 @@ void viterbi_solution(std::string query, std::string reference, PENALTY_T &penal
             double del_up;
             double ins_left;
             double main_diag, main_up, main_left;
+            double ins_diag, del_diag;
 
             if (i == 0 && j == 0)
             {
@@ -97,10 +98,10 @@ void viterbi_solution(std::string query, std::string reference, PENALTY_T &penal
                 main_left = initial_col[0][1];
 
                 ins_left = initial_col[0][0];
-                // ins_diag = 0;
+                ins_diag = 0;
 
                 del_up = initial_row[0][2];
-                // del_diag = 0;
+                del_diag = 0;
             }
             else if (i == 0 && j > 0)  // In first row, not column
             {
@@ -109,10 +110,10 @@ void viterbi_solution(std::string query, std::string reference, PENALTY_T &penal
                 main_left = score_mat[1][i][j - 1];
 
                 ins_left = score_mat[0][0][j - 1];
-                // ins_diag = initial_row[j - 1][0];
+                ins_diag = initial_row[j - 1][0];
 
                 del_up = initial_row[j][2];
-                // del_diag = initial_row[j - 1][2];
+                del_diag = initial_row[j - 1][2];
             }
             else if (i > 0 && j == 0)
             {
@@ -121,10 +122,10 @@ void viterbi_solution(std::string query, std::string reference, PENALTY_T &penal
                 main_left = initial_col[i][1];
 
                 ins_left = initial_col[i][0];
-                // ins_diag = initial_col[i - 1][0];
+                ins_diag = initial_col[i - 1][0];
 
                 del_up = score_mat[2][i - 1][j];
-                // del_diag = initial_col[i - 1][2];
+                del_diag = initial_col[i - 1][2];
             }
             else
             {
@@ -133,10 +134,10 @@ void viterbi_solution(std::string query, std::string reference, PENALTY_T &penal
                 main_left = score_mat[1][i][j - 1];
 
                 ins_left = score_mat[0][i][j - 1];
-                // ins_diag = score_mat[0][i-1][j-1];
+                ins_diag = score_mat[0][i-1][j-1];
 
                 del_up = score_mat[2][i - 1][j];
-                // del_diag = score_mat[2][i-1][j-1];
+                del_diag = score_mat[2][i-1][j-1];
             }
 
             double del_write, ins_write, main_write;           // values write to the score matrix
@@ -152,8 +153,8 @@ void viterbi_solution(std::string query, std::string reference, PENALTY_T &penal
             del_write = penalties.transition[4][HostUtils::Sequence::base_to_num(reference[j])] + (del_open_b ? del_open : del_extend);
 
             double main_match = penalties.log_1_m_2_lambda + main_diag;
-            double main_ins = penalties.log_mu + ins_left;
-            double main_del = penalties.log_mu + del_up;
+            double main_ins = penalties.log_mu + ins_diag;
+            double main_del = penalties.log_mu + del_diag;
 
             double main_max = main_match;
             main_max = main_max > main_ins ? main_max : main_ins;

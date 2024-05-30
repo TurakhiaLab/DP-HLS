@@ -1,5 +1,9 @@
 #include "frontend.h"
 
+#ifdef CMAKEDEBUG
+
+#endif
+
 void Viterbi::PE::Compute(char_t local_query_val,
                                char_t local_reference_val,
                                score_vec_t up_prev,
@@ -49,8 +53,8 @@ void Viterbi::PE::Compute(char_t local_query_val,
 #endif
 
     const type_t match_M = penalties.log_1_m_2_lambda + diag_prev[1];
-    const type_t match_I = penalties.log_mu + left_prev[0];
-    const type_t match_D = penalties.log_mu + up_prev[2];
+    const type_t match_I = penalties.log_mu + diag_prev[0];
+    const type_t match_D = penalties.log_mu + diag_prev[2];
 
 #ifdef CMAKEDEBUG
     auto diag_prev_s = diag_prev[1].to_float();
@@ -58,14 +62,14 @@ void Viterbi::PE::Compute(char_t local_query_val,
     auto local_reference_val_s = local_reference_val.to_int();
 #endif
 
-    type_t max_val = match_M;
-    tbp_t dir_tb = TB_DIAG;
-
     type_t transition_score = penalties.transition[local_query_val][local_reference_val];
 
 #ifdef CMAKEDEBUG
     auto write_score_1_s = write_score[1].to_float();
 #endif
+
+    type_t max_val = match_M;
+    tbp_t dir_tb = TB_DIAG;
 
     // Set traceback pointer based on the direction of the maximum score.
     if (max_val < match_I)
@@ -129,49 +133,50 @@ void Viterbi::InitializeMaxScores(ScorePack (&max)[PE_NUM], idx_t qry_len, idx_t
 
 void Viterbi::Traceback::StateMapping(tbp_t tbp, TB_STATE &state, tbr_t &navigation)
 {
+#ifdef CMAKEDEBUG
+    std::cout << state << " ";
+#endif
 
     if (state == TB_STATE::MM)
     {
         if (tbp(1, 0) == TB_DIAG)
         {
-            navigation = AL_MMI;
+
         }
         else if (tbp(1, 0) == TB_UP)
         {
             state = TB_STATE::DEL;
-            navigation = AL_NULL;
         }
         else if (tbp(1, 0) == TB_LEFT)
         {
             state = TB_STATE::INS;
-            navigation = AL_NULL;
+            
         } else {
             navigation = AL_END;
         }
+        navigation = AL_MMI;
     }
     else if (state == TB_STATE::DEL)
     {
         if ((bool)tbp[3])
-        { // deletion extending
-            // states remains the same.
-            // printf("delete extend");
+        { 
+            state = TB_STATE::MM; // set the state back to MM
         }
         else
         {                         // deletion closing
-            state = TB_STATE::MM; // set the state back to MM
+            
         }
         navigation = AL_DEL;
     }
     else if (state == TB_STATE::INS)
     {
         if ((bool)tbp[2])
-        { // insertion extending
-            // states remains the same.
-            // ("delete extend");
+        { 
+            state = TB_STATE::MM; // set the state back to MM
         }
         else
         {                         // insertion closing
-            state = TB_STATE::MM; // set the state back to MM
+            
         }
         navigation = AL_INS;
     }

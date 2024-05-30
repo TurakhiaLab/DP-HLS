@@ -62,11 +62,9 @@ namespace PE
      * @param tbp Traceback Poitner Out
      */
     void PEUnrollFixedSep(
-        dp_mem_block_t &dp_mem,
-        const input_char_block_t &qry,
-        const input_char_block_t &ref,
-        const idx_t wavefront,
-        const idx_t (&l_lim)[PE_NUM], const idx_t (&u_lim)[PE_NUM],
+        const dp_mem_block_t dp_mem,
+        const input_char_block_t qry,
+        const input_char_block_t ref,
         const Penalties penalties,
         wavefront_scores_inf_t &score,
         tbp_vec_t &tbp);

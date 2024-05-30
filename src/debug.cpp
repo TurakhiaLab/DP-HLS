@@ -55,7 +55,7 @@ void Container::set_score(int chunk_row_offset, int chunk_col_offset, int pe_num
     // }
     int row = chunk_row_offset + pe_num;
     int col = chunk_col_offset + wavefront - pe_num;
-    if (0 <= row < MAX_QUERY_LENGTH && 0 <= col < MAX_REFERENCE_LENGTH && pred){
+    if (0 <= row && row < MAX_QUERY_LENGTH && 0 <= col && col < MAX_REFERENCE_LENGTH && pred){
         this->scores_kernel[row][col] = vals;
     }
 }
@@ -166,6 +166,7 @@ std::vector<std::vector<float>> DebugUtils::translate_scores(hls::vector<type_t,
     return vec;
 }
 
+
 void DebugUtils::Translate::print_3d(const char * name, std::vector<std::vector<std::vector<float>>> scores)
 {
     printf("%s\n", name);
@@ -203,7 +204,6 @@ void DebugUtils::Translate::print_2d(const char * name, std::vector<std::vector<
         printf("\n");
     }
     printf("\n");
-    
 }
 
 void DebugUtils::Translate::print_1d(const char * name, std::vector<float> scores)

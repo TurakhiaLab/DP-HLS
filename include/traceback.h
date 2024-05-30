@@ -115,6 +115,14 @@ namespace Traceback
         int ck_idx, int pe_idx, int col_idx, int v_row, int v_col)
     {
 
+#ifdef CMAKEDEBUG
+        // set the initial state of the traceback to be AL_END
+        for (int i = 0; i < MAX_QUERY_LENGTH + MAX_REFERENCE_LENGTH; i++)
+        {
+            traceback_out[i] = AL_END;
+        }
+#endif
+
 #pragma HLS bind_storage variable = traceback_out type = fifo impl = uram
         int pe = pe_idx; // row index, but in tbmat
         int col = col_idx;
@@ -125,6 +133,26 @@ namespace Traceback
 
         TB_STATE state;
         ALIGN_TYPE::Traceback::StateInit(tbmat[pe][col], state);
+
+#ifdef CMAKEDEBUG
+        // print the content fo tbmat
+        // Please print it with certain width for the first row, which is the index
+
+        for (int j = 0; j < TBMEM_SIZE; j++)
+        {
+            std::cout << std::setw(3) << j << " ";
+        }
+        std::cout << std::endl;        
+        for (int i = 0; i < PE_NUM; i++)
+        {
+            for (int j = 0; j < TBMEM_SIZE; j++)
+            {
+                std::cout << std::setw(3) << tbmat[i][j].to_int() << " ";
+            }
+            std::cout << std::endl;
+        }   
+        std::cout << std::endl;
+#endif
 
     traceback_loop:
         while (navigation != AL_END) // Now solely this flag determines whether to stop the traceback.

@@ -10,9 +10,7 @@
 #include "dp_hls_common.h"
 #include "solutions.h"
 #include "debug.h"
-
-#define INPUT_QUERY_LENGTH 256
-#define INPUT_REFERENCE_LENGTH 256
+#include <nlohmann/json.hpp>
 
 using namespace std;
 
@@ -56,6 +54,8 @@ int main(){
 
     // Create debug file
     ofstream debug_file(DEBUG_OUTPUT_FILE);
+
+    cout << "TB Chunk Size: " << TB_CHUNK_WIDTH << endl;
 
     // std::string query_string = "TACAGAC";     // CCGTAGACCCGAACTTCGCGGTACACCTTCTGAAACCGTCCCTAATCCGACGAGCGCCTTGAGAACG";
     // std::string reference_string = "TGCTATTC";       // TGAGAACGTAGTCTAGGCGAATCGGCCCTTGTATATCGGGGCCGTAGACCCGAACTTCGCGGTACAC";
@@ -148,6 +148,9 @@ int main(){
 
     debug_file << "Kernel call done" << endl;
 
+    // create a json file and dump the data
+
+
     // print the original traceback to file
     for (int b = 0; b < N_BLOCKS; b++)
     {
@@ -170,7 +173,7 @@ int main(){
 #ifdef CMAKEDEBUG
     // Print kernel 0 scores
     debuggers[0].cast_scores();
-    debuggers[0].compare_scores(sol_score_mat, query.size(), reference.size());
+    debuggers[0].compare_scores(sol_score_mat, query.size(), reference.size(), 0.1);
 #endif
 
 
@@ -210,5 +213,15 @@ int main(){
     // print traceback pointer matrices
     fprint_matrix<char, MAX_QUERY_LENGTH, MAX_REFERENCE_LENGTH>(debug_file, sol_tb_mat, "Solution Traceback Matrix, Layer: " + std::to_string(0));
 #endif
+    // print traceback pointers for block 0
+    debug_file << "Block 0 Traceback Pointers: ";
+    for (int i = 0; i < MAX_QUERY_LENGTH + MAX_REFERENCE_LENGTH; i++){
+        debug_file << tbp_to_char(tb_streams_d[i][0]);
+    }
+    debug_file << endl;
+
+    debuggers[0].dump_scores_infos<N_LAYERS>(debug_file);
+
+
     return 0;
 }
