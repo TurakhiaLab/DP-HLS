@@ -134,6 +134,26 @@ namespace Traceback
         TB_STATE state;
         ALIGN_TYPE::Traceback::StateInit(tbmat[pe][col], state);
 
+#ifdef CMAKEDEBUG
+        // print the content fo tbmat
+        // Please print it with certain width for the first row, which is the index
+
+        for (int j = 0; j < TBMEM_SIZE; j++)
+        {
+            std::cout << std::setw(3) << j << " ";
+        }
+        std::cout << std::endl;        
+        for (int i = 0; i < PE_NUM; i++)
+        {
+            for (int j = 0; j < TBMEM_SIZE; j++)
+            {
+                std::cout << std::setw(3) << tbmat[i][j].to_int() << " ";
+            }
+            std::cout << std::endl;
+        }   
+        std::cout << std::endl;
+#endif
+
     traceback_loop:
         while (navigation != AL_END) // Now solely this flag determines whether to stop the traceback.
         {

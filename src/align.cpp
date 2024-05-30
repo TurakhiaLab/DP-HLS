@@ -279,7 +279,7 @@ void Align::ArrangeTBP(
 	for (int i = 0; i < PE_NUM; i++)
 	{
 #pragma HLS unroll
-        chunk_tbp_out[i][p_col_offset] = tbp_in[i];
+        if (predicate[i]) chunk_tbp_out[i][p_col_offset] = tbp_in[i];
 	}
 }
 
@@ -614,7 +614,7 @@ Iterating_Chunks:
 
     // >>> Traceback >>>
     tb_i = maximum.ck * PE_NUM + max_pe;
-    tb_j = maximum.p_col - (maximum.ck) * TB_CHUNK_WIDTH - max_pe  + (PE_NUM * maximum.ck - BANDWIDTH);  // FIXME: Need to add chunk row offset
+    tb_j = maximum.p_col - (maximum.ck) * TB_CHUNK_WIDTH - max_pe  + (PE_NUM * maximum.ck - BANDWIDTH);
 
 #ifdef CMAKEDEBUG
     // print tracevack start idx
