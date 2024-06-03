@@ -254,11 +254,15 @@ namespace Align
 			const idx_t query_length,
 			const idx_t reference_length,
 			const Penalties &penalties,
-			idx_t &tb_i, idx_t &tb_j,
-			tbr_t (&tb_out)[MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH]
+			idx_t &tb_i, idx_t &tb_j
+#ifndef NO_TRACEBACK
+			, tbr_t (&tb_out)[MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH]
+#endif
+#ifdef SCORED
+			, type_t &score
+#endif
 #ifdef CMAKEDEBUG
-			,
-			Container &debugger
+			, Container &debugger
 #endif
 		);
 
@@ -324,11 +328,15 @@ namespace Align
 			const idx_t query_length,
 			const idx_t reference_length,
 			const Penalties &penalties,
-			idx_t &tb_i, idx_t &tb_j,
-			tbr_t (&tb_out)[MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH]
+			idx_t &tb_i, idx_t &tb_j
+#ifndef NO_TRACEBACK
+			, tbr_t (&tb_out)[MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH]
+#endif
+#ifdef SCORED
+			, type_t &score
+#endif
 #ifdef CMAKEDEBUG
-			,
-			Container &debugger
+			, Container &debugger
 #endif
 		);
 

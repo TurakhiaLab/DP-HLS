@@ -25,8 +25,13 @@ extern "C" {
 		idx_t (&query_lengths)[N_BLOCKS],
 		idx_t (&reference_lengths)[N_BLOCKS],
 		Penalties (&penalties)[N_BLOCKS],
-		idx_t (&tb_is)[N_BLOCKS], idx_t (&tb_js)[N_BLOCKS], 
-		tbr_t (&tb_streams)[MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH][N_BLOCKS]
+		idx_t (&tb_is)[N_BLOCKS], idx_t (&tb_js)[N_BLOCKS]
+#ifndef NO_TRACEBACK
+		, tbr_t (&tb_streams)[MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH][N_BLOCKS]
+#endif
+#ifdef SCORED
+		, type_t (&scores)[N_BLOCKS]
+#endif
 #ifdef CMAKEDEBUG
 		, Container (&debugger)[N_BLOCKS]
 #endif

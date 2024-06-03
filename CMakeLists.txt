@@ -38,7 +38,7 @@ set(EXECUTABLE_TARGETS
     test_csim_global_two_piece_affine
     test_csim_banding_global_two_piece_affine 
     test_csim_banding_local_affine
-
+    test_csim_banding_local_affine_scored
     test_global_affine_real_data
 )
 
@@ -89,6 +89,13 @@ add_executable(test_csim_global_affine
     "testbench/test_csim_global_affine.cpp"
     "kernels/global_affine/kernel_global_affine.cpp"
     ${COMMON_SRCS})
+
+# BSW in Darwin-WGA
+add_executable(test_csim_banding_local_affine_scored 
+    "kernels/banding_local_affine_scored/banding_local_affine_scored.cpp"
+    "testbench/test_csim_banding_local_affine_scored.cpp"
+    ${COMMON_SRCS})
+
 
 add_executable(test_csim_local_affine
     "testbench/test_csim_local_affine.cpp"
@@ -192,6 +199,7 @@ target_include_directories(test_csim_global_two_piece_affine PRIVATE "${DP_HLS_H
 target_include_directories(test_global_affine_real_data PRIVATE "${DP_HLS_HOME}/kernels/global_affine")
 target_include_directories(test_csim_banding_global_two_piece_affine  PRIVATE "${DP_HLS_HOME}/kernels/banding_global_two_piece_affine")
 target_include_directories(test_csim_banding_local_affine PRIVATE "${DP_HLS_HOME}/kernels/banding_local_affine")
+target_include_directories(test_csim_banding_local_affine_scored PRIVATE "${DP_HLS_HOME}/kernels/banding_local_affine_scored")
 
 # Add include to Xilinx Library Files
 if (RAPTOR)

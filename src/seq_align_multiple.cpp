@@ -39,14 +39,17 @@ extern "C"
 		idx_t (&query_lengths)[N_BLOCKS],
 		idx_t (&reference_lengths)[N_BLOCKS],
 		Penalties (&penalties)[N_BLOCKS],
-		idx_t (&tb_is)[N_BLOCKS], idx_t (&tb_js)[N_BLOCKS],
-#ifdef CMAKEDEBUG
-		tbr_t (&tb_streams)[MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH][N_BLOCKS],
-		Container (&debugger)[N_BLOCKS])
-#else
-		tbr_t (&tb_streams)[MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH][N_BLOCKS])
+		idx_t (&tb_is)[N_BLOCKS], idx_t (&tb_js)[N_BLOCKS]
+#ifndef NO_TRACEBACK
+		, tbr_t (&tb_streams)[MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH][N_BLOCKS]
 #endif
-	{
+#ifdef SCORED
+		, type_t (&scores)[N_BLOCKS]
+#endif
+#ifdef CMAKEDEBUG
+		, Container (&debugger)[N_BLOCKS]
+#endif
+	){
 		// Initialize local buffer to copy the input data
 		char_t querys_b[N_BLOCKS][MAX_QUERY_LENGTH];
 		char_t references_b[N_BLOCKS][MAX_REFERENCE_LENGTH];
@@ -131,16 +134,20 @@ extern "C"
 				query_lengths_b[i],
 				reference_lengths_b[i],
 				penalties_b[i],
-				tb_is_b[i], tb_js_b[i],
-				tb_streams_b[i]
+				tb_is_b[i], tb_js_b[i]
+#ifndef NO_TRACEBACK
+				, tb_streams_b[i]
+#endif
+#ifdef SCORED
+				, scores[i]
+#endif
 #ifdef CMAKEDEBUG
-				,
-				debugger[i]
+				, debugger[i]
 #endif
 			);
 		}
 
-	// Utils::Kernel::top_level_writeout(tb_streams_b, tb_streams);
+#ifndef NO_TRACEBACK
 	WriteTBP:
 		for (idx_t i = 0; i < MAX_QUERY_LENGTH + MAX_REFERENCE_LENGTH; i++)
 		{
@@ -150,6 +157,7 @@ extern "C"
 				tb_streams[i][j] = tb_streams_b[j][i];
 			}
 		}
+#endif
 
 	ExtractTracebackCoordinate:
 		for (int i = 0; i < N_BLOCKS; i++)
@@ -157,5 +165,14 @@ extern "C"
 			tb_is[i] = tb_is_b[i];
 			tb_js[i] = tb_js_b[i];
 		}
+
+#ifdef SCORED
+	ExtractAlignmentScores:
+		for (int i = 0; i < N_BLOCKS; i++)
+		{
+			scores[i] = scores[i];
+		}	
+#endif
+
 	}
 }

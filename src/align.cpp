@@ -356,11 +356,15 @@ void Align::Rectangular::AlignStatic(
 	const idx_t query_length,
 	const idx_t reference_length,
 	const Penalties &penalties,
-	idx_t &tb_i, idx_t &tb_j,
-	tbr_t (&tb_out)[MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH]
+	idx_t &tb_i, idx_t &tb_j
+#ifndef NO_TRACEBACK
+	, tbr_t (&tb_out)[MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH]
+#endif
+#ifdef SCORED
+	, type_t &score
+#endif
 #ifdef CMAKEDEBUG
-	,
-	Container &debugger
+	, Container &debugger
 #endif
 )
 {
@@ -372,7 +376,6 @@ void Align::Rectangular::AlignStatic(
 	score_vec_t init_row_score[MAX_REFERENCE_LENGTH];
 	tbp_t tbp_matrix[PE_NUM][TBMEM_SIZE];
 	bool col_pred[PE_NUM];
-
 
 #pragma HLS bind_storage variable = init_row_score type = ram_t2p impl = bram
 #pragma HLS array_partition variable = tbp_matrix type = cyclic factor = PRAGMA_PE_NUM dim = 1
@@ -447,6 +450,10 @@ Iterating_Chunks:
 	cout << "Traceback start idx physical: " << maximum.ck << " " << max_pe << " " << maximum.p_col << endl;
 #endif
 
+#ifdef SCORED
+	score = maximum.score;
+#endif
+
 #ifndef NO_TRACEBACK
 	Traceback::TracebackFixedSize<MAX_REFERENCE_LENGTH>(tbp_matrix, tb_out, maximum.ck, max_pe, maximum.p_col, tb_i, tb_j);
 #endif
@@ -502,11 +509,15 @@ void Align::Fixed::AlignStatic(
 	const idx_t query_length,
 	const idx_t reference_length,
 	const Penalties &penalties,
-	idx_t &tb_i, idx_t &tb_j,
-	tbr_t (&tb_out)[MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH]
+	idx_t &tb_i, idx_t &tb_j
+#ifndef NO_TRACEBACK
+	, tbr_t (&tb_out)[MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH]
+#endif
+#ifdef SCORED
+	, type_t &score
+#endif
 #ifdef CMAKEDEBUG
-	,
-	Container &debugger
+	, Container &debugger
 #endif
 ){
 
@@ -623,7 +634,12 @@ Iterating_Chunks:
 	std::cout << "First TBP: " << tbp_matrix[max_pe][maximum.p_col] << std::endl;
 #endif
 
+#ifdef SCORED
+	score = maximum.score;
+#endif
+#ifndef NO_TRACEBACK
     Traceback::TracebackFixedSize<2 * BANDWIDTH - 1>(tbp_matrix, tb_out, maximum.ck, max_pe, maximum.p_col, tb_i, tb_j);
+#endif
 #ifdef CMAKEDEBUG
 	std::cout << "Traceback done" << std::endl;
 #endif
@@ -643,8 +659,7 @@ void Align::Fixed::ChunkCompute(
 	ScorePack (&max)[PE_NUM], // write out so must pass by reference
 	tbp_t (&chunk_tbp_out)[PE_NUM][TBMEM_SIZE]
 #ifdef CMAKEDEBUG
-	,
-	Container &debugger
+	, Container &debugger
 #endif
 		){
 
