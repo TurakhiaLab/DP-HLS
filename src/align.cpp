@@ -430,8 +430,7 @@ Iterating_Chunks:
 			local_max,
 			tbp_matrix
 #ifdef CMAKEDEBUG
-			,
-			debugger
+			, debugger
 #endif
 		);
 
@@ -529,9 +528,13 @@ void Align::Fixed::AlignStatic(
 	// >>> Initialization >>>
 	score_vec_t init_col_score[MAX_QUERY_LENGTH];
 	score_vec_t init_row_score[MAX_REFERENCE_LENGTH];
+
+#ifndef NO_TRACEBACK
 	tbp_t tbp_matrix[PE_NUM][TBMEM_SIZE];
+#endif
 
 #ifdef CMAKEDEBUG
+#ifndef NO_TRACEBACK
 	// initialize tbp_matrix with TB_PH
 	for (int i = 0; i < PE_NUM; i++)
 	{
@@ -540,6 +543,7 @@ void Align::Fixed::AlignStatic(
 			tbp_matrix[i][j] = tbp_t(0);
 		}
 	}
+#endif
 #endif
 
 #pragma HLS array_partition variable = tbp_matrix type = cyclic factor = PRAGMA_PE_NUM dim = 1
@@ -608,11 +612,12 @@ Iterating_Chunks:
 			col_pred,
 			query_length, local_query_length, reference_length,
 			penalties,
-			local_max,
-			tbp_matrix
+			local_max
+#ifndef NO_TRACEBACK
+			, tbp_matrix
+#endif
 #ifdef CMAKEDEBUG
-			,
-			debugger
+			, debugger
 #endif
 		);
 
@@ -631,7 +636,6 @@ Iterating_Chunks:
     // print tracevack start idx
     std::cout << "Traceback start idx: " << maximum.ck << " "<< tb_i << " " << tb_j << endl;
     std::cout << "Traceback start idx physical: " << max_pe << " " << maximum.p_col << endl;
-	std::cout << "First TBP: " << tbp_matrix[max_pe][maximum.p_col] << std::endl;
 #endif
 
 #ifdef SCORED
@@ -656,8 +660,10 @@ void Align::Fixed::ChunkCompute(
 	const bool (&col_pred)[PE_NUM],
 	const idx_t global_query_length, const idx_t local_query_length, const idx_t reference_length,
 	const Penalties &penalties,
-	ScorePack (&max)[PE_NUM], // write out so must pass by reference
-	tbp_t (&chunk_tbp_out)[PE_NUM][TBMEM_SIZE]
+	ScorePack (&max)[PE_NUM] // write out so must pass by reference
+#ifndef NO_TRACEBACK
+	, tbp_t (&chunk_tbp_out)[PE_NUM][TBMEM_SIZE]
+#endif
 #ifdef CMAKEDEBUG
 	, Container &debugger
 #endif
@@ -761,7 +767,9 @@ Iterating_Wavefronts:
 			score_buff,
 			tbp_out);
 
+#ifndef NO_TRACEBACK
 		Align::ArrangeTBP(tbp_out, p_cols, predicate, chunk_tbp_out);
+#endif
 
 #ifdef CMAKEDEBUG
 		for (int j = 0; j < PE_NUM; j++)

@@ -361,8 +361,10 @@ namespace Align
 			const bool (&col_pred)[PE_NUM],
 			const idx_t global_query_length, const idx_t local_query_length, const idx_t reference_length,
 			const Penalties &penalties,
-			ScorePack (&max)[PE_NUM], // write out so must pass by reference
-			tbp_t (&chunk_tbp_out)[PE_NUM][TBMEM_SIZE]
+			ScorePack (&max)[PE_NUM] // write out so must pass by reference
+#ifndef NO_TRACEBACK
+			, tbp_t (&chunk_tbp_out)[PE_NUM][TBMEM_SIZE]
+#endif
 #ifdef CMAKEDEBUG
 			,
 			Container &debugger
