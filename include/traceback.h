@@ -115,15 +115,6 @@ namespace Traceback
         int ck_idx, int pe_idx, int col_idx, int v_row, int v_col)
     {
 
-#ifdef CMAKEDEBUG
-        // set the initial state of the traceback to be AL_END
-        for (int i = 0; i < MAX_QUERY_LENGTH + MAX_REFERENCE_LENGTH; i++)
-        {
-            traceback_out[i] = AL_END;
-        }
-#endif
-
-#pragma HLS bind_storage variable = traceback_out type = fifo impl = uram
         int pe = pe_idx; // row index, but in tbmat
         int col = col_idx;
         int chunk = ck_idx;
@@ -134,46 +125,12 @@ namespace Traceback
         TB_STATE state;
         ALIGN_TYPE::Traceback::StateInit(tbmat[pe][col], state);
 
-#ifdef CMAKEDEBUG
-        // print the content fo tbmat
-        // Please print it with certain width for the first row, which is the index
-
-        for (int j = 0; j < TBMEM_SIZE; j++)
-        {
-            std::cout << std::setw(3) << j << " ";
-        }
-        std::cout << std::endl;        
-        for (int i = 0; i < PE_NUM; i++)
-        {
-            for (int j = 0; j < TBMEM_SIZE; j++)
-            {
-                std::cout << std::setw(3) << tbmat[i][j].to_int() << " ";
-            }
-            std::cout << std::endl;
-        }   
-        std::cout << std::endl;
-#endif
-
-    traceback_loop:
+        TracebackLoop:
         while (navigation != AL_END) // Now solely this flag determines whether to stop the traceback.
         {
 #pragma HLS PIPELINE II = 1
 
-#ifdef CMAKEDEBUG
-            // Print Coordinates
-            // printf("Traceback Current Coordinates: pe %d, col %d, chunk %d\n", pe, col, chunk);
-#endif
             tbp_t tbptr = tbmat[pe][col]; // Want to represented by the symbol rather than pointer
-#ifdef CMAKEDEBUG
-// print traceback pionter
-// std::cout << tbptr.to_int() << " ";
-// printf("navigation %d, pointer: %d\n", navigation.to_int(), tbptr.to_int());
-#endif
-
-#ifdef CMAKEDEBUG
-            // print virtual row and column number
-            // printf("Traceback Coordinates: ck %d, pe %d, p_col %d, row %d, col %d\n", chunk, pe, col, pe + chunk * PE_NUM, col % TEST_REFERENCE_LENGTH);
-#endif
 
             // User define mapping from a pointer and current state to
             // one of the Del, Ins, Match/Mismatch, or End to the next state.
@@ -182,7 +139,6 @@ namespace Traceback
             Traceback::NextAddressFixedSize<CHUNK_WIDTH>(navigation, chunk, pe, col, v_row, v_col);
         }
         traceback_out[w_id] = AL_END;
-        //        std::cout << std::endl;
     }
 
     /**

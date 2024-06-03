@@ -124,5 +124,3 @@ if __name__ == "__main__":
         for cmd in cmds:
             print(f"Executing command: {cmd}")
             os.system(cmd)
-
-
