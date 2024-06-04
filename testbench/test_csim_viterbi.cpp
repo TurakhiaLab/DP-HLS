@@ -15,8 +15,8 @@
 
 using namespace std;
 
-#define INPUT_QUERY_LENGTH 240
-#define INPUT_REFERENCE_LENGTH 254
+#define INPUT_QUERY_LENGTH 256
+#define INPUT_REFERENCE_LENGTH 256
 
 struct Penalties_sol {
     double log_1_m_2_lambda;
@@ -27,30 +27,20 @@ struct Penalties_sol {
 };
 
 
-#define MU 0.6321
-#define LAMBDA 0.1353
+#define MU 0.2
+#define LAMBDA 0.05
 
 int main(){
-    std::string query_string = "CCGTAGACCCGAACTTCGCGGTACACCTTCTGAAACCGTCCCTAATCCGACGAGCGCCTTGAGAACG";
-    std::string reference_string = "TGAGAACGTAGTCTAGGCGAATCGGCCCTTGTATATCGGGGCCGTAGACCCGAACTTCGCGGTACAC";
     char alphabet[4] = {'A', 'T', 'G', 'C'};
-    // std::string query_string = Random::Sequence<4>(alphabet, INPUT_QUERY_LENGTH);
-    // std::string reference_string = Random::Sequence<4>(alphabet, INPUT_REFERENCE_LENGTH);
-
-    // float transition_[5][5] = {
-    //     {0.8, 0.3, 0.3, 0.3, 0.2},
-    //     {0.3, 0.8, 0.3, 0.3, 0.2},
-    //     {0.3, 0.3, 0.8, 0.3, 0.2},
-    //     {0.3, 0.3, 0.3, 0.8, 0.2},
-    //     {0.2, 0.2, 0.2, 0.2, 0.2}
-    // };
+    std::string query_string = Random::Sequence<4>(alphabet, INPUT_QUERY_LENGTH);
+    std::string reference_string = Random::Sequence<4>(alphabet, INPUT_REFERENCE_LENGTH);
 
     float transition_[5][5] = {
-        {20.08, 0.1353, 0.1353, 0.1353, 0.3678},
-        {0.1353, 20.08, 0.1353, 0.1353, 0.3678},
-        {0.1353, 0.1353, 20.08, 0.1353, 0.3678},
-        {0.1353, 0.1353, 0.1353, 20.08, 0.3678},
-        {0.3678, 0.3678, 0.3678, 0.3678, 0.3678}
+        {0.2, 0.01666, 0.01666, 0.01666, 0.25},
+        {0.01666, 0.2, 0.01666, 0.01666, 0.25},
+        {0.01666, 0.01666, 0.2, 0.01666, 0.25},
+        {0.01666, 0.01666, 0.01666, 0.2, 0.25},
+        {0.25, 0.25, 0.25, 0.25, 0}
     };
 
     float log_transitions_[5][5];
@@ -140,9 +130,12 @@ int main(){
         ref_lengths[b] = reference.size();
     }
 
-    // Allocate traceback streams
-    tbr_t tb_streams_d[MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH][N_BLOCKS];
-    tbr_t tb_streams_h[N_BLOCKS][MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH];
+    type_t scores[N_BLOCKS];
+
+#ifndef NO_TRACEBACK
+    tbr_t tb_h[N_BLOCKS][MAX_QUERY_LENGTH + MAX_REFERENCE_LENGTH];
+    tbr_t tb_d[MAX_QUERY_LENGTH + MAX_REFERENCE_LENGTH][N_BLOCKS];
+#endif
 
     // initialize traceback starting coordinates
     idx_t tb_is[N_BLOCKS];
@@ -155,8 +148,13 @@ int main(){
         qry_lengths,
         ref_lengths,
         penalties,
-        tb_is, tb_js,
-        tb_streams_d
+        tb_is, tb_js
+#ifndef NO_TRACEBACK
+        , tb_d
+#endif
+#ifdef SCORED
+        , scores
+#endif
 #ifdef CMAKEDEBUG
         , debuggers
 #endif
@@ -195,12 +193,14 @@ int main(){
         query_string_blocks[i] = query_string;
         reference_string_blocks[i] = reference_string;
     }
-    HostUtils::IO::SwitchDimension(tb_streams_d, tb_streams_h);
+
+#ifndef NO_TRACEBACK
+    HostUtils::IO::SwitchDimension(tb_d, tb_h);
 
     for (int i = 0; i < N_BLOCKS; i++){
         cout << "Block " << i << " Traceback Pointers" << endl;
         for (int j = 0; j < MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH; j++){
-            cout << bitset<4>(tb_streams_h[i][j].to_int()) << " ";
+            cout << bitset<4>(tb_h[i][j].to_int()) << " ";
         }
         cout << endl;
     }
@@ -208,11 +208,19 @@ int main(){
     kernel_alignments = HostUtils::Sequence::ReconstructTracebackBlocks<tbr_t, N_BLOCKS, MAX_QUERY_LENGTH, MAX_REFERENCE_LENGTH>(
         query_string_blocks, reference_string_blocks,
         tb_query_lengths, tb_reference_lengths, 
-        tb_streams_h);
+        tb_h);
 
-    // Print kernel 0 traceback
-    cout << "Kernel 0 Traceback" << endl;
-    cout << "Kernel   Aligned Query    : " << kernel_alignments[0]["query"] << endl;
-    cout << "Kernel   Aligned Reference: " << kernel_alignments[0]["reference"] << endl;
+    // print out the scores as well
+    for (int i = 0; i < N_BLOCKS; i++){
+        cout << "Kernel " << i << "Traceback" << endl;
+        cout << "Kernel   Aligned Query    : " << kernel_alignments[0]["query"] << endl;
+        cout << "Kernel   Aligned Reference: " << kernel_alignments[0]["reference"] << endl;
+    }
+#endif
 
+    // print the scores for all blocks
+    for (int i = 0; i < N_BLOCKS; i++) {
+        // std::exp(scores[i].to_float())
+        cout << "Block " << i << " Score: " << scores[i].to_float() << endl;
+    }
 }
