@@ -58,8 +58,12 @@ extern "C"
 		Penalties penalties_b[N_BLOCKS];
 		idx_t tb_is_b[N_BLOCKS];
 		idx_t tb_js_b[N_BLOCKS];
+#ifndef NO_TRACEBACK
 		tbr_t tb_streams_b[N_BLOCKS][MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH];
-
+#endif
+#ifdef SCORED
+		type_t scores_b[N_BLOCKS];
+#endif
 		// Attempted to use URAM but it didn't work.
 		// #pragma HLS bind_storage variable = tb_streams_b type = fifo impl = uram
 		// #pragma HLS bind_storage variable = querys_b type = ram_1p impl = uram
@@ -72,7 +76,14 @@ extern "C"
 #pragma HLS array_partition variable = penalties_b type = complete dim = 1
 #pragma HLS array_partition variable = tb_is_b type = complete dim = 1
 #pragma HLS array_partition variable = tb_js_b type = complete dim = 1
+
+#ifndef NO_TRACEBACK
 #pragma HLS array_partition variable = tb_streams_b type = complete dim = 1
+#endif
+
+#ifdef SCORED
+#pragma HLS array_partition variable = scores_b type = complete dim = 1
+#endif
 
 		// F1 doesn't support axis on the top level. But for other FPGA it might be more optimized.
 		// #pragma HLS interface mode = axis port = querys_b
@@ -139,7 +150,7 @@ extern "C"
 				, tb_streams_b[i]
 #endif
 #ifdef SCORED
-				, scores[i]
+				, scores_b[i]
 #endif
 #ifdef CMAKEDEBUG
 				, debugger[i]
@@ -170,7 +181,7 @@ extern "C"
 	ExtractAlignmentScores:
 		for (int i = 0; i < N_BLOCKS; i++)
 		{
-			scores[i] = scores[i];
+			scores[i] = scores_b[i];
 		}	
 #endif
 

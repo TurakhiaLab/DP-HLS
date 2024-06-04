@@ -14,6 +14,9 @@
 
 using namespace std;
 
+#define INPUT_QUERY_LENGTH 256
+#define INPUT_REFERENCE_LENGTH 256
+
 char tbp_to_char(tbp_t tbp){
     if (tbp == TB_DIAG) return 'D';
     else if (tbp == TB_UP) return 'U';
@@ -220,8 +223,9 @@ int main(){
     }
     debug_file << endl;
 
+#ifdef CMAKEDEBUG
     debuggers[0].dump_scores_infos<N_LAYERS>(debug_file);
-
+#endif
 
     return 0;
 }

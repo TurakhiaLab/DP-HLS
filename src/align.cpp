@@ -546,7 +546,9 @@ void Align::Fixed::AlignStatic(
 #endif
 #endif
 
+#ifndef NO_TRACEBACK
 #pragma HLS array_partition variable = tbp_matrix type = cyclic factor = PRAGMA_PE_NUM dim = 1
+#endif
 
 #ifdef CMAKEDEBUG
 	// print l_lims and u_lims
@@ -718,6 +720,9 @@ Iterating_Wavefronts:
 	for (idx_t i = chunk_start_col; i < chunk_end_col + local_query_length; i++)
 	{
 #pragma HLS pipeline II = 1
+
+// It's weird that if we don't remove this line after remove the tbp_matrix in no traceback mode, the synthesis will run into 
+// an infinite loop in implementing the init_row_scr. 
 #pragma HLS dependence variable = init_row_scr type = inter direction = RAW false
 
 #ifdef CMAKEDEBUG
