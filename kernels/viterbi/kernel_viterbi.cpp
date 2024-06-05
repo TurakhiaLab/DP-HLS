@@ -13,7 +13,10 @@ void Viterbi::PE::Compute(char_t local_query_val,
                                score_vec_t &write_score,
                                tbp_t &write_traceback)
 {
-
+// These two pragma needed to be put here to allow multiple access to the transition matrix. 
+// Remove those two will result in PE unroll failure. 
+#pragma HLS array_partition variable = penalties.transition dim = 0 type = complete
+#pragma HLS array_partition variable = penalties dim = 0 type=complete
 
     /*
      * Layer 0: Vi
