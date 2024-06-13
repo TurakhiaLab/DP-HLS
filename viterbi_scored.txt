@@ -1,0 +1,11 @@
+viterbi_scored_256_256_16_10_4: No Report
+viterbi_scored_256_256_16_5_8: No Report
+viterbi_scored_256_256_16_6_4: | seq_align_multiple_static      |  423174 [ 42.32%] |   8952 [  1.55%] |  336537 [ 16.04%] |  228 [ 13.33%] |   0 [  0.00%] |   24 [  0.35%] |
+viterbi_scored_256_256_16_6_8: No Report
+viterbi_scored_256_256_16_7_4: | seq_align_multiple_static      | 493987 [ 49.56%] |  10444 [  1.81%] |  392707 [ 18.78%] |  266 [ 15.85%] |   0 [  0.00%] |   28 [  0.41%] |
+viterbi_scored_256_256_16_8_4: No Report
+viterbi_scored_256_256_16_9_4: No Report
+viterbi_scored_256_256_32_3_8: No Report
+viterbi_scored_256_256_32_4_8: No Report
+viterbi_scored_256_256_32_5_4: No Report
+viterbi_scored_256_256_32_6_4: No Report

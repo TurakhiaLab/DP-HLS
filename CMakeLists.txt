@@ -40,6 +40,7 @@ set(EXECUTABLE_TARGETS
     test_csim_banding_local_affine
     test_csim_banding_local_affine_scored
     test_global_affine_real_data
+    test_csim_sdtw
 )
 
 add_compile_definitions(PUBLIC CMAKEDEBUG)
@@ -122,7 +123,12 @@ add_executable(test_csim_viterbi
     "kernels/viterbi/kernel_viterbi.cpp"
     ${COMMON_SRCS})
 
-add_executable(test_csim_semi_global_linear_long_short
+add_executable(test_csim_sdtw
+    "testbench/test_csim_sdtw.cpp"
+    "kernels/sdtw/kernel_sdtw.cpp"
+    ${COMMON_SRCS})
+
+    add_executable(test_csim_semi_global_linear_long_short
     "testbench/test_csim_semi_global_linear_long_short.cpp"
     "kernels/semi_global_linear_long_short/kernel_semi_global_linear_long_short.cpp"
     ${COMMON_SRCS})
@@ -200,6 +206,8 @@ target_include_directories(test_global_affine_real_data PRIVATE "${DP_HLS_HOME}/
 target_include_directories(test_csim_banding_global_two_piece_affine  PRIVATE "${DP_HLS_HOME}/kernels/banding_global_two_piece_affine")
 target_include_directories(test_csim_banding_local_affine PRIVATE "${DP_HLS_HOME}/kernels/banding_local_affine")
 target_include_directories(test_csim_banding_local_affine_scored PRIVATE "${DP_HLS_HOME}/kernels/banding_local_affine_scored")
+target_include_directories(test_csim_sdtw PRIVATE "${DP_HLS_HOME}/kernels/sdtw")
+
 
 # Add include to Xilinx Library Files
 if (RAPTOR)

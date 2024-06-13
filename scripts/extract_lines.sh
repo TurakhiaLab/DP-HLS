@@ -1,8 +1,8 @@
 #!/bin/bash
 
-base_folder="/home/centos/workspace/DP-HLS/reports_compile/banding_global_linear"
-output_file="banding_global_linaer.txt"
-name="banding_global_linear"
+base_folder="/home/centos/workspace/DP-HLS/reports_compile/viterbi_scored"
+output_file="viterbi_scored.txt"
+name="viterbi_scored"
 
 # Empty the output file if it exists
 > "$output_file"

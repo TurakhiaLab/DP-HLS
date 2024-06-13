@@ -149,7 +149,7 @@ int main(){
 #endif
         );
 
-    debug_file << "Kernel call done" << endl;
+    std::cout << "Kernel call done" << endl;
 
     // create a json file and dump the data
 
@@ -157,12 +157,12 @@ int main(){
     // print the original traceback to file
     for (int b = 0; b < N_BLOCKS; b++)
     {
-        debug_file << "Block " << b << " Orginal Traceback Pointers" << endl;
+        std::cout << "Block " << b << " Orginal Traceback Pointers" << endl;
         for (int i = 0; i < tb_is[b] + tb_js[b]; i++)
         {
-            debug_file << tbp_to_char(tb_streams_d[i][b]);
+            std::cout << tbp_to_char(tb_streams_d[i][b]);
         }
-        debug_file << endl;
+        std::cout << endl;
     }
 
     // retrive the solution
@@ -170,8 +170,8 @@ int main(){
     array<array<char, MAX_REFERENCE_LENGTH>, MAX_QUERY_LENGTH> sol_tb_mat;
     map<string, string> alignments;
     fixed_banding_global_linear_solution<Penalties_sol, MAX_QUERY_LENGTH, MAX_REFERENCE_LENGTH, N_LAYERS, BANDWIDTH>(query_string, reference_string, penalties_sol[0], sol_score_mat, sol_tb_mat, alignments);
-    debug_file << "Solution Aligned Query    : " << alignments["query"] << endl;
-    debug_file << "Solution Aligned Reference: " << alignments["reference"] << endl;
+    std::cout << "Solution Aligned Query    : " << alignments["query"] << endl;
+    std::cout << "Solution Aligned Reference: " << alignments["reference"] << endl;
 
 #ifdef CMAKEDEBUG
     // Print kernel 0 scores
@@ -189,8 +189,8 @@ int main(){
     // for global alignments, adjust the lengths to be the lengths - 1
     for (int i = 0; i < N_BLOCKS; i++) {
         // print tbis, tbjs
-        debug_file << "tb_is[" << i << "]: " << tb_is[i] << endl;
-        debug_file << "tb_js[" << i << "]: " << tb_js[i] << endl;
+        std::cout << "tb_is[" << i << "]: " << tb_is[i] << endl;
+        std::cout << "tb_js[" << i << "]: " << tb_js[i] << endl;
         tb_query_lengths[i] = tb_is[i];
         tb_reference_lengths[i] = tb_js[i];
         query_string_blocks[i] = query_string;
@@ -203,9 +203,9 @@ int main(){
         tb_streams_h);
     // Print kernel 0 traceback
     for (int i = 0; i < N_BLOCKS; i++){
-        debug_file << "Kernel: " << i << " Traceback" << endl;
-        debug_file << "Kernel Aligned Query      : " << kernel_alignments[i]["query"] << endl;
-        debug_file << "Kernel Aligned Reference  : " << kernel_alignments[i]["reference"] << endl;
+        std::cout << "Kernel: " << i << " Traceback" << endl;
+        std::cout << "Kernel Aligned Query      : " << kernel_alignments[i]["query"] << endl;
+        std::cout << "Kernel Aligned Reference  : " << kernel_alignments[i]["reference"] << endl;
     }
 
     // print out the scores
@@ -217,11 +217,11 @@ int main(){
     fprint_matrix<char, MAX_QUERY_LENGTH, MAX_REFERENCE_LENGTH>(debug_file, sol_tb_mat, "Solution Traceback Matrix, Layer: " + std::to_string(0));
 #endif
     // print traceback pointers for block 0
-    debug_file << "Block 0 Traceback Pointers: ";
+    std::cout << "Block 0 Traceback Pointers: ";
     for (int i = 0; i < MAX_QUERY_LENGTH + MAX_REFERENCE_LENGTH; i++){
-        debug_file << tbp_to_char(tb_streams_d[i][0]);
+        std::cout << tbp_to_char(tb_streams_d[i][0]);
     }
-    debug_file << endl;
+    std::cout << endl;
 
 #ifdef CMAKEDEBUG
     debuggers[0].dump_scores_infos<N_LAYERS>(debug_file);

@@ -390,11 +390,11 @@ void fixed_banding_global_linear_solution(std::string query, std::string referen
 
             if (j == llim[i])
             {
-                scr_left = -numeric_limits<float>::infinity();
+                scr_left = -std::numeric_limits<float>::infinity();
             }
             if (j == ulim[i])
             {
-                scr_up = -numeric_limits<float>::infinity();
+                scr_up = -std::numeric_limits<float>::infinity();
             }
 
             float m_score = scr_diag + (query[i] == reference[j] ? penalties.match : penalties.mismatch);
@@ -490,7 +490,7 @@ void global_affine_solution(std::string query, std::string reference, PENALTY_T 
     // Initialize intial column and row values
     for (int i = 0; i < SOL_MAX_QUERY_LENGTH; i++)
     {
-        initial_col[i][0] = -numeric_limits<float>::infinity();
+        initial_col[i][0] = -std::numeric_limits<float>::infinity();
         initial_col[i][1] = penalties.open + penalties.extend * (i + 1);
         initial_col[i][2] = 0; // This can be whatever, since won't be accessed
     }
@@ -499,7 +499,7 @@ void global_affine_solution(std::string query, std::string reference, PENALTY_T 
     {
         initial_row[j][0] = 0; // This can be whatever, since won't be accessed
         initial_row[j][1] = penalties.open + penalties.extend * (j + 1);
-        initial_row[j][2] = -numeric_limits<float>::infinity();
+        initial_row[j][2] = -std::numeric_limits<float>::infinity();
     }
 
     // Initialize the score matrix
@@ -865,7 +865,7 @@ void local_affine_solution(std::string query, std::string reference, PENALTY_T &
     // Initialize intial column and row values
     for (int i = 0; i < SOL_MAX_QUERY_LENGTH; i++)
     {
-        initial_col[i][0] = -numeric_limits<float>::infinity();
+        initial_col[i][0] = -std::numeric_limits<float>::infinity();
         initial_col[i][1] = 0;
         initial_col[i][2] = 0; // This can be whatever, since won't be accessed
     }
@@ -874,7 +874,7 @@ void local_affine_solution(std::string query, std::string reference, PENALTY_T &
     {
         initial_row[j][0] = 0; // This can be whatever, since won't be accessed
         initial_row[j][1] = 0;
-        initial_row[j][2] = -numeric_limits<float>::infinity();
+        initial_row[j][2] = -std::numeric_limits<float>::infinity();
     }
 
     // Initialize the score matrix
@@ -898,7 +898,7 @@ void local_affine_solution(std::string query, std::string reference, PENALTY_T &
         }
     }
 
-    float maximum_score = -numeric_limits<float>::infinity();
+    float maximum_score = -std::numeric_limits<float>::infinity();
     int max_i = 0;
     int max_j = 0;
 
@@ -1759,27 +1759,27 @@ void local_two_piece_affine_solution(std::string query, std::string reference, P
     array<array<float, N_LAYERS_GA>, SOL_MAX_QUERY_LENGTH> initial_col;
     array<array<float, N_LAYERS_GA>, SOL_MAX_REFERENCE_LENGTH> initial_row;
 
-    float maximum_score = -numeric_limits<float>::infinity();
+    float maximum_score = -std::numeric_limits<float>::infinity();
     int max_i = 0;
     int max_j = 0;
 
     // Initialize intial column and row values
     for (int i = 0; i < SOL_MAX_QUERY_LENGTH; i++)
     {
-        initial_col[i][0] = -numeric_limits<float>::infinity();
+        initial_col[i][0] = -std::numeric_limits<float>::infinity();
         initial_col[i][1] = 0;
-        initial_col[i][2] = -numeric_limits<float>::infinity(); // This can be whatever, since won't be accessed
-        initial_col[i][3] = -numeric_limits<float>::infinity();
-        initial_col[i][4] = -numeric_limits<float>::infinity();
+        initial_col[i][2] = -std::numeric_limits<float>::infinity(); // This can be whatever, since won't be accessed
+        initial_col[i][3] = -std::numeric_limits<float>::infinity();
+        initial_col[i][4] = -std::numeric_limits<float>::infinity();
     }
 
     for (int j = 0; j < SOL_MAX_REFERENCE_LENGTH; j++)
     {
-        initial_row[j][0] = -numeric_limits<float>::infinity(); // This can be whatever, since won't be accessed
+        initial_row[j][0] = -std::numeric_limits<float>::infinity(); // This can be whatever, since won't be accessed
         initial_row[j][1] = 0;
-        initial_row[j][2] = -numeric_limits<float>::infinity();
-        initial_row[j][3] = -numeric_limits<float>::infinity();
-        initial_row[j][4] = -numeric_limits<float>::infinity();
+        initial_row[j][2] = -std::numeric_limits<float>::infinity();
+        initial_row[j][3] = -std::numeric_limits<float>::infinity();
+        initial_row[j][4] = -std::numeric_limits<float>::infinity();
     }
 
     // Initialize the score matrix
@@ -2101,13 +2101,13 @@ void global_dtw_solution(std::vector<std::complex<float>> query, std::vector<std
     for (int i = 0; i < SOL_MAX_QUERY_LENGTH; i++)
     {
         // linear_gp += penalties.linear_gap; // since it was declared with type_t then convert back to int.
-        initial_col[i][0] = numeric_limits<float>::infinity();
+        initial_col[i][0] = std::numeric_limits<float>::infinity();
     }
     linear_gp = 0;
     for (int j = 0; j < SOL_MAX_REFERENCE_LENGTH; j++)
     {
         // linear_gp += penalties.linear_gap; // since it was declared with type_t then convert back to int.
-        initial_row[j][0] = numeric_limits<float>::infinity();; // This can be whatever, since won't be accessed
+        initial_row[j][0] = std::numeric_limits<float>::infinity();; // This can be whatever, since won't be accessed
     }
 
     // Initialize the score matrix
@@ -2270,17 +2270,17 @@ void global_two_piece_affine_solution(std::string query, std::string reference, 
     array<array<float, N_LAYERS_GA>, SOL_MAX_QUERY_LENGTH> initial_col;
     array<array<float, N_LAYERS_GA>, SOL_MAX_REFERENCE_LENGTH> initial_row;
 
-    // initial_col[0][0] = -numeric_limits<float>::infinity();
+    // initial_col[0][0] = -std::numeric_limits<float>::infinity();
     // initial_col[0][1] = 0;
-    // initial_col[0][2] = -numeric_limits<float>::infinity();
-    // initial_col[0][3] = -numeric_limits<float>::infinity();
-    // initial_col[0][4] = -numeric_limits<float>::infinity();
+    // initial_col[0][2] = -std::numeric_limits<float>::infinity();
+    // initial_col[0][3] = -std::numeric_limits<float>::infinity();
+    // initial_col[0][4] = -std::numeric_limits<float>::infinity();
 
-    // initial_row[0][0] = -numeric_limits<float>::infinity();
+    // initial_row[0][0] = -std::numeric_limits<float>::infinity();
     // initial_row[0][1] = 0;
-    // initial_row[0][2] = -numeric_limits<float>::infinity();
-    // initial_row[0][3] = -numeric_limits<float>::infinity();
-    // initial_row[0][4] = -numeric_limits<float>::infinity();
+    // initial_row[0][2] = -std::numeric_limits<float>::infinity();
+    // initial_row[0][3] = -std::numeric_limits<float>::infinity();
+    // initial_row[0][4] = -std::numeric_limits<float>::infinity();
 
     // Initialize intial column and row values
     float short_pen = penalties.open;
@@ -2289,10 +2289,10 @@ void global_two_piece_affine_solution(std::string query, std::string reference, 
     {
         short_pen += penalties.extend;
         long_pen += penalties.long_extend;
-        initial_col[j][0] = -numeric_limits<float>::infinity();
-        initial_col[j][2] = -numeric_limits<float>::infinity();
-        initial_col[j][3] = -numeric_limits<float>::infinity();
-        initial_col[j][4] = -numeric_limits<float>::infinity();
+        initial_col[j][0] = -std::numeric_limits<float>::infinity();
+        initial_col[j][2] = -std::numeric_limits<float>::infinity();
+        initial_col[j][3] = -std::numeric_limits<float>::infinity();
+        initial_col[j][4] = -std::numeric_limits<float>::infinity();
         initial_col[j][1] = short_pen > long_pen ? short_pen : long_pen;
     }
     short_pen = penalties.open;
@@ -2301,10 +2301,10 @@ void global_two_piece_affine_solution(std::string query, std::string reference, 
     {
         short_pen += penalties.extend;
         long_pen += penalties.long_extend;
-        initial_row[i][0] = -numeric_limits<float>::infinity();
-        initial_row[i][2] = -numeric_limits<float>::infinity();
-        initial_row[i][3] = -numeric_limits<float>::infinity();
-        initial_row[i][4] = -numeric_limits<float>::infinity();
+        initial_row[i][0] = -std::numeric_limits<float>::infinity();
+        initial_row[i][2] = -std::numeric_limits<float>::infinity();
+        initial_row[i][3] = -std::numeric_limits<float>::infinity();
+        initial_row[i][4] = -std::numeric_limits<float>::infinity();
         initial_row[i][1] = long_pen > short_pen ? long_pen : short_pen;
     }
 

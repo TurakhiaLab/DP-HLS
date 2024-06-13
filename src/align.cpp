@@ -368,9 +368,6 @@ void Align::Rectangular::AlignStatic(
 #endif
 )
 {
-//#pragma HLS bind_storage variable = query type = rom_1p impl = bram
-//#pragma HLS bind_storage variable = reference type = rom_1p impl = bram
-
 	// >>> Initialization >>>
 	score_vec_t init_col_score[MAX_QUERY_LENGTH];
 	score_vec_t init_row_score[MAX_REFERENCE_LENGTH];
@@ -566,6 +563,8 @@ void Align::Fixed::AlignStatic(
 	// Declare and initialize maximum scores.
 	ScorePack maximum;
 	ScorePack local_max[PE_NUM];
+	
+#pragma HLS aggregate variable=local_max
 
 	ALIGN_TYPE::InitializeScores(init_col_score, init_row_score, penalties);
 	ALIGN_TYPE::InitializeMaxScores(local_max, query_length, reference_length);
