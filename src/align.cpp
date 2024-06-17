@@ -134,11 +134,12 @@ void Align::Rectangular::ChunkCompute(
 	idx_t global_query_length, idx_t query_length, idx_t reference_length,
 	const bool (&col_pred)[PE_NUM],
 	const Penalties &penalties,
-	ScorePack (&max)[PE_NUM],
-	tbp_t (&chunk_tbp_out)[PE_NUM][TBMEM_SIZE]
+	ScorePack (&max)[PE_NUM]
+#ifndef NO_TRACEBACK
+	, tbp_t (&chunk_tbp_out)[PE_NUM][TBMEM_SIZE]
+#endif
 #ifdef CMAKEDEBUG
-	,
-	Container &debugger
+	, Container &debugger
 #endif
 )
 {
@@ -189,7 +190,9 @@ Iterating_Wavefronts:
 			score_buff,
 			tbp_out);
 
+#ifndef NO_TRACEBACK
 		Align::ArrangeTBP(tbp_out, p_col_offset, predicate, chunk_tbp_out);
+#endif
 
 #ifdef CMAKEDEBUG
 		for (int j = 0; j < PE_NUM; j++)
@@ -371,13 +374,18 @@ void Align::Rectangular::AlignStatic(
 	// >>> Initialization >>>
 	score_vec_t init_col_score[MAX_QUERY_LENGTH];
 	score_vec_t init_row_score[MAX_REFERENCE_LENGTH];
+#ifndef NO_TRACEBACK
 	tbp_t tbp_matrix[PE_NUM][TBMEM_SIZE];
+#endif
 	bool col_pred[PE_NUM];
 
 #pragma HLS bind_storage variable = init_row_score type = ram_t2p impl = bram
+#ifndef NO_TRACEBACK
 #pragma HLS array_partition variable = tbp_matrix type = cyclic factor = PRAGMA_PE_NUM dim = 1
+#endif 
 
 #ifdef CMAKEDEBUG
+#ifndef NO_TRACEBACK
 	// initialize tbp_matrix with TB_PH
 	for (int i = 0; i < PE_NUM; i++)
 	{
@@ -386,6 +394,7 @@ void Align::Rectangular::AlignStatic(
 			tbp_matrix[i][j] = tbp_t(0);
 		}
 	}
+#endif
 #endif
 
     idx_t p_cols;
@@ -424,8 +433,10 @@ Iterating_Chunks:
 			reference_length,
 			col_pred,
 			penalties,
-			local_max,
-			tbp_matrix
+			local_max
+#ifndef NO_TRACEBACK
+			, tbp_matrix
+#endif
 #ifdef CMAKEDEBUG
 			, debugger
 #endif
@@ -590,7 +601,7 @@ Iterating_Chunks:
 		idx_t local_query_length = ((idx_t)PE_NUM < query_length - i) ? (idx_t)PE_NUM : (idx_t)(query_length - i);
 
 		p_col = p_cols_internal_offset + p_col_offset;
-		p_cols_internal_offset = p_cols_internal_offset > (idx_t) PE_NUM ? p_cols_internal_offset - PE_NUM : 0;
+		p_cols_internal_offset = p_cols_internal_offset > PE_NUM ? (idx_t) ( p_cols_internal_offset -  PE_NUM) : (idx_t) 0;
 
 		Align::Fixed::PrepareLocals<PE_NUM, MAX_QUERY_LENGTH>(
 			query,
@@ -700,7 +711,7 @@ void Align::Fixed::ChunkCompute(
 #pragma HLS array_partition variable = score_buff type = complete
 
 	const idx_t chunk_start_col = l_lim_reg > 0 ? l_lim_reg : (idx_t) 0;
-	const idx_t chunk_end_col = u_lim_reg + PE_NUM - 1 <= reference_length - 1 ? u_lim_reg + PE_NUM - 1: reference_length - 1;  
+	const idx_t chunk_end_col = u_lim_reg + PE_NUM - 1 <= reference_length - 1 ? (idx_t) (u_lim_reg + PE_NUM - 1): (idx_t) (reference_length - 1);  
 	idx_t entering_pe = 0;
 	idx_t exiting_pe = 0;
 	bool entering = false;

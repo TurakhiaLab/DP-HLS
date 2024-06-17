@@ -15,16 +15,18 @@
 #define LAYER_MAXIMIUM 1  // We need to indicate from which layer (main matrix) is the maximum score stored.
 
 #define BANDING RECTANGULAR
+#define NO_TRACEBACK
+#define SCORED
 
 // Primitive Types
-typedef ap_fixed<32, 12> type_t;  // Scores Type <width, integer_width>
+typedef ap_fixed<48, 22> type_t;  // Scores Type <width, integer_width>
 typedef ap_uint<2> char_t;  // Sequence Alphabet
-typedef short idx_t;  // Indexing Type, could be much less than 32. ap_uint<8>
+typedef ap_int<16> idx_t;  // Indexing Type, could be much less than 32. ap_uint<8>
 typedef ap_uint<4> tbp_t;  // Traceback Pointer Type
 
 // Defien upper and lower bound for score type, aka type_t
-#define INF 1024
-#define NINF -1024
+#define INF 1048576
+#define NINF -1048576
 
 // Legacy Debugger Configuration
 #define DEBUG_OUTPUT_PATH "/home/yic033@AD.UCSD.EDU/DP-HLS-Debug/global_affine/"

@@ -13,7 +13,10 @@ void Viterbi::PE::Compute(char_t local_query_val,
                                score_vec_t &write_score,
                                tbp_t &write_traceback)
 {
-
+// These two pragma needed to be put here to allow multiple access to the transition matrix. 
+// Remove those two will result in PE unroll failure. 
+#pragma HLS array_partition variable = penalties.transition dim = 0 type = complete
+#pragma HLS array_partition variable = penalties dim = 0 type=complete
 
     /*
      * Layer 0: Vi
@@ -115,7 +118,19 @@ void Viterbi::UpdatePEMaximum(
     const idx_t p_cols, const idx_t ck_idx,
     const bool (&predicate)[PE_NUM],
     const idx_t query_len, const idx_t ref_len){
-        
+    
+    for (idx_t i = 0; i < PE_NUM; i++)
+    {
+#pragma HLS unroll
+        if (chunk_row_offset + i == query_len - 1 && wavefront == ref_len - 1){
+            if (predicate[i] && (scores[i + 1][LAYER_MAXIMIUM] > max[i].score))
+            {
+                max[i].score = scores[i + 1][LAYER_MAXIMIUM];
+                max[i].p_col = p_cols;
+                max[i].ck = ck_idx;
+            }
+        }
+    }
 }
 
 void Viterbi::InitializeMaxScores(ScorePack (&max)[PE_NUM], idx_t qry_len, idx_t ref_len)
@@ -127,7 +142,6 @@ void Viterbi::InitializeMaxScores(ScorePack (&max)[PE_NUM], idx_t qry_len, idx_t
         max[i].p_col = 0;
         max[i].ck = 0;
     }
-    Utils::Init::DetermineGlobalTracebackCoordinate(max, qry_len, ref_len);
 }
 
 
