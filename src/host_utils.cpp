@@ -29,10 +29,10 @@ int HostUtils::Sequence::base_to_num(char base)
     case '_':
         return 4;
     default:
-        return 0;
 #ifdef CMAKEDEBUG
         throw std::runtime_error("Unrecognized Nucleotide " + std::string(1, base) + " from A, C, G, and T.\n"); // or throw an exception
 #endif
+        return 0;
     }
 }
 
@@ -50,10 +50,73 @@ char HostUtils::Sequence::num_to_base(int num){
     case 4:
         return '_';
     default:
-        return 'A';
 #ifdef CMAKEDEBUG
         throw std::runtime_error("Unrecognized Nucleotide " + std::to_string(num) + " from 0, 1, 2, 3, and 4.\n"); // or throw an exception
 #endif
+        return '\0';
+    }
+}
+
+
+int HostUtils::Sequence::aa_to_num(char aa) {
+    switch (aa) {
+        case 'A': return 0;
+        case 'R': return 1;
+        case 'N': return 2;
+        case 'D': return 3;
+        case 'C': return 4;
+        case 'Q': return 5;
+        case 'E': return 6;
+        case 'G': return 7;
+        case 'H': return 8;
+        case 'I': return 9;
+        case 'L': return 10;
+        case 'K': return 11;
+        case 'M': return 12;
+        case 'F': return 13;
+        case 'P': return 14;
+        case 'S': return 15;
+        case 'T': return 16;
+        case 'W': return 17;
+        case 'Y': return 18;
+        case 'V': return 19;
+        case '_': return 20;
+        default:
+#ifdef CMAKEDEBUG
+            throw std::runtime_error("Unrecognized Amino Acid " + std::string(1, aa) + " from A, R, N, D, C, Q, E, G, H, I, L, K, M, F, P, S, T, W, Y, V, and _.\n");
+#endif
+            return 0;
+    }
+}
+
+char HostUtils::Sequence::num_to_aa(int num) {
+    switch (num) {
+        case 0: return 'A';
+        case 1: return 'R';
+        case 2: return 'N';
+        case 3: return 'D';
+        case 4: return 'C';
+        case 5: return 'Q';
+        case 6: return 'E';
+        case 7: return 'G';
+        case 8: return 'H';
+        case 9: return 'I';
+        case 10: return 'L';
+        case 11: return 'K';
+        case 12: return 'M';
+        case 13: return 'F';
+        case 14: return 'P';
+        case 15: return 'S';
+        case 16: return 'T';
+        case 17: return 'W';
+        case 18: return 'Y';
+        case 19: return 'V';
+        case 20: return '_';
+        default:
+#ifdef CMAKEDEBUG
+            throw std::runtime_error("Unrecognized Amino Acid number " + std::to_string(num) + " from 0 to 20.\n");
+#endif
+            return 'A';
     }
 }
 

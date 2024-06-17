@@ -150,6 +150,9 @@ namespace HostUtils
 
         char num_to_base(int num);
 
+        char num_to_aa(int num);
+        int aa_to_num(char aa);
+
         template <typename T>
         string nav_to_string(T nav)
         {
@@ -470,7 +473,6 @@ namespace HostUtils
                                                                 int query_start_idx, int reference_start_idx,
                                                                 T (&tb_streams)[MAX_REF_LENGTH + MAX_QRY_LENGTH])
         {
-
             string alignment_reference = "";
             string alignment_query = "";
             string read_tb = "";

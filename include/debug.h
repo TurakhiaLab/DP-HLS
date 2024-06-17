@@ -28,7 +28,7 @@ using namespace std;
 class Container {
     // A data container to store the debug info (score matrix content, traceback content) of each block.
 public:
-    array<array<score_vec_t, MAX_REFERENCE_LENGTH>, MAX_QUERY_LENGTH> scores_kernel;
+    std::vector<std::vector<score_vec_t>> scores_kernel;
     array<array<array<float, MAX_REFERENCE_LENGTH>, MAX_QUERY_LENGTH>, N_LAYERS> scores_cpp;
     
     array<array<tbp_t, MAX_REFERENCE_LENGTH>, MAX_QUERY_LENGTH> tbp_mat_kernel;
@@ -58,7 +58,9 @@ public:
      */
     std::map<std::pair<int, int>, score_info> scores_infos;
 
-    Container() {};
+    Container()
+        : scores_kernel(MAX_QUERY_LENGTH, std::vector<score_vec_t>(MAX_REFERENCE_LENGTH))
+     {};
 
     void cast_scores();
     void cast_tbp();

@@ -10,17 +10,14 @@
 
 #define BANDING RECTANGULAR
 
-#define PRAGMA_PE_NUM 32
-
-#define ALIGN_TYPE LocalAffine
+#define ALIGN_TYPE ProteinLocalAffine
 #define N_BLOCKS 1
 #define N_LAYERS 3
-const int PE_NUM = PRAGMA_PE_NUM;
+#define PE_NUM 32
 #define LAYER_MAXIMIUM 1  // We need to indicate from which layer (main matrix) is the maximum score stored.
 
-
 // Primitive Types
-typedef ap_uint<2> char_t;  // Sequence Alphabet
+typedef ap_uint<5> char_t;  // Sequence Alphabet, 5 bits for 20 amino acids
 typedef ap_fixed<16, 12> type_t;  // Scores Type <width, integer_width>
 typedef short idx_t;  // Indexing Type, could be much less than 32. ap_uint<8>
 typedef ap_uint<4> tbp_t;  // Traceback Pointer Type
@@ -31,7 +28,7 @@ typedef ap_uint<4> tbp_t;  // Traceback Pointer Type
 
 // Defien upper and lower bound for score type, aka type_t
 #define INF 1024
-#define NINF -1024 
+#define NINF -1024
 
 // Legacy Debugger Configuration
 #define DEBUG_OUTPUT_PATH "/home/yic033@AD.UCSD.EDU/DP-HLS-Debug/local_affine/"

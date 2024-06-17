@@ -16,8 +16,8 @@
 
 using namespace std;
 
-#define INPUT_QUERY_LENGTH 256
-#define INPUT_REFERENCE_LENGTH 256
+#define INPUT_QUERY_LENGTH 500
+#define INPUT_REFERENCE_LENGTH 900
 
 char_t base_to_num(char base)
 {
@@ -85,17 +85,6 @@ int main(){
 #endif
     Penalties penalties[N_BLOCKS];
 
-    // Assert actual query length and reference length should be smaller than the maximum length
-    try {
-        if (query_h.size() > MAX_QUERY_LENGTH) throw std::runtime_error("Query length should less than MAX_QUERY_LENGTH, "
-            "actual query len " + std::to_string(query_h.size()) + ", Allocated qry len: " + std::to_string(MAX_QUERY_LENGTH));
-        if (reference_h.size() > MAX_REFERENCE_LENGTH) throw std::runtime_error("Reference length should less than MAX_REFERENCE_LENGTH, "
-            "actual ref len " + std::to_string(reference_h.size()) + ", Allocated ref len: " + std::to_string(MAX_REFERENCE_LENGTH));
-    } catch (const std::exception &e) {
-        std::cerr << "Exception: " << e.what() << std::endl;
-        throw;
-    }
-
     // Allocate query and reference buffer to pass to the kernel
     char_t reference_buff[MAX_REFERENCE_LENGTH][N_BLOCKS];
     char_t query_buff[MAX_QUERY_LENGTH][N_BLOCKS];
@@ -106,9 +95,23 @@ int main(){
     // Fill the lengths of the query and reference
     for (int b = 0; b < N_BLOCKS; b++)
     {
-        qry_lengths[b] = query_h.size();
-        ref_lengths[b] = reference_h.size();
+        qry_lengths[b] = std::min((int) query_h.size(), INPUT_QUERY_LENGTH);
+        ref_lengths[b] = std::min((int) reference_h.size(), INPUT_REFERENCE_LENGTH);
     }
+
+    // copy the reference and query
+    for (int b = 0; b < N_BLOCKS; b++)
+    {
+        for (int i = 0; i < ref_lengths[b]; i++)
+        {
+            reference_buff[i][b] = reference_h[i];
+        }
+        for (int i = 0; i < qry_lengths[b]; i++)
+        {
+            query_buff[i][b] = query_h[i];
+        }
+    }
+
 
     // Allocate traceback streams
     tbr_t tb_streams[MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH][N_BLOCKS];

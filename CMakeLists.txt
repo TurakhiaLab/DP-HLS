@@ -41,6 +41,7 @@ set(EXECUTABLE_TARGETS
     test_csim_banding_local_affine_scored
     test_global_affine_real_data
     test_csim_sdtw
+    test_csim_protein_local_affine
 )
 
 add_compile_definitions(PUBLIC CMAKEDEBUG)
@@ -170,6 +171,12 @@ add_executable(test_global_affine_real_data
     ${COMMON_SRCS}
 )
 
+add_executable(test_csim_protein_local_affine
+    "testbench/test_csim_protein_local_affine.cpp"
+    "kernels/protein_local_affine/kernel_protein_local_affine.cpp"
+    ${COMMON_SRCS}
+)
+
 
 # Test Python APIs
 #add_executable(test_pyapi "testbench/test_align.cpp"
@@ -207,6 +214,7 @@ target_include_directories(test_csim_banding_global_two_piece_affine  PRIVATE "$
 target_include_directories(test_csim_banding_local_affine PRIVATE "${DP_HLS_HOME}/kernels/banding_local_affine")
 target_include_directories(test_csim_banding_local_affine_scored PRIVATE "${DP_HLS_HOME}/kernels/banding_local_affine_scored")
 target_include_directories(test_csim_sdtw PRIVATE "${DP_HLS_HOME}/kernels/sdtw")
+target_include_directories(test_csim_protein_local_affine PRIVATE "${DP_HLS_HOME}/kernels/protein_local_affine")
 
 
 # Add include to Xilinx Library Files
