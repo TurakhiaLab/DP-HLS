@@ -37,7 +37,7 @@
 // const int sf_score_width = 10 + std::ceil(std::log2(MAX_REFERENCE_LENGTH));
 
 typedef ap_uint<8> char_t;  // Sequence Alphabet
-typedef ap_uint<32> type_t;  // FIXME
+typedef ap_uint<64> type_t;  // FIXME
 typedef short idx_t;  // Indexing Type, could be much less than 32. ap_uint<8>
 typedef ap_uint<2> tbp_t;  // Traceback Pointer Type
 
@@ -49,11 +49,11 @@ typedef ap_uint<2> tbp_t;  // Traceback Pointer Type
 
 // Define Zero Value
 #define zero_fp ((type_t)0)
-#define ZERO_CHAR (char_t({0,0}))
+#define ZERO_CHAR (char_t(0))
 
 // Defien upper and lower bound for score type, aka type_t
 #define INF 16777216
-#define NINF -16777216
+#define NINF 0  // Because all the scores are non-negative, it make sense only if the NINF is 0. Assign negative score here result in underflow for type_t and incorrect alignment score. 
 
 // Legacy Debugger Configuration
 #define DEBUG_OUTPUT_PATH "/home/yic033@AD.UCSD.EDU/DP-HLS-Debug/global_affine/"

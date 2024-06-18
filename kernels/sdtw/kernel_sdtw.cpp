@@ -14,9 +14,9 @@ void SDTW::InitializeScores(
     // Because the cell scores are non-negative (because the distance is L1 distance and accumulates), thus initialize
     // them to all 0 means exactly the same to initialize the first column in actual score matrix to be the distance
     // between q_i and r_0. min(diag, left, always have 0).
-    for (int i = 0; i < MAX_QUERY_LENGTH; i++)
+    for (int i = 0; i < MAX_REFERENCE_LENGTH; i++)
     {
-        init_col_scr[i][0] = 0;
+        init_row_scr[i][0] = 0;
     }
 
     // doesn't need to initialize the initial reference since no upper cell dependencey.
@@ -31,8 +31,10 @@ void SDTW::PE::Compute(char_t local_query_val,
                        score_vec_t &write_score,
                        tbp_t &write_traceback)
 {
+    // The paper mentions there is no reference deletion, which means that the there is no left dependency but only diag and up. 
+    // The RTL code uses left and diagonal is because possible the query and reference is transposed. 
     // find max from diagonal and left
-    write_score[0] = (diag_prev[0] < left_prev[0] ? diag_prev[0] : left_prev[0]) + abs(local_query_val - local_reference_val);
+    write_score[0] = (diag_prev[0] < up_prev[0] ? diag_prev[0] : up_prev[0]) + abs(local_query_val - local_reference_val);
 }
 
 void SDTW::UpdatePEMaximum(
@@ -46,10 +48,12 @@ void SDTW::UpdatePEMaximum(
     // Like SF, only do when QueryLength is multiple of PE_NUM, thus only let last PE findmax. 
     if (predicate[PE_NUM-1])
     {
-        if (scores[PE_NUM][LAYER_MAXIMIUM] > max[PE_NUM-1].score)
+        if (scores[PE_NUM][LAYER_MAXIMIUM] > max[PE_NUM-1].score && chunk_row_offset + PE_NUM == query_len)
         {
             // NOTE: If we just care about the score but doesn't care where does the score come from, then we doesn't need to update p_cols and ck index as well. 
             max[PE_NUM-1].score = scores[PE_NUM][LAYER_MAXIMIUM];
+            max[PE_NUM-1].p_col = p_cols;
+            max[PE_NUM-1].ck = ck_idx;
         }
     }
 }

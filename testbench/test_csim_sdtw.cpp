@@ -112,10 +112,6 @@ int main(){
         }
     }
 
-
-    // Allocate traceback streams
-    tbr_t tb_streams[MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH][N_BLOCKS];
-
     // initialize traceback starting coordinates
     idx_t tb_is[N_BLOCKS];
     idx_t tb_js[N_BLOCKS];
@@ -167,19 +163,10 @@ int main(){
         tb_query_lengths[i] = (int) tb_is[i];
         tb_reference_lengths[i] = (int) tb_js[i];
     }
-    tbr_t tb_streams_host[N_BLOCKS][MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH];
-    HostUtils::IO::SwitchDimension(tb_streams, tb_streams_host);
-    kernel_alignments = HostUtils::Sequence::ReconstructTracebackBlocks<tbr_t, N_BLOCKS, MAX_QUERY_LENGTH, MAX_REFERENCE_LENGTH>(
-        query_string_blocks, reference_string_blocks,
-        tb_query_lengths, tb_reference_lengths, 
-        tb_streams_host);
 
-    // Print kernel 0 traceback
+    // Print kernel alignment scores
     for (int i = 0; i < N_BLOCKS; i++) {
         cout << "Kernel " << i << " Traceback" << endl;
-        cout << "Kernel   Aligned Query    : " << kernel_alignments[0]["query"] << endl;
-        cout << "Kernel   Aligned Reference: " << kernel_alignments[0]["reference"] << endl;
+        cout << "Alignment Scores: " << scores[i] << endl;
     }
-
-
 }

@@ -15,7 +15,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O0 -g -fsanitize=address -fno-inline -D
 # "-fsanitize=address" flag was used to check the stack smashing with Google Address Sanitizer. Use this flag with CLang and 
 # run the program to check. 
 
-set(DP_HLS_HOME "/home/centos/workspace/banding/DP-HLS")
+set(DP_HLS_HOME "/home/centos/workspace/DP-HLS")
 
 set(EXECUTABLE_TARGETS
     baseline_local_linear
