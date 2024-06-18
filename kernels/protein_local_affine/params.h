@@ -46,8 +46,7 @@ typedef ap_uint<4> tbp_t;  // Traceback Pointer Type
 struct Penalties {
     type_t open;
     type_t extend;
-    type_t mismatch;
-    type_t match;
+    type_t transitions[20][20];
     type_t linear_gap;
 };
 

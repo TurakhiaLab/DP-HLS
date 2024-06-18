@@ -33,6 +33,7 @@ void SDTW::PE::Compute(char_t local_query_val,
 {
     // find max from diagonal and left
     write_score[0] = (diag_prev[0] < left_prev[0] ? diag_prev[0] : left_prev[0]) + abs(local_query_val - local_reference_val);
+    // write_scs
 }
 
 void SDTW::UpdatePEMaximum(

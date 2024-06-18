@@ -128,7 +128,7 @@ int main()
     reference_n_h = HostUtils::Sequence::MultipleSequencesToProfileAlign(reference_c_h, reference_c_h[0].length());
 
     // prepare very first reference sequence
-    for (int seq_id = 1; seq_id < 1; seq_id++)  // in single pairwise setting, run only one pair wise profile alignment. 
+    for (int seq_id = 1; seq_id < 2; seq_id++)  // in single pairwise setting, run only one pair wise profile alignment. 
     {
         // print something to terminal
         output_file << "Aligning " << species_names[seq_id - 1] << std::endl;

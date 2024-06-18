@@ -163,6 +163,14 @@ void Align::Rectangular::ChunkCompute(
 	dp_mem_block_t dp_mem;
 	score_vec_t score_buff[PE_NUM + 1];
 
+#ifdef CMAKEDEBUG
+	// clear local reference buffer
+	for (int i = 0; i < PE_NUM; i++)
+	{
+		local_reference[i] = ZERO_CHAR;
+	}
+#endif
+
 #pragma HLS array_partition variable = local_query type = complete
 #pragma HLS array_partition variable = local_reference type = complete
 #pragma HLS array_partition variable = dp_mem type = complete
