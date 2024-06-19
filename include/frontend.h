@@ -19,6 +19,9 @@ namespace ALIGN_TYPE
                      score_vec_t diag_prev,
                      score_vec_t left_prev,
                      const Penalties penalties,
+#ifdef LOCAL_TRANSITION_MATRIX
+                     const type_t transitions[TRANSITION_MATRIX_SIZE][TRANSITION_MATRIX_SIZE],
+#endif
                      score_vec_t &write_score,
                      tbp_t &write_traceback);
 

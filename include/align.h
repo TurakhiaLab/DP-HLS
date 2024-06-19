@@ -254,6 +254,9 @@ namespace Align
 			const idx_t query_length,
 			const idx_t reference_length,
 			const Penalties &penalties,
+#ifdef LOCAL_TRANSITION_MATRIX
+			const type_t (&transitions)[TRANSITION_MATRIX_SIZE][TRANSITION_MATRIX_SIZE],
+#endif
 			idx_t &tb_i, idx_t &tb_j
 #ifndef NO_TRACEBACK
 			, tbr_t (&tb_out)[MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH]
@@ -286,6 +289,9 @@ namespace Align
 			idx_t global_query_length, idx_t query_length, idx_t reference_length,
 			const bool (&col_pred)[PE_NUM],
 			const Penalties &penalties,
+#ifdef LOCAL_TRANSITION_MATRIX
+			const type_t (&transitions)[PE_NUM][TRANSITION_MATRIX_SIZE][TRANSITION_MATRIX_SIZE],
+#endif
 			ScorePack (&max)[PE_NUM]
 #ifndef NO_TRACEBACK
 			, tbp_t (&chunk_tbp_out)[PE_NUM][TBMEM_SIZE]
@@ -329,6 +335,9 @@ namespace Align
 			const idx_t query_length,
 			const idx_t reference_length,
 			const Penalties &penalties,
+#ifdef LOCAL_TRANSITION_MATRIX
+			const type_t (&transitions)[TRANSITION_MATRIX_SIZE][TRANSITION_MATRIX_SIZE],
+#endif
 			idx_t &tb_i, idx_t &tb_j
 #ifndef NO_TRACEBACK
 			, tbr_t (&tb_out)[MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH]
@@ -362,6 +371,9 @@ namespace Align
 			const bool (&col_pred)[PE_NUM],
 			const idx_t global_query_length, const idx_t local_query_length, const idx_t reference_length,
 			const Penalties &penalties,
+#ifdef LOCAL_TRANSITION_MATRIX
+			const type_t (&transitions)[PE_NUM][TRANSITION_MATRIX_SIZE][TRANSITION_MATRIX_SIZE],
+#endif
 			ScorePack (&max)[PE_NUM] // write out so must pass by reference
 #ifndef NO_TRACEBACK
 			, tbp_t (&chunk_tbp_out)[PE_NUM][TBMEM_SIZE]

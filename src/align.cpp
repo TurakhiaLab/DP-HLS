@@ -134,6 +134,9 @@ void Align::Rectangular::ChunkCompute(
 	idx_t global_query_length, idx_t query_length, idx_t reference_length,
 	const bool (&col_pred)[PE_NUM],
 	const Penalties &penalties,
+#ifdef LOCAL_TRANSITION_MATRIX
+	const type_t (&transitions)[PE_NUM][TRANSITION_MATRIX_SIZE][TRANSITION_MATRIX_SIZE],
+#endif
 	ScorePack (&max)[PE_NUM]
 #ifndef NO_TRACEBACK
 	, tbp_t (&chunk_tbp_out)[PE_NUM][TBMEM_SIZE]
@@ -195,6 +198,9 @@ Iterating_Wavefronts:
 			local_query,
 			local_reference,
 			penalties,
+#ifdef LOCAL_TRANSITION_MATRIX
+			transitions, 
+#endif
 			score_buff,
 			tbp_out);
 
@@ -367,6 +373,9 @@ void Align::Rectangular::AlignStatic(
 	const idx_t query_length,
 	const idx_t reference_length,
 	const Penalties &penalties,
+#ifdef LOCAL_TRANSITION_MATRIX
+	const type_t (&transitions)[TRANSITION_MATRIX_SIZE][TRANSITION_MATRIX_SIZE],
+#endif
 	idx_t &tb_i, idx_t &tb_j
 #ifndef NO_TRACEBACK
 	, tbr_t (&tb_out)[MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH]
@@ -391,6 +400,25 @@ void Align::Rectangular::AlignStatic(
 #ifndef NO_TRACEBACK
 #pragma HLS array_partition variable = tbp_matrix type = cyclic factor = PRAGMA_PE_NUM dim = 1
 #endif 
+
+#ifdef LOCAL_TRANSITION_MATRIX
+	type_t local_transitions[PE_NUM][TRANSITION_MATRIX_SIZE][TRANSITION_MATRIX_SIZE];
+#pragma HLS array_partition variable = local_transitions type = complete dim = 1
+#pragma HLS bind_storage variable = local_transitions type = ram_1p impl = bram
+	// fill out the local transition matrix
+	for (idx_t i = 0; i < TRANSITION_MATRIX_SIZE; i++)
+	{
+		for (idx_t j = 0; j < TRANSITION_MATRIX_SIZE; j++)
+		{
+			for (idx_t k = 0; k < PE_NUM; k++)
+			{
+#pragma HLS unroll
+				local_transitions[k][i][j] = transitions[i][j];
+			}
+		}
+	}
+#endif
+
 
 #ifdef CMAKEDEBUG
 #ifndef NO_TRACEBACK
@@ -441,6 +469,9 @@ Iterating_Chunks:
 			reference_length,
 			col_pred,
 			penalties,
+#ifdef LOCAL_TRANSITION_MATRIX
+			local_transitions,
+#endif
 			local_max
 #ifndef NO_TRACEBACK
 			, tbp_matrix
@@ -524,6 +555,9 @@ void Align::Fixed::AlignStatic(
 	const idx_t query_length,
 	const idx_t reference_length,
 	const Penalties &penalties,
+#ifdef LOCAL_TRANSITION_MATRIX
+	const type_t (&transitions)[TRANSITION_MATRIX_SIZE][TRANSITION_MATRIX_SIZE],
+#endif
 	idx_t &tb_i, idx_t &tb_j
 #ifndef NO_TRACEBACK
 	, tbr_t (&tb_out)[MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH]
@@ -548,6 +582,25 @@ void Align::Fixed::AlignStatic(
 #ifndef NO_TRACEBACK
 	tbp_t tbp_matrix[PE_NUM][TBMEM_SIZE];
 #endif
+
+#ifdef LOCAL_TRANSITION_MATRIX
+	type_t local_transitions[PE_NUM][TRANSITION_MATRIX_SIZE][TRANSITION_MATRIX_SIZE];
+#pragma HLS array_partition variable = local_transitions type = complete dim = 1
+#pragma HLS bind_storage variable = local_transitions type = ram_1p impl = bram
+	// fill out the local transition matrix
+	for (idx_t i = 0; i < TRANSITION_MATRIX_SIZE; i++)
+	{
+		for (idx_t j = 0; j < TRANSITION_MATRIX_SIZE; j++)
+		{
+			for (idx_t k = 0; k < PE_NUM; k++)
+			{
+#pragma HLS unroll
+				local_transitions[k][i][j] = transitions[i][j];
+			}
+		}
+	}
+#endif
+
 
 #ifdef CMAKEDEBUG
 #ifndef NO_TRACEBACK
@@ -632,6 +685,9 @@ Iterating_Chunks:
 			col_pred,
 			query_length, local_query_length, reference_length,
 			penalties,
+#ifdef LOCAL_TRANSITION_MATRIX
+			local_transitions,
+#endif
 			local_max
 #ifndef NO_TRACEBACK
 			, tbp_matrix
@@ -680,6 +736,9 @@ void Align::Fixed::ChunkCompute(
 	const bool (&col_pred)[PE_NUM],
 	const idx_t global_query_length, const idx_t local_query_length, const idx_t reference_length,
 	const Penalties &penalties,
+#ifdef LOCAL_TRANSITION_MATRIX
+	const type_t (&transitions)[PE_NUM][TRANSITION_MATRIX_SIZE][TRANSITION_MATRIX_SIZE],
+#endif
 	ScorePack (&max)[PE_NUM] // write out so must pass by reference
 #ifndef NO_TRACEBACK
 	, tbp_t (&chunk_tbp_out)[PE_NUM][TBMEM_SIZE]
@@ -787,6 +846,9 @@ Iterating_Wavefronts:
 			local_query,
 			local_reference,
 			penalties,
+#ifdef LOCAL_TRANSITION_MATRIX
+			transitions,
+#endif
 			score_buff,
 			tbp_out);
 

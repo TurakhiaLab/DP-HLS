@@ -6,23 +6,14 @@ void ProteinLocalAffine::PE::Compute(char_t local_query_val,
                                score_vec_t diag_prev,
                                score_vec_t left_prev,
                                const Penalties penalties,
+#ifdef LOCAL_TRANSITION_MATRIX
+                               const type_t transitions[TRANSITION_MATRIX_SIZE][TRANSITION_MATRIX_SIZE],
+#endif
                                score_vec_t &write_score,
                                tbp_t &write_traceback)
 {
 
 // Define Traceback Pointer Navigation Direction
-    // each PE gets a local copy of the transition matrix
-    type_t transitions[20][20];
-    for (idx_t i = 0; i < 20; i++)
-    {
-#pragma HLS unroll
-        for (idx_t j = 0; j < 20; j++)
-        {
-#pragma HLS unroll
-            transitions[i][j] = penalties.transitions[i][j];
-        }
-    }
-
 
     const type_t insert_open = left_prev[1] + penalties.open + penalties.extend; // Insert open
     const type_t insert_extend = left_prev[0] + penalties.open;                  // insert extend

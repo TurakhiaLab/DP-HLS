@@ -29,6 +29,9 @@ namespace PE
                   const input_char_block_t qry,
                   const input_char_block_t ref,
                   const Penalties penalties,
+#ifdef LOCAL_TRANSITION_MATRIX
+                  const type_t (&transitions)[PE_NUM][TRANSITION_MATRIX_SIZE][TRANSITION_MATRIX_SIZE],
+#endif
                   tbp_vec_t &tbp);
 
     /**
@@ -47,6 +50,9 @@ namespace PE
         const input_char_block_t &qry,
         const input_char_block_t &ref,
         const Penalties penalties,
+#ifdef LOCAL_TRANSITION_MATRIX
+        const type_t (&transitions)[PE_NUM][TRANSITION_MATRIX_SIZE][TRANSITION_MATRIX_SIZE],
+#endif
         wavefront_scores_inf_t &score,
         tbp_vec_t &tbp);
 
@@ -66,6 +72,9 @@ namespace PE
         const input_char_block_t qry,
         const input_char_block_t ref,
         const Penalties penalties,
+#ifdef LOCAL_TRANSITION_MATRIX
+        const type_t (&transitions)[PE_NUM][TRANSITION_MATRIX_SIZE][TRANSITION_MATRIX_SIZE],
+#endif
         wavefront_scores_inf_t &score,
         tbp_vec_t &tbp);
 

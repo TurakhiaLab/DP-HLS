@@ -16,8 +16,9 @@
 
 using namespace std;
 
+// the dataset they prepared for artifact evaluation uses 8 bits insigned integers
 #define INPUT_QUERY_LENGTH 500
-#define INPUT_REFERENCE_LENGTH 900
+#define INPUT_REFERENCE_LENGTH 59800  // this is the actual reference length in the dataset
 
 char_t base_to_num(char base)
 {

@@ -34,20 +34,24 @@ int main(){
     query_string = query_string.length() < INPUT_QUERY_LENGTH ? query_string : query_string.substr(0, INPUT_QUERY_LENGTH);
     reference_string = reference_string.length() < INPUT_REFERENCE_LENGTH ? reference_string : reference_string.substr(0, INPUT_REFERENCE_LENGTH);
 
+    type_t transitions[20][20];
+
     // Struct for Penalties in kernel
     Penalties penalties[N_BLOCKS];
     for (int i = 0; i < N_BLOCKS; i++){
         penalties[i].extend = -0.5;
         penalties[i].open = -10;
-        for (int j = 0; j < 20; j++){
-            for (int k = 0; k < 20; k++){
-                penalties[i].transitions[j][k] = -1;
-            }
+    }
+
+    // Just assume the transition is -1 and the match is 1
+    for (int j = 0; j < 20; j++){
+        for (int k = 0; k < 20; k++){
+            transitions[j][k] = -1;
         }
-        // set the diagonal of the transition matrix to match scores
-        for (int j = 0; j < 20; j++){
-            penalties[i].transitions[j][j] = 3;
-        }
+    }
+    // set the diagonal of the transition matrix to match scores
+    for (int j = 0; j < 20; j++){
+        transitions[j][j] = 3;
     }
 
     // // Struct for penalties in solution
@@ -144,6 +148,7 @@ int main(){
         qry_lengths,
         ref_lengths,
         penalties,
+        transitions, 
         tb_is_d, tb_js_d,
         tb_streams
 #ifdef CMAKEDEBUG

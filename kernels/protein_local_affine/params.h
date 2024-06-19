@@ -10,6 +10,9 @@
 
 #define BANDING RECTANGULAR
 
+#define LOCAL_TRANSITION_MATRIX
+#define TRANSITION_MATRIX_SIZE 20
+
 #define ALIGN_TYPE ProteinLocalAffine
 #define N_BLOCKS 1
 #define N_LAYERS 3
@@ -46,8 +49,6 @@ typedef ap_uint<4> tbp_t;  // Traceback Pointer Type
 struct Penalties {
     type_t open;
     type_t extend;
-    type_t transitions[20][20];
-    type_t linear_gap;
 };
 
 enum TB_STATE {

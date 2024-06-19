@@ -18,7 +18,7 @@
  */
 
 #define MAX_QUERY_LENGTH 500  // This is read length in SF
-#define MAX_REFERENCE_LENGTH 1000  // This is Reference length in SF. 
+#define MAX_REFERENCE_LENGTH 60000  // This is Reference length in SF. 
 
 // The default PE_NUM is 100. 
 
