@@ -12,8 +12,8 @@
 using json = nlohmann::json;
 
 // Define length of actual alignment sequences
-#define MAX_QUERY
-#define MAX_REFERENCE
+#define INPUT_QUERY_LENGTH 256
+#define INPUT_REFERENCE_LENGTH 256
 
 // Define a navigation to character mapping that is used to print the traceback in terms of navigations U, L, M and etc.
 std::string navigation_to_char(tbp_t nav)
@@ -175,8 +175,8 @@ int main()
         // Set the lengths of the sequences
         for (int i = 0; i < N_BLOCKS; i++)
         {
-            qry_len_d[i] = query_c_h[0].size();
-            ref_len_d[i] = reference_c_h[0].size();
+            qry_len_d[i] = query_c_h[0].size() < INPUT_QUERY_LENGTH ? query_c_h[0].size() : INPUT_QUERY_LENGTH;
+            ref_len_d[i] = reference_c_h[0].size() < INPUT_REFERENCE_LENGTH ? reference_c_h[0].size() : INPUT_REFERENCE_LENGTH;
         }
 
         output_file << "Data prepared" << std::endl;

@@ -25,33 +25,47 @@ struct Penalties_sol {
 
 
 int main(){
-    char alphabet[4] = {'A', 'T', 'G', 'C'};
     std::vector<string> all_sequences = HostUtils::IO::readFasta("/home/centos/workspace/DP-HLS/data/uniprot_sprot.fasta");
+
+    // Bolsum62 transition matrix
+    // FIXME: ChatGPT OCR Converted this, I'm not sure it's fully correct. 
+    const type_t transitions[20][20] = {
+        { 4, -1, -2, -2,  0, -1, -1,  0, -2, -1, -1, -1, -1, -2, -1,  1,  0, -3, -2,  0},
+        {-1,  5,  0, -2, -3,  1,  0, -2,  0, -3, -2,  2, -1, -3, -2, -1, -1, -3, -2, -3},
+        {-2,  0,  6,  1, -3,  0,  0,  0,  1, -3, -3,  0, -2, -3, -2,  1,  0, -4, -2, -3},
+        {-2, -2,  1,  6, -3,  0,  2, -1, -1, -3, -4, -1, -3, -3, -1,  0, -1, -4, -3, -3},
+        { 0, -3, -3, -3,  9, -3, -4, -3, -3, -1, -1, -3, -1, -2, -3, -1, -1, -2, -2, -1},
+        {-1,  1,  0,  0, -3,  5,  2, -2,  0, -3, -2,  1,  0, -3, -1,  0, -1, -2, -1, -2},
+        {-1,  0,  0,  2, -4,  2,  5, -2,  0, -3, -3,  1, -2, -3, -1,  0, -1, -3, -2, -2},
+        { 0, -2,  0, -1, -3, -2, -2,  6, -2, -4, -4, -2, -3, -3, -2,  0, -2, -2, -3, -3},
+        {-2,  0,  1, -1, -3,  0,  0, -2,  8, -3, -3, -1, -2, -1, -2, -1, -2, -2,  2, -3},
+        {-1, -3, -3, -3, -1, -3, -3, -4, -3,  4,  2, -3,  1,  0, -3, -2, -1, -3, -1,  3},
+        {-1, -2, -3, -4, -1, -2, -3, -4, -3,  2,  4, -2,  2,  0, -3, -2, -1, -2, -1,  1},
+        {-1,  2,  0, -1, -3,  1,  1, -2, -1, -3, -2,  5, -1, -3, -1,  0, -1, -3, -2, -2},
+        {-1, -1, -2, -3, -1,  0, -2, -3, -2,  1,  2, -1,  5,  0, -2, -1, -1, -1, -1,  1},
+        {-2, -3, -3, -3, -2, -3, -3, -3, -1,  0,  0, -3,  0,  6, -4, -2, -2,  1,  3, -1},
+        {-1, -2, -2, -1, -3, -1, -1, -2, -2, -3, -3, -1, -2, -4,  7, -1, -1, -4, -3, -2},
+        { 1, -1,  1,  0, -1,  0,  0,  0, -1, -2, -2,  0, -1, -2, -1,  4,  1, -3, -2, -2},
+        { 0, -1,  0, -1, -1, -1, -1, -2, -2, -1, -1, -1, -1, -2, -1,  1,  5, -2, -2,  0},
+        {-3, -3, -4, -4, -2, -2, -3, -2, -2, -3, -2, -3, -1,  1, -4, -3, -2, 11,  2, -3},
+        {-2, -2, -2, -3, -2, -1, -2, -3,  2, -1, -1, -2, -1,  3, -3, -2, -2,  2,  7, -1},
+        { 0, -3, -3, -3, -1, -2, -2, -3, -3,  3,  1, -2,  1, -1, -2, -2,  0, -3, -1,  4},
+    };
+    
 
     string query_string = all_sequences[0];
     string reference_string = all_sequences[1];
 
+    type_t scores[N_BLOCKS];
+
     query_string = query_string.length() < INPUT_QUERY_LENGTH ? query_string : query_string.substr(0, INPUT_QUERY_LENGTH);
     reference_string = reference_string.length() < INPUT_REFERENCE_LENGTH ? reference_string : reference_string.substr(0, INPUT_REFERENCE_LENGTH);
-
-    type_t transitions[20][20];
 
     // Struct for Penalties in kernel
     Penalties penalties[N_BLOCKS];
     for (int i = 0; i < N_BLOCKS; i++){
         penalties[i].extend = -0.5;
         penalties[i].open = -10;
-    }
-
-    // Just assume the transition is -1 and the match is 1
-    for (int j = 0; j < 20; j++){
-        for (int k = 0; k < 20; k++){
-            transitions[j][k] = -1;
-        }
-    }
-    // set the diagonal of the transition matrix to match scores
-    for (int j = 0; j < 20; j++){
-        transitions[j][j] = 3;
     }
 
     // // Struct for penalties in solution
@@ -151,6 +165,9 @@ int main(){
         transitions, 
         tb_is_d, tb_js_d,
         tb_streams
+#ifdef SCORED
+        , scores
+#endif
 #ifdef CMAKEDEBUG
         , debuggers
 #endif
@@ -204,7 +221,8 @@ int main(){
         cout << "Kernel " << i << " Traceback, Start Row: " << tb_is_h[i] << ", Start Column: " << tb_js_h[i] << endl;
         cout << "Kernel   Aligned Query    : " << kernel_alignments[0]["query"] << endl;
         cout << "Kernel   Aligned Reference: " << kernel_alignments[0]["reference"] << endl;
+#ifdef SCORED
+        cout << "Kernel " << i << " Score: " << scores[i] << endl;
+#endif
     }
-
-
 }

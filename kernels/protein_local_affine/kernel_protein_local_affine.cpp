@@ -15,10 +15,10 @@ void ProteinLocalAffine::PE::Compute(char_t local_query_val,
 
 // Define Traceback Pointer Navigation Direction
 
-    const type_t insert_open = left_prev[1] + penalties.open + penalties.extend; // Insert open
-    const type_t insert_extend = left_prev[0] + penalties.open;                  // insert extend
-    const type_t delete_open = up_prev[1] + penalties.open + penalties.extend;   // delete open
-    const type_t delete_extend = up_prev[2] + penalties.open;                    // delete extend
+    const type_t insert_open = left_prev[1] + penalties.open; // Insert open
+    const type_t insert_extend = left_prev[0] + penalties.extend;                  // insert extend
+    const type_t delete_open = up_prev[1] + penalties.open;   // delete open
+    const type_t delete_extend = up_prev[2] + penalties.extend;                    // delete extend
 
     bool insert_open_b = insert_open > insert_extend;
     bool delete_open_b = delete_open > delete_extend;

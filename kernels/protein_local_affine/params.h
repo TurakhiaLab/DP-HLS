@@ -13,6 +13,8 @@
 #define LOCAL_TRANSITION_MATRIX
 #define TRANSITION_MATRIX_SIZE 20
 
+#define SCORED
+
 #define ALIGN_TYPE ProteinLocalAffine
 #define N_BLOCKS 1
 #define N_LAYERS 3
