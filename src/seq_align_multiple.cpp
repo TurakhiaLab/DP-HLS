@@ -67,6 +67,10 @@ extern "C"
 #ifdef SCORED
 		type_t scores_b[N_BLOCKS];
 #endif
+#ifdef LOCAL_TRANSITION_MATRIX
+		type_t transitions_block[N_BLOCKS][TRANSITION_MATRIX_SIZE][TRANSITION_MATRIX_SIZE];
+#endif
+
 		// Attempted to use URAM but it didn't work.
 		// #pragma HLS bind_storage variable = tb_streams_b type = fifo impl = uram
 		// #pragma HLS bind_storage variable = querys_b type = ram_1p impl = uram
@@ -87,6 +91,11 @@ extern "C"
 #ifdef SCORED
 #pragma HLS array_partition variable = scores_b type = complete dim = 1
 #endif
+
+#ifdef LOCAL_TRANSITION_MATRIX
+#pragma HLS array_partition variable = transitions_block type = complete dim = 1
+#endif
+
 
 		// F1 doesn't support axis on the top level. But for other FPGA it might be more optimized.
 		// #pragma HLS interface mode = axis port = querys_b
@@ -136,6 +145,21 @@ extern "C"
 			penalties_b[i] = penalties[i];
 		}
 
+#ifdef LOCAL_TRANSITION_MATRIX
+	// broadcast the local transitions to each block
+	for (idx_t i = 0; i < TRANSITION_MATRIX_SIZE; i++)
+	{
+		for (idx_t j = 0; j < TRANSITION_MATRIX_SIZE; j++)
+		{
+			for (idx_t k = 0; k < N_BLOCKS; k++)
+			{
+#pragma HLS unroll
+				transitions_block[k][i][j] = transitions[i][j];
+			}
+		}
+	}
+#endif
+
 		for (int i = 0; i < N_BLOCKS; i++)
 		{
 #pragma HLS unroll
@@ -149,7 +173,7 @@ extern "C"
 				reference_lengths_b[i],
 				penalties_b[i],
 #ifdef LOCAL_TRANSITION_MATRIX
-				transitions,	
+				transitions_block[i],	
 #endif
 				tb_is_b[i], tb_js_b[i]
 #ifndef NO_TRACEBACK
