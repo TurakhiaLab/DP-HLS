@@ -35,6 +35,7 @@ void SDTW::PE::Compute(char_t local_query_val,
     // The RTL code uses left and diagonal is because possible the query and reference is transposed. 
     // find max from diagonal and left
     write_score[0] = (diag_prev[0] < up_prev[0] ? diag_prev[0] : up_prev[0]) + abs(local_query_val - local_reference_val);
+
 }
 
 void SDTW::UpdatePEMaximum(

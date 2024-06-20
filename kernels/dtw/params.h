@@ -13,9 +13,10 @@
 #define PE_NUM 32
 #define LAYER_MAXIMIUM 0  // We need to indicate from which layer (main matrix) is the maximum score stored.
 
+#define BANDING RECTANGULAR
+
 typedef ap_fixed<32, 26> num_t;
 
-#define BANDING RECTANGULAR
 
 // Primitive Types
 struct char_t_st {
@@ -30,6 +31,7 @@ struct char_t_st {
 };
 
 typedef char_t_st char_t;  // Sequence Alphabet
+
 typedef ap_fixed<32,26> type_t;  // Scores Type <width, integer_width>
 typedef short idx_t;  // Indexing Type, could be much less than 32. ap_uint<8>
 typedef ap_uint<2> tbp_t;  // Traceback Pointer Type

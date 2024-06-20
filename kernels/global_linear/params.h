@@ -36,25 +36,6 @@ typedef ap_uint<2> tbp_t;  // Traceback Pointer Type
 #define DEBUG_OUTPUT_PATH "/home/yic033@AD.UCSD.EDU/DP-HLS-Debug/global_affine/"
 #define DEBUG_FILENAME "debug_kernel"
 
-struct ScorePack{  
-    type_t score;
-    idx_t row;
-    idx_t col;
-    idx_t p_col;
-    idx_t ck;
-    idx_t pe;
-
-	// Default Constructor
-    ScorePack() {
-        score = 0;
-        row = 0;
-        col = 0;
-        p_col = 0;
-        ck = 0;
-        pe = 0;
-    }
-};
-
 struct Penalties {
     type_t open;
     type_t extend;

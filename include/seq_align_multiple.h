@@ -24,7 +24,10 @@ extern "C" {
 		char_t (&references)[MAX_REFERENCE_LENGTH][N_BLOCKS],
 		idx_t (&query_lengths)[N_BLOCKS],
 		idx_t (&reference_lengths)[N_BLOCKS],
-		Penalties (&penalties)[N_BLOCKS],
+		const Penalties (&penalties)[N_BLOCKS],
+#ifdef LOCAL_TRANSITION_MATRIX
+		const type_t (&transitions)[TRANSITION_MATRIX_SIZE][TRANSITION_MATRIX_SIZE],
+#endif
 		idx_t (&tb_is)[N_BLOCKS], idx_t (&tb_js)[N_BLOCKS]
 #ifndef NO_TRACEBACK
 		, tbr_t (&tb_streams)[MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH][N_BLOCKS]

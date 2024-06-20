@@ -22,6 +22,9 @@ void PE::PEUnroll(
     const input_char_block_t qry, 
     const input_char_block_t ref, 
     const Penalties penalties, 
+#ifdef LOCAL_TRANSITION_MATRIX
+    const type_t (&transitions)[PE_NUM][TRANSITION_MATRIX_SIZE][TRANSITION_MATRIX_SIZE],
+#endif
     tbp_vec_t &tbp)
 {
 #pragma HLS array_partition variable = dp_mem dim = 0 type = complete
@@ -37,6 +40,9 @@ void PE::PEUnroll(
             dp_mem[i][2],
             dp_mem[i+1][1],
             penalties,
+#ifdef LOCAL_TRANSITION_MATRIX
+            transitions[i], 
+#endif
             dp_mem[i+1][0],
             tbp[i]);
     }
@@ -47,6 +53,9 @@ void PE::PEUnrollSep(
     const input_char_block_t &qry,
     const input_char_block_t &ref, 
     const Penalties penalties, 
+#ifdef LOCAL_TRANSITION_MATRIX
+    const type_t (&local_transitions)[PE_NUM][TRANSITION_MATRIX_SIZE][TRANSITION_MATRIX_SIZE],
+#endif
     wavefront_scores_inf_t &score,
     tbp_vec_t &tbp)
 {
@@ -64,6 +73,9 @@ void PE::PEUnrollSep(
             dp_mem[i][1],
             dp_mem[i+1][0],
             penalties,
+#ifdef LOCAL_TRANSITION_MATRIX
+            local_transitions[i], 
+#endif
             score[i+1],
             tbp[i]);
     }
@@ -74,6 +86,9 @@ void PE::PEUnrollFixedSep(
     const input_char_block_t qry,
     const input_char_block_t ref,
     const Penalties penalties, 
+#ifdef LOCAL_TRANSITION_MATRIX
+    const type_t (&transitions)[PE_NUM][TRANSITION_MATRIX_SIZE][TRANSITION_MATRIX_SIZE],
+#endif
     wavefront_scores_inf_t &score,
     tbp_vec_t &tbp){
 
@@ -92,6 +107,9 @@ void PE::PEUnrollFixedSep(
             dp_mem[i][1],
             dp_mem[i+1][0],
             penalties,
+#ifdef LOCAL_TRANSITION_MATRIX
+            transitions[i],
+#endif
             score[i+1],
             tbp[i]);
 #ifdef CMAKEDEBUG

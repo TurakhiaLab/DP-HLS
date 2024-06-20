@@ -6,16 +6,19 @@ void ProteinLocalAffine::PE::Compute(char_t local_query_val,
                                score_vec_t diag_prev,
                                score_vec_t left_prev,
                                const Penalties penalties,
+#ifdef LOCAL_TRANSITION_MATRIX
+                               const type_t transitions[TRANSITION_MATRIX_SIZE][TRANSITION_MATRIX_SIZE],
+#endif
                                score_vec_t &write_score,
                                tbp_t &write_traceback)
 {
 
 // Define Traceback Pointer Navigation Direction
 
-    const type_t insert_open = left_prev[1] + penalties.open + penalties.extend; // Insert open
-    const type_t insert_extend = left_prev[0] + penalties.open;                  // insert extend
-    const type_t delete_open = up_prev[1] + penalties.open + penalties.extend;   // delete open
-    const type_t delete_extend = up_prev[2] + penalties.open;                    // delete extend
+    const type_t insert_open = left_prev[1] + penalties.open; // Insert open
+    const type_t insert_extend = left_prev[0] + penalties.extend;                  // insert extend
+    const type_t delete_open = up_prev[1] + penalties.open;   // delete open
+    const type_t delete_extend = up_prev[2] + penalties.extend;                    // delete extend
 
     bool insert_open_b = insert_open > insert_extend;
     bool delete_open_b = delete_open > delete_extend;
@@ -24,8 +27,10 @@ void ProteinLocalAffine::PE::Compute(char_t local_query_val,
     tbp_t insert_tb = insert_open_b ? (tbp_t) 0 : TB_IMAT;
     tbp_t delete_tb = delete_open_b ? (tbp_t) 0 : TB_DMAT;
 
-
-    const type_t match = (local_query_val == local_reference_val) ? diag_prev[1] + penalties.match : diag_prev[1] + penalties.mismatch;
+    // transition SW
+    // std::cout << "accessing" << local_query_val.to_int() << "and" << local_reference_val.to_int()  << std::endl;
+    const type_t match = transitions[local_query_val][local_reference_val] + diag_prev[1];
+    // std::cout << "accessed" << std::endl;
 
     type_t max_value = write_score[0] > write_score[2] ? write_score[0] : write_score[2]; // compare between insertion and deletion
     max_value = max_value > match ? max_value : match;
@@ -68,16 +73,12 @@ void ProteinLocalAffine::InitializeScores(
     InitializeColumnScores:
     for (int i = 0; i < MAX_QUERY_LENGTH; i++)
     {
-        init_col_scr[i][0] = NINF;
-        init_col_scr[i][1] = 0.0;
-        init_col_scr[i][2] = 0.0;
+        init_col_scr[i] = {NINF, 0,0 };
     }
     InitializeRowScores:
     for (int i = 0; i < MAX_REFERENCE_LENGTH; i++)
     {
-        init_row_scr[i][0] = 0.0;
-        init_row_scr[i][1] = 0.0;
-        init_row_scr[i][2] = NINF;
+        init_row_scr[i] = {0, 0, NINF};
     }
 }
 

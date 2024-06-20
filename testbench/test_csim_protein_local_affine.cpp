@@ -25,11 +25,38 @@ struct Penalties_sol {
 
 
 int main(){
-    char alphabet[4] = {'A', 'T', 'G', 'C'};
     std::vector<string> all_sequences = HostUtils::IO::readFasta("/home/centos/workspace/DP-HLS/data/uniprot_sprot.fasta");
+
+    // Bolsum62 transition matrix source: ftp://ftp.ncbi.nih.gov/blast/matrices/BLOSUM62
+    // FIXME: ChatGPT OCR Converted this, I'm not sure it's fully correct. 
+    const type_t transitions[20][20] = {
+        { 4, -1, -2, -2,  0, -1, -1,  0, -2, -1, -1, -1, -1, -2, -1,  1,  0, -3, -2,  0},
+        {-1,  5,  0, -2, -3,  1,  0, -2,  0, -3, -2,  2, -1, -3, -2, -1, -1, -3, -2, -3},
+        {-2,  0,  6,  1, -3,  0,  0,  0,  1, -3, -3,  0, -2, -3, -2,  1,  0, -4, -2, -3},
+        {-2, -2,  1,  6, -3,  0,  2, -1, -1, -3, -4, -1, -3, -3, -1,  0, -1, -4, -3, -3},
+        { 0, -3, -3, -3,  9, -3, -4, -3, -3, -1, -1, -3, -1, -2, -3, -1, -1, -2, -2, -1},
+        {-1,  1,  0,  0, -3,  5,  2, -2,  0, -3, -2,  1,  0, -3, -1,  0, -1, -2, -1, -2},
+        {-1,  0,  0,  2, -4,  2,  5, -2,  0, -3, -3,  1, -2, -3, -1,  0, -1, -3, -2, -2},
+        { 0, -2,  0, -1, -3, -2, -2,  6, -2, -4, -4, -2, -3, -3, -2,  0, -2, -2, -3, -3},
+        {-2,  0,  1, -1, -3,  0,  0, -2,  8, -3, -3, -1, -2, -1, -2, -1, -2, -2,  2, -3},
+        {-1, -3, -3, -3, -1, -3, -3, -4, -3,  4,  2, -3,  1,  0, -3, -2, -1, -3, -1,  3},
+        {-1, -2, -3, -4, -1, -2, -3, -4, -3,  2,  4, -2,  2,  0, -3, -2, -1, -2, -1,  1},
+        {-1,  2,  0, -1, -3,  1,  1, -2, -1, -3, -2,  5, -1, -3, -1,  0, -1, -3, -2, -2},
+        {-1, -1, -2, -3, -1,  0, -2, -3, -2,  1,  2, -1,  5,  0, -2, -1, -1, -1, -1,  1},
+        {-2, -3, -3, -3, -2, -3, -3, -3, -1,  0,  0, -3,  0,  6, -4, -2, -2,  1,  3, -1},
+        {-1, -2, -2, -1, -3, -1, -1, -2, -2, -3, -3, -1, -2, -4,  7, -1, -1, -4, -3, -2},
+        { 1, -1,  1,  0, -1,  0,  0,  0, -1, -2, -2,  0, -1, -2, -1,  4,  1, -3, -2, -2},
+        { 0, -1,  0, -1, -1, -1, -1, -2, -2, -1, -1, -1, -1, -2, -1,  1,  5, -2, -2,  0},
+        {-3, -3, -4, -4, -2, -2, -3, -2, -2, -3, -2, -3, -1,  1, -4, -3, -2, 11,  2, -3},
+        {-2, -2, -2, -3, -2, -1, -2, -3,  2, -1, -1, -2, -1,  3, -3, -2, -2,  2,  7, -1},
+        { 0, -3, -3, -3, -1, -2, -2, -3, -3,  3,  1, -2,  1, -1, -2, -2,  0, -3, -1,  4},
+    };
+    
 
     string query_string = all_sequences[0];
     string reference_string = all_sequences[1];
+
+    type_t scores[N_BLOCKS];
 
     query_string = query_string.length() < INPUT_QUERY_LENGTH ? query_string : query_string.substr(0, INPUT_QUERY_LENGTH);
     reference_string = reference_string.length() < INPUT_REFERENCE_LENGTH ? reference_string : reference_string.substr(0, INPUT_REFERENCE_LENGTH);
@@ -39,18 +66,16 @@ int main(){
     for (int i = 0; i < N_BLOCKS; i++){
         penalties[i].extend = -0.5;
         penalties[i].open = -10;
-        penalties[i].match = 7;
-        penalties[i].mismatch = -2.5;
     }
 
-    // Struct for penalties in solution
-    Penalties_sol penalties_sol[N_BLOCKS];
-    for (Penalties_sol &penalty : penalties_sol) {
-        penalty.extend = -0.5;
-        penalty.open = -10;
-        penalty.match = 7;
-        penalty.mismatch = -2.5;
-    }
+    // // Struct for penalties in solution
+    // Penalties_sol penalties_sol[N_BLOCKS];
+    // for (Penalties_sol &penalty : penalties_sol) {
+    //     penalty.extend = -0.5;
+    //     penalty.open = -10;
+    //     penalty.match = 7;
+    //     penalty.mismatch = -2.5;
+    // }
 
     // Reference and Query Strings
     std::vector<char> query(query_string.begin(), query_string.end());
@@ -99,6 +124,24 @@ int main(){
         }
     }
 
+    // for debugging purposes, print the query and reference in the device buffer in integer form
+    for (int b = 0; b < N_BLOCKS; b++)
+    {
+        cout << "Query Buffer Block " << b << endl;
+        for (int i = 0; i < query.size(); i++)
+        {
+            cout <<  query_buff[i][b].to_int() << " ";
+        }
+        cout << endl;
+        cout << "Reference Buffer Block " << b << endl;
+        for (int i = 0; i < reference.size(); i++)
+        {
+            cout <<  reference_buff[i][b].to_int() << " ";
+        }
+        cout << endl;
+    }
+
+
     // Fill the lengths of the query and reference
     for (int b = 0; b < N_BLOCKS; b++)
     {
@@ -119,8 +162,12 @@ int main(){
         qry_lengths,
         ref_lengths,
         penalties,
+        transitions, 
         tb_is_d, tb_js_d,
         tb_streams
+#ifdef SCORED
+        , scores
+#endif
 #ifdef CMAKEDEBUG
         , debuggers
 #endif
@@ -136,7 +183,7 @@ int main(){
     array<array<array<float, MAX_REFERENCE_LENGTH>, MAX_QUERY_LENGTH>, N_LAYERS> sol_score_mat;
     array<array<string, MAX_REFERENCE_LENGTH>, MAX_QUERY_LENGTH> sol_tb_mat;
     map<string, string> alignments;
-    local_affine_solution<Penalties_sol, MAX_QUERY_LENGTH, MAX_REFERENCE_LENGTH, N_LAYERS>(query_string, reference_string, penalties_sol[0], sol_score_mat, sol_tb_mat, alignments);
+    // local_affine_solution<Penalties_sol, MAX_QUERY_LENGTH, MAX_REFERENCE_LENGTH, N_LAYERS>(query_string, reference_string, penalties_sol[0], sol_score_mat, sol_tb_mat, alignments);
     // print_matrix<float, MAX_QUERY_LENGTH, MAX_REFERENCE_LENGTH>(sol_score_mat[0], "Solution Score Matrix Layer 0");
     // print_matrix<char, MAX_QUERY_LENGTH, MAX_REFERENCE_LENGTH>(sol_tb_mat, "Solution Traceback Matrix");
     cout << "Solution Aligned Query    : " << alignments["query"] << endl;
@@ -174,7 +221,8 @@ int main(){
         cout << "Kernel " << i << " Traceback, Start Row: " << tb_is_h[i] << ", Start Column: " << tb_js_h[i] << endl;
         cout << "Kernel   Aligned Query    : " << kernel_alignments[0]["query"] << endl;
         cout << "Kernel   Aligned Reference: " << kernel_alignments[0]["reference"] << endl;
+#ifdef SCORED
+        cout << "Kernel " << i << " Score: " << scores[i] << endl;
+#endif
     }
-
-
 }

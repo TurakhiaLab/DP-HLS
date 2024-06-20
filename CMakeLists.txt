@@ -164,7 +164,6 @@ add_executable(test_csim_local_two_piece_affine
     "kernels/local_two_piece_affine/kernel_local_two_piece_affine.cpp"
     ${COMMON_SRCS}) 
 
-
 add_executable(test_global_affine_real_data
     "testbench/test_csim_global_affine_real_data.cpp"
     "kernels/global_affine/kernel_global_affine.cpp"
