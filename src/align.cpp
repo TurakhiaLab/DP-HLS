@@ -322,17 +322,22 @@ void Align::PreserveRowScore(
 	}
 }
 
-void Align::FindMax::ReductionMaxScores(ScorePack (&packs)[PE_NUM], ScorePack &global_max, idx_t &max_pe)
+void Align::FindMax::ReductionMaxScores(ScorePack (&packs)[PE_NUM], ScorePack &global_max, idx_t &max_pe_out)
 {
+	idx_t max_pe = 0;
+	type_t max_score = packs[0].score;
+
 	ReductionMax:
 	for (idx_t i = 0; i < PE_NUM; i++)
 	{
-		if (packs[i].score > packs[max_pe].score)
+		if (packs[i].score > max_score)
 		{
+			max_score = packs[i].score;
 			max_pe = i;
 		}
 	}
 	global_max = packs[max_pe];
+	max_pe_out = max_pe;
 }
 
 void Align::CopyColScore(chunk_col_scores_inf_t &init_col_scr_local, score_vec_t (&init_col_scr)[MAX_QUERY_LENGTH], idx_t idx)
@@ -482,7 +487,8 @@ Iterating_Chunks:
 		);
 
 	}
-    idx_t max_pe = 0;
+	
+    idx_t max_pe;
 	Align::FindMax::ReductionMaxScores(local_max, maximum, max_pe);
 
 	// >>> Traceback >>>

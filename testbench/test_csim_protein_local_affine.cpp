@@ -27,7 +27,7 @@ struct Penalties_sol {
 int main(){
     std::vector<string> all_sequences = HostUtils::IO::readFasta("/home/centos/workspace/DP-HLS/data/uniprot_sprot.fasta");
 
-    // Bolsum62 transition matrix
+    // Bolsum62 transition matrix source: ftp://ftp.ncbi.nih.gov/blast/matrices/BLOSUM62
     // FIXME: ChatGPT OCR Converted this, I'm not sure it's fully correct. 
     const type_t transitions[20][20] = {
         { 4, -1, -2, -2,  0, -1, -1,  0, -2, -1, -1, -1, -1, -2, -1,  1,  0, -3, -2,  0},
