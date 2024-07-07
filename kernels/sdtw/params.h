@@ -37,7 +37,7 @@
 // const int sf_score_width = 10 + std::ceil(std::log2(MAX_REFERENCE_LENGTH));
 
 typedef ap_uint<8> char_t;  // Sequence Alphabet
-typedef ap_uint<64> type_t;  // FIXME
+typedef ap_uint<26> type_t;  // FIXME
 typedef short idx_t;  // Indexing Type, could be much less than 32. ap_uint<8>
 typedef ap_uint<2> tbp_t;  // Traceback Pointer Type
 
