@@ -47,23 +47,28 @@ void SDTW::UpdatePEMaximum(
     const idx_t query_len, const idx_t ref_len)
 {
     // Like SF, only do when QueryLength is multiple of PE_NUM, thus only let last PE findmax. 
-    if (predicate[PE_NUM-1])
+    for (idx_t i = 0; i < PE_NUM; i++)
     {
-        if (scores[PE_NUM][LAYER_MAXIMIUM] > max[PE_NUM-1].score && chunk_row_offset + PE_NUM == query_len)
+#pragma HLS unroll
+        if (predicate[i] && scores[i+1][LAYER_MAXIMIUM] > max[i].score && chunk_row_offset + i == query_len - 1)
         {
             // NOTE: If we just care about the score but doesn't care where does the score come from, then we doesn't need to update p_cols and ck index as well. 
-            max[PE_NUM-1].score = scores[PE_NUM][LAYER_MAXIMIUM];
-            max[PE_NUM-1].p_col = p_cols;
-            max[PE_NUM-1].ck = ck_idx;
+            max[i] = {scores[i+1][LAYER_MAXIMIUM], ck_idx,  p_cols};
+            // max[PE_NUM-1].p_col = p_cols;
+            // max[PE_NUM-1].ck = ck_idx;
         }
     }
 }
 
 void SDTW::InitializeMaxScores(ScorePack (&max)[PE_NUM], idx_t qry_len, idx_t ref_len)
 {
-    max[PE_NUM-1].score = NINF;
-    max[PE_NUM-1].p_col = 0;
-    max[PE_NUM-1].ck = 0;
+    for (idx_t i = 0; i < PE_NUM; i++)
+    {
+#pragma HLS unroll
+        max[i].score = NINF;
+        max[i].ck = 0;
+        max[i].p_col = 0;
+    }
 }
 
 void SDTW::Traceback::StateInit(tbp_t tbp, TB_STATE &state)
