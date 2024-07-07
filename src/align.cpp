@@ -187,6 +187,8 @@ Iterating_Wavefronts:
 #pragma HLS pipeline II = 1
 #pragma HLS dependence variable = init_row_scr type = inter direction = RAW false
 
+		// std::cout << i << std::endl;
+
 		Align::Rectangular::MapPredicate(i, reference_length, query_length, row_pred, col_pred, predicate);
 
 		Align::ShiftReference(local_reference, reference, i, reference_length);

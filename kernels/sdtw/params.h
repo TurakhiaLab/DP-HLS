@@ -17,15 +17,15 @@
  * Because there is not traceback, MAX_REFERENCE_LENGTH could be arbitarily long. 
  */
 
-#define MAX_QUERY_LENGTH 500  // This is read length in SF
-#define MAX_REFERENCE_LENGTH 60000  // This is Reference length in SF. 
+#define MAX_QUERY_LENGTH 100  // This is read length in SF
+#define MAX_REFERENCE_LENGTH 1000  // This is Reference length in SF, supposted to be 60000
 
 // The default PE_NUM is 100. 
 
 #define ALIGN_TYPE SDTW
 #define N_BLOCKS 1
 #define N_LAYERS 1
-#define PE_NUM 100  // this is equivalent to the query_length in Squiggle Filter (they use query_length to means the number of PE, because they requires query_length as exactly 2000, which is also the number of PEs).
+#define PE_NUM 50  // this is equivalent to the query_length in Squiggle Filter (they use query_length to means the number of PE, because they requires query_length as exactly 2000, which is also the number of PEs).
 #define LAYER_MAXIMIUM 0  // We need to indicate from which layer (main matrix) is the maximum score stored.
 
 #define BANDING RECTANGULAR
