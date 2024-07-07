@@ -1,4 +1,5 @@
 # DP-HLS: Dynamic Programming FPGA Acceleration using High-Level Synthesis
+The following information is depracated
 
 **HLS Tool**: Vitis HLS<br>
 **Device**: <br>
@@ -174,4 +175,12 @@ Currently our code performs local sequence alignment using Smith Waterman algori
 </table>
 
 ## <a name="references"></a> References
+
+DP-HLS currently only has support on Unix-based systems. 
+
+## Building DP-HLS
+
+## Simulating DP-HLS
+
+## Synthesizing DP-HLS
 
