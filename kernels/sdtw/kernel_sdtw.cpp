@@ -16,7 +16,7 @@ void SDTW::InitializeScores(
     // between q_i and r_0. min(diag, left, always have 0).
     for (int i = 0; i < MAX_REFERENCE_LENGTH; i++)
     {
-        init_row_scr[i][0] = 0;
+        init_row_scr[i] = score_vec_t(0);
     }
 
     // doesn't need to initialize the initial reference since no upper cell dependencey.

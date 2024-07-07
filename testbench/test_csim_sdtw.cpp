@@ -17,8 +17,10 @@
 using namespace std;
 
 // the dataset they prepared for artifact evaluation uses 8 bits insigned integers
-#define INPUT_QUERY_LENGTH 500
-#define INPUT_REFERENCE_LENGTH 59800  // this is the actual reference length in the dataset
+#define INPUT_QUERY_LENGTH 256
+// #define INPUT_REFERENCE_LENGTH 59800  // this is the actual reference length in the dataset, but it can't be simulated with Vitis HLS
+// #define INPUT_REFERENCE_LENGTH 30000  // this is the actual reference length in the dataset
+#define INPUT_REFERENCE_LENGTH 256
 
 char_t base_to_num(char base)
 {
