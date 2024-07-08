@@ -178,9 +178,23 @@ Currently our code performs local sequence alignment using Smith Waterman algori
 
 DP-HLS currently only has support on Unix-based systems. 
 
-## Building DP-HLS
+## Building and Simulating DP-HLS
+In the top directory, the file `CMakeLists.txt` contains the build information and files required to run DP-HLS. There are two lines in that file which indicate which platform we are building on: RAPTOR (which is our standard UNIX platform) and F1 (which is the AWS UNIX  platform). If you are on RAPTOR, you should set 
 
-## Simulating DP-HLS
+```bash
+set(RAPTOR 1)
+```
+
+If you are on F1, you should set 
+
+```bash
+set(F1 1)
+```
+Then run
+```bash
+make
+```
+This will build all the different types of kernels available, along with their respective testbenches, params, and PE/traceback files. Each testbench performs pairwise alignment on a particular set of sequences and prints the optimal alignment, optionally printing the DP matrix scores if the user wishes. Simply comment out the kernels that you don't wish to build and their dependencies for faster build times.
 
 ## Synthesizing DP-HLS
 
