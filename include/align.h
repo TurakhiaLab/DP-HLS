@@ -250,13 +250,12 @@ namespace Align
 		void AlignStatic(
 			const char_t (&querys)[MAX_QUERY_LENGTH],
 			const char_t (&references)[MAX_REFERENCE_LENGTH],
-			const idx_t query_length,
 			const idx_t reference_length,
 			const Penalties &penalties,
 #ifdef LOCAL_TRANSITION_MATRIX
 			const type_t (&transitions)[TRANSITION_MATRIX_SIZE][TRANSITION_MATRIX_SIZE],
 #endif
-			idx_t &tb_i, idx_t &tb_j
+			idx_t &tb_j
 #ifndef NO_TRACEBACK
 			, tbr_t (&tb_out)[MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH]
 #endif
@@ -279,12 +278,12 @@ namespace Align
 		 * @param max : Score pack of the maximium score of this chunk.
 		 */
 		void ChunkCompute(
-			idx_t chunk_row_offset,
+			const idx_t chunk_row_offset,
 			input_char_block_t &query,
 			const char_t (&reference)[MAX_REFERENCE_LENGTH],
 			chunk_col_scores_inf_t &init_col_scr,
 			score_vec_t (&init_row_scr)[MAX_REFERENCE_LENGTH],
-			idx_t &p_col_offset, idx_t ck_idx,
+			idx_t &p_col_offset,
 			idx_t reference_length,
 			const Penalties &penalties,
 #ifdef LOCAL_TRANSITION_MATRIX

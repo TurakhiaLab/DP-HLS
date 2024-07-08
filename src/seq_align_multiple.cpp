@@ -36,13 +36,12 @@ extern "C"
 	void seq_align_multiple_static(
 		char_t (&querys)[MAX_QUERY_LENGTH][N_BLOCKS],
 		char_t (&references)[MAX_REFERENCE_LENGTH][N_BLOCKS],
-		idx_t (&query_lengths)[N_BLOCKS],
 		idx_t (&reference_lengths)[N_BLOCKS],
 		const Penalties (&penalties)[N_BLOCKS],
 #ifdef LOCAL_TRANSITION_MATRIX
 		const type_t (&transitions)[TRANSITION_MATRIX_SIZE][TRANSITION_MATRIX_SIZE],
 #endif
-		idx_t (&tb_is)[N_BLOCKS], idx_t (&tb_js)[N_BLOCKS]
+		idx_t (&tb_js)[N_BLOCKS]
 #ifndef NO_TRACEBACK
 		, tbr_t (&tb_streams)[MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH][N_BLOCKS]
 #endif
@@ -59,7 +58,6 @@ extern "C"
 		idx_t query_lengths_b[N_BLOCKS];
 		idx_t reference_lengths_b[N_BLOCKS];
 		Penalties penalties_b[N_BLOCKS];
-		idx_t tb_is_b[N_BLOCKS];
 		idx_t tb_js_b[N_BLOCKS];
 #ifndef NO_TRACEBACK
 		tbr_t tb_streams_b[N_BLOCKS][MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH];
@@ -78,10 +76,8 @@ extern "C"
 
 #pragma HLS array_partition variable = querys_b type = complete dim = 1
 #pragma HLS array_partition variable = references_b type = complete dim = 1
-#pragma HLS array_partition variable = query_lengths_b type = complete dim = 1
 #pragma HLS array_partition variable = reference_lengths_b type = complete dim = 1
 #pragma HLS array_partition variable = penalties_b type = complete dim = 1
-#pragma HLS array_partition variable = tb_is_b type = complete dim = 1
 #pragma HLS array_partition variable = tb_js_b type = complete dim = 1
 
 #ifndef NO_TRACEBACK
@@ -127,12 +123,6 @@ extern "C"
 			}
 		}
 
-	ReadQueryLengths:
-		for (int i = 0; i < N_BLOCKS; i++)
-		{
-			query_lengths_b[i] = query_lengths[i];
-		}
-
 	ReadReferenceLengths:
 		for (int i = 0; i < N_BLOCKS; i++)
 		{
@@ -169,13 +159,12 @@ extern "C"
 			Align::BANDING_NAMESPACE::AlignStatic(
 				querys_b[i],
 				references_b[i],
-				query_lengths_b[i],
 				reference_lengths_b[i],
 				penalties_b[i],
 #ifdef LOCAL_TRANSITION_MATRIX
 				transitions_block[i],	
 #endif
-				tb_is_b[i], tb_js_b[i]
+				tb_js_b[i]
 #ifndef NO_TRACEBACK
 				, tb_streams_b[i]
 #endif
@@ -203,7 +192,6 @@ extern "C"
 	ExtractTracebackCoordinate:
 		for (int i = 0; i < N_BLOCKS; i++)
 		{
-			tb_is[i] = tb_is_b[i];
 			tb_js[i] = tb_js_b[i];
 		}
 

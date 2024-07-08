@@ -134,10 +134,9 @@ int main(){
     seq_align_multiple_static(
         query_buff,
         reference_buff,
-        qry_lengths,
         ref_lengths,
         penalties,
-        tb_is, tb_js,
+        tb_js,
         scores
 #ifdef CMAKEDEBUG
         , debuggers

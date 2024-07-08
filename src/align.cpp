@@ -130,7 +130,7 @@ void Align::Rectangular::ChunkCompute(
 	const char_t (&reference)[MAX_REFERENCE_LENGTH],
 	chunk_col_scores_inf_t &init_col_scr,
 	score_vec_t (&init_row_scr)[MAX_REFERENCE_LENGTH],
-	idx_t &p_col_offset, idx_t ck_idx,
+	idx_t &p_col_offset,
 	idx_t reference_length,
 	const Penalties &penalties,
 #ifdef LOCAL_TRANSITION_MATRIX
@@ -384,13 +384,12 @@ void Align::ChunkMax(ScorePack &max, ScorePack new_scr)
 void Align::Rectangular::AlignStatic(
 	const char_t (&query)[MAX_QUERY_LENGTH],
 	const char_t (&reference)[MAX_REFERENCE_LENGTH],
-	const idx_t query_length,
 	const idx_t reference_length,
 	const Penalties &penalties,
 #ifdef LOCAL_TRANSITION_MATRIX
 	const type_t (&transitions)[TRANSITION_MATRIX_SIZE][TRANSITION_MATRIX_SIZE],
 #endif
-	idx_t &tb_i, idx_t &tb_j
+	idx_t &tb_j
 #ifndef NO_TRACEBACK
 	, tbr_t (&tb_out)[MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH]
 #endif
@@ -461,7 +460,7 @@ void Align::Rectangular::AlignStatic(
 	local_init_col_score[PE_NUM] = score_vec_t(0); // Always initialize the upper left cornor to 0
 
 Iterating_Chunks:
-	for (idx_t i = 0, ic = 0, p_col_offsets = 0; i < query_length; i += PE_NUM, ic++, p_col_offsets += (MAX_REFERENCE_LENGTH+PE_NUM-1))
+	for (idx_t i = 0, p_col_offsets = 0; i < MAX_QUERY_LENGTH; i += PE_NUM, p_col_offsets += (MAX_REFERENCE_LENGTH+PE_NUM-1))
 	{
 
 		Align::PrepareLocals<PE_NUM>(query, local_query, init_col_score, local_init_col_score, PE_NUM, i); // Prepare the local query and the local column scores
@@ -474,7 +473,7 @@ Iterating_Chunks:
 			reference,
 			local_init_col_score,
 			init_row_score,
-			p_cols, ic,
+			p_cols,
 			reference_length,
 			penalties,
 #ifdef LOCAL_TRANSITION_MATRIX
@@ -494,12 +493,11 @@ Iterating_Chunks:
 	const idx_t max_ck = MAX_QUERY_LENGTH / PE_NUM - 1;
     const idx_t max_pe = PE_NUM - 1;
 	// >>> Traceback >>>
-	tb_i = MAX_QUERY_LENGTH - 1;
 	tb_j = local_max.p_col - max_ck * (MAX_REFERENCE_LENGTH + PE_NUM - 1) - max_pe;
 
 #ifdef CMAKEDEBUG
 	// print tracevack start idx
-	cout << "Traceback start idx: " << tb_i << " " << tb_j << endl;
+	cout << "Traceback start idx: " << MAX_QUERY_LENGTH - 1 << " " << tb_j << endl;
 	cout << "Traceback start chunk:" << max_ck << endl;
 	cout << "Traceback start idx physical: " << max_ck << " " << max_pe << " " << local_max.p_col << endl;
 #endif
