@@ -31,6 +31,7 @@ void SDTW::PE::Compute(char_t local_query_val,
                        score_vec_t &write_score,
                        tbp_t &write_traceback)
 {
+#pragma HLS inline
     // The paper mentions there is no reference deletion, which means that the there is no left dependency but only diag and up. 
     // The RTL code uses left and diagonal is because possible the query and reference is transposed. 
     // find max from diagonal and left
@@ -38,7 +39,7 @@ void SDTW::PE::Compute(char_t local_query_val,
 
 }
 
-void SDTW::UpdatePEMaximum(
+void UpdatePEMaximum(
     const wavefront_scores_inf_t scores,
     ScorePack (&max)[PE_NUM],
     const idx_t chunk_row_offset, const idx_t wavefront,
@@ -46,18 +47,15 @@ void SDTW::UpdatePEMaximum(
     const bool (&predicate)[PE_NUM],
     const idx_t query_len, const idx_t ref_len)
 {
-    // Like SF, only do when QueryLength is multiple of PE_NUM, thus only let last PE findmax. 
-    for (idx_t i = 0; i < PE_NUM; i++)
-    {
-#pragma HLS unroll
-        if (predicate[i] && scores[i+1][LAYER_MAXIMIUM] > max[i].score && chunk_row_offset + i == query_len - 1)
-        {
-            // NOTE: If we just care about the score but doesn't care where does the score come from, then we doesn't need to update p_cols and ck index as well. 
-            max[i] = {scores[i+1][LAYER_MAXIMIUM], ck_idx,  p_cols};
-            // max[PE_NUM-1].p_col = p_cols;
-            // max[PE_NUM-1].ck = ck_idx;
-        }
-    }
+    // Implementation is commented off, please see the optimized inlined version in align.cpp
+    // if (predicate && scores[PE_NUM][LAYER_MAXIMIUM] > max.score && chunk_row_offset + PE_NUM == query_len)
+    // {
+    //     // NOTE: If we just care about the score but doesn't care where does the score come from, then we doesn't need to update p_cols and ck index as well. 
+    //     max = {scores[PE_NUM][LAYER_MAXIMIUM], ck_idx,  p_cols};
+    //     // max[PE_NUM-1].p_col = p_cols;
+    //     // max[PE_NUM-1].ck = ck_idx;
+    // }
+    
 }
 
 void SDTW::InitializeMaxScores(ScorePack (&max)[PE_NUM], idx_t qry_len, idx_t ref_len)
@@ -66,7 +64,6 @@ void SDTW::InitializeMaxScores(ScorePack (&max)[PE_NUM], idx_t qry_len, idx_t re
     {
 #pragma HLS unroll
         max[i].score = NINF;
-        max[i].ck = 0;
         max[i].p_col = 0;
     }
 }

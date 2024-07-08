@@ -1,7 +1,12 @@
 #ifndef UTILS_H
 #define UTILS_H
 
+#ifndef VPP_CLI
+#include "../kernels/sdtw/params.h"
+#else
 #include "params.h"
+#endif
+
 #include <string>
 
 namespace Utils

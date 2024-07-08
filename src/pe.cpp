@@ -3,7 +3,7 @@
 
 #ifndef VPP_CLI
 #include "../include/PE.h"
-#include "../include/params.h"
+#include "../kernels/sdtw/params.h"
 #include "../include/frontend.h"
 #else
 #include "PE.h"
@@ -56,16 +56,17 @@ void PE::PEUnrollSep(
 #ifdef LOCAL_TRANSITION_MATRIX
     const type_t (&local_transitions)[PE_NUM][TRANSITION_MATRIX_SIZE][TRANSITION_MATRIX_SIZE],
 #endif
-    wavefront_scores_inf_t &score,
+    score_vec_t (&score)[PE_NUM],
+    score_vec_t &last_score,
     tbp_vec_t &tbp)
 {
 // turnnig the inline off for only DTW scaling experiment for PE=2 and 4. Remove the inline off for other kernels. 
-#pragma HLS inline off
+#pragma HLS inline
 #pragma HLS array_partition variable = dp_mem dim = 0 type = complete
 #pragma HLS array_partition variable = tbp type = complete
 #pragma HLS array_partition variable = score type = complete
 
-    for (int i = 0; i < PE_NUM; i++)
+    for (int i = 0; i < PE_NUM-1; i++)
     {
 #pragma HLS unroll
         ALIGN_TYPE::PE::Compute(
@@ -81,6 +82,16 @@ void PE::PEUnrollSep(
             score[i+1],
             tbp[i]);
     }
+    // Last PE
+    ALIGN_TYPE::PE::Compute(
+        qry[PE_NUM-1],
+        ref[PE_NUM-1],
+        dp_mem[PE_NUM-1][0],
+        dp_mem[PE_NUM-1][1],
+        dp_mem[PE_NUM][0],
+        penalties,
+        last_score,
+        tbp[PE_NUM-1]);
 }
 
 void PE::PEUnrollFixedSep(

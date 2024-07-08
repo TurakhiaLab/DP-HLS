@@ -1,6 +1,12 @@
+#ifndef VPP_CLI
+#include "../kernels/sdtw/params.h"
+#include "../include/traceback.h"
+#include "../include/frontend.h"
+#else
 #include "params.h"
 #include "traceback.h"
 #include "frontend.h"
+#endif
 
 #include <hls_vector.h>
 

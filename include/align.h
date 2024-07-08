@@ -72,7 +72,7 @@ namespace Align
 		char_t (&local_query)[PE_NUM_T],
 		score_vec_t (&init_col_scr)[MAX_QUERY_LENGTH],
 		chunk_col_scores_inf_t &init_col_scr_local,
-		bool (&col_pred)[PE_NUM], const idx_t local_query_len,
+		const idx_t local_query_len,
 		const idx_t idx)
 	{
 		init_col_scr_local[0] = init_col_scr_local[PE_NUM_T]; // backup the last element from previous chunk
@@ -80,7 +80,6 @@ namespace Align
 		{
 			init_col_scr_local[i + 1] = init_col_scr[idx + i];
 			local_query[i] = query[idx + i];
-			col_pred[i] = i < local_query_len;
 		}
 	}
 
@@ -286,13 +285,12 @@ namespace Align
 			chunk_col_scores_inf_t &init_col_scr,
 			score_vec_t (&init_row_scr)[MAX_REFERENCE_LENGTH],
 			idx_t &p_col_offset, idx_t ck_idx,
-			idx_t global_query_length, idx_t query_length, idx_t reference_length,
-			const bool (&col_pred)[PE_NUM],
+			idx_t reference_length,
 			const Penalties &penalties,
 #ifdef LOCAL_TRANSITION_MATRIX
 			const type_t (&transitions)[PE_NUM][TRANSITION_MATRIX_SIZE][TRANSITION_MATRIX_SIZE],
 #endif
-			ScorePack (&max)[PE_NUM]
+			ScorePack &max
 #ifndef NO_TRACEBACK
 			, tbp_t (&chunk_tbp_out)[PE_NUM][TBMEM_SIZE]
 #endif
@@ -460,10 +458,12 @@ namespace Align
 
 	void UpdateDPMemSep(
 		score_vec_t (&dp_mem)[PE_NUM + 1][2],
-		score_vec_t (&score_in)[PE_NUM + 1]);
+		score_vec_t (&score_in)[PE_NUM],
+		score_vec_t last_score);
 
 	void PrepareScoreBuffer(
-		score_vec_t (&score_buff)[PE_NUM + 1],
+		score_vec_t (&score_buff)[PE_NUM],
+		score_vec_t &last_score,
 		const idx_t i,
 		const chunk_col_scores_inf_t(&init_col_scr),
 		const score_vec_t (&init_row_scr)[MAX_REFERENCE_LENGTH]);

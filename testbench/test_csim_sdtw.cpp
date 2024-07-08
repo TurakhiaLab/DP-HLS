@@ -3,11 +3,19 @@
 #include <array>
 #include <map>
 #include <chrono>
+
+#ifndef VPP_CLI
+#include "../kernels/sdtw/params.h" // FIXME: Temporarily being the DTW Kernel
+#include "../include/seq_align_multiple.h" // FIXME: Temporarily being the DTW Kernel
+#include "../include/host_utils.h"
+#include "../include/debug.h"
+#else
 #include "params.h"
 #include "seq_align_multiple.h"
 #include "host_utils.h"
-#include "solutions.h"
 #include "debug.h"
+#endif
+
 
 /**
  * @brief This kernel have very large stack size for simulation since the input reference length is around 60k
@@ -17,7 +25,7 @@
 using namespace std;
 
 // the dataset they prepared for artifact evaluation uses 8 bits insigned integers
-#define INPUT_QUERY_LENGTH 100
+#define INPUT_QUERY_LENGTH 500
 // #define INPUT_REFERENCE_LENGTH 59800  // this is the actual reference length in the dataset, but it can't be simulated with Vitis HLS
 // #define INPUT_REFERENCE_LENGTH 30000  // this is the actual reference length in the dataset
 #define INPUT_REFERENCE_LENGTH 1000

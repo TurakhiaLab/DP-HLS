@@ -53,7 +53,8 @@ namespace PE
 #ifdef LOCAL_TRANSITION_MATRIX
         const type_t (&transitions)[PE_NUM][TRANSITION_MATRIX_SIZE][TRANSITION_MATRIX_SIZE],
 #endif
-        wavefront_scores_inf_t &score,
+        score_vec_t (&score)[PE_NUM],
+        score_vec_t &last_score,
         tbp_vec_t &tbp);
 
     /**

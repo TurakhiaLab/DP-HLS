@@ -1,6 +1,6 @@
 #ifndef VPP_CLI
-#include "../../include/align.h"
-#include "../../kernels/dtw/params.h" // FIXME: Temporarily being the DTW Kernel
+#include "../include/align.h"
+#include "../kernels/sdtw/params.h" // FIXME: Temporarily being the DTW Kernel
 #else
 #include "align.h"
 #include "params.h"
@@ -131,13 +131,12 @@ void Align::Rectangular::ChunkCompute(
 	chunk_col_scores_inf_t &init_col_scr,
 	score_vec_t (&init_row_scr)[MAX_REFERENCE_LENGTH],
 	idx_t &p_col_offset, idx_t ck_idx,
-	idx_t global_query_length, idx_t query_length, idx_t reference_length,
-	const bool (&col_pred)[PE_NUM],
+	idx_t reference_length,
 	const Penalties &penalties,
 #ifdef LOCAL_TRANSITION_MATRIX
 	const type_t (&transitions)[PE_NUM][TRANSITION_MATRIX_SIZE][TRANSITION_MATRIX_SIZE],
 #endif
-	ScorePack (&max)[PE_NUM]
+	ScorePack &max
 #ifndef NO_TRACEBACK
 	, tbp_t (&chunk_tbp_out)[PE_NUM][TBMEM_SIZE]
 #endif
@@ -146,10 +145,7 @@ void Align::Rectangular::ChunkCompute(
 #endif
 )
 {
-    bool predicate[PE_NUM];
-	bool row_pred[PE_NUM];
-    Utils::Init::ArrSet<bool, PE_NUM>(predicate, false);
-	Utils::Init::ArrSet<bool, PE_NUM>(row_pred, false);
+    bool last_predicate = false;
 
 #ifdef CMAKEDEBUG
 //	// print predicate
@@ -164,7 +160,8 @@ void Align::Rectangular::ChunkCompute(
 	char_t local_reference[PE_NUM]; // local reference
 	tbp_vec_t tbp_out;
 	dp_mem_block_t dp_mem;
-	score_vec_t score_buff[PE_NUM + 1];
+	score_vec_t score_buff[PE_NUM];
+	score_vec_t last_score;
 
 #ifdef CMAKEDEBUG
 	// clear local reference buffer
@@ -182,18 +179,16 @@ void Align::Rectangular::ChunkCompute(
 	dp_mem[0][0] = init_col_scr[0];
 
 Iterating_Wavefronts:
-	for (idx_t i = 0; i < reference_length + query_length - 1; i++)
+	for (idx_t i = 0; i < reference_length + PE_NUM - 1; i++)
 	{
 #pragma HLS pipeline II = 1
 #pragma HLS dependence variable = init_row_scr type = inter direction = RAW false
 
-		// std::cout << i << std::endl;
-
-		Align::Rectangular::MapPredicate(i, reference_length, query_length, row_pred, col_pred, predicate);
+		last_predicate = i >= PE_NUM - 1 && i < PE_NUM + reference_length - 1;  // map predicate
 
 		Align::ShiftReference(local_reference, reference, i, reference_length);
-		Align::PrepareScoreBuffer(score_buff, i, init_col_scr, init_row_scr);
-		Align::UpdateDPMemSep(dp_mem, score_buff);
+		Align::PrepareScoreBuffer(score_buff, last_score, i, init_col_scr, init_row_scr);
+		Align::UpdateDPMemSep(dp_mem, score_buff, last_score);
 
 		PE::PEUnrollSep(
 			dp_mem,
@@ -204,17 +199,11 @@ Iterating_Wavefronts:
 			transitions, 
 #endif
 			score_buff,
+			last_score,
 			tbp_out);
 
 #ifndef NO_TRACEBACK
 		Align::ArrangeTBP(tbp_out, p_col_offset, predicate, chunk_tbp_out);
-#endif
-
-#ifdef CMAKEDEBUG
-		for (int j = 0; j < PE_NUM; j++)
-		{
-			debugger.set_score(chunk_row_offset, 0, j, i, score_buff[j + 1], predicate[j]);
-		}
 #endif
 
 		// This should happen before Arrange TBP Arr
@@ -222,12 +211,20 @@ Iterating_Wavefronts:
 		// while ArrangeTBPArr does
 		Align::PreserveRowScore(
 			init_row_scr,
-			score_buff[PE_NUM], // score_buff is of the length PE_NUM+1
-			predicate[PE_NUM - 1],
+			last_score, // score_buff is of the length PE_NUM+1
+			last_predicate,
 			idx_t(i-PE_NUM+1));
 
-		ALIGN_TYPE::UpdatePEMaximum(score_buff, max,  chunk_row_offset, i, p_col_offset, ck_idx, predicate,
-                                    global_query_length, reference_length);
+		// This is removed for the sDTW optimized version. 
+		// ALIGN_TYPE::UpdatePEMaximum(score_buff, max,  chunk_row_offset, i, p_col_offset, ck_idx, predicate,
+        //                             global_query_length, reference_length);
+		if (chunk_row_offset == MAX_QUERY_LENGTH - PE_NUM && last_predicate && last_score[LAYER_MAXIMIUM] > max.score)
+		{
+			// NOTE: If we just care about the score but doesn't care where does the score come from, then we doesn't need to update p_cols and ck index as well. 
+			max = {last_score[LAYER_MAXIMIUM], p_col_offset};
+			// max[PE_NUM-1].p_col = p_cols;
+			// max[PE_NUM-1].ck = ck_idx;
+		}
 
 		p_col_offset++;
 	}
@@ -235,21 +232,30 @@ Iterating_Wavefronts:
 
 void Align::UpdateDPMemSep(
 	score_vec_t (&dp_mem)[PE_NUM + 1][2],
-	score_vec_t (&score_in)[PE_NUM + 1])
+	score_vec_t (&score_in)[PE_NUM],
+	score_vec_t last_score)
 {
 #pragma HLS array_partition variable = dp_mem type = complete
 #pragma HLS array_partition variable = score_in type = complete
 
-	for (int j = 0; j < PE_NUM + 1; j++)
+	for (int j = 0; j < PE_NUM+1; j++)
 	{
 #pragma HLS unroll
-		dp_mem[j][1] = dp_mem[j][0];
-		dp_mem[j][0] = score_in[j];
+		if (j < PE_NUM){
+			dp_mem[j][1] = dp_mem[j][0];
+			dp_mem[j][0] = score_in[j];
+		} else {
+			dp_mem[j][1] = dp_mem[j][0];
+			dp_mem[j][0] = last_score;
+		}
+
 	}
+
 }
 
 void Align::PrepareScoreBuffer(
-	score_vec_t (&score_buff)[PE_NUM + 1],
+	score_vec_t (&score_buff)[PE_NUM],
+	score_vec_t &last_score,
 	const idx_t i,
 	const chunk_col_scores_inf_t(&init_col_scr),
 	const score_vec_t (&init_row_scr)[MAX_REFERENCE_LENGTH])
@@ -261,7 +267,8 @@ void Align::PrepareScoreBuffer(
 	// Set the computation for the 0th column
 	if (i < PE_NUM)
 	{
-		score_buff[i + 1] = init_col_scr[i + 1];
+		if (i < PE_NUM - 1) score_buff[i + 1] = init_col_scr[i + 1];
+		else last_score = init_col_scr[i + 1];
 	}
 }
 
@@ -401,7 +408,6 @@ void Align::Rectangular::AlignStatic(
 #ifndef NO_TRACEBACK
 	tbp_t tbp_matrix[PE_NUM][TBMEM_SIZE];
 #endif
-	bool col_pred[PE_NUM];
 
 #pragma HLS bind_storage variable = init_row_score type = ram_t2p impl = bram
 #ifndef NO_TRACEBACK
@@ -443,13 +449,12 @@ void Align::Rectangular::AlignStatic(
     idx_t p_cols;
 
 	// Declare and initialize maximum scores.
-	ScorePack maximum;
-	ScorePack local_max[PE_NUM];
+	ScorePack local_max;
 
 #pragma HLS aggregate variable=local_max
 
 	ALIGN_TYPE::InitializeScores(init_col_score, init_row_score, penalties);
-	ALIGN_TYPE::InitializeMaxScores(local_max, query_length, reference_length);
+	local_max = {NINF, 0};
 
 	char_t local_query[PE_NUM];
 	chunk_col_scores_inf_t local_init_col_score;
@@ -458,9 +463,8 @@ void Align::Rectangular::AlignStatic(
 Iterating_Chunks:
 	for (idx_t i = 0, ic = 0, p_col_offsets = 0; i < query_length; i += PE_NUM, ic++, p_col_offsets += (MAX_REFERENCE_LENGTH+PE_NUM-1))
 	{
-		idx_t local_query_length = ((idx_t)PE_NUM < query_length - i) ? (idx_t)PE_NUM : (idx_t)(query_length - i);
 
-		Align::PrepareLocals<PE_NUM>(query, local_query, init_col_score, local_init_col_score, col_pred, local_query_length, i); // Prepare the local query and the local column scores
+		Align::PrepareLocals<PE_NUM>(query, local_query, init_col_score, local_init_col_score, PE_NUM, i); // Prepare the local query and the local column scores
 
         p_cols = p_col_offsets;
 
@@ -471,10 +475,7 @@ Iterating_Chunks:
 			local_init_col_score,
 			init_row_score,
 			p_cols, ic,
-			query_length,
-			local_query_length,
 			reference_length,
-			col_pred,
 			penalties,
 #ifdef LOCAL_TRANSITION_MATRIX
 			local_transitions,
@@ -490,22 +491,21 @@ Iterating_Chunks:
 
 	}
 	
-    idx_t max_pe;
-	Align::FindMax::ReductionMaxScores(local_max, maximum, max_pe);
-
+	const idx_t max_ck = MAX_QUERY_LENGTH / PE_NUM - 1;
+    const idx_t max_pe = PE_NUM - 1;
 	// >>> Traceback >>>
-	tb_i = maximum.ck * PE_NUM + max_pe;
-	tb_j = maximum.p_col - maximum.ck * (MAX_REFERENCE_LENGTH + PE_NUM - 1) - max_pe;
+	tb_i = MAX_QUERY_LENGTH - 1;
+	tb_j = local_max.p_col - max_ck * (MAX_REFERENCE_LENGTH + PE_NUM - 1) - max_pe;
 
 #ifdef CMAKEDEBUG
 	// print tracevack start idx
 	cout << "Traceback start idx: " << tb_i << " " << tb_j << endl;
-	cout << "Traceback start chunk:" << maximum.ck << endl;
-	cout << "Traceback start idx physical: " << maximum.ck << " " << max_pe << " " << maximum.p_col << endl;
+	cout << "Traceback start chunk:" << max_ck << endl;
+	cout << "Traceback start idx physical: " << max_ck << " " << max_pe << " " << local_max.p_col << endl;
 #endif
 
 #ifdef SCORED
-	score = maximum.score;
+	score = local_max.score;
 #endif
 
 #ifndef NO_TRACEBACK
@@ -713,13 +713,13 @@ Iterating_Chunks:
     Align::FindMax::ReductionMaxScores(local_max, maximum, max_pe);
 
     // >>> Traceback >>>
-    tb_i = maximum.ck * PE_NUM + max_pe;
-    tb_j = maximum.p_col - (maximum.ck) * TB_CHUNK_WIDTH - max_pe  + (PE_NUM * maximum.ck - BANDWIDTH);
+    // tb_i = maximum.ck * PE_NUM + max_pe;
+    // tb_j = maximum.p_col - (maximum.ck) * TB_CHUNK_WIDTH - max_pe  + (PE_NUM * maximum.ck - BANDWIDTH);
 
 #ifdef CMAKEDEBUG
     // print tracevack start idx
-    std::cout << "Traceback start idx: " << maximum.ck << " "<< tb_i << " " << tb_j << endl;
-    std::cout << "Traceback start idx physical: " << max_pe << " " << maximum.p_col << endl;
+    // std::cout << "Traceback start idx: " << maximum.ck << " "<< tb_i << " " << tb_j << endl;
+    // std::cout << "Traceback start idx physical: " << max_pe << " " << maximum.p_col << endl;
 #endif
 
 #ifdef SCORED
@@ -806,8 +806,6 @@ Iterating_Wavefronts:
 	{
 #pragma HLS pipeline II = 1
 
-// It's weird that if we don't remove this line after remove the tbp_matrix in no traceback mode, the synthesis will run into 
-// an infinite loop in implementing the init_row_scr. 
 #pragma HLS dependence variable = init_row_scr type = inter direction = RAW false
 
 #ifdef CMAKEDEBUG
@@ -833,13 +831,13 @@ Iterating_Wavefronts:
 
 		Utils::Array::ShiftRight<char_t, PE_NUM>(local_reference, i < MAX_REFERENCE_LENGTH ? reference[i] : ZERO_CHAR);
 
-		Align::PrepareScoreBuffer(score_buff, i, init_col_scr, init_row_scr);
+		// Align::PrepareScoreBuffer(score_buff, i, init_col_scr, init_row_scr);
 		if (exiting) {
 			score_buff[exiting_pe] = score_vec_t(NINF);
 		}
 		if (entering) score_buff[entering_pe + 1] = l_lim_reg <= 0 ? init_col_scr[entering_pe + 1] : score_vec_t(NINF);
 
-		Align::UpdateDPMemSep(dp_mem, score_buff);
+		// Align::UpdateDPMemSep(dp_mem, score_buff);
 
 
 #ifdef CMAKEDEBUG
@@ -880,8 +878,9 @@ Iterating_Wavefronts:
 			predicate[PE_NUM - 1],
 			i - PE_NUM + 1);
 
-		ALIGN_TYPE::UpdatePEMaximum(score_buff, max, chunk_row_offset, i, p_cols,
-									ck_idx, predicate, global_query_length, reference_length);
+		// This is removed for the sDTW optimized version.
+		// ALIGN_TYPE::UpdatePEMaximum(score_buff, max, chunk_row_offset, i, p_cols,
+		// 							ck_idx, predicate, global_query_length, reference_length);
 		p_cols++;
 		if (entering) {
 			entering_pe++;

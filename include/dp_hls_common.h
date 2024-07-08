@@ -8,7 +8,11 @@
 #define RECTANGULAR 0
 #define FIXED 1
 
+#ifndef VPPCLI
+#include "../kernels/sdtw/params.h"
+#else
 #include "params.h"
+#endif
 
 const int PRAGMA_PE_NUM = PE_NUM;
 const int PRAGMA_N_BLOCKS = N_BLOCKS;
@@ -17,7 +21,6 @@ typedef hls::vector<type_t, N_LAYERS> score_vec_t;
 
 struct ScorePack{
     type_t score;
-    idx_t ck;
     idx_t p_col;
 };
 
