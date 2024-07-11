@@ -248,9 +248,7 @@ void Align::UpdateDPMemSep(
 			dp_mem[j][1] = dp_mem[j][0];
 			dp_mem[j][0] = last_score;
 		}
-
 	}
-
 }
 
 void Align::PrepareScoreBuffer(
