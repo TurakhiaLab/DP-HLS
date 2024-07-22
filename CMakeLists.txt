@@ -83,7 +83,7 @@ add_executable(test_csim_banding_global_linear
     ${COMMON_SRCS})
 
 add_executable(test_csim_banding_local_affine
-    "/home/centos/workspace/DP-HLS/kernels/banding_local_affine/kernel_banding_local_affine.cpp"
+    "kernels/banding_local_affine/kernel_banding_local_affine.cpp"
     "testbench/test_csim_local_affine.cpp"
     ${COMMON_SRCS}
 )
