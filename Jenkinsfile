@@ -16,6 +16,7 @@ pipeline {
             steps {
                 script {
                         sh '''
+                            cd jenkins-build
                             make test_csim_global_affine
                         '''
                 }
@@ -25,6 +26,7 @@ pipeline {
             steps {
                 script {
                         sh '''
+                            cd jenkins-build
                             make test_csim_banding_local_affine
                         '''
                 }
@@ -34,6 +36,7 @@ pipeline {
             steps {
                 script {
                         sh '''
+                            cd jenkins-build
                             ./test_csim_global_affine
                         '''
                 }
@@ -43,6 +46,7 @@ pipeline {
             steps {
                 script {
                         sh '''
+                            cd jenkins-build
                             ./test_csim_banding_local_affine
                         '''
                 }
