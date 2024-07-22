@@ -15,7 +15,6 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O0 -g -fsanitize=address -fno-inline -D
 # "-fsanitize=address" flag was used to check the stack smashing with Google Address Sanitizer. Use this flag with CLang and 
 # run the program to check. 
 
-set(DP_HLS_HOME "/home/centos/workspace/DP-HLS")
 
 set(EXECUTABLE_TARGETS
     baseline_local_linear
@@ -199,38 +198,37 @@ add_executable(test_csim_protein_local_affine
 #    "include/debug.h")
 
 
-target_include_directories(test_csim_global_affine PRIVATE "${DP_HLS_HOME}/kernels/global_affine")
-target_include_directories(test_csim_global_linear PRIVATE "${DP_HLS_HOME}/kernels/global_linear")
-target_include_directories(test_csim_banding_global_linear PRIVATE "${DP_HLS_HOME}/kernels/banding_global_linear")
-target_include_directories(test_csim_local_linear PRIVATE "${DP_HLS_HOME}/kernels/local_linear")
-target_include_directories(test_csim_local_linear_notb PRIVATE "${DP_HLS_HOME}/kernels/local_linear_notb")
-target_include_directories(test_csim_local_affine PRIVATE "${DP_HLS_HOME}/kernels/local_affine")
-target_include_directories(test_csim_profile_alignment PRIVATE "${DP_HLS_HOME}/kernels/profile_alignment")
-target_include_directories(test_csim_profile_alignment_real_data PRIVATE "${DP_HLS_HOME}/kernels/profile_alignment")
-target_include_directories(test_csim_dtw PRIVATE "${DP_HLS_HOME}/kernels/dtw")
-target_include_directories(test_csim_viterbi PRIVATE "${DP_HLS_HOME}/kernels/viterbi")
-target_include_directories(test_csim_overlap_linear_suffix_prefix PRIVATE "${DP_HLS_HOME}/kernels/overlap_linear_suffix_prefix")
-target_include_directories(test_csim_overlap_linear_prefix_suffix PRIVATE "${DP_HLS_HOME}/kernels/overlap_linear_prefix_suffix")
-target_include_directories(test_csim_semi_global_linear_long_short PRIVATE "${DP_HLS_HOME}/kernels/semi_global_linear_long_short")
-target_include_directories(test_csim_semi_global_linear_short_long PRIVATE "${DP_HLS_HOME}/kernels/semi_global_linear_short_long")
-target_include_directories(test_csim_local_two_piece_affine PRIVATE "${DP_HLS_HOME}/kernels/local_two_piece_affine")
-target_include_directories(test_csim_global_two_piece_affine PRIVATE "${DP_HLS_HOME}/kernels/global_two_piece_affine")
+target_include_directories(test_csim_global_affine PRIVATE "./kernels/global_affine")
+target_include_directories(test_csim_global_linear PRIVATE "./kernels/global_linear")
+target_include_directories(test_csim_banding_global_linear PRIVATE "./kernels/banding_global_linear")
+target_include_directories(test_csim_local_linear PRIVATE "./kernels/local_linear")
+target_include_directories(test_csim_local_linear_notb PRIVATE "./kernels/local_linear_notb")
+target_include_directories(test_csim_local_affine PRIVATE "./kernels/local_affine")
+target_include_directories(test_csim_profile_alignment PRIVATE "./kernels/profile_alignment")
+target_include_directories(test_csim_profile_alignment_real_data PRIVATE "./kernels/profile_alignment")
+target_include_directories(test_csim_dtw PRIVATE "./kernels/dtw")
+target_include_directories(test_csim_viterbi PRIVATE "./kernels/viterbi")
+target_include_directories(test_csim_overlap_linear_suffix_prefix PRIVATE "./kernels/overlap_linear_suffix_prefix")
+target_include_directories(test_csim_overlap_linear_prefix_suffix PRIVATE "./kernels/overlap_linear_prefix_suffix")
+target_include_directories(test_csim_semi_global_linear_long_short PRIVATE "./kernels/semi_global_linear_long_short")
+target_include_directories(test_csim_semi_global_linear_short_long PRIVATE "./kernels/semi_global_linear_short_long")
+target_include_directories(test_csim_local_two_piece_affine PRIVATE "./kernels/local_two_piece_affine")
+target_include_directories(test_csim_global_two_piece_affine PRIVATE "./kernels/global_two_piece_affine")
 
-target_include_directories(test_global_affine_real_data PRIVATE "${DP_HLS_HOME}/kernels/global_affine")
-target_include_directories(test_csim_banding_global_two_piece_affine  PRIVATE "${DP_HLS_HOME}/kernels/banding_global_two_piece_affine")
-target_include_directories(test_csim_banding_local_affine PRIVATE "${DP_HLS_HOME}/kernels/banding_local_affine")
-target_include_directories(test_csim_banding_local_affine_scored PRIVATE "${DP_HLS_HOME}/kernels/banding_local_affine_scored")
-target_include_directories(test_csim_sdtw PRIVATE "${DP_HLS_HOME}/kernels/sdtw")
-target_include_directories(test_csim_protein_local_affine PRIVATE "${DP_HLS_HOME}/kernels/protein_local_affine")
+target_include_directories(test_global_affine_real_data PRIVATE "./kernels/global_affine")
+target_include_directories(test_csim_banding_global_two_piece_affine  PRIVATE "./kernels/banding_global_two_piece_affine")
+target_include_directories(test_csim_banding_local_affine PRIVATE "./kernels/banding_local_affine")
+target_include_directories(test_csim_banding_local_affine_scored PRIVATE "./kernels/banding_local_affine_scored")
+target_include_directories(test_csim_sdtw PRIVATE "./kernels/sdtw")
+target_include_directories(test_csim_protein_local_affine PRIVATE "./kernels/protein_local_affine")
 
 
 # Add include to Xilinx Library Files
 if (RAPTOR)
     set(HLS_HOME "/home/AD.UCSD.EDU/swalia/Xilinx/Vitis_HLS/2023.1")
-    set(DP-HLS_HOME "/home/yic033@AD.UCSD.EDU/DP-HLS")
 
     include_directories(${EXECUTABLE_TARGETS} PUBLIC "${HLS_HOME}/include")
-    include_directories(${EXECUTABLE_TARGETS} PUBLIC "${DP-HLS_HOME}/include")
+    include_directories(${EXECUTABLE_TARGETS} PUBLIC "./include")
 
     link_directories(${EXECUTABLE_TARGETS} PUBLIC "${HLS_HOME}/lib")
     link_directories(${EXECUTABLE_TARGETS} PUBLIC "/usr/lib/x86_64-linux-gnu" "/usr/lib32" "/usr/libx32")
@@ -240,8 +238,8 @@ elseif(F1)
     set(HLS_HOME "/opt/Xilinx/Vitis_HLS/2021.2/")    
 
     include_directories(${EXECUTABLE_TARGETS} PUBLIC "${HLS_HOME}/include")
-    include_directories(${EXECUTABLE_TARGETS} PUBLIC "${DP_HLS_HOME}/include")
-    include_directories(${EXECUTABLE_TARGETS} PUBLIC "${DP_HLS_HOME}/common/includes")
+    include_directories(${EXECUTABLE_TARGETS} PUBLIC "./include")
+    include_directories(${EXECUTABLE_TARGETS} PUBLIC "./common/includes")
 
 
     link_directories(${EXECUTABLE_TARGETS} PUBLIC "${HLS_HOME}/lib")
