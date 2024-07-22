@@ -1,0 +1,19 @@
+site_name: DP-HLS Docs
+
+# theme: 
+#   name: null
+#   custom_dir: 'cinder'
+
+theme: readthedocs
+
+
+plugins:
+  - search
+  - mkdoxy:
+      projects:
+        DP-HLS: # name of project must be alphanumeric + numbers (without spaces)
+          src-dirs: ../src ../include # path to source code (support multiple paths separated by space) => INPUT
+          full-doc: True # if you want to generate full documentation
+          doxy-cfg: # standard doxygen configuration (key: value)
+            FILE_PATTERNS: "align.cpp debug.cpp pe.cpp seq_align_multiple.cpp traceback.cpp utils.cpp align.h debug.h dp_hls_common.h frontend.h host_utils.h PE.h seq_align_multiple.h traceback.h utils.h" # specify file patterns to filter out
+            RECURSIVE: True # recursive search in source directories

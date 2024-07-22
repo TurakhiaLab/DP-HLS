@@ -1,6 +1,7 @@
-//
-// Created by centos on 4/18/24.
-//
+/**
+ * @file dp_hls_common.h
+ * @brief Declaration of types used by DP-HLS internally, referred from the user defined params.h file.   
+ */
 
 #ifndef DP_HLS_DP_HLS_COMMON_H
 #define DP_HLS_DP_HLS_COMMON_H
@@ -10,11 +11,38 @@
 
 #include "params.h"
 
+/**
+ * @var PRAGMA_PE_NUM
+ * @brief Number of processing elements, defined for use in pragma derivatives 
+ */
 const int PRAGMA_PE_NUM = PE_NUM;
+
+/**
+ * @var PRAGMA_N_BLOCKS
+ * @brief Number of blocks, defined for use in pragma derivatives
+ */
 const int PRAGMA_N_BLOCKS = N_BLOCKS;
 
+/**
+ * @typedef score_vec_t
+ * @brief Vector of scores, used to store the scores of each layer in the same coordiante in the DP matrix.
+ * 
+ */
 typedef hls::vector<type_t, N_LAYERS> score_vec_t;
 
+/**
+ * @struct ScorePack
+ * @brief A structure to hold score and index information.
+ *
+ * Each PE will have such a instance of ScorePack to keep track of it's local maximum/minimum score and the corresponding index in the score matrixs.
+ * 
+ * @var ScorePack::score
+ * The score value.
+ * @var ScorePack::ck
+ * The chunk index.
+ * @var ScorePack::p_col
+ * The column index.
+ */
 struct ScorePack{
     type_t score;
     idx_t ck;
@@ -23,6 +51,10 @@ struct ScorePack{
 
 static_assert(MAX_QUERY_LENGTH % PE_NUM == 0, "MAX_QUERY_LENGTH must divide PE_NUM, compilation terminated!");
 
+/**
+ * @def CK_NUM
+ * @brief Defines the number of chunks (CK) based on the maximum query length and the number of processing elements.
+ */
 #define CK_NUM (MAX_QUERY_LENGTH / PE_NUM)
 
 // Determine the memory size for different banding strategy.
