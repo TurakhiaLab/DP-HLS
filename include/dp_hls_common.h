@@ -8,6 +8,8 @@
 #define RECTANGULAR 0
 #define FIXED 1
 
+#define VPPCLI
+
 #ifndef VPPCLI
 #include "../kernels/sdtw/params.h"
 #else
