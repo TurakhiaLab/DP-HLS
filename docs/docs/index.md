@@ -1,6 +1,5 @@
-# Welcome to MkDocs
+# Welcome to DP-HLS Documentation
 
-For full documentation visit [mkdocs.org](https://www.mkdocs.org).
 
 ## Commands
 
@@ -15,3 +14,6 @@ For full documentation visit [mkdocs.org](https://www.mkdocs.org).
     docs/
         index.md  # The documentation homepage.
         ...       # Other markdown pages, images and other files.
+
+# Source Documentation
+[Source Documentation](./doxygen/html/index.html)

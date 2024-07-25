@@ -17,3 +17,4 @@ plugins:
           doxy-cfg: # standard doxygen configuration (key: value)
             FILE_PATTERNS: "align.cpp debug.cpp pe.cpp seq_align_multiple.cpp traceback.cpp utils.cpp align.h debug.h dp_hls_common.h frontend.h host_utils.h PE.h seq_align_multiple.h traceback.h utils.h" # specify file patterns to filter out
             RECURSIVE: True # recursive search in source directories
+            GENERATE_TREEVIEW: True # generate treeview
