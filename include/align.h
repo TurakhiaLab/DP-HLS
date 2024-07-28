@@ -27,14 +27,19 @@
 
 using namespace hls;
 
+/**
+ * @brief Namespace including the functions of the kernel architecture. 
+ * 
+ */
 namespace Align
 {
 
 	/**
-	 * Copy a segment of global query to local query.
+	 * @brief At beginning of the computation of each strip, it copy a PE_NUM number of the global query characters
+	 * into the local query buffer. 
 	 * @param query Query sequence
 	 * @param local_query Local query is a buffer of PE_NUM length that is read in parallel by PEs during the wavefront computation.
-	 * @param offset The offset in the query to start copy.
+	 * @param offset The offset in the global query to start copying.
 	 */
 	void PrepareLocalQuery(
 		char_t (&query)[MAX_QUERY_LENGTH],
@@ -58,13 +63,15 @@ namespace Align
 		wavefront_scores_t &left_out);
 
 	/**
-	 * This function merge PrepareLocalQuery function and CopyColScore function.
+	 * @brief This function merge PrepareLocalQuery function and CopyColScore function into one, where CopyColScore is a 
+	 * function to copy a column of initial scores from the global buffer to each PE's local buffer before the computation 
+	 * of each chunk.  
 	 * @tparam PE_NUM_T Number of PE
 	 * @param query Query Sequence
 	 * @param local_query Local Query Buffer
 	 * @param init_col_scr Initial Column Scores
 	 * @param init_col_scr_local Local Initial Column Score Buffer.
-	 * @param idx
+	 * @param idx The offset in the global buffer to copy. 
 	 */
 	template <int PE_NUM_T>
 	void PrepareLocals(
@@ -111,12 +118,11 @@ namespace Align
 		tbp_t (&chunk_tbp_out)[PE_NUM][TBMEM_SIZE]);
 
 	/**
-	 * @brief Determine the shift of predicate sccording to the desired query legnth, reference length, and the current
-	 * wavefront index.
-	 * @param predicate
-	 * @param idx
-	 * @param query_len
-	 * @param reference_len
+	 * @brief Determine the current predicate values by constantantly shifting the predicate array with truth values. 
+	 * @param predicate Predicate Array.
+	 * @param idx Wavefront Index.
+	 * @param query_len Query Length.
+	 * @param reference_len Reference Length.
 	 */
 	void ShiftPredicate(bool (&predicate)[PE_NUM], int idx, int query_len, int reference_len);
 
@@ -237,6 +243,10 @@ namespace Align
 
 	};
 
+	/**
+	 * @brief This namespace contains functions to define the core architectures used in the non-banding alignment kernel.
+	 * 
+	 */
 	namespace Rectangular
 	{
 		/**
@@ -318,6 +328,10 @@ namespace Align
 			bool (&pred)[PE_NUM]);
 	}
 
+	/**
+	 * @brief This namespace contains functions to define the core architectures used in the fixed banding alignment kernel.
+	 * 
+	 */
 	namespace Fixed
 	{
 		/**

@@ -263,176 +263,176 @@ $(document).ready(function(){initNavTree('align_8h_source.html','');});
 <div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;</div>
 <div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;    };</div>
 <div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;</div>
-<div class="line"><a name="l00240"></a><span class="lineno"><a class="line" href="namespaceAlign_1_1Rectangular.html">  240</a></span>&#160;    <span class="keyword">namespace </span>Rectangular</div>
-<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;    {</div>
-<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="namespaceAlign_1_1Rectangular.html#a180bdc87716192aa6ce97c2a876f8dcc">AlignStatic</a>(</div>
-<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;            <span class="keyword">const</span> char_t (&amp;querys)[MAX_QUERY_LENGTH],</div>
-<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;            <span class="keyword">const</span> char_t (&amp;references)[MAX_REFERENCE_LENGTH],</div>
-<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;            <span class="keyword">const</span> idx_t query_length,</div>
-<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;            <span class="keyword">const</span> idx_t reference_length,</div>
-<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;            <span class="keyword">const</span> Penalties &amp;penalties,</div>
-<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;#ifdef LOCAL_TRANSITION_MATRIX</div>
-<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;            <span class="keyword">const</span> type_t (&amp;transitions)[TRANSITION_MATRIX_SIZE][TRANSITION_MATRIX_SIZE],</div>
-<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;#endif</div>
-<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;            idx_t &amp;tb_i, idx_t &amp;tb_j</div>
-<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;#ifndef NO_TRACEBACK</div>
-<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;            , <a class="code" href="dp__hls__common_8h.html#a3f52d200ff97260cdc4c06e2d76edc94">tbr_t</a> (&amp;tb_out)[MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH]</div>
+<div class="line"><a name="l00244"></a><span class="lineno"><a class="line" href="namespaceAlign_1_1Rectangular.html">  244</a></span>&#160;    <span class="keyword">namespace </span>Rectangular</div>
+<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;    {</div>
+<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="namespaceAlign_1_1Rectangular.html#a180bdc87716192aa6ce97c2a876f8dcc">AlignStatic</a>(</div>
+<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;            <span class="keyword">const</span> char_t (&amp;querys)[MAX_QUERY_LENGTH],</div>
+<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;            <span class="keyword">const</span> char_t (&amp;references)[MAX_REFERENCE_LENGTH],</div>
+<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;            <span class="keyword">const</span> idx_t query_length,</div>
+<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;            <span class="keyword">const</span> idx_t reference_length,</div>
+<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;            <span class="keyword">const</span> Penalties &amp;penalties,</div>
+<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;#ifdef LOCAL_TRANSITION_MATRIX</div>
+<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;            <span class="keyword">const</span> type_t (&amp;transitions)[TRANSITION_MATRIX_SIZE][TRANSITION_MATRIX_SIZE],</div>
 <div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;#endif</div>
-<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;#ifdef SCORED</div>
-<div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160;            , type_t &amp;score</div>
-<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;#endif</div>
-<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;#ifdef CMAKEDEBUG</div>
-<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;            , <a class="code" href="classContainer.html">Container</a> &amp;debugger</div>
-<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;#endif</div>
-<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;        );</div>
-<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;</div>
-<div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="namespaceAlign_1_1Rectangular.html#a9bbeab62f4d975dcccfe8510758ae6b9">ChunkCompute</a>(</div>
-<div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;            idx_t chunk_row_offset,</div>
-<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;            <a class="code" href="dp__hls__common_8h.html#aae0a4301a15974d8514ee65bcd2f78c5">input_char_block_t</a> &amp;query,</div>
-<div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;            <span class="keyword">const</span> char_t (&amp;reference)[MAX_REFERENCE_LENGTH],</div>
-<div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;            <a class="code" href="dp__hls__common_8h.html#a086892974a012eb73d99bbcd9d07a28b">chunk_col_scores_inf_t</a> &amp;init_col_scr,</div>
-<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;            <a class="code" href="dp__hls__common_8h.html#a6eb88ec919ba057c60ee1797f77ae825">score_vec_t</a> (&amp;init_row_scr)[MAX_REFERENCE_LENGTH],</div>
-<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;            idx_t &amp;p_col_offset, idx_t ck_idx,</div>
-<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;            idx_t global_query_length, idx_t query_length, idx_t reference_length,</div>
-<div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;            <span class="keyword">const</span> <span class="keywordtype">bool</span> (&amp;col_pred)[PE_NUM],</div>
-<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160;            <span class="keyword">const</span> Penalties &amp;penalties,</div>
-<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;#ifdef LOCAL_TRANSITION_MATRIX</div>
-<div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;            <span class="keyword">const</span> type_t (&amp;transitions)[PE_NUM][TRANSITION_MATRIX_SIZE][TRANSITION_MATRIX_SIZE],</div>
-<div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160;#endif</div>
-<div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160;            <a class="code" href="structScorePack.html">ScorePack</a> (&amp;max)[PE_NUM]</div>
-<div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;#ifndef NO_TRACEBACK</div>
-<div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160;            , tbp_t (&amp;chunk_tbp_out)[PE_NUM][TBMEM_SIZE]</div>
+<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;            idx_t &amp;tb_i, idx_t &amp;tb_j</div>
+<div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160;#ifndef NO_TRACEBACK</div>
+<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;            , <a class="code" href="dp__hls__common_8h.html#a3f52d200ff97260cdc4c06e2d76edc94">tbr_t</a> (&amp;tb_out)[MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH]</div>
+<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;#endif</div>
+<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;#ifdef SCORED</div>
+<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;            , type_t &amp;score</div>
+<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;#endif</div>
+<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;#ifdef CMAKEDEBUG</div>
+<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;            , <a class="code" href="classContainer.html">Container</a> &amp;debugger</div>
+<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;#endif</div>
+<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;        );</div>
+<div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;</div>
+<div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="namespaceAlign_1_1Rectangular.html#a9bbeab62f4d975dcccfe8510758ae6b9">ChunkCompute</a>(</div>
+<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;            idx_t chunk_row_offset,</div>
+<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;            <a class="code" href="dp__hls__common_8h.html#aae0a4301a15974d8514ee65bcd2f78c5">input_char_block_t</a> &amp;query,</div>
+<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;            <span class="keyword">const</span> char_t (&amp;reference)[MAX_REFERENCE_LENGTH],</div>
+<div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;            <a class="code" href="dp__hls__common_8h.html#a086892974a012eb73d99bbcd9d07a28b">chunk_col_scores_inf_t</a> &amp;init_col_scr,</div>
+<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160;            <a class="code" href="dp__hls__common_8h.html#a6eb88ec919ba057c60ee1797f77ae825">score_vec_t</a> (&amp;init_row_scr)[MAX_REFERENCE_LENGTH],</div>
+<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;            idx_t &amp;p_col_offset, idx_t ck_idx,</div>
+<div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;            idx_t global_query_length, idx_t query_length, idx_t reference_length,</div>
+<div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160;            <span class="keyword">const</span> <span class="keywordtype">bool</span> (&amp;col_pred)[PE_NUM],</div>
+<div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160;            <span class="keyword">const</span> Penalties &amp;penalties,</div>
+<div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;#ifdef LOCAL_TRANSITION_MATRIX</div>
+<div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160;            <span class="keyword">const</span> type_t (&amp;transitions)[PE_NUM][TRANSITION_MATRIX_SIZE][TRANSITION_MATRIX_SIZE],</div>
 <div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160;#endif</div>
-<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;#ifdef CMAKEDEBUG</div>
-<div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;            , <a class="code" href="classContainer.html">Container</a> &amp;debugger</div>
-<div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160;#endif</div>
-<div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;        );</div>
-<div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;</div>
-<div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="namespaceAlign_1_1Rectangular.html#a6f628693115bfeb3a32e1bcc107dbb27">MapPredicate</a>(</div>
-<div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160;            <span class="keyword">const</span> idx_t wavefront,</div>
-<div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160;            <span class="keyword">const</span> idx_t ref_len, <span class="keyword">const</span> idx_t qry_len, <span class="comment">// This query length is local query length in chunk, always less than PE_NUM</span></div>
-<div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160;            <span class="keywordtype">bool</span> (&amp;row_pred)[PE_NUM],</div>
-<div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160;            <span class="keyword">const</span> <span class="keywordtype">bool</span> (&amp;col_pred)[PE_NUM],</div>
-<div class="line"><a name="l00318"></a><span class="lineno">  318</span>&#160;            <span class="keywordtype">bool</span> (&amp;pred)[PE_NUM]);</div>
-<div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160;    }</div>
-<div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160;</div>
-<div class="line"><a name="l00321"></a><span class="lineno"><a class="line" href="namespaceAlign_1_1Fixed.html">  321</a></span>&#160;    <span class="keyword">namespace </span>Fixed</div>
-<div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160;    {</div>
-<div class="line"><a name="l00332"></a><span class="lineno">  332</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="namespaceAlign_1_1Rectangular.html#a180bdc87716192aa6ce97c2a876f8dcc">AlignStatic</a>(</div>
-<div class="line"><a name="l00333"></a><span class="lineno">  333</span>&#160;            <span class="keyword">const</span> char_t (&amp;querys)[MAX_QUERY_LENGTH],</div>
-<div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160;            <span class="keyword">const</span> char_t (&amp;references)[MAX_REFERENCE_LENGTH],</div>
-<div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160;            <span class="keyword">const</span> idx_t query_length,</div>
-<div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160;            <span class="keyword">const</span> idx_t reference_length,</div>
-<div class="line"><a name="l00337"></a><span class="lineno">  337</span>&#160;            <span class="keyword">const</span> Penalties &amp;penalties,</div>
-<div class="line"><a name="l00338"></a><span class="lineno">  338</span>&#160;#ifdef LOCAL_TRANSITION_MATRIX</div>
-<div class="line"><a name="l00339"></a><span class="lineno">  339</span>&#160;            <span class="keyword">const</span> type_t (&amp;transitions)[TRANSITION_MATRIX_SIZE][TRANSITION_MATRIX_SIZE],</div>
-<div class="line"><a name="l00340"></a><span class="lineno">  340</span>&#160;#endif</div>
-<div class="line"><a name="l00341"></a><span class="lineno">  341</span>&#160;            idx_t &amp;tb_i, idx_t &amp;tb_j</div>
-<div class="line"><a name="l00342"></a><span class="lineno">  342</span>&#160;#ifndef NO_TRACEBACK</div>
-<div class="line"><a name="l00343"></a><span class="lineno">  343</span>&#160;            , <a class="code" href="dp__hls__common_8h.html#a3f52d200ff97260cdc4c06e2d76edc94">tbr_t</a> (&amp;tb_out)[MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH]</div>
-<div class="line"><a name="l00344"></a><span class="lineno">  344</span>&#160;#endif</div>
-<div class="line"><a name="l00345"></a><span class="lineno">  345</span>&#160;#ifdef SCORED</div>
-<div class="line"><a name="l00346"></a><span class="lineno">  346</span>&#160;            , type_t &amp;score</div>
-<div class="line"><a name="l00347"></a><span class="lineno">  347</span>&#160;#endif</div>
-<div class="line"><a name="l00348"></a><span class="lineno">  348</span>&#160;#ifdef CMAKEDEBUG</div>
-<div class="line"><a name="l00349"></a><span class="lineno">  349</span>&#160;            , <a class="code" href="classContainer.html">Container</a> &amp;debugger</div>
-<div class="line"><a name="l00350"></a><span class="lineno">  350</span>&#160;#endif</div>
-<div class="line"><a name="l00351"></a><span class="lineno">  351</span>&#160;        );</div>
-<div class="line"><a name="l00352"></a><span class="lineno">  352</span>&#160;</div>
-<div class="line"><a name="l00363"></a><span class="lineno">  363</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="namespaceAlign_1_1Rectangular.html#a9bbeab62f4d975dcccfe8510758ae6b9">ChunkCompute</a>(</div>
-<div class="line"><a name="l00364"></a><span class="lineno">  364</span>&#160;            <span class="keyword">const</span> idx_t chunk_row_offset,</div>
-<div class="line"><a name="l00365"></a><span class="lineno">  365</span>&#160;            <span class="keyword">const</span> <a class="code" href="dp__hls__common_8h.html#aae0a4301a15974d8514ee65bcd2f78c5">input_char_block_t</a> &amp;query,</div>
-<div class="line"><a name="l00366"></a><span class="lineno">  366</span>&#160;            <span class="keyword">const</span> char_t (&amp;reference)[MAX_REFERENCE_LENGTH],</div>
-<div class="line"><a name="l00367"></a><span class="lineno">  367</span>&#160;            <span class="keyword">const</span> <a class="code" href="dp__hls__common_8h.html#a086892974a012eb73d99bbcd9d07a28b">chunk_col_scores_inf_t</a> &amp;init_col_scr,</div>
-<div class="line"><a name="l00368"></a><span class="lineno">  368</span>&#160;            <a class="code" href="dp__hls__common_8h.html#a6eb88ec919ba057c60ee1797f77ae825">score_vec_t</a> (&amp;init_row_scr)[MAX_REFERENCE_LENGTH],</div>
-<div class="line"><a name="l00369"></a><span class="lineno">  369</span>&#160;            idx_t p_cols, <span class="keyword">const</span> idx_t ck_idx,</div>
-<div class="line"><a name="l00370"></a><span class="lineno">  370</span>&#160;            idx_t &amp;l_lim_reg, idx_t &amp;u_lim_reg,</div>
-<div class="line"><a name="l00371"></a><span class="lineno">  371</span>&#160;            <span class="keyword">const</span> <span class="keywordtype">bool</span> (&amp;col_pred)[PE_NUM],</div>
-<div class="line"><a name="l00372"></a><span class="lineno">  372</span>&#160;            <span class="keyword">const</span> idx_t global_query_length, <span class="keyword">const</span> idx_t local_query_length, <span class="keyword">const</span> idx_t reference_length,</div>
-<div class="line"><a name="l00373"></a><span class="lineno">  373</span>&#160;            <span class="keyword">const</span> Penalties &amp;penalties,</div>
-<div class="line"><a name="l00374"></a><span class="lineno">  374</span>&#160;#ifdef LOCAL_TRANSITION_MATRIX</div>
-<div class="line"><a name="l00375"></a><span class="lineno">  375</span>&#160;            <span class="keyword">const</span> type_t (&amp;transitions)[PE_NUM][TRANSITION_MATRIX_SIZE][TRANSITION_MATRIX_SIZE],</div>
-<div class="line"><a name="l00376"></a><span class="lineno">  376</span>&#160;#endif</div>
-<div class="line"><a name="l00377"></a><span class="lineno">  377</span>&#160;            <a class="code" href="structScorePack.html">ScorePack</a> (&amp;max)[PE_NUM] <span class="comment">// write out so must pass by reference</span></div>
-<div class="line"><a name="l00378"></a><span class="lineno">  378</span>&#160;#ifndef NO_TRACEBACK</div>
-<div class="line"><a name="l00379"></a><span class="lineno">  379</span>&#160;            , tbp_t (&amp;chunk_tbp_out)[PE_NUM][TBMEM_SIZE]</div>
-<div class="line"><a name="l00380"></a><span class="lineno">  380</span>&#160;#endif</div>
-<div class="line"><a name="l00381"></a><span class="lineno">  381</span>&#160;#ifdef CMAKEDEBUG</div>
-<div class="line"><a name="l00382"></a><span class="lineno">  382</span>&#160;            ,</div>
-<div class="line"><a name="l00383"></a><span class="lineno">  383</span>&#160;            <a class="code" href="classContainer.html">Container</a> &amp;debugger</div>
+<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;            <a class="code" href="structScorePack.html">ScorePack</a> (&amp;max)[PE_NUM]</div>
+<div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;#ifndef NO_TRACEBACK</div>
+<div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160;            , tbp_t (&amp;chunk_tbp_out)[PE_NUM][TBMEM_SIZE]</div>
+<div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;#endif</div>
+<div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;#ifdef CMAKEDEBUG</div>
+<div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;            , <a class="code" href="classContainer.html">Container</a> &amp;debugger</div>
+<div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;#endif</div>
+<div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160;        );</div>
+<div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160;</div>
+<div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="namespaceAlign_1_1Rectangular.html#a6f628693115bfeb3a32e1bcc107dbb27">MapPredicate</a>(</div>
+<div class="line"><a name="l00318"></a><span class="lineno">  318</span>&#160;            <span class="keyword">const</span> idx_t wavefront,</div>
+<div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160;            <span class="keyword">const</span> idx_t ref_len, <span class="keyword">const</span> idx_t qry_len, <span class="comment">// This query length is local query length in chunk, always less than PE_NUM</span></div>
+<div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160;            <span class="keywordtype">bool</span> (&amp;row_pred)[PE_NUM],</div>
+<div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160;            <span class="keyword">const</span> <span class="keywordtype">bool</span> (&amp;col_pred)[PE_NUM],</div>
+<div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160;            <span class="keywordtype">bool</span> (&amp;pred)[PE_NUM]);</div>
+<div class="line"><a name="l00323"></a><span class="lineno">  323</span>&#160;    }</div>
+<div class="line"><a name="l00324"></a><span class="lineno">  324</span>&#160;</div>
+<div class="line"><a name="l00329"></a><span class="lineno"><a class="line" href="namespaceAlign_1_1Fixed.html">  329</a></span>&#160;    <span class="keyword">namespace </span>Fixed</div>
+<div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160;    {</div>
+<div class="line"><a name="l00340"></a><span class="lineno">  340</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="namespaceAlign_1_1Rectangular.html#a180bdc87716192aa6ce97c2a876f8dcc">AlignStatic</a>(</div>
+<div class="line"><a name="l00341"></a><span class="lineno">  341</span>&#160;            <span class="keyword">const</span> char_t (&amp;querys)[MAX_QUERY_LENGTH],</div>
+<div class="line"><a name="l00342"></a><span class="lineno">  342</span>&#160;            <span class="keyword">const</span> char_t (&amp;references)[MAX_REFERENCE_LENGTH],</div>
+<div class="line"><a name="l00343"></a><span class="lineno">  343</span>&#160;            <span class="keyword">const</span> idx_t query_length,</div>
+<div class="line"><a name="l00344"></a><span class="lineno">  344</span>&#160;            <span class="keyword">const</span> idx_t reference_length,</div>
+<div class="line"><a name="l00345"></a><span class="lineno">  345</span>&#160;            <span class="keyword">const</span> Penalties &amp;penalties,</div>
+<div class="line"><a name="l00346"></a><span class="lineno">  346</span>&#160;#ifdef LOCAL_TRANSITION_MATRIX</div>
+<div class="line"><a name="l00347"></a><span class="lineno">  347</span>&#160;            <span class="keyword">const</span> type_t (&amp;transitions)[TRANSITION_MATRIX_SIZE][TRANSITION_MATRIX_SIZE],</div>
+<div class="line"><a name="l00348"></a><span class="lineno">  348</span>&#160;#endif</div>
+<div class="line"><a name="l00349"></a><span class="lineno">  349</span>&#160;            idx_t &amp;tb_i, idx_t &amp;tb_j</div>
+<div class="line"><a name="l00350"></a><span class="lineno">  350</span>&#160;#ifndef NO_TRACEBACK</div>
+<div class="line"><a name="l00351"></a><span class="lineno">  351</span>&#160;            , <a class="code" href="dp__hls__common_8h.html#a3f52d200ff97260cdc4c06e2d76edc94">tbr_t</a> (&amp;tb_out)[MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH]</div>
+<div class="line"><a name="l00352"></a><span class="lineno">  352</span>&#160;#endif</div>
+<div class="line"><a name="l00353"></a><span class="lineno">  353</span>&#160;#ifdef SCORED</div>
+<div class="line"><a name="l00354"></a><span class="lineno">  354</span>&#160;            , type_t &amp;score</div>
+<div class="line"><a name="l00355"></a><span class="lineno">  355</span>&#160;#endif</div>
+<div class="line"><a name="l00356"></a><span class="lineno">  356</span>&#160;#ifdef CMAKEDEBUG</div>
+<div class="line"><a name="l00357"></a><span class="lineno">  357</span>&#160;            , <a class="code" href="classContainer.html">Container</a> &amp;debugger</div>
+<div class="line"><a name="l00358"></a><span class="lineno">  358</span>&#160;#endif</div>
+<div class="line"><a name="l00359"></a><span class="lineno">  359</span>&#160;        );</div>
+<div class="line"><a name="l00360"></a><span class="lineno">  360</span>&#160;</div>
+<div class="line"><a name="l00371"></a><span class="lineno">  371</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="namespaceAlign_1_1Rectangular.html#a9bbeab62f4d975dcccfe8510758ae6b9">ChunkCompute</a>(</div>
+<div class="line"><a name="l00372"></a><span class="lineno">  372</span>&#160;            <span class="keyword">const</span> idx_t chunk_row_offset,</div>
+<div class="line"><a name="l00373"></a><span class="lineno">  373</span>&#160;            <span class="keyword">const</span> <a class="code" href="dp__hls__common_8h.html#aae0a4301a15974d8514ee65bcd2f78c5">input_char_block_t</a> &amp;query,</div>
+<div class="line"><a name="l00374"></a><span class="lineno">  374</span>&#160;            <span class="keyword">const</span> char_t (&amp;reference)[MAX_REFERENCE_LENGTH],</div>
+<div class="line"><a name="l00375"></a><span class="lineno">  375</span>&#160;            <span class="keyword">const</span> <a class="code" href="dp__hls__common_8h.html#a086892974a012eb73d99bbcd9d07a28b">chunk_col_scores_inf_t</a> &amp;init_col_scr,</div>
+<div class="line"><a name="l00376"></a><span class="lineno">  376</span>&#160;            <a class="code" href="dp__hls__common_8h.html#a6eb88ec919ba057c60ee1797f77ae825">score_vec_t</a> (&amp;init_row_scr)[MAX_REFERENCE_LENGTH],</div>
+<div class="line"><a name="l00377"></a><span class="lineno">  377</span>&#160;            idx_t p_cols, <span class="keyword">const</span> idx_t ck_idx,</div>
+<div class="line"><a name="l00378"></a><span class="lineno">  378</span>&#160;            idx_t &amp;l_lim_reg, idx_t &amp;u_lim_reg,</div>
+<div class="line"><a name="l00379"></a><span class="lineno">  379</span>&#160;            <span class="keyword">const</span> <span class="keywordtype">bool</span> (&amp;col_pred)[PE_NUM],</div>
+<div class="line"><a name="l00380"></a><span class="lineno">  380</span>&#160;            <span class="keyword">const</span> idx_t global_query_length, <span class="keyword">const</span> idx_t local_query_length, <span class="keyword">const</span> idx_t reference_length,</div>
+<div class="line"><a name="l00381"></a><span class="lineno">  381</span>&#160;            <span class="keyword">const</span> Penalties &amp;penalties,</div>
+<div class="line"><a name="l00382"></a><span class="lineno">  382</span>&#160;#ifdef LOCAL_TRANSITION_MATRIX</div>
+<div class="line"><a name="l00383"></a><span class="lineno">  383</span>&#160;            <span class="keyword">const</span> type_t (&amp;transitions)[PE_NUM][TRANSITION_MATRIX_SIZE][TRANSITION_MATRIX_SIZE],</div>
 <div class="line"><a name="l00384"></a><span class="lineno">  384</span>&#160;#endif</div>
-<div class="line"><a name="l00385"></a><span class="lineno">  385</span>&#160;        );</div>
-<div class="line"><a name="l00386"></a><span class="lineno">  386</span>&#160;</div>
-<div class="line"><a name="l00387"></a><span class="lineno">  387</span>&#160;        <span class="comment">// void UpdateDPMem(</span></div>
-<div class="line"><a name="l00388"></a><span class="lineno">  388</span>&#160;        <span class="comment">//  dp_mem_block_t &amp;dp_mem, idx_t i, idx_t (&amp;l_lim)[PE_NUM], idx_t (&amp;u_lim)[PE_NUM], chunk_col_scores_inf_t &amp;init_col_scr, score_vec_t (&amp;init_row_scr)[MAX_REFERENCE_LENGTH]</span></div>
-<div class="line"><a name="l00389"></a><span class="lineno">  389</span>&#160;        <span class="comment">// );</span></div>
-<div class="line"><a name="l00390"></a><span class="lineno">  390</span>&#160;</div>
-<div class="line"><a name="l00400"></a><span class="lineno">  400</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="namespaceAlign_1_1Rectangular.html#a6f628693115bfeb3a32e1bcc107dbb27">MapPredicate</a>(</div>
-<div class="line"><a name="l00401"></a><span class="lineno">  401</span>&#160;            <span class="keyword">const</span> idx_t (&amp;local_l_lim)[PE_NUM], <span class="keyword">const</span> idx_t (&amp;local_u_lim)[PE_NUM],</div>
-<div class="line"><a name="l00402"></a><span class="lineno">  402</span>&#160;            <span class="keyword">const</span> idx_t (&amp;virtual_cols)[PE_NUM], <span class="keyword">const</span> <span class="keywordtype">bool</span> (&amp;col_pred)[PE_NUM],</div>
-<div class="line"><a name="l00403"></a><span class="lineno">  403</span>&#160;            <span class="keywordtype">bool</span> (&amp;predicate)[PE_NUM]);</div>
-<div class="line"><a name="l00404"></a><span class="lineno">  404</span>&#160;</div>
-<div class="line"><a name="l00405"></a><span class="lineno">  405</span>&#160;        <span class="keyword">template</span> &lt;<span class="keyword">typename</span> IDX_T, <span class="keywordtype">int</span> MAX_QUERY_LENGTH_, <span class="keywordtype">int</span> BANDWIDTH_&gt;</div>
-<div class="line"><a name="l00406"></a><span class="lineno"><a class="line" href="namespaceAlign_1_1Fixed.html#a80d7446bdeb1ba2bf8589f7b3f95656b">  406</a></span>&#160;        constexpr <span class="keywordtype">void</span> <a class="code" href="namespaceAlign_1_1Fixed.html#a80d7446bdeb1ba2bf8589f7b3f95656b">PrecomputeLowerLimits</a>(IDX_T (&amp;l_lim)[MAX_QUERY_LENGTH_])</div>
-<div class="line"><a name="l00407"></a><span class="lineno">  407</span>&#160;        {</div>
-<div class="line"><a name="l00408"></a><span class="lineno">  408</span>&#160;            <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; MAX_QUERY_LENGTH_; i++)</div>
-<div class="line"><a name="l00409"></a><span class="lineno">  409</span>&#160;            {</div>
-<div class="line"><a name="l00410"></a><span class="lineno">  410</span>&#160;                l_lim[i] = i - BANDWIDTH_ &lt; 0 ? 0 : i - BANDWIDTH_;</div>
-<div class="line"><a name="l00411"></a><span class="lineno">  411</span>&#160;            }</div>
-<div class="line"><a name="l00412"></a><span class="lineno">  412</span>&#160;        }</div>
-<div class="line"><a name="l00413"></a><span class="lineno">  413</span>&#160;</div>
-<div class="line"><a name="l00414"></a><span class="lineno">  414</span>&#160;        <span class="keyword">template</span> &lt;<span class="keyword">typename</span> IDX_T, <span class="keywordtype">int</span> MAX_QUERY_LENGTH_, <span class="keywordtype">int</span> BANDWIDTH_&gt;</div>
-<div class="line"><a name="l00415"></a><span class="lineno"><a class="line" href="namespaceAlign_1_1Fixed.html#a11cdd1bcac819f6b80d3785164cb38a4">  415</a></span>&#160;        constexpr <span class="keywordtype">void</span> <a class="code" href="namespaceAlign_1_1Fixed.html#a11cdd1bcac819f6b80d3785164cb38a4">PrecomputeUpperLimits</a>(IDX_T (&amp;u_lim)[MAX_QUERY_LENGTH_], <span class="keyword">const</span> IDX_T reference_length)</div>
-<div class="line"><a name="l00416"></a><span class="lineno">  416</span>&#160;        {</div>
-<div class="line"><a name="l00417"></a><span class="lineno">  417</span>&#160;            <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; MAX_QUERY_LENGTH_; i++)</div>
-<div class="line"><a name="l00418"></a><span class="lineno">  418</span>&#160;            {</div>
-<div class="line"><a name="l00419"></a><span class="lineno">  419</span>&#160;                u_lim[i] = i + BANDWIDTH_ - 1 &gt; reference_length - 1 ? reference_length - 1 : i + BANDWIDTH_ - 1;</div>
-<div class="line"><a name="l00420"></a><span class="lineno">  420</span>&#160;            }</div>
-<div class="line"><a name="l00421"></a><span class="lineno">  421</span>&#160;        }</div>
-<div class="line"><a name="l00422"></a><span class="lineno">  422</span>&#160;</div>
-<div class="line"><a name="l00423"></a><span class="lineno">  423</span>&#160;        <span class="keyword">template</span> &lt;<span class="keywordtype">int</span> PE_NUM_, <span class="keywordtype">int</span> MAX_QUERY_LENGTH_&gt;</div>
-<div class="line"><a name="l00424"></a><span class="lineno"><a class="line" href="namespaceAlign_1_1Fixed.html#af418d7d4019e65d086ee72f3f522db04">  424</a></span>&#160;        <span class="keywordtype">void</span> <a class="code" href="namespaceAlign.html#ab2421241165271cf2f2a0b871b308885">PrepareLocals</a>(</div>
-<div class="line"><a name="l00425"></a><span class="lineno">  425</span>&#160;            <span class="keyword">const</span> char_t (&amp;query)[MAX_QUERY_LENGTH_],</div>
-<div class="line"><a name="l00426"></a><span class="lineno">  426</span>&#160;            <span class="keyword">const</span> <a class="code" href="dp__hls__common_8h.html#a6eb88ec919ba057c60ee1797f77ae825">score_vec_t</a> (&amp;init_col_scr)[MAX_QUERY_LENGTH_],</div>
-<div class="line"><a name="l00427"></a><span class="lineno">  427</span>&#160;            char_t (&amp;local_query)[PE_NUM_],</div>
-<div class="line"><a name="l00428"></a><span class="lineno">  428</span>&#160;            <a class="code" href="dp__hls__common_8h.html#a086892974a012eb73d99bbcd9d07a28b">chunk_col_scores_inf_t</a> &amp;init_col_scr_local,</div>
-<div class="line"><a name="l00429"></a><span class="lineno">  429</span>&#160;            <span class="keywordtype">bool</span> (&amp;col_pred)[PE_NUM_], <span class="keyword">const</span> idx_t local_query_len,</div>
-<div class="line"><a name="l00430"></a><span class="lineno">  430</span>&#160;            <span class="keyword">const</span> idx_t idx)</div>
-<div class="line"><a name="l00431"></a><span class="lineno">  431</span>&#160;        {</div>
-<div class="line"><a name="l00432"></a><span class="lineno">  432</span>&#160;            FixedBandingPrepareChunkLocals:</div>
-<div class="line"><a name="l00433"></a><span class="lineno">  433</span>&#160;            init_col_scr_local[0] = init_col_scr_local[PE_NUM_]; <span class="comment">// backup the last element from previous chunk</span></div>
-<div class="line"><a name="l00434"></a><span class="lineno">  434</span>&#160;            <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; PE_NUM_; i++)</div>
-<div class="line"><a name="l00435"></a><span class="lineno">  435</span>&#160;            {</div>
-<div class="line"><a name="l00436"></a><span class="lineno">  436</span>&#160;                init_col_scr_local[i + 1] = init_col_scr[idx + i];</div>
-<div class="line"><a name="l00437"></a><span class="lineno">  437</span>&#160;                local_query[i] = query[idx + i];</div>
-<div class="line"><a name="l00438"></a><span class="lineno">  438</span>&#160;                col_pred[i] = i &lt; local_query_len;</div>
-<div class="line"><a name="l00439"></a><span class="lineno">  439</span>&#160;            }</div>
-<div class="line"><a name="l00440"></a><span class="lineno">  440</span>&#160;        }</div>
-<div class="line"><a name="l00441"></a><span class="lineno">  441</span>&#160;    }</div>
-<div class="line"><a name="l00442"></a><span class="lineno">  442</span>&#160;</div>
-<div class="line"><a name="l00450"></a><span class="lineno">  450</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="namespaceAlign.html#aedd9c31ab738d7cf03daebd629b7a413">InitializeScores</a>(</div>
-<div class="line"><a name="l00451"></a><span class="lineno">  451</span>&#160;        <a class="code" href="dp__hls__common_8h.html#a6eb88ec919ba057c60ee1797f77ae825">score_vec_t</a> (&amp;init_col_scr)[MAX_QUERY_LENGTH],</div>
-<div class="line"><a name="l00452"></a><span class="lineno">  452</span>&#160;        <a class="code" href="dp__hls__common_8h.html#a6eb88ec919ba057c60ee1797f77ae825">score_vec_t</a> (&amp;init_row_scr)[MAX_REFERENCE_LENGTH],</div>
-<div class="line"><a name="l00453"></a><span class="lineno">  453</span>&#160;        <span class="keyword">const</span> Penalties &amp;penalties);</div>
-<div class="line"><a name="l00454"></a><span class="lineno">  454</span>&#160;</div>
-<div class="line"><a name="l00455"></a><span class="lineno">  455</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="namespaceAlign.html#a781303e36556d883c4e05dd7e877a973">ChunkMax</a>(<a class="code" href="structScorePack.html">ScorePack</a> &amp;max, <a class="code" href="structScorePack.html">ScorePack</a> new_scr);</div>
-<div class="line"><a name="l00456"></a><span class="lineno">  456</span>&#160;</div>
-<div class="line"><a name="l00457"></a><span class="lineno">  457</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="namespaceAlign.html#a80fd5bb4d0fa5d05c7e4d18868b7b998">UpdatePEOffset</a>(idx_t (&amp;pe_offset)[PE_NUM], <span class="keywordtype">bool</span> (&amp;predicate)[PE_NUM]);</div>
-<div class="line"><a name="l00458"></a><span class="lineno">  458</span>&#160;</div>
-<div class="line"><a name="l00459"></a><span class="lineno">  459</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="namespaceAlign.html#ad518e5d7f5b9565a90dc90cff16c14a2">CopyColScore</a>(<a class="code" href="dp__hls__common_8h.html#a086892974a012eb73d99bbcd9d07a28b">chunk_col_scores_inf_t</a> &amp;init_col_scr_local, <a class="code" href="dp__hls__common_8h.html#a6eb88ec919ba057c60ee1797f77ae825">score_vec_t</a> (&amp;init_col_scr)[MAX_QUERY_LENGTH], idx_t i);</div>
-<div class="line"><a name="l00460"></a><span class="lineno">  460</span>&#160;</div>
-<div class="line"><a name="l00461"></a><span class="lineno">  461</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="namespaceAlign.html#a782eead181d9a7f7245f12e3b30365c7">UpdateDPMemSep</a>(</div>
-<div class="line"><a name="l00462"></a><span class="lineno">  462</span>&#160;        <a class="code" href="dp__hls__common_8h.html#a6eb88ec919ba057c60ee1797f77ae825">score_vec_t</a> (&amp;dp_mem)[PE_NUM + 1][2],</div>
-<div class="line"><a name="l00463"></a><span class="lineno">  463</span>&#160;        <a class="code" href="dp__hls__common_8h.html#a6eb88ec919ba057c60ee1797f77ae825">score_vec_t</a> (&amp;score_in)[PE_NUM + 1]);</div>
+<div class="line"><a name="l00385"></a><span class="lineno">  385</span>&#160;            <a class="code" href="structScorePack.html">ScorePack</a> (&amp;max)[PE_NUM] <span class="comment">// write out so must pass by reference</span></div>
+<div class="line"><a name="l00386"></a><span class="lineno">  386</span>&#160;#ifndef NO_TRACEBACK</div>
+<div class="line"><a name="l00387"></a><span class="lineno">  387</span>&#160;            , tbp_t (&amp;chunk_tbp_out)[PE_NUM][TBMEM_SIZE]</div>
+<div class="line"><a name="l00388"></a><span class="lineno">  388</span>&#160;#endif</div>
+<div class="line"><a name="l00389"></a><span class="lineno">  389</span>&#160;#ifdef CMAKEDEBUG</div>
+<div class="line"><a name="l00390"></a><span class="lineno">  390</span>&#160;            ,</div>
+<div class="line"><a name="l00391"></a><span class="lineno">  391</span>&#160;            <a class="code" href="classContainer.html">Container</a> &amp;debugger</div>
+<div class="line"><a name="l00392"></a><span class="lineno">  392</span>&#160;#endif</div>
+<div class="line"><a name="l00393"></a><span class="lineno">  393</span>&#160;        );</div>
+<div class="line"><a name="l00394"></a><span class="lineno">  394</span>&#160;</div>
+<div class="line"><a name="l00395"></a><span class="lineno">  395</span>&#160;        <span class="comment">// void UpdateDPMem(</span></div>
+<div class="line"><a name="l00396"></a><span class="lineno">  396</span>&#160;        <span class="comment">//  dp_mem_block_t &amp;dp_mem, idx_t i, idx_t (&amp;l_lim)[PE_NUM], idx_t (&amp;u_lim)[PE_NUM], chunk_col_scores_inf_t &amp;init_col_scr, score_vec_t (&amp;init_row_scr)[MAX_REFERENCE_LENGTH]</span></div>
+<div class="line"><a name="l00397"></a><span class="lineno">  397</span>&#160;        <span class="comment">// );</span></div>
+<div class="line"><a name="l00398"></a><span class="lineno">  398</span>&#160;</div>
+<div class="line"><a name="l00408"></a><span class="lineno">  408</span>&#160;        <span class="keywordtype">void</span> <a class="code" href="namespaceAlign_1_1Rectangular.html#a6f628693115bfeb3a32e1bcc107dbb27">MapPredicate</a>(</div>
+<div class="line"><a name="l00409"></a><span class="lineno">  409</span>&#160;            <span class="keyword">const</span> idx_t (&amp;local_l_lim)[PE_NUM], <span class="keyword">const</span> idx_t (&amp;local_u_lim)[PE_NUM],</div>
+<div class="line"><a name="l00410"></a><span class="lineno">  410</span>&#160;            <span class="keyword">const</span> idx_t (&amp;virtual_cols)[PE_NUM], <span class="keyword">const</span> <span class="keywordtype">bool</span> (&amp;col_pred)[PE_NUM],</div>
+<div class="line"><a name="l00411"></a><span class="lineno">  411</span>&#160;            <span class="keywordtype">bool</span> (&amp;predicate)[PE_NUM]);</div>
+<div class="line"><a name="l00412"></a><span class="lineno">  412</span>&#160;</div>
+<div class="line"><a name="l00413"></a><span class="lineno">  413</span>&#160;        <span class="keyword">template</span> &lt;<span class="keyword">typename</span> IDX_T, <span class="keywordtype">int</span> MAX_QUERY_LENGTH_, <span class="keywordtype">int</span> BANDWIDTH_&gt;</div>
+<div class="line"><a name="l00414"></a><span class="lineno"><a class="line" href="namespaceAlign_1_1Fixed.html#a80d7446bdeb1ba2bf8589f7b3f95656b">  414</a></span>&#160;        constexpr <span class="keywordtype">void</span> <a class="code" href="namespaceAlign_1_1Fixed.html#a80d7446bdeb1ba2bf8589f7b3f95656b">PrecomputeLowerLimits</a>(IDX_T (&amp;l_lim)[MAX_QUERY_LENGTH_])</div>
+<div class="line"><a name="l00415"></a><span class="lineno">  415</span>&#160;        {</div>
+<div class="line"><a name="l00416"></a><span class="lineno">  416</span>&#160;            <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; MAX_QUERY_LENGTH_; i++)</div>
+<div class="line"><a name="l00417"></a><span class="lineno">  417</span>&#160;            {</div>
+<div class="line"><a name="l00418"></a><span class="lineno">  418</span>&#160;                l_lim[i] = i - BANDWIDTH_ &lt; 0 ? 0 : i - BANDWIDTH_;</div>
+<div class="line"><a name="l00419"></a><span class="lineno">  419</span>&#160;            }</div>
+<div class="line"><a name="l00420"></a><span class="lineno">  420</span>&#160;        }</div>
+<div class="line"><a name="l00421"></a><span class="lineno">  421</span>&#160;</div>
+<div class="line"><a name="l00422"></a><span class="lineno">  422</span>&#160;        <span class="keyword">template</span> &lt;<span class="keyword">typename</span> IDX_T, <span class="keywordtype">int</span> MAX_QUERY_LENGTH_, <span class="keywordtype">int</span> BANDWIDTH_&gt;</div>
+<div class="line"><a name="l00423"></a><span class="lineno"><a class="line" href="namespaceAlign_1_1Fixed.html#a11cdd1bcac819f6b80d3785164cb38a4">  423</a></span>&#160;        constexpr <span class="keywordtype">void</span> <a class="code" href="namespaceAlign_1_1Fixed.html#a11cdd1bcac819f6b80d3785164cb38a4">PrecomputeUpperLimits</a>(IDX_T (&amp;u_lim)[MAX_QUERY_LENGTH_], <span class="keyword">const</span> IDX_T reference_length)</div>
+<div class="line"><a name="l00424"></a><span class="lineno">  424</span>&#160;        {</div>
+<div class="line"><a name="l00425"></a><span class="lineno">  425</span>&#160;            <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; MAX_QUERY_LENGTH_; i++)</div>
+<div class="line"><a name="l00426"></a><span class="lineno">  426</span>&#160;            {</div>
+<div class="line"><a name="l00427"></a><span class="lineno">  427</span>&#160;                u_lim[i] = i + BANDWIDTH_ - 1 &gt; reference_length - 1 ? reference_length - 1 : i + BANDWIDTH_ - 1;</div>
+<div class="line"><a name="l00428"></a><span class="lineno">  428</span>&#160;            }</div>
+<div class="line"><a name="l00429"></a><span class="lineno">  429</span>&#160;        }</div>
+<div class="line"><a name="l00430"></a><span class="lineno">  430</span>&#160;</div>
+<div class="line"><a name="l00431"></a><span class="lineno">  431</span>&#160;        <span class="keyword">template</span> &lt;<span class="keywordtype">int</span> PE_NUM_, <span class="keywordtype">int</span> MAX_QUERY_LENGTH_&gt;</div>
+<div class="line"><a name="l00432"></a><span class="lineno"><a class="line" href="namespaceAlign_1_1Fixed.html#af418d7d4019e65d086ee72f3f522db04">  432</a></span>&#160;        <span class="keywordtype">void</span> <a class="code" href="namespaceAlign.html#ab2421241165271cf2f2a0b871b308885">PrepareLocals</a>(</div>
+<div class="line"><a name="l00433"></a><span class="lineno">  433</span>&#160;            <span class="keyword">const</span> char_t (&amp;query)[MAX_QUERY_LENGTH_],</div>
+<div class="line"><a name="l00434"></a><span class="lineno">  434</span>&#160;            <span class="keyword">const</span> <a class="code" href="dp__hls__common_8h.html#a6eb88ec919ba057c60ee1797f77ae825">score_vec_t</a> (&amp;init_col_scr)[MAX_QUERY_LENGTH_],</div>
+<div class="line"><a name="l00435"></a><span class="lineno">  435</span>&#160;            char_t (&amp;local_query)[PE_NUM_],</div>
+<div class="line"><a name="l00436"></a><span class="lineno">  436</span>&#160;            <a class="code" href="dp__hls__common_8h.html#a086892974a012eb73d99bbcd9d07a28b">chunk_col_scores_inf_t</a> &amp;init_col_scr_local,</div>
+<div class="line"><a name="l00437"></a><span class="lineno">  437</span>&#160;            <span class="keywordtype">bool</span> (&amp;col_pred)[PE_NUM_], <span class="keyword">const</span> idx_t local_query_len,</div>
+<div class="line"><a name="l00438"></a><span class="lineno">  438</span>&#160;            <span class="keyword">const</span> idx_t idx)</div>
+<div class="line"><a name="l00439"></a><span class="lineno">  439</span>&#160;        {</div>
+<div class="line"><a name="l00440"></a><span class="lineno">  440</span>&#160;            FixedBandingPrepareChunkLocals:</div>
+<div class="line"><a name="l00441"></a><span class="lineno">  441</span>&#160;            init_col_scr_local[0] = init_col_scr_local[PE_NUM_]; <span class="comment">// backup the last element from previous chunk</span></div>
+<div class="line"><a name="l00442"></a><span class="lineno">  442</span>&#160;            <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; PE_NUM_; i++)</div>
+<div class="line"><a name="l00443"></a><span class="lineno">  443</span>&#160;            {</div>
+<div class="line"><a name="l00444"></a><span class="lineno">  444</span>&#160;                init_col_scr_local[i + 1] = init_col_scr[idx + i];</div>
+<div class="line"><a name="l00445"></a><span class="lineno">  445</span>&#160;                local_query[i] = query[idx + i];</div>
+<div class="line"><a name="l00446"></a><span class="lineno">  446</span>&#160;                col_pred[i] = i &lt; local_query_len;</div>
+<div class="line"><a name="l00447"></a><span class="lineno">  447</span>&#160;            }</div>
+<div class="line"><a name="l00448"></a><span class="lineno">  448</span>&#160;        }</div>
+<div class="line"><a name="l00449"></a><span class="lineno">  449</span>&#160;    }</div>
+<div class="line"><a name="l00450"></a><span class="lineno">  450</span>&#160;</div>
+<div class="line"><a name="l00458"></a><span class="lineno">  458</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="namespaceAlign.html#aedd9c31ab738d7cf03daebd629b7a413">InitializeScores</a>(</div>
+<div class="line"><a name="l00459"></a><span class="lineno">  459</span>&#160;        <a class="code" href="dp__hls__common_8h.html#a6eb88ec919ba057c60ee1797f77ae825">score_vec_t</a> (&amp;init_col_scr)[MAX_QUERY_LENGTH],</div>
+<div class="line"><a name="l00460"></a><span class="lineno">  460</span>&#160;        <a class="code" href="dp__hls__common_8h.html#a6eb88ec919ba057c60ee1797f77ae825">score_vec_t</a> (&amp;init_row_scr)[MAX_REFERENCE_LENGTH],</div>
+<div class="line"><a name="l00461"></a><span class="lineno">  461</span>&#160;        <span class="keyword">const</span> Penalties &amp;penalties);</div>
+<div class="line"><a name="l00462"></a><span class="lineno">  462</span>&#160;</div>
+<div class="line"><a name="l00463"></a><span class="lineno">  463</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="namespaceAlign.html#a781303e36556d883c4e05dd7e877a973">ChunkMax</a>(<a class="code" href="structScorePack.html">ScorePack</a> &amp;max, <a class="code" href="structScorePack.html">ScorePack</a> new_scr);</div>
 <div class="line"><a name="l00464"></a><span class="lineno">  464</span>&#160;</div>
-<div class="line"><a name="l00465"></a><span class="lineno">  465</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="namespaceAlign.html#a9c79aa40ec0ac1aec8aacfc37323d0db">PrepareScoreBuffer</a>(</div>
-<div class="line"><a name="l00466"></a><span class="lineno">  466</span>&#160;        <a class="code" href="dp__hls__common_8h.html#a6eb88ec919ba057c60ee1797f77ae825">score_vec_t</a> (&amp;score_buff)[PE_NUM + 1],</div>
-<div class="line"><a name="l00467"></a><span class="lineno">  467</span>&#160;        <span class="keyword">const</span> idx_t i,</div>
-<div class="line"><a name="l00468"></a><span class="lineno">  468</span>&#160;        <span class="keyword">const</span> <a class="code" href="dp__hls__common_8h.html#a086892974a012eb73d99bbcd9d07a28b">chunk_col_scores_inf_t</a>(&amp;init_col_scr),</div>
-<div class="line"><a name="l00469"></a><span class="lineno">  469</span>&#160;        <span class="keyword">const</span> <a class="code" href="dp__hls__common_8h.html#a6eb88ec919ba057c60ee1797f77ae825">score_vec_t</a> (&amp;init_row_scr)[MAX_REFERENCE_LENGTH]);</div>
-<div class="line"><a name="l00470"></a><span class="lineno">  470</span>&#160;}</div>
-<div class="line"><a name="l00471"></a><span class="lineno">  471</span>&#160;</div>
-<div class="line"><a name="l00472"></a><span class="lineno">  472</span>&#160;<span class="preprocessor">#endif // !SEQ_ALIGN_H</span></div>
+<div class="line"><a name="l00465"></a><span class="lineno">  465</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="namespaceAlign.html#a80fd5bb4d0fa5d05c7e4d18868b7b998">UpdatePEOffset</a>(idx_t (&amp;pe_offset)[PE_NUM], <span class="keywordtype">bool</span> (&amp;predicate)[PE_NUM]);</div>
+<div class="line"><a name="l00466"></a><span class="lineno">  466</span>&#160;</div>
+<div class="line"><a name="l00467"></a><span class="lineno">  467</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="namespaceAlign.html#ad518e5d7f5b9565a90dc90cff16c14a2">CopyColScore</a>(<a class="code" href="dp__hls__common_8h.html#a086892974a012eb73d99bbcd9d07a28b">chunk_col_scores_inf_t</a> &amp;init_col_scr_local, <a class="code" href="dp__hls__common_8h.html#a6eb88ec919ba057c60ee1797f77ae825">score_vec_t</a> (&amp;init_col_scr)[MAX_QUERY_LENGTH], idx_t i);</div>
+<div class="line"><a name="l00468"></a><span class="lineno">  468</span>&#160;</div>
+<div class="line"><a name="l00469"></a><span class="lineno">  469</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="namespaceAlign.html#a782eead181d9a7f7245f12e3b30365c7">UpdateDPMemSep</a>(</div>
+<div class="line"><a name="l00470"></a><span class="lineno">  470</span>&#160;        <a class="code" href="dp__hls__common_8h.html#a6eb88ec919ba057c60ee1797f77ae825">score_vec_t</a> (&amp;dp_mem)[PE_NUM + 1][2],</div>
+<div class="line"><a name="l00471"></a><span class="lineno">  471</span>&#160;        <a class="code" href="dp__hls__common_8h.html#a6eb88ec919ba057c60ee1797f77ae825">score_vec_t</a> (&amp;score_in)[PE_NUM + 1]);</div>
+<div class="line"><a name="l00472"></a><span class="lineno">  472</span>&#160;</div>
+<div class="line"><a name="l00473"></a><span class="lineno">  473</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="namespaceAlign.html#a9c79aa40ec0ac1aec8aacfc37323d0db">PrepareScoreBuffer</a>(</div>
+<div class="line"><a name="l00474"></a><span class="lineno">  474</span>&#160;        <a class="code" href="dp__hls__common_8h.html#a6eb88ec919ba057c60ee1797f77ae825">score_vec_t</a> (&amp;score_buff)[PE_NUM + 1],</div>
+<div class="line"><a name="l00475"></a><span class="lineno">  475</span>&#160;        <span class="keyword">const</span> idx_t i,</div>
+<div class="line"><a name="l00476"></a><span class="lineno">  476</span>&#160;        <span class="keyword">const</span> <a class="code" href="dp__hls__common_8h.html#a086892974a012eb73d99bbcd9d07a28b">chunk_col_scores_inf_t</a>(&amp;init_col_scr),</div>
+<div class="line"><a name="l00477"></a><span class="lineno">  477</span>&#160;        <span class="keyword">const</span> <a class="code" href="dp__hls__common_8h.html#a6eb88ec919ba057c60ee1797f77ae825">score_vec_t</a> (&amp;init_row_scr)[MAX_REFERENCE_LENGTH]);</div>
+<div class="line"><a name="l00478"></a><span class="lineno">  478</span>&#160;}</div>
+<div class="line"><a name="l00479"></a><span class="lineno">  479</span>&#160;</div>
+<div class="line"><a name="l00480"></a><span class="lineno">  480</span>&#160;<span class="preprocessor">#endif // !SEQ_ALIGN_H</span></div>
 <div class="ttc" id="namespaceAlign_html_a4f9ed09e22e8ebb25b2aaa355ee04c42"><div class="ttname"><a href="namespaceAlign.html#a4f9ed09e22e8ebb25b2aaa355ee04c42">Align::ArrangeTBP</a></div><div class="ttdeci">void ArrangeTBP(const tbp_vec_t &amp;tbp_in, const idx_t &amp;p_col_offset, const bool(&amp;predicate)[PE_NUM], tbp_t(&amp;chunk_tbp_out)[PE_NUM][TBMEM_SIZE])</div></div>
 <div class="ttc" id="namespaceAlign_html_a7839f9f0919af88e9a7d5cf8d103b670"><div class="ttname"><a href="namespaceAlign.html#a7839f9f0919af88e9a7d5cf8d103b670">Align::CoordinateInitializeUniform</a></div><div class="ttdeci">void CoordinateInitializeUniform(idx_t(&amp;jcs)[LEN], idx_t starting)</div><div class="ttdef"><b>Definition:</b> align.h:161</div></div>
 <div class="ttc" id="dp__hls__common_8h_html_a6eb88ec919ba057c60ee1797f77ae825"><div class="ttname"><a href="dp__hls__common_8h.html#a6eb88ec919ba057c60ee1797f77ae825">score_vec_t</a></div><div class="ttdeci">hls::vector&lt; type_t, N_LAYERS &gt; score_vec_t</div><div class="ttdoc">Vector of scores, used to store the scores of each layer in the same coordiante in the DP matrix...</div><div class="ttdef"><b>Definition:</b> dp_hls_common.h:31</div></div>
@@ -441,7 +441,7 @@ $(document).ready(function(){initNavTree('align_8h_source.html','');});
 <div class="ttc" id="frontend_8h_html"><div class="ttname"><a href="frontend_8h.html">frontend.h</a></div></div>
 <div class="ttc" id="debug_8h_html"><div class="ttname"><a href="debug_8h.html">debug.h</a></div></div>
 <div class="ttc" id="dp__hls__common_8h_html"><div class="ttname"><a href="dp__hls__common_8h.html">dp_hls_common.h</a></div><div class="ttdoc">Declaration of types used by DP-HLS internally, referred from the user defined params.h file. </div></div>
-<div class="ttc" id="namespaceAlign_1_1Fixed_html_a11cdd1bcac819f6b80d3785164cb38a4"><div class="ttname"><a href="namespaceAlign_1_1Fixed.html#a11cdd1bcac819f6b80d3785164cb38a4">Align::Fixed::PrecomputeUpperLimits</a></div><div class="ttdeci">constexpr void PrecomputeUpperLimits(IDX_T(&amp;u_lim)[MAX_QUERY_LENGTH_], const IDX_T reference_length)</div><div class="ttdef"><b>Definition:</b> align.h:415</div></div>
+<div class="ttc" id="namespaceAlign_1_1Fixed_html_a11cdd1bcac819f6b80d3785164cb38a4"><div class="ttname"><a href="namespaceAlign_1_1Fixed.html#a11cdd1bcac819f6b80d3785164cb38a4">Align::Fixed::PrecomputeUpperLimits</a></div><div class="ttdeci">constexpr void PrecomputeUpperLimits(IDX_T(&amp;u_lim)[MAX_QUERY_LENGTH_], const IDX_T reference_length)</div><div class="ttdef"><b>Definition:</b> align.h:423</div></div>
 <div class="ttc" id="PE_8h_html"><div class="ttname"><a href="PE_8h.html">PE.h</a></div></div>
 <div class="ttc" id="dp__hls__common_8h_html_a086892974a012eb73d99bbcd9d07a28b"><div class="ttname"><a href="dp__hls__common_8h.html#a086892974a012eb73d99bbcd9d07a28b">chunk_col_scores_inf_t</a></div><div class="ttdeci">score_vec_t chunk_col_scores_inf_t[PE_NUM+1]</div><div class="ttdef"><b>Definition:</b> dp_hls_common.h:88</div></div>
 <div class="ttc" id="namespaceAlign_html_a304682b6f53cdf1158928d8aa253248b"><div class="ttname"><a href="namespaceAlign.html#a304682b6f53cdf1158928d8aa253248b">Align::ShiftPredicate</a></div><div class="ttdeci">void ShiftPredicate(bool(&amp;predicate)[PE_NUM], int idx, int query_len, int reference_len)</div><div class="ttdoc">Determine the shift of predicate sccording to the desired query legnth, reference length...</div></div>
@@ -462,7 +462,7 @@ $(document).ready(function(){initNavTree('align_8h_source.html','');});
 <div class="ttc" id="namespaceAlign_html_aedd9c31ab738d7cf03daebd629b7a413"><div class="ttname"><a href="namespaceAlign.html#aedd9c31ab738d7cf03daebd629b7a413">Align::InitializeScores</a></div><div class="ttdeci">void InitializeScores(score_vec_t(&amp;init_col_scr)[MAX_QUERY_LENGTH], score_vec_t(&amp;init_row_scr)[MAX_REFERENCE_LENGTH], const Penalties &amp;penalties)</div><div class="ttdoc">Initialize initial scores for the first column and row on the device. </div></div>
 <div class="ttc" id="namespaceAlign_html_a6bd67707d56d4df6db3f79bcd4e25a11"><div class="ttname"><a href="namespaceAlign.html#a6bd67707d56d4df6db3f79bcd4e25a11">Align::DPMemUpdateArr</a></div><div class="ttdeci">void DPMemUpdateArr(dp_mem_block_t &amp;dp_mem_in, wavefront_scores_t &amp;score_in)</div></div>
 <div class="ttc" id="namespaceAlign_html_a2974e62fe33649538dc404a806ff060b"><div class="ttname"><a href="namespaceAlign.html#a2974e62fe33649538dc404a806ff060b">Align::CoordinateArrayCopy</a></div><div class="ttdeci">void CoordinateArrayCopy(T(&amp;src)[LEN], T(&amp;dst)[LEN])</div><div class="ttdef"><b>Definition:</b> align.h:141</div></div>
-<div class="ttc" id="namespaceAlign_1_1Fixed_html_a80d7446bdeb1ba2bf8589f7b3f95656b"><div class="ttname"><a href="namespaceAlign_1_1Fixed.html#a80d7446bdeb1ba2bf8589f7b3f95656b">Align::Fixed::PrecomputeLowerLimits</a></div><div class="ttdeci">constexpr void PrecomputeLowerLimits(IDX_T(&amp;l_lim)[MAX_QUERY_LENGTH_])</div><div class="ttdef"><b>Definition:</b> align.h:406</div></div>
+<div class="ttc" id="namespaceAlign_1_1Fixed_html_a80d7446bdeb1ba2bf8589f7b3f95656b"><div class="ttname"><a href="namespaceAlign_1_1Fixed.html#a80d7446bdeb1ba2bf8589f7b3f95656b">Align::Fixed::PrecomputeLowerLimits</a></div><div class="ttdeci">constexpr void PrecomputeLowerLimits(IDX_T(&amp;l_lim)[MAX_QUERY_LENGTH_])</div><div class="ttdef"><b>Definition:</b> align.h:414</div></div>
 <div class="ttc" id="namespaceAlign_html_a23d13aed05b05616b5cc56aceeb87c0f"><div class="ttname"><a href="namespaceAlign.html#a23d13aed05b05616b5cc56aceeb87c0f">Align::UpdateDPMemShift</a></div><div class="ttdeci">void UpdateDPMemShift(dp_mem_block_t &amp;dp_mem)</div></div>
 <div class="ttc" id="namespaceAlign_1_1Rectangular_html_a6f628693115bfeb3a32e1bcc107dbb27"><div class="ttname"><a href="namespaceAlign_1_1Rectangular.html#a6f628693115bfeb3a32e1bcc107dbb27">Align::Rectangular::MapPredicate</a></div><div class="ttdeci">void MapPredicate(const idx_t wavefront, const idx_t ref_len, const idx_t qry_len, bool(&amp;row_pred)[PE_NUM], const bool(&amp;col_pred)[PE_NUM], bool(&amp;pred)[PE_NUM])</div><div class="ttdoc">Logics to map the global coordinates of a wavefront of PE to their prediate values. MapPredicateSquare is a function F: (pe_row: int, pe_col: int) -&amp;gt; (predicate_balue: boolean) It&amp;#39;s unrolled for PE_NUM applying to each PE. </div></div>
 <div class="ttc" id="dp__hls__common_8h_html_a9750098fc3e4d4a9049794a82fe4fcfb"><div class="ttname"><a href="dp__hls__common_8h.html#a9750098fc3e4d4a9049794a82fe4fcfb">dp_mem_block_t</a></div><div class="ttdeci">score_vec_t dp_mem_block_t[PE_NUM+1][2]</div><div class="ttdef"><b>Definition:</b> dp_hls_common.h:87</div></div>
