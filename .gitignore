@@ -97,3 +97,7 @@ output.txt
 banding_global_linaer.txt
 
 data/uniprot_sprot.fasta
+
+/reports_compile
+/reports_vitis_hls
+/vitis_projects
