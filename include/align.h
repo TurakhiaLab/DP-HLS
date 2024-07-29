@@ -16,7 +16,7 @@
 #include <hls_vector.h>
 #include <hls_stream.h>
 
-#include "dp_hls_common.h"
+#include "params.h"
 #include "PE.h"
 #include "utils.h"
 #include "frontend.h"
@@ -71,7 +71,7 @@ namespace Align
 	 */
 	template <int PE_NUM_T>
 	void PrepareLocals(
-		const char_t (&query)[MAX_QUERY_LENGTH],
+		char_t (&query)[MAX_QUERY_LENGTH],
 		char_t (&local_query)[PE_NUM_T],
 		score_vec_t (&init_col_scr)[MAX_QUERY_LENGTH],
 		chunk_col_scores_inf_t &init_col_scr_local,
@@ -122,6 +122,7 @@ namespace Align
 	 */
 	void ShiftPredicate(bool (&predicate)[PE_NUM], int idx, int query_len, int reference_len);
 
+#ifdef BANDED
 	/**
 	 * @brief Shift into the local reference buffer a new reference element, given current wavefront index and reference length.
 	 * @param local_reference The local reference buffer. 
@@ -223,8 +224,9 @@ namespace Align
 		 */
 		void ChunkCompute(
 			idx_t chunk_row_offset,
+			idx_t chunk_start_col,
 			input_char_block_t &query,
-			const char_t (&reference)[MAX_REFERENCE_LENGTH],
+			char_t (&reference)[MAX_REFERENCE_LENGTH],
 			chunk_col_scores_inf_t &init_col_scr,
 			score_vec_t (&init_row_scr)[MAX_REFERENCE_LENGTH],
 			idx_t &p_col_offset, idx_t ck_idx,

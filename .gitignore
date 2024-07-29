@@ -80,11 +80,8 @@ banding_global_linear_out.txt
 /.idea/
 compile_configs
 
-/reports_compile/
-/reports_cosim/
+/reports/
 
-/tmp/
-/vitis_projects/
 
 /build/
 /cmake-build-debug/

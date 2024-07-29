@@ -1,8 +1,7 @@
 #ifndef TRACEBACK_H
 #define TRACEBACK_H
 
-#include "dp_hls_common.h"
-#include "frontend.h"
+#include "params.h"
 #include <hls_stream.h>
 #include <hls_vector.h>
 

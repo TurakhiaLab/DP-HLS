@@ -19,7 +19,6 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O0 -g -fsanitize=address -fno-inline -D
 set(EXECUTABLE_TARGETS
     baseline_local_linear
 
-    test_simd
     test_csim_global_linear
     test_csim_banding_global_linear
     test_csim_global_affine
@@ -45,19 +44,15 @@ set(EXECUTABLE_TARGETS
 )
 
 add_compile_definitions(PUBLIC CMAKEDEBUG)
-add_compile_definitions(PUBLIC VPP_CLI)
 
 set(COMMON_SRCS
     "src/seq_align_multiple.cpp"
-    "src/align.cpp"
+    "src/align/align.cpp"
     "src/pe.cpp"
     "src/traceback.cpp"
     "src/utils.cpp"
     "src/debug.cpp"
     "src/host_utils.cpp")
-
-add_executable(test_simd
-        testbench/test_simd.cpp)
 
 # Compile baseline kernel. 
 add_executable(baseline_local_linear "legacy/local_linear.h"

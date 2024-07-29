@@ -6,21 +6,18 @@
 #include "../include/PE.h"
 #include "../include/align.h"
 #else
-
 #include "seq_align_multiple.h"
 #include "PE.h"
 #include "align.h"
-
 #endif
 
-#ifdef CMAKEDEBUG
 
+#ifdef CMAKEDEBUG
 #include <iostream>
 #include <stdio.h>
 #include <math.h>
 #include <cstdlib>
 #include "debug.h"
-
 #endif
 
 // #define DP_HLS_UNROLLED
@@ -34,8 +31,8 @@ extern "C"
 {
 
 	void seq_align_multiple_static(
-		char_t (&querys)[MAX_QUERY_LENGTH][N_BLOCKS],
-		char_t (&references)[MAX_REFERENCE_LENGTH][N_BLOCKS],
+		char_t (&querys)[N_BLOCKS][MAX_QUERY_LENGTH],
+		char_t (&references)[N_BLOCKS][MAX_REFERENCE_LENGTH],
 		idx_t (&query_lengths)[N_BLOCKS],
 		idx_t (&reference_lengths)[N_BLOCKS],
 		const Penalties (&penalties)[N_BLOCKS],
@@ -186,6 +183,7 @@ extern "C"
 				, debugger[i]
 #endif
 			);
+
 		}
 
 #ifndef NO_TRACEBACK
@@ -203,6 +201,10 @@ extern "C"
 	ExtractTracebackCoordinate:
 		for (int i = 0; i < N_BLOCKS; i++)
 		{
+			for (int j = 0; j < MAX_QUERY_LENGTH + MAX_REFERENCE_LENGTH; j++)
+			{
+				tb_streams[i][j] = tb_streams_b[i][j];
+			}
 			tb_is[i] = tb_is_b[i];
 			tb_js[i] = tb_js_b[i];
 		}

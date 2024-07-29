@@ -8,7 +8,6 @@
 #include <ap_fixed.h>
 #include "host_utils.h"
 #include "params.h"
-#include "dp_hls_common.h"
 #include <map>
 #include <chrono>
 
