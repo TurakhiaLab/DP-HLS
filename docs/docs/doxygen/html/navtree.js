@@ -1,6 +1,7 @@
 var NAVTREE =
 [
   [ "DP-HLS", "index.html", [
+    [ "Deprecated List", "deprecated.html", null ],
     [ "Namespaces", null, [
       [ "Namespace List", "namespaces.html", "namespaces" ],
       [ "Namespace Members", "namespacemembers.html", [
@@ -33,7 +34,7 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "PE_8h.html",
-"namespaceHostUtils_1_1Generate.html"
+"namespaceSolutionUtils.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

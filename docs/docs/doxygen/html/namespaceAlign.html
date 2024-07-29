@@ -45,6 +45,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li class="current"><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
@@ -92,7 +93,7 @@ $(document).ready(function(){initNavTree('namespaceAlign.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Macros</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -109,10 +110,14 @@ $(document).ready(function(){initNavTree('namespaceAlign.html','');});
 <div class="title">Align Namespace Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Namespace including the functions of the kernel architecture.  
+<a href="#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
 <tr class="memitem:namespaceAlign_1_1FindMax"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceAlign_1_1FindMax.html">FindMax</a></td></tr>
+<tr class="memdesc:namespaceAlign_1_1FindMax"><td class="mdescLeft">&#160;</td><td class="mdescRight">Namespace related to functions used to find the maximum elements in in the score matrix. <br/></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:namespaceAlign_1_1Fixed"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceAlign_1_1Fixed.html">Fixed</a></td></tr>
 <tr class="memdesc:namespaceAlign_1_1Fixed"><td class="mdescLeft">&#160;</td><td class="mdescRight">This namespace contains functions to define the core architectures used in the fixed banding alignment kernel. <br/></td></tr>
@@ -124,15 +129,15 @@ Namespaces</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:aadbb37f2daf06f1c595fc22a95e1dab7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceAlign.html#aadbb37f2daf06f1c595fc22a95e1dab7">PrepareLocalQuery</a> (char_t(&amp;query)[MAX_QUERY_LENGTH], char_t(&amp;local_query)[PE_NUM], const idx_t offset)</td></tr>
+<tr class="memdesc:aadbb37f2daf06f1c595fc22a95e1dab7"><td class="mdescLeft">&#160;</td><td class="mdescRight">At beginning of the computation of each strip, it copy a PE_NUM number of the global query characters into the local query buffer.  <a href="#aadbb37f2daf06f1c595fc22a95e1dab7">More...</a><br/></td></tr>
 <tr class="separator:aadbb37f2daf06f1c595fc22a95e1dab7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6bd67707d56d4df6db3f79bcd4e25a11"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceAlign.html#a6bd67707d56d4df6db3f79bcd4e25a11">DPMemUpdateArr</a> (<a class="el" href="dp__hls__common_8h.html#a9750098fc3e4d4a9049794a82fe4fcfb">dp_mem_block_t</a> &amp;dp_mem_in, <a class="el" href="dp__hls__common_8h.html#ad39bf723cde5cc57aefd662633c98cfc">wavefront_scores_t</a> &amp;score_in)</td></tr>
-<tr class="separator:a6bd67707d56d4df6db3f79bcd4e25a11"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af54cccdb98b3f84f0bd2b9baef141568"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceAlign.html#af54cccdb98b3f84f0bd2b9baef141568">InitializeChunkColScore</a> (<a class="el" href="dp__hls__common_8h.html#a6eb88ec919ba057c60ee1797f77ae825">score_vec_t</a>(&amp;init_col_scr)[PE_NUM], stream_of_blocks&lt; <a class="el" href="dp__hls__common_8h.html#a9750098fc3e4d4a9049794a82fe4fcfb">dp_mem_block_t</a> &gt; &amp;dp_mem_out)</td></tr>
 <tr class="separator:af54cccdb98b3f84f0bd2b9baef141568"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a27f43c4ce076b0d5248cdb1e7c043fcf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceAlign.html#a27f43c4ce076b0d5248cdb1e7c043fcf">PrepareScoresArr</a> (<a class="el" href="dp__hls__common_8h.html#a9750098fc3e4d4a9049794a82fe4fcfb">dp_mem_block_t</a> &amp;dp_mem_in, <a class="el" href="dp__hls__common_8h.html#a6eb88ec919ba057c60ee1797f77ae825">score_vec_t</a>(&amp;init_col_scr)[PE_NUM], int id, <a class="el" href="dp__hls__common_8h.html#a6eb88ec919ba057c60ee1797f77ae825">score_vec_t</a>(&amp;last_chunk_scr)[2], <a class="el" href="dp__hls__common_8h.html#ad39bf723cde5cc57aefd662633c98cfc">wavefront_scores_t</a> &amp;up_out, <a class="el" href="dp__hls__common_8h.html#ad39bf723cde5cc57aefd662633c98cfc">wavefront_scores_t</a> &amp;diag_out, <a class="el" href="dp__hls__common_8h.html#ad39bf723cde5cc57aefd662633c98cfc">wavefront_scores_t</a> &amp;left_out)</td></tr>
 <tr class="separator:a27f43c4ce076b0d5248cdb1e7c043fcf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab2421241165271cf2f2a0b871b308885"><td class="memTemplParams" colspan="2">template&lt;int PE_NUM_T&gt; </td></tr>
 <tr class="memitem:ab2421241165271cf2f2a0b871b308885"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceAlign.html#ab2421241165271cf2f2a0b871b308885">PrepareLocals</a> (const char_t(&amp;query)[MAX_QUERY_LENGTH], char_t(&amp;local_query)[PE_NUM_T], <a class="el" href="dp__hls__common_8h.html#a6eb88ec919ba057c60ee1797f77ae825">score_vec_t</a>(&amp;init_col_scr)[MAX_QUERY_LENGTH], <a class="el" href="dp__hls__common_8h.html#a086892974a012eb73d99bbcd9d07a28b">chunk_col_scores_inf_t</a> &amp;init_col_scr_local, bool(&amp;col_pred)[PE_NUM], const idx_t local_query_len, const idx_t idx)</td></tr>
+<tr class="memdesc:ab2421241165271cf2f2a0b871b308885"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function merge PrepareLocalQuery function and CopyColScore function into one, where CopyColScore is a function to copy a column of initial scores from the global buffer to each <a class="el" href="namespacePE.html">PE</a>'s local buffer before the computation of each chunk.  <a href="#ab2421241165271cf2f2a0b871b308885">More...</a><br/></td></tr>
 <tr class="separator:ab2421241165271cf2f2a0b871b308885"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0dc8e51d05a4b7431a8aab5390c3ee8a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceAlign.html#a0dc8e51d05a4b7431a8aab5390c3ee8a">InitializeChunkCoordinates</a> (idx_t chunk_row_offset, idx_t chunk_col_offset, hls::vector&lt; idx_t, PE_NUM &gt; &amp;ic, hls::vector&lt; idx_t, PE_NUM &gt; &amp;jc)</td></tr>
 <tr class="memdesc:a0dc8e51d05a4b7431a8aab5390c3ee8a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize two lists of coordinates, x coordinate and y coordinate, for each chunk. Theis function is called within the chunk compute function. This is especially useful if the chunk doesn't start at the beginning, i.e. after chunk column offset is developed.  <a href="#a0dc8e51d05a4b7431a8aab5390c3ee8a">More...</a><br/></td></tr>
@@ -140,35 +145,16 @@ Functions</h2></td></tr>
 <tr class="memitem:a4f9ed09e22e8ebb25b2aaa355ee04c42"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceAlign.html#a4f9ed09e22e8ebb25b2aaa355ee04c42">ArrangeTBP</a> (const <a class="el" href="dp__hls__common_8h.html#a7d229c9336cb521b956022a0912834f7">tbp_vec_t</a> &amp;tbp_in, const idx_t &amp;p_col_offset, const bool(&amp;predicate)[PE_NUM], tbp_t(&amp;chunk_tbp_out)[PE_NUM][TBMEM_SIZE])</td></tr>
 <tr class="separator:a4f9ed09e22e8ebb25b2aaa355ee04c42"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a304682b6f53cdf1158928d8aa253248b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceAlign.html#a304682b6f53cdf1158928d8aa253248b">ShiftPredicate</a> (bool(&amp;predicate)[PE_NUM], int idx, int query_len, int reference_len)</td></tr>
-<tr class="memdesc:a304682b6f53cdf1158928d8aa253248b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determine the shift of predicate sccording to the desired query legnth, reference length, and the current wavefront index.  <a href="#a304682b6f53cdf1158928d8aa253248b">More...</a><br/></td></tr>
+<tr class="memdesc:a304682b6f53cdf1158928d8aa253248b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determine the predicate values by constantantly shifting the predicate array with truth values.  <a href="#a304682b6f53cdf1158928d8aa253248b">More...</a><br/></td></tr>
 <tr class="separator:a304682b6f53cdf1158928d8aa253248b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab452733ea68a76d76ba47ba6c31691b1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceAlign.html#ab452733ea68a76d76ba47ba6c31691b1">ShiftReference</a> (char_t(&amp;local_reference)[PE_NUM], const char_t(&amp;reference)[MAX_REFERENCE_LENGTH], int idx, int ref_len)</td></tr>
-<tr class="memdesc:ab452733ea68a76d76ba47ba6c31691b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shift into the local reference a new reference element, given current wavefront index and reference length.  <a href="#ab452733ea68a76d76ba47ba6c31691b1">More...</a><br/></td></tr>
+<tr class="memdesc:ab452733ea68a76d76ba47ba6c31691b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shift into the local reference buffer a new reference element, given current wavefront index and reference length.  <a href="#ab452733ea68a76d76ba47ba6c31691b1">More...</a><br/></td></tr>
 <tr class="separator:ab452733ea68a76d76ba47ba6c31691b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a45e08ea89d1d09c40a5be99e33b44d30"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceAlign.html#a45e08ea89d1d09c40a5be99e33b44d30">PreserveRowScore</a> (<a class="el" href="dp__hls__common_8h.html#a6eb88ec919ba057c60ee1797f77ae825">score_vec_t</a>(&amp;preserved_row_scr)[MAX_REFERENCE_LENGTH], const <a class="el" href="dp__hls__common_8h.html#a6eb88ec919ba057c60ee1797f77ae825">score_vec_t</a> score_vec, const bool predicate_pe_last, const idx_t idx)</td></tr>
+<tr class="memdesc:a45e08ea89d1d09c40a5be99e33b44d30"><td class="mdescLeft">&#160;</td><td class="mdescRight">Write the last <a class="el" href="namespacePE.html">PE</a>'s output score to the preserved_row_score buffer to be used in the next chunk.  <a href="#a45e08ea89d1d09c40a5be99e33b44d30">More...</a><br/></td></tr>
 <tr class="separator:a45e08ea89d1d09c40a5be99e33b44d30"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2974e62fe33649538dc404a806ff060b"><td class="memTemplParams" colspan="2">template&lt;typename T , int LEN&gt; </td></tr>
-<tr class="memitem:a2974e62fe33649538dc404a806ff060b"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceAlign.html#a2974e62fe33649538dc404a806ff060b">CoordinateArrayCopy</a> (T(&amp;src)[LEN], T(&amp;dst)[LEN])</td></tr>
-<tr class="separator:a2974e62fe33649538dc404a806ff060b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aae721d8f6bb8d4b492836d01970a6a15"><td class="memTemplParams" colspan="2">template&lt;int LEN&gt; </td></tr>
-<tr class="memitem:aae721d8f6bb8d4b492836d01970a6a15"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceAlign.html#aae721d8f6bb8d4b492836d01970a6a15">CoordinateInitializeUniformReverse</a> (idx_t(&amp;jcs)[LEN], idx_t starting)</td></tr>
-<tr class="separator:aae721d8f6bb8d4b492836d01970a6a15"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7839f9f0919af88e9a7d5cf8d103b670"><td class="memTemplParams" colspan="2">template&lt;int LEN&gt; </td></tr>
-<tr class="memitem:a7839f9f0919af88e9a7d5cf8d103b670"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceAlign.html#a7839f9f0919af88e9a7d5cf8d103b670">CoordinateInitializeUniform</a> (idx_t(&amp;jcs)[LEN], idx_t starting)</td></tr>
-<tr class="separator:a7839f9f0919af88e9a7d5cf8d103b670"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adc6e99dca6de8f677712902d6276f695"><td class="memTemplParams" colspan="2">template&lt;int LEN&gt; </td></tr>
-<tr class="memitem:adc6e99dca6de8f677712902d6276f695"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceAlign.html#adc6e99dca6de8f677712902d6276f695">CoordinateInitializeEquals</a> (idx_t(&amp;ics)[LEN], idx_t index)</td></tr>
-<tr class="separator:adc6e99dca6de8f677712902d6276f695"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0e5b251da3005ab3ce5314d4ac25aa3d"><td class="memTemplParams" colspan="2">template&lt;int LEN&gt; </td></tr>
-<tr class="memitem:a0e5b251da3005ab3ce5314d4ac25aa3d"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceAlign.html#a0e5b251da3005ab3ce5314d4ac25aa3d">CoordinateArrayOffset</a> (idx_t(&amp;arr)[LEN])</td></tr>
-<tr class="separator:a0e5b251da3005ab3ce5314d4ac25aa3d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acd32f87c105df1ce1c735c92e7d53574"><td class="memTemplParams" colspan="2">template&lt;int LEN, int NUM&gt; </td></tr>
-<tr class="memitem:acd32f87c105df1ce1c735c92e7d53574"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceAlign.html#acd32f87c105df1ce1c735c92e7d53574">CoordinateArrayOffsetGeneric</a> (idx_t(&amp;arr)[LEN])</td></tr>
-<tr class="separator:acd32f87c105df1ce1c735c92e7d53574"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a79459640dfcbcd90946f85a26f311c84"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceAlign.html#a79459640dfcbcd90946f85a26f311c84">ArrangeSingleTBP</a> (const idx_t i, const idx_t j, const bool pred, const tbp_t tbp_in, tbp_t(&amp;chunk_tbp_out)[MAX_QUERY_LENGTH][MAX_REFERENCE_LENGTH])</td></tr>
-<tr class="separator:a79459640dfcbcd90946f85a26f311c84"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af334bc828a89a03c166cba42e83901d3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceAlign.html#af334bc828a89a03c166cba42e83901d3">UpdateDPMem</a> (<a class="el" href="dp__hls__common_8h.html#a9750098fc3e4d4a9049794a82fe4fcfb">dp_mem_block_t</a> &amp;dp_mem, idx_t i, <a class="el" href="dp__hls__common_8h.html#a086892974a012eb73d99bbcd9d07a28b">chunk_col_scores_inf_t</a> &amp;init_col_scr, <a class="el" href="dp__hls__common_8h.html#a6eb88ec919ba057c60ee1797f77ae825">score_vec_t</a>(&amp;init_row_scr)[MAX_REFERENCE_LENGTH])</td></tr>
-<tr class="memdesc:af334bc828a89a03c166cba42e83901d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prepare dp_mem at the beginning of a cycle of chunk compute.  <a href="#af334bc828a89a03c166cba42e83901d3">More...</a><br/></td></tr>
+<tr class="memdesc:af334bc828a89a03c166cba42e83901d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updated the content of the DP Memory with the new scores. It saparates the step of shifting and setting the specific cell with initial scores.  <a href="#af334bc828a89a03c166cba42e83901d3">More...</a><br/></td></tr>
 <tr class="separator:af334bc828a89a03c166cba42e83901d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a23d13aed05b05616b5cc56aceeb87c0f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceAlign.html#a23d13aed05b05616b5cc56aceeb87c0f">UpdateDPMemShift</a> (<a class="el" href="dp__hls__common_8h.html#a9750098fc3e4d4a9049794a82fe4fcfb">dp_mem_block_t</a> &amp;dp_mem)</td></tr>
 <tr class="separator:a23d13aed05b05616b5cc56aceeb87c0f"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -188,51 +174,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a9c79aa40ec0ac1aec8aacfc37323d0db"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceAlign.html#a9c79aa40ec0ac1aec8aacfc37323d0db">PrepareScoreBuffer</a> (<a class="el" href="dp__hls__common_8h.html#a6eb88ec919ba057c60ee1797f77ae825">score_vec_t</a>(&amp;score_buff)[PE_NUM+1], const idx_t i, const <a class="el" href="dp__hls__common_8h.html#a086892974a012eb73d99bbcd9d07a28b">chunk_col_scores_inf_t</a>(&amp;init_col_scr), const <a class="el" href="dp__hls__common_8h.html#a6eb88ec919ba057c60ee1797f77ae825">score_vec_t</a>(&amp;init_row_scr)[MAX_REFERENCE_LENGTH])</td></tr>
 <tr class="separator:a9c79aa40ec0ac1aec8aacfc37323d0db"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Function Documentation</h2>
-<a class="anchor" id="a79459640dfcbcd90946f85a26f311c84"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Align::ArrangeSingleTBP </td>
-          <td>(</td>
-          <td class="paramtype">const idx_t&#160;</td>
-          <td class="paramname"><em>i</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const idx_t&#160;</td>
-          <td class="paramname"><em>j</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const bool&#160;</td>
-          <td class="paramname"><em>pred</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const tbp_t&#160;</td>
-          <td class="paramname"><em>tbp_in</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">tbp_t(&amp;)&#160;</td>
-          <td class="paramname"><em>chunk_tbp_out</em>[MAX_QUERY_LENGTH][MAX_REFERENCE_LENGTH]&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Namespace including the functions of the kernel architecture. </p>
+</div><h2 class="groupheader">Function Documentation</h2>
 <a class="anchor" id="a4f9ed09e22e8ebb25b2aaa355ee04c42"></a>
 <div class="memitem">
 <div class="memproto">
@@ -271,10 +215,10 @@ Functions</h2></td></tr>
 <p>Store the traceback pointers of <a class="el" href="namespacePE.html">PE</a> at the correct location in the traceback pointer matrix, based on the predicate and current p_col_offset. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">tbp_in</td><td>The buffer to take the traceback pointer to be stored. </td></tr>
+    <tr><td class="paramname">tbp_in</td><td>The buffer receiving the traceback pointer from the <a class="el" href="namespacePE.html">PE</a> output. </td></tr>
     <tr><td class="paramname">p_col_offset</td><td>Physical column of a wavefront of traceback pointers. </td></tr>
     <tr><td class="paramname">predicate</td><td>Predicates. </td></tr>
-    <tr><td class="paramname">chunk_tbp_out</td><td>The memory where the tbp is stored. </td></tr>
+    <tr><td class="paramname">chunk_tbp_out</td><td>The traceback pointer memory. </td></tr>
   </table>
   </dd>
 </dl>
@@ -307,154 +251,6 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a2974e62fe33649538dc404a806ff060b"></a>
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename T , int LEN&gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">void Align::CoordinateArrayCopy </td>
-          <td>(</td>
-          <td class="paramtype">T(&amp;)&#160;</td>
-          <td class="paramname"><em>src</em>[LEN], </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">T(&amp;)&#160;</td>
-          <td class="paramname"><em>dst</em>[LEN]&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="a0e5b251da3005ab3ce5314d4ac25aa3d"></a>
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;int LEN&gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">void Align::CoordinateArrayOffset </td>
-          <td>(</td>
-          <td class="paramtype">idx_t(&amp;)&#160;</td>
-          <td class="paramname"><em>arr</em>[LEN]</td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="acd32f87c105df1ce1c735c92e7d53574"></a>
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;int LEN, int NUM&gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">void Align::CoordinateArrayOffsetGeneric </td>
-          <td>(</td>
-          <td class="paramtype">idx_t(&amp;)&#160;</td>
-          <td class="paramname"><em>arr</em>[LEN]</td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="adc6e99dca6de8f677712902d6276f695"></a>
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;int LEN&gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">void Align::CoordinateInitializeEquals </td>
-          <td>(</td>
-          <td class="paramtype">idx_t(&amp;)&#160;</td>
-          <td class="paramname"><em>ics</em>[LEN], </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">idx_t&#160;</td>
-          <td class="paramname"><em>index</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="a7839f9f0919af88e9a7d5cf8d103b670"></a>
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;int LEN&gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">void Align::CoordinateInitializeUniform </td>
-          <td>(</td>
-          <td class="paramtype">idx_t(&amp;)&#160;</td>
-          <td class="paramname"><em>jcs</em>[LEN], </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">idx_t&#160;</td>
-          <td class="paramname"><em>starting</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="aae721d8f6bb8d4b492836d01970a6a15"></a>
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;int LEN&gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">void Align::CoordinateInitializeUniformReverse </td>
-          <td>(</td>
-          <td class="paramtype">idx_t(&amp;)&#160;</td>
-          <td class="paramname"><em>jcs</em>[LEN], </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">idx_t&#160;</td>
-          <td class="paramname"><em>starting</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <a class="anchor" id="ad518e5d7f5b9565a90dc90cff16c14a2"></a>
 <div class="memitem">
 <div class="memproto">
@@ -476,32 +272,6 @@ template&lt;int LEN&gt; </div>
           <td></td>
           <td class="paramtype">idx_t&#160;</td>
           <td class="paramname"><em>i</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="a6bd67707d56d4df6db3f79bcd4e25a11"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Align::DPMemUpdateArr </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="dp__hls__common_8h.html#a9750098fc3e4d4a9049794a82fe4fcfb">dp_mem_block_t</a> &amp;&#160;</td>
-          <td class="paramname"><em>dp_mem_in</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="dp__hls__common_8h.html#ad39bf723cde5cc57aefd662633c98cfc">wavefront_scores_t</a> &amp;&#160;</td>
-          <td class="paramname"><em>score_in</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -658,12 +428,13 @@ template&lt;int LEN&gt; </div>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Copy a segment of global query to local query. </p>
+
+<p>At beginning of the computation of each strip, it copy a PE_NUM number of the global query characters into the local query buffer. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">query</td><td>Query sequence </td></tr>
     <tr><td class="paramname">local_query</td><td>Local query is a buffer of PE_NUM length that is read in parallel by PEs during the wavefront computation. </td></tr>
-    <tr><td class="paramname">offset</td><td>The offset in the query to start copy. </td></tr>
+    <tr><td class="paramname">offset</td><td>The offset in the global query to start copying. </td></tr>
   </table>
   </dd>
 </dl>
@@ -725,7 +496,8 @@ template&lt;int PE_NUM_T&gt; </div>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>This function merge PrepareLocalQuery function and CopyColScore function. </p>
+
+<p>This function merge PrepareLocalQuery function and CopyColScore function into one, where CopyColScore is a function to copy a column of initial scores from the global buffer to each <a class="el" href="namespacePE.html">PE</a>'s local buffer before the computation of each chunk. </p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
     <tr><td class="paramname">PE_NUM_T</td><td>Number of <a class="el" href="namespacePE.html">PE</a> </td></tr>
@@ -738,7 +510,7 @@ template&lt;int PE_NUM_T&gt; </div>
     <tr><td class="paramname">local_query</td><td>Local Query Buffer </td></tr>
     <tr><td class="paramname">init_col_scr</td><td>Initial Column Scores </td></tr>
     <tr><td class="paramname">init_col_scr_local</td><td>Local Initial Column Score Buffer. </td></tr>
-    <tr><td class="paramname">idx</td><td></td></tr>
+    <tr><td class="paramname">idx</td><td>The offset in the global buffer to copy. </td></tr>
   </table>
   </dd>
 </dl>
@@ -875,6 +647,16 @@ template&lt;int PE_NUM_T&gt; </div>
       </table>
 </div><div class="memdoc">
 
+<p>Write the last <a class="el" href="namespacePE.html">PE</a>'s output score to the preserved_row_score buffer to be used in the next chunk. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">score_vec</td><td>The last <a class="el" href="namespacePE.html">PE</a>'s output score. </td></tr>
+    <tr><td class="paramname">predicate_pe_last</td><td>The last <a class="el" href="namespacePE.html">PE</a>'s predicate value. Write out the score only if the predicate is true. </td></tr>
+    <tr><td class="paramname">idx</td><td>The index in the buffer to write. </td></tr>
+  </table>
+  </dd>
+</dl>
+
 </div>
 </div>
 <a class="anchor" id="a304682b6f53cdf1158928d8aa253248b"></a>
@@ -913,13 +695,13 @@ template&lt;int PE_NUM_T&gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p>Determine the shift of predicate sccording to the desired query legnth, reference length, and the current wavefront index. </p>
+<p>Determine the predicate values by constantantly shifting the predicate array with truth values. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">predicate</td><td></td></tr>
-    <tr><td class="paramname">idx</td><td></td></tr>
-    <tr><td class="paramname">query_len</td><td></td></tr>
-    <tr><td class="paramname">reference_len</td><td></td></tr>
+    <tr><td class="paramname">predicate</td><td>Predicate Array. </td></tr>
+    <tr><td class="paramname">idx</td><td>Wavefront Index. </td></tr>
+    <tr><td class="paramname">query_len</td><td>Actual query Length. </td></tr>
+    <tr><td class="paramname">reference_len</td><td>Actual reference Length. </td></tr>
   </table>
   </dd>
 </dl>
@@ -962,13 +744,13 @@ template&lt;int PE_NUM_T&gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p>Shift into the local reference a new reference element, given current wavefront index and reference length. </p>
+<p>Shift into the local reference buffer a new reference element, given current wavefront index and reference length. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">local_reference</td><td></td></tr>
-    <tr><td class="paramname">reference</td><td></td></tr>
-    <tr><td class="paramname">idx</td><td></td></tr>
-    <tr><td class="paramname">ref_len</td><td></td></tr>
+    <tr><td class="paramname">local_reference</td><td>The local reference buffer. </td></tr>
+    <tr><td class="paramname">reference</td><td>The reference. </td></tr>
+    <tr><td class="paramname">idx</td><td>Wavefront index. </td></tr>
+    <tr><td class="paramname">ref_len</td><td>Actual reference length. </td></tr>
   </table>
   </dd>
 </dl>
@@ -1011,13 +793,14 @@ template&lt;int PE_NUM_T&gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p>Prepare dp_mem at the beginning of a cycle of chunk compute. </p>
+<p>Updated the content of the DP Memory with the new scores. It saparates the step of shifting and setting the specific cell with initial scores. </p>
+<dl class="deprecated"><dt><b><a class="el" href="deprecated.html#_deprecated000001">Deprecated:</a></b></dt><dd>This function is deprecated. Please see UpdateDPMemSep which is used in the kernel. . </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">dp_mem</td><td></td></tr>
-    <tr><td class="paramname">i</td><td></td></tr>
-    <tr><td class="paramname">init_col_scr</td><td></td></tr>
-    <tr><td class="paramname">init_row_scr</td><td></td></tr>
+    <tr><td class="paramname">dp_mem</td><td>DP Memory </td></tr>
+    <tr><td class="paramname">i</td><td>The index of the wavefront. </td></tr>
+    <tr><td class="paramname">init_col_scr</td><td>Initial Column Scores </td></tr>
+    <tr><td class="paramname">init_row_scr</td><td>Initial Row Scores </td></tr>
   </table>
   </dd>
 </dl>

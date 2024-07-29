@@ -45,6 +45,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
       <li class="current"><a href="files.html"><span>Files</span></a></li>
@@ -92,7 +93,7 @@ $(document).ready(function(){initNavTree('PE_8h_source.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Macros</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -124,46 +125,46 @@ $(document).ready(function(){initNavTree('PE_8h_source.html','');});
 <div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="namespacePE.html">   16</a></span>&#160;<span class="keyword">namespace </span>PE</div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;{</div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="namespacePE.html#a9cc0175972ef4afc8512c7cb6313f066">PEUnroll</a>(<a class="code" href="dp__hls__common_8h.html#a6eb88ec919ba057c60ee1797f77ae825">score_vec_t</a> (&amp;dp_mem)[PE_NUM + 1][3],</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;                  <span class="keyword">const</span> <a class="code" href="dp__hls__common_8h.html#aae0a4301a15974d8514ee65bcd2f78c5">input_char_block_t</a> qry,</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;                  <span class="keyword">const</span> <a class="code" href="dp__hls__common_8h.html#aae0a4301a15974d8514ee65bcd2f78c5">input_char_block_t</a> ref,</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;                  <span class="keyword">const</span> Penalties penalties,</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;#ifdef LOCAL_TRANSITION_MATRIX</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;                  <span class="keyword">const</span> type_t (&amp;transitions)[PE_NUM][TRANSITION_MATRIX_SIZE][TRANSITION_MATRIX_SIZE],</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;#endif</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;                  <a class="code" href="dp__hls__common_8h.html#a7d229c9336cb521b956022a0912834f7">tbp_vec_t</a> &amp;tbp);</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="namespacePE.html#a149fb6c089ea71602b86d5e21e2f26a4">PEUnrollSep</a>(</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        <a class="code" href="dp__hls__common_8h.html#a9750098fc3e4d4a9049794a82fe4fcfb">dp_mem_block_t</a> &amp;dp_mem,</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        <span class="keyword">const</span> <a class="code" href="dp__hls__common_8h.html#aae0a4301a15974d8514ee65bcd2f78c5">input_char_block_t</a> &amp;qry,</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        <span class="keyword">const</span> <a class="code" href="dp__hls__common_8h.html#aae0a4301a15974d8514ee65bcd2f78c5">input_char_block_t</a> &amp;ref,</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        <span class="keyword">const</span> Penalties penalties,</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;#ifdef LOCAL_TRANSITION_MATRIX</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        <span class="keyword">const</span> type_t (&amp;transitions)[PE_NUM][TRANSITION_MATRIX_SIZE][TRANSITION_MATRIX_SIZE],</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;#endif</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        <a class="code" href="dp__hls__common_8h.html#abb2a1faf00c977f4c60a41f4404fed88">wavefront_scores_inf_t</a> &amp;score,</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        <a class="code" href="dp__hls__common_8h.html#a7d229c9336cb521b956022a0912834f7">tbp_vec_t</a> &amp;tbp);</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="namespacePE.html#a5383344a15be423fc270e011994514c9">PEUnrollFixedSep</a>(</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;        <span class="keyword">const</span> <a class="code" href="dp__hls__common_8h.html#a9750098fc3e4d4a9049794a82fe4fcfb">dp_mem_block_t</a> dp_mem,</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;        <span class="keyword">const</span> <a class="code" href="dp__hls__common_8h.html#aae0a4301a15974d8514ee65bcd2f78c5">input_char_block_t</a> qry,</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;        <span class="keyword">const</span> <a class="code" href="dp__hls__common_8h.html#aae0a4301a15974d8514ee65bcd2f78c5">input_char_block_t</a> ref,</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;        <span class="keyword">const</span> Penalties penalties,</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;#ifdef LOCAL_TRANSITION_MATRIX</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;        <span class="keyword">const</span> type_t (&amp;transitions)[PE_NUM][TRANSITION_MATRIX_SIZE][TRANSITION_MATRIX_SIZE],</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;#endif</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;        <a class="code" href="dp__hls__common_8h.html#abb2a1faf00c977f4c60a41f4404fed88">wavefront_scores_inf_t</a> &amp;score,</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;        <a class="code" href="dp__hls__common_8h.html#a7d229c9336cb521b956022a0912834f7">tbp_vec_t</a> &amp;tbp);</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;}</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;<span class="preprocessor">#endif // !PE_H</span></div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;<span class="preprocessor"></span></div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;<span class="comment">// Static data members are shared by all instances of a class.</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="namespacePE.html#a9cc0175972ef4afc8512c7cb6313f066">PEUnroll</a>(<a class="code" href="dp__hls__common_8h.html#a6eb88ec919ba057c60ee1797f77ae825">score_vec_t</a> (&amp;dp_mem)[PE_NUM + 1][3],</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;                  <span class="keyword">const</span> <a class="code" href="dp__hls__common_8h.html#aae0a4301a15974d8514ee65bcd2f78c5">input_char_block_t</a> qry,</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;                  <span class="keyword">const</span> <a class="code" href="dp__hls__common_8h.html#aae0a4301a15974d8514ee65bcd2f78c5">input_char_block_t</a> ref,</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;                  <span class="keyword">const</span> Penalties penalties,</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;#ifdef LOCAL_TRANSITION_MATRIX</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;                  <span class="keyword">const</span> type_t (&amp;transitions)[PE_NUM][TRANSITION_MATRIX_SIZE][TRANSITION_MATRIX_SIZE],</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;#endif</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;                  <a class="code" href="dp__hls__common_8h.html#a7d229c9336cb521b956022a0912834f7">tbp_vec_t</a> &amp;tbp);</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="namespacePE.html#a149fb6c089ea71602b86d5e21e2f26a4">PEUnrollSep</a>(</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        <a class="code" href="dp__hls__common_8h.html#a9750098fc3e4d4a9049794a82fe4fcfb">dp_mem_block_t</a> &amp;dp_mem,</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        <span class="keyword">const</span> <a class="code" href="dp__hls__common_8h.html#aae0a4301a15974d8514ee65bcd2f78c5">input_char_block_t</a> &amp;qry,</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        <span class="keyword">const</span> <a class="code" href="dp__hls__common_8h.html#aae0a4301a15974d8514ee65bcd2f78c5">input_char_block_t</a> &amp;ref,</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        <span class="keyword">const</span> Penalties penalties,</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;#ifdef LOCAL_TRANSITION_MATRIX</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        <span class="keyword">const</span> type_t (&amp;transitions)[PE_NUM][TRANSITION_MATRIX_SIZE][TRANSITION_MATRIX_SIZE],</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;#endif</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        <a class="code" href="dp__hls__common_8h.html#abb2a1faf00c977f4c60a41f4404fed88">wavefront_scores_inf_t</a> &amp;score,</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        <a class="code" href="dp__hls__common_8h.html#a7d229c9336cb521b956022a0912834f7">tbp_vec_t</a> &amp;tbp);</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="namespacePE.html#a5383344a15be423fc270e011994514c9">PEUnrollFixedSep</a>(</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;        <span class="keyword">const</span> <a class="code" href="dp__hls__common_8h.html#a9750098fc3e4d4a9049794a82fe4fcfb">dp_mem_block_t</a> dp_mem,</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;        <span class="keyword">const</span> <a class="code" href="dp__hls__common_8h.html#aae0a4301a15974d8514ee65bcd2f78c5">input_char_block_t</a> qry,</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;        <span class="keyword">const</span> <a class="code" href="dp__hls__common_8h.html#aae0a4301a15974d8514ee65bcd2f78c5">input_char_block_t</a> ref,</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;        <span class="keyword">const</span> Penalties penalties,</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;#ifdef LOCAL_TRANSITION_MATRIX</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;        <span class="keyword">const</span> type_t (&amp;transitions)[PE_NUM][TRANSITION_MATRIX_SIZE][TRANSITION_MATRIX_SIZE],</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;#endif</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;        <a class="code" href="dp__hls__common_8h.html#abb2a1faf00c977f4c60a41f4404fed88">wavefront_scores_inf_t</a> &amp;score,</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;        <a class="code" href="dp__hls__common_8h.html#a7d229c9336cb521b956022a0912834f7">tbp_vec_t</a> &amp;tbp);</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;}</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;<span class="preprocessor">#endif // !PE_H</span></div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;<span class="preprocessor"></span></div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;<span class="comment">// Static data members are shared by all instances of a class.</span></div>
 <div class="ttc" id="namespacePE_html_a9cc0175972ef4afc8512c7cb6313f066"><div class="ttname"><a href="namespacePE.html#a9cc0175972ef4afc8512c7cb6313f066">PE::PEUnroll</a></div><div class="ttdeci">void PEUnroll(score_vec_t(&amp;dp_mem)[PE_NUM+1][3], const input_char_block_t qry, const input_char_block_t ref, const Penalties penalties, tbp_vec_t &amp;tbp)</div><div class="ttdoc">Unrolls the array of PE. </div></div>
 <div class="ttc" id="dp__hls__common_8h_html_a6eb88ec919ba057c60ee1797f77ae825"><div class="ttname"><a href="dp__hls__common_8h.html#a6eb88ec919ba057c60ee1797f77ae825">score_vec_t</a></div><div class="ttdeci">hls::vector&lt; type_t, N_LAYERS &gt; score_vec_t</div><div class="ttdoc">Vector of scores, used to store the scores of each layer in the same coordiante in the DP matrix...</div><div class="ttdef"><b>Definition:</b> dp_hls_common.h:31</div></div>
-<div class="ttc" id="namespacePE_html_a149fb6c089ea71602b86d5e21e2f26a4"><div class="ttname"><a href="namespacePE.html#a149fb6c089ea71602b86d5e21e2f26a4">PE::PEUnrollSep</a></div><div class="ttdeci">void PEUnrollSep(dp_mem_block_t &amp;dp_mem, const input_char_block_t &amp;qry, const input_char_block_t &amp;ref, const Penalties penalties, wavefront_scores_inf_t &amp;score, tbp_vec_t &amp;tbp)</div><div class="ttdoc">Unrolls the array of PE, saparating the score input buffer and the score output buffer. </div></div>
-<div class="ttc" id="namespacePE_html_a5383344a15be423fc270e011994514c9"><div class="ttname"><a href="namespacePE.html#a5383344a15be423fc270e011994514c9">PE::PEUnrollFixedSep</a></div><div class="ttdeci">void PEUnrollFixedSep(const dp_mem_block_t dp_mem, const input_char_block_t qry, const input_char_block_t ref, const Penalties penalties, wavefront_scores_inf_t &amp;score, tbp_vec_t &amp;tbp)</div><div class="ttdoc">Unrolls the array of PE, saparating the score input buffer and the score output buffer. </div></div>
+<div class="ttc" id="namespacePE_html_a149fb6c089ea71602b86d5e21e2f26a4"><div class="ttname"><a href="namespacePE.html#a149fb6c089ea71602b86d5e21e2f26a4">PE::PEUnrollSep</a></div><div class="ttdeci">void PEUnrollSep(dp_mem_block_t &amp;dp_mem, const input_char_block_t &amp;qry, const input_char_block_t &amp;ref, const Penalties penalties, wavefront_scores_inf_t &amp;score, tbp_vec_t &amp;tbp)</div><div class="ttdoc">Unrolls the array of PE, saparating the score input buffer and the score output buffer. Used in the rectangular kernel. </div></div>
+<div class="ttc" id="namespacePE_html_a5383344a15be423fc270e011994514c9"><div class="ttname"><a href="namespacePE.html#a5383344a15be423fc270e011994514c9">PE::PEUnrollFixedSep</a></div><div class="ttdeci">void PEUnrollFixedSep(const dp_mem_block_t dp_mem, const input_char_block_t qry, const input_char_block_t ref, const Penalties penalties, wavefront_scores_inf_t &amp;score, tbp_vec_t &amp;tbp)</div><div class="ttdoc">Unrolls the array of PE, saparating the score input buffer and the score output buffer. Used in the fixed banded kernel. </div></div>
 <div class="ttc" id="dp__hls__common_8h_html"><div class="ttname"><a href="dp__hls__common_8h.html">dp_hls_common.h</a></div><div class="ttdoc">Declaration of types used by DP-HLS internally, referred from the user defined params.h file. </div></div>
 <div class="ttc" id="dp__hls__common_8h_html_abb2a1faf00c977f4c60a41f4404fed88"><div class="ttname"><a href="dp__hls__common_8h.html#abb2a1faf00c977f4c60a41f4404fed88">wavefront_scores_inf_t</a></div><div class="ttdeci">score_vec_t wavefront_scores_inf_t[PE_NUM+1]</div><div class="ttdef"><b>Definition:</b> dp_hls_common.h:86</div></div>
 <div class="ttc" id="traceback_8h_html"><div class="ttname"><a href="traceback_8h.html">traceback.h</a></div></div>

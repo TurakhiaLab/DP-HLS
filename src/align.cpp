@@ -52,18 +52,6 @@ void Align::PrepareScoresArr(
 	}
 }
 
-void Align::DPMemUpdateArr(
-	dp_mem_block_t &dp_mem_in,
-	wavefront_scores_t &score_in)
-{
-	for (int i = 0; i < PE_NUM; i++)
-	{
-#pragma HLS unroll
-		dp_mem_in[1][i] = dp_mem_in[0][i];
-		dp_mem_in[0][i] = score_in[i];
-	}
-}
-
 void Align::InitializeChunkCoordinates(idx_t chunk_row_offset, idx_t chunk_col_offset, hls::vector<idx_t, PE_NUM> &ic, hls::vector<idx_t, PE_NUM> &jc)
 {
 	for (int i = 0; i < PE_NUM; i++)
@@ -88,16 +76,6 @@ void Align::Rectangular::MapPredicate(
 		pred[i] = row_pred[i] && col_pred[i];
 	
 	}
-
-#ifdef CMAKEDEBUG
-	// print predicate
-	// cout << "Predicate: ";
-	// for (int j = 0; j < PE_NUM; j++)
-	// {
-	// 	cout << pred[j] << " ";
-	// }
-	// cout << endl;
-#endif
 }
 
 #ifdef BANDED
@@ -262,26 +240,6 @@ void Align::PrepareScoreBuffer(
 	if (i < PE_NUM)
 	{
 		score_buff[i + 1] = init_col_scr[i + 1];
-	}
-}
-
-
-void Align::FindMax::ExtractScoresLayer(wavefront_scores_t &scores, idx_t layer, type_t (&extracted)[PE_NUM])
-{
-	for (int i = 0; i < PE_NUM; i++)
-	{
-#pragma HLS unroll
-//		extracted[i] = scores[i].data[layer];
-	}
-}
-
-void Align::ArrangeSingleTBP(
-	const idx_t i, const idx_t j, const bool pred, const tbp_t tbp_in,
-	tbp_t (&chunk_tbp_out)[MAX_QUERY_LENGTH][MAX_REFERENCE_LENGTH])
-{
-	if (pred)
-	{
-		chunk_tbp_out[i][j] = tbp_in;
 	}
 }
 

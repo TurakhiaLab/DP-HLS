@@ -17,6 +17,7 @@ namespace PE
 {
 
     /**
+     * \deprecated 
      * @brief Unrolls the array of PE.
      *
      * @param dp_mem DP Memory of Three Wavefronts
@@ -36,7 +37,7 @@ namespace PE
 
     /**
      * @brief Unrolls the array of PE, saparating the score input buffer and the score
-     * output buffer.
+     * output buffer. Used in the rectangular kernel. 
      *
      * @param dp_mem DP Memory of Three Wavefronts
      * @param qry Local Query
@@ -58,7 +59,7 @@ namespace PE
 
     /**
      * @brief Unrolls the array of PE, saparating the score input buffer and the score
-     * output buffer.
+     * output buffer. Used in the fixed banded kernel. 
      *
      * @param dp_mem DP Memory of Three Wavefronts
      * @param qry Local Query

@@ -2,9 +2,6 @@ var utils_8h =
 [
     [ "ArrSet", "utils_8h.html#a85315d0083bd843ca59bf4e758fac9cb", null ],
     [ "ArrSet", "utils_8h.html#aa8135140a2d75d230fe6c86d38cd99e6", null ],
-    [ "CoordinateInitializeUniform", "utils_8h.html#ad5073674c6e7fcc04cbe7cb093b6c8e2", null ],
-    [ "CoordinateInitializeUniform", "utils_8h.html#a9cc5fc5e7fc3aec9ec4acca6c744d393", null ],
-    [ "CoordinateInitializeUniformReverse", "utils_8h.html#afda41cbb78963e52565b7645f91a64db", null ],
     [ "Copy", "utils_8h.html#a537becc6d06ff218291ad888e001ee17", null ],
     [ "Copy", "utils_8h.html#af1078601bef855ed95209d7be2bf2852", null ],
     [ "DetermineFixedBandingGlobalTracebackCoordinate", "utils_8h.html#a68fe83084bebee01bcf440b7e5442e3c", null ],

@@ -96,33 +96,6 @@ namespace Utils
 		}
 
 		template <typename T, int LEN>
-		void CoordinateInitializeUniformReverse(hls::vector<T, LEN> (&jcs), T starting)
-		{
-			for (size_t i = 0; i < LEN; i++)
-			{
-				jcs[i] = starting - i;
-			}
-		}
-
-		template <typename T, int LEN>
-		void CoordinateInitializeUniform(hls::vector<T, LEN> (&jcs), T starting)
-		{
-			for (size_t i = 0; i < LEN; i++)
-			{
-				jcs[i] = starting + i;
-			}
-		}
-
-		template <typename T, int LEN>
-		void CoordinateInitializeUniform(T (&jcs)[LEN], T starting)
-		{
-			for (size_t i = 0; i < LEN; i++)
-			{
-				jcs[i] = starting + i;
-			}
-		}
-
-		template <typename T, int LEN>
 		void Linspace(T (&arr)[LEN], T start, T step)
 		{
 			T cnt = start;

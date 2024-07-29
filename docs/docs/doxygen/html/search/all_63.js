@@ -20,12 +20,6 @@ var searchData=
   ['compute',['Compute',['../namespaceALIGN__TYPE_1_1PE.html#ada75ff90c1c915444e6b6e3f5dcd1aa0',1,'ALIGN_TYPE::PE']]],
   ['container',['Container',['../classContainer.html',1,'Container'],['../classContainer.html#a1b0c5515d6863c1bc98cc93b65952f42',1,'Container::Container()']]],
   ['context',['context',['../classCLUtils_1_1KernelWrapper.html#ad4e5d572f1a10b9282b0616365b42e71',1,'CLUtils::KernelWrapper']]],
-  ['coordinatearraycopy',['CoordinateArrayCopy',['../namespaceAlign.html#a2974e62fe33649538dc404a806ff060b',1,'Align']]],
-  ['coordinatearrayoffset',['CoordinateArrayOffset',['../namespaceAlign.html#a0e5b251da3005ab3ce5314d4ac25aa3d',1,'Align']]],
-  ['coordinatearrayoffsetgeneric',['CoordinateArrayOffsetGeneric',['../namespaceAlign.html#acd32f87c105df1ce1c735c92e7d53574',1,'Align']]],
-  ['coordinateinitializeequals',['CoordinateInitializeEquals',['../namespaceAlign.html#adc6e99dca6de8f677712902d6276f695',1,'Align']]],
-  ['coordinateinitializeuniform',['CoordinateInitializeUniform',['../namespaceAlign.html#a7839f9f0919af88e9a7d5cf8d103b670',1,'Align::CoordinateInitializeUniform()'],['../namespaceUtils_1_1Array.html#ad5073674c6e7fcc04cbe7cb093b6c8e2',1,'Utils::Array::CoordinateInitializeUniform(hls::vector&lt; T, LEN &gt;(&amp;jcs), T starting)'],['../namespaceUtils_1_1Array.html#a9cc5fc5e7fc3aec9ec4acca6c744d393',1,'Utils::Array::CoordinateInitializeUniform(T(&amp;jcs)[LEN], T starting)']]],
-  ['coordinateinitializeuniformreverse',['CoordinateInitializeUniformReverse',['../namespaceAlign.html#aae721d8f6bb8d4b492836d01970a6a15',1,'Align::CoordinateInitializeUniformReverse()'],['../namespaceUtils_1_1Array.html#afda41cbb78963e52565b7645f91a64db',1,'Utils::Array::CoordinateInitializeUniformReverse()']]],
   ['copy',['Copy',['../namespaceUtils_1_1Array.html#a537becc6d06ff218291ad888e001ee17',1,'Utils::Array::Copy(T(&amp;src)[M], T(&amp;dst)[N], idx_t len, T default_num)'],['../namespaceUtils_1_1Array.html#af1078601bef855ed95209d7be2bf2852',1,'Utils::Array::Copy(T(&amp;src)[N], T(&amp;dst)[N])']]],
   ['copycolscore',['CopyColScore',['../namespaceAlign.html#ad518e5d7f5b9565a90dc90cff16c14a2',1,'Align']]]
 ];

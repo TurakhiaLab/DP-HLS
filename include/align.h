@@ -46,10 +46,6 @@ namespace Align
 		char_t (&local_query)[PE_NUM],
 		const idx_t offset);
 
-	void DPMemUpdateArr(
-		dp_mem_block_t &dp_mem_in,
-		wavefront_scores_t &score_in);
-
 	void InitializeChunkColScore(
 		score_vec_t (&init_col_scr)[PE_NUM],
 		stream_of_blocks<dp_mem_block_t> &dp_mem_out);
@@ -106,10 +102,10 @@ namespace Align
 	/**
 	 * Store the traceback pointers of PE at the correct location in the traceback pointer matrix, based on the
 	 * predicate and current p_col_offset.
-	 * @param tbp_in The buffer to take the traceback pointer to be stored.
+	 * @param tbp_in The buffer receiving the traceback pointer from the PE output.
 	 * @param p_col_offset Physical column of a wavefront of traceback pointers.
 	 * @param predicate Predicates.
-	 * @param chunk_tbp_out The memory where the tbp is stored.
+	 * @param chunk_tbp_out The traceback pointer memory.
 	 */
 	void ArrangeTBP(
 		const tbp_vec_t &tbp_in,
@@ -118,129 +114,65 @@ namespace Align
 		tbp_t (&chunk_tbp_out)[PE_NUM][TBMEM_SIZE]);
 
 	/**
-	 * @brief Determine the current predicate values by constantantly shifting the predicate array with truth values. 
+	 * @brief Determine the predicate values by constantantly shifting the predicate array with truth values. 
 	 * @param predicate Predicate Array.
 	 * @param idx Wavefront Index.
-	 * @param query_len Query Length.
-	 * @param reference_len Reference Length.
+	 * @param query_len Actual query Length.
+	 * @param reference_len Actual reference Length.
 	 */
 	void ShiftPredicate(bool (&predicate)[PE_NUM], int idx, int query_len, int reference_len);
 
 	/**
-	 * @brief Shift into the local reference a new reference element, given current wavefront index and reference length.
-	 * @param local_reference
-	 * @param reference
-	 * @param idx
-	 * @param ref_len
+	 * @brief Shift into the local reference buffer a new reference element, given current wavefront index and reference length.
+	 * @param local_reference The local reference buffer. 
+	 * @param reference The reference. 
+	 * @param idx Wavefront index. 
+	 * @param ref_len Actual reference length. 
 	 */
 	void ShiftReference(
 		char_t (&local_reference)[PE_NUM], const char_t (&reference)[MAX_REFERENCE_LENGTH],
 		int idx, int ref_len);
 
+	/**
+	 * @brief Write the last PE's output score to the preserved_row_score buffer to be used in the next chunk. 
+	 * 
+	 * @param score_vec The last PE's output score.
+	 * @param predicate_pe_last The last PE's predicate value. Write out the score only if the predicate is true.
+	 * @param idx The index in the buffer to write. 
+	 */
 	void PreserveRowScore(
 		score_vec_t (&preserved_row_scr)[MAX_REFERENCE_LENGTH],
 		const score_vec_t score_vec,
 		const bool predicate_pe_last,
 		const idx_t idx);
 
-	template <typename T, int LEN>
-	void CoordinateArrayCopy(T (&src)[LEN], T (&dst)[LEN])
-	{
-		for (int i = 0; i < LEN; i++)
-		{
-#pragma HLS unroll
-			dst[i] = src[i];
-		}
-	}
-
-	template <int LEN>
-	void CoordinateInitializeUniformReverse(idx_t (&jcs)[LEN], idx_t starting)
-	{
-		for (size_t i = 0; i < LEN; i++)
-		{
-#pragma HLS unroll
-			jcs[i] = starting - i;
-		}
-	}
-
-	template <int LEN>
-	void CoordinateInitializeUniform(idx_t (&jcs)[LEN], idx_t starting)
-	{
-		for (size_t i = 0; i < LEN; i++)
-		{
-#pragma HLS unroll
-			jcs[i] = starting + i;
-		}
-	}
-
-	template <int LEN>
-	void CoordinateInitializeEquals(idx_t (&ics)[LEN], idx_t index)
-	{
-		for (size_t i = 0; i < LEN; i++)
-		{
-#pragma HLS unroll
-			ics[i] = index;
-		}
-	}
-
-	template <int LEN>
-	void CoordinateArrayOffset(idx_t (&arr)[LEN])
-	{
-		for (int i = 0; i < LEN; i++)
-		{
-#pragma HLS unroll
-			arr[i]++;
-		}
-	}
-
-	template <int LEN, int NUM>
-	void CoordinateArrayOffsetGeneric(idx_t (&arr)[LEN])
-	{
-		for (int i = 0; i < LEN; i++)
-		{
-#pragma HLS unroll
-			arr[i] += NUM;
-		}
-	}
-
-	void ArrangeSingleTBP(
-		const idx_t i, const idx_t j, const bool pred, const tbp_t tbp_in,
-		tbp_t (&chunk_tbp_out)[MAX_QUERY_LENGTH][MAX_REFERENCE_LENGTH]);
-
 	/**
-	 * @brief Prepare dp_mem at the beginning of a cycle of chunk compute.
+	 * @deprecated This function is deprecated. Please see UpdateDPMemSep which is used in the kernel. .
+	 * @brief Updated the content of the DP Memory with the new scores. It saparates the step of shifting and setting the 
+	 * specific cell with initial scores.  
 	 *
-	 * @param dp_mem
-	 * @param i
-	 * @param init_col_scr
-	 * @param init_row_scr
+	 * @param dp_mem DP Memory
+	 * @param i The index of the wavefront.
+	 * @param init_col_scr Initial Column Scores
+	 * @param init_row_scr Initial Row Scores
 	 */
 	void UpdateDPMem(dp_mem_block_t &dp_mem, idx_t i, chunk_col_scores_inf_t &init_col_scr, score_vec_t (&init_row_scr)[MAX_REFERENCE_LENGTH]);
+
 	void UpdateDPMemShift(dp_mem_block_t &dp_mem);
 	void UpdateDPMemSet(dp_mem_block_t &dp_mem, idx_t i, chunk_col_scores_inf_t &init_col_scr, score_vec_t (&init_row_scr)[MAX_REFERENCE_LENGTH]);
 
 	/**
-	 * Namespace related to functions used to find the maximum elements in
+	 * @brief Namespace related to functions used to find the maximum elements in
 	 * in the score matrix.
 	 */
 	namespace FindMax
 	{
 		/**
-		 * @brief Extract a layer of a score array.
-		 *
-		 * @param scores Score matrices.
-		 * @param layer Layer in which the score will be extracted.
-		 * @param extracted Container for extracted scores.
-		 */
-		void ExtractScoresLayer(wavefront_scores_t &scores, idx_t layer, type_t (&extracted)[PE_NUM]);
-
-		/**
-		 * @brief Extract the maximum score from PE's local maximums
+		 * @brief Compare the local maximum of each PE after the score computation and keep the global maximum score. 
 		 * @param max Array of PE's local maximum.
 		 * @param chunk_max The maximum of the chunk.
 		 */
 		void ReductionMaxScores(ScorePack (&max)[PE_NUM], ScorePack &chunk_max, idx_t &max_pe);
-
 	};
 
 	/**
@@ -398,10 +330,6 @@ namespace Align
 #endif
 		);
 
-		// void UpdateDPMem(
-		// 	dp_mem_block_t &dp_mem, idx_t i, idx_t (&l_lim)[PE_NUM], idx_t (&u_lim)[PE_NUM], chunk_col_scores_inf_t &init_col_scr, score_vec_t (&init_row_scr)[MAX_REFERENCE_LENGTH]
-		// );
-
 		/**
 		 * @brief Logics to map the global coordinates of a wavefront of PE to their prediate values.
 		 * MapPredicateSquare is a function F: (pe_row: int, pe_col: int) -> (predicate_balue: boolean)
@@ -415,24 +343,6 @@ namespace Align
 			const idx_t (&local_l_lim)[PE_NUM], const idx_t (&local_u_lim)[PE_NUM],
 			const idx_t (&virtual_cols)[PE_NUM], const bool (&col_pred)[PE_NUM],
 			bool (&predicate)[PE_NUM]);
-
-		template <typename IDX_T, int MAX_QUERY_LENGTH_, int BANDWIDTH_>
-		constexpr void PrecomputeLowerLimits(IDX_T (&l_lim)[MAX_QUERY_LENGTH_])
-		{
-			for (int i = 0; i < MAX_QUERY_LENGTH_; i++)
-			{
-				l_lim[i] = i - BANDWIDTH_ < 0 ? 0 : i - BANDWIDTH_;
-			}
-		}
-
-		template <typename IDX_T, int MAX_QUERY_LENGTH_, int BANDWIDTH_>
-		constexpr void PrecomputeUpperLimits(IDX_T (&u_lim)[MAX_QUERY_LENGTH_], const IDX_T reference_length)
-		{
-			for (int i = 0; i < MAX_QUERY_LENGTH_; i++)
-			{
-				u_lim[i] = i + BANDWIDTH_ - 1 > reference_length - 1 ? reference_length - 1 : i + BANDWIDTH_ - 1;
-			}
-		}
 
 		template <int PE_NUM_, int MAX_QUERY_LENGTH_>
 		void PrepareLocals(

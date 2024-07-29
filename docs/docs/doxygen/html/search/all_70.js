@@ -10,8 +10,6 @@ var searchData=
   ['pointer_5fto_5fcoordinate',['pointer_to_coordinate',['../namespaceTraceback.html#af90949b86f809f43de8fa5ecf64668c6',1,'Traceback']]],
   ['pragma_5fn_5fblocks',['PRAGMA_N_BLOCKS',['../dp__hls__common_8h.html#a259b2ed889e2f878d4f3ec97a1175141',1,'dp_hls_common.h']]],
   ['pragma_5fpe_5fnum',['PRAGMA_PE_NUM',['../dp__hls__common_8h.html#ab80d18ea0c88f8228bf80ac1679d4254',1,'dp_hls_common.h']]],
-  ['precomputelowerlimits',['PrecomputeLowerLimits',['../namespaceAlign_1_1Fixed.html#a80d7446bdeb1ba2bf8589f7b3f95656b',1,'Align::Fixed']]],
-  ['precomputeupperlimits',['PrecomputeUpperLimits',['../namespaceAlign_1_1Fixed.html#a11cdd1bcac819f6b80d3785164cb38a4',1,'Align::Fixed']]],
   ['pred',['pred',['../structContainer_1_1score__info.html#a94ab32761a3b6d5cb53223068b0513cc',1,'Container::score_info']]],
   ['preparearrayinput',['PrepareArrayInput',['../namespaceCompat.html#acf3eaa0f42db24cccd20d7e1e7cf4c98',1,'Compat']]],
   ['preparelocalquery',['PrepareLocalQuery',['../namespaceAlign.html#aadbb37f2daf06f1c595fc22a95e1dab7',1,'Align']]],

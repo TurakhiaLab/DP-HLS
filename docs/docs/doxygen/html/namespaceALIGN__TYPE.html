@@ -45,6 +45,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li class="current"><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
@@ -92,7 +93,7 @@ $(document).ready(function(){initNavTree('namespaceALIGN__TYPE.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Macros</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -109,6 +110,9 @@ $(document).ready(function(){initNavTree('namespaceALIGN__TYPE.html','');});
 <div class="title">ALIGN_TYPE Namespace Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>This namespace contains the functions that is required to be implemented by the user. <a class="el" href="namespaceALIGN__TYPE.html" title="This namespace contains the functions that is required to be implemented by the user. ALIGN_TYPE itself is a macro, and is supposed to be defined as the kernel name in params.h. ">ALIGN_TYPE</a> itself is a macro, and is supposed to be defined as the kernel name in params.h.  
+<a href="#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
@@ -117,19 +121,24 @@ Namespaces</h2></td></tr>
 <tr class="memitem:namespaceALIGN__TYPE_1_1PE"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceALIGN__TYPE_1_1PE.html">PE</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:namespaceALIGN__TYPE_1_1Traceback"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceALIGN__TYPE_1_1Traceback.html">Traceback</a></td></tr>
+<tr class="memdesc:namespaceALIGN__TYPE_1_1Traceback"><td class="mdescLeft">&#160;</td><td class="mdescRight">The namespace for the customized function related to the traceback. <br/></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a118a83a8a292c53a925d8cd3b08dea5a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceALIGN__TYPE.html#a118a83a8a292c53a925d8cd3b08dea5a">InitializeScores</a> (<a class="el" href="dp__hls__common_8h.html#a6eb88ec919ba057c60ee1797f77ae825">score_vec_t</a>(&amp;init_col_scr)[MAX_QUERY_LENGTH], <a class="el" href="dp__hls__common_8h.html#a6eb88ec919ba057c60ee1797f77ae825">score_vec_t</a>(&amp;init_row_scr)[MAX_REFERENCE_LENGTH], Penalties penalties)</td></tr>
+<tr class="memdesc:a118a83a8a292c53a925d8cd3b08dea5a"><td class="mdescLeft">&#160;</td><td class="mdescRight">The function to initialize the initial row and column scores.  <a href="#a118a83a8a292c53a925d8cd3b08dea5a">More...</a><br/></td></tr>
 <tr class="separator:a118a83a8a292c53a925d8cd3b08dea5a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5bbaf1479a018c9e9a02b6f055cadba4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceALIGN__TYPE.html#a5bbaf1479a018c9e9a02b6f055cadba4">UpdatePEMaximum</a> (const <a class="el" href="dp__hls__common_8h.html#abb2a1faf00c977f4c60a41f4404fed88">wavefront_scores_inf_t</a> scores, <a class="el" href="structScorePack.html">ScorePack</a>(&amp;max)[PE_NUM], const idx_t chunk_row_offset, const idx_t wavefront, const idx_t p_cols, const idx_t ck_idx, const bool(&amp;predicate)[PE_NUM], const idx_t query_len, const idx_t ref_len)</td></tr>
+<tr class="memdesc:a5bbaf1479a018c9e9a02b6f055cadba4"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function unrolls PE_NUM units to compare the their local maximum/minimum and new cell scores. It can be queried to update the local minimum/maximum scores based on it's current index. The row index can be computed as the PE_idx + chunk_row_offset; and the column index is the wavefront index - PE_idx. The actual query and reference lengths are provided so that they can be compared to the current index.  <a href="#a5bbaf1479a018c9e9a02b6f055cadba4">More...</a><br/></td></tr>
 <tr class="separator:a5bbaf1479a018c9e9a02b6f055cadba4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abfcb66cae6251f7b99f58514f01fce47"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceALIGN__TYPE.html#abfcb66cae6251f7b99f58514f01fce47">InitializeMaxScores</a> (<a class="el" href="structScorePack.html">ScorePack</a>(&amp;max)[PE_NUM], idx_t qry_len, idx_t ref_len)</td></tr>
+<tr class="memdesc:abfcb66cae6251f7b99f58514f01fce47"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize the ScorePacks with the minimum/maximum values.  <a href="#abfcb66cae6251f7b99f58514f01fce47">More...</a><br/></td></tr>
 <tr class="separator:abfcb66cae6251f7b99f58514f01fce47"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Declare Any Customized <a class="el" href="namespaceAlign.html">Align</a> type in this file. </p>
+<div class="textblock"><p>This namespace contains the functions that is required to be implemented by the user. <a class="el" href="namespaceALIGN__TYPE.html" title="This namespace contains the functions that is required to be implemented by the user. ALIGN_TYPE itself is a macro, and is supposed to be defined as the kernel name in params.h. ">ALIGN_TYPE</a> itself is a macro, and is supposed to be defined as the kernel name in params.h. </p>
+<p>Declare Any Customized <a class="el" href="namespaceAlign.html" title="Namespace including the functions of the kernel architecture. ">Align</a> type in this file. </p>
 </div><h2 class="groupheader">Function Documentation</h2>
 <a class="anchor" id="abfcb66cae6251f7b99f58514f01fce47"></a>
 <div class="memitem">
@@ -160,6 +169,16 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Initialize the ScorePacks with the minimum/maximum values. </p>
+<p>A way to save resources in the global alignment is to initialize the <a class="el" href="namespaceALIGN__TYPE_1_1PE.html">PE</a> to start the traceback with a INF value and others NINF. The physical coordinates can be pre-calculated before knowing the scores, thus save the resources by having empty UpdatePEMaximum function. See the DP-HLS global alignment example for the actual implementation.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">qry_len</td><td>Actual query length. </td></tr>
+    <tr><td class="paramname">ref_len</td><td>Actual reference length. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -192,6 +211,14 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>The function to initialize the initial row and column scores. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">penalties</td><td>The penalties (alignment parameters). </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -260,6 +287,20 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>This function unrolls PE_NUM units to compare the their local maximum/minimum and new cell scores. It can be queried to update the local minimum/maximum scores based on it's current index. The row index can be computed as the PE_idx + chunk_row_offset; and the column index is the wavefront index - PE_idx. The actual query and reference lengths are provided so that they can be compared to the current index. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">scores</td><td>The buffer of output scores. </td></tr>
+    <tr><td class="paramname">chunk_row_offset</td><td>The row offset of the current chunk. </td></tr>
+    <tr><td class="paramname">wavefront</td><td>The wavefront index. </td></tr>
+    <tr><td class="paramname">p_cols</td><td>The physical column corresponding to the output scores. </td></tr>
+    <tr><td class="paramname">ck_idx</td><td>The chunk index. </td></tr>
+    <tr><td class="paramname">query_len</td><td>Query length. </td></tr>
+    <tr><td class="paramname">ref_len</td><td>Reference length. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>

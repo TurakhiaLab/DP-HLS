@@ -45,6 +45,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li class="current"><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
@@ -92,7 +93,7 @@ $(document).ready(function(){initNavTree('namespaceAlign_1_1FindMax.html','');})
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Macros</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -108,61 +109,19 @@ $(document).ready(function(){initNavTree('namespaceAlign_1_1FindMax.html','');})
 <div class="title">Align::FindMax Namespace Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Namespace related to functions used to find the maximum elements in in the score matrix.  
+<a href="#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a96263e91f232a865bbf9d8115b13d4be"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceAlign_1_1FindMax.html#a96263e91f232a865bbf9d8115b13d4be">ExtractScoresLayer</a> (<a class="el" href="dp__hls__common_8h.html#ad39bf723cde5cc57aefd662633c98cfc">wavefront_scores_t</a> &amp;scores, idx_t layer, type_t(&amp;extracted)[PE_NUM])</td></tr>
-<tr class="memdesc:a96263e91f232a865bbf9d8115b13d4be"><td class="mdescLeft">&#160;</td><td class="mdescRight">Extract a layer of a score array.  <a href="#a96263e91f232a865bbf9d8115b13d4be">More...</a><br/></td></tr>
-<tr class="separator:a96263e91f232a865bbf9d8115b13d4be"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa029399fca4ca9091c1759c7464da973"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceAlign_1_1FindMax.html#aa029399fca4ca9091c1759c7464da973">ReductionMaxScores</a> (<a class="el" href="structScorePack.html">ScorePack</a>(&amp;max)[PE_NUM], <a class="el" href="structScorePack.html">ScorePack</a> &amp;chunk_max, idx_t &amp;max_pe)</td></tr>
-<tr class="memdesc:aa029399fca4ca9091c1759c7464da973"><td class="mdescLeft">&#160;</td><td class="mdescRight">Extract the maximum score from <a class="el" href="namespacePE.html">PE</a>'s local maximums.  <a href="#aa029399fca4ca9091c1759c7464da973">More...</a><br/></td></tr>
+<tr class="memdesc:aa029399fca4ca9091c1759c7464da973"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compare the local maximum of each <a class="el" href="namespacePE.html">PE</a> after the score computation and keep the global maximum score.  <a href="#aa029399fca4ca9091c1759c7464da973">More...</a><br/></td></tr>
 <tr class="separator:aa029399fca4ca9091c1759c7464da973"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Namespace related to functions used to find the maximum elements in in the score matrix. </p>
 </div><h2 class="groupheader">Function Documentation</h2>
-<a class="anchor" id="a96263e91f232a865bbf9d8115b13d4be"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Align::FindMax::ExtractScoresLayer </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="dp__hls__common_8h.html#ad39bf723cde5cc57aefd662633c98cfc">wavefront_scores_t</a> &amp;&#160;</td>
-          <td class="paramname"><em>scores</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">idx_t&#160;</td>
-          <td class="paramname"><em>layer</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">type_t(&amp;)&#160;</td>
-          <td class="paramname"><em>extracted</em>[PE_NUM]&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Extract a layer of a score array. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">scores</td><td>Score matrices. </td></tr>
-    <tr><td class="paramname">layer</td><td>Layer in which the score will be extracted. </td></tr>
-    <tr><td class="paramname">extracted</td><td><a class="el" href="classContainer.html">Container</a> for extracted scores. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
 <a class="anchor" id="aa029399fca4ca9091c1759c7464da973"></a>
 <div class="memitem">
 <div class="memproto">
@@ -193,7 +152,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Extract the maximum score from <a class="el" href="namespacePE.html">PE</a>'s local maximums. </p>
+<p>Compare the local maximum of each <a class="el" href="namespacePE.html">PE</a> after the score computation and keep the global maximum score. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">max</td><td>Array of <a class="el" href="namespacePE.html">PE</a>'s local maximum. </td></tr>

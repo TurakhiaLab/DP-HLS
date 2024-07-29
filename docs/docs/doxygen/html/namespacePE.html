@@ -45,6 +45,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li class="current"><a href="namespaces.html"><span>Namespaces</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
@@ -92,7 +93,7 @@ $(document).ready(function(){initNavTree('namespacePE.html','');});
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Macros</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Namespaces</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(3)"><span class="SelectionMark">&#160;</span>Files</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(4)"><span class="SelectionMark">&#160;</span>Functions</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(5)"><span class="SelectionMark">&#160;</span>Variables</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(6)"><span class="SelectionMark">&#160;</span>Typedefs</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(7)"><span class="SelectionMark">&#160;</span>Macros</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(8)"><span class="SelectionMark">&#160;</span>Pages</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -115,10 +116,10 @@ Functions</h2></td></tr>
 <tr class="memdesc:a9cc0175972ef4afc8512c7cb6313f066"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unrolls the array of <a class="el" href="namespacePE.html">PE</a>.  <a href="#a9cc0175972ef4afc8512c7cb6313f066">More...</a><br/></td></tr>
 <tr class="separator:a9cc0175972ef4afc8512c7cb6313f066"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a149fb6c089ea71602b86d5e21e2f26a4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacePE.html#a149fb6c089ea71602b86d5e21e2f26a4">PEUnrollSep</a> (<a class="el" href="dp__hls__common_8h.html#a9750098fc3e4d4a9049794a82fe4fcfb">dp_mem_block_t</a> &amp;dp_mem, const <a class="el" href="dp__hls__common_8h.html#aae0a4301a15974d8514ee65bcd2f78c5">input_char_block_t</a> &amp;qry, const <a class="el" href="dp__hls__common_8h.html#aae0a4301a15974d8514ee65bcd2f78c5">input_char_block_t</a> &amp;ref, const Penalties penalties, <a class="el" href="dp__hls__common_8h.html#abb2a1faf00c977f4c60a41f4404fed88">wavefront_scores_inf_t</a> &amp;score, <a class="el" href="dp__hls__common_8h.html#a7d229c9336cb521b956022a0912834f7">tbp_vec_t</a> &amp;tbp)</td></tr>
-<tr class="memdesc:a149fb6c089ea71602b86d5e21e2f26a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unrolls the array of <a class="el" href="namespacePE.html">PE</a>, saparating the score input buffer and the score output buffer.  <a href="#a149fb6c089ea71602b86d5e21e2f26a4">More...</a><br/></td></tr>
+<tr class="memdesc:a149fb6c089ea71602b86d5e21e2f26a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unrolls the array of <a class="el" href="namespacePE.html">PE</a>, saparating the score input buffer and the score output buffer. Used in the rectangular kernel.  <a href="#a149fb6c089ea71602b86d5e21e2f26a4">More...</a><br/></td></tr>
 <tr class="separator:a149fb6c089ea71602b86d5e21e2f26a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5383344a15be423fc270e011994514c9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacePE.html#a5383344a15be423fc270e011994514c9">PEUnrollFixedSep</a> (const <a class="el" href="dp__hls__common_8h.html#a9750098fc3e4d4a9049794a82fe4fcfb">dp_mem_block_t</a> dp_mem, const <a class="el" href="dp__hls__common_8h.html#aae0a4301a15974d8514ee65bcd2f78c5">input_char_block_t</a> qry, const <a class="el" href="dp__hls__common_8h.html#aae0a4301a15974d8514ee65bcd2f78c5">input_char_block_t</a> ref, const Penalties penalties, <a class="el" href="dp__hls__common_8h.html#abb2a1faf00c977f4c60a41f4404fed88">wavefront_scores_inf_t</a> &amp;score, <a class="el" href="dp__hls__common_8h.html#a7d229c9336cb521b956022a0912834f7">tbp_vec_t</a> &amp;tbp)</td></tr>
-<tr class="memdesc:a5383344a15be423fc270e011994514c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unrolls the array of <a class="el" href="namespacePE.html">PE</a>, saparating the score input buffer and the score output buffer.  <a href="#a5383344a15be423fc270e011994514c9">More...</a><br/></td></tr>
+<tr class="memdesc:a5383344a15be423fc270e011994514c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unrolls the array of <a class="el" href="namespacePE.html">PE</a>, saparating the score input buffer and the score output buffer. Used in the fixed banded kernel.  <a href="#a5383344a15be423fc270e011994514c9">More...</a><br/></td></tr>
 <tr class="separator:a5383344a15be423fc270e011994514c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
@@ -165,6 +166,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Unrolls the array of <a class="el" href="namespacePE.html">PE</a>. </p>
+<dl class="deprecated"><dt><b><a class="el" href="deprecated.html#_deprecated000003">Deprecated:</a></b></dt><dd></dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">dp_mem</td><td>DP Memory of Three Wavefronts </td></tr>
@@ -226,7 +228,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Unrolls the array of <a class="el" href="namespacePE.html">PE</a>, saparating the score input buffer and the score output buffer. </p>
+<p>Unrolls the array of <a class="el" href="namespacePE.html">PE</a>, saparating the score input buffer and the score output buffer. Used in the fixed banded kernel. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">dp_mem</td><td>DP Memory of Three Wavefronts </td></tr>
@@ -289,7 +291,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Unrolls the array of <a class="el" href="namespacePE.html">PE</a>, saparating the score input buffer and the score output buffer. </p>
+<p>Unrolls the array of <a class="el" href="namespacePE.html">PE</a>, saparating the score input buffer and the score output buffer. Used in the rectangular kernel. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">dp_mem</td><td>DP Memory of Three Wavefronts </td></tr>
