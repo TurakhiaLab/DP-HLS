@@ -104,3 +104,7 @@ data/uniprot_sprot.fasta
 /results/
 /local_vitis_proj/
 /mountpoints/
+baseline/software/source/processed_queries.fasta
+baseline/software/source/processed_references.fasta
+baseline/software/source/queries.fasta
+baseline/software/source/references.fasta
