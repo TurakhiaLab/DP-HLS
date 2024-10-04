@@ -40,6 +40,31 @@ extern "C" {
 #endif
 		);
 
+	/**
+	 * @brief Static kernel performing multiple pairwise sequence alignment 
+	 * with tiling strategy. 
+	 */
+	void seq_align_multiple_tiling(
+		char_t (&querys)[MAX_QUERY_LENGTH][N_BLOCKS],
+		char_t (&references)[MAX_REFERENCE_LENGTH][N_BLOCKS],
+		idx_t (&query_lengths)[N_BLOCKS],
+		idx_t (&reference_lengths)[N_BLOCKS],
+		const Penalties (&penalties)[N_BLOCKS],
+#ifdef LOCAL_TRANSITION_MATRIX
+		const type_t (&transitions)[TRANSITION_MATRIX_SIZE][TRANSITION_MATRIX_SIZE],
+#endif
+		idx_t (&tb_is)[N_BLOCKS], idx_t (&tb_js)[N_BLOCKS]
+#ifndef NO_TRACEBACK
+		, tbr_t (&tb_streams)[MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH][N_BLOCKS]
+#endif
+#ifdef SCORED
+		, type_t (&scores)[N_BLOCKS]
+#endif
+#ifdef CMAKEDEBUG
+		, Container (&debugger)[N_BLOCKS]
+#endif
+		);
+
 	// Have maximum input length of 2048 for 2 bit inputs. 
 	// void seq_align_multiple_dynamic(
 	// 	stream<ArrayPack<char_t, MAX_QUERY_LENGTH>> &querys,

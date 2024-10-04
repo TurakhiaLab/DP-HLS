@@ -29,10 +29,12 @@ compile_kernels() {
 			g++-11 -O3 -DNDEBUG -Wall -Wextra                               \
 				-std=c++20                                                  \
 				-I       ../seqan3/include                            		\
+				-I/usr/local/include								\
+				-L/usr/local/lib           		                 	\
 				-isystem ../seqan3/submodules/sdsl-lite/include       		\
 				-isystem ../seqan3/submodules/cereal/include          		\
 				-DSEQAN3_HAS_ZLIB=1 -DSEQAN3_HAS_BZIP2=1                    \
-				-lz -lbz2 -pthread                                          \
+				-lz -lbz2 -pthread -lsdsl -ldivsufsort -ldivsufsort64 -lcereal \
 				-o ${kernel_type}											\
 			../source/${kernel_type}.cpp	
 		done	
@@ -42,10 +44,12 @@ compile_kernels() {
 			g++-11 -O3 -DNDEBUG -Wall -Wextra                               \
 				-std=c++20                                                  \
 				-I       ../seqan3/include                            		\
+				-I/usr/local/include/sdsl 								\
+				-L/usr/local/lib                          		  	\
 				-isystem ../seqan3/submodules/sdsl-lite/include       		\
 				-isystem ../seqan3/submodules/cereal/include          		\
 				-DSEQAN3_HAS_ZLIB=1 -DSEQAN3_HAS_BZIP2=1                    \
-				-lz -lbz2 -pthread                                          \
+				-lz -lbz2 -pthread   -lsdsl -ldivsufsort -ldivsufsort64 -lcereal \
 				-o ${kernel_type}											\
 			../source/${kernel_type}.cpp
 		done

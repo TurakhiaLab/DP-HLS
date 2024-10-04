@@ -103,3 +103,4 @@ data/uniprot_sprot.fasta
 /docs/.cache/
 /results/
 /local_vitis_proj/
+/mountpoints/
