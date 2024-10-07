@@ -160,6 +160,10 @@ extern "C"
 	}
 #endif
 
+		idx_t i_offset = 0;
+		idx_t j_offset = 0;
+		bool first_tile = true;
+		
 		for (int i = 0; i < N_BLOCKS; i++)
 		{
 #pragma HLS unroll
@@ -181,6 +185,9 @@ extern "C"
 #endif
 #ifdef SCORED
 				, scores_b[i]
+#endif
+#ifdef TILING
+				, i_offset, j_offset, first_tile
 #endif
 #ifdef CMAKEDEBUG
 				, debugger[i]

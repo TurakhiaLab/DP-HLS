@@ -348,6 +348,9 @@ void Align::Rectangular::AlignStatic(
 #ifdef SCORED
 	, type_t &score
 #endif
+#ifdef TILING
+	, idx_t &i_offset, idx_t &j_offset, const bool first_tile
+#endif
 #ifdef CMAKEDEBUG
 	, Container &debugger
 #endif
@@ -447,13 +450,31 @@ Iterating_Chunks:
 		);
 
 	}
-	
+
+#ifdef TILING
+	idx_t max_pe;
+	// In the tiling scenario, if it's not the first tile, then we overwrite the max index finding with bottom right corner.
+	if (!first_tile){
+		max_pe = (query_length - 1) % PE_NUM;
+		idx_t max_ck = (query_length - 1)  / PE_NUM;
+		maximum.score = INF;
+		maximum.p_col = (max_ck) * (MAX_REFERENCE_LENGTH + PE_NUM - 1) + max_pe + reference_length - 1;
+		maximum.ck = max_ck;
+	} else {
+		Align::FindMax::ReductionMaxScores(local_max, maximum, max_pe);
+	}
+	// >>> Traceback >>>
+	tb_i = maximum.ck * PE_NUM + max_pe;
+	tb_j = maximum.p_col - maximum.ck * (MAX_REFERENCE_LENGTH + PE_NUM - 1) - max_pe;
+#else
+
     idx_t max_pe;
 	Align::FindMax::ReductionMaxScores(local_max, maximum, max_pe);
 
 	// >>> Traceback >>>
 	tb_i = maximum.ck * PE_NUM + max_pe;
 	tb_j = maximum.p_col - maximum.ck * (MAX_REFERENCE_LENGTH + PE_NUM - 1) - max_pe;
+#endif
 
 #ifdef CMAKEDEBUG
 	// print tracevack start idx
@@ -467,7 +488,7 @@ Iterating_Chunks:
 #endif
 
 #ifndef NO_TRACEBACK
-	Traceback::TracebackFixedSize<MAX_REFERENCE_LENGTH>(tbp_matrix, tb_out, maximum.ck, max_pe, maximum.p_col, tb_i, tb_j);
+	Traceback::TracebackFixedSize<MAX_REFERENCE_LENGTH>(tbp_matrix, tb_out, maximum.ck, max_pe, maximum.p_col, tb_i, tb_j, i_offset, j_offset);
 #endif
 
 }
@@ -530,6 +551,9 @@ void Align::Fixed::AlignStatic(
 #endif
 #ifdef SCORED
 	, type_t &score
+#endif
+#ifdef TILING
+	, idx_t &i_offset, idx_t &j_offset, const bool first_tile
 #endif
 #ifdef CMAKEDEBUG
 	, Container &debugger
@@ -667,6 +691,24 @@ Iterating_Chunks:
 		p_col_offset += TB_CHUNK_WIDTH;
 	}
 
+#ifdef TILING
+	// In the tiling scenario, if it's not the first tile, then we overwrite the max index finding with bottom right corner.
+	if (!first_tile){
+		for (int i = 0; i < PE_NUM; i++)
+		{
+	#pragma HLS unroll
+			local_max[i].score = NINF;
+			local_max[i].p_col = 0;
+			local_max[i].ck = 0;
+		}
+		idx_t max_pe = (query_length - 1) % PE_NUM;
+		idx_t max_ck = (query_length - 1)  / PE_NUM;
+		local_max[max_pe].score = INF;
+		local_max[max_pe].p_col = (max_ck) * (MAX_REFERENCE_LENGTH + PE_NUM - 1) + max_pe + reference_length - 1;
+		local_max[max_pe].ck = max_ck;
+	}
+#endif
+
     idx_t max_pe = 0;
     Align::FindMax::ReductionMaxScores(local_max, maximum, max_pe);
 
@@ -676,15 +718,15 @@ Iterating_Chunks:
 
 #ifdef CMAKEDEBUG
     // print tracevack start idx
-    std::cout << "Traceback start idx: " << maximum.ck << " "<< tb_i << " " << tb_j << endl;
-    std::cout << "Traceback start idx physical: " << max_pe << " " << maximum.p_col << endl;
+    // std::cout << "Traceback start idx: " << maximum.ck << " "<< tb_i << " " << tb_j << endl;
+    // std::cout << "Traceback start idx physical: " << max_pe << " " << maximum.p_col << endl;
 #endif
 
 #ifdef SCORED
 	score = maximum.score;
 #endif
 #ifndef NO_TRACEBACK
-    Traceback::TracebackFixedSize<2 * BANDWIDTH - 1>(tbp_matrix, tb_out, maximum.ck, max_pe, maximum.p_col, tb_i, tb_j);
+    Traceback::TracebackFixedSize<2 * BANDWIDTH - 1>(tbp_matrix, tb_out, maximum.ck, max_pe, maximum.p_col, tb_i, tb_j, i_offset, j_offset);
 #endif
 #ifdef CMAKEDEBUG
 	std::cout << "Traceback done" << std::endl;

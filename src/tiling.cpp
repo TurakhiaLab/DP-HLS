@@ -27,18 +27,28 @@ void tiling_kernel(
 #endif
 ){
     idx_t tb_write_ptr = 0;
+    idx_t tile_tb_i = 0;
+    idx_t tile_tb_j = 0;
     idx_t i_curr = query_length;
     idx_t j_curr = reference_length;
 
     char_t query_tile[MAX_QUERY_LENGTH];
     char_t reference_tile[MAX_REFERENCE_LENGTH];
 
-    tbr_t local_tb_stream[MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH];
+    tbr_t tile_tb_stream[MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH];
 
-    
+    idx_t i_offset = 0;
+    idx_t j_offset = 0;
+    bool first_tile = true;
+    int debug_iter_count = 0;
     while (i_curr > 0 && j_curr > 0){
+        cout << "Iteration: " << debug_iter_count++ << endl;
+
         idx_t i_start = max(0, i_curr - MAX_QUERY_LENGTH);
         idx_t j_start = max(0, j_curr - MAX_REFERENCE_LENGTH);
+
+        // Debug print for tile start indices
+        std::cout << "Tile start indices: i_start = " << i_start << ", j_start = " << j_start << std::endl;
 
         // Copy query tile
         idx_t tile_query_length = i_curr - i_start;
@@ -53,10 +63,8 @@ void tiling_kernel(
         }
 
         // FIXME:  the index of the highest scoring cell is relative. So we need to add the start index 
-        // to the index of the highest scoring cell to get the global index.
+        // to the index of the highest scoring cell to get the global index. i_start + tb_is, j_start + tb_js
 
-        idx_t offset_i = MAX_QUERY_LENGTH;
-        idx_t offset_j = MAX_REFERENCE_LENGTH;
         // Align the tile
         Align::BANDING_NAMESPACE::AlignStatic(
             query_tile,
@@ -67,18 +75,46 @@ void tiling_kernel(
 #ifdef LOCAL_TRANSITION_MATRIX
             transitions,
 #endif
-            tb_is, tb_js
+            tile_tb_i, tile_tb_j
 #ifndef NO_TRACEBACK
-            , local_tb_stream
+            , tile_tb_stream
 #endif
 #ifdef SCORED
             , scores
+#endif
+#ifdef TILING
+            , i_offset, j_offset, first_tile  // potentially need an overlapping parameter
 #endif
 #ifdef CMAKEDEBUG
             , debugger
 #endif
         );
-        i_curr -= offset_i;
-        j_curr -= offset_j;
+
+        // Debug print for traceback indices and offsets
+        std::cout << "Tile Traceback indices: tb_is = " << tile_tb_i << ", tb_js = " << tile_tb_j << std::endl;
+        std::cout << "Tile Offsets: i_offset = " << i_offset << ", j_offset = " << j_offset << std::endl;
+
+        if (first_tile){
+            tb_is = tile_tb_i + i_start;
+            tb_js = tile_tb_j + j_start;
+            first_tile = false;
+        }
+        if (i_offset == 0 || j_offset == 0){
+            // if there's no offset, then no move in score matrix and no traceback pointers needed to be copied. 
+            break;
+        } else {
+            i_curr -= i_offset;
+            j_curr -= j_offset;
+        }
+
+    // Copy traceback pointers to the main buffer
+#ifndef NO_TRACEBACK
+        idx_t local_tb_read = 0;
+        while (tile_tb_stream[local_tb_read] != AL_END){
+            tb_stream[tb_write_ptr++] = tile_tb_stream[local_tb_read];
+            local_tb_read++;
+        }
+#endif
     }
+    tb_stream[tb_write_ptr] = AL_END;
 }

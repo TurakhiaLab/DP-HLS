@@ -206,6 +206,9 @@ namespace Align
 #ifdef SCORED
 			, type_t &score
 #endif
+#ifdef TILING
+			, idx_t &i_offset, idx_t &j_offset, const bool first_tile
+#endif
 #ifdef CMAKEDEBUG
 			, Container &debugger
 #endif
@@ -290,6 +293,9 @@ namespace Align
 #endif
 #ifdef SCORED
 			, type_t &score
+#endif
+#ifdef TILING
+			, idx_t &i_offset, idx_t &j_offset, const bool first_tile
 #endif
 #ifdef CMAKEDEBUG
 			, Container &debugger

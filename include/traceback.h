@@ -41,7 +41,7 @@ namespace Traceback
     template <int VIRTUAL_CHUNK_WIDTH>
     void NextAddressFixedSize(
         tbr_t &nav,
-        int &chunk, int &pe, int &col, int &v_row, int &v_col)
+        idx_t &chunk, idx_t &pe, idx_t &col, idx_t &v_row, idx_t &v_col)
     {
 #ifdef CMAKEDEBUG
         int nav_int = nav.to_int();
@@ -112,14 +112,15 @@ namespace Traceback
     void TracebackFixedSize(
         tbp_t (&tbmat)[PE_NUM][TBMEM_SIZE],
         traceback_buf_t(&traceback_out),
-        int ck_idx, int pe_idx, int col_idx, int v_row, int v_col)
+        idx_t ck_idx, idx_t pe_idx, idx_t col_idx, idx_t v_row, idx_t v_col, idx_t &i_offset, idx_t &j_offset)
     {
+        const idx_t v_row_backup = v_row;
+        const idx_t v_col_backup = v_col;
+        idx_t pe = pe_idx; // row index, but in tbmat
+        idx_t col = col_idx;
+        idx_t chunk = ck_idx;
 
-        int pe = pe_idx; // row index, but in tbmat
-        int col = col_idx;
-        int chunk = ck_idx;
-
-        int w_id = 0;              // write idx
+        idx_t w_id = 0;              // write idx
         tbr_t navigation = AL_MMI; // current write value
 
         TB_STATE state;
@@ -139,6 +140,8 @@ namespace Traceback
             Traceback::NextAddressFixedSize<CHUNK_WIDTH>(navigation, chunk, pe, col, v_row, v_col);
         }
         traceback_out[w_id] = AL_END;
+        i_offset = v_row_backup - v_row;
+        j_offset = v_col_backup - v_col;
     }
 
     /**

@@ -5,8 +5,9 @@
 #include <ap_fixed.h>
 #include <hls_vector.h>
 
-#define GLOBAL_REFERENCE_LENGTH 1024
-#define GLOBAL_QUERY_LENGTH 1024
+#define TILING
+#define GLOBAL_REFERENCE_LENGTH 512
+#define GLOBAL_QUERY_LENGTH 512
 
 // The max query length and reference length is equivalent to the tile size in the tiling kernel. 
 #define MAX_QUERY_LENGTH 256
