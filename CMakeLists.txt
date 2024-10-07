@@ -38,6 +38,7 @@ set(EXECUTABLE_TARGETS
     test_global_affine_real_data
     test_csim_sdtw
     test_csim_protein_local_affine
+    test_csim_sw_tiling
 )
 
 add_compile_definitions(PUBLIC CMAKEDEBUG)
@@ -50,7 +51,8 @@ set(COMMON_SRCS
     "src/traceback.cpp"
     "src/utils.cpp"
     "src/debug.cpp"
-    "src/host_utils.cpp")
+    "src/host_utils.cpp"
+    "src/tiling.cpp")
 
 add_executable(test_csim_global_linear 
     "testbench/test_csim_global_linear.cpp"
@@ -168,6 +170,11 @@ add_executable(test_csim_protein_local_affine
     ${COMMON_SRCS}
 )
 
+add_executable(test_csim_sw_tiling
+    "testbench/test_csim_sw_tiling.cpp"
+    "kernels/sw_tiling/kernel_sw_tiling.cpp"
+    ${COMMON_SRCS}
+)
 
 target_include_directories(test_csim_global_affine PRIVATE "./kernels/global_affine")
 target_include_directories(test_csim_global_linear PRIVATE "./kernels/global_linear")
@@ -192,6 +199,7 @@ target_include_directories(test_csim_banding_local_affine PRIVATE "./kernels/ban
 target_include_directories(test_csim_banding_local_affine_scored PRIVATE "./kernels/banding_local_affine_scored")
 target_include_directories(test_csim_sdtw PRIVATE "./kernels/sdtw")
 target_include_directories(test_csim_protein_local_affine PRIVATE "./kernels/protein_local_affine")
+target_include_directories(test_csim_sw_tiling PRIVATE "./kernels/sw_tiling")
 
 
 # >>> Add CMake Compile Vitis header and library path >>>

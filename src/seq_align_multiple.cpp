@@ -5,12 +5,12 @@
 #include "../include/seq_align_multiple.h"
 #include "../include/PE.h"
 #include "../include/align.h"
+#include "../include/tiling.h"
 #else
-
 #include "seq_align_multiple.h"
 #include "PE.h"
 #include "align.h"
-
+#include "tiling.h"
 #endif
 
 #ifdef CMAKEDEBUG
@@ -218,17 +218,17 @@ extern "C"
 	}
 
 	void seq_align_multiple_tiling(
-		char_t (&querys)[MAX_QUERY_LENGTH][N_BLOCKS],
-		char_t (&references)[MAX_REFERENCE_LENGTH][N_BLOCKS],
-		idx_t (&query_lengths)[N_BLOCKS],
-		idx_t (&reference_lengths)[N_BLOCKS],
+		char_t (&querys)[GLOBAL_QUERY_LENGTH][N_BLOCKS],
+		char_t (&references)[GLOBAL_REFERENCE_LENGTH][N_BLOCKS],
+		idx_t (&query_lengths)[N_BLOCKS],  // here it becomes global query length
+		idx_t (&reference_lengths)[N_BLOCKS], // here it becomes global reference length
 		const Penalties (&penalties)[N_BLOCKS],
 #ifdef LOCAL_TRANSITION_MATRIX
 		const type_t (&transitions)[TRANSITION_MATRIX_SIZE][TRANSITION_MATRIX_SIZE],
 #endif
 		idx_t (&tb_is)[N_BLOCKS], idx_t (&tb_js)[N_BLOCKS]
 #ifndef NO_TRACEBACK
-		, tbr_t (&tb_streams)[MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH][N_BLOCKS]
+		, tbr_t (&tb_streams)[GLOBAL_REFERENCE_LENGTH + GLOBAL_QUERY_LENGTH][N_BLOCKS]
 #endif
 #ifdef SCORED
 		, type_t (&scores)[N_BLOCKS]
@@ -238,15 +238,15 @@ extern "C"
 #endif
 	){
 		// Initialize local buffer to copy the input data
-		char_t querys_b[N_BLOCKS][MAX_QUERY_LENGTH];
-		char_t references_b[N_BLOCKS][MAX_REFERENCE_LENGTH];
+		char_t querys_b[N_BLOCKS][GLOBAL_QUERY_LENGTH];
+		char_t references_b[N_BLOCKS][GLOBAL_REFERENCE_LENGTH];
 		idx_t query_lengths_b[N_BLOCKS];
 		idx_t reference_lengths_b[N_BLOCKS];
 		Penalties penalties_b[N_BLOCKS];
 		idx_t tb_is_b[N_BLOCKS];
 		idx_t tb_js_b[N_BLOCKS];
 #ifndef NO_TRACEBACK
-		tbr_t tb_streams_b[N_BLOCKS][MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH];
+		tbr_t tb_streams_b[N_BLOCKS][GLOBAL_REFERENCE_LENGTH + GLOBAL_QUERY_LENGTH];
 #endif
 #ifdef SCORED
 		type_t scores_b[N_BLOCKS];
@@ -292,7 +292,7 @@ extern "C"
 		// #pragma HLS interface mode = axis port = tb_streams_b
 
 	CopyQuerys:
-		for (idx_t i = 0; i < MAX_QUERY_LENGTH; i++)
+		for (idx_t i = 0; i < GLOBAL_QUERY_LENGTH; i++)
 		{
 #pragma HLS PIPELINE II = 1
 			for (idx_t j = 0; j < N_BLOCKS; j++)
@@ -302,7 +302,7 @@ extern "C"
 		}
 
 	CopyReferences:
-		for (idx_t i = 0; i < MAX_REFERENCE_LENGTH; i++)
+		for (idx_t i = 0; i < GLOBAL_REFERENCE_LENGTH; i++)
 		{
 #pragma HLS PIPELINE II = 1
 			for (idx_t j = 0; j < N_BLOCKS; j++)
@@ -350,7 +350,7 @@ extern "C"
 #ifdef CMAKEDEBUG
 			cout << "Aligning Block " << i << endl;
 #endif
-			Align::BANDING_NAMESPACE::AlignStatic(
+			tiling_kernel(
 				querys_b[i],
 				references_b[i],
 				query_lengths_b[i],
@@ -374,7 +374,7 @@ extern "C"
 
 #ifndef NO_TRACEBACK
 	WriteTBP:
-		for (idx_t i = 0; i < MAX_QUERY_LENGTH + MAX_REFERENCE_LENGTH; i++)
+		for (idx_t i = 0; i < GLOBAL_REFERENCE_LENGTH + GLOBAL_QUERY_LENGTH; i++)
 		{
 #pragma HLS PIPELINE II = 1
 			for (idx_t j = 0; j < N_BLOCKS; j++)

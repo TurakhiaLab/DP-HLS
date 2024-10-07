@@ -45,8 +45,8 @@ extern "C" {
 	 * with tiling strategy. 
 	 */
 	void seq_align_multiple_tiling(
-		char_t (&querys)[MAX_QUERY_LENGTH][N_BLOCKS],
-		char_t (&references)[MAX_REFERENCE_LENGTH][N_BLOCKS],
+		char_t (&querys)[GLOBAL_QUERY_LENGTH][N_BLOCKS],
+		char_t (&references)[GLOBAL_REFERENCE_LENGTH][N_BLOCKS],
 		idx_t (&query_lengths)[N_BLOCKS],
 		idx_t (&reference_lengths)[N_BLOCKS],
 		const Penalties (&penalties)[N_BLOCKS],
@@ -55,7 +55,7 @@ extern "C" {
 #endif
 		idx_t (&tb_is)[N_BLOCKS], idx_t (&tb_js)[N_BLOCKS]
 #ifndef NO_TRACEBACK
-		, tbr_t (&tb_streams)[MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH][N_BLOCKS]
+		, tbr_t (&tb_streams)[GLOBAL_REFERENCE_LENGTH + GLOBAL_QUERY_LENGTH][N_BLOCKS]
 #endif
 #ifdef SCORED
 		, type_t (&scores)[N_BLOCKS]
