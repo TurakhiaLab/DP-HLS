@@ -410,8 +410,12 @@ namespace HostUtils
                 // printf("curr_ptr: %d\n", curr_ptr->to_int());
                 if (*curr_ptr == (T)AL_MMI_H)
                 {
-                    alignment_query = alignment_query.insert(0, 1, query_stack.top());
-                    alignment_reference = alignment_reference.insert(0, 1, reference_stack.top());
+                    if (!query_stack.empty() && !reference_stack.empty()) {
+                        alignment_query = alignment_query.insert(0, 1, query_stack.top());
+                        alignment_reference = alignment_reference.insert(0, 1, reference_stack.top());
+                    } else {
+                        break;
+                    }
                     query_stack.pop();
                     reference_stack.pop();
                 }

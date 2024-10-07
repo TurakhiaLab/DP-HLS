@@ -42,13 +42,13 @@ void tiling_kernel(
     bool first_tile = true;
     int debug_iter_count = 0;
     while (i_curr > 0 && j_curr > 0){
-        cout << "Iteration: " << debug_iter_count++ << endl;
+        // cout << "Iteration: " << debug_iter_count++ << endl;
 
-        idx_t i_start = max(0, i_curr - MAX_QUERY_LENGTH);
-        idx_t j_start = max(0, j_curr - MAX_REFERENCE_LENGTH);
+        idx_t i_start = 0 > i_curr - MAX_QUERY_LENGTH ? 0 : i_curr - MAX_QUERY_LENGTH;
+        idx_t j_start = 0 > j_curr - MAX_REFERENCE_LENGTH ? 0 : j_curr - MAX_REFERENCE_LENGTH;
 
         // Debug print for tile start indices
-        std::cout << "Tile start indices: i_start = " << i_start << ", j_start = " << j_start << std::endl;
+        // std::cout << "Tile start indices: i_start = " << i_start << ", j_start = " << j_start << std::endl;
 
         // Copy query tile
         idx_t tile_query_length = i_curr - i_start;
@@ -91,8 +91,8 @@ void tiling_kernel(
         );
 
         // Debug print for traceback indices and offsets
-        std::cout << "Tile Traceback indices: tb_is = " << tile_tb_i << ", tb_js = " << tile_tb_j << std::endl;
-        std::cout << "Tile Offsets: i_offset = " << i_offset << ", j_offset = " << j_offset << std::endl;
+        // std::cout << "Tile Traceback indices: tb_is = " << tile_tb_i << ", tb_js = " << tile_tb_j << std::endl;
+        // std::cout << "Tile Offsets: i_offset = " << i_offset << ", j_offset = " << j_offset << std::endl;
 
         if (first_tile){
             tb_is = tile_tb_i + i_start;

@@ -3,8 +3,8 @@
 ## Please DO NOT edit it.
 ## Copyright 1986-2021 Xilinx, Inc. All Rights Reserved.
 ############################################################
-open_project seq_align_multiple_static
-set_top seq_align_multiple_static
+open_project seq_align_multiple_tiling
+set_top seq_align_multiple_tiling
 
 open_solution "solution1" -flow_target vitis
 set_part {xcvu9p-flgb2104-2-i}

@@ -1,5 +1,5 @@
-open_project seq_align_multiple_static
-set_top seq_align_multiple_static
+open_project seq_align_multiple_tiling
+set_top seq_align_multiple_tiling
 # v++ -g, -D, -I, --advanced.prop kernel.seq_align_multiple_static.kernel_flags
 add_files "{{ local_src }}/seq_align_multiple.cpp" -cflags " -D MAX_QUERY_LENGTH={{ max_query_length }} -D MAX_REFERENCE_LENGTH={{ max_reference_length }} -D PE_NUM={{ pe_num }} -D N_BLOCKS={{ blocks }} -D DP_HLS_UNROLLED -D VPP_CLI -I {{ design_params }} -I {{ local_include }} "
 add_files "{{ local_src }}/align.cpp" -cflags " -D MAX_QUERY_LENGTH={{ max_query_length }} -D MAX_REFERENCE_LENGTH={{ max_reference_length }} -D PE_NUM={{ pe_num }} -D N_BLOCKS={{ blocks }} -D DP_HLS_UNROLLED -D VPP_CLI -I {{ design_params }} -I {{ local_include }} "
@@ -7,6 +7,7 @@ add_files "{{ local_src }}/utils.cpp" -cflags " -D MAX_QUERY_LENGTH={{ max_query
 add_files "{{ local_src }}/traceback.cpp" -cflags " -D MAX_QUERY_LENGTH={{ max_query_length }} -D MAX_REFERENCE_LENGTH={{ max_reference_length }} -D PE_NUM={{ pe_num }} -D N_BLOCKS={{ blocks }} -D DP_HLS_UNROLLED -D VPP_CLI -I {{ design_params }} -I {{ local_include }} "
 add_files "{{ local_src }}/pe.cpp" -cflags " -D MAX_QUERY_LENGTH={{ max_query_length }} -D MAX_REFERENCE_LENGTH={{ max_reference_length }} -D PE_NUM={{ pe_num }} -D N_BLOCKS={{ blocks }} -D DP_HLS_UNROLLED -D VPP_CLI -I {{ design_params }} -I {{ local_include }} "
 add_files "{{ local_src }}/host_utils.cpp" -cflags " -D MAX_QUERY_LENGTH={{ max_query_length }} -D MAX_REFERENCE_LENGTH={{ max_reference_length }} -D PE_NUM={{ pe_num }} -D N_BLOCKS={{ blocks }} -D DP_HLS_UNROLLED -D VPP_CLI -I {{ design_params }} -I {{ local_include }} "
+add_files "{{ local_src }}/tiling.cpp" -cflags " -D MAX_QUERY_LENGTH={{ max_query_length }} -D MAX_REFERENCE_LENGTH={{ max_reference_length }} -D PE_NUM={{ pe_num }} -D N_BLOCKS={{ blocks }} -D DP_HLS_UNROLLED -D VPP_CLI -I {{ design_params }} -I {{ local_include }} "
 add_files "{{ kernel_frontend }}" -cflags " -D MAX_QUERY_LENGTH={{ max_query_length }} -D MAX_REFERENCE_LENGTH={{ max_reference_length }} -D PE_NUM={{ pe_num }} -D N_BLOCKS={{ blocks }} -D DP_HLS_UNROLLED -D VPP_CLI -I {{ design_params }} -I {{ local_include }} "
 add_files -tb "{{ tb_file }}" -cflags " -D MAX_QUERY_LENGTH={{ max_query_length }} -D MAX_REFERENCE_LENGTH={{ max_reference_length }} -D PE_NUM={{ pe_num }} -D N_BLOCKS={{ blocks }} -D DP_HLS_UNROLLED -D VPP_CLI -I {{ design_params }} -I {{ local_include }} "
 
@@ -25,7 +26,7 @@ add_files -tb "{{ tb_file }}" -cflags " -D MAX_QUERY_LENGTH={{ max_query_length 
 # config_interface -m_axi_addr64
 # # v++ --hls.max_memory_ports
 # config_interface -m_axi_auto_max_ports=0
-# config_export -format xo -ipname seq_align_multiple_static
+# config_export -format xo -ipname seq_align_multiple_tiling
 # csynth_design
 # export_design
 close_project

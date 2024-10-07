@@ -1,6 +1,7 @@
 #pragma once
 
 #include "params.h"
+#include "dp_hls_common.h"
 
 #ifdef CMAKEDEBUG
 #include "debug.h"
