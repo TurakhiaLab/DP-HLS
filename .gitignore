@@ -97,3 +97,13 @@ output.txt
 banding_global_linaer.txt
 
 data/uniprot_sprot.fasta
+
+baseline/software/data/
+..bfg-report/
+cleaning/
+compile_results
+single_block
+baseline/software/source/processed_queries.fasta
+baseline/software/source/processed_references.fasta
+baseline/software/source/queries.fasta
+baseline/software/source/references.fasta
