@@ -38,6 +38,7 @@ set(EXECUTABLE_TARGETS
     test_global_affine_real_data
     test_csim_sdtw
     test_csim_protein_local_affine
+    test_csim_sw_software_tiling
 )
 
 add_compile_definitions(PUBLIC CMAKEDEBUG)
@@ -168,6 +169,11 @@ add_executable(test_csim_protein_local_affine
     ${COMMON_SRCS}
 )
 
+add_executable(test_csim_sw_software_tiling
+    "testbench/test_csim_sw_software_tiling.cpp"
+    "kernels/sw_software_tiling/kernel_sw_software_tiling.cpp"
+    ${COMMON_SRCS}
+)
 
 target_include_directories(test_csim_global_affine PRIVATE "./kernels/global_affine")
 target_include_directories(test_csim_global_linear PRIVATE "./kernels/global_linear")
@@ -185,14 +191,13 @@ target_include_directories(test_csim_semi_global_linear_long_short PRIVATE "./ke
 target_include_directories(test_csim_semi_global_linear_short_long PRIVATE "./kernels/semi_global_linear_short_long")
 target_include_directories(test_csim_local_two_piece_affine PRIVATE "./kernels/local_two_piece_affine")
 target_include_directories(test_csim_global_two_piece_affine PRIVATE "./kernels/global_two_piece_affine")
-
 target_include_directories(test_global_affine_real_data PRIVATE "./kernels/global_affine")
 target_include_directories(test_csim_banding_global_two_piece_affine  PRIVATE "./kernels/banding_global_two_piece_affine")
 target_include_directories(test_csim_banding_local_affine PRIVATE "./kernels/banding_local_affine")
 target_include_directories(test_csim_banding_local_affine_scored PRIVATE "./kernels/banding_local_affine_scored")
 target_include_directories(test_csim_sdtw PRIVATE "./kernels/sdtw")
 target_include_directories(test_csim_protein_local_affine PRIVATE "./kernels/protein_local_affine")
-
+target_include_directories(test_csim_sw_software_tiling PRIVATE "./kernels/sw_software_tiling")
 
 # >>> Add CMake Compile Vitis header and library path >>>
 set(HLS_HOME "/opt/Xilinx/Vitis_HLS/2021.2/")  # Default HLS_HOME if using FPGA Developer AMI

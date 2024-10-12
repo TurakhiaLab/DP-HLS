@@ -153,6 +153,13 @@ namespace HostUtils
         char num_to_aa(int num);
         int aa_to_num(char aa);
 
+        template <typename T, int LENGTH_, int BLOCKS_>
+        void single_seq_to_device(std::vector<T> sequence, int start, int end, const int blk_idx, T device_buff[LENGTH_][BLOCKS_]){
+            for (int i = start, id = 0; i < end; i++, id++) {
+                device_buff[id][blk_idx] = sequence[i];
+            }
+        }
+
         template <typename T>
         string nav_to_string(T nav)
         {
@@ -410,6 +417,9 @@ namespace HostUtils
                 // printf("curr_ptr: %d\n", curr_ptr->to_int());
                 if (*curr_ptr == (T)AL_MMI_H)
                 {
+                    if (query_stack.empty() || reference_stack.empty()) {
+                        break;
+                    }
                     alignment_query = alignment_query.insert(0, 1, query_stack.top());
                     alignment_reference = alignment_reference.insert(0, 1, reference_stack.top());
                     query_stack.pop();
@@ -417,12 +427,18 @@ namespace HostUtils
                 }
                 else if (*curr_ptr == (T)AL_INS_H)
                 {
+                    if (reference_stack.empty()) {
+                        break;
+                    }
                     alignment_query = alignment_query.insert(0, 1, '_');
                     alignment_reference = alignment_reference.insert(0, 1, reference_stack.top());
                     reference_stack.pop();
                 }
                 else if (*curr_ptr == (T)AL_DEL_H)
                 {
+                    if (query_stack.empty()) {
+                        break;
+                    }
                     alignment_query = alignment_query.insert(0, 1, query_stack.top());
                     alignment_reference = alignment_reference.insert(0, 1, '_');
                     query_stack.pop();
@@ -743,13 +759,5 @@ namespace HostUtils
 
     // }
 }
-
-/*
-DLDDLLDDDDDUDDUUDDDDUDUDUDDUUDDDDDDDDDDDDDD******?????**?*????***?????**?????***?????*********?*????**?????**
-DLDDLLDDDDDUDDUUDDDDUDUDUDDUUDDDDDDDDDDDDD
-
-DDDLDDLDDLLLDDDDDLDLDDDUDDDLDDDDDDLDLDLDDLDDDUDDDDDD
-DDDLDDLDDLLLDDDDDLDLDDDUDDDLDDDDDDLDLDLDDLDDDUDDDDDD*?**?*???****???**????****???**?******?*???**????**
-*/
 
 #endif // !HOST_H

@@ -41,7 +41,7 @@ namespace Traceback
     template <int VIRTUAL_CHUNK_WIDTH>
     void NextAddressFixedSize(
         tbr_t &nav,
-        int &chunk, int &pe, int &col, int &v_row, int &v_col)
+        idx_t &chunk, idx_t &pe, idx_t &col, idx_t &v_row, idx_t &v_col)
     {
 #ifdef CMAKEDEBUG
         int nav_int = nav.to_int();
@@ -112,14 +112,14 @@ namespace Traceback
     void TracebackFixedSize(
         tbp_t (&tbmat)[PE_NUM][TBMEM_SIZE],
         traceback_buf_t(&traceback_out),
-        int ck_idx, int pe_idx, int col_idx, int v_row, int v_col)
+        idx_t ck_idx, idx_t pe_idx, idx_t col_idx,
+        idx_t &v_row, idx_t &v_col)  // in the tiling case, we want to know the ending value of the virtual row and column
     {
+        idx_t pe = pe_idx; // row index, but in tbmat
+        idx_t col = col_idx;
+        idx_t chunk = ck_idx;
 
-        int pe = pe_idx; // row index, but in tbmat
-        int col = col_idx;
-        int chunk = ck_idx;
-
-        int w_id = 0;              // write idx
+        idx_t w_id = 0;              // write idx
         tbr_t navigation = AL_MMI; // current write value
 
         TB_STATE state;
