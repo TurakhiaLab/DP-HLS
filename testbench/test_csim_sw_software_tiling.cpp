@@ -25,7 +25,7 @@ struct Penalties_sol
     float mismatch;
 };
 
-#define NUM_SEQUENCES 64
+#define NUM_SEQUENCES 256
 
 // query, reference, i_curr, j_curr, traceback
 typedef std::tuple<std::vector<char_t>, std::vector<char_t>, int, int, std::vector<tbr_t>> sequence_tuple;
