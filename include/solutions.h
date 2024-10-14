@@ -146,15 +146,15 @@ void global_linear_solution(std::string query, std::string reference, PENALTY_T 
     // the dp_mem!
 
     // declare the intial column and row
-    array<float, SOL_MAX_QUERY_LENGTH> initial_col;
-    array<float, SOL_MAX_REFERENCE_LENGTH> initial_row;
+    array<float, SOL_MAX_QUERY_LENGTH> *initial_col = new array<float, SOL_MAX_QUERY_LENGTH>();
+    array<float, SOL_MAX_REFERENCE_LENGTH> *initial_row = new array<float, SOL_MAX_REFERENCE_LENGTH>();
 
     // initialize the initial column
     float upper_left_value = 0;
     for (int i = 0; i < SOL_MAX_QUERY_LENGTH; i++)
     {
         upper_left_value += penalties.linear_gap; // since it was declared with type_t then convert back to int.
-        initial_col[i] = upper_left_value;
+        (*initial_col)[i] = upper_left_value;
     }
 
     // initialize the initial row
@@ -162,7 +162,7 @@ void global_linear_solution(std::string query, std::string reference, PENALTY_T 
     for (int j = 0; j < SOL_MAX_REFERENCE_LENGTH; j++)
     {
         upper_left_value += penalties.linear_gap; // since it was declared with type_t then convert back to int.
-        initial_row[j] = upper_left_value;
+        (*initial_row)[j] = upper_left_value;
     }
 
     // initialize the score_matrix
@@ -192,20 +192,20 @@ void global_linear_solution(std::string query, std::string reference, PENALTY_T 
             if (i == 0 && j == 0)
             {
                 scr_diag = 0;
-                scr_up = initial_row[j];
-                scr_left = initial_col[i];
+                scr_up = (*initial_row)[j];
+                scr_left = (*initial_col)[i];
             }
             else if (i == 0 && j > 0)
             {
-                scr_diag = initial_row[j - 1];
-                scr_up = initial_row[j];
+                scr_diag = (*initial_row)[j - 1];
+                scr_up = (*initial_row)[j];
                 scr_left = score_mat[0][i][j - 1];
             }
             else if (i > 0 && j == 0)
             {
-                scr_diag = initial_col[i - 1];
+                scr_diag = (*initial_col)[i - 1];
                 scr_up = score_mat[0][i - 1][j];
-                scr_left = initial_col[i];
+                scr_left = (*initial_col)[i];
             }
             else
             {

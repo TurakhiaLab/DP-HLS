@@ -164,7 +164,7 @@ extern "C"
 		{
 #pragma HLS unroll
 #ifdef CMAKEDEBUG
-			cout << "Aligning Block " << i << endl;
+			// cout << "Aligning Block " << i << endl;
 #endif
 			Align::BANDING_NAMESPACE::AlignStatic(
 				querys_b[i],

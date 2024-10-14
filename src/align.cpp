@@ -457,9 +457,9 @@ Iterating_Chunks:
 
 #ifdef CMAKEDEBUG
 	// print tracevack start idx
-	cout << "Traceback start idx: " << tb_i << " " << tb_j << endl;
-	cout << "Traceback start chunk:" << maximum.ck << endl;
-	cout << "Traceback start idx physical: " << maximum.ck << " " << max_pe << " " << maximum.p_col << endl;
+	// cout << "Traceback start idx: " << tb_i << " " << tb_j << endl;
+	// cout << "Traceback start chunk:" << maximum.ck << endl;
+	// cout << "Traceback start idx physical: " << maximum.ck << " " << max_pe << " " << maximum.p_col << endl;
 #endif
 
 #ifdef SCORED
@@ -676,8 +676,8 @@ Iterating_Chunks:
 
 #ifdef CMAKEDEBUG
     // print tracevack start idx
-    std::cout << "Traceback start idx: " << maximum.ck << " "<< tb_i << " " << tb_j << endl;
-    std::cout << "Traceback start idx physical: " << max_pe << " " << maximum.p_col << endl;
+    // std::cout << "Traceback start idx: " << maximum.ck << " "<< tb_i << " " << tb_j << endl;
+    // std::cout << "Traceback start idx physical: " << max_pe << " " << maximum.p_col << endl;
 #endif
 
 #ifdef SCORED
@@ -687,7 +687,7 @@ Iterating_Chunks:
     Traceback::TracebackFixedSize<2 * BANDWIDTH - 1>(tbp_matrix, tb_out, maximum.ck, max_pe, maximum.p_col, tb_i, tb_j);
 #endif
 #ifdef CMAKEDEBUG
-	std::cout << "Traceback done" << std::endl;
+	// std::cout << "Traceback done" << std::endl;
 #endif
 }
 

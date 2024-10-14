@@ -9,11 +9,13 @@
 #include "debug.h"
 #include <tuple>
 #include <queue>
+#include <iostream>
+#include <fstream>
 
 using namespace std;
 
-#define INPUT_QUERY_LENGTH 1024
-#define INPUT_REFERENCE_LENGTH 1024
+#define INPUT_QUERY_LENGTH 10000
+#define INPUT_REFERENCE_LENGTH 10000
 
 
 struct Penalties_sol
@@ -23,7 +25,7 @@ struct Penalties_sol
     float mismatch;
 };
 
-#define NUM_SEQUENCES 100
+#define NUM_SEQUENCES 64
 
 // query, reference, i_curr, j_curr, traceback
 typedef std::tuple<std::vector<char_t>, std::vector<char_t>, int, int, std::vector<tbr_t>> sequence_tuple;
@@ -39,11 +41,11 @@ int main(){
     
     // Initialize the batch of input sequences
     char alphabet[4] = {'A', 'T', 'G', 'C'};
-    std::vector<std::string> query_strings(NUM_SEQUENCES);
-    std::vector<std::string> reference_strings(NUM_SEQUENCES);
+    std::vector<std::string>* query_strings = new std::vector<std::string>();
+    std::vector<std::string>* reference_strings = new std::vector<std::string>();
     for (int i = 0; i < NUM_SEQUENCES; i++) {
-        query_strings[i] = Random::Sequence<4>(alphabet, INPUT_QUERY_LENGTH);
-        reference_strings[i] = Random::Sequence<4>(alphabet, INPUT_REFERENCE_LENGTH);
+        query_strings->push_back(Random::Sequence<4>(alphabet, INPUT_QUERY_LENGTH));
+        reference_strings->push_back(Random::Sequence<4>(alphabet, INPUT_REFERENCE_LENGTH));
     }
 
     // Initialize the kernel penalty scores. 
@@ -62,28 +64,28 @@ int main(){
         penalty.mismatch = -1;
     }
 
-    std::vector<std::vector<char_t>> query_buff;
-    std::vector<std::vector<char_t>> reference_buff;
+    std::vector<std::vector<char_t>> *query_buff = new std::vector<std::vector<char_t>>();
+    std::vector<std::vector<char_t>> *reference_buff = new std::vector<std::vector<char_t>>();
 
     for (int n = 0; n < NUM_SEQUENCES; n++)
     {
         std::vector<char_t> query_seq;
         std::vector<char_t> reference_seq;
-        for (int i = 0; i < query_strings[n].size(); i++) { query_seq.push_back(HostUtils::Sequence::base_to_num(query_strings[n][i])); }
-        for (int i = 0; i < reference_strings[n].size(); i++) { reference_seq.push_back(HostUtils::Sequence::base_to_num(reference_strings[n][i])); }
-        query_buff.push_back(query_seq);
-        reference_buff.push_back(reference_seq);
+        for (int i = 0; i < (*query_strings)[n].size(); i++) { query_seq.push_back(HostUtils::Sequence::base_to_num((*query_strings)[n][i])); }
+        for (int i = 0; i < (*reference_strings)[n].size(); i++) { reference_seq.push_back(HostUtils::Sequence::base_to_num((*reference_strings)[n][i])); }
+        query_buff->push_back(query_seq);
+        reference_buff->push_back(reference_seq);
     }
 
-    std::queue<sequence_tuple> working_seqs;  
+    std::queue<sequence_tuple> *working_seqs = new std::queue<sequence_tuple>();  
     for (size_t i = 0; i < NUM_SEQUENCES; i++) {
         sequence_tuple seq_tuple = std::make_tuple(
-                query_buff[i], reference_buff[i], 
-                query_strings[i].size(), reference_strings[i].size(), std::vector<tbr_t>());
-        working_seqs.push(seq_tuple);
+                (*query_buff)[i], (*reference_buff)[i], 
+                (*query_strings)[i].size(), (*reference_strings)[i].size(), std::vector<tbr_t>());
+        working_seqs->push(seq_tuple);
     }
 
-    std::queue<sequence_tuple> finished_seqs;
+    std::queue<sequence_tuple> *finished_seqs = new std::queue<sequence_tuple>();
 
     // declare device input query, reference, and seq_length buffers that are used in the kernel computation
     char_t reference_d[MAX_REFERENCE_LENGTH][N_BLOCKS];
@@ -102,13 +104,16 @@ int main(){
     std::vector<char_t> tmp_query_buff[N_BLOCKS];
     std::vector<char_t> tmp_reference_buff[N_BLOCKS];
 
-    while (!working_seqs.empty()) {
+    size_t tile_count = 0;
+    size_t seq_count = 0;
+
+    while (!working_seqs->empty()) {
         // populate the device buffers with the current working sequences
         int block_count = 0;
         for (size_t b = 0; b < N_BLOCKS; b++) {
-            if (!working_seqs.empty()) {
-                sequence_tuple seq_tuple = working_seqs.front();
-                working_seqs.pop();
+            if (!working_seqs->empty()) {
+                sequence_tuple seq_tuple = working_seqs->front();
+                working_seqs->pop();
 
                 i_curr[b] = std::get<2>(seq_tuple);
                 j_curr[b] = std::get<3>(seq_tuple);
@@ -139,6 +144,9 @@ int main(){
 #endif
         );
 
+        tile_count += N_BLOCKS;
+        std::cout << "Finished " << tile_count << " tiles." << endl;
+
         for (size_t b = 0; b < block_count; b++) {
             int i_offset = qry_lengths[b] - tb_is[b];
             int j_offset = ref_lengths[b] - tb_js[b];
@@ -153,11 +161,12 @@ int main(){
             i_curr[b] = i_curr[b] - i_offset;
             j_curr[b] = j_curr[b] - j_offset;
             if (i_curr[b] == 0 || j_curr[b] == 0){  // then the aligment is finished, move everything to the finished queue
-                finished_seqs.push(std::make_tuple(
+                finished_seqs->push(std::make_tuple(
                     tmp_query_buff[b], tmp_reference_buff[b], 
                     i_curr[b], j_curr[b], tmp_tb_streams[b]));
+                std::cout << "Finished " << seq_count++ << " sequences." << endl;
             } else {
-                working_seqs.push(std::make_tuple(
+                working_seqs->push(std::make_tuple(
                     tmp_query_buff[b], tmp_reference_buff[b], 
                     i_curr[b], j_curr[b], tmp_tb_streams[b]));
             }
@@ -170,9 +179,12 @@ int main(){
     std::vector<std::map<string, string>> solution_alignments;
     std::vector<map<string, string>> kernel_alignments;
 
-    while (!finished_seqs.empty()) {
-        sequence_tuple seq_tuple = finished_seqs.front();
-        finished_seqs.pop();
+    array<array<array<float, INPUT_REFERENCE_LENGTH>, INPUT_QUERY_LENGTH>, N_LAYERS> *sol_score_mat = new array<array<array<float, INPUT_REFERENCE_LENGTH>, INPUT_QUERY_LENGTH>, N_LAYERS>();
+    array<array<char, INPUT_REFERENCE_LENGTH>, INPUT_QUERY_LENGTH> *sol_tb_mat = new array<array<char, INPUT_REFERENCE_LENGTH>, INPUT_QUERY_LENGTH>();
+
+    while (!finished_seqs->empty()) {
+        sequence_tuple seq_tuple = finished_seqs->front();
+        finished_seqs->pop();
 
         tbr_t single_tb_stream[INPUT_QUERY_LENGTH + INPUT_REFERENCE_LENGTH];
         std::vector<tbr_t> single_tb_vec = std::get<4>(seq_tuple);
@@ -190,10 +202,9 @@ int main(){
             reference_str += HostUtils::Sequence::num_to_base(ch);
         }
 
-        array<array<array<float, INPUT_REFERENCE_LENGTH>, INPUT_QUERY_LENGTH>, N_LAYERS> sol_score_mat;
-        array<array<char, INPUT_REFERENCE_LENGTH>, INPUT_QUERY_LENGTH> sol_tb_mat;
+
         std::map<string, string> alignments;
-        global_linear_solution<Penalties_sol, INPUT_QUERY_LENGTH, INPUT_REFERENCE_LENGTH, N_LAYERS>(query_str, reference_str, penalties_sol[0], sol_score_mat, sol_tb_mat, alignments);
+        global_linear_solution<Penalties_sol, INPUT_QUERY_LENGTH, INPUT_REFERENCE_LENGTH, N_LAYERS>(query_str, reference_str, penalties_sol[0], *sol_score_mat, *sol_tb_mat, alignments);
         solution_alignments.push_back(alignments);
 
         kernel_alignments.push_back(HostUtils::Sequence::ReconstructTraceback<tbr_t, INPUT_QUERY_LENGTH, INPUT_REFERENCE_LENGTH>(
@@ -202,16 +213,35 @@ int main(){
             single_tb_stream));
     }
 
-    std::cout << "\nWARNING: The tiling algorithm is not equivalent to the larger global alignment. The solution alignment shouldn't be exactly the same as the kernel alignment.\n" << std::endl;
+    std::cout << "\nWARNING: The tiling algorithm is not equivalent to a larger global alignment. The solution alignment shouldn't be exactly the same as the kernel alignment.\n" << std::endl;
 
-    // Print kernel 0 traceback
+    std::ofstream file;
+    file.open("alignments.txt");
+
     for (int i = 0; i < NUM_SEQUENCES; i++) {
-        cout << "Kernel " << i << " Traceback, Start Row: " << INPUT_QUERY_LENGTH << ", Start Column: " << INPUT_REFERENCE_LENGTH << endl;
-        cout << "Solution Aligned Query    : " << solution_alignments[i]["query"] << endl;
-        cout << "Solution Aligned Reference: " << solution_alignments[i]["reference"] << endl;
-        cout << "Kernel   Aligned Query    : " << kernel_alignments[i]["query"] << endl;
-        cout << "Kernel   Aligned Reference: " << kernel_alignments[i]["reference"] << endl;
+        file << "Kernel " << i << " Traceback, Start Row: " << INPUT_QUERY_LENGTH << ", Start Column: " << INPUT_REFERENCE_LENGTH << endl;
+        file << "Solution Aligned Query    : " << solution_alignments[i]["query"] << endl;
+        file << "Solution Aligned Reference: " << solution_alignments[i]["reference"] << endl;
+        file << "Kernel   Aligned Query    : " << kernel_alignments[i]["query"] << endl;
+        file << "Kernel   Aligned Reference: " << kernel_alignments[i]["reference"] << endl;
     }
+    file.close();
+
+    cout << "Test finished" << endl;
+
+    // delete dynamically allocated memory for kernel
+    delete query_strings;
+    delete reference_strings;
+    delete query_buff;
+    delete reference_buff;
+    delete working_seqs;
+    delete finished_seqs;
+
+    // delete dynamically allocated memory for solution
+    delete sol_score_mat;
+    delete sol_tb_mat;
+
+    cout << "Memory cleaned up" << endl;
 
     return 0;
 }
