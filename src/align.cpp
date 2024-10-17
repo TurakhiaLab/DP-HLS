@@ -607,20 +607,14 @@ void Align::Fixed::AlignStatic(
 	ALIGN_TYPE::InitializeScores(init_col_score, init_row_score, penalties);
 	ALIGN_TYPE::InitializeMaxScores(local_max, query_length, reference_length);
 
-	char_t local_query[PE_NUM];
-	chunk_col_scores_inf_t local_init_col_score;
-	local_init_col_score[PE_NUM] = score_vec_t(0); // Always initialize the upper left cornor to 0
-
-	bool col_pred[PE_NUM];
 	idx_t l_lim_reg = -BANDWIDTH;
 	idx_t u_lim_reg = BANDWIDTH - 1;  // we don't need to - 1 because the cell score is 0 only when it's out of the band
-
-#pragma HLS array_partition variable = local_query type = complete
-#pragma HLS array_partition variable = col_pred type = complete
 
 	idx_t p_col_offset = 0;
 	idx_t p_col = 0;
 	idx_t p_cols_internal_offset = BANDWIDTH;
+
+	score_vec_t preserved_diagonal_score = score_vec_t(0);
 
 Iterating_Chunks:
 	for (idx_t i = 0, ic = 0; i < query_length; i += PE_NUM, ic++)
@@ -629,26 +623,16 @@ Iterating_Chunks:
 
 		p_col = p_cols_internal_offset + p_col_offset;
 		p_cols_internal_offset = p_cols_internal_offset > PE_NUM ? (idx_t) ( p_cols_internal_offset -  PE_NUM) : (idx_t) 0;
-
-		Align::Fixed::PrepareLocals<PE_NUM, MAX_QUERY_LENGTH>(
-			query,
-			init_col_score,
-			local_query,
-			local_init_col_score,
-			col_pred,
-			local_query_length,
-			i
-		); // Prepare the local query and the local column scores
 		
 		Align::Fixed::ChunkCompute(
 			i,
-			local_query,
+			query,
 			reference,
-			local_init_col_score,
+			init_col_score,
+			preserved_diagonal_score,
 			init_row_score,
 			p_col, ic,
 			l_lim_reg, u_lim_reg, 
-			col_pred,
 			query_length, local_query_length, reference_length,
 			penalties,
 #ifdef LOCAL_TRANSITION_MATRIX
@@ -693,13 +677,13 @@ Iterating_Chunks:
 
 void Align::Fixed::ChunkCompute(
 	const idx_t chunk_row_offset,
-	const input_char_block_t &local_query,
+	const char_t (&query)[MAX_QUERY_LENGTH],
 	const char_t (&reference)[MAX_REFERENCE_LENGTH],
-	const chunk_col_scores_inf_t &init_col_scr,
+	const score_vec_t (&init_col_scr)[MAX_QUERY_LENGTH],
+	score_vec_t &preserved_diagonal_score,
 	score_vec_t (&init_row_scr)[MAX_REFERENCE_LENGTH],
 	idx_t p_cols, const idx_t ck_idx,
 	idx_t &l_lim_reg, idx_t &u_lim_reg,
-	const bool (&col_pred)[PE_NUM],
 	const idx_t global_query_length, const idx_t local_query_length, const idx_t reference_length,
 	const Penalties &penalties,
 #ifdef LOCAL_TRANSITION_MATRIX
@@ -735,6 +719,8 @@ void Align::Fixed::ChunkCompute(
 	tbp_vec_t tbp_out;
 	dp_mem_block_t dp_mem;
 	score_vec_t score_buff[PE_NUM + 1];
+
+	input_char_block_t local_query;
 	
 #pragma HLS array_partition variable = predicate type = complete
 #pragma HLS array_partition variable = local_query type = complete
@@ -756,8 +742,11 @@ void Align::Fixed::ChunkCompute(
 	Utils::Init::ArrSet<bool, PE_NUM>(entering_shift, false);
 	Utils::Init::ArrSet<bool, PE_NUM>(exiting_shift, true);
 
+	bool col_pred[PE_NUM];
+	Utils::Init::ArrSet<bool, PE_NUM>(col_pred, false);
+
 	// Set the upper left corner cell of the chunk, depending whether it's the first chunk. 
-	dp_mem[0][0] = l_lim_reg > 0 ? init_row_scr[chunk_start_col-1] : init_col_scr[0];
+	dp_mem[0][0] = l_lim_reg > 0 ? init_row_scr[chunk_start_col-1] : preserved_diagonal_score;
 
 Iterating_Wavefronts:
 	for (idx_t i = chunk_start_col; i < chunk_end_col + local_query_length; i++)
@@ -786,17 +775,22 @@ Iterating_Wavefronts:
 		for (int j = 0; j < PE_NUM; j++)
 		{
 #pragma HLS unroll
-			predicate[j] = col_pred[j] && entering_shift[j] && exiting_shift[j];
+			predicate[j] = (j < local_query_length) && entering_shift[j] && exiting_shift[j];
 		}
 
 		Utils::Array::ShiftRight<char_t, PE_NUM>(local_reference, i < MAX_REFERENCE_LENGTH ? reference[i] : ZERO_CHAR);
 
-		Align::PrepareScoreBuffer(score_buff, i, init_col_scr, init_row_scr);
+		score_buff[0] = i < MAX_REFERENCE_LENGTH ? init_row_scr[i] : score_vec_t(zero_fp);
+
 		if (exiting) {
 			score_buff[exiting_pe] = score_vec_t(NINF);
 		}
-		if (entering) score_buff[entering_pe + 1] = l_lim_reg <= 0 ? init_col_scr[entering_pe + 1] : score_vec_t(NINF);
-
+		if (entering) {
+			score_buff[entering_pe + 1] = l_lim_reg <= 0 ? init_col_scr[chunk_row_offset + entering_pe] : score_vec_t(NINF);
+			local_query[entering_pe] = query[chunk_row_offset + entering_pe];
+			if (entering_pe == PE_NUM - 1) preserved_diagonal_score = score_buff[entering_pe + 1];
+			// if (entering_pe < local_query_length) col_pred[entering_pe] = true;
+		}
 		Align::UpdateDPMemSep(dp_mem, score_buff);
 
 

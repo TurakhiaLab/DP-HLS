@@ -308,13 +308,13 @@ namespace Align
 		 */
 		void ChunkCompute(
 			const idx_t chunk_row_offset,
-			const input_char_block_t &query,
+			const char_t (&query)[MAX_QUERY_LENGTH],
 			const char_t (&reference)[MAX_REFERENCE_LENGTH],
-			const chunk_col_scores_inf_t &init_col_scr,
+			const score_vec_t (&init_col_scr)[MAX_QUERY_LENGTH],
+			score_vec_t &preserved_diagonal_score,
 			score_vec_t (&init_row_scr)[MAX_REFERENCE_LENGTH],
 			idx_t p_cols, const idx_t ck_idx,
 			idx_t &l_lim_reg, idx_t &u_lim_reg,
-			const bool (&col_pred)[PE_NUM],
 			const idx_t global_query_length, const idx_t local_query_length, const idx_t reference_length,
 			const Penalties &penalties,
 #ifdef LOCAL_TRANSITION_MATRIX

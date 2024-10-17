@@ -14,8 +14,8 @@
 
 using namespace std;
 
-#define INPUT_QUERY_LENGTH 256
-#define INPUT_REFERENCE_LENGTH 256
+#define INPUT_QUERY_LENGTH 62
+#define INPUT_REFERENCE_LENGTH 63
 
 char tbp_to_char(tbp_t tbp){
     if (tbp == TB_DIAG) return 'D';

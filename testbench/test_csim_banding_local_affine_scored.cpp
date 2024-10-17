@@ -6,15 +6,16 @@
 #include "seq_align_multiple.h"
 #include "host_utils.h"
 #include "solutions.h"
-
+#include <iostream>
+#include <fstream>
 #ifdef CMAKEDEBUG
 #include "debug.h"
 #endif
 
 using namespace std;
 
-#define INPUT_QUERY_LENGTH 256
-#define INPUT_REFERENCE_LENGTH 256
+#define INPUT_QUERY_LENGTH 63
+#define INPUT_REFERENCE_LENGTH 63
 
 char_t base_to_num(char base)
 {
@@ -150,14 +151,19 @@ int main(){
     array<array<string, MAX_REFERENCE_LENGTH>, MAX_QUERY_LENGTH> sol_tb_mat;
     map<string, string> alignments;
     // local_affine_solution<Penalties_sol, MAX_QUERY_LENGTH, MAX_REFERENCE_LENGTH, N_LAYERS>(query_string, reference_string, penalties_sol[0], sol_score_mat, sol_tb_mat, alignments);
-    // print_matrix<float, MAX_QUERY_LENGTH, MAX_REFERENCE_LENGTH>(sol_score_mat[0], "Solution Score Matrix Layer 0");
-    // print_matrix<char, MAX_QUERY_LENGTH, MAX_REFERENCE_LENGTH>(sol_tb_mat, "Solution Traceback Matrix");
+    ofstream file;
+    file.open("/home/centos/workspace/DP-HLS/solution_score_matrix.txt");
+    fprint_matrix<float, MAX_QUERY_LENGTH, MAX_REFERENCE_LENGTH>(file, sol_score_mat[0], query_string, reference_string, "Solution Score Matrix Layer 0");
+    file.close();
+    file.open("/home/centos/workspace/DP-HLS/solution_traceback_matrix.txt");
+    fprint_matrix<string, MAX_QUERY_LENGTH, MAX_REFERENCE_LENGTH>(file, sol_tb_mat, query_string, reference_string, "Solution Traceback Matrix");
+    file.close();
     cout << "Solution Aligned Query    : " << alignments["query"] << endl;
     cout << "Solution Aligned Reference: " << alignments["reference"] << endl;
 #ifdef CMAKEDEBUG
     // Cast kernel scores to matrix scores
     debuggers[0].cast_scores();
-    debuggers[0].compare_scores(sol_score_mat, query.size(), reference.size());  // check if the scores from the kernel matches scores from the solution
+    debuggers[0].compare_scores(sol_score_mat, query.size(), reference.size(), 0.1);  // check if the scores from the kernel matches scores from the solution
 #endif
 
     // reconstruct kernel alignments

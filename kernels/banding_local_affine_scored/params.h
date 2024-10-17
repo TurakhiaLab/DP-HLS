@@ -5,19 +5,19 @@
 #include <ap_fixed.h>
 #include <hls_vector.h>
 
-#define MAX_QUERY_LENGTH 256
-#define MAX_REFERENCE_LENGTH 256
+#define MAX_QUERY_LENGTH 64
+#define MAX_REFERENCE_LENGTH 64
 
 #define BANDING FIXED
-#define BANDWIDTH 64
+#define BANDWIDTH 16
 
 #define SCORED
 #define NO_TRACEBACK
 
-#define PE_NUM 32
+#define PE_NUM 16
 
 #define ALIGN_TYPE BSWAffine
-#define N_BLOCKS 8
+#define N_BLOCKS 1
 #define N_LAYERS 3
 #define LAYER_MAXIMIUM 1  // We need to indicate from which layer (main matrix) is the maximum score stored.
 

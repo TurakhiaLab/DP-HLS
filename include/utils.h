@@ -113,9 +113,9 @@ namespace Utils
 		template <typename T, int N>
 		void ArrSet(T (&arr)[N], T val)
 		{
-
 			for (int i = 0; i < N; i++)
 			{
+#pragma HLS unroll
 				arr[i] = val;
 			}
 		}
@@ -123,9 +123,9 @@ namespace Utils
 		template <typename T, int N>
 		void ArrSet(T (&arr)[N], idx_t layer, T val)
 		{
-
 			for (int i = 0; i < N; i++)
 			{
+
 				arr[i][layer] = val[layer];
 			}
 		}
