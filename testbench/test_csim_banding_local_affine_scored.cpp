@@ -14,8 +14,8 @@
 
 using namespace std;
 
-#define INPUT_QUERY_LENGTH 63
-#define INPUT_REFERENCE_LENGTH 63
+#define INPUT_QUERY_LENGTH 256
+#define INPUT_REFERENCE_LENGTH 256
 
 char_t base_to_num(char base)
 {
@@ -162,8 +162,8 @@ int main(){
     cout << "Solution Aligned Reference: " << alignments["reference"] << endl;
 #ifdef CMAKEDEBUG
     // Cast kernel scores to matrix scores
-    debuggers[0].cast_scores();
-    debuggers[0].compare_scores(sol_score_mat, query.size(), reference.size(), 0.1);  // check if the scores from the kernel matches scores from the solution
+    // debuggers[0].cast_scores();
+    // debuggers[0].compare_scores(sol_score_mat, query.size(), reference.size(), 0.1);  // check if the scores from the kernel matches scores from the solution
 #endif
 
     // reconstruct kernel alignments

@@ -66,14 +66,14 @@ void BSWAffine::InitializeScores(
 //    Utils::Init::ArrSet(init_row_scr, {0.0, 0.0, NINF}); // reference layer 0
 
     InitializeColumnScores:
-    for (int i = 0; i < MAX_QUERY_LENGTH; i++)
+    for (int i = 0; i < BANDWIDTH + 1; i++)
     {
         init_col_scr[i][0] = NINF;
         init_col_scr[i][1] = 0.0;
         init_col_scr[i][2] = 0.0;
     }
     InitializeRowScores:
-    for (int i = 0; i < MAX_REFERENCE_LENGTH; i++)
+    for (int i = 0; i < BANDWIDTH + 1; i++)
     {
         init_row_scr[i][0] = 0.0;
         init_row_scr[i][1] = 0.0;
