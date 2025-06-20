@@ -137,17 +137,21 @@ if [[ ${#kernels[@]} == 0 ]]; then
     cd "$MINIMAP_ROOT"
     total_throughput=0
     for i in {1..10}; do
-        start_time=$(date +%s%6N)
-        ./minimap2 -t "${num_threads}" ../data/pbsim2/ont_ref.fa ../data/pbsim2/ont_query.fa
-        end_time=$(date +%s%6N)
-        elapsed_time=$((end_time - start_time))
-        throughput=$(echo "scale=6; ${num_seqs} / ($elapsed_time / 1000000.0)" | bc)
-        echo "Elapsed time: $elapsed_time microseconds"
-        echo "Throughput: $throughput alignments/second"
-        total_throughput=$(echo "$total_throughput + $throughput" | bc)
-    done
-    echo "Average throughput: $(echo "$total_throughput / 10" | bc) alignments/second"
-    echo
+    	output=$(./minimap2 -t "${num_threads}" -v 3 ../data/pbsim2/ont_ref.fa ../data/pbsim2/ont_query.fa 2>&1)
+    	real_time=$(echo "$output" | grep 'Elapsed time:' | awk '{print $3}')
+    	num_seqs=$(echo "$output" | grep 'mapped' | grep -oP '\d+(?= sequences)')
+		throughput=$(echo "scale=6; ${num_seqs} / ${real_time}" | bc)
+
+    	echo "Real time: $real_time seconds"
+    	echo "Mapped sequences: $num_seqs"
+    	echo "Throughput: $throughput alignments/second"
+
+    	total_throughput=$(echo "$total_throughput + $throughput" | bc)
+	done
+
+	average_throughput=$(echo "scale=6; $total_throughput / 10" | bc)
+	echo "Average throughput: $average_throughput alignments/second"
+	echo
 else 
     echo "Kernels specified: ${kernels[@]}"
     compile_kernels "${kernels[@]}"
@@ -201,7 +205,7 @@ else
             total_throughput=0
             for i in {1..10}; do
                 start_time=$(date +%s%6N)
-                ./minimap2 -t "${num_threads}" ~/data/ont_ref_${duplication}.fa ~/data/ont_query_${duplication}.fa -o output.paf
+                ./minimap2 -t "${num_threads}" -v 3 ~/data/ont_ref_${duplication}.fa ~/data/ont_query_${duplication}.fa -o output.paf
                 end_time=$(date +%s%6N)
                 elapsed_time=$((end_time - start_time))
                 throughput=$(echo "scale=6; ${num_seqs} / ($elapsed_time / 1000000.0)" | bc)
