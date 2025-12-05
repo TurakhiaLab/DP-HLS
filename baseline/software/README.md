@@ -9,7 +9,7 @@
 ```
 git clone https://github.com/TurakhiaLab/DP-HLS.git
 cd DP-HLS/baseline/software
-git clone --recurse-submodules https://github.com/seqan/seqan3.git
+git clone --branch 3.3.0 --recurse-submodules https://github.com/seqan/seqan3.git
 git clone https://github.com/lh3/minimap2.git
 ```
 
@@ -28,4 +28,4 @@ make
 Specifying `-kernels` is optional and doing so will run baselines only for the specified kernels. Otherwise, simply running `./run_sw_baseline.sh` will run all available baselines. Specifying `-t` will run the program with `num_threads` threads (8 by default).
 
 #### Baseline Tools
-We have used [SeqAn3](https://github.com/seqan/seqan3) and [Minimap2](https://github.com/lh3/minimap2) as our baselines. Cloning the repository above will clone SeqAn3 and Minimap2 repositories.
+We have used [SeqAn3.3.0](https://github.com/seqan/seqan3) and [Minimap2](https://github.com/lh3/minimap2) as our baselines. Cloning the repository above will clone SeqAn3 and Minimap2 repositories.
