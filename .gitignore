@@ -110,3 +110,6 @@ baseline/software/source/processed_queries.fasta
 compile_results
 vitis_projects
 /baseline/software/data/
+
+/demo/global_affine/output/compile/*
+/demo/global_affine/output/cosim/*

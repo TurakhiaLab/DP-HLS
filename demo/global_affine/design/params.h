@@ -7,10 +7,10 @@
 
 
 // These need to be there to do CMake Simulation, but SHOULD TAKE OFF WHEN COMPIING BITSTREAM
-const int PE_NUM = 32;
-#define MAX_QUERY_LENGTH 256
-#define MAX_REFERENCE_LENGTH 256
-#define N_BLOCKS 1
+// const int PE_NUM = 32;
+// #define MAX_QUERY_LENGTH 256
+// #define MAX_REFERENCE_LENGTH 256
+// #define N_BLOCKS 1
 
 #define ALIGN_TYPE GlobalAffine
 #define N_LAYERS 3
@@ -19,7 +19,7 @@ const int PE_NUM = 32;
 // if user decides to use banding
 #define BANDING RECTANGULAR
 
-// Primitive Types
+// Primitive Types 
 typedef ap_uint<2> char_t;  // Sequence Alphabet
 typedef ap_fixed<16, 14> type_t;  // Scores Type <width, integer_width>
 typedef short idx_t;  // Indexing Type, could be much less than 32. ap_uint<8>

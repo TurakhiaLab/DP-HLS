@@ -4,27 +4,27 @@
             {"max_query_length": 256, "max_reference_length": 256}
         ],
         "pe_num": [32],
-        "blocks": [2],
-        "cu": [1]
+        "blocks": [4],
+        "cu": [2]
     },
     "kernel": {
         "name": "seq_align_multiple_static",
         "clock_frequency": 250000000
     },
     "design": {
-        "path_params": "<dp_hls_root>/DP-HLS/demo/global_affine/design",
-        "path_frontend": "<dp_hls_root>/demo/global_affine/design/kernel_global_affine.cpp",
-        "dp-hls_root": "<dp_hls_root>",
-        "host_program": "<dp_hls_root>/DP-HLS/src/hosts/host_ocl_global.cpp"
+        "path_params": "/home/ubuntu/DP-HLS/demo/global_affine/design",
+        "path_frontend": "/home/ubuntu/DP-HLS/demo/global_affine/design/kernel_global_affine.cpp",
+        "dp-hls_root": "/home/ubuntu/DP-HLS",
+        "host_program": "/home/ubuntu/DP-HLS/src/hosts/host_ocl_global.cpp"
     },
-    "output_path": "<dp_hls_root>/demo/global_affine/output/compile",
+    "output_path": "/home/ubuntu/DP-HLS/demo/global_affine/output/compile",
     "output_name": "global_affine",
     "build": {
         "build_type": "hw"
     },
     "vitis_hls": {
-        "cosim_testbench": "<dp_hls_root>/DP-HLS/testbench/test_csim_global_affine.cpp",
-        "output_path": "<dp_hls_root>/demo/global_affine/output/cosim",
+        "cosim_testbench": "/home/ubuntu/DP-HLS/testbench/test_csim_global_affine.cpp",
+        "output_path": "/home/ubuntu/DP-HLS/demo/global_affine/output/cosim",
         "export_design": 0
     }
 }
