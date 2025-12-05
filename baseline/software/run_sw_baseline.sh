@@ -28,6 +28,9 @@ compile_kernels() {
     if [ "$#" -eq 0 ]; then
         echo "Compiling all of the kernels..."
         for kernel_type in "${valid_kernels[@]}"; do
+            if [[ "$kernel_type" == "two_piece_affine" ]]; then
+                continue
+            fi
             echo "Compiling kernel ${kernel_type}..."
             g++-11 -O3 -DNDEBUG -Wall -Wextra                               \
                 -std=c++20                                                  \
@@ -42,15 +45,19 @@ compile_kernels() {
     else
         for kernel_type in "$@"; do
             echo "Compiling kernel ${kernel_type}..."
-            g++-11 -O3 -DNDEBUG -Wall -Wextra                               \
-                -std=c++20                                                  \
-                -I       ../seqan3/include                                  \
-                -isystem ../seqan3/submodules/sdsl-lite/include             \
-                -isystem ../seqan3/submodules/cereal/include                \
-                -DSEQAN3_HAS_ZLIB=1 -DSEQAN3_HAS_BZIP2=1                    \
-                -lz -lbz2 -pthread                                          \
-                -o ${kernel_type}                                           \
-            ../source/${kernel_type}.cpp
+            if [[ "$kernel_type" == "two_piece_affine" ]]; then
+                cd "$MINIMAP_ROOT" && make -j && cd "$DP_HLS_ROOT/baseline/software/build"
+            else
+                g++-11 -O3 -DNDEBUG -Wall -Wextra                               \
+                    -std=c++20                                                  \
+                    -I       ../seqan3/include                                  \
+                    -isystem ../seqan3/submodules/sdsl-lite/include             \
+                    -isystem ../seqan3/submodules/cereal/include                \
+                    -DSEQAN3_HAS_ZLIB=1 -DSEQAN3_HAS_BZIP2=1                    \
+                    -lz -lbz2 -pthread                                          \
+                    -o ${kernel_type}                                           \
+                ../source/${kernel_type}.cpp
+            fi
         done
     fi
 }
@@ -170,18 +177,7 @@ if [[ ${#kernels[@]} == 0 ]]; then
     echo "Running baseline for two-piece affine with ${num_threads} threads"
     echo "Performing 10 alignment passes over dataset and averaging them..."
     cd "$MINIMAP_ROOT"
-    total_throughput=0
-    for i in {1..10}; do
-        start_time=$(date +%s%6N)
-        ./minimap2 -t "${num_threads}" ../data/pbsim2/ont_ref.fa ../data/pbsim2/ont_query.fa
-        end_time=$(date +%s%6N)
-        elapsed_time=$((end_time - start_time))
-        throughput=$(echo "scale=6; ${num_seqs} / ($elapsed_time / 1000000.0)" | bc)
-        echo "Elapsed time: $elapsed_time microseconds"
-        echo "Throughput: $throughput alignments/second"
-        total_throughput=$(echo "$total_throughput + $throughput" | bc)
-    done
-    echo "Average throughput: $(echo "$total_throughput / 10" | bc) alignments/second"
+    measure_mm2_throughput ./minimap2 ../data/pbsim2/ont_ref.fa ../data/pbsim2/ont_query.fa "${num_threads}"
     echo
 else 
     echo "Kernels specified: ${kernels[@]}"
@@ -233,19 +229,10 @@ else
             echo "Running baseline for two-piece affine with ${num_threads} threads"
             echo "Performing 10 alignment passes over dataset and averaging them..."
             cd "$MINIMAP_ROOT"
-            total_throughput=0
-            for i in {1..10}; do
-                start_time=$(date +%s%6N)
-                ./minimap2 -t "${num_threads}" ~/data/ont_ref_${duplication}.fa ~/data/ont_query_${duplication}.fa -o output.paf
-                end_time=$(date +%s%6N)
-                elapsed_time=$((end_time - start_time))
-                throughput=$(echo "scale=6; ${num_seqs} / ($elapsed_time / 1000000.0)" | bc)
-                echo "Elapsed time: $elapsed_time microseconds"
-                echo "Throughput: $throughput alignments/second"
-                total_throughput=$(echo "$total_throughput + $throughput" | bc)
-            done
-            echo "Average throughput: $(echo "$total_throughput / 10" | bc) alignments/second"
-
+            measure_mm2_throughput ./minimap2 \
+                ${MINIMAP_ROOT}/../data/pbsim2/ont_ref_${duplication}.fa \
+                ${MINIMAP_ROOT}/../data/pbsim2/ont_query_${duplication}.fa \
+                "${num_threads}"
             echo
         fi
     done

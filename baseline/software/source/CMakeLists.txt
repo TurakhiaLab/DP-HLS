@@ -5,7 +5,7 @@ project (seqan3_tutorial CXX)
 list (APPEND CMAKE_PREFIX_PATH "${CMAKE_CURRENT_SOURCE_DIR}/../seqan3/build_system")
  
 # require seqan3 with a version between >=3.0.0 and <4.0.0
-find_package (seqan3 3.0 REQUIRED)
+find_package(SeqAn3 3.3.0 REQUIRED)
  
 # build app with seqan3
 add_executable (global_affine global_affine.cpp)

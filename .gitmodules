@@ -12,7 +12,7 @@
 	url = https://github.com/Yufeng98/GASAL2.git
 [submodule "baseline/software/minimap2"]
 	path = baseline/software/minimap2
-	url = https://github.com/lh3/minimap2.git
+	url = https://github.com/lh3/minimap2
 [submodule "baseline/software/seqan3"]
 	path = baseline/software/seqan3
 	url = https://github.com/seqan/seqan3.git
