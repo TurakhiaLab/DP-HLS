@@ -1,0 +1,30 @@
+{
+    "size": {
+        "max_problem_size": [
+            {"max_query_length": 256, "max_reference_length": 256}
+        ],
+        "pe_num": [64],
+        "blocks": [8],
+        "cu": [7]
+    },
+    "kernel": {
+        "name": "seq_align_multiple_static",
+        "clock_frequency": 166666666
+    },
+    "design": {
+        "path_params": "/home/ubuntu/DP-HLS/compile_configs/banding_global_linear/design",
+        "path_frontend": "/home/ubuntu/DP-HLS/compile_configs/banding_global_linear/design/kernel_banding_global_linear.cpp",
+        "dp-hls_root": "/home/ubuntu/DP-HLS",
+        "host_program": "/home/ubuntu/DP-HLS/src/hosts/host_global_linear.cpp"
+    },
+    "output_path": "/home/centos/volumes/results/results/banding_global_linear",
+    "output_name": "banding_global_linear_result",
+    "build": {
+        "build_type": "hw"
+    },
+    "vitis_hls": {
+        "cosim_testbench": "/home/ubuntu/DP-HLS/testbench/test_csim_banding_global_linear.cpp",
+        "output_path": "/home/ubuntu/DP-HLS/cosim_outputs/banding_global_linear",
+        "export_design": 0
+    }
+}

@@ -42,7 +42,7 @@ std::string navigation_to_char(tbp_t nav)
 
 int main()
 {
-    std::ofstream output_file("/home/centos/workspace/DP-HLS/output.txt");
+    std::ofstream output_file("/home/ubuntu/DP-HLS/output.txt");
 
     std::array<std::array<float, 5>, 5> transitions_{{// Placeholder profile data
                                                       // Each sub-vector represents a column in the profile, with scores for each alphabet character
@@ -91,7 +91,7 @@ int main()
     // We assume the gene data is stored in a json file as a dictionary where each entry is like:
     // "species_name": "dna_sequence"
     // Open the JSON file
-    std::ifstream json_file("/home/centos/workspace/DP-HLS/testbench/data/profile_alignment_json/gene_4.fa.json");
+    std::ifstream json_file("/home/ubuntu/DP-HLS/data/profile_alignment_json/gene_4.fa.json");
 
     // Parse the JSON file
     json data;

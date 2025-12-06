@@ -71,14 +71,11 @@ compile/build_dir.hw_emu.xilinx_aws-vu9p-f1_shell-v04261818_201920_3/
 
 
 /bitstream_srcs/
-/compile_configs/
 /local_kernels/
-compile_configs
 local_kernels
 banding_global_linear_out.txt
 
 /.idea/
-compile_configs
 
 /reports_compile/
 /reports_cosim/
@@ -92,7 +89,6 @@ compile_configs
 /synthesis
 /.vscode/
 
-compile_configs
 output.txt
 banding_global_linaer.txt
 
@@ -113,3 +109,4 @@ vitis_projects
 
 /demo/global_affine/output/compile/*
 /demo/global_affine/output/cosim/*
+/cosim_outputs/
