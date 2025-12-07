@@ -1,0 +1,30 @@
+{
+    "size": {
+        "max_problem_size": [
+            {"max_query_length": 256, "max_reference_length": 256}
+        ],
+        "pe_num": [64],
+        "blocks": [4],
+        "cu": [3]
+    },
+    "kernel": {
+        "name": "seq_align_multiple_static",
+        "clock_frequency": 200000000
+    },
+    "design": {
+        "path_params": "/home/ubuntu/DP-HLS/compile_configs/global_dtw/design",
+        "path_frontend": "/home/ubuntu/DP-HLS/compile_configs/global_dtw/design/kernel_dtw.cpp",
+        "dp-hls_root": "/home/ubuntu/DP-HLS",
+        "host_program": "/home/ubuntu/DP-HLS/src/hosts/host_dtw.cpp"
+    },
+    "output_path": "/home/ubuntu/DP-HLS/synthesis/results_compile_2/global_dtw",
+    "output_name": "global_dtw",
+    "build": {
+        "build_type": "hw"
+    },
+    "vitis_hls": {
+        "output_path": "/home/ubuntu/DP-HLS/cosim_outputs/global_dtw",
+        "cosim_testbench": "/home/ubuntu/DP-HLS/testbench/test_csim_dtw.cpp",
+        "export_design": 0
+    }
+}

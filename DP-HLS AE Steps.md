@@ -2,11 +2,14 @@
 1. Vitis HLS 2021.2
 2. Python3
 
-# Steps
+# Steps for Compilation
 1. Clone the DP-HLS repository. 
 2. Go to the demo folder in DP-HLS using `cd DP-HLS/demo/global_affine`.
 3. Change the `config.json` to replace the `<dp_hls_root>` wirh the path to the DP-HLS repository. 
 4. Install `nlohmann/json` library. Clone `https://github.com/nlohmann/json.git`, checkout to master branch, copy the folder `include/nlohmann` to under `/usr/include` as a global installation for the json header. 
+
+# Steps for Cosim and Throughput
+1. 
 
 # Troubleshooting
 ## Ubuntu 24.04 Specific Problems
@@ -58,3 +61,7 @@ The fix is to rename the library to be compatible with th newer Ubuntu:
 ```
 ubuntu@ip-172-31-33-125:~/DP-HLS/demo/global_affine$ sudo mv /home/ubuntu/ebs/Xilinx/Vivado/2021.2/tps/lnx64/binutils-2.26 /home/ubuntu/ebs/Xilinx/Vivado/2021.2/tps/lnx64/binutils-2.26.bak
 ```
+
+## Kernel Numbers
+- SDTW should actually use 256  x 256 sequeces. 
+- Banding global linear need to set the correct band width. Need to confirm this. 
