@@ -84,7 +84,7 @@ measure_mm2_throughput() {
     for i in {1..10}; do
         start=$(date +%s%6N)
 
-        align_count=$("$mm2_exec" -t "$threads" "$index" "$reads" -w 25 | wc -l)
+        "$mm2_exec" -t "$threads" "$index" "$reads" -w 25 -o /dev/null 2>/dev/null
 
         end=$(date +%s%6N)
 
