@@ -65,6 +65,41 @@ is_valid_kernel() {
     return 1
 }
 
+measure_mm2_throughput() {
+    local mm2_exec=$1
+    local index=$2
+    local reads=$3
+    local threads=$4
+
+    total_aligns_per_sec=0
+    total_time=0
+
+    for i in {1..10}; do
+        start=$(date +%s%6N)
+
+        "$mm2_exec" -t "$threads" "$index" "$reads" -w 25 -o /dev/null 2>/dev/null
+
+        end=$(date +%s%6N)
+
+        elapsed_us=$(echo "$end - $start" | bc -l)
+        elapsed_sec=$(echo "$elapsed_us / 1000000" | bc -l)
+        total_time=$(echo "$total_time + $elapsed_us" | bc -l)
+
+        aligns_per_sec=$(echo "$num_seqs / $elapsed_sec" | bc -l)
+
+        printf "Time taken: %.2f microseconds\n" "$elapsed_us"
+
+        total_aligns_per_sec=$(echo "$total_aligns_per_sec + $aligns_per_sec" | bc -l)
+    done
+
+    avg_time=$(echo "$total_time / 10" | bc -l)
+    avg_aligns=$(echo "$total_aligns_per_sec / 10" | bc -l)
+
+    printf "\nAverage time: %.2f us\n" "$avg_time"
+    printf "Average throughput: %.2f alignments/sec\n" "$avg_aligns"
+}
+
+
 cd "$DP_HLS_ROOT/baseline/software/build"
 echo
 
