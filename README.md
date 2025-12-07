@@ -19,6 +19,7 @@
   - [Build and simulate the kernel](#custom)
   - [Synthesize the kernel](#synthesize)
   - [Deploy the kernel on FPGA](#deploy)
+- [Citig DP-HLS](#cite)
 
 <br>
 
@@ -169,4 +170,9 @@ Once you are on the F1 instance, after you can access the compiled bitstream, yo
 ./dp-hls_host global_affine.awsxclbin
 ```
 
-**Happy coding with DP-HLS!**
+## <a name="cite"></a> Citing DP-HLS
+
+If you use DP-HLS in your research or publications, please cite the following paper:
+
+Y. Cao, A. Gupta, J. Liang, and Y. Turakhia, “DP-HLS: A high-level synthesis framework for accelerating dynamic programming algorithms in bioinformatics,” 2024. [Online]. Available: https://arxiv.org/abs/2411.03398
+
