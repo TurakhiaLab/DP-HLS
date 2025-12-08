@@ -4,7 +4,6 @@ We have used [SeqAn3.3.0](https://github.com/seqan/seqan3) and [Minimap2](https:
 ```
 git clone https://github.com/TurakhiaLab/DP-HLS.git
 cd DP-HLS/baseline/software
-git clone --recurse-submodules https://github.com/seqan/seqan3.git
 git clone --branch 3.3.0 --recurse-submodules https://github.com/seqan/seqan3.git
 git clone https://github.com/lh3/minimap2.git
 ```
