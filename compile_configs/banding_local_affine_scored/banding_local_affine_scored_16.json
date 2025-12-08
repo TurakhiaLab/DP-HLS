@@ -1,0 +1,30 @@
+{
+    "size": {
+        "max_problem_size": [
+            {"max_query_length": 256, "max_reference_length": 256}
+        ],
+        "pe_num": [16],
+        "blocks": [16],
+        "cu": [7]
+    },
+    "kernel": {
+        "name": "seq_align_multiple_static",
+        "clock_frequency": 200000000
+    },
+    "design": {
+        "path_params": "/home/ubuntu/DP-HLS/compile_configs/banding_local_affine_scored/design",
+        "path_frontend": "/home/ubuntu/DP-HLS/compile_configs/banding_local_affine_scored/design/banding_local_affine_scored.cpp",
+        "dp-hls_root": "/home/ubuntu/DP-HLS",
+        "host_program": "/home/ubuntu/DP-HLS/src/hosts/host_bainging_local_affine_scored.cpp"
+    },
+    "output_path": "/home/ubuntu/DP-HLS/synthesis/results_compile_3/banding_local_affine_scored",
+    "output_name": "banding_local_affine_scored",
+    "build": {
+        "build_type": "hw"
+    },
+    "vitis_hls": {
+        "cosim_testbench": "/home/ubuntu/DP-HLS/testbench/test_csim_banding_local_affine_scored.cpp",
+        "output_path": "/home/ubuntu/DP-HLS/cosim_outputs/banding_local_affine_scored",
+        "export_design": 1
+    }
+}

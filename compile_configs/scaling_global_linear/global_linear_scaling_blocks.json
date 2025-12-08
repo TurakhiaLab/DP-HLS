@@ -1,0 +1,30 @@
+{
+    "size": {
+        "max_problem_size": [
+            {"max_query_length": 256, "max_reference_length": 256}
+        ],
+        "pe_num": [32],
+        "blocks": [2, 4, 8, 16, 32, 48, 64],
+        "cu": [1]
+    },
+    "kernel": {
+        "name": "seq_align_multiple_static",
+        "clock_frequency": 250000000
+    },
+    "design": {
+        "path_params": "/home/ubuntu/DP-HLS/compile_configs/global_linear/design",
+        "path_frontend": "/home/ubuntu/DP-HLS/compile_configs/global_linear/design/kernel_global_linear.cpp",
+        "dp-hls_root": "/home/ubuntu/DP-HLS",
+        "host_program": "/home/ubuntu/DP-HLS/src/hosts/host_global_linear.cpp"
+    },
+    "output_path": "/home/centos/kernels/global_linear",
+    "output_name": "global_linear_scaling_blocks",
+    "build": {
+        "build_type": "hw"
+    },
+    "vitis_hls": {
+        "output_path": "/home/ubuntu/DP-HLS/vitis_projects/global_linear_scaling_block",
+        "cosim_testbench": "/home/ubuntu/DP-HLS/testbench/test_csim_global_linear.cpp",
+        "export_design": 0
+    }
+}

@@ -17,10 +17,10 @@
 using namespace std;
 
 // the dataset they prepared for artifact evaluation uses 8 bits insigned integers
-#define INPUT_QUERY_LENGTH 100
+#define INPUT_QUERY_LENGTH 256
 // #define INPUT_REFERENCE_LENGTH 59800  // this is the actual reference length in the dataset, but it can't be simulated with Vitis HLS
 // #define INPUT_REFERENCE_LENGTH 30000  // this is the actual reference length in the dataset
-#define INPUT_REFERENCE_LENGTH 1000
+#define INPUT_REFERENCE_LENGTH 256
 
 char_t base_to_num(char base)
 {
@@ -76,8 +76,8 @@ int main(){
     char_t reference_d[MAX_REFERENCE_LENGTH][N_BLOCKS];
 
     // Read the input files
-    ReadSFInputFromFile("/home/centos/workspace/baseline/SquiggleFilter/design/sv_sim_datasets/ref.txt", reference_h);
-    ReadSFInputFromFile("/home/centos/workspace/baseline/SquiggleFilter/design/sv_sim_datasets/human_raw0.txt", query_h);
+    ReadSFInputFromFile("/home/ubuntu/DP-HLS/data/SquiggleFilter/design/sv_sim_datasets/ref.txt", reference_h);
+    ReadSFInputFromFile("/home/ubuntu/DP-HLS/data/SquiggleFilter/design/sv_sim_datasets/human_raw0.txt", query_h);
 
 #ifdef CMAKEDEBUG
     // Initialize Debugger

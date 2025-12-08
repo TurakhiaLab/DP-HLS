@@ -25,10 +25,9 @@ struct Penalties_sol {
 
 
 int main(){
-    std::vector<string> all_sequences = HostUtils::IO::readFasta("/home/centos/workspace/DP-HLS/data/uniprot_sprot.fasta");
+    std::vector<string> all_sequences = HostUtils::IO::readFasta("/home/ubuntu/DP-HLS/data/uniprot/uniprot_sprot.fasta");
 
     // Bolsum62 transition matrix source: ftp://ftp.ncbi.nih.gov/blast/matrices/BLOSUM62
-    // FIXME: ChatGPT OCR Converted this, I'm not sure it's fully correct. 
     const type_t transitions[20][20] = {
         { 4, -1, -2, -2,  0, -1, -1,  0, -2, -1, -1, -1, -1, -2, -1,  1,  0, -3, -2,  0},
         {-1,  5,  0, -2, -3,  1,  0, -2,  0, -3, -2,  2, -1, -3, -2, -1, -1, -3, -2, -3},
@@ -151,7 +150,7 @@ int main(){
 
     // Allocate traceback streams
     idx_t tb_is_d[N_BLOCKS], tb_js_d[N_BLOCKS];
-    // tbr_t tb_streams[MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH][N_BLOCKS];
+    tbr_t tb_streams[MAX_REFERENCE_LENGTH + MAX_QUERY_LENGTH][N_BLOCKS];
 
     cout << "Kernel Started" << endl;
 
@@ -163,8 +162,8 @@ int main(){
         ref_lengths,
         penalties,
         transitions, 
-        tb_is_d, tb_js_d
-        // tb_streams
+        tb_is_d, tb_js_d,
+        tb_streams
 #ifdef SCORED
         , scores
 #endif

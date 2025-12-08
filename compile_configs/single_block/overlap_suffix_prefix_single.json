@@ -1,0 +1,30 @@
+{
+    "size": {
+        "max_problem_size": [
+            {"max_query_length": 256, "max_reference_length": 256}
+        ],
+        "pe_num": [32],
+        "blocks": [1],
+        "cu": [1]
+    },
+    "kernel": {
+        "name": "seq_align_multiple_static",
+        "clock_frequency": 250000000
+    },
+    "design": {
+        "path_params": "/home/ubuntu/DP-HLS/compile_configs/overlap_suffix_prefix/design",
+        "path_frontend": "/home/ubuntu/DP-HLS/compile_configs/overlap_suffix_prefix/design/kernel_overlap_linear_suffix_prefix.cpp",
+        "dp-hls_root": "/home/ubuntu/DP-HLS",
+        "host_program": "/home/ubuntu/DP-HLS/src/hosts/host_global_linear.cpp"
+    },
+    "output_path": "/home/centos/workspace/kernels/single_block",
+    "output_name": "overlap_suffix_prefix",
+    "build": {
+        "build_type": "hw"
+    },
+    "vitis_hls": {
+        "output_path": "/home/ubuntu/DP-HLS/vitis_projects/overlap_suffix_prefix",
+        "cosim_testbench": "/home/ubuntu/DP-HLS/testbench/test_csim_overlap_linear_suffix_prefix.cpp",
+        "export_design": 0
+    }
+}

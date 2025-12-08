@@ -1,0 +1,30 @@
+{
+    "size": {
+        "max_problem_size": [
+            {"max_query_length": 256, "max_reference_length": 256}
+        ],
+        "pe_num": [2, 4, 8, 16, 32, 64],
+        "blocks": [1],
+        "cu": [1]
+    },
+    "kernel": {
+        "name": "seq_align_multiple_static",
+        "clock_frequency": 250000000
+    },
+    "design": {
+        "path_params": "/home/ubuntu/DP-HLS/compile_configs/global_affine/design",
+        "path_frontend": "/home/ubuntu/DP-HLS/compile_configs/global_affine/design/kernel_global_affine.cpp",
+        "dp-hls_root": "/home/ubuntu/DP-HLS",
+        "host_program": "/home/ubuntu/DP-HLS/src/hosts/host_ocl_global.cpp"
+    },
+    "output_path": "/home/ubuntu/DP-HLS/synthesis/remote_kernels/scaling_global_affine",
+    "output_name": "scaling_global_affine_pe",
+    "build": {
+        "build_type": "hw"
+    },
+    "vitis_hls": {
+        "cosim_testbench": "/home/ubuntu/DP-HLS/testbench/test_csim_global_affine.cpp",
+        "output_path": "/home/ubuntu/DP-HLS/vitis_projects/global_affine_scaling_pe",
+        "export_design": 1
+    }
+}

@@ -1,0 +1,30 @@
+{
+    "size": {
+        "max_problem_size": [
+            {"max_query_length": 256, "max_reference_length": 256}
+        ],
+        "pe_num": [32],
+        "blocks": [32],
+        "cu": [1]
+    },
+    "kernel": {
+        "name": "seq_align_multiple_static",
+        "clock_frequency": 200000000
+    },
+    "design": {
+        "path_params": "/home/ubuntu/DP-HLS/compile_configs/sw_software_tiling/design",
+        "path_frontend": "/home/ubuntu/DP-HLS/compile_configs/sw_software_tiling/design/kernel_sw_software_tiling.cpp",
+        "dp-hls_root": "/home/ubuntu/DP-HLS",
+        "host_program": "/home/ubuntu/DP-HLS/src/hosts/host_sw_software_tiling.cpp"
+    },
+    "output_path": "/home/centos/volumes/results/results/sw_software_tiling",
+    "output_name": "sw_software_tiling",
+    "build": {
+        "build_type": "hw"
+    },
+    "vitis_hls": {
+        "output_path": "/home/centos/workspace/Vitis_Projects/results/sw_software_tiling",
+        "cosim_testbench": "/home/ubuntu/DP-HLS/testbench/test_csim_sw_software_tiling.cpp",
+        "export_design": 0
+    }
+}

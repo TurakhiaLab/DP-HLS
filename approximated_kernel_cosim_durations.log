@@ -1,0 +1,17 @@
+Duration for global_linear: 1177 seconds
+Duration for global_affine: 631 seconds
+Duration for local_linear: 552 seconds
+Duration for local_affine: 728 seconds
+Duration for global_two_piece_affine: 463 seconds
+Duration for overlap_suffix_prefix: 546 seconds
+Duration for semiglobal_short_long: 529 seconds
+Duration for profile_alignment: 152 seconds
+Duration for global_dtw: 359 seconds
+Duration for viterbi: 180 seconds
+Duration for banding_global_linear: 694 seconds
+Duration for banding_local_affine_scored: 368 seconds
+Duration for banding_global_two_piece_affine: 293 seconds
+Duration for sdtw: 484 seconds
+Duration for protein_local_affine: 534 seconds
+Duration for protein_local_affine_notb: 424 seconds
+Total duration: 8131 seconds

@@ -1,0 +1,30 @@
+{
+    "size": {
+        "max_problem_size": [
+            {"max_query_length": 256, "max_reference_length": 256}
+        ],
+        "pe_num": [16],
+        "blocks": [4],
+        "cu": [7]
+    },
+    "kernel": {
+        "name": "seq_align_multiple_static",
+        "clock_frequency": 125000000
+    },
+    "design": {
+        "path_params": "/home/ubuntu/DP-HLS/compile_configs/viterbi/design",
+        "path_frontend": "/home/ubuntu/DP-HLS/compile_configs/viterbi/design/kernel_viterbi.cpp",
+        "dp-hls_root": "/home/ubuntu/DP-HLS",
+        "host_program": "/home/ubuntu/DP-HLS/src/hosts/host_viterbi.cpp"
+    },
+    "output_path": "/home/ubuntu/DP-HLS/synthesis/results/viterbi",
+    "output_name": "viterbi_scored",
+    "build": {
+        "build_type": "hw"
+    },
+    "vitis_hls": {
+        "cosim_testbench": "/home/ubuntu/DP-HLS/testbench/test_csim_viterbi.cpp",
+        "output_path": "/home/ubuntu/DP-HLS/cosim_outputs/viterbi",
+        "export_design": 0
+    }
+}
