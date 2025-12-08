@@ -1037,10 +1037,11 @@ int main(int argc, char *argv[])
 
     int num_queries = 500;
     
-    // Set up the alignment configuration
+   // Set up the alignment configuration
     auto config = seqan3::align_cfg::method_global{} 
                                 | seqan3::align_cfg::scoring_scheme{
                                   seqan3::nucleotide_scoring_scheme{}}  
+                                | seqan3::align_cfg::band_fixed_size{seqan3::align_cfg::lower_diagonal{-4}, seqan3::align_cfg::upper_diagonal{4}} 
                                 | seqan3::align_cfg::output_score{} 
                                 | seqan3::align_cfg::output_alignment{}
                                 | seqan3::align_cfg::parallel{num_threads};
@@ -1068,5 +1069,4 @@ int main(int argc, char *argv[])
     std::cout << "Throughput: " << num_queries * num_queries / (average / 1'000'000.0) << " alignments/seconds" << std::endl;
     return 0;
 }
-
 

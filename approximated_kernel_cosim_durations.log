@@ -13,4 +13,5 @@ Duration for banding_local_affine_scored: 368 seconds
 Duration for banding_global_two_piece_affine: 293 seconds
 Duration for sdtw: 484 seconds
 Duration for protein_local_affine: 534 seconds
-Total duration: 7707 seconds
+Duration for protein_local_affine_notb: 424 seconds
+Total duration: 8131 seconds

@@ -26,6 +26,7 @@ KERNEL_FOLDERS=(
     "banding_global_two_piece_affine"
     "sdtw"
     "protein_local_affine"
+    "protein_local_affine_notb"
 )
 
 total_start_time=$(date +%s)

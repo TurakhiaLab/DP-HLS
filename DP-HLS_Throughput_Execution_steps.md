@@ -9,7 +9,9 @@
 4. Install `nlohmann/json` library. Clone `https://github.com/nlohmann/json.git`, checkout to master branch, copy the folder `include/nlohmann` to under `/usr/include` as a global installation for the json header. 
 
 # Steps for Cosim and Throughput
-1. 
+1. At DP-HLS root folder, run `./evaluate_throughput.sh` to run the cosimulation for all the 14 kernels. 
+2. Wait until all the kernel cosimulation to finish. It may takes 2-3 hours. You could run it in a tmux session to prevent connection issues. 
+3. Run `python compute_throughput.py` to automatically extract the reports and compute the throughputs. 
 
 # Troubleshooting
 ## Ubuntu 24.04 Specific Problems
@@ -61,7 +63,3 @@ The fix is to rename the library to be compatible with th newer Ubuntu:
 ```
 ubuntu@ip-172-31-33-125:~/DP-HLS/demo/global_affine$ sudo mv /home/ubuntu/ebs/Xilinx/Vivado/2021.2/tps/lnx64/binutils-2.26 /home/ubuntu/ebs/Xilinx/Vivado/2021.2/tps/lnx64/binutils-2.26.bak
 ```
-
-## Kernel Numbers
-- SDTW should actually use 256  x 256 sequeces. 
-- Banding global linear need to set the correct band width. Need to confirm this. 

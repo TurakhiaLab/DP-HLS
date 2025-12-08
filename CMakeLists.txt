@@ -195,7 +195,8 @@ target_include_directories(test_csim_protein_local_affine PRIVATE "./kernels/pro
 
 
 # >>> Add CMake Compile Vitis header and library path >>>
-set(HLS_HOME "/opt/Xilinx/Vitis_HLS/2021.2/")  # Default HLS_HOME if using FPGA Developer AMI
+# set(HLS_HOME "/opt/Xilinx/Vitis_HLS/2021.2/")  # Default HLS_HOME if using FPGA Developer AMI
+set(HLS_HOME "/home/ubuntu/ebs/Xilinx/Vitis_HLS/2021.2")
 
 include_directories(${EXECUTABLE_TARGETS} PUBLIC "${HLS_HOME}/include")
 include_directories(${EXECUTABLE_TARGETS} PUBLIC "./include")

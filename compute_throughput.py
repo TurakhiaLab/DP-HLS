@@ -200,6 +200,7 @@ def main():
         "banding_global_two_piece_affine", 
         "sdtw",
         "protein_local_affine",
+        "protein_local_affine_notb",
     ]
 
     kernel_indices = {
@@ -218,6 +219,7 @@ def main():
         "banding_global_two_piece_affine": 13,
         "sdtw": 14,
         "protein_local_affine": 15,
+        "protein_local_affine_notb": 16,
     }
 
     reference_throughputs = {
@@ -236,6 +238,7 @@ def main():
         "banding_global_two_piece_affine": 1.24e6,
         "sdtw": 5.16e6,
         "protein_local_affine": 9.33e5,
+        "protein_local_affine_notb": None,
     }
     
     results = process_kernels(kernel_names)
@@ -253,9 +256,12 @@ def main():
         idx = kernel_indices[kernel_name]
         throughput = data['throughput']
         reference = reference_throughputs[kernel_name]
-        margin = ((throughput - reference) / reference) * 100
-        
-        print(f"{idx:<3} {kernel_name:<35} {throughput:<22.2f} {reference:<20.2e} {margin:>+.2f}%")
+        if reference is None:
+            margin = None
+            print(f"{idx:<3} {kernel_name:<35} {throughput:<22.2f} None Reference No Applicable")
+        else:
+            margin = ((throughput - reference) / reference) * 100
+            print(f"{idx:<3} {kernel_name:<35} {throughput:<22.2f} {reference:<20.2e} {margin:>+.2f}%")
     
     print("=" * len(header))
     
