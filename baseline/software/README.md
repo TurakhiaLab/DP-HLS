@@ -1,3 +1,20 @@
+# Dependencies
+## Repositories
+We have used [SeqAn3.3.0](https://github.com/seqan/seqan3) and [Minimap2](https://github.com/lh3/minimap2) as our baselines. Cloning the repositories:
+```
+git clone https://github.com/TurakhiaLab/DP-HLS.git
+cd DP-HLS/baseline/software
+git clone --recurse-submodules https://github.com/seqan/seqan3.git
+git clone --branch 3.3.0 --recurse-submodules https://github.com/seqan/seqan3.git
+git clone https://github.com/lh3/minimap2.git
+```
+
+## System Requirements
+1. **gcc:** At least support for `C++ 20`, tested with `g++ 10.5.0` (`g++ >= 11` highly recommended)
+2. **cmake:** >= `3.5`
+3. **sdsl:** >= `3.0.3`
+
+
 # SeqAn3
 For seqan3 baseline, clone the SeqAn3 repository under `baseline/software` and run `./run_seqan3_baseline.sh` to compile and execute the baseline programs. The SeqAn3 is a include only library, so you don't need to build SeqAn3. 
 
@@ -17,4 +34,13 @@ Copy the `extract_report.py` to the root folder of GASAL2, then run `python3 ext
 6. Download the report, then use NSight Systems to check the report. Go to systenm stats view, and in GPU kernel trace summary, you would find the average time for the 17 invokations for the kernel. Each invokation corresponding to aligning a query to all the 327233 references in the database. Then compute the throughput using the formula `throughput = 327233 / averave_kernel_time` to compute the throughput. 
 7. Use `python3 extract_report.py` to extract the report from NSight Systems reports, with the `extract_report.py` script provided in `DP-HLS/baseline/software/CUDASW4` after putting it in the root folder of CUDASW4++ repo. 
 
-
+# Minimap2
+To build Minimap2, run 
+```
+cd minimap2
+make
+```
+Then to run the minimap2 baseline which contains the two piece affine kerenl, use:
+```
+./run_sw_baseline.sh -t [num_threads] -kernels two_piece_affine
+```
