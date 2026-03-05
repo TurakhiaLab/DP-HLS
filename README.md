@@ -2,7 +2,7 @@
 
 # DP-HLS: A High-Level Synthesis Framework for Accelerating Dynamic Programming Algorithms in Bioinformatics
 
-[<img src="https://img.shields.io/badge/Deployable on-AWS-orange.svg?logo=conda">](http://bioconda.github.io/recipes/roadies/README.html)
+[<img src="https://img.shields.io/badge/Deployable on-AWS-orange.svg?logo=conda">](https://aws.amazon.com/)
 [<img src="https://img.shields.io/badge/Published in-HPCA-informational.svg?logo=LOGO">](https://2026.hpca-conf.org/details/hpca-2026-main-conference/41/DP-HLS-A-High-Level-Synthesis-Framework-for-Accelerating-Dynamic-Programming-Algorit)
 [<img src="https://img.shields.io/badge/DOI-zenodo.org/records/17853462-yellowgreen.svg?logo=LOGO">](https://zenodo.org/records/17853462)
 [<img src="https://img.shields.io/badge/Watch it on-Youtube-FF0000.svg?logo=YouTube">](https://youtu.be/jGUzlsZprY8?si=hri3NjsAqbV8AhPr)

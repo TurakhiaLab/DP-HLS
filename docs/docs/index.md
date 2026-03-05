@@ -6,6 +6,10 @@
 
 </div>
 
+## DP-HLS Video Tutorial
+
+<iframe width="1000" height="600" src="https://www.youtube.com/embed/jGUzlsZprY8?si=kgap700lsrXINg2v" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
 ## Introduction
 
 Welcome to the official wiki of DP-HLS. DP-HLS is a framework designed to simplify and accelerate the development of a
@@ -1070,3 +1074,9 @@ To refer to the details of the source code for using the DP-HLS framework effici
 ## Contributions
 
 We welcome contributions from the community. If you encounter any issues or have suggestions for improvement, please open an issue on GitHub. For general inquiries and support, reach out to our team.
+
+## Citing DP-HLS
+
+If you use DP-HLS in your research or publications, please cite the following paper:
+
+Y. Cao, A. Gupta, J. Liang, and Y. Turakhia, “DP-HLS: A high-level synthesis framework for accelerating dynamic programming algorithms in bioinformatics,” 2024. [Online]. Available: https://arxiv.org/abs/2411.03398
