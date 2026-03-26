@@ -1079,4 +1079,4 @@ We welcome contributions from the community. If you encounter any issues or have
 
 If you use DP-HLS in your research or publications, please cite the following paper:
 
-A. Gupta, Y. Cao, J. Liang and Y. Turakhia, "DP-HLS: A High-Level Synthesis Framework for Accelerating Dynamic Programming Algorithms in Bioinformatics," 2026 IEEE International Symposium on High Performance Computer Architecture (HPCA), Sydney, Australia, 2026, pp. 1-17, doi: [10.1109/HPCA68181.2026.11408544](10.1109/HPCA68181.2026.11408544).
+A. Gupta, Y. Cao, J. Liang and Y. Turakhia, "DP-HLS: A High-Level Synthesis Framework for Accelerating Dynamic Programming Algorithms in Bioinformatics," 2026 IEEE International Symposium on High Performance Computer Architecture (HPCA), Sydney, Australia, 2026, pp. 1-17, doi: [10.1109/HPCA68181.2026.11408544](https://ieeexplore.ieee.org/abstract/document/11408544).
